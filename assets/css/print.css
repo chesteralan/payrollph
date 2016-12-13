@@ -1,0 +1,95 @@
+body {
+  font-family: Arial;
+  padding:0;
+  margin:0;
+  font-size: 10px;
+}
+.container {
+  width: 100%;
+}
+.wrapper {
+  border: 1px solid #000;
+  padding:10px;
+  margin-bottom: 10px;
+}
+.allcaps {
+  text-transform: uppercase;
+}
+.label {
+  color:#000;
+  text-transform: uppercase;
+  text-decoration: underline;
+}
+.detail {
+  margin-left: 10px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+table td {
+  vertical-align: middle;
+  padding: 3px;
+}
+.border-bottom td {
+  border-bottom: 1px solid #000;
+}
+.text-center {
+  text-align: center;
+}
+th {
+	font-size: 10px;
+}
+td {
+	font-size: 10px;
+}
+.signature {
+  border-top:1px solid #000;
+  text-align: center;
+  margin: 40px auto 0;
+  font-weight: bold;
+}
+.header-label {
+  margin: 0 0 20px 0;
+  border-bottom: 1px solid #000;
+  padding: 10px;
+  background-color: #EEE;
+}
+.header-label small {
+	font-weight: normal;
+}
+.total {
+  font-weight: bold;
+}
+.text-left {
+	text-align: left;
+}
+.text-right {
+	text-align: right;
+}
+.text-center {
+	text-align:center;
+}
+table td {
+	border-bottom: 1px solid #CCC;
+}
+tr.overalltotal {
+	background-color: #EEE;
+}
+tr.overalltotal td {
+	padding: 5px;
+}
+tr:hover{
+  background: #DDD;
+}
+.bold {
+	font-weight: bold;
+}
+.transaction {
+  text-align: left;
+}
+.transaction-amount {
+  text-align: right;
+}
+a.no-link {
+  text-decoration: none;
+  color:#000;
+}

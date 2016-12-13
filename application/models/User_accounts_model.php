@@ -1,0 +1,163 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+/**
+ * User_accounts_model Class
+ *
+ * Manipulates `user_accounts` table on database
+
+CREATE TABLE `user_accounts` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `username` varchar(200) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  KEY `id` (`id`)
+);
+
+ * @package			        Model
+ * @version_number	        3.0.0
+ * @project			        Trokis Philippines
+ * @project_link	        http://www.trokis.com
+ * @author			        Chester Alan Tagudin
+ * @author_link		        http://www.chesteralan.com
+ * @generator		        CodeIgniter Model Generator (CMG)
+ */
+ 
+class User_accounts_model extends MY_Model {
+
+	protected $id;
+	protected $username;
+	protected $password;
+	protected $name;
+
+	// --------------------------------------------------------------------
+
+	/**
+	* Construct 
+	* @access public
+	* @param  String
+	* @return Boolean;
+	*/
+
+	function __construct($short_name=NULL, $db_config=NULL) {
+		$this->_table_name = 'user_accounts';
+		$this->_short_name = 'user_accounts';
+		$this->_fields = array("username","password","name");
+		$this->_required = array("id","username","password","name");
+		parent::__construct($short_name, $db_config);
+	}
+
+	// --------------------------------------------------------------------
+
+
+// ---------------------------- Start Field: id -------------------------------------- 
+
+	/** 
+	* Sets a value to `id` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `id` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getId() {
+			return $this->id;
+		}
+	
+// ------------------------------ End Field: id --------------------------------------
+
+
+// ---------------------------- Start Field: username -------------------------------------- 
+
+	/** 
+	* Sets a value to `username` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setUsername($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('username', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `username` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getUsername() {
+			return $this->username;
+		}
+	
+// ------------------------------ End Field: username --------------------------------------
+
+
+// ---------------------------- Start Field: password -------------------------------------- 
+
+	/** 
+	* Sets a value to `password` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setPassword($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('password', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `password` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getPassword() {
+			return $this->password;
+		}
+	
+// ------------------------------ End Field: password --------------------------------------
+
+
+// ---------------------------- Start Field: name -------------------------------------- 
+
+	/** 
+	* Sets a value to `name` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `name` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getName() {
+			return $this->name;
+		}
+	
+// ------------------------------ End Field: name --------------------------------------
+
+
+
+
+}
+
+/* End of file User_accounts_model.php */
+/* Location: ./application/models/User_accounts_model.php */

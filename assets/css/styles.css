@@ -1,0 +1,254 @@
+body {
+  padding-top:70px;
+}
+.ui-autocomplete.ui-front {
+	position: absolute;
+    z-index: 9999;
+}
+
+iframe.panel-body {
+	border: none;
+	padding:0;
+}
+.modal-body .loader {
+	padding: 100px 0;
+}
+.transaction-amount {
+	text-align: right;
+}
+#recon .scrollable-box {
+	height: 350px;
+	overflow-y: scroll;
+}
+#recon .scrollable-box .list-group > .list-group-item  {
+	padding: 5px 10px;
+	font-weight: normal;
+	font-size: 12px;
+}
+#recon .scrollable-box .list-group > .list-group-item:hover  {
+	background: #DDD;
+}
+#recon .scrollable-box .list-group > .list-group-item  .balance_end  {
+	font-weight: bold;
+	font-size: 14px;
+}
+#recon .list-group-item.highlight {
+	background-color: #dff0d8;
+}
+@media (max-width: 767px) {
+	.navbar-brand {
+		position: absolute;
+	    white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    width: 80%;
+	}
+}
+
+	.glyphicon-ok.green {
+		color:green;
+	}
+	.glyphicon-remove.red {
+		color:red;
+	}
+	.allcaps {
+		text-transform: uppercase;
+	}
+	.font200p {
+		font-size: 200%;
+	}
+	.font195p {
+		font-size: 195%;
+	}
+	.font190p {
+		font-size: 190%;
+	}
+	.font185p {
+		font-size: 185%;
+	}
+	.font180p {
+		font-size: 180%;
+	}
+	.font175p {
+		font-size: 175%;
+	}
+	.font170p {
+		font-size: 170%;
+	}
+	.font165p {
+		font-size: 165%;
+	}
+	.font160p {
+		font-size: 160%;
+	}
+	.font155p {
+		font-size: 155%;
+	}
+	.font150p {
+		font-size: 150%;
+	}
+	.font145p {
+		font-size: 145%;
+	}
+	.font140p {
+		font-size: 140%;
+	}
+	.font135p {
+		font-size: 135%;
+	}
+	.font130p {
+		font-size: 130%;
+	}
+	.font125p {
+		font-size: 125%;
+	}
+	.font120p {
+		font-size: 120%;
+	}
+	.font115p {
+		font-size: 115%;
+	}
+	.font110p {
+		font-size: 110%;
+	}
+	.font105p {
+		font-size: 105%;
+	}
+	.font95p {
+		font-size: 95%;
+	}
+	.font90p {
+		font-size: 90%;
+	}
+	.font85p {
+		font-size: 85%;
+	}
+	.font80p {
+		font-size: 80%;
+	}
+	.font75p {
+		font-size: 75%;
+	}
+	.font70p {
+		font-size: 70%;
+	}
+	.font65p {
+		font-size: 65%;
+	}
+	.font60p {
+		font-size: 60%;
+	}
+	.font55p {
+		font-size: 55%;
+	}
+	.font50p {
+		font-size: 50%;
+	}
+	.font45p {
+		font-size: 45%;
+	}
+	.font40p {
+		font-size: 40%;
+	}
+	.bold {
+		font-weight: bold;
+	}
+
+@media (min-width: 1200px) {
+	.container {
+		width:100%;
+	}
+	td.total {
+		background: rgba(0,0,0,.1);
+	}
+	tr.item td.item-label {
+		padding-left:20px;
+	}
+	#divisible_income {
+		font-weight: bold;
+	}
+	
+	.stat-font {
+		font-weight: bold;
+		font-size:25px;
+		vertical-align: middle;
+	}
+
+	.list-group.list-group-icons {
+
+	}
+	.list-group.list-group-icons > .list-group-item {
+		width: 114px;
+	    text-align: center;
+	    display: inline-block;
+	    border-radius: 4px;
+	    padding:15px;
+	    min-height: 116px;
+	    float: left;
+	    font-size: 12px;
+	    color: #555555;
+	    text-transform: uppercase;
+	    font-weight: bold;
+	    margin-bottom:15px;
+	    margin-right: 15px;
+	}
+	.list-group.list-group-icons > .list-group-item > .badge {
+		position: absolute;
+	    right: 15px;
+	    padding: 4px 8px;
+	    background-color: #c71c22;
+	}
+	.list-group.list-group-icons > .list-group-item:first-child {
+		margin-left: 0px;
+	}
+
+	.list-group.list-group-icons > .list-group-item .glyphicon,
+	.list-group.list-group-icons > .list-group-item .fa, 
+	.list-group.list-group-icons > .list-group-item .octicon {
+		display: block;
+		font-size: 40px;
+		margin-bottom: 10px;
+	}
+	.list-group.list-group-icons.icons2 > .list-group-item {
+		width: 15%;
+		padding: 30px;
+	}
+	#homepage .panel:hover {
+		box-shadow: 0 1px 1px 2px rgba(23, 138, 204,0.5);
+	}
+	.ui-autocomplete-loading {
+	    background: white url("../images/ui-anim_basic_16x16.gif") right center no-repeat;
+	  }
+	 .edit_invoices_item {
+	 	display: none;
+	 }
+}
+
+@media (min-width: 992px) {
+	.list-group.list-group-icons > .list-group-item {
+	    width: 104px;
+	    text-align: center;
+	    display: inline-block;
+	    border-radius: 4px;
+	    padding: 15px;
+	    min-height: 116px;
+	    float: left;
+	    font-size: 12px;
+	    color: #555555;
+	    text-transform: uppercase;
+	    font-weight: bold;
+	    margin-bottom: 15px;
+	    margin-right: 15px;
+	}
+	.list-group.list-group-icons > .list-group-item .glyphicon,
+	.list-group.list-group-icons > .list-group-item .fa, 
+	.list-group.list-group-icons > .list-group-item .octicon {
+		display: block;
+		font-size: 40px;
+		margin-bottom: 10px;
+	}
+}
+a.item, a.item:hover {
+	color:#555555;
+	text-decoration: none;
+}
