@@ -5,7 +5,7 @@ class Account extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->template_data->set('page_title', 'PAYROLL - Login');
+		$this->template_data->set('page_title', 'PayrollPH');
 	}
 
 	public function index()
@@ -42,10 +42,14 @@ class Account extends CI_Controller {
             }
     }
 
-	public function login()
+	public function login($output='')
 	{
 
 		$this->_isLoggedIn();
+		
+		$login_output = array(
+			'loggedIn' => false
+			);
 
 		if( count($this->input->post()) > 0 ) {
 			$this->form_validation->set_rules('username', 'Username', 'trim|required');
@@ -62,11 +66,55 @@ class Account extends CI_Controller {
 					$this->session->set_userdata( 'user_id', $results->id );
 					$this->session->set_userdata( 'username', $results->username );
 					$this->session->set_userdata( 'name', $results->name );
-					redirect('welcome');
+
+					$this->load->model('User_accounts_restrictions_model');
+					$ua_rest = new $this->User_accounts_restrictions_model;
+					$ua_rest->setUid($results->id, true);
+					$ua_rest->set_limit(0);
+
+					$session_auth = array();
+					$menu_module = array();
+					foreach($ua_rest->populate() as $ur) {
+					    $session_auth[$ur->department][$ur->section]['view'] = $ur->view;
+					    $session_auth[$ur->department][$ur->section]['add'] = $ur->add;
+					    $session_auth[$ur->department][$ur->section]['edit'] = $ur->edit;
+					    $session_auth[$ur->department][$ur->section]['delete'] = $ur->delete;
+					    if( $ur->view ) {
+					    	$menu_module[$ur->department][] = $ur->section;
+					    }
+					}
+					$this->session->set_userdata( 'session_auth', $session_auth );
+					$this->session->set_userdata( 'menu_module', $menu_module );
+
+					if( $output == 'ajax') {
+
+						$login_output = array(
+							'loggedIn' => true, 
+							'user_id' => $results->id,
+							'username' => $results->username,
+							'name' => $results->name,
+							'next_url' => site_url( $this->input->get('next') ),
+							);
+
+					} else {
+
+						if( $this->input->get('next') ) {
+							redirect($this->input->get('next'));
+						} else {
+							redirect('welcome');
+						}
+
+					}
+					
 				}
 			}
 		}
-		$this->load->view('account/login', $this->template_data->get_data());
+
+		if( $output == 'ajax') {
+			echo json_encode( $login_output );
+		} else {
+			$this->load->view('account/login', $this->template_data->get_data());
+		}
 	}
 
 	public function change_password($output='')
@@ -103,6 +151,6 @@ class Account extends CI_Controller {
 
 	public function logout() {
 		$this->session->sess_destroy();
-		redirect("account/login");
+		redirect( site_url("account/login") . "?next=" . $this->input->get('next') );
 	}
 }

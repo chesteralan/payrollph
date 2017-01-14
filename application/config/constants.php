@@ -84,81 +84,34 @@ defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
-// Chart of Accounts
-defined('CHART_ACCOUNT_TYPES') OR define('CHART_ACCOUNT_TYPES', serialize(array(
-	"Balance Sheet" => array(
-		// BS - Assets
-		"000_BS_ASS_CSH" => "Cash in Hand",
-		"001_BS_ASS_CSB" => "Cash in Bank",
-		"010_BS_ASS_ACR" => "Accounts Receivable",
-		"020_BS_ASS_OCA" => "Other Current Asset",
-		"030_BS_ASS_INV" => "Inventory",
-		"040_BS_ASS_FIX" => "Fixed Asset",
-		"050_BS_ASS_OAS" => "Other Asset",
+// USERACCOUNTS_RESTRICTIONS
+$dept = array(
 
-		// BS - Liabilities
-		"060_BS_LIB_ACP" => "Accounts Payable",
-		"070_BS_LIB_OCL" => "Other Current Liability",
-		"080_BS_LIB_LTL" => "Long Term Liability",
+	'payroll' => (object) array(
+		'title' => 'Payroll',
+		'sections' => array(
+				'payroll' => 'Payroll',
+				'payroll_templates' => 'Payroll Templates',
+			),
+	), 
 
-		// BS - Equity
-		"090_BS_EQU_CAP" => "Equity",
+	'employees' => (object) array(
+		'title' => 'Employees',
+		'sections' => array(
+				'employees' => 'Employees',
+				'employees_groups' => 'Employees Groups',
+			),
+	), 
+
+	'system' =>  (object) array(
+		'title' => 'System',
+		'sections' => array(
+				'names' => 'Name List',
+				'users' => 'User Accounts',
+				'backup' => 'Database Backup',
+			),
 	),
-	"Income Statement" => array(
-		// IS - Income
-		"100_IS_INC_INC" => "Income",
-		"110_IS_EXP_EXP" => "Expense",
-	)
-)));
+ 
+);
 
-// Coop Departments
-defined('COOP_DEPT_SECT') OR define('COOP_DEPT_SECT', serialize(array(
-	"SERVICES" => array("title" => "Savings", "sections" => array(
-			"SAVINGS" => "Savings",
-			"LENDING" => "Lending",
-			"LAUNDRY" => "Laundry",
-		)), 
-	"MARKETING" => array("title" => "Marketing", "sections" => array(
-			"MLM" => "Multi-Level Marketing"
-		)), 
-	"ACCOUNTING" => array("title" => "Accounting", "sections" => array(
-			"RECEIVING" => "Cashier",
-			"DISBURSING" => "Disbursing",
-			"BOOKKEEPING" => "Bookkeeping",
-		)), 
-	"ADMINISTRATION" => array("title" => "Administration", "sections" => array()), 
-)));
-
-// Item Types
-defined('CHECK_ITEM_TYPES') OR define('CHECK_ITEM_TYPES', serialize(array(
-
-	"COMEXP" => 'Expense',
-	"COMINC" => 'Income',
-
-	// share capital
-	"SHAWIT" => 'Capital Withdrawal',
-	"SHADIV" => 'Dividends',
-
-	// lending
-	"LOANRE" => 'Loan',
-
-	// laundry
-	"LAUEXP" => 'Laundry Expense',
-
-)));
-
-// Item Types
-defined('RECEIPT_ITEM_TYPES') OR define('RECEIPT_ITEM_TYPES', serialize(array(
-
-	"COMINC" => 'Income',
-
-	// share capital
-	"SHACAP" => 'Share Capital',
-
-	// lending
-	"LOANPY" => 'Loan Payment',
-
-	// laundry
-	"LAUINC" => 'Laundry Income',
-
-)));
+defined('USERACCOUNTS_RESTRICTIONS') OR define('USERACCOUNTS_RESTRICTIONS', serialize( $dept ) );

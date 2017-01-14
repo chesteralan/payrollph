@@ -97,7 +97,7 @@ function php_backup_tables_single($dbconn, $dir = "backups")
     }
 
     $return='';
-    $filename = $dir . DIRECTORY_SEPARATOR . $dbconn['database'] . "-" . date('m-d-y-H-i-s') . '.sql';
+    $filename = $dir . DIRECTORY_SEPARATOR . $dbconn['database'] . "-" . date('Y-m-d-H-i-s') . '.sql';
     $handle = fopen($filename,'w+');
 
     foreach($tables as $table)
@@ -108,7 +108,7 @@ function php_backup_tables_single($dbconn, $dir = "backups")
     fwrite($handle,$return);
     fclose($handle);
 
-    compress($dir . DIRECTORY_SEPARATOR . $dbconn['database'] . "-" . date('m-d-y-H-i-s') . "-php-single.sql.zip", $dir, array($filename) );
+    compress($dir . DIRECTORY_SEPARATOR . $dbconn['database'] . "-" . date('Y-m-d-H-i-s') . "-php-single.sql.zip", $dir, array($filename) );
     unlink($filename);
 
 }
@@ -131,7 +131,7 @@ function php_backup_tables_multiple($dbconn, $dir="backups")
     $files = array();
     foreach($tables as $table)
     {
-        $filename = $dir . DIRECTORY_SEPARATOR . $table . "-" . date('m-d-y-H-i-s') . '.sql';
+        $filename = $dir . DIRECTORY_SEPARATOR . $table . "-" . date('Y-m-d-H-i-s') . '.sql';
         $files[] = $filename;
         $handle = fopen($filename,'w+');
     
@@ -140,7 +140,7 @@ function php_backup_tables_multiple($dbconn, $dir="backups")
         fwrite($handle,$return);
         fclose($handle);
     }
-    compress($dir . DIRECTORY_SEPARATOR . $dbconn['database'] . "-" . date('m-d-y-H-i-s') . "-php-multiple.sql.zip", $dir, $files );
+    compress($dir . DIRECTORY_SEPARATOR . $dbconn['database'] . "-" . date('Y-m-d-H-i-s') . "-php-multiple.sql.zip", $dir, $files );
     foreach($files as $source) {
         unlink($source);
     }
@@ -149,7 +149,7 @@ function php_backup_tables_multiple($dbconn, $dir="backups")
 
 function win_backup_mysqldump_single($dbconn, $dir="backups")
 {    
-    $filename = $dbconn['database'] . "-" . date('m-d-y-H-i-s') . '-win-single.sql';
+    $filename = $dbconn['database'] . "-" . date('Y-m-d-H-i-s') . '-win-single.sql';
     
     $cmd = 'D:\wamp\bin\mysql\mysql5.6.17\bin\mysqldump.exe ';
     $cmd .= ' -u ' . $dbconn['username'];
@@ -174,7 +174,7 @@ function win_backup_mysqldump_multiple($dbconn, $dir="backups")
     $result = mysqli_query($link,'SHOW TABLES');
     while($row = mysqli_fetch_row($result))
     {
-        $filename = $dbconn['database'] . "-" . $row[0] . "-" . date('m-d-y-H-i-s') . '-dump.sql';
+        $filename = $dbconn['database'] . "-" . $row[0] . "-" . date('Y-m-d-H-i-s') . '-dump.sql';
         $cmd = 'D:\wamp\bin\mysql\mysql5.6.17\bin\mysqldump.exe ';
         $cmd .= ' -u ' . $dbconn['username'];
         $cmd .= ' --password="' . $dbconn['password'] . '"';
@@ -187,7 +187,7 @@ function win_backup_mysqldump_multiple($dbconn, $dir="backups")
     }
 
     
-    compress($dir . DIRECTORY_SEPARATOR . $dbconn['database'] . '-' . date('m-d-y-H-i-s') . "-win-multiple.sql.zip", $dir, $files );
+    compress($dir . DIRECTORY_SEPARATOR . $dbconn['database'] . '-' . date('Y-m-d-H-i-s') . "-win-multiple.sql.zip", $dir, $files );
     foreach($files as $source) {
         unlink($source);
     }
@@ -195,7 +195,7 @@ function win_backup_mysqldump_multiple($dbconn, $dir="backups")
 
 function linux_backup_mysqldump_single($dbconn, $dir="backups")
 {    
-    $filename = $dbconn['database'] . "-" . date('m-d-y-H-i-s') . '-linux-single.sql';
+    $filename = $dbconn['database'] . "-" . date('Y-m-d-H-i-s') . '-linux-single.sql';
     
     $cmd = 'mysqldump ';
     $cmd .= ' -u ' . $dbconn['username'];
@@ -220,7 +220,7 @@ function linux_backup_mysqldump_multiple($dbconn, $dir="backups")
     $result = mysqli_query($link,'SHOW TABLES');
     while($row = mysqli_fetch_row($result))
     {
-        $filename = $dbconn['database'] . "-" . $row[0] . "-" . date('m-d-y-H-i-s') . '-dump.sql';
+        $filename = $dbconn['database'] . "-" . $row[0] . "-" . date('Y-m-d-H-i-s') . '-dump.sql';
         $cmd = 'mysqldump ';
         $cmd .= ' -u ' . $dbconn['username'];
         $cmd .= ' --password="' . $dbconn['password'] . '"';
@@ -233,7 +233,7 @@ function linux_backup_mysqldump_multiple($dbconn, $dir="backups")
     }
 
     
-    compress($dir . DIRECTORY_SEPARATOR . $dbconn['database'] . '-' . date('m-d-y-H-i-s') . "-linux-multiple.sql.zip", $dir, $files );
+    compress($dir . DIRECTORY_SEPARATOR . $dbconn['database'] . '-' . date('Y-m-d-H-i-s') . "-linux-multiple.sql.zip", $dir, $files );
     foreach($files as $source) {
         unlink($source);
     }

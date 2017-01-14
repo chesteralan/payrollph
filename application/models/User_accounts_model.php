@@ -43,8 +43,8 @@ class User_accounts_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'user_accounts';
 		$this->_short_name = 'user_accounts';
-		$this->_fields = array("username","password","name");
-		$this->_required = array("id","username","password","name");
+		$this->_fields = array("id","username","password","name");
+		$this->_required = array("username","password","name");
 		parent::__construct($short_name, $db_config);
 	}
 

@@ -9,41 +9,63 @@ class MY_Controller extends CI_Controller {
                 
                 if( ! $this->session->loggedIn || ! isset($this->session->loggedIn) ) {
                 	$this->session->sess_destroy();
-                	redirect('account/login');
+                	redirect( site_url( 'account/login' ) . "?next=" . urlencode( uri_string()) );
                 }
 
                 $this->template_data->set('session_auth', $this->session->session_auth);
-                $this->template_data->set('page_title', 'PAYROLL');
+                $this->template_data->set('page_title', 'Payroll PH');
                 $this->template_data->set('output', '');
-        }
 
-        public function _isAuth($module, $action='view', $uri=false) {
-        	
-                $auth = false;
-
-                if( isset( $this->session->session_auth ) ) {
-                	if( isset($this->session->session_auth->$module) ) {
-                		if( isset($this->session->session_auth->$module->$action) ) {
-                			$auth = (bool) $this->session->session_auth->$module->$action;
-                		}
-                	} 
+                $this->template_data->set('inner_page', false);
+                if( $this->input->post('output') == 'inner_page') {
+                    $this->template_data->set('inner_page', true);
                 }
 
-        	if( $auth ) {
-                        
-                        return $auth;
+                $this->template_data->set('body_wrapper', false);
+                if( $this->input->post('output') == 'body_wrapper') {
+                    $this->template_data->set('body_wrapper', true);
+                }
 
-                } else {
-                        
+        }
+
+        public function _isAuth($dept, $sect=NULL, $action='view', $uri=false, $return=false) {
+        	
+            $auth = false;
+            if( isset( $this->session->session_auth ) ) {
+            	if( isset($this->session->session_auth[$dept] ) ) {
+                    if( isset($this->session->session_auth[$dept][$sect]) ) {
+                		if( isset($this->session->session_auth[$dept][$sect][$action]) ) {
+                			$auth = (bool) $this->session->session_auth[$dept][$sect][$action];
+                		}
+                    }
+            	} 
+            }
+
+        	if( !$auth && !$return ) {
                         if( $uri == '') {
-
-                                $uri = 'welcome';
-
+                                if ( $this->session->referrer_uri != '' )
+                                {
+                                    $uri = $this->session->referrer_uri;
+                                } else {
+                                    $uri = 'welcome';
+                                }
+                                if( uri_string() == $uri ) {
+                                    $uri = 'welcome';
+                                }
                         }
-        		redirect( $uri, 'refresh' );
+
+        		  redirect( site_url( $uri ) . "?error_code=999" );
+
         	}
 
-        	
+            if( $auth ) {
+                $this->session->set_userdata( 'referrer_uri', uri_string() );
+            }
+
+            if( $return ) {
+                $this->session->set_userdata( 'referrer_uri', uri_string() );
+                return $auth;
+            }
 
         }
 

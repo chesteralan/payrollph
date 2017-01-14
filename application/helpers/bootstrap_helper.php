@@ -17,6 +17,11 @@ if ( ! function_exists('bootstrap_pagination'))
         $defaults['attributes'] = array('class' => 'btn btn-default');
         
         $new_config = array_merge($defaults, $config);
+
+        if( isset($config['ajax']) && ($config['ajax']===true) ) {
+            $new_config['attributes']['class'] .= ' ajaxPage';
+        }
+
         $CI = get_instance();
         $pagination = new $CI->pagination;
         $pagination->initialize($new_config);

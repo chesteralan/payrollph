@@ -5,7 +5,7 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <div class="navbar-brand">Dashboard</div>
+      <div class="navbar-brand">Home</div>
     </div>
   </div><!-- /.container-fluid -->
 </nav>

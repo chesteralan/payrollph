@@ -9,6 +9,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
 
+<?php if( hasAccess('system', 'backup', 'add') ) { ?>
         <!-- Split button -->
 <div class="btn-group pull-right">
   <a href="<?php echo base_url("create_backup.php"); ?>?type=php_multiple" class="btn btn-xs btn-success">Multiple (PHP Backup)</a>
@@ -24,37 +25,39 @@
     <li><a href="<?php echo base_url("create_backup.php"); ?>?type=linux_mysqldump_single">Single (Linux Backup)</a></li>
   </ul>
 </div>
-
+<?php } ?>
           <h3 class="panel-title">Backups</h3>
 
         </div>
-        <div class="panel-body">
+        <div class="panel-body" id="ajaxBodyInnerPage">
 <?php if( $backup_files ) { ?>
 				<table class="table table-default table-hover table-condensed">
 					<thead>
 						<tr>
 							<th>Backup File</th>
 							<th>Filesize</th>
-							<th width="140px">Action</th>
+							<th width="140px" class="text-right">Action</th>
 						</tr>
 					</thead>
 					<tbody>
 					<?php 
 					foreach($backup_files as $file ) { ?>
-						<tr>
+						<tr id="file_<?php echo url_title($file, "_", true); ?>">
 							<td><?php echo $file; ?></td>
 							<td><?php echo filesize("backups/" . $file); ?></td>
-							<td>
+							<td class="text-right">
 								<a href="<?php echo site_url('system_backup/download/' . $file ); ?>" class="btn btn-success btn-xs">Download</a>
-								<a href="<?php echo site_url('system_backup/delete/' . $file ); ?>" class="btn btn-danger btn-xs confirm">Delete</a>
+								<?php if( hasAccess('system', 'backup', 'delete') ) { ?>
+								<a href="<?php echo site_url('system_backup/delete/' . $file ); ?>" class="btn btn-danger btn-xs confirm_remove" data-target="#file_<?php echo url_title($file, "_", true); ?>">Delete</a>
+								<?php } ?>
 							</td>
 						</tr>
 					<?php } ?>
 					</tbody>
 				</table>
 <?php } else { ?>
-	<p class="text-center">No Backup Yet!</p>
-<?php }  ?>
+<p class="text-center">No Backup Files Found!</p>
+<?php } ?>
 
         </div>
       </div>

@@ -1,4 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php if( ! $inner_page ): ?> 
+  <?php if( ! $body_wrapper ): ?> 
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?php echo (isset($page_title)) ? $page_title : 'Tickets'; ?></title>
+    <title><?php echo (isset($page_title)) ? $page_title : 'COOP'; ?></title>
     <link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/js/jqueryui/jquery-ui.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/icons/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet">
@@ -28,10 +30,20 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
   </head>
-  <body>
+  <body >
 
-   <?php $this->load->view('navbar'); ?>
+<?php $this->load->view('navbar'); ?>
 
-<?php if( $this->input->get('error_code') ) { showError( $this->input->get('error_code') ); } ?>
+<div id="bodyWrapper">
+
+<?php endif; // static_nav ?>
+
+<?php 
+if( $this->input->get('error_code') ) { 
+  $errData = (isset($errorData)) ? $errorData : NULL;
+  showError( $this->input->get('error_code'), $errData); 
+}
+?>
+
+<?php endif; // inner_page ?>

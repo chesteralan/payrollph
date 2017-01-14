@@ -30,12 +30,14 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $current_page; ?> <span class="caret"></span></a>
           <ul class="dropdown-menu">
 <?php 
-$url['system_users'] = array('uri' => 'system_users', 'title'=>'User Accounts');
-$url['system_backup'] = array('uri' => 'system_backup', 'title'=>'Database Backup');
+$url['system_names'] = array('uri' => 'system_names', 'title'=>'Names List', 'access'=>hasAccess('system', 'names', 'view'));
+$url['system_users'] = array('uri' => 'system_users', 'title'=>'User Accounts', 'access'=>hasAccess('system', 'users', 'view'));
+$url['system_backup'] = array('uri' => 'system_backup', 'title'=>'Database Backup', 'access'=>hasAccess('system', 'backup', 'view'));
 foreach($url as $k=>$v) {
+  if( $v['access'] ) {
 ?>
-  <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a href="<?php echo site_url($v['uri']); ?>"><?php echo $v['title']; ?></a></li>
-<?php } ?>
+  <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($v['uri']); ?>"><?php echo $v['title']; ?></a></li>
+<?php } } ?>
           </ul>
         </li>
       </ul>

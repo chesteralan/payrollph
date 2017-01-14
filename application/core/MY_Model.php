@@ -182,7 +182,7 @@ class MY_Model extends CI_Model
 
     public function insert() {
         if( $this->get_data() ) {
-                        $this->_set_db_data(); 
+            $this->_set_db_data(); 
             if( $this->db->insert( $this->_table_name ) === TRUE ) {
                 $this->id = $this->db->insert_id();
                 return TRUE;
@@ -204,7 +204,7 @@ class MY_Model extends CI_Model
 
     public function replace() {
         if( $this->get_data() ) {
-                        $this->_set_db_data(); 
+            $this->_set_db_data(); 
             if( $this->db->replace( $this->_table_name ) === TRUE ) {
                 $this->id = $this->db->insert_id();
                 return TRUE;
@@ -458,17 +458,18 @@ class MY_Model extends CI_Model
 
         $fields = $this->_fields;
         if( count( $this->_dataFields ) > 0 ) {
-                        $fields = $this->_dataFields;
+            $fields = $this->_dataFields;
         }
         foreach( $fields as $field ) {
+            
             if( ( in_array( $field, $this->_required ) ) 
-            && ($this->$field == '') 
+            && ( $this->$field === '' ) 
             && ( ! in_array( $field, $this->_exclude ) ) 
             ) {
                 return false;
             }
             if( ( in_array( $field, $this->_required ) ) 
-            && ($this->$field != '') 
+            && ($this->$field !== '') 
             && ( ! in_array( $field, $this->_exclude ) ) 
             ) {
                 $data[$field] = $this->$field;
@@ -479,6 +480,7 @@ class MY_Model extends CI_Model
                 $data[$field] = $this->$field;
             }  
         }
+
         return $data;   
     }
 

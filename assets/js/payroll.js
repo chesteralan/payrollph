@@ -1,10 +1,14 @@
 (function($){
 
+var init_datepicker = function() {
   $('.datepicker').datepicker();
   $('select').selectpicker({
     liveSearch : true,
   });
+};
 
+
+var confirmButton = function() {
   $('.confirm').click(function(){
   	if(confirm('Are you sure?')) {
   		return true;
@@ -12,7 +16,45 @@
   		return false;
   	}
   });
+};
 
+var confirmRemove = function() {
+  $('.confirm_remove').each(function(){
+      var href = $(this).prop('href');
+      var data_url = $(this).attr('data-url');
+      var data_morph = $(this).attr('data-morph');
+      var target = $(this).attr('data-target');
+      if( data_morph != 'confirmRemove') {
+        $(this).attr('data-url', href);
+        $(this).prop('href', 'javascript:void(0);');
+        $(this).attr('data-morph', 'confirmRemove');
+        $(this).click(function(){
+          if(confirm('Are you sure?')) {
+              var divBody = $('#ajaxBodyInnerPage');
+              var loadingDiv = $('<div class="loading-wait"></div>');
+              loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
+              var loadingImg = $('<img src="/assets/images/loader4.gif"/>');
+              loadingImg.css('margin-top', Math.ceil( divBody.parent().height() / 2 ));
+              loadingDiv.html( loadingImg );
+              divBody.prepend( loadingDiv );
+
+              var ajax_url = $(this).attr('data-url');
+
+              $.ajax({
+                url: ajax_url,
+                method: 'GET',
+                success: function( data ) {
+                      loadingDiv.remove();
+                      $(target).remove();
+                }
+              }); // $.ajax()
+          }
+        });
+      }
+  });
+};
+
+var addDeposits = function() {
   $('.add_deposits').click(function(){
   	$('#addDepositModal-title').text($(this).attr('data-title'));
   	$('#addDepositModal-bankid').val($(this).attr('data-bankid'));	
@@ -29,18 +71,23 @@
   $('#addDisbursementModal').on('shown.bs.modal', function () {
     $('#addDisbursementModal-amount').focus().select();
   });
+};
 
+var hoverPop = function() {
   $('.hoverPopBottom').popover({
     trigger : 'hover',
     placement : 'bottom',
     html : true,
   });
+
    $('.hoverPopRight').popover({
     trigger : 'hover',
     placement : 'right',
     html : true,
   });
+};
 
+var select_account_titles = function() {
   $('select.select_account_titles').click(function(){
     var at = JSON.parse(account_titles);
     var html = '<option value="">- - Account Title - -</option>';
@@ -55,7 +102,9 @@
     set_options(at,'');
     //$(this).html(html);
   });
+};
 
+var autocomplete_navbarsearch = function() {
   $('.autocomplete-navbarsearch').autocomplete({
       source: function( request, response ) {
         var ths = $(this);
@@ -79,7 +128,9 @@
         }
       }
     });
+};
 
+var init_member_change = function() {
   $('.autocomplete-member_change').autocomplete({
       source: function( request, response ) {
         var ths = $(this);
@@ -99,11 +150,37 @@
       },
       minLength: 3,
       select: function( event, ui ) {
-          window.location.href=ui.item.redirect;
+          //window.location.href=ui.item.redirect;
+              var divBody = $('#bodyWrapper');
+              var loadingDiv = $('<div class="loading-wait"></div>');
+              loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
+              var loadingImg = $('<img src="/assets/images/loader4.gif"/>');
+              loadingImg.css('margin-top', Math.ceil( divBody.parent().height() / 2 ));
+              loadingDiv.html( loadingImg );
+              divBody.prepend( loadingDiv );
+              $.ajax({
+                url: ui.item.redirect,
+                method: 'POST',
+                data: {
+                  output: 'body_wrapper',
+                },
+                success: function( data ) {
+                    divBody.slideUp( function(){
+                      $(this).html( data );
+                      $(this).slideDown(function(){
+                        loadingDiv.remove();
+                        window.history.replaceState('Object', $(document).prop('title'), ui.item.redirect);
+                        $('.autocomplete-member_change').val('');
+                        init_coop();
+                      });
+                    });
+                }
+              }); // $.ajax()
+          
       }
     });
 
-  var autocomplete_name_select_change_name = function(){
+var autocomplete_name_select_change_name = function(){
     var name_id = $(this).attr('data-name_id');
     var timestamp = $(this).attr('data-timestamp');
     $('#'+name_id).val('');
@@ -115,7 +192,9 @@
 
   $('.changeName').click(autocomplete_name_select_change_name);
 
-  var autocomplete_name_select_options = {
+};
+
+var autocomplete_name_select_options = {
       source: function( request, response ) {
         var ths = $(this);
         var source = ths[0]['element'][0]['dataset'].source;
@@ -189,6 +268,8 @@
   });
 
   var edit_invoices = false;
+  var edit_invoices_func = function() {
+
   $('.edit_invoices').click(function(){
     if( edit_invoices ) {
       $('.edit_invoices_item').hide();
@@ -208,6 +289,8 @@
     }
   });
 
+  };
+
   var autosum = function(input, output){
     var total = 0;
     $(input).each(function(){
@@ -215,6 +298,9 @@
     });
     $(output).text( (Math.round(total * 100) / 100) );
   };
+
+  var init_payment_buttons = function() {
+ 
   $('.payment_autoapply').click(function(){
     var max_amount = parseFloat($(this).attr('data-max_amount'));
     var input = $(this).attr('data-input');
@@ -226,6 +312,7 @@
     });
     autosum('.'+input, '#autosum-output');
   });
+
   $('.payment_unapply').click(function(){
       var input = $(this).attr('data-input');
       $('.'+input).each(function(){
@@ -234,13 +321,17 @@
       autosum('.'+input, '#autosum-output');
   });
 
-    var total_deposits = function(){
+};
+
+var total_deposits = function(){
       var total_selected_deposits = 0;
-      $('.deposit_item:checked').each(function(){
+      $('.deposit_item').each(function(){
         var rId = $(this).val();
         var amount = parseFloat( $(this).attr('data-amount') );
         
-        total_selected_deposits += amount;
+        if( $(this).prop('checked') ) {
+          total_selected_deposits += amount;
+        }
         
         $('.total_selected_deposits').text( numeral( total_selected_deposits ).format('0,0.00')  );
 
@@ -250,15 +341,20 @@
           $('.deposits_receipts_selected').hide();
         }
       });
-    };
+};
+
+var checkSelectedReceipts = function() {
    $('#deposits_select_all').click(function(){
       if($(this).prop('checked')) {
         $('input.deposit_item').prop('checked',true);
+        $('.select_sales_receipt').addClass('success');
       } else {
         $('input.deposit_item').prop('checked',false);
+        $('.select_sales_receipt').removeClass('success');
       }
       total_deposits();
     });
+
    $('input.deposit_item').click(function(){
       var rId = $(this).val();
       if($(this).prop('checked')) {
@@ -273,29 +369,9 @@
        var rId = $(this).parent().attr('data-id');
        $('#deposit_item-' + rId).trigger('click');
    });
+};
 
-
-  var ajaxModalUrl = null;
-  $('.ajax-modal').click(function(){
-    var hide_footer = $(this).attr('data-hide_footer');
-    $('#ajaxModal .modal-title').text( $(this).attr('data-title') );
-    ajaxModalUrl = $(this).attr('data-url');
-     if( hide_footer ) {
-        $('#ajaxModal .modal-footer').hide();
-      } else {
-        $('#ajaxModal .modal-footer').show();
-      }
-  });
-  $('#ajaxModal').on('shown.bs.modal', function () {
-    $('#ajaxModal form').prop( 'action', ajaxModalUrl );
-      $.ajax({
-        url : ajaxModalUrl,
-        method : 'GET',
-        dataType : 'html'
-      }).success(function(html){
-        $('#ajaxModal .loader').slideUp('slow');
-        $('#ajaxModal .output').css('display', 'none').html( html ).slideDown('slow');
-        var loadLib = function() {
+var loadLib = function() {
 
 $('#ajaxModal .datepicker').datepicker();
         $('#ajaxModal select').selectpicker({
@@ -367,28 +443,31 @@ $('#ajaxModal .datepicker').datepicker();
 
 
 $('.ajax-modal-inner').each(function(){
-  var href=$(this).prop('href');
+  var href = $(this).prop('href');
   $(this).attr('data-url', href);
   $(this).prop('href', '#ajax-modal-inner');
-});
-
-$('.ajax-modal-inner').click(function(){
+  $(this).click(function(){
     ajaxModalUrl = $(this).attr('data-url');
     $('#ajaxModal form').prop( 'action', ajaxModalUrl );
     $('#ajaxModal .loader').slideDown('slow');
-    $('#ajaxModal .modal-footer').hide();
-     $('#ajaxModal .output').slideUp('slow').html( '' );
+    var hide_footer = $(this).attr('data-hide_footer');
+    $('#ajaxModal .output').slideUp('slow').html( '' );
       $.ajax({
         url : ajaxModalUrl,
         method : 'GET',
         dataType : 'html'
       }).success(function(html){
-        $('#ajaxModal .modal-footer').show();
+        if( hide_footer ) {
+          $('#ajaxModal .modal-footer').hide();
+        } else {
+          $('#ajaxModal .modal-footer').show();
+        }
         $('#ajaxModal .loader').slideUp('slow');
         $('#ajaxModal .output').css('display', 'none').html( html ).slideDown('slow');
          loadLib();
       });
   });
+});
 
 /*
   $('#ajaxModalForm').submit(function(e){
@@ -411,16 +490,68 @@ $('.ajax-modal-inner').click(function(){
   });
 */
 
+
   }; // loadLib
+var ajaxModalUrl = null;
+var setupAjaxModal = function(){
+    $('.ajax-modal').click(function(){
+    $('#ajaxModal .modal-title').text( $(this).attr('data-title') );
+    ajaxModalUrl = $(this).attr('data-url');
+    var hide_footer = $(this).attr('data-hide_footer');
+     if( hide_footer ) {
+        $('#ajaxModal .modal-footer').hide();
+      } else {
+        $('#ajaxModal .modal-footer').show();
+      }
+  });
+};
 
-  loadLib();
+var loadAjaxModal = function() {
+  setupAjaxModal();
+  $('#ajaxModal').on('shown.bs.modal', function () {
+    $('#ajaxModal form').prop( 'action', ajaxModalUrl );
+      $.ajax({
+        url : ajaxModalUrl,
+        method : 'GET',
+        dataType : 'html'
+      }).success(function(html){
+        $('#ajaxModal .loader').slideUp('slow');
+        $('#ajaxModal .output').css('display', 'none').html( html ).slideDown('slow');
 
-});
+    loadLib();
+  });
+
   }).on('hidden.bs.modal', function (e) {
       $('#ajaxModal .loader').show();
       $('#ajaxModal .modal-footer').hide();
       $('#ajaxModal .output').html( '' );
   });
+
+  $('.ajax-dialog').click(function(){
+     ajaxModalUrl = $(this).attr('data-url');
+    $('#ajaxDialog form').prop( 'action', ajaxModalUrl );
+    $('#ajaxDialog .loader').slideDown('slow');
+    $('#ajaxDialog .output').slideUp('slow').html( '' );
+      $.ajax({
+        url : ajaxModalUrl,
+        method : 'GET',
+        dataType : 'html'
+      }).success(function(html){
+        $('#ajaxDialog .loader').slideUp('slow');
+        $('#ajaxDialog .output').css('display', 'none').html( html ).slideDown('slow');
+      });
+    $('#ajaxDialog').dialog({
+      resizable: false,
+      height: "auto",
+      width: '80%',
+      modal: true,
+      title : $(this).attr('data-title'),
+    }).css('overflow', 'inherit');
+  });
+
+};
+
+loadAjaxModal();
 
   $('#recon input.recon_item').click(function(){ 
 
@@ -543,8 +674,149 @@ $('.ajax-modal-inner').click(function(){
     $('.je_input-'+line_number).prop('disabled', false);
     $('.je_input-'+line_number).selectpicker('refresh');
   };
-  $('.unlockJournalLine').click(unlockJournalLine);
-  $('.insertJournalLine').click(insertJournalLine);
-  $('.removeJournalLine').click(removeJournalLine);
 
+  var journalLine = function() {
+    $('.unlockJournalLine').click(unlockJournalLine);
+    $('.insertJournalLine').click(insertJournalLine);
+    $('.removeJournalLine').click(removeJournalLine);
+  };
+
+var lending_schedule_details = function() {
+  $('.lending-schedule-details').click(function(){
+    $('.lending-schedule-details').removeClass('btn-success').addClass('btn-default');
+    $(this).addClass('btn-success');
+    var type = $(this).attr('data-type');
+    if( type == 'minimal' ) {
+      $('.detailed-schedule').hide();
+    } else if( type == 'detailed') {
+      $('.detailed-schedule').show();
+    }
+  });
+};
+
+  var panelHeight = function() {
+    var innerPage = $('#ajaxBodyInnerPage');
+    var panel = innerPage.parent();
+    var inner_height = innerPage.height() + 73;
+    var panel_height =  panel.height();
+    var current_height = parseInt(panel.css('height'));
+    if( (current_height > panel_height) && (current_height > inner_height) ) {
+      panel.css( 'height', current_height);
+    } else {
+      if( panel_height > inner_height ) {
+        panel.css( 'height', panel_height);
+      } else {
+        panel.css( 'height', inner_height);
+      }
+    }
+  } 
+  
+  var ajaxPagination = function() {
+
+    $('.ajaxPage').each(function(){
+      var href = $(this).prop('href');
+      var data_url = $(this).attr('data-url');
+      var data_morph = $(this).attr('data-morph');
+      if( data_morph != 'ajaxPage') {
+        $(this).attr('data-url', href);
+        $(this).prop('href', 'javascript:void(0);');
+        $(this).attr('data-morph', 'ajaxPage');
+        $(this).click(function(){
+              var divBody = $('#ajaxBodyInnerPage');
+              var loadingDiv = $('<div class="loading-wait"></div>');
+              loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
+              var loadingImg = $('<img src="/assets/images/loader4.gif"/>');
+              loadingImg.css('margin-top', Math.ceil( divBody.parent().height() / 2 ));
+              loadingDiv.html( loadingImg );
+              divBody.prepend( loadingDiv );
+
+              var ajax_url = $(this).attr('data-url');
+
+              $.ajax({
+                url: ajax_url,
+                method: 'POST',
+                data: {
+                  output: 'inner_page',
+                },
+                success: function( data ) {
+                    divBody.slideUp( function(){
+                      $(this).html( data );
+                      panelHeight();
+                      $(this).slideDown(function(){
+                        loadingDiv.remove();
+                        window.history.replaceState('Object', $(document).prop('title'), ajax_url);
+                        $('.autocomplete-member_change').attr('data-current_sub_uri', ajax_url);
+                        init_coop();
+                      });
+                    });
+                }
+              }); // $.ajax()
+            }); // $(this).click()
+        }
+    });
+  };
+
+  var bodyWrapper = function() {
+   $('.body_wrapper').each(function(){
+      var href = $(this).prop('href');
+      var data_url = $(this).attr('data-url');
+      var data_morph = $(this).attr('data-morph');
+      if( data_morph != 'bodyWrapper') {
+        $(this).attr('data-url', href);
+        $(this).prop('href', 'javascript:void(0);');
+        $(this).attr('data-morph', 'bodyWrapper');
+        $(this).click(function() {
+              var divBody = $('#bodyWrapper');
+              var loadingDiv = $('<div class="loading-wait"></div>');
+              loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
+              var loadingImg = $('<img src="/assets/images/loader4.gif"/>');
+              loadingImg.css('margin-top', Math.ceil( divBody.parent().height() / 2 ));
+              loadingDiv.html( loadingImg );
+              divBody.prepend( loadingDiv );
+
+              var ajax_url = $(this).attr('data-url');
+
+              $.ajax({
+                url: ajax_url,
+                method: 'POST',
+                data: {
+                  output: 'body_wrapper',
+                },
+                success: function( data ) {
+                    divBody.slideUp( function(){
+                      $(this).html( data );
+                      $(this).slideDown(function(){
+                        loadingDiv.remove();
+                        window.history.replaceState('Object', $(document).prop('title'), ajax_url);
+                        $('.autocomplete-member_change').attr('data-current_sub_uri', ajax_url);
+                        init_coop();
+                      });
+                    });
+                }
+              }); // $.ajax()
+        }); // $(this).click()
+      }
+   });
+ }; // bodyWrapper
+
+ var init_coop = function() {
+      bodyWrapper();
+      ajaxPagination();
+      setupAjaxModal();
+      lending_schedule_details();
+      edit_invoices_func();
+      journalLine();
+      confirmButton();
+      confirmRemove();
+      init_datepicker();
+      init_payment_buttons();
+      panelHeight();
+      init_member_change();
+      addDeposits();
+      //autocomplete_navbarsearch();
+      //select_account_titles();
+      //hoverPop();
+      checkSelectedReceipts();
+ }
+ init_coop();
 })(jQuery);

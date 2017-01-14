@@ -12,7 +12,8 @@
 	<div class="col-md-6 col-md-offset-3">
 	    <div class="panel panel-default">
 	    	<div class="panel-heading">
-	    		<h3 class="panel-title">Add User Account</h3>
+	    	<a href="<?php echo site_url("system_names/delete/{$name->id}"); ?>" class="btn btn-danger btn-xs pull-right confirm">Delete</a>
+	    		<h3 class="panel-title">Edit Name</h3>
 	    	</div>
 	    	<form method="post">
 	    	<div class="panel-body">
@@ -23,33 +24,35 @@
 
 	    		<div class="form-group">
 	    			<label>Full Name</label>
-	    			<input name="full_name" type="text" class="form-control" value="<?php echo $this->input->post('full_name'); ?>">
+	    			<input name="full_name" type="text" class="form-control" value="<?php echo $name->full_name; ?>">
 	    		</div>
 	    		<div class="form-group">
-	    			<label>Username</label>
-	    			<input name="username" type="text" class="form-control" value="<?php echo $this->input->post('username'); ?>">
+	    			<label>Address</label>
+	    			<input name="address" type="text" class="form-control" value="<?php echo $name->address; ?>">
 	    		</div>
 	    		<div class="form-group">
-	    			<label>Password</label>
-	    			<input name="password" type="password" class="form-control" value="<?php echo $this->input->post('password'); ?>">
+	    			<label>Contact Number</label>
+	    			<input name="contact_number" type="text" class="form-control" value="<?php echo $name->contact_number; ?>">
 	    		</div>
+<?php if( isset($output) && ($output=='ajax') ) { ?>
 	    		<div class="form-group">
-	    			<label>Repeat Password</label>
-	    			<input name="password2" type="password" class="form-control" value="<?php echo $this->input->post('password2'); ?>">
+	    			<a href="<?php echo site_url("system_names/delete/{$name->id}"); ?>" class="btn btn-danger btn-xs confirm">Delete this Name</a>
 	    		</div>
+<?php } ?>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
 	    	</div>
 	    	<div class="panel-footer">
 	    		<button type="submit" class="btn btn-success">Submit</button>
-	    		<a href="<?php echo site_url("system_users"); ?>" class="btn btn-warning">Back</a>
+	    		<a href="<?php echo site_url("system_names"); ?>" class="btn btn-warning">Back</a>
 	    	</div>
 	    	</form>
 	    </div>
     </div>
 </div>
 </div>
+
 <?php $this->load->view('footer'); ?>
 
 <?php endif; ?>

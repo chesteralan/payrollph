@@ -5,9 +5,11 @@ class System_backup extends MY_Controller {
 	
 	public function __construct() {
 		parent::__construct();
-		$this->template_data->set('page_title', 'PAYROLL - Backup');
-		$this->template_data->set('current_page', 'Database Backup');
+		$this->template_data->set('current_page', 'Backup');
 		$this->template_data->set('current_uri', 'system_backup');
+
+		$this->_isAuth('system', 'backup', 'view');
+
 	}
 
 	public function index() {
@@ -39,6 +41,7 @@ class System_backup extends MY_Controller {
 
 	public function delete($file)
 	{
+		$this->_isAuth('system', 'backup', 'delete');
 		$file_dir = "backups/" . $file;
 		if (file_exists($file_dir)) {
 			unlink($file_dir);

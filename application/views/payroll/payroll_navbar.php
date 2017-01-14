@@ -10,14 +10,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <div class="navbar-brand">Employees</div>
+      <div class="navbar-brand">Payroll</div>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
 <?php 
-$url['employees'] = array('uri' => 'employees', 'title'=>'Employees', 'access'=>hasAccess('employees', 'employees', 'view'));
-$url['employees_groups'] = array('uri' => 'employees_groups', 'title'=>'Groups', 'access'=>hasAccess('employees', 'employees', 'view'));
+$url['payroll'] = array('uri' => 'payroll', 'title'=>'Payroll', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+$url['payroll_templates'] = array('uri' => 'payroll_templates', 'title'=>'Templates', 'access'=>hasAccess('payroll', 'payroll_templates', 'view'));
 foreach($url as $k=>$v) {
   if( $v['access'] ) {
 ?>

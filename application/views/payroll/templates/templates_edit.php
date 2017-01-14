@@ -4,7 +4,7 @@
 
 <?php $this->load->view('header'); ?>
 
-<?php $this->load->view('employees/employees_navbar'); ?>
+<?php $this->load->view('payroll/payroll_navbar'); ?>
 
 <div class="container">
 <div class="row">

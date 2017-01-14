@@ -1,6 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php if( ( ! $inner_page ) && ( ! $body_wrapper ) ): ?>
 
-<div class="container">
+</div> <!-- #bodyWrapper -->
+
+<div class="container hide-print">
 	<div class="row">
 		<div class="col-md-12">
 			<center><small>
@@ -13,7 +16,6 @@
 		</div>
 	</div> 
 </div>
-
 
 <!-- #blankModal Modal -->
 <div class="modal fade" id="ajaxModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
@@ -39,6 +41,13 @@
   </div>
 </div>
 
+<div id="ajaxDialog" style="display: none;">
+  <p class="loader text-center">
+    <img src="<?php echo base_url("assets/images/loader4.gif"); ?>">
+  </p>
+  <div class="output"></div>
+</div>
+
     <script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/jqueryui/jquery-ui.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
@@ -46,6 +55,8 @@
     
     <script src="<?php echo base_url('assets/js/bootstrap-select/js/bootstrap-select.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/tag-it/js/tag-it.min.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/js/scripts.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/payroll.js'); ?>"></script>
   </body>
 </html>
+
+<?php endif; // inner_page ?>
