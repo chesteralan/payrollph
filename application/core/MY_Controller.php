@@ -84,4 +84,13 @@ class MY_Controller extends CI_Controller {
                     }
             }
         }
+
+        public function getNext($else='') {
+            if( $this->input->get('next') ) {
+                    $url = site_url($this->input->get('next'));
+                    redirect( $url );
+            } else {
+                redirect( $else );
+            }
+        }
 }

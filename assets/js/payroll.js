@@ -1,5 +1,7 @@
 (function($){
 
+var current_uri = '';
+
 var init_datepicker = function() {
   $('.datepicker').datepicker();
   $('select').selectpicker({
@@ -29,26 +31,24 @@ var confirmRemove = function() {
         $(this).prop('href', 'javascript:void(0);');
         $(this).attr('data-morph', 'confirmRemove');
         $(this).click(function(){
+           var divBody = $('#bodyWrapper');
+            var loadingDiv = $('<div class="loading-wait"></div>');
+            loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
+            var loadingImg = $('<img src="/assets/images/loader4.gif"/>');
+            loadingImg.css('margin-top', Math.ceil( divBody.parent().height() / 2 ));
+            loadingDiv.html( loadingImg );
+            divBody.prepend( loadingDiv );
+            var ajax_url = $(this).attr('data-url');
           if(confirm('Are you sure?')) {
-              var divBody = $('#ajaxBodyInnerPage');
-              var loadingDiv = $('<div class="loading-wait"></div>');
-              loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
-              var loadingImg = $('<img src="/assets/images/loader4.gif"/>');
-              loadingImg.css('margin-top', Math.ceil( divBody.parent().height() / 2 ));
-              loadingDiv.html( loadingImg );
-              divBody.prepend( loadingDiv );
-
-              var ajax_url = $(this).attr('data-url');
-
               $.ajax({
                 url: ajax_url,
                 method: 'GET',
                 success: function( data ) {
-                      loadingDiv.remove();
                       $(target).remove();
                 }
               }); // $.ajax()
           }
+          loadingDiv.remove();
         });
       }
   });
@@ -469,33 +469,13 @@ $('.ajax-modal-inner').each(function(){
   });
 });
 
-/*
-  $('#ajaxModalForm').submit(function(e){
-        $('#ajaxModal .modal-footer').slideUp();
-        $('#ajaxModal .output').slideUp('slow', function(){
-          $('#ajaxModal .loader').slideDown('slow');
-        });
-        console.log( $(this).serialize() );
-        $.ajax({
-           type: $(this).prop('method'),
-           url: $(this).prop('action'),
-           data: $(this).serialize(), // serializes the form's elements.
-           success: function(data)
-           {
-                $('#ajaxModal').modal('hide');
-           }
-         });
-
-      e.preventDefault(); // avoid to execute the actual submit of the form.
-  });
-*/
-
-
   }; // loadLib
+  
 var ajaxModalUrl = null;
 var setupAjaxModal = function(){
     $('.ajax-modal').click(function(){
     $('#ajaxModal .modal-title').text( $(this).attr('data-title') );
+    $('#ajaxModal .modal-footer button[type="submit"]').text( $(this).attr('data-title') );
     ajaxModalUrl = $(this).attr('data-url');
     var hide_footer = $(this).attr('data-hide_footer');
      if( hide_footer ) {

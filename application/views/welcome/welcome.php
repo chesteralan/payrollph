@@ -18,13 +18,13 @@
     					<div class="list-group list-group-icons">
     					<?php if( in_array('payroll', $this->session->menu_module['payroll'] ) ) { ?>
 						  <a href="<?php echo site_url('payroll'); ?>" class="list-group-item body_wrapper">
-						    <span class="fa fa-dollar" aria-hidden="true"></span>
+						    <span class="fa fa-list-alt" aria-hidden="true"></span>
 						    Payroll
 						  </a>
 						<?php } ?>
 						<?php if( in_array('payroll_templates', $this->session->menu_module['payroll'] ) ) { ?>
 						  <a href="<?php echo site_url('payroll_templates'); ?>" class="list-group-item body_wrapper">
-						    <span class="fa fa-dollar" aria-hidden="true"></span>
+						    <span class="dashicons dashicons-format-aside" aria-hidden="true"></span>
 						    Templates
 						  </a>
 						<?php } ?>
@@ -85,7 +85,7 @@ if(
 						<?php if( in_array('users', $this->session->menu_module['system'] ) ) { ?>
 						  <a href="<?php echo site_url('system_users'); ?>" class="list-group-item body_wrapper">
 						    <span class="badge"><?php echo $stats->users_count; ?></span>
-						    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users
+						    <span class="dashicons dashicons-admin-network" aria-hidden="true"></span> Users
 						  </a>
 						<?php } ?>
 						<?php if( in_array('backup', $this->session->menu_module['system'] ) ) { ?>

@@ -8,6 +8,27 @@ CREATE TABLE `account_sessions` (
   KEY `account_sessions_timestamp` (`timestamp`)
 );
 
+-- Table structure for table `employees` 
+
+CREATE TABLE `employees` (
+  `name_id` int(20) NOT NULL,
+  `group_id` int(20) DEFAULT NULL,
+  `lastname` varchar(100) NOT NULL,
+  `firstname` varchar(100) NOT NULL,
+  `middlename` varchar(100) NOT NULL,
+  KEY `name_id` (`name_id`),
+  KEY `group_id` (`group_id`)
+);
+
+-- Table structure for table `employees_groups` 
+
+CREATE TABLE `employees_groups` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `active` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+);
+
 -- Table structure for table `names_list` 
 
 CREATE TABLE `names_list` (
@@ -17,6 +38,26 @@ CREATE TABLE `names_list` (
   `contact_number` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `full_name` (`full_name`)
+);
+
+-- Table structure for table `payroll` 
+
+CREATE TABLE `payroll` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `template_id` int(20) NOT NULL,
+  `active` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `template_id` (`template_id`)
+);
+
+-- Table structure for table `payroll_templates` 
+
+CREATE TABLE `payroll_templates` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `active` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
 );
 
 -- Table structure for table `user_accounts` 

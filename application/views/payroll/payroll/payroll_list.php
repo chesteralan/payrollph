@@ -1,6 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <?php $this->load->view('header'); ?>
 
+<?php if( ! $inner_page ): ?>
+
 <?php $this->load->view('payroll/payroll_navbar'); ?>
 
 <div class="container">
@@ -11,14 +13,68 @@
 <?php if( hasAccess('payroll', 'payroll', 'add') ) { ?>
   <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Payroll" data-url="<?php echo site_url("payroll/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Add Payroll</button>
 <?php } ?>
-                  <h3 class="panel-title bold">Account Restricted</h3>
+                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
+                    <?php if(isset($template)) { ?>
+                      : <?php echo $template->name; ?>
+                    <?php } ?>
+                  </h3>
                 </div>
-                <div class="panel-body text-center">
-                Your account have not been granted any access to the system! <br/> Please contact system administrator!
+                <div class="panel-body" id="ajaxBodyInnerPage">
+
+<?php endif; ?>
+
+<?php if( $payrolls ) { ?>
+
+          <table class="table table-default">
+            <thead>
+              <tr>
+                <th>Payroll Description</th>
+                <?php if(!isset($template)) { ?>
+                <th>Template</th>
+                <?php } ?>
+                <?php if( hasAccess('payroll', 'payroll', 'edit') ) { ?>
+                  <th width="105px">Action</th>
+                <?php } ?>
+              </tr>
+            </thead>
+            <tbody>
+            <?php foreach($payrolls as $payroll) { ?>
+              <tr id="Payroll-<?php echo $payroll->id; ?>">
+                <td><?php echo $payroll->name; ?></td>
+                <?php if(!isset($template)) { ?>
+                <td>
+                <a class="body_wrapper" href="<?php echo site_url("payroll/template/{$payroll->template_id}"); ?>">
+                <?php echo $payroll->template_name; ?>
+                  </a>
+                </td>
+                <?php } ?>
+              <?php if( hasAccess('system', 'users', 'edit') ) { ?>
+                <td>
+                <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Payroll" data-url="<?php echo site_url("payroll/edit/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
+
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("payroll/delete/{$payroll->id}"); ?>" data-target="#Payroll-<?php echo $payroll->id; ?>">Delete</button>
+                </td>
+              <?php } ?>
+              </tr>
+            <?php } ?>
+
+            </tbody>
+          </table>
+
+          <?php echo ($pagination!='') ? '<center>' . $pagination . '</center>' : ''; ?>
+
+<?php } else { ?>
+
+  <div class="text-center">No Payroll Found!</div>
+
+<?php } ?>
+
+<?php if( ! $inner_page ): ?>
+
               </div>
               </div>
             </div>
     </div>
 </div>
-
+<?php endif; ?>
 <?php $this->load->view('footer'); ?>

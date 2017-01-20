@@ -4,7 +4,7 @@
 
 <?php $this->load->view('header'); ?>
 
-<?php $this->load->view('payroll/payroll_navbar'); ?>
+<?php $this->load->view('employees/employees_navbar'); ?>
 
 <div class="container">
 <div class="row">
@@ -12,7 +12,7 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Add Payroll</h3>
+          <h3 class="panel-title">Add Group</h3>
         </div>
         <form method="post">
         <div class="panel-body">
@@ -21,19 +21,22 @@
 
 <?php endif; ?>
 
-          <div class="form-group">
-            <label>Payroll Name</label>
-            <input name="name" type="text" class="form-control" value="<?php echo $this->input->post('name'); ?>">
-          </div>
+<?php if( $names ) { ?>
 
-          <div class="form-group">
-            <label>Template</label>
-            <select class="form-control" title="Select a Template" name="template_id">
-              <?php foreach($templates as $template) { ?>
-                <option value="<?php echo $template->id; ?>"><?php echo $template->name; ?></option>
-              <?php } ?>
-            </select>
-          </div>
+  <div class="list-group">
+    <?php foreach($names as $name) { ?>
+      <a href="<?php echo site_url("employees/add/{$name->id}/{$output}") . '?next=' . $this->input->get('next'); ?>" class="list-group-item ajax-modal-inner">
+      <strong class="pull-right"><?php echo $name->contact_number; ?></strong>
+      <?php echo $name->full_name; ?>
+      <p class="small"><?php echo $name->address; ?></p>
+      </a>
+    <?php } ?>
+  </div>
+
+   <?php echo ($pagination!='') ? '<center>' . $pagination . '</center>' : ''; ?>
+<?php } else { ?>
+  <p class="text-center">No Names Found!</p>
+<?php } ?>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
