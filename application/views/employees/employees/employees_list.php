@@ -16,6 +16,9 @@
                     <?php if( isset($group) ) { ?>
                       : <?php echo $group->name; ?>
                     <?php } ?>
+                    <?php if( isset($position) ) { ?>
+                      : <?php echo $position->name; ?>
+                    <?php } ?>
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
@@ -30,6 +33,9 @@
                 <th>Middle Name</th>
                 <?php if( !isset($group) ) { ?>
                   <th>Group</th>
+                <?php } ?>
+                <?php if( !isset($position) ) { ?>
+                  <th>Position</th>
                 <?php } ?>
                 <?php if( hasAccess('employees', 'employees_groups', 'edit') ) { ?>
                   <th width="125px">Action</th>
@@ -47,6 +53,13 @@
                 <td>
                 <a class="body_wrapper" href="<?php echo site_url("employees/group/{$employee->group_id}"); ?>">
                 <?php echo $employee->group_name; ?>
+                  </a>
+                </td>
+                <?php } ?>
+                  <?php if( !isset($position) ) { ?>
+                <td>
+                <a class="body_wrapper" href="<?php echo site_url("employees/position/{$employee->position_id}"); ?>">
+                <?php echo $employee->position_name; ?>
                   </a>
                 </td>
                 <?php } ?>

@@ -21,17 +21,27 @@
 <?php endif; ?>
           
 <div class="list-group">
-  <a data-target="#ajaxModal" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+  <a data-target="#ajaxModal" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit_personal/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Personal Information</h4>
     <p class="list-group-item-text">Employee's Personal Information</p>
   </a>
 
-  <a data-target="#ajaxModal" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+   <a data-target="#ajaxModal" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit_employment/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+    <h4 class="list-group-item-heading">Employment Information</h4>
+    <p class="list-group-item-text">Employee's Employment Records</p>
+  </a>
+
+ <a data-target="#ajaxModal" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit_personal/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+    <h4 class="list-group-item-heading">Address and Contact</h4>
+    <p class="list-group-item-text">Employee's Addresses and Contact Numbers</p>
+  </a>
+
+  <a data-target="#ajaxModal" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit_compensation/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Salaries and Wages</h4>
     <p class="list-group-item-text">Monthly Compensation</p>
   </a>
 
-  <a data-target="#ajaxModal" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+  <a data-target="#ajaxModal" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit_benefits/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Fringe Benefits</h4>
     <p class="list-group-item-text">SSS, Pag-ibig, and PhilHealth Benefits</p>
   </a>

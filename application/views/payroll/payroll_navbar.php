@@ -17,7 +17,7 @@
       <ul class="nav navbar-nav navbar-right">
 <?php 
 $url['payroll'] = array('uri' => 'payroll', 'title'=>'Payroll', 'access'=>hasAccess('payroll', 'payroll', 'view'));
-$url['payroll_templates'] = array('uri' => 'payroll_templates', 'title'=>'Templates', 'access'=>hasAccess('payroll', 'payroll_templates', 'view'));
+$url['payroll_templates'] = array('uri' => 'payroll_templates', 'title'=>'Templates', 'access'=>hasAccess('payroll', 'templates', 'view'));
 foreach($url as $k=>$v) {
   if( $v['access'] ) {
 ?>

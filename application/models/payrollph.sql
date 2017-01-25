@@ -16,8 +16,13 @@ CREATE TABLE `employees` (
   `lastname` varchar(100) NOT NULL,
   `firstname` varchar(100) NOT NULL,
   `middlename` varchar(100) NOT NULL,
+  `position_id` int(20) NOT NULL,
+  `hired` date DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL,
+  `notes` text,
   KEY `name_id` (`name_id`),
-  KEY `group_id` (`group_id`)
+  KEY `group_id` (`group_id`),
+  KEY `position_id` (`position_id`)
 );
 
 -- Table structure for table `employees_groups` 
@@ -25,6 +30,17 @@ CREATE TABLE `employees` (
 CREATE TABLE `employees_groups` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
+  `notes` text,
+  `active` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+);
+
+-- Table structure for table `employees_positions` 
+
+CREATE TABLE `employees_positions` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `notes` text,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 );

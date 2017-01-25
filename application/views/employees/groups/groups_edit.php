@@ -25,6 +25,11 @@
             <input name="group_name" type="text" class="form-control" value="<?php echo $group->name; ?>">
           </div>
 
+          <div class="form-group">
+            <label>Notes</label>
+            <textarea name="notes" class="form-control"><?php echo $group->notes; ?></textarea>
+          </div>
+
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
         </div>

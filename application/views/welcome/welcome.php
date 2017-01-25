@@ -22,7 +22,7 @@
 						    Payroll
 						  </a>
 						<?php } ?>
-						<?php if( in_array('payroll_templates', $this->session->menu_module['payroll'] ) ) { ?>
+						<?php if( in_array('templates', $this->session->menu_module['payroll'] ) ) { ?>
 						  <a href="<?php echo site_url('payroll_templates'); ?>" class="list-group-item body_wrapper">
 						    <span class="dashicons dashicons-format-aside" aria-hidden="true"></span>
 						    Templates
@@ -47,7 +47,7 @@
 						    Employees
 						  </a>
 						<?php } ?>
-                        <?php if( in_array('employees_groups', $this->session->menu_module['employees'] ) ) { ?>
+                        <?php if( in_array('groups', $this->session->menu_module['employees'] ) ) { ?>
                           <a href="<?php echo site_url('employees_groups'); ?>" class="list-group-item body_wrapper">
                             <span class="fa fa-users" aria-hidden="true"></span>
                             Groups

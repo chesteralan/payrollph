@@ -11,8 +11,13 @@ CREATE TABLE `employees` (
   `lastname` varchar(100) NOT NULL,
   `firstname` varchar(100) NOT NULL,
   `middlename` varchar(100) NOT NULL,
+  `position_id` int(20) NOT NULL,
+  `hired` date DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL,
+  `notes` text,
   KEY `name_id` (`name_id`),
-  KEY `group_id` (`group_id`)
+  KEY `group_id` (`group_id`),
+  KEY `position_id` (`position_id`)
 );
 
  * @package			        Model
@@ -31,6 +36,10 @@ class Employees_model extends MY_Model {
 	protected $lastname;
 	protected $firstname;
 	protected $middlename;
+	protected $position_id;
+	protected $hired;
+	protected $status;
+	protected $notes;
 
 	// --------------------------------------------------------------------
 
@@ -44,8 +53,8 @@ class Employees_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees';
 		$this->_short_name = 'employees';
-		$this->_fields = array("name_id","group_id","lastname","firstname","middlename");
-		$this->_required = array("name_id","lastname","firstname","middlename");
+		$this->_fields = array("name_id","group_id","lastname","firstname","middlename","position_id","hired","status","notes");
+		$this->_required = array("name_id","lastname","firstname","middlename","position_id");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -180,6 +189,110 @@ class Employees_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: middlename --------------------------------------
+
+
+// ---------------------------- Start Field: position_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `position_id` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setPositionId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('position_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `position_id` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getPositionId() {
+			return $this->position_id;
+		}
+	
+// ------------------------------ End Field: position_id --------------------------------------
+
+
+// ---------------------------- Start Field: hired -------------------------------------- 
+
+	/** 
+	* Sets a value to `hired` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setHired($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('hired', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `hired` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getHired() {
+			return $this->hired;
+		}
+	
+// ------------------------------ End Field: hired --------------------------------------
+
+
+// ---------------------------- Start Field: status -------------------------------------- 
+
+	/** 
+	* Sets a value to `status` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setStatus($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('status', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `status` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getStatus() {
+			return $this->status;
+		}
+	
+// ------------------------------ End Field: status --------------------------------------
+
+
+// ---------------------------- Start Field: notes -------------------------------------- 
+
+	/** 
+	* Sets a value to `notes` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `notes` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getNotes() {
+			return $this->notes;
+		}
+	
+// ------------------------------ End Field: notes --------------------------------------
 
 
 

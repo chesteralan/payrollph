@@ -9,7 +9,7 @@ class Employees_groups extends MY_Controller {
 		$this->template_data->set('current_uri', 'employees_groups');
 		$this->template_data->set('navbar_search', true);
 
-		$this->_isAuth('employees', 'employees_groups', 'view');
+		$this->_isAuth('employees', 'groups', 'view');
 
 		$this->load->model('Employees_groups_model');
 
@@ -35,13 +35,15 @@ class Employees_groups extends MY_Controller {
 
 	public function add($output='') {
 
-		$this->_isAuth('employees', 'employees_groups', 'add');
+		$this->_isAuth('employees', 'groups', 'add');
 
 		if( $this->input->post() ) {
 			$this->form_validation->set_rules('group_name', 'Group Name', 'trim|required');
+			$this->form_validation->set_rules('notes', 'Notes', 'trim');
 			if( $this->form_validation->run() ) {
 				$groups = new $this->Employees_groups_model;
 				$groups->setName($this->input->post('group_name'));
+				$groups->setNotes($this->input->post('notes'));
 				if( $groups->insert() ) {
 					redirect("employees_groups");
 				}
@@ -54,7 +56,7 @@ class Employees_groups extends MY_Controller {
 
 	public function edit($id,$output='') {
 
-		$this->_isAuth('employees', 'employees_groups', 'edit');
+		$this->_isAuth('employees', 'groups', 'edit');
 
 		$groups = new $this->Employees_groups_model;
 		$groups->setId($id,true);
@@ -62,9 +64,10 @@ class Employees_groups extends MY_Controller {
 		if( $groups->nonEmpty() ) {
 			if( $this->input->post() ) {
 				$this->form_validation->set_rules('group_name', 'Group Name', 'trim|required');
+				$this->form_validation->set_rules('notes', 'Notes', 'trim');
 				if( $this->form_validation->run() ) {
 					$groups->setName($this->input->post('group_name'));
-					$groups->update();
+					$groups->setNotes($this->input->post('notes'));
 					$groups->update();
 				}
 				$this->postNext();
@@ -81,7 +84,7 @@ class Employees_groups extends MY_Controller {
 
 	public function delete($id) {
 		
-		$this->_isAuth('employees', 'employees_groups', 'delete');
+		$this->_isAuth('employees', 'groups', 'delete');
 
 		$groups = new $this->Employees_groups_model;
 		$groups->setId($id,true);

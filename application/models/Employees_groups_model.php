@@ -8,6 +8,7 @@
 CREATE TABLE `employees_groups` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
+  `notes` text,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 );
@@ -25,6 +26,7 @@ class Employees_groups_model extends MY_Model {
 
 	protected $id;
 	protected $name;
+	protected $notes;
 	protected $active;
 
 	// --------------------------------------------------------------------
@@ -39,7 +41,7 @@ class Employees_groups_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees_groups';
 		$this->_short_name = 'employees_groups';
-		$this->_fields = array("id","name","active");
+		$this->_fields = array("id","name","notes","active");
 		$this->_required = array("name","active");
 		parent::__construct($short_name, $db_config);
 	}
@@ -97,6 +99,32 @@ class Employees_groups_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: name --------------------------------------
+
+
+// ---------------------------- Start Field: notes -------------------------------------- 
+
+	/** 
+	* Sets a value to `notes` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `notes` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getNotes() {
+			return $this->notes;
+		}
+	
+// ------------------------------ End Field: notes --------------------------------------
 
 
 // ---------------------------- Start Field: active -------------------------------------- 

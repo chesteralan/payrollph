@@ -475,7 +475,10 @@ var ajaxModalUrl = null;
 var setupAjaxModal = function(){
     $('.ajax-modal').click(function(){
     $('#ajaxModal .modal-title').text( $(this).attr('data-title') );
-    $('#ajaxModal .modal-footer button[type="submit"]').text( $(this).attr('data-title') );
+    var button_title = $(this).attr('data-button_title');
+    if( button_title !== undefined ) {
+      $('#ajaxModal .modal-footer button[type="submit"]').text( button_title );
+    }
     ajaxModalUrl = $(this).attr('data-url');
     var hide_footer = $(this).attr('data-hide_footer');
      if( hide_footer ) {

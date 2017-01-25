@@ -34,7 +34,7 @@ $main_menu = array(
           'payroll_templates' => array(
             'title' => 'Templates',
             'uri' => 'payroll_templates',
-            'permission' => 'payroll_templates',
+            'permission' => 'templates',
           ),
         )
     ),
@@ -52,7 +52,12 @@ $main_menu = array(
           'employees_groups' => array(
             'title' => 'Groups',
             'uri' => 'employees_groups',
-            'permission' => 'employees_groups',
+            'permission' => 'groups',
+          ),
+          'employees_positions' => array(
+            'title' => 'Positions',
+            'uri' => 'employees_positions',
+            'permission' => 'positions',
           ),
         )
     ),

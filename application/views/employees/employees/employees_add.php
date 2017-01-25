@@ -47,6 +47,14 @@
             </select>
           </div>
 
+          <div class="form-group">
+            <label>Position</label>
+            <select class="form-control" title="Select a Position" name="position_id">
+              <?php foreach($positions as $position) { ?>
+                <option value="<?php echo $position->id; ?>"><?php echo $position->name; ?></option>
+              <?php } ?>
+            </select>
+          </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>

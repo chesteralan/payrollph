@@ -9,7 +9,7 @@ class Payroll_templates extends MY_Controller {
 		$this->template_data->set('current_uri', 'payroll_templates');
 		$this->template_data->set('navbar_search', true);
 
-		$this->_isAuth('payroll', 'payroll_templates', 'view');
+		$this->_isAuth('payroll', 'templates', 'view');
 
 		$this->load->model('Payroll_templates_model');
 
@@ -34,7 +34,7 @@ class Payroll_templates extends MY_Controller {
 
 	public function add($output='') {
 
-		$this->_isAuth('payroll', 'payroll_templates', 'add');
+		$this->_isAuth('payroll', 'templates', 'add');
 
 
 			if( $this->input->post() ) {
@@ -54,7 +54,7 @@ class Payroll_templates extends MY_Controller {
 	}
 
 	public function edit($id,$output='') {
-		$this->_isAuth('payroll', 'payroll_templates', 'edit');
+		$this->_isAuth('payroll', 'templates', 'edit');
 
 		$template = new $this->Payroll_templates_model;
 		$template->setId($id,true);
@@ -76,7 +76,7 @@ class Payroll_templates extends MY_Controller {
 	}
 
 	public function delete($id) {
-		$this->_isAuth('payroll', 'payroll_templates', 'delete');
+		$this->_isAuth('payroll', 'templates', 'delete');
 
 		$template = new $this->Payroll_templates_model;
 		$template->setId($id,true);

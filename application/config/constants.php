@@ -91,7 +91,7 @@ $dept = array(
 		'title' => 'Payroll',
 		'sections' => array(
 				'payroll' => 'Payroll',
-				'payroll_templates' => 'Payroll Templates',
+				'templates' => 'Payroll Templates',
 			),
 	), 
 
@@ -99,7 +99,8 @@ $dept = array(
 		'title' => 'Employees',
 		'sections' => array(
 				'employees' => 'Employees',
-				'employees_groups' => 'Employees Groups',
+				'groups' => 'Employee Groups',
+				'positions' => 'Employee Positions',
 			),
 	), 
 

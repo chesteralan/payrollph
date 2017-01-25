@@ -14,6 +14,7 @@ class Employees extends MY_Controller {
 		$this->load->model('Names_list_model');
 		$this->load->model('Employees_model');
 		$this->load->model('Employees_groups_model');
+		$this->load->model('Employees_positions_model');
 	}
 
 	public function index($start=0) {
@@ -21,6 +22,7 @@ class Employees extends MY_Controller {
 		$employees = new $this->Employees_model;
 		$employees->set_select('*');
 		$employees->set_select('(SELECT name FROM employees_groups WHERE id=employees.group_id) as group_name');
+		$employees->set_select('(SELECT name FROM employees_positions WHERE id=employees.position_id) as position_name');
 		$this->template_data->set('employees', $employees->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
@@ -44,6 +46,31 @@ class Employees extends MY_Controller {
 		$employees->setGroupId($id,true);
 		$employees->set_select('*');
 		$employees->set_select('(SELECT name FROM employees_groups WHERE id=employees.group_id) as group_name');
+		$employees->set_select('(SELECT name FROM employees_positions WHERE id=employees.position_id) as position_name');
+		$this->template_data->set('employees', $employees->populate());
+
+		$this->template_data->set('pagination', bootstrap_pagination(array(
+			'uri_segment' => 4,
+			'base_url' => base_url("employees/group/{$id}"),
+			'total_rows' => $employees->count_all_results(),
+			'per_page' => $employees->get_limit(),
+			'ajax'=>true
+		)));
+
+		$this->load->view('employees/employees/employees_list', $this->template_data->get_data());
+	}
+
+	public function position($id, $start=0) {
+
+		$position = new $this->Employees_positions_model;
+		$position->setId($id,true);
+		$this->template_data->set('position', $position->get());
+
+		$employees = new $this->Employees_model;
+		$employees->setPositionId($id,true);
+		$employees->set_select('*');
+		$employees->set_select('(SELECT name FROM employees_groups WHERE id=employees.group_id) as group_name');
+		$employees->set_select('(SELECT name FROM employees_positions WHERE id=employees.position_id) as position_name');
 		$this->template_data->set('employees', $employees->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
@@ -78,6 +105,7 @@ class Employees extends MY_Controller {
 					$employee->setFirstname($this->input->post('firstname'));
 					$employee->setMiddlename($this->input->post('middlename'));
 					$employee->setGroupId($this->input->post('group_id'));
+					$employee->setPositionId($this->input->post('position_id'));
 					$employee->insert();
 				}
 				$this->postNext();
@@ -85,7 +113,12 @@ class Employees extends MY_Controller {
 		}
 
 		$groups = new $this->Employees_groups_model;
+		$groups->set_limit(0);
 		$this->template_data->set('groups', $groups->populate());
+
+		$positions = new $this->Employees_positions_model;
+		$positions->set_limit(0);
+		$this->template_data->set('positions', $positions->populate());
 
 		$this->load->view('employees/employees/employees_add', $this->template_data->get_data());
 
@@ -117,7 +150,7 @@ class Employees extends MY_Controller {
 		
 	}
 
-	public function edit($id,$output='') {
+	public function edit_personal($id,$output='') {
 		$this->_isAuth('employees', 'employees', 'edit');
 
 		$employee = new $this->Employees_model;
@@ -132,7 +165,37 @@ class Employees extends MY_Controller {
 					$employee->setLastname($this->input->post('lastname'),false,true);
 					$employee->setFirstname($this->input->post('firstname'),false,true);
 					$employee->setMiddlename($this->input->post('middlename'),false,true);
+					$employee->update();
+				}
+				$this->postNext();
+			}
+		}
+
+		$this->template_data->set('employee', $employee->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('employees/employees/employees_edit_personal', $this->template_data->get_data());
+	}
+
+	public function edit_employment($id,$output='') {
+		$this->_isAuth('employees', 'employees', 'edit');
+
+		$employee = new $this->Employees_model;
+		$employee->setNameId($id,true,false);
+
+		if( $employee->nonEmpty() ) {
+			if( $this->input->post() ) {
+				$this->form_validation->set_rules('group_id', 'Group', 'trim');
+				$this->form_validation->set_rules('position_id', 'Position', 'trim');
+				$this->form_validation->set_rules('date_hired', 'Hired', 'trim');
+				$this->form_validation->set_rules('status', 'Status', 'trim');
+				$this->form_validation->set_rules('notes', 'Notes', 'trim');
+				if( $this->form_validation->run() ) {
 					$employee->setGroupId($this->input->post('group_id'),false,true);
+					$employee->setPositionId($this->input->post('position_id'),false,true);
+					$employee->setHired( date('Y-m-d', strtotime($this->input->post('date_hired'))),false,true);
+					$employee->setStatus($this->input->post('status'),false,true);
+					$employee->setNotes($this->input->post('notes'),false,true);
 					$employee->update();
 				}
 				$this->postNext();
@@ -142,10 +205,15 @@ class Employees extends MY_Controller {
 		$this->template_data->set('employee', $employee->get());
 
 		$groups = new $this->Employees_groups_model;
+		$groups->set_limit(0);
 		$this->template_data->set('groups', $groups->populate());
 
+		$positions = new $this->Employees_positions_model;
+		$positions->set_limit(0);
+		$this->template_data->set('positions', $positions->populate());
+
 		$this->template_data->set('output', $output);
-		$this->load->view('employees/employees/employees_edit', $this->template_data->get_data());
+		$this->load->view('employees/employees/employees_edit_employment', $this->template_data->get_data());
 	}
 
 	public function delete($id) {

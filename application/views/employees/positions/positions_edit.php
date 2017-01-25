@@ -12,7 +12,7 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Add Group</h3>
+          <h3 class="panel-title">Edit Position</h3>
         </div>
         <form method="post">
         <div class="panel-body">
@@ -20,29 +20,14 @@
 <?php echo (validation_errors()) ? '<div class="alert alert-danger">' . validation_errors() . '</div>' : ''; ?>
 
 <?php endif; ?>
-
           <div class="form-group">
-            <label>Last Name</label>
-            <input name="lastname" type="text" class="form-control" value="<?php echo $employee->lastname; ?>">
+            <label>Position Name</label>
+            <input name="position_name" type="text" class="form-control" value="<?php echo $position->name; ?>">
           </div>
 
           <div class="form-group">
-            <label>First Name</label>
-            <input name="firstname" type="text" class="form-control" value="<?php echo $employee->firstname; ?>">
-          </div>
-
-          <div class="form-group">
-            <label>Middle Name</label>
-            <input name="middlename" type="text" class="form-control" value="<?php echo $employee->middlename; ?>">
-          </div>
-
-          <div class="form-group">
-            <label>Group</label>
-            <select class="form-control" title="Select a Group" name="group_id">
-              <?php foreach($groups as $group) { ?>
-                <option value="<?php echo $group->id; ?>" <?php echo ($employee->group_id==$group->id) ? "SELECTED" : ""; ?>><?php echo $group->name; ?></option>
-              <?php } ?>
-            </select>
+            <label>Notes</label>
+            <textarea name="notes" class="form-control" rows="10"><?php echo $position->notes; ?></textarea>
           </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
