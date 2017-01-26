@@ -1,15 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class System_names extends MY_Controller {
+class Lists_names extends MY_Controller {
 	
 	public function __construct() {
 		parent::__construct();
-		$this->template_data->set('current_page', 'Names List');
-		$this->template_data->set('current_uri', 'system_names');
+		$this->template_data->set('current_page', 'Names');
+		$this->template_data->set('current_uri', 'lists_names');
 		$this->template_data->set('navbar_search', true);
 
-		$this->_isAuth('system', 'names', 'view');
+		$this->_isAuth('lists', 'names', 'view');
 
 		$this->load->model('Names_list_model');
 
@@ -17,7 +17,7 @@ class System_names extends MY_Controller {
 
 	private function _searchRedirect() {
 		if( $this->input->get('q') ) {
-			redirect(site_url("system_names?q=" . $this->input->get('q') ));
+			redirect(site_url("lists_names?q=" . $this->input->get('q') ));
 		}
 	}
 
@@ -42,18 +42,18 @@ class System_names extends MY_Controller {
 		$this->template_data->set('names', $names->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
-			'base_url' => base_url('system_names/index/'),
+			'base_url' => base_url('lists_names/index/'),
 			'total_rows' => $names->count_all_results(),
 			'per_page' => $names->get_limit(),
 			'ajax'=>true,
 		)));
 
-		$this->load->view('system/names/names_list', $this->template_data->get_data());
+		$this->load->view('lists/names/names_list', $this->template_data->get_data());
 	}
 
 	public function add($output='') {
 
-		$this->_isAuth('system', 'names', 'add');
+		$this->_isAuth('lists', 'names', 'add');
 
 		$this->template_data->set('output', $output);
 		$name_id = false;
@@ -85,16 +85,16 @@ class System_names extends MY_Controller {
                     redirect( $url );
             } else {
             	if( $name_id ) {
-            		redirect( "system_names/edit/" . $name_id );
+            		redirect( "lists_names/edit/" . $name_id );
             	}
             }
 		}
-		$this->load->view('system/names/names_list_add', $this->template_data->get_data());
+		$this->load->view('lists/names/names_add', $this->template_data->get_data());
 	}
 
 	public function edit($id,$output='') {
 
-		$this->_isAuth('system', 'names', 'edit');
+		$this->_isAuth('lists', 'names', 'edit');
 
 		$this->template_data->set('output', $output);
 
@@ -121,18 +121,18 @@ class System_names extends MY_Controller {
 
 		$this->template_data->set('name', $name->get());
 		
-		$this->load->view('system/names/names_list_edit', $this->template_data->get_data());
+		$this->load->view('lists/names/names_edit', $this->template_data->get_data());
 	}
 
 	public function delete($id) {
 		
-		$this->_isAuth('system', 'names', 'delete');
+		$this->_isAuth('lists', 'names', 'delete');
 
 		$name = new $this->Names_list_model;
 		$name->setId($id, true);
 		$name->delete();
 
-		redirect( "system_names" );
+		redirect( "lists_names" );
 	}
 
 }

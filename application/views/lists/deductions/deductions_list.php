@@ -1,0 +1,63 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php $this->load->view('header'); ?>
+<?php if( ! $inner_page ): ?>
+  
+<?php $this->load->view('lists/lists_navbar'); ?>
+
+<div class="container">
+    <div class="row">
+            <div class="col-md-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+<?php if( hasAccess('lists', 'deductions', 'add') ) { ?>
+  <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Deduction" data-url="<?php echo site_url("lists_deductions/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Add Deduction</button>
+<?php } ?>
+                  <h3 class="panel-title bold"><?php echo $current_page; ?></h3>
+                </div>
+                <div class="panel-body" id="ajaxBodyInnerPage">
+<?php endif; ?>
+<?php if( $deductions ) { ?>
+
+          <table class="table table-default">
+            <thead>
+              <tr>
+                <th>Deduction Name</th>
+                <?php if( hasAccess('lists', 'deductions', 'edit') ) { ?>
+                  <th width="105px">Action</th>
+                <?php } ?>
+              </tr>
+            </thead>
+            <tbody>
+
+            <?php foreach($deductions as $deduction) { ?>
+              <tr id="employee-group-<?php echo $deduction->id; ?>">
+                <td><?php echo $deduction->name; ?></td>
+              <?php if( hasAccess('lists', 'deductions', 'edit') ) { ?>
+                <td>
+                <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Deduction" data-url="<?php echo site_url("lists_deductions/edit/{$deduction->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
+
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("lists_deductions/delete/{$deduction->id}"); ?>" data-target="#employee-group-<?php echo $deduction->id; ?>">Delete</button>
+                </td>
+              <?php } ?>
+              </tr>
+            <?php } ?>
+
+            </tbody>
+          </table>
+
+          <?php echo ($pagination!='') ? '<center>' . $pagination . '</center>' : ''; ?>
+
+<?php } else { ?>
+
+  <div class="text-center">No Deduction Found!</div>
+
+<?php } ?>
+<?php if( ! $inner_page ): ?>
+
+              </div>
+              </div>
+            </div>
+    </div>
+</div>
+<?php endif; ?>
+<?php $this->load->view('footer'); ?>

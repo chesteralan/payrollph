@@ -12,7 +12,7 @@
     <meta name="author" content="">
 
     <title><?php echo (isset($page_title)) ? $page_title : 'COOP'; ?></title>
-    <link href="<?php echo base_url('assets/themes/yeti/bootstrap.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/themes/' . ((isset($bootstrap_theme)) ? $bootstrap_theme : 'default' ) . '/bootstrap.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/js/jqueryui/jquery-ui.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/icons/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/icons/material-icons/material-icons.css'); ?>" rel="stylesheet">

@@ -36,14 +36,24 @@
     <p class="list-group-item-text">Employee's Addresses and Contact Numbers</p>
   </a>
 
-  <a data-target="#ajaxModal" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit_compensation/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
-    <h4 class="list-group-item-heading">Salaries and Wages</h4>
-    <p class="list-group-item-text">Monthly Compensation</p>
+  <a class="list-group-item" href="<?php echo site_url("employees_salaries/index/{$employee->name_id}") . "?next=" . $this->input->get('next'); ?>">
+    <h4 class="list-group-item-heading">Salaries</h4>
+    <p class="list-group-item-text">Employee's Monthly Compensation</p>
   </a>
 
-  <a data-target="#ajaxModal" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit_benefits/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+  <a class="list-group-item" href="<?php echo site_url("employees_benefits/index/{$employee->name_id}") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Fringe Benefits</h4>
     <p class="list-group-item-text">SSS, Pag-ibig, and PhilHealth Benefits</p>
+  </a>
+
+  <a class="list-group-item" href="<?php echo site_url("employees_earnings/index/{$employee->name_id}") . "?next=" . $this->input->get('next'); ?>">
+    <h4 class="list-group-item-heading">Earnings</h4>
+    <p class="list-group-item-text">Other compensation the employee receives</p>
+  </a>
+
+   <a class="list-group-item" href="<?php echo site_url("employees_deductions/index/{$employee->name_id}") . "?next=" . $this->input->get('next'); ?>">
+    <h4 class="list-group-item-heading">Deductions</h4>
+    <p class="list-group-item-text">Salary Loans, Cash Advances, and other deductions</p>
   </a>
 
 </div>

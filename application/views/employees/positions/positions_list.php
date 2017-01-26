@@ -33,7 +33,7 @@
               <tr id="employee-group-<?php echo $position->id; ?>">
                 <td><?php echo $position->name; ?></td>
                 <td><a href="<?php echo site_url("employees/position/{$position->id}"); ?>" class="body_wrapper"><?php echo $position->employees_count; ?></a></td>
-              <?php if( hasAccess('system', 'users', 'edit') ) { ?>
+              <?php if( hasAccess('employees', 'positions', 'edit') ) { ?>
                 <td>
                 <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Group" data-url="<?php echo site_url("employees_positions/edit/{$position->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 

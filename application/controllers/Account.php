@@ -6,6 +6,20 @@ class Account extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->template_data->set('page_title', 'PayrollPH');
+
+		$this->template_data->set('inner_page', false);
+        if( $this->input->post('output') == 'inner_page') {
+            $this->template_data->set('inner_page', true);
+        }
+
+        $this->template_data->set('body_wrapper', false);
+        if( $this->input->post('output') == 'body_wrapper') {
+            $this->template_data->set('body_wrapper', true);
+        }
+
+        // default,cerulean,cosmo,cyborg,darkly,flatly,journal,lumen,paper,readable,sandstone,simplex,slate,spacelab,superhero,united,yeti
+        $bootstrap_theme = ( isset($this->session->user_settings['theme']) && $this->session->user_settings['theme'] ) ? $this->session->user_settings['theme'] : 'yeti';
+        $this->template_data->set('bootstrap_theme', $bootstrap_theme);
 	}
 
 	public function index()
@@ -86,6 +100,18 @@ class Account extends CI_Controller {
 					$this->session->set_userdata( 'session_auth', $session_auth );
 					$this->session->set_userdata( 'menu_module', $menu_module );
 
+					$this->load->model('User_accounts_options_model');
+					$options = new $this->User_accounts_options_model;
+					$options->setUid($results->id, true);
+					$options->setDepartment('my',true,false);
+					$options->setSection('settings',true,false);
+
+					$user_settings = array();
+					foreach( $options->populate() as $setting ) {
+						$user_settings[$setting->key] = $setting->value;
+					}
+					$this->session->set_userdata( 'user_settings', $user_settings );
+
 					if( $output == 'ajax') {
 
 						$login_output = array(
@@ -153,4 +179,48 @@ class Account extends CI_Controller {
 		$this->session->sess_destroy();
 		redirect( site_url("account/login") . "?next=" . $this->input->get('next') );
 	}
+
+	public function settings($output='')
+	{
+
+		$this->_isNotLoggedIn();
+
+		$this->template_data->set('page_title', 'Account Settings');
+
+		$this->load->model('User_accounts_options_model');
+
+		if( $this->input->post('setting') ) {
+			
+			foreach($this->input->post('setting') as $key=>$value) {
+				$option = new $this->User_accounts_options_model;
+				$option->setUid($this->session->user_id,true,false);
+				$option->setKey($key,true,false);
+				$option->setDepartment('my',true,false);
+				$option->setSection('settings',true,false);
+				$option->setValue($value);
+				if( $option->nonEmpty() ) {
+					$option->update();
+				} else {
+					$option->insert();
+				}
+
+				if( $key == 'theme') {
+					$user_settings = $this->session->user_settings;
+					$user_settings['theme'] = $value;
+					$this->session->set_userdata( 'user_settings', $user_settings );
+				}
+			}
+			$this->postNext(NULL, $output);
+		}
+
+		$options = new $this->User_accounts_options_model;
+		$options->setUid($this->session->user_id,true,false);
+		$options->setDepartment('my',true,false);
+		$options->setSection('settings',true,false);
+		$this->template_data->set( 'settings', $options->populate() );
+
+		$this->template_data->set( 'output', $output );
+		$this->load->view('account/settings', $this->template_data->get_data());
+	}
+
 }

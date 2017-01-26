@@ -10,7 +10,7 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
-<?php if( hasAccess('payroll', 'payroll_templates', 'add') ) { ?>
+<?php if( hasAccess('payroll', 'templates', 'add') ) { ?>
   <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Template" data-url="<?php echo site_url("payroll_templates/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Add Template</button>
 <?php } ?>
                   <h3 class="panel-title bold"><?php echo $current_page; ?></h3>
@@ -25,7 +25,7 @@
             <thead>
               <tr>
                 <th>Template Name</th>
-                <?php if( hasAccess('payroll', 'payroll_templates', 'edit') ) { ?>
+                <?php if( hasAccess('payroll', 'templates', 'edit') ) { ?>
                   <th width="105px">Action</th>
                 <?php } ?>
               </tr>
@@ -34,7 +34,7 @@
             <?php foreach($templates as $template) { ?>
               <tr id="template-<?php echo $template->id; ?>">
                 <td><?php echo $template->name; ?></td>
-              <?php if( hasAccess('system', 'users', 'edit') ) { ?>
+              <?php if( hasAccess('payroll', 'templates', 'edit') ) { ?>
                 <td>
                 <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Template" data-url="<?php echo site_url("payroll_templates/edit/{$template->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 

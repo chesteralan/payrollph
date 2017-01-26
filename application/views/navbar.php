@@ -62,16 +62,39 @@ $main_menu = array(
         )
     ),
 
+  'lists' => array(
+      'title' => 'Lists',
+      'uri' => 'lists',
+      'permission' => 'lists',
+      'sub_menus' => array(
+          'lists_names' => array(
+            'title' => 'Names',
+            'uri' => 'lists_names',
+            'permission' => 'names',
+          ),
+          'lists_benefits' => array(
+            'title' => 'Benefits',
+            'uri' => 'lists_benefits',
+            'permission' => 'benefits',
+          ),
+          'lists_earnings' => array(
+            'title' => 'Earnings',
+            'uri' => 'lists_earnings',
+            'permission' => 'earnings',
+          ),
+          'lists_deductions' => array(
+            'title' => 'Deductions',
+            'uri' => 'lists_deductions',
+            'permission' => 'deductions',
+          ),
+        )
+    ),
+
   'system' => array(
       'title' => 'System',
       'uri' => 'system',
       'permission' => 'system',
       'sub_menus' => array(
-          'system_names' => array(
-            'title' => 'Names List',
-            'uri' => 'system_names',
-            'permission' => 'names',
-          ),
           'system_users' => array(
             'title' => 'User Accounts',
             'uri' => 'system_users',
@@ -143,6 +166,7 @@ foreach($main_menu as $main=>$menu):
           <span class="glyphicon glyphicon-user hidden-xs"></span></a>
           <ul class="dropdown-menu">
             <span class="dropdown-header"><?php echo $this->session->name; ?></span>
+            <li><a href="javascript:void(0);" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Account Settings" data-url="<?php echo site_url("account/settings/ajax") . "?next=" . uri_string(); ?>">Account Settings</a></li>
             <li><a class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Password" data-url="<?php echo site_url("account/change_password/ajax") . "?next=" . uri_string(); ?>">Change Password</a></li>
             <li><a href="<?php echo site_url('account/logout') . "?next=" . urlencode( uri_string() ); ?>">Logout</a></li>
           </ul>

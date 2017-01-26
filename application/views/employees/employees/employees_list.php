@@ -37,7 +37,7 @@
                 <?php if( !isset($position) ) { ?>
                   <th>Position</th>
                 <?php } ?>
-                <?php if( hasAccess('employees', 'employees_groups', 'edit') ) { ?>
+                <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                   <th width="125px">Action</th>
                 <?php } ?>
               </tr>
@@ -63,12 +63,12 @@
                   </a>
                 </td>
                 <?php } ?>
-              <?php if( hasAccess('system', 'users', 'edit') ) { ?>
+              <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
 
                 <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Employee" data-url="<?php echo site_url("employees/config/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">Config</button>
 
-                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees/delete/{$employee->name_id}"); ?>" data-target="#employee-<?php echo $employee->name_id; ?>">Delete</button>
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees/delete/{$employee->name_id}"); ?>" data-target="#employee-<?php echo $employee->name_id; ?>">Delete</a>
                 </td>
               <?php } ?>
               </tr>

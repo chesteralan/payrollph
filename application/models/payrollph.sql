@@ -8,6 +8,36 @@ CREATE TABLE `account_sessions` (
   KEY `account_sessions_timestamp` (`timestamp`)
 );
 
+-- Table structure for table `benefits_list` 
+
+CREATE TABLE `benefits_list` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `notes` text,
+  `active` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+);
+
+-- Table structure for table `deductions_list` 
+
+CREATE TABLE `deductions_list` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `notes` text,
+  `active` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+);
+
+-- Table structure for table `earnings_list` 
+
+CREATE TABLE `earnings_list` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `notes` text,
+  `active` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+);
+
 -- Table structure for table `employees` 
 
 CREATE TABLE `employees` (
@@ -86,6 +116,17 @@ CREATE TABLE `user_accounts` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `id` (`id`)
+);
+
+-- Table structure for table `user_accounts_options` 
+
+CREATE TABLE `user_accounts_options` (
+  `uid` int(20) NOT NULL,
+  `department` varchar(200) NOT NULL,
+  `section` varchar(200) NOT NULL,
+  `key` varchar(200) NOT NULL,
+  `value` text NOT NULL,
+  KEY `uid` (`uid`)
 );
 
 -- Table structure for table `user_accounts_restrictions` 

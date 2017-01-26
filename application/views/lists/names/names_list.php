@@ -1,15 +1,15 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <?php $this->load->view('header'); ?>
 <?php if( ! $inner_page ): ?>
-<?php $this->load->view('system/system_navbar'); ?>
+<?php $this->load->view('lists/lists_navbar'); ?>
 
 <div class="container">
 <div class="row">
 	<div class="col-md-12">
 	    <div class="panel panel-default">
 	    	<div class="panel-heading">
-<?php if( hasAccess('system', 'names', 'add') ) { ?>
- <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Name" data-url="<?php echo site_url("system_names/add/ajax") . "?next=" . uri_string(); ?>">Add Name</button>
+<?php if( hasAccess('lists', 'names', 'add') ) { ?>
+ <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Name" data-url="<?php echo site_url("lists_names/add/ajax") . "?next=" . uri_string(); ?>">Add Name</button>
 <?php } ?>
 	    		<h3 class="panel-title">Names List</h3>
 	    	</div>
@@ -22,7 +22,7 @@
 	    					<th>Full Name</th>
 	    					<th>Address</th>
 	    					<th>Contact Number</th>
-	    					<?php if( hasAccess('system', 'names', 'edit') ) { ?>
+	    					<?php if( hasAccess('lists', 'names', 'edit') ) { ?>
 	    					<th width="50px">Action</th>
 	    					<?php } ?>
 	    				</tr>
@@ -33,10 +33,10 @@
 	    					<td><?php echo $name->full_name; ?></td>
 	    					<td><?php echo $name->address; ?></td>
 	    					<td><?php echo $name->contact_number; ?></td>
-	    					<?php if( hasAccess('system', 'names', 'edit') ) { ?>
+	    					<?php if( hasAccess('lists', 'names', 'edit') ) { ?>
 	    					<td>
 
-	    					<button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Name" data-url="<?php echo site_url("system_names/edit/{$name->id}/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Edit</button>
+	    					<button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Name" data-url="<?php echo site_url("lists_names/edit/{$name->id}/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Edit</button>
 	    					
 	    					</td>
 	    					<?php } ?>
@@ -53,7 +53,7 @@ if($name->members > 0) {
 	$uri = "membership_companies/info/{$name->id}";
 }
   	?>
-      <a href="#<?php echo site_url("system_names/edit/{$name->id}"); ?>" class="list-group-item ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Name" data-url="<?php echo site_url("system_names/edit/{$name->id}/ajax") . "?next=" . uri_string(); ?>">
+      <a href="#<?php echo site_url("lists_names/edit/{$name->id}"); ?>" class="list-group-item ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Name" data-url="<?php echo site_url("lists_names/edit/{$name->id}/ajax") . "?next=" . uri_string(); ?>">
         <h4 class="list-group-item-heading"><?php echo $name->full_name; ?></h4>
       </a>
     <?php } ?>

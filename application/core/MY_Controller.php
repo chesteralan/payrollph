@@ -26,6 +26,10 @@ class MY_Controller extends CI_Controller {
                     $this->template_data->set('body_wrapper', true);
                 }
 
+                // default,cerulean,cosmo,cyborg,darkly,flatly,journal,lumen,paper,readable,sandstone,simplex,slate,spacelab,superhero,united,yeti
+                $bootstrap_theme = ( isset($this->session->user_settings['theme']) && $this->session->user_settings['theme'] ) ? $this->session->user_settings['theme'] : 'yeti';
+                $this->template_data->set('bootstrap_theme', $bootstrap_theme);
+
         }
 
         public function _isAuth($dept, $sect=NULL, $action='view', $uri=false, $return=false) {

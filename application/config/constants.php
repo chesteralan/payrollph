@@ -104,10 +104,19 @@ $dept = array(
 			),
 	), 
 
+	'lists' =>  (object) array(
+		'title' => 'Lists',
+		'sections' => array(
+				'names' => 'Name List',
+				'benefits' => 'Benefits List',
+				'earnings' => 'Earnings List',
+				'deductions' => 'Deductions List'
+			),
+	),
+
 	'system' =>  (object) array(
 		'title' => 'System',
 		'sections' => array(
-				'names' => 'Name List',
 				'users' => 'User Accounts',
 				'backup' => 'Database Backup',
 			),

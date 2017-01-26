@@ -8,7 +8,7 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
-<?php if( hasAccess('employees', 'employees_groups', 'add') ) { ?>
+<?php if( hasAccess('employees', 'groups', 'add') ) { ?>
   <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Group" data-url="<?php echo site_url("employees_groups/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Add Group</button>
 <?php } ?>
                   <h3 class="panel-title bold"><?php echo $current_page; ?></h3>
@@ -22,7 +22,7 @@
               <tr>
                 <th>Group Name</th>
                 <th>Employees</th>
-                <?php if( hasAccess('employees', 'employees_groups', 'edit') ) { ?>
+                <?php if( hasAccess('employees', 'groups', 'edit') ) { ?>
                   <th width="105px">Action</th>
                 <?php } ?>
               </tr>
@@ -33,7 +33,7 @@
               <tr id="employee-group-<?php echo $group->id; ?>">
                 <td><?php echo $group->name; ?></td>
                 <td><a href="<?php echo site_url("employees/group/{$group->id}"); ?>" class="body_wrapper"><?php echo $group->employees_count; ?></a></td>
-              <?php if( hasAccess('system', 'users', 'edit') ) { ?>
+              <?php if( hasAccess('employees', 'groups', 'edit') ) { ?>
                 <td>
                 <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Group" data-url="<?php echo site_url("employees_groups/edit/{$group->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 

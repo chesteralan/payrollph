@@ -48,7 +48,7 @@
                   </a>
                 </td>
                 <?php } ?>
-              <?php if( hasAccess('system', 'users', 'edit') ) { ?>
+              <?php if( hasAccess('payroll', 'payroll', 'edit') ) { ?>
                 <td>
                 <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Payroll" data-url="<?php echo site_url("payroll/edit/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 
