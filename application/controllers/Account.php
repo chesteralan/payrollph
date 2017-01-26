@@ -65,11 +65,12 @@ class Account extends CI_Controller {
 			'loggedIn' => false
 			);
 
+		//echo sha1("test"); exit;
+
 		if( count($this->input->post()) > 0 ) {
 			$this->form_validation->set_rules('username', 'Username', 'trim|required');
 			$this->form_validation->set_rules('password', 'Password', 'trim|required');
 			if( $this->form_validation->run() != FALSE) {
-				//echo sha1($this->input->post('password')); 
 				$this->load->model('User_accounts_model');
 				$account = new $this->User_accounts_model;
 				$account->setUsername($this->input->post('username'),true);
