@@ -29,11 +29,14 @@
             <thead>
               <tr>
                 <th>Payroll Description</th>
+                <th>Month</th>
+                <th>Year</th>
                 <?php if(!isset($template)) { ?>
                 <th>Template</th>
                 <?php } ?>
+
                 <?php if( hasAccess('payroll', 'payroll', 'edit') ) { ?>
-                  <th width="105px">Action</th>
+                  <th width="125px">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -41,6 +44,8 @@
             <?php foreach($payrolls as $payroll) { ?>
               <tr id="Payroll-<?php echo $payroll->id; ?>">
                 <td><?php echo $payroll->name; ?></td>
+                <td><?php echo date('F', strtotime($payroll->month."/1/1970")); ?></td>
+                <td><?php echo $payroll->year; ?></td>
                 <?php if(!isset($template)) { ?>
                 <td>
                 <a class="body_wrapper" href="<?php echo site_url("payroll/template/{$payroll->template_id}"); ?>">
@@ -50,7 +55,7 @@
                 <?php } ?>
               <?php if( hasAccess('payroll', 'payroll', 'edit') ) { ?>
                 <td>
-                <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Payroll" data-url="<?php echo site_url("payroll/edit/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
+                <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Payroll" data-url="<?php echo site_url("payroll/config/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>">Config</button>
 
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("payroll/delete/{$payroll->id}"); ?>" data-target="#Payroll-<?php echo $payroll->id; ?>">Delete</button>
                 </td>

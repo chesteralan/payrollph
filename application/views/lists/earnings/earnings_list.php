@@ -21,6 +21,7 @@
             <thead>
               <tr>
                 <th>Earning Name</th>
+                <th>Notes</th>
                 <?php if( hasAccess('lists', 'earnings', 'edit') ) { ?>
                   <th width="105px">Action</th>
                 <?php } ?>
@@ -31,6 +32,7 @@
             <?php foreach($earnings as $earning) { ?>
               <tr id="employee-group-<?php echo $earning->id; ?>">
                 <td><?php echo $earning->name; ?></td>
+                <td><?php echo $earning->notes; ?></td>
               <?php if( hasAccess('lists', 'earnings', 'edit') ) { ?>
                 <td>
                 <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Earning" data-url="<?php echo site_url("lists_earnings/edit/{$earning->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>

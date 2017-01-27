@@ -69,6 +69,8 @@ class Payroll extends MY_Controller {
 				$payroll = new $this->Payroll_model;
 				$payroll->setName($this->input->post('name'));
 				$payroll->setTemplateId($this->input->post('template_id'));
+				$payroll->setMonth($this->input->post('month'));
+				$payroll->setYear($this->input->post('year'));
 				$payroll->setActive(1);
 				$payroll->insert();
 			}
@@ -95,6 +97,8 @@ class Payroll extends MY_Controller {
 				if( $this->form_validation->run() ) {
 					$payroll->setName($this->input->post('name'));
 					$payroll->setTemplateId($this->input->post('template_id'));
+					$payroll->setMonth($this->input->post('month'));
+					$payroll->setYear($this->input->post('year'));
 					$payroll->update();
 				}
 				$this->postNext();
@@ -119,4 +123,25 @@ class Payroll extends MY_Controller {
 		$this->getNext("payroll");
 	}
 
+	public function config($id,$output='') {
+		$this->_isAuth('payroll', 'payroll', 'edit');
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$this->template_data->set('payroll', $payroll->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/payroll_config', $this->template_data->get_data());
+	}
+
+	public function inclusive_dates($id,$output='') {
+		$this->_isAuth('payroll', 'payroll', 'edit');
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$this->template_data->set('payroll', $payroll->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/payroll_calendar', $this->template_data->get_data());
+	}
 }

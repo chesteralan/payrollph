@@ -46,7 +46,7 @@ CREATE TABLE `employees` (
   `lastname` varchar(100) NOT NULL,
   `firstname` varchar(100) NOT NULL,
   `middlename` varchar(100) NOT NULL,
-  `position_id` int(20) NOT NULL,
+  `position_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
   `notes` text,
@@ -92,6 +92,8 @@ CREATE TABLE `payroll` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `template_id` int(20) NOT NULL,
+  `month` int(2) NOT NULL,
+  `year` int(4) NOT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `template_id` (`template_id`)
@@ -104,6 +106,42 @@ CREATE TABLE `payroll_templates` (
   `name` varchar(200) NOT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
+);
+
+-- Table structure for table `payroll_templates_benefits` 
+
+CREATE TABLE `payroll_templates_benefits` (
+  `template_id` int(20) NOT NULL,
+  `benefit_id` int(20) NOT NULL,
+  `order` int(2) NOT NULL DEFAULT '0',
+  KEY `benefit_id` (`template_id`,`benefit_id`)
+);
+
+-- Table structure for table `payroll_templates_deductions` 
+
+CREATE TABLE `payroll_templates_deductions` (
+  `template_id` int(20) NOT NULL,
+  `deduction_id` int(20) NOT NULL,
+  `order` int(2) NOT NULL DEFAULT '0',
+  KEY `deduction_id` (`template_id`,`deduction_id`)
+);
+
+-- Table structure for table `payroll_templates_earnings` 
+
+CREATE TABLE `payroll_templates_earnings` (
+  `template_id` int(20) NOT NULL,
+  `earning_id` int(20) NOT NULL,
+  `order` int(2) NOT NULL DEFAULT '0',
+  KEY `earning_id` (`template_id`,`earning_id`)
+);
+
+-- Table structure for table `payroll_templates_groups` 
+
+CREATE TABLE `payroll_templates_groups` (
+  `template_id` int(20) NOT NULL,
+  `group_id` int(20) NOT NULL,
+  `order` int(2) NOT NULL DEFAULT '0',
+  KEY `template_id` (`template_id`,`group_id`)
 );
 
 -- Table structure for table `user_accounts` 

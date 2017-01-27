@@ -9,6 +9,8 @@ CREATE TABLE `payroll` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `template_id` int(20) NOT NULL,
+  `month` int(2) NOT NULL,
+  `year` int(4) NOT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `template_id` (`template_id`)
@@ -28,6 +30,8 @@ class Payroll_model extends MY_Model {
 	protected $id;
 	protected $name;
 	protected $template_id;
+	protected $month;
+	protected $year;
 	protected $active;
 
 	// --------------------------------------------------------------------
@@ -42,8 +46,8 @@ class Payroll_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll';
 		$this->_short_name = 'payroll';
-		$this->_fields = array("id","name","template_id","active");
-		$this->_required = array("name","template_id","active");
+		$this->_fields = array("id","name","template_id","month","year","active");
+		$this->_required = array("name","template_id","month","year","active");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -126,6 +130,58 @@ class Payroll_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: template_id --------------------------------------
+
+
+// ---------------------------- Start Field: month -------------------------------------- 
+
+	/** 
+	* Sets a value to `month` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setMonth($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('month', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `month` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getMonth() {
+			return $this->month;
+		}
+	
+// ------------------------------ End Field: month --------------------------------------
+
+
+// ---------------------------- Start Field: year -------------------------------------- 
+
+	/** 
+	* Sets a value to `year` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setYear($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('year', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `year` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getYear() {
+			return $this->year;
+		}
+	
+// ------------------------------ End Field: year --------------------------------------
 
 
 // ---------------------------- Start Field: active -------------------------------------- 

@@ -35,6 +35,29 @@
             </select>
           </div>
 
+<div class="row">
+  <div class="col-md-6">
+      <div class="form-group">
+          <label>Month</label>
+          <select class="form-control" title="Select a Month" name="month">
+            <?php for($i=1;$i<=12;$i++) { ?>
+              <option value="<?php echo $i; ?>" <?php echo ($i==$payroll->month) ? "SELECTED": (($i==date('m')) ? "SELECTED": ""); ?>><?php echo date('F', strtotime("{$i}/1/1970")); ?></option>
+            <?php } ?>
+          </select>
+        </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+          <label>Year</label>
+          <select class="form-control" title="Select a Year" name="year">
+            <?php for($i=date('Y');$i>=2017;$i--) { ?>
+              <option value="<?php echo $i; ?>" <?php echo ($i==$payroll->year) ? "SELECTED": (($i==date('Y')) ? "SELECTED": ""); ?>><?php echo $i; ?></option>
+            <?php } ?>
+          </select>
+        </div>    
+  </div>
+</div>
+
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
         </div>

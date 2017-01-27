@@ -1,0 +1,49 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+<?php if( isset($output) && ($output!='ajax') ) : ?>
+
+<?php $this->load->view('header'); ?>
+
+<?php $this->load->view('payroll/payroll_navbar'); ?>
+
+<div class="container">
+<div class="row">
+
+  <div class="col-md-6 col-md-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Configure Payroll Template</h3>
+        </div>
+
+        <div class="panel-body">
+  <?php echo (validation_errors()) ? '<div class="alert alert-danger">' . validation_errors() . '</div>' : ''; ?>
+
+<?php endif; ?>
+          
+<div class="list-group">
+  <a data-target="#ajaxModal" data-title="Payroll Details" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll/edit/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+    <h4 class="list-group-item-heading">Payroll Details</h4>
+    <p class="list-group-item-text">Payroll Details</p>
+  </a>
+
+  <a data-target="#ajaxModal" data-title="Inclusive Dates" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>" data-hide_footer="1">
+    <h4 class="list-group-item-heading">Inclusive Dates</h4>
+    <p class="list-group-item-text">Inclusive Dates</p>
+  </a>
+
+  <a data-target="#ajaxModal" data-title="Generate Payroll" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll/generate/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+    <h4 class="list-group-item-heading">Generate Payroll</h4>
+    <p class="list-group-item-text">Generate Payroll</p>
+  </a>
+
+</div>
+
+<?php if( isset($output) && ($output!='ajax') ) : ?>
+        </div>
+
+      </div>
+    </div>
+</div>
+</div>
+<?php $this->load->view('footer'); ?>
+<?php endif; ?>

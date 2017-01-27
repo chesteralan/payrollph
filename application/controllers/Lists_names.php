@@ -58,7 +58,7 @@ class Lists_names extends MY_Controller {
 		$this->template_data->set('output', $output);
 		$name_id = false;
 		if( $this->input->post() ) {
-			$this->form_validation->set_rules('full_name', 'Full Name', 'trim|required|is_unique[coop_names.full_name]');
+			$this->form_validation->set_rules('full_name', 'Full Name', 'trim|required|is_unique[names_list.full_name]');
 			$this->form_validation->set_rules('address', 'Address', 'trim');
 			$this->form_validation->set_rules('contact_number', 'Contact Number', 'trim');
 			if( $this->form_validation->run() ) {

@@ -2,6 +2,11 @@
 
 var current_uri = '';
 
+ var init_sortable = function() {
+    $( ".sortable" ).sortable();
+    $( ".sortable" ).disableSelection();
+ };
+
 var init_datepicker = function() {
   $('.datepicker').datepicker();
   $('select').selectpicker({
@@ -373,6 +378,8 @@ var checkSelectedReceipts = function() {
 
 var loadLib = function() {
 
+    init_sortable();
+
 $('#ajaxModal .datepicker').datepicker();
         $('#ajaxModal select').selectpicker({
           liveSearch : true,
@@ -445,10 +452,11 @@ $('#ajaxModal .datepicker').datepicker();
 $('.ajax-modal-inner').each(function(){
   var href = $(this).prop('href');
   $(this).attr('data-url', href);
-  $(this).prop('href', '#ajax-modal-inner');
+  $(this).prop('href', 'javascript:void(0);');
   $(this).click(function(){
     ajaxModalUrl = $(this).attr('data-url');
     $('#ajaxModal form').prop( 'action', ajaxModalUrl );
+    $('#ajaxModal .modal-title').text( $(this).attr('data-title') );
     $('#ajaxModal .loader').slideDown('slow');
     var hide_footer = $(this).attr('data-hide_footer');
     $('#ajaxModal .output').slideUp('slow').html( '' );
@@ -800,6 +808,7 @@ var lending_schedule_details = function() {
       //select_account_titles();
       //hoverPop();
       checkSelectedReceipts();
+      init_sortable();
  }
  init_coop();
 })(jQuery);

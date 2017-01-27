@@ -11,7 +11,7 @@ CREATE TABLE `employees` (
   `lastname` varchar(100) NOT NULL,
   `firstname` varchar(100) NOT NULL,
   `middlename` varchar(100) NOT NULL,
-  `position_id` int(20) NOT NULL,
+  `position_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
   `notes` text,
@@ -54,7 +54,7 @@ class Employees_model extends MY_Model {
 		$this->_table_name = 'employees';
 		$this->_short_name = 'employees';
 		$this->_fields = array("name_id","group_id","lastname","firstname","middlename","position_id","hired","status","notes");
-		$this->_required = array("name_id","lastname","firstname","middlename","position_id");
+		$this->_required = array("name_id","lastname","firstname","middlename");
 		parent::__construct($short_name, $db_config);
 	}
 
