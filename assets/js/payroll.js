@@ -465,14 +465,16 @@ $('.ajax-modal-inner').each(function(){
         method : 'GET',
         dataType : 'html'
       }).success(function(html){
-        if( hide_footer ) {
-          $('#ajaxModal .modal-footer').hide();
-        } else {
-          $('#ajaxModal .modal-footer').show();
-        }
-        $('#ajaxModal .loader').slideUp('slow');
-        $('#ajaxModal .output').css('display', 'none').html( html ).slideDown('slow');
-         loadLib();
+        $('#ajaxModal .loader').slideUp('slow', function(){
+          $('#ajaxModal .output').css('display', 'none').html( html ).slideDown('slow', function(){
+            loadLib();
+            if( hide_footer ) {
+              $('#ajaxModal .modal-footer').slideUp();
+            } else {
+              $('#ajaxModal .modal-footer').slideDown();
+            }
+          });
+        });
       });
   });
 });
@@ -490,9 +492,9 @@ var setupAjaxModal = function(){
     ajaxModalUrl = $(this).attr('data-url');
     var hide_footer = $(this).attr('data-hide_footer');
      if( hide_footer ) {
-        $('#ajaxModal .modal-footer').hide();
+        $('#ajaxModal .modal-footer').slideUp();
       } else {
-        $('#ajaxModal .modal-footer').show();
+        $('#ajaxModal .modal-footer').slideDown();
       }
   });
 };
@@ -506,10 +508,11 @@ var loadAjaxModal = function() {
         method : 'GET',
         dataType : 'html'
       }).success(function(html){
-        $('#ajaxModal .loader').slideUp('slow');
-        $('#ajaxModal .output').css('display', 'none').html( html ).slideDown('slow');
-
-    loadLib();
+        $('#ajaxModal .loader').slideUp('slow', function(){
+          $('#ajaxModal .output').css('display', 'none').html( html ).slideDown('slow', function(){
+            loadLib();
+          });
+        });
   });
 
   }).on('hidden.bs.modal', function (e) {
@@ -528,8 +531,10 @@ var loadAjaxModal = function() {
         method : 'GET',
         dataType : 'html'
       }).success(function(html){
-        $('#ajaxDialog .loader').slideUp('slow');
-        $('#ajaxDialog .output').css('display', 'none').html( html ).slideDown('slow');
+        $('#ajaxDialog .loader').slideUp('slow', function(){
+          $('#ajaxDialog .output').css('display', 'none').html( html ).slideDown('slow');
+        });
+        
       });
     $('#ajaxDialog').dialog({
       resizable: false,

@@ -27,7 +27,7 @@
 	    					<th>Full Name</th>
 	    					<th>Username</th>
 	    					<?php if( hasAccess('system', 'users', 'edit') ) { ?>
-	    						<th width="140px">Action</th>
+	    						<th width="145px">Action</th>
 	    					<?php } ?>
 	    				</tr>
 	    			</thead>
