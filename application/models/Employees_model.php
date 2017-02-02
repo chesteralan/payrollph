@@ -11,10 +11,12 @@ CREATE TABLE `employees` (
   `lastname` varchar(100) NOT NULL,
   `firstname` varchar(100) NOT NULL,
   `middlename` varchar(100) NOT NULL,
-  `position_id` int(20) DEFAULT NULL,
+  `position_id` int(20) NOT NULL,
   `hired` date DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
   `notes` text,
+  `phone_number` varchar(100) DEFAULT NULL,
+  `address` text,
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),
   KEY `position_id` (`position_id`)
@@ -40,6 +42,8 @@ class Employees_model extends MY_Model {
 	protected $hired;
 	protected $status;
 	protected $notes;
+	protected $phone_number;
+	protected $address;
 
 	// --------------------------------------------------------------------
 
@@ -53,8 +57,8 @@ class Employees_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees';
 		$this->_short_name = 'employees';
-		$this->_fields = array("name_id","group_id","lastname","firstname","middlename","position_id","hired","status","notes");
-		$this->_required = array("name_id","lastname","firstname","middlename");
+		$this->_fields = array("name_id","group_id","lastname","firstname","middlename","position_id","hired","status","notes","phone_number","address");
+		$this->_required = array("name_id","lastname","firstname","middlename","position_id");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -293,6 +297,58 @@ class Employees_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: notes --------------------------------------
+
+
+// ---------------------------- Start Field: phone_number -------------------------------------- 
+
+	/** 
+	* Sets a value to `phone_number` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setPhoneNumber($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('phone_number', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `phone_number` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getPhoneNumber() {
+			return $this->phone_number;
+		}
+	
+// ------------------------------ End Field: phone_number --------------------------------------
+
+
+// ---------------------------- Start Field: address -------------------------------------- 
+
+	/** 
+	* Sets a value to `address` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setAddress($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `address` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getAddress() {
+			return $this->address;
+		}
+	
+// ------------------------------ End Field: address --------------------------------------
 
 
 

@@ -216,6 +216,32 @@ class Employees extends MY_Controller {
 		$this->load->view('employees/employees/employees_edit_employment', $this->template_data->get_data());
 	}
 
+	public function edit_address($id,$output='') {
+
+		$this->_isAuth('employees', 'employees', 'edit');
+
+		$employee = new $this->Employees_model;
+		$employee->setNameId($id,true);
+
+		if( $employee->nonEmpty() ) {
+			if( $this->input->post() ) {
+				$this->form_validation->set_rules('phone_number', 'Phone Number', 'trim|required');
+				$this->form_validation->set_rules('address', 'Address', 'trim|required');
+				if( $this->form_validation->run() ) {
+					$employee->setPhoneNumber($this->input->post('phone_number'),false,true);
+					$employee->setAddress($this->input->post('address'),false,true);
+					$employee->update();
+				}
+				$this->postNext();
+			}
+		}
+
+		$this->template_data->set('employee', $employee->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('employees/employees/employees_edit_address', $this->template_data->get_data());
+	}
+
 	public function delete($id) {
 		$this->_isAuth('employees', 'employees', 'delete');
 

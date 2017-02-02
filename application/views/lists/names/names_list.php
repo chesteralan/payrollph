@@ -30,7 +30,15 @@
 	    			<tbody>
 	    			<?php foreach($names as $name) { ?>
 	    				<tr>
-	    					<td><?php echo $name->full_name; ?></td>
+	    					<td>
+<?php if( $name->is_employed ) { ?>
+	<a href="<?php echo site_url("employees/config/{$name->id}"); ?>" class="body_wrapper">
+<?php } ?>
+	    					<?php echo $name->full_name; ?>
+<?php if( $name->is_employed ) { ?>
+	</a>
+<?php } ?>
+	    					</td>
 	    					<td><?php echo $name->address; ?></td>
 	    					<td><?php echo $name->contact_number; ?></td>
 	    					<?php if( hasAccess('lists', 'names', 'edit') ) { ?>

@@ -12,7 +12,7 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Edit Employee Personal</h3>
+          <h3 class="panel-title">Edit Employee Address</h3>
         </div>
         <form method="post">
         <div class="panel-body">
@@ -22,18 +22,13 @@
 <?php endif; ?>
 
           <div class="form-group">
-            <label>Last Name</label>
-            <input name="lastname" type="text" class="form-control" value="<?php echo $employee->lastname; ?>">
+            <label>Phone Number</label>
+            <input name="phone_number" type="text" class="form-control" value="<?php echo $employee->phone_number; ?>">
           </div>
 
           <div class="form-group">
-            <label>First Name</label>
-            <input name="firstname" type="text" class="form-control" value="<?php echo $employee->firstname; ?>">
-          </div>
-
-          <div class="form-group">
-            <label>Middle Name</label>
-            <input name="middlename" type="text" class="form-control" value="<?php echo $employee->middlename; ?>">
+            <label>Address</label>
+            <textarea name="address" class="form-control" rows="5"><?php echo $employee->address; ?></textarea>
           </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>

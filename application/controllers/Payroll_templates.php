@@ -26,6 +26,7 @@ class Payroll_templates extends MY_Controller {
 	public function index($start=0) {
 
 		$templates = new $this->Payroll_templates_model;
+		$templates->setActive('1', true);
 		$templates->set_select('*');
 		$this->template_data->set('templates', $templates->populate());
 
@@ -87,8 +88,9 @@ class Payroll_templates extends MY_Controller {
 		$this->_isAuth('payroll', 'templates', 'delete');
 
 		$template = new $this->Payroll_templates_model;
-		$template->setId($id,true);
-		$template->delete();
+		$template->setId($id,true,false);
+		$template->setActive('0',false,true);
+		$template->update();
 
 		$this->getNext("payroll_templates");
 	}

@@ -1,0 +1,105 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+/**
+ * Payroll_inclusive_dates_model Class
+ *
+ * Manipulates `payroll_inclusive_dates` table on database
+
+CREATE TABLE `payroll_inclusive_dates` (
+  `payroll_id` int(20) NOT NULL,
+  `inclusive_date` date NOT NULL,
+  KEY `payroll_id` (`payroll_id`)
+);
+
+ * @package			        Model
+ * @version_number	        3.0.0
+ * @project			        Trokis Philippines
+ * @project_link	        http://www.trokis.com
+ * @author			        Chester Alan Tagudin
+ * @author_link		        http://www.chesteralan.com
+ * @generator		        CodeIgniter Model Generator (CMG)
+ */
+ 
+class Payroll_inclusive_dates_model extends MY_Model {
+
+	protected $payroll_id;
+	protected $inclusive_date;
+
+	// --------------------------------------------------------------------
+
+	/**
+	* Construct 
+	* @access public
+	* @param  String
+	* @return Boolean;
+	*/
+
+	function __construct($short_name=NULL, $db_config=NULL) {
+		$this->_table_name = 'payroll_inclusive_dates';
+		$this->_short_name = 'payroll_inclusive_dates';
+		$this->_fields = array("payroll_id","inclusive_date");
+		$this->_required = array("payroll_id","inclusive_date");
+		parent::__construct($short_name, $db_config);
+	}
+
+	// --------------------------------------------------------------------
+
+
+// ---------------------------- Start Field: payroll_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `payroll_id` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('payroll_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `payroll_id` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getPayrollId() {
+			return $this->payroll_id;
+		}
+	
+// ------------------------------ End Field: payroll_id --------------------------------------
+
+
+// ---------------------------- Start Field: inclusive_date -------------------------------------- 
+
+	/** 
+	* Sets a value to `inclusive_date` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setInclusiveDate($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('inclusive_date', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `inclusive_date` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getInclusiveDate() {
+			return $this->inclusive_date;
+		}
+	
+// ------------------------------ End Field: inclusive_date --------------------------------------
+
+
+
+
+}
+
+/* End of file Payroll_inclusive_dates_model.php */
+/* Location: ./application/models/Payroll_inclusive_dates_model.php */

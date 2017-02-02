@@ -12,7 +12,7 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Add Group</h3>
+          <h3 class="panel-title">Edit Employement Record</h3>
         </div>
         <form method="post">
         <div class="panel-body">
@@ -32,7 +32,7 @@
 
           <div class="form-group">
             <label>Position</label>
-            <select class="form-control" title="Select a Group" name="position_id">
+            <select class="form-control" title="Select a Position" name="position_id">
               <?php foreach($positions as $position) { ?>
                 <option value="<?php echo $position->id; ?>" <?php echo ($employee->position_id==$position->id) ? "SELECTED" : ""; ?>><?php echo $position->name; ?></option>
               <?php } ?>

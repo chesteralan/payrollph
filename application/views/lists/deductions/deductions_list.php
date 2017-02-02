@@ -38,7 +38,7 @@
                 <td>
                 <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Deduction" data-url="<?php echo site_url("lists_deductions/edit/{$deduction->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 
-                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("lists_deductions/delete/{$deduction->id}"); ?>" data-target="#employee-group-<?php echo $deduction->id; ?>">Delete</button>
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("lists_deductions/delete/{$deduction->id}"); ?>" data-target="#employee-group-<?php echo $deduction->id; ?>">Delete</a>
                 </td>
               <?php } ?>
               </tr>

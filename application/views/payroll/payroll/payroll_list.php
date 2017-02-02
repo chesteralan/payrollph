@@ -55,9 +55,18 @@
                 <?php } ?>
               <?php if( hasAccess('payroll', 'payroll', 'edit') ) { ?>
                 <td>
-                <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Payroll" data-url="<?php echo site_url("payroll/config/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>">Config</button>
+<?php if( $payroll->groups_count > 0 ) { ?>
 
-                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("payroll/delete/{$payroll->id}"); ?>" data-target="#Payroll-<?php echo $payroll->id; ?>">Delete</button>
+      <a class="btn btn-success btn-xs body_wrapper" href="<?php echo site_url("payroll_summary/view/{$payroll->id}"); ?>">View</a>
+
+<?php } else { ?>
+
+                  <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Payroll" data-url="<?php echo site_url("payroll/config/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">Config</button>
+
+<?php } ?>
+
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("payroll/delete/{$payroll->id}"); ?>" data-target="#Payroll-<?php echo $payroll->id; ?>">Delete</a>
+                
                 </td>
               <?php } ?>
               </tr>

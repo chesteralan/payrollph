@@ -37,7 +37,7 @@
                 <td>
                 <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Benefit" data-url="<?php echo site_url("lists_benefits/edit/{$benefit->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 
-                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("lists_benefits/delete/{$benefit->id}"); ?>" data-target="#employee-benefit-<?php echo $benefit->id; ?>">Delete</button>
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("lists_benefits/delete/{$benefit->id}"); ?>" data-target="#employee-benefit-<?php echo $benefit->id; ?>">Delete</a>
                 </td>
               <?php } ?>
               </tr>

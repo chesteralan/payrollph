@@ -13,16 +13,33 @@ class Payroll extends MY_Controller {
 
 		$this->load->model('Payroll_model');
 		$this->load->model('Payroll_templates_model');
+		$this->load->model('Payroll_inclusive_dates_model');
+		$this->load->model('Payroll_groups_model');
+		$this->load->model('Payroll_earnings_model');
+		$this->load->model('Payroll_deductions_model');
+		$this->load->model('Payroll_benefits_model');
+		$this->load->model('Payroll_employees_model');
+
+		$this->load->model('Payroll_templates_groups_model');
+		$this->load->model('Payroll_templates_benefits_model');
+		$this->load->model('Payroll_templates_earnings_model');
+		$this->load->model('Payroll_templates_deductions_model');
+
+		$this->load->model('Employees_model');
+
 
 	}
 
 	public function index($start=0) {
 
 		$payrolls = new $this->Payroll_model;
+		$payrolls->setActive(1,true);
 		$payrolls->set_select('*');
 		$payrolls->set_select('(SELECT name FROM payroll_templates WHERE id=payroll.template_id) as template_name');
+		$payrolls->set_select('(SELECT COUNT(*) FROM payroll_groups WHERE payroll_id=payroll.id) as groups_count');
 		$payrolls->set_start($start);
-		$this->template_data->set('payrolls', $payrolls->populate());
+		$payrolls_data = $payrolls->populate(); 
+		$this->template_data->set('payrolls', $payrolls_data);
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'uri_segment' => 3,
@@ -42,8 +59,10 @@ class Payroll extends MY_Controller {
 		$this->template_data->set('template', $template->get());
 
 		$payrolls = new $this->Payroll_model;
+		$payrolls->setActive(1,true);
 		$payrolls->set_select('*');
 		$payrolls->set_select('(SELECT name FROM payroll_templates WHERE id=payroll.template_id) as template_name');
+		$payrolls->set_select('(SELECT COUNT(*) FROM payroll_groups WHERE payroll_id=payroll.id) as groups_count');
 		$payrolls->setTemplateId($id,true);
 		$payrolls->set_start($start);
 		$this->template_data->set('payrolls', $payrolls->populate());
@@ -107,6 +126,7 @@ class Payroll extends MY_Controller {
 		$this->template_data->set('payroll', $payroll->get());
 
 		$templates = new $this->Payroll_templates_model;
+		$templates->setActive('1',true);
 		$this->template_data->set('templates', $templates->populate());
 
 		$this->template_data->set('output', $output);
@@ -117,8 +137,9 @@ class Payroll extends MY_Controller {
 		$this->_isAuth('payroll', 'payroll', 'delete');
 
 		$payroll = new $this->Payroll_model;
-		$payroll->setId($id,true);
-		$payroll->delete();
+		$payroll->setId($id,true,false);
+		$payroll->setActive('0',false,true);
+		$payroll->update();
 
 		$this->getNext("payroll");
 	}
@@ -130,6 +151,34 @@ class Payroll extends MY_Controller {
 		$payroll->setId($id,true);
 		$this->template_data->set('payroll', $payroll->get());
 
+		$generate = true;
+
+		$payroll_group = new $this->Payroll_groups_model;
+		$payroll_group->setPayrollId($id,true);
+		if( $payroll_group->nonEmpty() ) {
+			$generate = false;
+		}
+/*
+		$payroll_earning = new $this->Payroll_earnings_model;
+		$payroll_earning->setPayrollId($id,true);
+		if( $payroll_earning->nonEmpty() ) {
+			$generate = false;
+		}
+
+		$payroll_deduction = new $this->Payroll_deductions_model;
+		$payroll_deduction->setPayrollId($id,true);
+		if( $payroll_deduction->nonEmpty() ) {
+			$generate = false;
+		}
+
+		$payroll_benefit = new $this->Payroll_benefits_model;
+		$payroll_benefit->setPayrollId($id,true);
+		if( $payroll_benefit->nonEmpty() ) {
+			$generate = false;
+		}
+*/
+		$this->template_data->set('generate', $generate);
+
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/payroll_config', $this->template_data->get_data());
 	}
@@ -139,9 +188,165 @@ class Payroll extends MY_Controller {
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
-		$this->template_data->set('payroll', $payroll->get());
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$current_month = ($this->input->get('month')) ? $this->input->get('month') : $payroll_data->month;
+		$current_year = ($this->input->get('year')) ? $this->input->get('year') : $payroll_data->year;
+
+		if( $payroll->nonEmpty() ) {
+			if( $this->input->post() ) {
+
+				$this->form_validation->set_rules('inclusive_date[]', 'Inclusive Date', 'trim|required');
+				
+				if( $this->form_validation->run() ) {
+					foreach( $this->input->post('inclusive_date') as $list_date ) {
+						if( ! in_array($list_date, $this->input->post('selected')) ) {
+							$inc_date = new $this->Payroll_inclusive_dates_model;
+							$inc_date->setPayrollId($id,true);
+							$inc_date->setInclusiveDate($list_date,true);
+							if( $inc_date->nonEmpty() ) {
+								$inc_date->delete();
+							}
+						}
+					}
+
+					foreach($this->input->post('selected') as $selected) {
+						$sel_dates = new $this->Payroll_inclusive_dates_model;
+						$sel_dates->setPayrollId($id,true);
+						$sel_dates->setInclusiveDate($selected,true);
+						if( $sel_dates->nonEmpty() == false) {
+							$sel_dates->insert();
+						}
+					}
+				}
+
+				$this->postNext(NULL, 'ajax');
+			}
+
+		}
+
+		$dates = new $this->Payroll_inclusive_dates_model;
+		$dates->setPayrollId($id,true);
+		$dates->set_limit(0);
+		$dates->set_order('inclusive_date', 'ASC');
+		$this->template_data->set('inclusive_dates', $dates->populate());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/payroll_calendar', $this->template_data->get_data());
 	}
+
+	public function generate($id,$output='') {
+		
+		$redirect_uri = ( $this->input->get('next') ) ? $this->input->get('next') : 'payroll';
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		if( $payroll->nonEmpty() ) :
+			
+			$payroll_data = $payroll->getResults();
+
+			$payroll_group = new $this->Payroll_groups_model;
+			$payroll_group->setPayrollId($id,true);
+			if( $payroll_group->nonEmpty() ) {
+				redirect( site_url($redirect_uri) . "#group_not_empty" );
+			}
+/*
+			$payroll_earning = new $this->Payroll_earnings_model;
+			$payroll_earning->setPayrollId($id,true);
+			if( $payroll_earning->nonEmpty() ) {
+				redirect( site_url($redirect_uri) . "#earning_not_empty" );
+			}
+
+			$payroll_deduction = new $this->Payroll_deductions_model;
+			$payroll_deduction->setPayrollId($id,true);
+			if( $payroll_deduction->nonEmpty() ) {
+				redirect( site_url($redirect_uri) . "#deduction_not_empty" );
+			}
+
+			$payroll_benefit = new $this->Payroll_benefits_model;
+			$payroll_benefit->setPayrollId($id,true);
+			if( $payroll_benefit->nonEmpty() ) {
+				redirect( site_url($redirect_uri) . "#benefit_not_empty" );
+			}
+*/
+			$temp_groups = new $this->Payroll_templates_groups_model;
+			$temp_groups->setTemplateId($payroll_data->template_id,true);
+			$temp_groups->set_limit(0);
+			foreach( $temp_groups->populate() as $group ) {
+				$payroll_group = new $this->Payroll_groups_model;
+				$payroll_group->setPayrollId($id,true);
+				$payroll_group->setGroupId($group->group_id,true);
+				$payroll_group->setOrder($group->order);
+				if( $payroll_group->nonEmpty() ) {
+					$payroll_group->update();
+				} else {
+					$payroll_group->insert();
+				}
+
+				$employees = new $this->Employees_model;
+				$employees->setGroupId($group->group_id,true);
+				$employees->set_limit(0);
+				foreach( $employees->populate() as $employee ) {
+					$payroll_employees = new $this->Payroll_employees_model;
+					$payroll_employees->setPayrollId($id,true);
+					$payroll_employees->setNameId($employee->name_id,true);
+					if( $payroll_employees->nonEmpty() ) {
+						$payroll_employees->update();
+					} else {
+						$payroll_employees->insert();
+					}
+				}
+			}
+			
+			$temp_earnings = new $this->Payroll_templates_earnings_model;
+			$temp_earnings->setTemplateId($payroll_data->template_id,true);
+			$temp_earnings->set_limit(0);
+			foreach( $temp_earnings->populate() as $earning ) {
+				$payroll_earning = new $this->Payroll_earnings_model;
+				$payroll_earning->setPayrollId($id,true);
+				$payroll_earning->setEarningId($earning->earning_id,true);
+				$payroll_earning->setOrder($earning->order);
+				if( $payroll_earning->nonEmpty() ) {
+					$payroll_earning->update();
+				} else {
+					$payroll_earning->insert();
+				}
+			} 
+
+			$temp_deductions = new $this->Payroll_templates_deductions_model;
+			$temp_deductions->setTemplateId($payroll_data->template_id,true);
+			$temp_deductions->set_limit(0);
+			foreach( $temp_deductions->populate() as $deduction ) {
+				$payroll_deduction = new $this->Payroll_deductions_model;
+				$payroll_deduction->setPayrollId($id,true);
+				$payroll_deduction->setDeductionId($deduction->deduction_id,true);
+				$payroll_deduction->setOrder($deduction->order);
+				if( $payroll_deduction->nonEmpty() ) {
+					$payroll_deduction->update();
+				} else {
+					$payroll_deduction->insert();
+				}
+			}
+
+			$temp_benefits = new $this->Payroll_templates_benefits_model;
+			$temp_benefits->setTemplateId($payroll_data->template_id,true);
+			$temp_benefits->set_limit(0);
+			foreach( $temp_benefits->populate() as $benefit ) {
+				$payroll_benefit = new $this->Payroll_benefits_model;
+				$payroll_benefit->setPayrollId($id,true);
+				$payroll_benefit->setBenefitId($benefit->benefit_id,true);
+				$payroll_benefit->setOrder($benefit->order);
+				if( $payroll_benefit->nonEmpty() ) {
+					$payroll_benefit->update();
+				} else {
+					$payroll_benefit->insert();
+				}
+			}
+
+		endif;
+
+		redirect( site_url($redirect_uri) . "#successful" );
+	}
+
 }

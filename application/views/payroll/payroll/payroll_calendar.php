@@ -2,8 +2,14 @@
 <?php 
 
 /* draws a calendar */
-function draw_calendar($month,$year){
+function draw_calendar($month,$year,$inclusive_dates){
 
+  $inc_dates = array();
+  if( $inclusive_dates ) {
+    foreach($inclusive_dates as $idate)
+    $inc_dates[] = $idate->inclusive_date;
+  }
+ 
   /* draw table */
   $calendar = '<table cellpadding="0" cellspacing="0" class="calendar">';
 
@@ -30,8 +36,19 @@ function draw_calendar($month,$year){
   /* keep going with days.... */
   for($list_day = 1; $list_day <= $days_in_month; $list_day++):
     $calendar.= '<td class="calendar-day text-right">';
+
+      $list_date = date('Y-m-d', strtotime($year.'-'.$month.'-'.$list_day));
+      $calendar.= '<label class="date_checkbox">';
+      $calendar.= '<input type="hidden" name="inclusive_date[]" value="'.$list_date.'">';
+      $calendar.= '<input type="checkbox" name="selected[]" value="'.$list_date.'"';
+      $calendar.= (in_array($list_date, $inc_dates)) ? ' CHECKED':'';
+      $calendar.= '>';
+      $calendar.= '</label>';
+
       /* add in the day number */
-      $calendar.= '<div class="day-number">'.$list_day.'</div>';
+      $calendar.= '<div class="day-number">';
+       $calendar.= $list_day;
+      $calendar.='</div>';
 
       /** QUERY THE DATABASE FOR AN ENTRY FOR THIS DAY !!  IF MATCHES FOUND, PRINT THEM !! **/
       $calendar.= str_repeat('<p> </p>',2);
@@ -81,26 +98,27 @@ function draw_calendar($month,$year){
         <div class="panel-heading">
           <h3 class="panel-title">Payroll Calendar</h3>
         </div>
-
+<form method="post">
         <div class="panel-body">
   <?php echo (validation_errors()) ? '<div class="alert alert-danger">' . validation_errors() . '</div>' : ''; ?>
 
 <?php endif; 
+
 $current_month = ($this->input->get('month')) ? $this->input->get('month') : $payroll->month;
 $current_year = ($this->input->get('year')) ? $this->input->get('year') : $payroll->year;
 ?>
-
-<h4 class="text-center">
-<a href="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/{$output}") . "?month=" .  date('m', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01'))) . "&year=" .  date('Y', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?>" class="pull-right">&rArr;</a>
-<a href="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/{$output}") . "?month=" .  date('m', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))) . "&year=" .  date('Y', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?>" class="pull-left">&lArr;</a>
+<input type="hidden" name="payroll_id" value="<?php echo $payroll->id; ?>"/>
+<h4 class="text-center" style="margin-top:0px;">
+<a href="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/{$output}") . "?next=payroll&month=" .  date('m', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01'))) . "&year=" .  date('Y', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?>" class="pull-right ajax-modal-inner">&rArr;</a>
+<a href="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/{$output}") . "?next=payroll&month=" .  date('m', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))) . "&year=" .  date('Y', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?>" class="pull-left ajax-modal-inner">&lArr;</a>
 <?php echo date('F', strtotime($current_month."/1/1970")); ?> <?php echo $current_year; ?></h4> 
 <?php 
-echo draw_calendar($current_month,$current_year);
+echo draw_calendar($current_month,$current_year, $inclusive_dates);
 ?>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>
-
+</form>
       </div>
     </div>
 </div>
