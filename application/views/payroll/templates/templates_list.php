@@ -37,7 +37,7 @@
               <?php if( hasAccess('payroll', 'templates', 'edit') ) { ?>
                 <td>
 
-                <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Template" data-url="<?php echo site_url("payroll_templates/config/{$template->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">Config</button>
+                <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Template" data-url="<?php echo site_url("payroll_templates/config/{$template->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">Config</button>
 
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("payroll_templates/delete/{$template->id}"); ?>" data-target="#template-<?php echo $template->id; ?>">Delete</a>
                 </td>

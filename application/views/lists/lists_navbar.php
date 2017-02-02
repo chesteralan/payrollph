@@ -25,10 +25,7 @@
       </form>
 <?php } ?>
 
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $current_page; ?> <span class="caret"></span></a>
-          <ul class="dropdown-menu">
+<ul class="nav navbar-nav navbar-right">
 <?php 
 $url['lists_names'] = array('uri' => 'lists_names', 'title'=>'Names', 'access'=>hasAccess('lists', 'names', 'view'));
 $url['lists_benefits'] = array('uri' => 'lists_benefits', 'title'=>'Benefits', 'access'=>hasAccess('lists', 'benefits', 'view'));
@@ -39,8 +36,7 @@ foreach($url as $k=>$v) {
 ?>
   <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($v['uri']); ?>"><?php echo $v['title']; ?></a></li>
 <?php } } ?>
-          </ul>
-        </li>
+
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

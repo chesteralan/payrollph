@@ -36,22 +36,22 @@
     <p class="list-group-item-text">Employee's Addresses and Contact Numbers</p>
   </a>
 
-  <a class="list-group-item" href="<?php echo site_url("employees_salaries/view/{$employee->name_id}"); ?>">
+  <a class="list-group-item body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_salaries/view/{$employee->name_id}"); ?>">
     <h4 class="list-group-item-heading">Basic Salary</h4>
     <p class="list-group-item-text">Employee's Monthly Compensation</p>
   </a>
 
-  <a class="list-group-item" href="<?php echo site_url("employees_earnings/view/{$employee->name_id}") . "?next=" . $this->input->get('next'); ?>">
+  <a class="list-group-item body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_earnings/view/{$employee->name_id}") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Earnings</h4>
     <p class="list-group-item-text">Other compensation the employee receives</p>
   </a>
 
-  <a class="list-group-item" href="<?php echo site_url("employees_benefits/view/{$employee->name_id}") . "?next=" . $this->input->get('next'); ?>">
+  <a class="list-group-item body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_benefits/view/{$employee->name_id}") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Fringe Benefits</h4>
     <p class="list-group-item-text">SSS, Pag-ibig, and PhilHealth Benefits</p>
   </a>
   
-   <a class="list-group-item" href="<?php echo site_url("employees_deductions/view/{$employee->name_id}") . "?next=" . $this->input->get('next'); ?>">
+   <a class="list-group-item body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_deductions/view/{$employee->name_id}") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Deductions</h4>
     <p class="list-group-item-text">Salary Loans, Cash Advances, and other deductions</p>
   </a>

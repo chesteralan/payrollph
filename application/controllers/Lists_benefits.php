@@ -19,7 +19,7 @@ class Lists_benefits extends MY_Controller {
 		
 		$benefits = new $this->Benefits_list_model;
 		$benefits->set_select("*");
-		$benefits->set_order('id', 'DESC');
+		$benefits->set_order('name', 'ASC');
 		$this->template_data->set('benefits', $benefits->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
@@ -85,8 +85,9 @@ class Lists_benefits extends MY_Controller {
 		$this->_isAuth('lists', 'benefits', 'delete');
 
 		$benefits = new $this->Benefits_list_model;
-		$benefits->setId($id,true);
-		$benefits->delete();
+		$benefits->setId($id,true,false);
+		$benefits->setActive('0',false,true);
+		$benefits->update();
 
 		$this->getNext("lists_benefits");
 	}

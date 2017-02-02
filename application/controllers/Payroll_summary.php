@@ -45,7 +45,7 @@ class Payroll_summary extends MY_Controller {
 		$payroll_group->setPayrollId($id,true);
 		$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');
 		$payroll_group->set_limit(0);
-		$payroll_group->set_order('pg.order', 'ASC');
+		$payroll_group->set_order('pg.order', 'DESC');
 		$payroll_group_data =  $payroll_group->populate();
 		foreach($payroll_group_data as $key=>$group) {
 			$employees = new $this->Payroll_employees_model('pe');

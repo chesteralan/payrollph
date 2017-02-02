@@ -19,7 +19,7 @@ class Lists_earnings extends MY_Controller {
 		
 		$earnings = new $this->Earnings_list_model;
 		$earnings->set_select("*");
-		$earnings->set_order('id', 'DESC');
+		$earnings->set_order('name', 'ASC');
 		$this->template_data->set('earnings', $earnings->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
@@ -86,7 +86,8 @@ class Lists_earnings extends MY_Controller {
 
 		$earnings = new $this->Earnings_list_model;
 		$earnings->setId($id,true);
-		$earnings->delete();
+		$earnings->setActive('0',false,true);
+		$earnings->update();
 
 		$this->getNext("lists_earnings");
 	}

@@ -15,6 +15,7 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
+      <li><a class="body_wrapper" href="<?php echo site_url('employees'); ?>"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
 <?php 
 
 $url['employees_salaries'] = array('uri' => 'employees_salaries/view/' . $employee->name_id, 'title'=>'Basic Salary', 'access'=>hasAccess('employees', 'employees', 'view'));

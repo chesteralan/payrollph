@@ -37,7 +37,7 @@ class Lists_names extends MY_Controller {
 		$names->set_select("names_list.*");
 		$names->set_select("(SELECT COUNT(*) FROM employees WHERE name_id=names_list.id) as is_employed");
 
-		$names->set_order('full_name', 'ASC');
+		$names->set_order('names_list.full_name', 'ASC');
 		$names->set_start($start);
 
 		$this->template_data->set('names', $names->populate());

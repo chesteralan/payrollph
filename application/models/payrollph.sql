@@ -46,7 +46,7 @@ CREATE TABLE `employees` (
   `lastname` varchar(100) NOT NULL,
   `firstname` varchar(100) NOT NULL,
   `middlename` varchar(100) NOT NULL,
-  `position_id` int(20) NOT NULL,
+  `position_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
   `notes` text,
@@ -55,6 +55,55 @@ CREATE TABLE `employees` (
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),
   KEY `position_id` (`position_id`)
+);
+
+-- Table structure for table `employees_benefits` 
+
+CREATE TABLE `employees_benefits` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name_id` int(20) NOT NULL,
+  `benefit_id` int(20) NOT NULL,
+  `employee_share` decimal(10,5) NOT NULL,
+  `employer_share` decimal(10,5) NOT NULL,
+  `start_date` date DEFAULT NULL,
+  `repeat` int(1) DEFAULT '1',
+  `primary` int(1) DEFAULT '0',
+  `trash` int(1) DEFAULT '1',
+  `notes` text,
+  PRIMARY KEY (`id`),
+  KEY `name_id` (`name_id`,`benefit_id`)
+);
+
+-- Table structure for table `employees_deductions` 
+
+CREATE TABLE `employees_deductions` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name_id` int(20) NOT NULL,
+  `deduction_id` int(20) NOT NULL,
+  `amount` decimal(10,5) NOT NULL,
+  `start_date` date DEFAULT NULL,
+  `repeat` int(1) DEFAULT '0',
+  `active` int(1) DEFAULT '0',
+  `trash` int(1) DEFAULT '1',
+  `notes` text,
+  PRIMARY KEY (`id`),
+  KEY `name_id` (`name_id`,`deduction_id`)
+);
+
+-- Table structure for table `employees_earnings` 
+
+CREATE TABLE `employees_earnings` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name_id` int(20) NOT NULL,
+  `earning_id` int(20) NOT NULL,
+  `amount` decimal(10,5) NOT NULL,
+  `start_date` date DEFAULT NULL,
+  `repeat` int(1) DEFAULT '0',
+  `active` int(1) DEFAULT '0',
+  `trash` int(1) DEFAULT '0',
+  `notes` text,
+  PRIMARY KEY (`id`),
+  KEY `name_id` (`name_id`,`earning_id`)
 );
 
 -- Table structure for table `employees_groups` 

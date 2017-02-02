@@ -81,7 +81,7 @@
 
 <?php } else { ?>
 
-  <div class="text-center">No Group Found!</div>
+  <div class="text-center">No Employee Found!</div>
 
 <?php } ?>
 <?php if( ! $inner_page ): ?>

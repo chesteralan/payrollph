@@ -1,5 +1,10 @@
 (function($){
 
+var backlink_options = {
+  url : '',
+  title : '',
+  hide_footer : '',
+};
 var current_uri = '';
 
  var init_sortable = function() {
@@ -376,8 +381,52 @@ var checkSelectedReceipts = function() {
    });
 };
 
+var bodyWrapper = function() {
+   $('.body_wrapper').each(function(){
+      var href = $(this).prop('href');
+      var data_url = $(this).attr('data-url');
+      var data_morph = $(this).attr('data-morph');
+      if( data_morph != 'bodyWrapper') {
+        $(this).attr('data-url', href);
+        $(this).prop('href', 'javascript:void(0);');
+        $(this).attr('data-morph', 'bodyWrapper');
+        $(this).click(function() {
+              var divBody = $('#bodyWrapper');
+              var loadingDiv = $('<div class="loading-wait"></div>');
+              loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
+              var loadingImg = $('<img src="/assets/images/loader4.gif"/>');
+              loadingImg.css('margin-top', Math.ceil( divBody.parent().height() / 2 ));
+              loadingDiv.html( loadingImg );
+              divBody.prepend( loadingDiv );
+
+              var ajax_url = $(this).attr('data-url');
+
+              $.ajax({
+                url: ajax_url,
+                method: 'POST',
+                data: {
+                  output: 'body_wrapper',
+                },
+                success: function( data ) {
+                    divBody.slideUp( function(){
+                      $(this).html( data );
+                      $(this).slideDown(function(){
+                        loadingDiv.remove();
+                        window.history.replaceState('Object', $(document).prop('title'), ajax_url);
+                        $('.autocomplete-member_change').attr('data-current_sub_uri', ajax_url);
+                        init_coop();
+                      });
+                    });
+                }
+              }); // $.ajax()
+        }); // $(this).click()
+      }
+   });
+ }; // bodyWrapper
+
 var loadLib = function() {
 
+    bodyWrapper();
     init_sortable();
 
 $('#ajaxModal .datepicker').datepicker();
@@ -457,8 +506,27 @@ $('.ajax-modal-inner').each(function(){
     ajaxModalUrl = $(this).attr('data-url');
     $('#ajaxModal form').prop( 'action', ajaxModalUrl );
     $('#ajaxModal .modal-title').text( $(this).attr('data-title') );
+
+    var back_link = $('#ajax-modal-backlink');
+    if( back_link.length ) {
+      back_link.remove();
+    } else {
+      var back_link = $('<button class="close ajax-modal-inner" id="ajax-modal-backlink"><span class="glyphicon glyphicon-arrow-left"></span></button>');
+      back_link.css('float', 'left');
+      back_link.css('font-size', 'large');
+      back_link.attr('data-url', backlink_options.url);
+      back_link.attr('data-title', backlink_options.title);
+      back_link.attr('data-hide_footer', backlink_options.hide_footer);
+      $('#ajaxModal .modal-header').prepend(back_link);
+    }
+    
     $('#ajaxModal .loader').slideDown('slow');
     var hide_footer = $(this).attr('data-hide_footer');
+    if( hide_footer ) {
+      $('#ajaxModal .modal-footer').slideUp();
+    } else {
+      $('#ajaxModal .modal-footer').slideDown();
+    }
     $('#ajaxModal .output').slideUp('slow').html( '' );
       $.ajax({
         url : ajaxModalUrl,
@@ -468,11 +536,6 @@ $('.ajax-modal-inner').each(function(){
         $('#ajaxModal .loader').slideUp('slow', function(){
           $('#ajaxModal .output').css('display', 'none').html( html ).slideDown('slow', function(){
             loadLib();
-            if( hide_footer ) {
-              $('#ajaxModal .modal-footer').slideUp();
-            } else {
-              $('#ajaxModal .modal-footer').slideDown();
-            }
           });
         });
       });
@@ -496,6 +559,9 @@ var setupAjaxModal = function(){
       } else {
         $('#ajaxModal .modal-footer').slideDown();
       }
+    backlink_options.url = $(this).attr('data-url'); 
+    backlink_options.title = $(this).attr('data-title'); 
+    backlink_options.hide_footer = $(this).attr('data-hide_footer'); 
   });
 };
 
@@ -519,6 +585,7 @@ var loadAjaxModal = function() {
       $('#ajaxModal .loader').show();
       $('#ajaxModal .modal-footer').hide();
       $('#ajaxModal .output').html( '' );
+      $('#ajax-modal-backlink').remove();
   });
 
   $('.ajax-dialog').click(function(){
@@ -751,49 +818,6 @@ var lending_schedule_details = function() {
         }
     });
   };
-
-  var bodyWrapper = function() {
-   $('.body_wrapper').each(function(){
-      var href = $(this).prop('href');
-      var data_url = $(this).attr('data-url');
-      var data_morph = $(this).attr('data-morph');
-      if( data_morph != 'bodyWrapper') {
-        $(this).attr('data-url', href);
-        $(this).prop('href', 'javascript:void(0);');
-        $(this).attr('data-morph', 'bodyWrapper');
-        $(this).click(function() {
-              var divBody = $('#bodyWrapper');
-              var loadingDiv = $('<div class="loading-wait"></div>');
-              loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
-              var loadingImg = $('<img src="/assets/images/loader4.gif"/>');
-              loadingImg.css('margin-top', Math.ceil( divBody.parent().height() / 2 ));
-              loadingDiv.html( loadingImg );
-              divBody.prepend( loadingDiv );
-
-              var ajax_url = $(this).attr('data-url');
-
-              $.ajax({
-                url: ajax_url,
-                method: 'POST',
-                data: {
-                  output: 'body_wrapper',
-                },
-                success: function( data ) {
-                    divBody.slideUp( function(){
-                      $(this).html( data );
-                      $(this).slideDown(function(){
-                        loadingDiv.remove();
-                        window.history.replaceState('Object', $(document).prop('title'), ajax_url);
-                        $('.autocomplete-member_change').attr('data-current_sub_uri', ajax_url);
-                        init_coop();
-                      });
-                    });
-                }
-              }); // $.ajax()
-        }); // $(this).click()
-      }
-   });
- }; // bodyWrapper
 
  var init_coop = function() {
       bodyWrapper();

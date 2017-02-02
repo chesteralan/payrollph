@@ -83,7 +83,7 @@ switch( $salary->rate_per ) {
 
 <?php } else { ?>
 
-  <div class="text-center">No Group Found!</div>
+  <div class="text-center">No Basic Salary Found!</div>
 
 <?php } ?>
 <?php if( ! $inner_page ): ?>

@@ -27,6 +27,7 @@ class Employees_salaries extends MY_Controller {
 		$this->template_data->set('employee', $employee->get());
 
 		$salaries = new $this->Employees_salaries_model;
+		$salaries->setNameId($id,true);
 		$salaries->set_select("*");
 		$salaries->setActive('1',true);
 		$this->template_data->set('salaries', $salaries->populate());
@@ -56,7 +57,7 @@ class Employees_salaries extends MY_Controller {
 			$this->form_validation->set_rules('notes', 'Notes', 'trim');
 			if( $this->form_validation->run() ) {
 				$salaries = new $this->Employees_salaries_model;
-				$salaries->setnameId($id);
+				$salaries->setNameId($id);
 				$salaries->setAmount($this->input->post('amount'));
 				$salaries->setRatePer($this->input->post('rate_per'));
 				$salaries->setDays($this->input->post('num_of_days'));
@@ -92,12 +93,12 @@ class Employees_salaries extends MY_Controller {
 				$this->form_validation->set_rules('cola', 'COLA', 'trim');
 				$this->form_validation->set_rules('notes', 'Notes', 'trim');
 				if( $this->form_validation->run() ) {
-					$salaries->setAmount($this->input->post('amount'));
-					$salaries->setRatePer($this->input->post('rate_per'));
-					$salaries->setDays($this->input->post('num_of_days'));
-					$salaries->setHours($this->input->post('num_of_hours'));
-					$salaries->setCola($this->input->post('cola'));
-					$salaries->setNotes($this->input->post('notes'));
+					$salaries->setAmount($this->input->post('amount'),false,true);
+					$salaries->setRatePer($this->input->post('rate_per'),false,true);
+					$salaries->setDays($this->input->post('num_of_days'),false,true);
+					$salaries->setHours($this->input->post('num_of_hours'),false,true);
+					$salaries->setCola($this->input->post('cola'),false,true);
+					$salaries->setNotes($this->input->post('notes'),false,true);
 					$salaries->update();
 				}
 				$this->postNext();

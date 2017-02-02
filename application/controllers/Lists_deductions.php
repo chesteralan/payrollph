@@ -19,7 +19,7 @@ class Lists_deductions extends MY_Controller {
 		
 		$deductions = new $this->Deductions_list_model;
 		$deductions->set_select("*");
-		$deductions->set_order('id', 'DESC');
+		$deductions->set_order('name', 'ASC');
 		$this->template_data->set('deductions', $deductions->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
@@ -86,7 +86,8 @@ class Lists_deductions extends MY_Controller {
 
 		$deductions = new $this->Deductions_list_model;
 		$deductions->setId($id,true);
-		$deductions->delete();
+		$deductions->setActive('0',false,true);
+		$deductions->update();
 
 		$this->getNext("lists_deductions");
 	}

@@ -131,6 +131,7 @@ class Employees extends MY_Controller {
 		$names = new $this->Names_list_model;
 		$names->set_start($start);
 		$names->set_limit(5);
+		$names->set_order('names_list.full_name', 'ASC');
 		$names->set_where('(SELECT COUNT(*) FROM `employees` WHERE name_id=names_list.id) = 0');
 		$this->template_data->set('names', $names->populate());
 		

@@ -24,6 +24,7 @@
     <link href="<?php echo base_url('assets/js/bootstrap-select/css/bootstrap-select.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/js/tag-it/css/jquery.tagit.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/styles.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/custom/' . ((isset($bootstrap_theme)) ? $bootstrap_theme : 'default' ) . '.css'); ?>" rel="stylesheet">
     
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
