@@ -28,21 +28,49 @@
             <thead>
               <tr class="warning">
                 <th><?php echo $payroll_group->name; ?></th>
-                <th width="15%" class="text-right">Earnings</th>
-                <th width="15%" class="text-right">Deductions</th>
-                <th width="15%" class="text-right">Balance</th>
+                <th width="10%" class="text-right">Working Days</th>
+                <th width="10%" class="text-right">Absenses</th>
+                <th width="10%" class="text-right">Days Present</th>
+                <th width="10%" class="text-right">Rate per day</th>
+                <th width="10%" class="text-right">Basic Salary</th>
               </tr>
             </thead>
             <tbody>
             
 <?php if($payroll_group->employees) { 
               foreach($payroll_group->employees as $employee) {
+$days_absent = 0;
+$monthly_rate = 0;
+$daily_rate = 0;
+$hourly_rate = 0;
+if( $employee->salary ) {
+  $salary = $employee->salary;
+  switch( $salary->rate_per ) {
+    case 'month':
+      $monthly_rate = $salary->amount;
+      $daily_rate = ( $salary->amount / $salary->days );
+      $hourly_rate = ( $salary->amount / $salary->days / $salary->hours );
+    break;
+    case 'day':
+      $monthly_rate = ( $salary->amount * $salary->days );
+      $daily_rate = $salary->amount;
+      $hourly_rate = ( $salary->amount / $salary->hours );
+    break;
+    case 'hour':
+      $monthly_rate = ( $salary->amount * $salary->days * $salary->hours );
+      $daily_rate = ( $salary->amount * $salary->hours );
+      $hourly_rate = $salary->amount;
+    break;
+  }
+}
               ?>
               <tr>
                 <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> (<?php echo $employee->position; ?>)</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="text-right"><?php echo $inclusive_dates->working_days; ?></td>
+                <td class="text-right"><?php echo $days_absent; ?></td>
+                <td class="text-right"><?php echo $inclusive_dates->working_days - $days_absent; ?></td>
+                <td class="text-right"><?php echo number_format($daily_rate,2); ?></td>
+                <td class="text-right"><?php echo number_format(($daily_rate * ($inclusive_dates->working_days - $days_absent)),2); ?></td>
               </tr>
 <?php         } 
       } ?>

@@ -29,7 +29,7 @@ class Employees_salaries extends MY_Controller {
 		$salaries = new $this->Employees_salaries_model;
 		$salaries->setNameId($id,true);
 		$salaries->set_select("*");
-		$salaries->setActive('1',true);
+		$salaries->setTrash('0',true);
 		$this->template_data->set('salaries', $salaries->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
@@ -117,7 +117,7 @@ class Employees_salaries extends MY_Controller {
 
 		$salaries = new $this->Employees_salaries_model;
 		$salaries->setId($id,true,false);
-		$salaries->setActive('0',false,true);
+		$salaries->setTrash('1',false,true);
 		$salaries->update();
 
 		$salary_data = $salaries->get();

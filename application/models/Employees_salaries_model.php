@@ -15,7 +15,7 @@ CREATE TABLE `employees_salaries` (
   `cola` decimal(10,5) NOT NULL DEFAULT '0.00000',
   `notes` text,
   `primary` int(1) NOT NULL DEFAULT '0',
-  `active` int(1) NOT NULL DEFAULT '1',
+  `trash` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`)
 );
@@ -40,7 +40,7 @@ class Employees_salaries_model extends MY_Model {
 	protected $cola;
 	protected $notes;
 	protected $primary;
-	protected $active;
+	protected $trash;
 
 	// --------------------------------------------------------------------
 
@@ -54,8 +54,8 @@ class Employees_salaries_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees_salaries';
 		$this->_short_name = 'employees_salaries';
-		$this->_fields = array("id","name_id","amount","rate_per","days","hours","cola","notes","primary","active");
-		$this->_required = array("name_id","amount","rate_per","days","hours","cola","primary","active");
+		$this->_fields = array("id","name_id","amount","rate_per","days","hours","cola","notes","primary","trash");
+		$this->_required = array("name_id","amount","rate_per","days","hours","cola","primary","trash");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -296,30 +296,30 @@ class Employees_salaries_model extends MY_Model {
 // ------------------------------ End Field: primary --------------------------------------
 
 
-// ---------------------------- Start Field: active -------------------------------------- 
+// ---------------------------- Start Field: trash -------------------------------------- 
 
 	/** 
-	* Sets a value to `active` variable
+	* Sets a value to `trash` variable
 	* @access public
 	* @param  String
 	* @return $this;
 	*/
 
-		public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 		}
 	
 	/** 
-	* Get the value of `active` variable
+	* Get the value of `trash` variable
 	* @access public
 	* @return String;
 	*/
 
-		public function getActive() {
-			return $this->active;
+		public function getTrash() {
+			return $this->trash;
 		}
 	
-// ------------------------------ End Field: active --------------------------------------
+// ------------------------------ End Field: trash --------------------------------------
 
 
 

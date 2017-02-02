@@ -138,7 +138,7 @@ CREATE TABLE `employees_salaries` (
   `cola` decimal(10,5) NOT NULL DEFAULT '0.00000',
   `notes` text,
   `primary` int(1) NOT NULL DEFAULT '0',
-  `active` int(1) NOT NULL DEFAULT '1',
+  `trash` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`)
 );
@@ -201,6 +201,17 @@ CREATE TABLE `payroll_employees` (
   `name_id` int(20) NOT NULL,
   `order` int(2) NOT NULL DEFAULT '0',
   KEY `name_id` (`payroll_id`,`name_id`)
+);
+
+-- Table structure for table `payroll_employees_salaries` 
+
+CREATE TABLE `payroll_employees_salaries` (
+  `payroll_id` int(20) NOT NULL,
+  `name_id` int(20) NOT NULL,
+  `salary_id` int(20) NOT NULL,
+  `amount` decimal(10,5) DEFAULT '0.00000',
+  KEY `name_id` (`name_id`),
+  KEY `payroll_id` (`payroll_id`)
 );
 
 -- Table structure for table `payroll_groups` 

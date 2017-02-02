@@ -18,7 +18,9 @@ class Payroll extends MY_Controller {
 		$this->load->model('Payroll_earnings_model');
 		$this->load->model('Payroll_deductions_model');
 		$this->load->model('Payroll_benefits_model');
+
 		$this->load->model('Payroll_employees_model');
+		$this->load->model('Payroll_employees_salaries_model');
 
 		$this->load->model('Payroll_templates_groups_model');
 		$this->load->model('Payroll_templates_benefits_model');
@@ -26,6 +28,7 @@ class Payroll extends MY_Controller {
 		$this->load->model('Payroll_templates_deductions_model');
 
 		$this->load->model('Employees_model');
+		$this->load->model('Employees_salaries_model');
 
 
 	}
@@ -249,7 +252,7 @@ class Payroll extends MY_Controller {
 			$payroll_group = new $this->Payroll_groups_model;
 			$payroll_group->setPayrollId($id,true);
 			if( $payroll_group->nonEmpty() ) {
-				redirect( site_url($redirect_uri) . "#group_not_empty" );
+				//redirect( site_url($redirect_uri) . "#group_not_empty" );
 			}
 /*
 			$payroll_earning = new $this->Payroll_earnings_model;
@@ -295,6 +298,23 @@ class Payroll extends MY_Controller {
 						$payroll_employees->update();
 					} else {
 						$payroll_employees->insert();
+					}
+
+					$salary = new $this->Employees_salaries_model;
+					$salary->setNameId($employee->name_id,true);
+					$salary->setPrimary(1,true);
+					$salary->setTrash(0,true);
+					if( $salary->nonEmpty() ) {
+						$salary_data = $salary->getResults();
+						$payroll_salary = new $this->Payroll_employees_salaries_model;
+						$payroll_salary->setPayrollId($id,true);
+						$payroll_salary->setNameId($employee->name_id,true);
+						$payroll_salary->setSalaryId($salary_data->id,true);
+						if( $payroll_salary->nonEmpty() ) {
+							$payroll_salary->update();
+						} else {
+							$payroll_salary->insert();
+						}
 					}
 				}
 			}
