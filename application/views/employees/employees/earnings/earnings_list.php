@@ -38,7 +38,9 @@
                 <td><?php echo $earning->earnings_name; ?></td>
                 <td><?php echo number_format($earning->amount,2); ?></td>
                 <td><?php echo date('F d, Y', strtotime($earning->start_date)); ?></td>
-                <td><span class="glyphicon glyphicon-<?php echo ($earning->repeat) ? 'ok' : 'remove'; ?>"></span></td>
+                <td><?php 
+$computed = array('month'=>'Monthly', 'day'=>'Daily', 'hour'=>'Hourly');
+                echo $computed[$earning->computed]; ?></td>
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
 

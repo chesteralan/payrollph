@@ -17,6 +17,7 @@ CREATE TABLE `employees` (
   `notes` text,
   `phone_number` varchar(100) DEFAULT NULL,
   `address` text,
+  `trash` int(1) NOT NULL DEFAULT '0',
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),
   KEY `position_id` (`position_id`)
@@ -44,6 +45,7 @@ class Employees_model extends MY_Model {
 	protected $notes;
 	protected $phone_number;
 	protected $address;
+	protected $trash;
 
 	// --------------------------------------------------------------------
 
@@ -57,8 +59,8 @@ class Employees_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees';
 		$this->_short_name = 'employees';
-		$this->_fields = array("name_id","group_id","lastname","firstname","middlename","position_id","hired","status","notes","phone_number","address");
-		$this->_required = array("name_id","lastname","firstname","middlename");
+		$this->_fields = array("name_id","group_id","lastname","firstname","middlename","position_id","hired","status","notes","phone_number","address","trash");
+		$this->_required = array("name_id","lastname","firstname","middlename","trash");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -349,6 +351,32 @@ class Employees_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: address --------------------------------------
+
+
+// ---------------------------- Start Field: trash -------------------------------------- 
+
+	/** 
+	* Sets a value to `trash` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `trash` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getTrash() {
+			return $this->trash;
+		}
+	
+// ------------------------------ End Field: trash --------------------------------------
 
 
 

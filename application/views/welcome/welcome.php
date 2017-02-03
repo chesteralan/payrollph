@@ -53,6 +53,13 @@
                             Groups
                           </a>
                         <?php } ?>
+
+                        <?php if( in_array('positions', $this->session->menu_module['employees'] ) ) { ?>
+                          <a href="<?php echo site_url('employees_positions'); ?>" class="list-group-item body_wrapper">
+                            <span class="fa fa-users" aria-hidden="true"></span>
+                            Positions
+                          </a>
+                        <?php } ?>
 						</div>
 					</div>
     			</div>
@@ -77,11 +84,6 @@ if(
     				</div>
     				<div class="panel-body">
     					<div class="list-group list-group-icons">
-    					<?php if( in_array('names', $this->session->menu_module['system'] ) ) { ?>
-						  <a href="<?php echo site_url('system_names'); ?>" class="list-group-item body_wrapper">
-						    <span class="glyphicon glyphicon-list" aria-hidden="true"></span> Names
-						  </a>
-						<?php } ?>
 						<?php if( in_array('users', $this->session->menu_module['system'] ) ) { ?>
 						  <a href="<?php echo site_url('system_users'); ?>" class="list-group-item body_wrapper">
 						    <span class="badge"><?php echo $stats->users_count; ?></span>

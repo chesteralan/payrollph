@@ -18,9 +18,10 @@ class Employees_positions extends MY_Controller {
 	public function index($start=0) {
 		
 		$positions = new $this->Employees_positions_model;
+		$positions->setTrash(0,true);
 		$positions->set_select("*");
 		$positions->set_select("(SELECT COUNT(*) FROM `employees` WHERE position_id=employees_positions.id) as employees_count");
-		$positions->set_order('id', 'DESC');
+		$positions->set_order('name', 'ASC');
 		$this->template_data->set('positions', $positions->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
@@ -87,8 +88,9 @@ class Employees_positions extends MY_Controller {
 		$this->_isAuth('employees', 'positions', 'delete');
 
 		$positions = new $this->Employees_positions_model;
-		$positions->setId($id,true);
-		$positions->delete();
+		$positions->setId($id,true,false);
+		$positions->setTrash(1,false,true);
+		$positions->update();
 
 		$this->getNext("employees_positions");
 	}

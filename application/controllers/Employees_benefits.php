@@ -21,7 +21,7 @@ class Employees_benefits extends MY_Controller {
 		redirect("employees");
 	}
 
-public function view($id, $start=0) {
+	public function view($id, $start=0) {
 
 		$employee = new $this->Employees_model;
 		$employee->setNameId($id,true);
@@ -55,7 +55,6 @@ public function view($id, $start=0) {
 			$this->form_validation->set_rules('ee_share', 'Employee Share', 'trim|required');
 			$this->form_validation->set_rules('er_share', 'Employer Share', 'trim|required');
 			$this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
-			$this->form_validation->set_rules('repeat', 'Repeat', 'trim');
 			$this->form_validation->set_rules('primary', 'Primary', 'trim');
 			$this->form_validation->set_rules('notes', 'Notes', 'trim');
 			if( $this->form_validation->run() ) {
@@ -65,7 +64,6 @@ public function view($id, $start=0) {
 				$benefits->setEmployeeShare( str_replace(",", "", $this->input->post('ee_share')) );
 				$benefits->setEmployerShare( str_replace(",", "", $this->input->post('er_share')) );
 				$benefits->setStartDate( date('Y-m-d', strtotime($this->input->post('start_date')) ));
-				$benefits->setRepeat(($this->input->post('repeat')) ? 1 : 0);
 				$benefits->setPrimary(($this->input->post('primary')) ? 1 : 0);
 				$benefits->setTrash(0);
 				$benefits->setNotes($this->input->post('notes'));
@@ -98,7 +96,6 @@ public function view($id, $start=0) {
 				$this->form_validation->set_rules('ee_share', 'Employee Share', 'trim|required');
 				$this->form_validation->set_rules('er_share', 'Employer Share', 'trim|required');
 				$this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
-				$this->form_validation->set_rules('repeat', 'Repeat', 'trim');
 				$this->form_validation->set_rules('primary', 'Primary', 'trim');
 				$this->form_validation->set_rules('notes', 'Notes', 'trim');
 				if( $this->form_validation->run() ) {
@@ -116,7 +113,6 @@ public function view($id, $start=0) {
 					$benefits->setEmployeeShare( str_replace(",", "", $this->input->post('ee_share')) ,false,true);
 					$benefits->setEmployerShare( str_replace(",", "", $this->input->post('er_share')) ,false,true);
 					$benefits->setStartDate( date('Y-m-d', strtotime($this->input->post('start_date')) ),false,true);
-					$benefits->setRepeat((($this->input->post('repeat')) ? 1 : 0),false,true);
 					$benefits->setPrimary((($this->input->post('primary')) ? 1 : 0),false,true);
 					$benefits->setNotes($this->input->post('notes'),false,true);
 					$benefits->update();

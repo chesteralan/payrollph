@@ -72,15 +72,15 @@ $main_menu = array(
             'uri' => 'lists_names',
             'permission' => 'names',
           ),
-          'lists_benefits' => array(
-            'title' => 'Benefits',
-            'uri' => 'lists_benefits',
-            'permission' => 'benefits',
-          ),
           'lists_earnings' => array(
             'title' => 'Earnings',
             'uri' => 'lists_earnings',
             'permission' => 'earnings',
+          ),
+          'lists_benefits' => array(
+            'title' => 'Benefits',
+            'uri' => 'lists_benefits',
+            'permission' => 'benefits',
           ),
           'lists_deductions' => array(
             'title' => 'Deductions',

@@ -34,6 +34,7 @@ class Payroll_salaries extends MY_Controller {
 	public function index() {
 		redirect("payroll");
 	}
+	
 	public function view($id,$output='') {
 
 		$payroll = new $this->Payroll_model;

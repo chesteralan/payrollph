@@ -47,7 +47,7 @@
   </a>
 
   <a class="list-group-item body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_benefits/view/{$employee->name_id}") . "?next=" . $this->input->get('next'); ?>">
-    <h4 class="list-group-item-heading">Fringe Benefits</h4>
+    <h4 class="list-group-item-heading">Benefits</h4>
     <p class="list-group-item-text">SSS, Pag-ibig, and PhilHealth Benefits</p>
   </a>
   

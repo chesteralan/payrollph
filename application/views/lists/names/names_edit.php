@@ -34,11 +34,6 @@
 	    			<label>Contact Number</label>
 	    			<input name="contact_number" type="text" class="form-control" value="<?php echo $name->contact_number; ?>">
 	    		</div>
-<?php if( isset($output) && ($output=='ajax') ) { ?>
-	    		<div class="form-group">
-	    			<a href="<?php echo site_url("system_names/delete/{$name->id}"); ?>" class="btn btn-danger btn-xs confirm">Delete this Name</a>
-	    		</div>
-<?php } ?>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 

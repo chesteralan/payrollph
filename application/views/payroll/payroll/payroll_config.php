@@ -12,7 +12,7 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Configure Payroll Template</h3>
+          <h3 class="panel-title">Configure Payroll</h3>
         </div>
 
         <div class="panel-body">
@@ -33,23 +33,20 @@
 
 </div>
 
-<div class="list-group">
-
 <?php if( $generate ) { ?>
+<div class="list-group">
   <a data-target="#ajaxModal" data-title="Generate Payroll" class="list-group-item active" href="<?php echo site_url("payroll/generate/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Generate Payroll</h4>
     <p class="list-group-item-text">Generate Payroll</p>
   </a>
+</div>
 <?php } else { ?>
+
+<div class="list-group">
 
   <a data-target="#ajaxModal"  data-title="Employee Groups" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll/groups/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Employee Groups</h4>
     <p class="list-group-item-text">Employee Groups</p>
-  </a>
-
-  <a data-target="#ajaxModal" data-title="Benefits" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll/benefits/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
-    <h4 class="list-group-item-heading">Benefits</h4>
-    <p class="list-group-item-text">Benefits</p>
   </a>
 
   <a data-target="#ajaxModal" data-title="Earnings" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll/earnings/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
@@ -57,14 +54,28 @@
     <p class="list-group-item-text">Earnings</p>
   </a>
 
+  <a data-target="#ajaxModal" data-title="Benefits" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll/benefits/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+    <h4 class="list-group-item-heading">Benefits</h4>
+    <p class="list-group-item-text">Benefits</p>
+  </a>
+
   <a data-target="#ajaxModal" data-title="Deductions" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll/deductions/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Deductions</h4>
     <p class="list-group-item-text">Deductions</p>
   </a>
 
+</div>
+
+<div class="list-group">
+  <a data-target="#ajaxModal" data-title="Generate Payroll" class="list-group-item active" href="<?php echo site_url("payroll/generate/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+    <h4 class="list-group-item-heading">Generate Payroll</h4>
+    <p class="list-group-item-text">Generate Payroll</p>
+  </a>
+</div>
+
 <?php } ?>
 
-</div>
+
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>

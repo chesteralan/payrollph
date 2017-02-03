@@ -54,7 +54,7 @@ class Employees_earnings extends MY_Controller {
 			$this->form_validation->set_rules('earning_id', 'Earning', 'trim|required');
 			$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
 			$this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
-			$this->form_validation->set_rules('repeat', 'Repeat', 'trim');
+			$this->form_validation->set_rules('computed', 'Repeat', 'trim');
 			$this->form_validation->set_rules('active', 'Active', 'trim');
 			$this->form_validation->set_rules('notes', 'Notes', 'trim');
 			if( $this->form_validation->run() ) {
@@ -63,7 +63,7 @@ class Employees_earnings extends MY_Controller {
 				$earnings->setEarningId($this->input->post('earning_id'));
 				$earnings->setAmount( str_replace(",", "", $this->input->post('amount')) );
 				$earnings->setStartDate( date('Y-m-d', strtotime($this->input->post('start_date')) ));
-				$earnings->setRepeat(($this->input->post('repeat')) ? 1 : 0);
+				$earnings->setComputed($this->input->post('computed'));
 				$earnings->setActive(($this->input->post('active')) ? 1 : 0);
 				$earnings->setTrash(0);
 				$earnings->setNotes($this->input->post('notes'));
@@ -96,14 +96,14 @@ class Employees_earnings extends MY_Controller {
 				$this->form_validation->set_rules('earning_id', 'Earning', 'trim|required');
 				$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
 				$this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
-				$this->form_validation->set_rules('repeat', 'Repeat', 'trim');
+				$this->form_validation->set_rules('computed', 'Repeat', 'trim');
 				$this->form_validation->set_rules('active', 'Active', 'trim');
 				$this->form_validation->set_rules('notes', 'Notes', 'trim');
 				if( $this->form_validation->run() ) {
 					$earnings->setEarningId($this->input->post('earning_id'),false,true);
 					$earnings->setAmount( str_replace(",", "", $this->input->post('amount')) ,false,true);
 					$earnings->setStartDate( date('Y-m-d', strtotime($this->input->post('start_date')) ),false,true);
-					$earnings->setRepeat((($this->input->post('repeat')) ? 1 : 0),false,true);
+					$earnings->setComputed($this->input->post('computed'),false,true);
 					$earnings->setActive((($this->input->post('active')) ? 1 : 0),false,true);
 					$earnings->setNotes($this->input->post('notes'),false,true);
 					$earnings->update();

@@ -20,6 +20,7 @@ class Employees extends MY_Controller {
 	public function index($start=0) {
 
 		$employees = new $this->Employees_model;
+		$employees->setTrash(0,true);
 		$employees->set_select('*');
 		$employees->set_select('(SELECT name FROM employees_groups WHERE id=employees.group_id) as group_name');
 		$employees->set_select('(SELECT name FROM employees_positions WHERE id=employees.position_id) as position_name');
@@ -247,8 +248,9 @@ class Employees extends MY_Controller {
 		$this->_isAuth('employees', 'employees', 'delete');
 
 		$employee = new $this->Employees_model;
-		$employee->setNameId($id,true);
-		$employee->delete();
+		$employee->setNameId($id,true,false);
+		$employee->setTrash(1,false,true);
+		$employee->update();
 
 		$this->getNext("employees");
 	}

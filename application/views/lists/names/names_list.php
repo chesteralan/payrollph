@@ -23,13 +23,13 @@
 	    					<th>Address</th>
 	    					<th>Contact Number</th>
 	    					<?php if( hasAccess('lists', 'names', 'edit') ) { ?>
-	    					<th width="50px">Action</th>
+	    					<th width="105px">Action</th>
 	    					<?php } ?>
 	    				</tr>
 	    			</thead>
 	    			<tbody>
 	    			<?php foreach($names as $name) { ?>
-	    				<tr>
+	    				<tr id="name-<?php echo $name->id; ?>">
 	    					<td>
 <?php if( $name->is_employed ) { ?>
 	<a href="<?php echo site_url("employees/config/{$name->id}"); ?>" class="body_wrapper">
@@ -44,8 +44,10 @@
 	    					<?php if( hasAccess('lists', 'names', 'edit') ) { ?>
 	    					<td>
 
-	    					<button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Name" data-url="<?php echo site_url("lists_names/edit/{$name->id}/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Edit</button>
+	    					<button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Name" data-url="<?php echo site_url("lists_names/edit/{$name->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 	    					
+	    					<a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("lists_names/delete/{$name->id}"); ?>" data-target="#name-<?php echo $name->id; ?>">Delete</a>
+
 	    					</td>
 	    					<?php } ?>
 	    				</tr>

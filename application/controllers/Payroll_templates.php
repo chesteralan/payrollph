@@ -147,6 +147,7 @@ class Payroll_templates extends MY_Controller {
 		$groups->set_select("(SELECT ptg.group_id FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.group_id = eg.id ) as selected");
 		$groups->set_select("(SELECT ptg.order FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.group_id = eg.id) as sort");
 		$groups->set_order("(SELECT ptg.order FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.group_id = eg.id)", 'DESC');
+		$groups->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=eg.id) > 0)");
 		$this->template_data->set('groups', $groups->populate());
 
 		$this->template_data->set('output', $output);
@@ -207,7 +208,7 @@ class Payroll_templates extends MY_Controller {
 
 		if( $this->input->post() ) {
 
-			foreach( $this->input->post('group') as $earning_id ) {
+			foreach( $this->input->post('earning') as $earning_id ) {
 				if( ! in_array($earning_id, $this->input->post('selected')) ) {
 					$pearning = new $this->Payroll_templates_earnings_model;
 					$pearning->setTemplateId($id,true);

@@ -28,6 +28,7 @@ class Lists_names extends MY_Controller {
 		}
 
 		$names = new $this->Names_list_model;
+		$names->setTrash(0, true);
 
 		if( $this->input->get('q') ) {
 			$names->set_where('full_name LIKE "%' . $this->input->get('q') . '%"');
@@ -130,8 +131,9 @@ class Lists_names extends MY_Controller {
 		$this->_isAuth('lists', 'names', 'delete');
 
 		$name = new $this->Names_list_model;
-		$name->setId($id, true);
-		$name->delete();
+		$name->setId($id, true,false);
+		$name->setTrash(1,false,false);
+		$name->update();
 
 		redirect( "lists_names" );
 	}

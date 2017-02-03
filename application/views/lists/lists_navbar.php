@@ -28,8 +28,8 @@
 <ul class="nav navbar-nav navbar-right">
 <?php 
 $url['lists_names'] = array('uri' => 'lists_names', 'title'=>'Names', 'access'=>hasAccess('lists', 'names', 'view'));
-$url['lists_benefits'] = array('uri' => 'lists_benefits', 'title'=>'Benefits', 'access'=>hasAccess('lists', 'benefits', 'view'));
 $url['lists_earnings'] = array('uri' => 'lists_earnings', 'title'=>'Earnings', 'access'=>hasAccess('lists', 'earnings', 'view'));
+$url['lists_benefits'] = array('uri' => 'lists_benefits', 'title'=>'Benefits', 'access'=>hasAccess('lists', 'benefits', 'view'));
 $url['lists_deductions'] = array('uri' => 'lists_deductions', 'title'=>'Deductions', 'access'=>hasAccess('lists', 'deductions', 'view'));
 foreach($url as $k=>$v) {
   if( $v['access'] ) {

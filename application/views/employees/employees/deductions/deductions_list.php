@@ -25,7 +25,6 @@
                 <th>Deduction Name</th>
                 <th>Amount</th>
                 <th>Start</th>
-                <th>Repeat</th>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                   <th width="105px" class="action_column">Action</th>
                 <?php } ?>
@@ -38,7 +37,6 @@
                 <td><?php echo $deduction->deduction_name; ?></td>
                 <td><?php echo number_format($deduction->amount,2); ?></td>
                 <td><?php echo date('F d, Y', strtotime($deduction->start_date)); ?></td>
-                <td><span class="glyphicon glyphicon-<?php echo ($deduction->repeat) ? 'ok' : 'remove'; ?>"></span></td>
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
 

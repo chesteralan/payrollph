@@ -1,22 +1,20 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * Employees_earnings_model Class
+ * Payroll_employees_earnings_model Class
  *
- * Manipulates `employees_earnings` table on database
+ * Manipulates `payroll_employees_earnings` table on database
 
-CREATE TABLE `employees_earnings` (
+CREATE TABLE `payroll_employees_earnings` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
+  `payroll_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `earning_id` int(20) NOT NULL,
   `amount` decimal(10,5) NOT NULL,
-  `start_date` date DEFAULT NULL,
   `computed` varchar(50) DEFAULT NULL,
-  `active` int(1) DEFAULT '0',
-  `trash` int(1) DEFAULT '0',
   `notes` text,
   PRIMARY KEY (`id`),
-  KEY `name_id` (`name_id`,`earning_id`)
+  KEY `name_id` (`name_id`,`payroll_id`,`earning_id`)
 );
 
  * @package			        Model
@@ -28,16 +26,14 @@ CREATE TABLE `employees_earnings` (
  * @generator		        CodeIgniter Model Generator (CMG)
  */
  
-class Employees_earnings_model extends MY_Model {
+class Payroll_employees_earnings_model extends MY_Model {
 
 	protected $id;
+	protected $payroll_id;
 	protected $name_id;
 	protected $earning_id;
 	protected $amount;
-	protected $start_date;
 	protected $computed;
-	protected $active;
-	protected $trash;
 	protected $notes;
 
 	// --------------------------------------------------------------------
@@ -50,10 +46,10 @@ class Employees_earnings_model extends MY_Model {
 	*/
 
 	function __construct($short_name=NULL, $db_config=NULL) {
-		$this->_table_name = 'employees_earnings';
-		$this->_short_name = 'employees_earnings';
-		$this->_fields = array("id","name_id","earning_id","amount","start_date","computed","active","trash","notes");
-		$this->_required = array("name_id","earning_id","amount");
+		$this->_table_name = 'payroll_employees_earnings';
+		$this->_short_name = 'payroll_employees_earnings';
+		$this->_fields = array("id","payroll_id","name_id","earning_id","amount","computed","notes");
+		$this->_required = array("payroll_id","name_id","earning_id","amount");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -84,6 +80,32 @@ class Employees_earnings_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: id --------------------------------------
+
+
+// ---------------------------- Start Field: payroll_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `payroll_id` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('payroll_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `payroll_id` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getPayrollId() {
+			return $this->payroll_id;
+		}
+	
+// ------------------------------ End Field: payroll_id --------------------------------------
 
 
 // ---------------------------- Start Field: name_id -------------------------------------- 
@@ -164,32 +186,6 @@ class Employees_earnings_model extends MY_Model {
 // ------------------------------ End Field: amount --------------------------------------
 
 
-// ---------------------------- Start Field: start_date -------------------------------------- 
-
-	/** 
-	* Sets a value to `start_date` variable
-	* @access public
-	* @param  String
-	* @return $this;
-	*/
-
-		public function setStartDate($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('start_date', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
-	
-	/** 
-	* Get the value of `start_date` variable
-	* @access public
-	* @return String;
-	*/
-
-		public function getStartDate() {
-			return $this->start_date;
-		}
-	
-// ------------------------------ End Field: start_date --------------------------------------
-
-
 // ---------------------------- Start Field: computed -------------------------------------- 
 
 	/** 
@@ -214,58 +210,6 @@ class Employees_earnings_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: computed --------------------------------------
-
-
-// ---------------------------- Start Field: active -------------------------------------- 
-
-	/** 
-	* Sets a value to `active` variable
-	* @access public
-	* @param  String
-	* @return $this;
-	*/
-
-		public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
-	
-	/** 
-	* Get the value of `active` variable
-	* @access public
-	* @return String;
-	*/
-
-		public function getActive() {
-			return $this->active;
-		}
-	
-// ------------------------------ End Field: active --------------------------------------
-
-
-// ---------------------------- Start Field: trash -------------------------------------- 
-
-	/** 
-	* Sets a value to `trash` variable
-	* @access public
-	* @param  String
-	* @return $this;
-	*/
-
-		public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
-	
-	/** 
-	* Get the value of `trash` variable
-	* @access public
-	* @return String;
-	*/
-
-		public function getTrash() {
-			return $this->trash;
-		}
-	
-// ------------------------------ End Field: trash --------------------------------------
 
 
 // ---------------------------- Start Field: notes -------------------------------------- 
@@ -298,5 +242,5 @@ class Employees_earnings_model extends MY_Model {
 
 }
 
-/* End of file Employees_earnings_model.php */
-/* Location: ./application/models/Employees_earnings_model.php */
+/* End of file Payroll_employees_earnings_model.php */
+/* Location: ./application/models/Payroll_employees_earnings_model.php */

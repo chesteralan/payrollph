@@ -18,6 +18,7 @@ class Employees_groups extends MY_Controller {
 	public function index($start=0) {
 		
 		$groups = new $this->Employees_groups_model;
+		$groups->setTrash(0,true);
 		$groups->set_select("*");
 		$groups->set_select("(SELECT COUNT(*) FROM `employees` WHERE group_id=employees_groups.id) as employees_count");
 		$groups->set_order('name', 'ASC');
@@ -87,8 +88,9 @@ class Employees_groups extends MY_Controller {
 		$this->_isAuth('employees', 'groups', 'delete');
 
 		$groups = new $this->Employees_groups_model;
-		$groups->setId($id,true);
-		$groups->delete();
+		$groups->setId($id,true,false);
+		$groups->setTrash(1,false,true);
+		$groups->update();
 
 		$this->getNext("employees_groups");
 	}

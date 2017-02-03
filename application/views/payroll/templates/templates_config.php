@@ -31,14 +31,14 @@
     <p class="list-group-item-text">Employee Groups</p>
   </a>
 
-  <a data-target="#ajaxModal" data-title="Benefits" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll_templates/benefits/{$template->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
-    <h4 class="list-group-item-heading">Benefits</h4>
-    <p class="list-group-item-text">Benefits</p>
-  </a>
-
   <a data-target="#ajaxModal" data-title="Earnings" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll_templates/earnings/{$template->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Earnings</h4>
     <p class="list-group-item-text">Earnings</p>
+  </a>
+  
+  <a data-target="#ajaxModal" data-title="Benefits" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll_templates/benefits/{$template->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+    <h4 class="list-group-item-heading">Benefits</h4>
+    <p class="list-group-item-text">Benefits</p>
   </a>
 
   <a data-target="#ajaxModal" data-title="Deductions" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll_templates/deductions/{$template->id}/ajax") . "?next=" . $this->input->get('next'); ?>">

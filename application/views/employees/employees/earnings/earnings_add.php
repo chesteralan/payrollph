@@ -48,17 +48,27 @@
               </div>
         </div>
         <div class="col-md-6">
-              <div class="form-group">
-                <p><label><input name="repeat" type="checkbox" value="1"> Repeat per Payroll</label></p>
-                <p><label><input name="active" type="checkbox" value="1"> Set Active</label></p>
-              </div>
+            <div class="form-group">
+              <label>Repeat</label>
+              <select class="form-control" title="Select a Repeat" name="computed" required>
+              <?php 
+              $selected = 'month';
+              foreach(array('month'=>'Monthly', 'day'=>'Daily', 'hour'=>'Hourly') as $key=>$value) { ?>
+                  <option value="<?php echo $key; ?>"<?php echo ($key==$selected) ? ' SELECTED' : ''; ?>><?php echo $value; ?></option>
+              <?php } ?>
+              </select>
+            </div>
         </div>
       </div>
 
+    <div class="form-group">
+      <label>Notes</label>
+      <textarea name="notes" class="form-control" rows="3"></textarea>
+    </div>
+
       <div class="form-group">
-    <label>Notes</label>
-    <textarea name="notes" class="form-control" rows="3"></textarea>
-  </div>
+        <p><label><input name="active" type="checkbox" value="1"> Set Active</label></p>
+      </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>

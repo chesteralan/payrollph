@@ -54,7 +54,6 @@ class Employees_deductions extends MY_Controller {
 			$this->form_validation->set_rules('deduction_id', 'Earning', 'trim|required');
 			$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
 			$this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
-			$this->form_validation->set_rules('repeat', 'Repeat', 'trim');
 			$this->form_validation->set_rules('active', 'Active', 'trim');
 			$this->form_validation->set_rules('notes', 'Notes', 'trim');
 			if( $this->form_validation->run() ) {
@@ -63,7 +62,6 @@ class Employees_deductions extends MY_Controller {
 				$deductions->setDeductionId($this->input->post('deduction_id'));
 				$deductions->setAmount( str_replace(",", "", $this->input->post('amount')) );
 				$deductions->setStartDate( date('Y-m-d', strtotime($this->input->post('start_date')) ));
-				$deductions->setRepeat(($this->input->post('repeat')) ? 1 : 0);
 				$deductions->setActive(($this->input->post('active')) ? 1 : 0);
 				$deductions->setTrash(0);
 				$deductions->setNotes($this->input->post('notes'));
@@ -96,14 +94,12 @@ class Employees_deductions extends MY_Controller {
 				$this->form_validation->set_rules('deduction_id', 'Earning', 'trim|required');
 				$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
 				$this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
-				$this->form_validation->set_rules('repeat', 'Repeat', 'trim');
 				$this->form_validation->set_rules('active', 'Active', 'trim');
 				$this->form_validation->set_rules('notes', 'Notes', 'trim');
 				if( $this->form_validation->run() ) {
 					$deductions->setDeductionId($this->input->post('deduction_id'),false,true);
 					$deductions->setAmount( str_replace(",", "", $this->input->post('amount')) ,false,true);
 					$deductions->setStartDate( date('Y-m-d', strtotime($this->input->post('start_date')) ),false,true);
-					$deductions->setRepeat((($this->input->post('repeat')) ? 1 : 0),false,true);
 					$deductions->setActive((($this->input->post('active')) ? 1 : 0),false,true);
 					$deductions->setNotes($this->input->post('notes'),false,true);
 					$deductions->update();

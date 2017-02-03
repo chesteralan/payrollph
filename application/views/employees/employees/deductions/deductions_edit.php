@@ -24,7 +24,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>Earning</label>
-            <select class="form-control" title="Select an Earning" name="deduction_id" required>
+            <select class="form-control" title="Select an Deduction" name="deduction_id" required>
             <?php foreach($deductions as $deduct) { ?>
                 <option value="<?php echo $deduct->id; ?>"<?php echo ($deduction->deduction_id==$deduct->id) ? ' SELECTED' : ''; ?>><?php echo $deduct->name; ?></option>
             <?php } ?>
@@ -47,10 +47,7 @@
               </div>
         </div>
         <div class="col-md-6">
-              <div class="form-group">
-                <p><label><input name="repeat" type="checkbox" value="1"<?php echo ($deduction->repeat) ? ' CHECKED' : ''; ?>> Repeat per Payroll</label></p>
-                <p><label><input name="active" type="checkbox" value="1"<?php echo ($deduction->active) ? ' CHECKED' : ''; ?>> Set Active</label></p>
-              </div>
+
         </div>
       </div>
 
@@ -59,6 +56,10 @@
     <textarea name="notes" class="form-control" rows="3"><?php echo $deduction->notes; ?></textarea>
   </div>
 
+              <div class="form-group">
+                <p><label><input name="active" type="checkbox" value="1"<?php echo ($deduction->active) ? ' CHECKED' : ''; ?>> Set Active</label></p>
+              </div>
+              
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>
         <div class="panel-footer">

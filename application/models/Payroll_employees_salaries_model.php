@@ -10,6 +10,7 @@ CREATE TABLE `payroll_employees_salaries` (
   `name_id` int(20) NOT NULL,
   `salary_id` int(20) NOT NULL,
   `amount` decimal(10,5) DEFAULT '0.00000',
+  `notes` text,
   KEY `name_id` (`name_id`),
   KEY `payroll_id` (`payroll_id`)
 );
@@ -29,6 +30,7 @@ class Payroll_employees_salaries_model extends MY_Model {
 	protected $name_id;
 	protected $salary_id;
 	protected $amount;
+	protected $notes;
 
 	// --------------------------------------------------------------------
 
@@ -42,7 +44,7 @@ class Payroll_employees_salaries_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_employees_salaries';
 		$this->_short_name = 'payroll_employees_salaries';
-		$this->_fields = array("payroll_id","name_id","salary_id","amount");
+		$this->_fields = array("payroll_id","name_id","salary_id","amount","notes");
 		$this->_required = array("payroll_id","name_id","salary_id");
 		parent::__construct($short_name, $db_config);
 	}
@@ -152,6 +154,32 @@ class Payroll_employees_salaries_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: amount --------------------------------------
+
+
+// ---------------------------- Start Field: notes -------------------------------------- 
+
+	/** 
+	* Sets a value to `notes` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `notes` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getNotes() {
+			return $this->notes;
+		}
+	
+// ------------------------------ End Field: notes --------------------------------------
 
 
 

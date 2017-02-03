@@ -26,7 +26,6 @@
                 <th>Employee Share</th>
                 <th>Employer Share</th>
                 <th>Start</th>
-                <th>Repeat</th>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                   <th width="105px" class="action_column">Action</th>
                 <?php } ?>
@@ -40,7 +39,6 @@
                 <td><?php echo number_format($benefit->employee_share,2); ?></td>
                 <td><?php echo number_format($benefit->employer_share,2); ?></td>
                 <td><?php echo date('F d, Y', strtotime($benefit->start_date)); ?></td>
-                <td><span class="glyphicon glyphicon-<?php echo ($benefit->repeat) ? 'ok' : 'remove'; ?>"></span></td>
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
 

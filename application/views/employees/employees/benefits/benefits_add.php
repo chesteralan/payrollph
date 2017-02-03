@@ -51,10 +51,7 @@
               </div>
         </div>
         <div class="col-md-6">
-              <div class="form-group">
-                <p><label><input name="repeat" type="checkbox" value="1"> Repeat per Payroll</label></p>
-                <p><label><input name="primary" type="checkbox" value="1"> Set as Primary</label></p>
-              </div>
+
         </div>
       </div>
 
@@ -62,7 +59,9 @@
     <label>Notes</label>
     <textarea name="notes" class="form-control" rows="3"></textarea>
   </div>
-
+              <div class="form-group">
+                <p><label><input name="primary" type="checkbox" value="1"> Set as Primary</label></p>
+              </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>

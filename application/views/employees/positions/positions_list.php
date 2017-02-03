@@ -20,7 +20,7 @@
           <table class="table table-default">
             <thead>
               <tr>
-                <th>Group Name</th>
+                <th>Position Name</th>
                 <th>Employees</th>
                 <?php if( hasAccess('employees', 'positions', 'edit') ) { ?>
                   <th width="105px">Action</th>

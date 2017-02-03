@@ -51,10 +51,7 @@
               </div>
         </div>
         <div class="col-md-6">
-              <div class="form-group">
-                <p><label><input name="repeat" type="checkbox" value="1"<?php echo ($benefit->repeat) ? ' CHECKED' : ''; ?>> Repeat per Payroll</label></p>
-                <p><label><input name="primary" type="checkbox" value="1"<?php echo ($benefit->primary) ? ' CHECKED' : ''; ?>> Set as Primary</label></p>
-              </div>
+
         </div>
       </div>
 
@@ -63,6 +60,10 @@
     <textarea name="notes" class="form-control" rows="5"><?php echo $benefit->notes; ?></textarea>
   </div>
 
+              <div class="form-group">
+                <p><label><input name="primary" type="checkbox" value="1"<?php echo ($benefit->primary) ? ' CHECKED' : ''; ?>> Set as Primary</label></p>
+              </div>
+              
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>
         <div class="panel-footer">

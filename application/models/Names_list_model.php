@@ -10,6 +10,7 @@ CREATE TABLE `names_list` (
   `full_name` varchar(200) NOT NULL,
   `address` varchar(200) DEFAULT NULL,
   `contact_number` varchar(200) DEFAULT NULL,
+  `trash` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `full_name` (`full_name`)
 );
@@ -29,6 +30,7 @@ class Names_list_model extends MY_Model {
 	protected $full_name;
 	protected $address;
 	protected $contact_number;
+	protected $trash;
 
 	// --------------------------------------------------------------------
 
@@ -42,8 +44,8 @@ class Names_list_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'names_list';
 		$this->_short_name = 'names_list';
-		$this->_fields = array("id","full_name","address","contact_number");
-		$this->_required = array("full_name");
+		$this->_fields = array("id","full_name","address","contact_number","trash");
+		$this->_required = array("full_name","trash");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -152,6 +154,32 @@ class Names_list_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: contact_number --------------------------------------
+
+
+// ---------------------------- Start Field: trash -------------------------------------- 
+
+	/** 
+	* Sets a value to `trash` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `trash` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getTrash() {
+			return $this->trash;
+		}
+	
+// ------------------------------ End Field: trash --------------------------------------
 
 
 

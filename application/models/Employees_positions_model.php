@@ -9,7 +9,7 @@ CREATE TABLE `employees_positions` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `notes` text,
-  `active` int(1) NOT NULL DEFAULT '1',
+  `trash` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 );
 
@@ -27,7 +27,7 @@ class Employees_positions_model extends MY_Model {
 	protected $id;
 	protected $name;
 	protected $notes;
-	protected $active;
+	protected $trash;
 
 	// --------------------------------------------------------------------
 
@@ -41,8 +41,8 @@ class Employees_positions_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees_positions';
 		$this->_short_name = 'employees_positions';
-		$this->_fields = array("id","name","notes","active");
-		$this->_required = array("name","active");
+		$this->_fields = array("id","name","notes","trash");
+		$this->_required = array("name","trash");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -127,30 +127,30 @@ class Employees_positions_model extends MY_Model {
 // ------------------------------ End Field: notes --------------------------------------
 
 
-// ---------------------------- Start Field: active -------------------------------------- 
+// ---------------------------- Start Field: trash -------------------------------------- 
 
 	/** 
-	* Sets a value to `active` variable
+	* Sets a value to `trash` variable
 	* @access public
 	* @param  String
 	* @return $this;
 	*/
 
-		public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 		}
 	
 	/** 
-	* Get the value of `active` variable
+	* Get the value of `trash` variable
 	* @access public
 	* @return String;
 	*/
 
-		public function getActive() {
-			return $this->active;
+		public function getTrash() {
+			return $this->trash;
 		}
 	
-// ------------------------------ End Field: active --------------------------------------
+// ------------------------------ End Field: trash --------------------------------------
 
 
 
