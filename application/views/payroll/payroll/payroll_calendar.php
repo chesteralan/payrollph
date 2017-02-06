@@ -106,11 +106,12 @@ function draw_calendar($month,$year,$inclusive_dates){
 
 $current_month = ($this->input->get('month')) ? $this->input->get('month') : $payroll->month;
 $current_year = ($this->input->get('year')) ? $this->input->get('year') : $payroll->year;
+$next = ($this->input->get('next')) ? $this->input->get('next') : 'payroll';
 ?>
 <input type="hidden" name="payroll_id" value="<?php echo $payroll->id; ?>"/>
 <h4 class="text-center" style="margin-top:0px;">
-<a href="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/{$output}") . "?next=payroll&month=" .  date('m', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01'))) . "&year=" .  date('Y', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?>" class="pull-right ajax-modal-inner">&rArr;</a>
-<a href="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/{$output}") . "?next=payroll&month=" .  date('m', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))) . "&year=" .  date('Y', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?>" class="pull-left ajax-modal-inner">&lArr;</a>
+<a href="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/{$output}") . "?next={$next}&month=" .  date('m', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01'))) . "&year=" .  date('Y', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?>" class="pull-right ajax-modal-inner">&rArr;</a>
+<a href="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/{$output}") . "?next={$next}&month=" .  date('m', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))) . "&year=" .  date('Y', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?>" class="pull-left ajax-modal-inner">&lArr;</a>
 <?php echo date('F', strtotime($current_month."/1/1970")); ?> <?php echo $current_year; ?></h4> 
 <?php 
 echo draw_calendar($current_month,$current_year, $inclusive_dates);

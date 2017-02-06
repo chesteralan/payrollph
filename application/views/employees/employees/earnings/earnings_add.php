@@ -24,7 +24,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label>Earning</label>
+            <label>Earning Type</label>
             <select class="form-control" title="Select an Earning" name="earning_id" required>
             <?php foreach($earnings as $earning) { ?>
                 <option value="<?php echo $earning->id; ?>"><?php echo $earning->name; ?> - <?php echo $earning->notes; ?></option>

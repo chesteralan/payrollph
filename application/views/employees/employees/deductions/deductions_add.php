@@ -24,7 +24,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label>Earning</label>
+            <label>Deduction Type</label>
             <select class="form-control" title="Select an Deduction" name="deduction_id" required>
             <?php foreach($deductions as $deduct) { ?>
                 <option value="<?php echo $deduct->id; ?>"><?php echo $deduct->name; ?> - <?php echo $deduct->notes; ?></option>
@@ -34,8 +34,8 @@
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label>Amount</label>
-            <input name="amount" type="text" class="form-control text-center" value="" required>
+            <label>Whole Amount</label>
+            <input name="max_amount" type="text" class="form-control text-center" value="0.00" required>
           </div>
         </div>
       </div>
@@ -49,8 +49,8 @@
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label>Max Amount</label>
-            <input name="max_amount" type="text" class="form-control text-center" value="0.00" required>
+            <label>Deduction per payroll</label>
+            <input name="amount" type="text" class="form-control text-center" value="0.00" required>
           </div>
         </div>
       </div>      

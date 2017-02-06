@@ -7,7 +7,7 @@ class Lists_names extends MY_Controller {
 		parent::__construct();
 		$this->template_data->set('current_page', 'Names');
 		$this->template_data->set('current_uri', 'lists_names');
-		$this->template_data->set('navbar_search', true);
+		$this->template_data->set('navbar_search', false);
 
 		$this->_isAuth('lists', 'names', 'view');
 

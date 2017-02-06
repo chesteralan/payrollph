@@ -235,7 +235,7 @@ class Payroll extends MY_Controller {
 					}
 				}
 
-				$this->postNext(NULL, 'ajax');
+				$this->postNext();
 			}
 
 		}

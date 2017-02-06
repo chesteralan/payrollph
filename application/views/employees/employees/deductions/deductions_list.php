@@ -27,7 +27,7 @@
                 <th>Amount</th>
                 <th>Rate per</th>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
-                  <th width="155px" class="action_column">Action</th>
+                  <th width="165px" class="action_column">Action</th>
                 <?php } ?>
               </tr>
             </thead>
