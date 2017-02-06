@@ -14,8 +14,8 @@ CREATE TABLE `employees_salaries` (
   `hours` int(10) NOT NULL DEFAULT '8',
   `cola` decimal(10,5) NOT NULL DEFAULT '0.00000',
   `notes` text,
-  `primary` int(1) NOT NULL DEFAULT '0',
-  `trash` int(1) NOT NULL DEFAULT '0',
+  `primary` int(1) DEFAULT '0',
+  `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`)
 );
@@ -55,7 +55,7 @@ class Employees_salaries_model extends MY_Model {
 		$this->_table_name = 'employees_salaries';
 		$this->_short_name = 'employees_salaries';
 		$this->_fields = array("id","name_id","amount","rate_per","days","hours","cola","notes","primary","trash");
-		$this->_required = array("name_id","amount","rate_per","days","hours","cola","primary","trash");
+		$this->_required = array("name_id","amount","rate_per","days","hours","cola");
 		parent::__construct($short_name, $db_config);
 	}
 

@@ -1,10 +1,6 @@
 (function($){
 
-var backlink_options = [{
-  url : '',
-  title : '',
-  hide_footer : ''
-}];
+var modal_backlink = [];
 var current_uri = '';
 
  var init_sortable = function() {
@@ -510,33 +506,29 @@ $('.ajax-modal-inner').each(function(){
 
     var back_level_n = 0;
     if( $(this).attr('data-back_level') ) {
-        backlink_options.splice((backlink_options.length-1),1);
+        modal_backlink.splice((modal_backlink.length-1),1);
     } else {
-        backlink_options[backlink_options.length] = {
+        modal_backlink.push({
           url : $(this).attr('data-url'),
           title : $(this).attr('data-title'), 
           hide_footer : $(this).attr('data-hide_footer')
-        }
+        });
     }
-    back_level_n = (backlink_options.length-2);
+    back_level_n = (modal_backlink.length-2);
 
     var back_link = $('#ajax-modal-backlink');
     if( back_link.length ) {
       back_link.remove();
     }
 
-    console.log( back_level_n );
-    console.log( backlink_options );
-    console.log( backlink_options[back_level_n] );
-
-  if( backlink_options[back_level_n] ) {
+  if( modal_backlink[back_level_n] ) {
       var back_link = $('<button class="close ajax-modal-inner" id="ajax-modal-backlink"><span class="glyphicon glyphicon-arrow-left"></span></button>');
       back_link.css('float', 'left');
       back_link.css('font-size', 'large');
-      back_link.attr('data-url', backlink_options[back_level_n].url);
-      back_link.attr('data-title', backlink_options[back_level_n].title);
-      back_link.attr('title', backlink_options[back_level_n].title);
-      back_link.attr('data-hide_footer', backlink_options[back_level_n].hide_footer);
+      back_link.attr('data-url', modal_backlink[back_level_n].url);
+      back_link.attr('data-title', modal_backlink[back_level_n].title);
+      back_link.attr('title', modal_backlink[back_level_n].title);
+      back_link.attr('data-hide_footer', modal_backlink[back_level_n].hide_footer);
       back_link.attr('data-back_level', 1);
        $('#ajaxModal .modal-header').prepend(back_link);
     }
@@ -560,6 +552,7 @@ $('.ajax-modal-inner').each(function(){
           });
         });
       });
+
   });
 });
 
@@ -580,9 +573,14 @@ var setupAjaxModal = function(){
       } else {
         $('#ajaxModal .modal-footer').slideDown();
       }
-    backlink_options[0].url = $(this).attr('data-url'); 
-    backlink_options[0].title = $(this).attr('data-title'); 
-    backlink_options[0].hide_footer = $(this).attr('data-hide_footer'); 
+
+    modal_backlink = [];
+    modal_backlink.push({ 
+      url : $(this).attr('data-url'), 
+      title : $(this).attr('data-title'),
+      hide_footer : $(this).attr('data-hide_footer'),
+    });
+    
   });
 };
 

@@ -10,7 +10,9 @@ CREATE TABLE `employees_deductions` (
   `name_id` int(20) NOT NULL,
   `deduction_id` int(20) NOT NULL,
   `amount` decimal(10,5) NOT NULL,
+  `max_amount` decimal(10,5) DEFAULT '0.00000',
   `start_date` date DEFAULT NULL,
+  `computed` varchar(10) DEFAULT '',
   `active` int(1) DEFAULT '0',
   `trash` int(1) DEFAULT '1',
   `notes` text,
@@ -33,7 +35,9 @@ class Employees_deductions_model extends MY_Model {
 	protected $name_id;
 	protected $deduction_id;
 	protected $amount;
+	protected $max_amount;
 	protected $start_date;
+	protected $computed;
 	protected $active;
 	protected $trash;
 	protected $notes;
@@ -50,7 +54,7 @@ class Employees_deductions_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees_deductions';
 		$this->_short_name = 'employees_deductions';
-		$this->_fields = array("id","name_id","deduction_id","amount","start_date","active","trash","notes");
+		$this->_fields = array("id","name_id","deduction_id","amount","max_amount","start_date","computed","active","trash","notes");
 		$this->_required = array("name_id","deduction_id","amount");
 		parent::__construct($short_name, $db_config);
 	}
@@ -162,6 +166,32 @@ class Employees_deductions_model extends MY_Model {
 // ------------------------------ End Field: amount --------------------------------------
 
 
+// ---------------------------- Start Field: max_amount -------------------------------------- 
+
+	/** 
+	* Sets a value to `max_amount` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setMaxAmount($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('max_amount', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `max_amount` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getMaxAmount() {
+			return $this->max_amount;
+		}
+	
+// ------------------------------ End Field: max_amount --------------------------------------
+
+
 // ---------------------------- Start Field: start_date -------------------------------------- 
 
 	/** 
@@ -186,6 +216,32 @@ class Employees_deductions_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: start_date --------------------------------------
+
+
+// ---------------------------- Start Field: computed -------------------------------------- 
+
+	/** 
+	* Sets a value to `computed` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setComputed($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('computed', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `computed` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getComputed() {
+			return $this->computed;
+		}
+	
+// ------------------------------ End Field: computed --------------------------------------
 
 
 // ---------------------------- Start Field: active -------------------------------------- 

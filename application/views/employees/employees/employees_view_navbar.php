@@ -15,7 +15,7 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-      <li><a class="body_wrapper" href="<?php echo site_url('employees'); ?>"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
+      <li><a class="body_wrapper" href="<?php echo site_url( ($this->input->get('next')) ? $this->input->get('next') : 'employees'); ?>"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
 <?php 
 
 $url['employees_salaries'] = array('uri' => 'employees_salaries/view/' . $employee->name_id, 'title'=>'Basic Salary', 'access'=>hasAccess('employees', 'employees', 'view'));
@@ -26,7 +26,7 @@ $url['employees_deductions'] = array('uri' => 'employees_deductions/view/' . $em
 foreach($url as $k=>$v) {
   if( $v['access'] ) {
 ?>
-  <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($v['uri']); ?>"><?php echo $v['title']; ?></a></li>
+  <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($v['uri']) . (($this->input->get('next')) ? '?next=' . $this->input->get('next') : ''); ?>"><?php echo $v['title']; ?></a></li>
 <?php } } ?>
       </ul>
     </div><!-- /.navbar-collapse -->

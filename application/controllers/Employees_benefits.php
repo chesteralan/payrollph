@@ -58,6 +58,16 @@ class Employees_benefits extends MY_Controller {
 			$this->form_validation->set_rules('primary', 'Primary', 'trim');
 			$this->form_validation->set_rules('notes', 'Notes', 'trim');
 			if( $this->form_validation->run() ) {
+
+				$set_primary = ($this->input->post('primary')) ? true : false;
+				if( $set_primary ) {
+					$primary_benefit = new $this->Employees_benefits_model;
+					$primary_benefit->setNameId($id,true,false);
+					$primary_benefit->setBenefitId($this->input->post('benefit_id'),true,false);
+					$primary_benefit->setPrimary(0,false,true);
+					$primary_benefit->update();
+				}
+
 				$benefits = new $this->Employees_benefits_model;
 				$benefits->setNameId($id);
 				$benefits->setBenefitId($this->input->post('benefit_id'));

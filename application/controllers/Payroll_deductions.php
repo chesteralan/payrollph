@@ -15,16 +15,17 @@ class Payroll_deductions extends MY_Controller {
 		$this->load->model('Payroll_templates_model');
 		$this->load->model('Payroll_inclusive_dates_model');
 		$this->load->model('Payroll_groups_model');
-		$this->load->model('Payroll_earnings_model');
+		$this->load->model('Payroll_deductions_model');
 		$this->load->model('Payroll_deductions_model');
 		$this->load->model('Payroll_benefits_model');
 		
 		$this->load->model('Payroll_employees_model');
 		$this->load->model('Payroll_employees_deductions_model');
+		$this->load->model('Deductions_list_model');
 
 		$this->load->model('Payroll_templates_groups_model');
 		$this->load->model('Payroll_templates_benefits_model');
-		$this->load->model('Payroll_templates_earnings_model');
+		$this->load->model('Payroll_templates_deductions_model');
 		$this->load->model('Payroll_templates_deductions_model');
 
 		$this->load->model('Employees_model');
@@ -83,6 +84,111 @@ class Payroll_deductions extends MY_Controller {
 		
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/deductions/deductions_view', $this->template_data->get_data());
+	}
+
+	public function entries($id,$name_id,$deduction_id,$output='') {
+
+		$this->template_data->set('payroll_id', $id);
+		$this->template_data->set('name_id', $name_id);
+		$this->template_data->set('deduction_id', $deduction_id);
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$deduction_data = new $this->Deductions_list_model;
+		$deduction_data->setId($deduction_id,true);
+		$this->template_data->set('deduction_data', $deduction_data->get());
+
+		$deductions = new $this->Payroll_employees_deductions_model('ped');
+		$deductions->setPayrollId($id,true);
+		$deductions->setNameId($name_id,true);
+		$deductions->setDeductionId($deduction_id,true);
+		$deductions->set_select('ped.*');
+		$deductions->set_select('(IF((SELECT(ped.notes)), ped.notes, ed.notes)) as notes');
+		$deductions->set_join('employees_deductions ed', 'ed.id=ped.entry_id');
+		$deductions->set_join('deductions_list dl', 'ped.deduction_id=dl.id');
+		$this->template_data->set('deductions', $deductions->populate());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/deductions/deductions_entries', $this->template_data->get_data());
+	}
+
+	public function add($id,$name_id,$deduction_id,$output='') {
+
+		$this->template_data->set('payroll_id', $id);
+		$this->template_data->set('name_id', $name_id);
+		$this->template_data->set('deduction_id', $deduction_id);
+
+		if( $this->input->post() ) {
+			$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
+			$this->form_validation->set_rules('notes', 'Notes', 'trim');
+			if( $this->form_validation->run() ) {
+				$deductions = new $this->Payroll_employees_deductions_model('pee');
+				$deductions->setPayrollId($id,true);
+				$deductions->setNameId($name_id,true);
+				$deductions->setDeductionId($deduction_id,true);
+				$deductions->setAmount( str_replace(",", "", $this->input->post('amount')) );
+				$deductions->setNotes($this->input->post('notes'));
+				$deductions->insert();
+			}
+			redirect("payroll_deductions/view/{$id}");
+		}
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$deduction_data = new $this->Deductions_list_model;
+		$deduction_data->setId($deduction_id,true);
+		$this->template_data->set('deduction_data', $deduction_data->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/deductions/deductions_add', $this->template_data->get_data());
+	}
+
+	public function edit($id,$output='') {
+
+		$deductions = new $this->Payroll_employees_deductions_model('pee');
+		$deductions->setId($id,true);
+		$deduction_data = $deductions->get();
+
+		if( $this->input->post() ) {
+			$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
+			$this->form_validation->set_rules('notes', 'Notes', 'trim');
+			if( $this->form_validation->run() ) {
+				$deductions->setAmount( str_replace(",", "", $this->input->post('amount')) );
+				$deductions->setNotes($this->input->post('notes'));
+				$deductions->update();
+			}
+			redirect("payroll_deductions/view/{$deduction_data->payroll_id}");
+		}
+
+		$this->template_data->set('deduction', $deductions->get());
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($deduction_data->payroll_id,true);
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$deduction_list = new $this->Deductions_list_model;
+		$deduction_list->setId($deduction_data->deduction_id,true);
+		$this->template_data->set('deduction_data', $deduction_list->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/deductions/deductions_edit', $this->template_data->get_data());
+	}
+
+	public function delete($id,$output='') {
+
+		$deductions = new $this->Payroll_employees_deductions_model;
+		$deductions->setId($id,true);
+		$deduction_data = $deductions->get();
+		$deductions->delete();
+		redirect("payroll_deductions/view/{$deduction_data->payroll_id}");
+
 	}
 
 }

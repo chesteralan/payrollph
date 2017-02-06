@@ -27,7 +27,7 @@
             <label>Earning</label>
             <select class="form-control" title="Select an Earning" name="earning_id" required>
             <?php foreach($earnings as $earning) { ?>
-                <option value="<?php echo $earning->id; ?>"><?php echo $earning->name; ?></option>
+                <option value="<?php echo $earning->id; ?>"><?php echo $earning->name; ?> - <?php echo $earning->notes; ?></option>
             <?php } ?>
             </select>
           </div>
@@ -35,7 +35,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>Amount</label>
-            <input name="amount" type="text" class="form-control text-center" value="" required>
+            <input name="amount" type="text" class="form-control text-center" value="0.00" required>
           </div>
         </div>
       </div>
@@ -48,8 +48,17 @@
               </div>
         </div>
         <div class="col-md-6">
-            <div class="form-group">
-              <label>Repeat</label>
+           <div class="form-group">
+            <label>Max Amount</label>
+            <input name="max_amount" type="text" class="form-control text-center" value="0.00" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">          
+        <div class="col-md-6">
+                    <div class="form-group">
+              <label>Rate per</label>
               <select class="form-control" title="Select a Repeat" name="computed" required>
               <?php 
               $selected = 'month';
@@ -58,8 +67,12 @@
               <?php } ?>
               </select>
             </div>
+         
+        </div>
+        <div class="col-md-6">
         </div>
       </div>
+
 
     <div class="form-group">
       <label>Notes</label>

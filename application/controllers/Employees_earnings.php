@@ -14,6 +14,7 @@ class Employees_earnings extends MY_Controller {
 		$this->load->model('Employees_model');
 		$this->load->model('Employees_earnings_model');
 		$this->load->model('Earnings_list_model');
+		$this->load->model('Payroll_employees_earnings_model');
 
 	}
 
@@ -56,6 +57,7 @@ class Employees_earnings extends MY_Controller {
 			$this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
 			$this->form_validation->set_rules('computed', 'Repeat', 'trim');
 			$this->form_validation->set_rules('active', 'Active', 'trim');
+			$this->form_validation->set_rules('max_amount', 'Max Amount', 'trim');
 			$this->form_validation->set_rules('notes', 'Notes', 'trim');
 			if( $this->form_validation->run() ) {
 				$earnings = new $this->Employees_earnings_model;
@@ -64,6 +66,7 @@ class Employees_earnings extends MY_Controller {
 				$earnings->setAmount( str_replace(",", "", $this->input->post('amount')) );
 				$earnings->setStartDate( date('Y-m-d', strtotime($this->input->post('start_date')) ));
 				$earnings->setComputed($this->input->post('computed'));
+				$earnings->setMaxAmount( str_replace(",", "", $this->input->post('max_amount')) );
 				$earnings->setActive(($this->input->post('active')) ? 1 : 0);
 				$earnings->setTrash(0);
 				$earnings->setNotes($this->input->post('notes'));
@@ -97,6 +100,7 @@ class Employees_earnings extends MY_Controller {
 				$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
 				$this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
 				$this->form_validation->set_rules('computed', 'Repeat', 'trim');
+				$this->form_validation->set_rules('max_amount', 'Max Amount', 'trim');
 				$this->form_validation->set_rules('active', 'Active', 'trim');
 				$this->form_validation->set_rules('notes', 'Notes', 'trim');
 				if( $this->form_validation->run() ) {
@@ -104,6 +108,7 @@ class Employees_earnings extends MY_Controller {
 					$earnings->setAmount( str_replace(",", "", $this->input->post('amount')) ,false,true);
 					$earnings->setStartDate( date('Y-m-d', strtotime($this->input->post('start_date')) ),false,true);
 					$earnings->setComputed($this->input->post('computed'),false,true);
+					$earnings->setMaxAmount( str_replace(",", "", $this->input->post('max_amount')) ,false,true);
 					$earnings->setActive((($this->input->post('active')) ? 1 : 0),false,true);
 					$earnings->setNotes($this->input->post('notes'),false,true);
 					$earnings->update();
@@ -136,23 +141,43 @@ class Employees_earnings extends MY_Controller {
 		$this->getNext("employees_earnings/view/{$salary_data->name_id}");
 	}
 
-	public function set_primary($id) {
-		
-		$this->_isAuth('employees', 'positions', 'delete');
+	public function entries($id, $output='') {
 
-		$new_primary = new $this->Employees_earnings_model;
-		$new_primary->setId($id,true,false);
-		$salary = $new_primary->get();
+		$d_entry = new $this->Employees_earnings_model;
+		$d_entry->setId($id,true);
+		$entry = $d_entry->get();
+		$this->template_data->set('entry', $entry);
 
-		$current_primary = new $this->Employees_earnings_model;
-		$current_primary->setNameId($salary->name_id,true,false);
-		$current_primary->setPrimary('0',false,true);
-		$current_primary->update();
+		$employee = new $this->Employees_model;
+		$employee->setNameId($entry->name_id,true);
+		$this->template_data->set('employee', $employee->get());
 
-		$new_primary->setPrimary('1',false,true);
-		$new_primary->update();
+		$earnings = new $this->Earnings_list_model;
+		$earnings->setId($entry->earning_id,true);
+		$earning_data = $earnings->get();
+		$this->template_data->set('earning', $earning_data);
 
-		$this->getNext();
+		$employees_earnings = new $this->Payroll_employees_earnings_model('ped');
+		$employees_earnings->setNameId($entry->name_id,true);
+		$employees_earnings->setEntryId($id,true);
+		$employees_earnings->set_select("*");
+		$employees_earnings->set_select("p.name as payroll_name");
+		$employees_earnings->set_select("ped.id as ped_id");
+		$employees_earnings->set_join("employees_earnings ed", 'ed.id=ped.entry_id');
+		$employees_earnings->set_join("earnings_list dl", 'dl.id=ped.earning_id');
+		$employees_earnings->set_join("payroll p", 'p.id=ped.payroll_id');
+		$employees_earnings->set_limit(0);
+		$this->template_data->set('earnings', $employees_earnings->populate());
+
+		$this->template_data->set('pagination', bootstrap_pagination(array(
+			'base_url' => base_url('employees_earnings/index/'),
+			'total_rows' => $earnings->count_all_results(),
+			'per_page' => $earnings->get_limit(),
+			'ajax'=>true,
+		)));
+
+		$this->template_data->set('output', $output);
+		$this->load->view('employees/employees/earnings/earnings_entries', $this->template_data->get_data());
 	}
 	
 }

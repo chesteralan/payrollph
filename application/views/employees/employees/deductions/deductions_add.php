@@ -27,7 +27,7 @@
             <label>Earning</label>
             <select class="form-control" title="Select an Deduction" name="deduction_id" required>
             <?php foreach($deductions as $deduct) { ?>
-                <option value="<?php echo $deduct->id; ?>"><?php echo $deduct->name; ?></option>
+                <option value="<?php echo $deduct->id; ?>"><?php echo $deduct->name; ?> - <?php echo $deduct->notes; ?></option>
             <?php } ?>
             </select>
           </div>
@@ -48,6 +48,27 @@
               </div>
         </div>
         <div class="col-md-6">
+          <div class="form-group">
+            <label>Max Amount</label>
+            <input name="max_amount" type="text" class="form-control text-center" value="0.00" required>
+          </div>
+        </div>
+      </div>      
+
+      <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+              <label>Rate per</label>
+              <select class="form-control" title="Select a Repeat" name="computed" required>
+              <?php 
+              $selected = 'month';
+              foreach(array('month'=>'Monthly', 'day'=>'Daily', 'hour'=>'Hourly') as $key=>$value) { ?>
+                  <option value="<?php echo $key; ?>"<?php echo ($key==$selected) ? ' SELECTED' : ''; ?>><?php echo $value; ?></option>
+              <?php } ?>
+              </select>
+            </div>
+        </div>
+         <div class="col-md-6">
 
         </div>
       </div>

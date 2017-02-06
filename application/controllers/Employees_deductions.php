@@ -15,6 +15,8 @@ class Employees_deductions extends MY_Controller {
 		$this->load->model('Employees_deductions_model');
 		$this->load->model('Deductions_list_model');
 
+		$this->load->model('Payroll_employees_deductions_model');
+
 	}
 
 	public function index() {
@@ -31,6 +33,7 @@ class Employees_deductions extends MY_Controller {
 		$deductions->setNameId($id,true);
 		$deductions->set_select("*");
 		$deductions->set_select("(SELECT name FROM deductions_list WHERE id=employees_deductions.deduction_id) as deduction_name");
+		$deductions->set_select("(SELECT notes FROM deductions_list WHERE id=employees_deductions.deduction_id) as deduction_notes");
 		$deductions->setTrash('0',true);
 		$this->template_data->set('deductions', $deductions->populate());
 
@@ -55,16 +58,20 @@ class Employees_deductions extends MY_Controller {
 			$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
 			$this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
 			$this->form_validation->set_rules('active', 'Active', 'trim');
+			$this->form_validation->set_rules('computed', 'Rate per', 'trim');
+			$this->form_validation->set_rules('max_amount', 'Max Amount', 'trim');
 			$this->form_validation->set_rules('notes', 'Notes', 'trim');
 			if( $this->form_validation->run() ) {
 				$deductions = new $this->Employees_deductions_model;
 				$deductions->setnameId($id);
 				$deductions->setDeductionId($this->input->post('deduction_id'));
 				$deductions->setAmount( str_replace(",", "", $this->input->post('amount')) );
+				$deductions->setMaxAmount( str_replace(",", "", $this->input->post('max_amount')) );
 				$deductions->setStartDate( date('Y-m-d', strtotime($this->input->post('start_date')) ));
 				$deductions->setActive(($this->input->post('active')) ? 1 : 0);
 				$deductions->setTrash(0);
 				$deductions->setNotes($this->input->post('notes'));
+				$deductions->setComputed($this->input->post('computed'));
 				$deductions->insert();
 			}
 			$this->postNext();
@@ -95,13 +102,17 @@ class Employees_deductions extends MY_Controller {
 				$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
 				$this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
 				$this->form_validation->set_rules('active', 'Active', 'trim');
+				$this->form_validation->set_rules('max_amount', 'Max Amount', 'trim');
+				$this->form_validation->set_rules('computed', 'Rate per', 'trim');
 				$this->form_validation->set_rules('notes', 'Notes', 'trim');
 				if( $this->form_validation->run() ) {
 					$deductions->setDeductionId($this->input->post('deduction_id'),false,true);
 					$deductions->setAmount( str_replace(",", "", $this->input->post('amount')) ,false,true);
 					$deductions->setStartDate( date('Y-m-d', strtotime($this->input->post('start_date')) ),false,true);
 					$deductions->setActive((($this->input->post('active')) ? 1 : 0),false,true);
+					$deductions->setMaxAmount( str_replace(",", "", $this->input->post('max_amount')) ,false,true);
 					$deductions->setNotes($this->input->post('notes'),false,true);
+					$deductions->setComputed($this->input->post('computed'),false,true);
 					$deductions->update();
 				}
 				$this->postNext();
@@ -130,6 +141,45 @@ class Employees_deductions extends MY_Controller {
 		$salary_data = $deductions->get();
 
 		$this->getNext("employees_deductions/view/{$salary_data->name_id}");
+	}
+
+	public function entries($id, $output='') {
+
+		$d_entry = new $this->Employees_deductions_model;
+		$d_entry->setId($id,true);
+		$entry = $d_entry->get();
+		$this->template_data->set('entry', $entry);
+
+		$employee = new $this->Employees_model;
+		$employee->setNameId($entry->name_id,true);
+		$this->template_data->set('employee', $employee->get());
+
+		$deductions = new $this->Deductions_list_model;
+		$deductions->setId($entry->deduction_id,true);
+		$deduction_data = $deductions->get();
+		$this->template_data->set('deduction', $deduction_data);
+
+		$employees_deductions = new $this->Payroll_employees_deductions_model('ped');
+		$employees_deductions->setNameId($entry->name_id,true);
+		$employees_deductions->setEntryId($id,true);
+		$employees_deductions->set_select("*");
+		$employees_deductions->set_select("p.name as payroll_name");
+		$employees_deductions->set_select("ped.id as ped_id");
+		$employees_deductions->set_join("employees_deductions ed", 'ed.id=ped.entry_id');
+		$employees_deductions->set_join("deductions_list dl", 'dl.id=ped.deduction_id');
+		$employees_deductions->set_join("payroll p", 'p.id=ped.payroll_id');
+		$employees_deductions->set_limit(0);
+		$this->template_data->set('deductions', $employees_deductions->populate());
+
+		$this->template_data->set('pagination', bootstrap_pagination(array(
+			'base_url' => base_url('employees_deductions/index/'),
+			'total_rows' => $deductions->count_all_results(),
+			'per_page' => $deductions->get_limit(),
+			'ajax'=>true,
+		)));
+
+		$this->template_data->set('output', $output);
+		$this->load->view('employees/employees/deductions/deductions_entries', $this->template_data->get_data());
 	}
 	
 }

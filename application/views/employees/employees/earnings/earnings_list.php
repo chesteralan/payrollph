@@ -23,11 +23,11 @@
             <thead>
               <tr>
                 <th>Earnings Name</th>
+                <th>Max Amount</th>
                 <th>Amount</th>
-                <th>Start</th>
-                <th>Repeat</th>
+                <th>Rate per</th>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
-                  <th width="105px" class="action_column">Action</th>
+                  <th width="155px" class="action_column">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -36,13 +36,15 @@
             <?php foreach($earnings as $earning) { ?>
               <tr id="salary-<?php echo $earning->id; ?>" class="<?php echo ($earning->active==1) ? 'success' : ''; ?>">
                 <td><?php echo $earning->earnings_name; ?></td>
+                <td><?php echo number_format($earning->max_amount,2); ?></td>
                 <td><?php echo number_format($earning->amount,2); ?></td>
-                <td><?php echo date('F d, Y', strtotime($earning->start_date)); ?></td>
                 <td><?php 
 $computed = array('month'=>'Monthly', 'day'=>'Daily', 'hour'=>'Hourly');
                 echo $computed[$earning->computed]; ?></td>
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
+
+                <a class="btn btn-warning btn-xs body_wrapper" href="<?php echo site_url("employees_earnings/entries/{$earning->id}"); ?>">Entries</a>
 
                 <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Earning" data-url="<?php echo site_url("employees_earnings/edit/{$earning->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 

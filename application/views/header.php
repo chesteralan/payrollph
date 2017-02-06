@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?php echo (isset($page_title)) ? $page_title : 'COOP'; ?></title>
+    <title><?php echo (isset($page_title)) ? $page_title : APP_NAME; ?></title>
     <link href="<?php echo base_url('assets/themes/' . ((isset($bootstrap_theme)) ? $bootstrap_theme : 'default' ) . '/bootstrap.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/js/jqueryui/jquery-ui.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/icons/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet">

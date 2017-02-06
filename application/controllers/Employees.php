@@ -24,6 +24,7 @@ class Employees extends MY_Controller {
 		$employees->set_select('*');
 		$employees->set_select('(SELECT name FROM employees_groups WHERE id=employees.group_id) as group_name');
 		$employees->set_select('(SELECT name FROM employees_positions WHERE id=employees.position_id) as position_name');
+		$employees->set_order('lastname', 'ASC');
 		$this->template_data->set('employees', $employees->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
@@ -208,10 +209,12 @@ class Employees extends MY_Controller {
 
 		$groups = new $this->Employees_groups_model;
 		$groups->set_limit(0);
+		$groups->set_order('name');
 		$this->template_data->set('groups', $groups->populate());
 
 		$positions = new $this->Employees_positions_model;
 		$positions->set_limit(0);
+		$positions->set_order('name');
 		$this->template_data->set('positions', $positions->populate());
 
 		$this->template_data->set('output', $output);

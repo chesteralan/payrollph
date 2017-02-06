@@ -262,9 +262,14 @@ class Payroll extends MY_Controller {
 
 			$inclusive_dates = new $this->Payroll_inclusive_dates_model;
 			$inclusive_dates->setPayrollId($id,true);
+			$inclusive_dates->set_select('COUNT(*) as working_days');
 			$inclusive_dates->set_select('MIN(inclusive_date) as start_date');
 			$inclusive_dates->set_select('MAX(inclusive_date) as end_date');
 			$payroll_dates = $inclusive_dates->get();
+
+			$payroll_absent = 0;
+
+			$days_present = $payroll_dates->working_days - $payroll_absent;
 
 			$payroll_group = new $this->Payroll_groups_model;
 			$payroll_group->setPayrollId($id,true);
@@ -290,6 +295,7 @@ class Payroll extends MY_Controller {
 				redirect( site_url($redirect_uri) . "#benefit_not_empty" );
 			}
 */
+			$salary_data = false;
 			$employees_data = array();
 			$temp_groups = new $this->Payroll_templates_groups_model;
 			$temp_groups->setTemplateId($payroll_data->template_id,true);
@@ -330,7 +336,7 @@ class Payroll extends MY_Controller {
 						$payroll_salary = new $this->Payroll_employees_salaries_model;
 						$payroll_salary->setPayrollId($id,true);
 						$payroll_salary->setNameId($employee->name_id,true);
-						$payroll_salary->setSalaryId($salary_data->id,true);
+						$payroll_salary->setSalaryId($salary_data->id);
 						if( $payroll_salary->nonEmpty() ) {
 							$payroll_salary->update();
 						} else {
@@ -360,17 +366,31 @@ class Payroll extends MY_Controller {
 					 $ee_earnings->setEarningId($earning->earning_id,true);
 					 $ee_earnings->setTrash(0,true);
 					 $ee_earnings->setActive(1,true);
-					 $ee_earnings->set_where('(start_date >= "' . $payroll_dates->start_date . '")');
-					 $ee_earnings->set_where('(start_date <= "' . $payroll_dates->end_date . '")');
+					 $ee_earnings->set_where('(start_date <= "' . date('Y-m-d') . '")');
 					 foreach( $ee_earnings->populate() as $earning2 ) {
 					 	$pee_earning = new $this->Payroll_employees_earnings_model;
-					 	$pee_earning->setPayrollId($id);
-					 	$pee_earning->setNameId($earning2->name_id);
-					 	$pee_earning->setEarningId($earning2->earning_id);
-					 	$pee_earning->setAmount($earning2->amount);
-					 	$pee_earning->setComputed($earning2->computed);
-					 	$pee_earning->setNotes($earning2->notes);
-						$pee_earning->insert();
+					 	$pee_earning->setPayrollId($id,true);
+					 	$pee_earning->setNameId($earning2->name_id,true);
+					 	$pee_earning->setEarningId($earning2->earning_id,true);
+					 	$pee_earning->setEntryId($earning2->earning_id,true);
+
+					 	switch( $earning2->computed ) {
+					 		case 'hour':
+					 			$amount = $earning2->amount * $days_present;
+					 		break;
+					 		case 'day':
+					 			$amount = $earning2->amount * $days_present;
+					 		break;
+					 		case 'month':
+					 		default:
+					 			$amount = $earning2->amount;
+					 		break;
+					 	}
+
+					 	$pee_earning->setAmount($amount);
+					 	if( $pee_earning->nonEmpty() === false ) {
+							$pee_earning->insert();
+						}
 					 }
 				}
 			} 
@@ -379,6 +399,7 @@ class Payroll extends MY_Controller {
 			$temp_deductions->setTemplateId($payroll_data->template_id,true);
 			$temp_deductions->set_limit(0);
 			foreach( $temp_deductions->populate() as $deduction ) {
+
 				$payroll_deduction = new $this->Payroll_deductions_model;
 				$payroll_deduction->setPayrollId($id,true);
 				$payroll_deduction->setDeductionId($deduction->deduction_id,true);
@@ -395,17 +416,34 @@ class Payroll extends MY_Controller {
 					 $ee_deductions->setDeductionId($deduction->deduction_id,true);
 					 $ee_deductions->setTrash(0,true);
 					 $ee_deductions->setActive(1,true);
-					 $ee_deductions->set_where('(start_date >= "' . $payroll_dates->start_date . '")');
-					 $ee_deductions->set_where('(start_date <= "' . $payroll_dates->end_date . '")');
+					 $ee_deductions->set_where('(start_date <= "' . date('Y-m-d') . '")');
 					 foreach( $ee_deductions->populate() as $deduction2 ) {
 					 	$ped_deduction = new $this->Payroll_employees_deductions_model;
-					 	$ped_deduction->setPayrollId($id);
-					 	$ped_deduction->setNameId($deduction2->name_id);
-					 	$ped_deduction->setDeductionId($deduction2->deduction_id);
-					 	$ped_deduction->setAmount($deduction2->amount);
-					 	$ped_deduction->setNotes($deduction2->notes);
-						$ped_deduction->insert();
+					 	$ped_deduction->setPayrollId($id,true);
+					 	$ped_deduction->setNameId($deduction2->name_id,true);
+					 	$ped_deduction->setDeductionId($deduction2->deduction_id,true);
+					 	$ped_deduction->setEntryId($deduction2->id,true);
+
+					 	switch( $deduction2->computed ) {
+					 		case 'hour':
+					 			$amount = $deduction2->amount * $days_present;
+					 		break;
+					 		case 'day':
+					 			$amount = $deduction2->amount * $days_present;
+					 		break;
+					 		case 'month':
+					 		default:
+					 			$amount = $deduction2->amount;
+					 		break;
+					 	}
+					 	
+					 	$ped_deduction->setAmount($amount);
+					 	if( $ped_deduction->nonEmpty() === false ) {
+							$ped_deduction->insert();
+						}
+
 					 }
+					 
 				}
 			}
 
@@ -436,7 +474,6 @@ class Payroll extends MY_Controller {
 					 	$peb_benefit->setPayrollId($id,true);
 					 	$peb_benefit->setNameId($benefit2->name_id,true);
 					 	$peb_benefit->setBenefitId($benefit2->id,true);
-					 	$peb_benefit->setNotes($benefit2->notes);
 						if( $peb_benefit->nonEmpty() ) {
 							$peb_benefit->update();
 						} else {
@@ -503,9 +540,9 @@ class Payroll extends MY_Controller {
 	public function benefits($id, $output='') {
 
 		if( $this->input->post() ) {
-
+			$selected = ($this->input->post('selected')) ? $this->input->post('selected') : array();
 			foreach( $this->input->post('benefit') as $benefit_id ) {
-				if( ! in_array($benefit_id, $this->input->post('selected')) ) {
+				if( ! in_array($benefit_id, $selected) ) {
 					$pbenefit = new $this->Payroll_benefits_model;
 					$pbenefit->setPayrollId($id,true);
 					$pbenefit->setBenefitId($benefit_id,true);
@@ -551,8 +588,9 @@ class Payroll extends MY_Controller {
 	public function earnings($id, $output='') {
 
 		if( $this->input->post() ) {
+			$selected = ($this->input->post('selected')) ? $this->input->post('selected') : array();
 			foreach( $this->input->post('earning') as $earning_id ) {
-				if( ! in_array($earning_id, $this->input->post('selected')) ) {
+				if( ! in_array($earning_id, $selected) ) {
 					$pearning = new $this->Payroll_earnings_model;
 					$pearning->setPayrollId($id,true);
 					$pearning->setEarningId($earning_id,true);
@@ -598,9 +636,9 @@ class Payroll extends MY_Controller {
 	public function deductions($id, $output='') {
 
 		if( $this->input->post() ) {
-
+			$selected = ($this->input->post('selected')) ? $this->input->post('selected') : array();
 			foreach( $this->input->post('deduction') as $deduction_id ) {
-				if( ! in_array($deduction_id, $this->input->post('selected')) ) {
+				if( ! in_array($deduction_id, $selected) ) {
 					$pdeduction = new $this->Payroll_deductions_model;
 					$pdeduction->setPayrollId($id,true);
 					$pdeduction->setDeductionId($deduction_id,true);

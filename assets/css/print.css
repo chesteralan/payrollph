@@ -2,7 +2,11 @@ body {
   font-family: Arial;
   padding:0;
   margin:0;
-  font-size: 10px;
+  font-size: 9px;
+}
+h1,h2,h3,h4,h5,h6 {
+  margin: 0;
+  padding: 0;
 }
 .container {
   width: 100%;

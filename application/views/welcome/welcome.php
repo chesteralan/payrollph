@@ -70,35 +70,79 @@
 
 
     <div class="row">
-<?php if( isset( $this->session->menu_module['system'] ) ) { 
+
+<?php if( isset( $this->session->menu_module['lists'] ) ) { 
 
 if(
-	( in_array('users', $this->session->menu_module['system'] ) ) 
-	|| (  in_array('backup', $this->session->menu_module['system'] ) ) 
+	( in_array('names', $this->session->menu_module['lists'] ) ) 
+    || (  in_array('benefits', $this->session->menu_module['lists'] ) ) 
+    || (  in_array('earnings', $this->session->menu_module['lists'] ) ) 
+	|| (  in_array('deductions', $this->session->menu_module['lists'] ) ) 
 ) {
 	?>
     		<div class="col-md-6">
     			<div class="panel panel-default">
     				<div class="panel-heading">
-    					<h3 class="panel-title bold">System</h3>
+    					<h3 class="panel-title bold">Lists</h3>
     				</div>
     				<div class="panel-body">
     					<div class="list-group list-group-icons">
-						<?php if( in_array('users', $this->session->menu_module['system'] ) ) { ?>
-						  <a href="<?php echo site_url('system_users'); ?>" class="list-group-item body_wrapper">
-						    <span class="badge"><?php echo $stats->users_count; ?></span>
-						    <span class="dashicons dashicons-admin-network" aria-hidden="true"></span> Users
+						<?php if( in_array('names', $this->session->menu_module['lists'] ) ) { ?>
+						  <a href="<?php echo site_url('lists_names'); ?>" class="list-group-item body_wrapper">
+						    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Names
 						  </a>
 						<?php } ?>
-						<?php if( in_array('backup', $this->session->menu_module['system'] ) ) { ?>
-						  <a href="<?php echo site_url('system_backup'); ?>" class="list-group-item body_wrapper">
-						    <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span> Backup
+						<?php if( in_array('benefits', $this->session->menu_module['lists'] ) ) { ?>
+						  <a href="<?php echo site_url('lists_earnings'); ?>" class="list-group-item body_wrapper">
+						    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Earnings
 						  </a>
 						<?php } ?>
+                        <?php if( in_array('earnings', $this->session->menu_module['lists'] ) ) { ?>
+                          <a href="<?php echo site_url('lists_benefits'); ?>" class="list-group-item body_wrapper">
+                            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Benefits
+                          </a>
+                        <?php } ?>
+                        <?php if( in_array('deductions', $this->session->menu_module['lists'] ) ) { ?>
+                          <a href="<?php echo site_url('lists_deductions'); ?>" class="list-group-item body_wrapper">
+                            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Deductions
+                          </a>
+                        <?php } ?>
 						</div>
 					</div>
     			</div>
     		</div>
+<?php } ?>
+<?php } ?>
+
+<?php if( isset( $this->session->menu_module['system'] ) ) { 
+
+if(
+    ( in_array('users', $this->session->menu_module['system'] ) ) 
+    || (  in_array('backup', $this->session->menu_module['system'] ) ) 
+) {
+    ?>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title bold">System</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="list-group list-group-icons">
+                        <?php if( in_array('users', $this->session->menu_module['system'] ) ) { ?>
+                          <a href="<?php echo site_url('system_users'); ?>" class="list-group-item body_wrapper">
+                            <span class="badge"><?php echo $stats->users_count; ?></span>
+                            <span class="dashicons dashicons-admin-network" aria-hidden="true"></span> Users
+                          </a>
+                        <?php } ?>
+                        <?php if( in_array('backup', $this->session->menu_module['system'] ) ) { ?>
+                          <a href="<?php echo site_url('system_backup'); ?>" class="list-group-item body_wrapper">
+                            <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span> Backup
+                          </a>
+                        <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
 <?php } ?>
 <?php } ?>
 

@@ -71,6 +71,10 @@
     <textarea name="notes" class="form-control" rows="5"></textarea>
   </div>
 
+              <div class="form-group">
+                <p><label><input name="primary" type="checkbox" value="1"> Set Primary</label></p>
+              </div>
+
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>
         <div class="panel-footer">

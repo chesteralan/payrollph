@@ -20,6 +20,8 @@ class Payroll_earnings extends MY_Controller {
 		$this->load->model('Payroll_employees_model');
 		$this->load->model('Payroll_employees_earnings_model');
 
+		$this->load->model('Earnings_list_model');
+
 
 	}
 
@@ -77,6 +79,111 @@ class Payroll_earnings extends MY_Controller {
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/earnings/earnings_view', $this->template_data->get_data());
+	}
+
+	public function entries($id,$name_id,$earning_id,$output='') {
+
+		$this->template_data->set('payroll_id', $id);
+		$this->template_data->set('name_id', $name_id);
+		$this->template_data->set('earning_id', $earning_id);
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$earning_data = new $this->Earnings_list_model;
+		$earning_data->setId($earning_id,true);
+		$this->template_data->set('earning_data', $earning_data->get());
+
+		$earnings = new $this->Payroll_employees_earnings_model('pee');
+		$earnings->setPayrollId($id,true);
+		$earnings->setNameId($name_id,true);
+		$earnings->setEarningId($earning_id,true);
+		$earnings->set_select('pee.*');
+		$earnings->set_select('(IF((SELECT(pee.notes)), pee.notes, ee.notes)) as notes');
+		$earnings->set_join('earnings_list el', 'pee.earning_id=el.id');
+		$earnings->set_join('employees_earnings ee', 'ee.id=pee.entry_id');
+		$this->template_data->set('earnings', $earnings->populate());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/earnings/earnings_entries', $this->template_data->get_data());
+	}
+
+	public function add($id,$name_id,$earning_id,$output='') {
+
+		$this->template_data->set('payroll_id', $id);
+		$this->template_data->set('name_id', $name_id);
+		$this->template_data->set('earning_id', $earning_id);
+
+		if( $this->input->post() ) {
+			$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
+			$this->form_validation->set_rules('notes', 'Notes', 'trim');
+			if( $this->form_validation->run() ) {
+				$earnings = new $this->Payroll_employees_earnings_model('pee');
+				$earnings->setPayrollId($id,true);
+				$earnings->setNameId($name_id,true);
+				$earnings->setEarningId($earning_id,true);
+				$earnings->setAmount( str_replace(",", "", $this->input->post('amount')) );
+				$earnings->setNotes($this->input->post('notes'));
+				$earnings->insert();
+			}
+			redirect("payroll_earnings/view/{$id}");
+		}
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$earning_data = new $this->Earnings_list_model;
+		$earning_data->setId($earning_id,true);
+		$this->template_data->set('earning_data', $earning_data->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/earnings/earnings_add', $this->template_data->get_data());
+	}
+
+	public function edit($id,$output='') {
+
+		$earnings = new $this->Payroll_employees_earnings_model('pee');
+		$earnings->setId($id,true);
+		$earning_data = $earnings->get();
+
+		if( $this->input->post() ) {
+			$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
+			$this->form_validation->set_rules('notes', 'Notes', 'trim');
+			if( $this->form_validation->run() ) {
+				$earnings->setAmount( str_replace(",", "", $this->input->post('amount')) );
+				$earnings->setNotes($this->input->post('notes'));
+				$earnings->update();
+			}
+			redirect("payroll_earnings/view/{$earning_data->payroll_id}");
+		}
+
+		$this->template_data->set('earning', $earnings->get());
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($earning_data->payroll_id,true);
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$earning_list = new $this->Earnings_list_model;
+		$earning_list->setId($earning_data->earning_id,true);
+		$this->template_data->set('earning_data', $earning_list->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/earnings/earnings_edit', $this->template_data->get_data());
+	}
+
+	public function delete($id,$output='') {
+
+		$earnings = new $this->Payroll_employees_earnings_model;
+		$earnings->setId($id,true);
+		$earning_data = $earnings->get();
+		$earnings->delete();
+		redirect("payroll_earnings/view/{$earning_data->payroll_id}");
+
 	}
 
 }

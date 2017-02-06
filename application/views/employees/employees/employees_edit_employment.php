@@ -41,7 +41,7 @@
 
           <div class="form-group">
             <label>Date Hired</label>
-            <input name="date_hired" type="text" class="form-control datepicker" value="<?php echo date('m/d/Y', strtotime($employee->hired)); ?>">
+            <input name="date_hired" type="text" class="form-control datepicker" value="<?php echo ($employee->hired) ? date('m/d/Y', strtotime($employee->hired)) : date('m/d/Y'); ?>">
           </div>
 
           <div class="form-group">

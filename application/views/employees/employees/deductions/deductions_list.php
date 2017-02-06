@@ -23,10 +23,11 @@
             <thead>
               <tr>
                 <th>Deduction Name</th>
+                <th>Max Amount</th>
                 <th>Amount</th>
-                <th>Start</th>
+                <th>Rate per</th>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
-                  <th width="105px" class="action_column">Action</th>
+                  <th width="155px" class="action_column">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -34,11 +35,16 @@
 
             <?php foreach($deductions as $deduction) { ?>
               <tr id="salary-<?php echo $deduction->id; ?>" class="<?php echo ($deduction->active==1) ? 'success' : ''; ?>">
-                <td><?php echo $deduction->deduction_name; ?></td>
+                <td><?php echo $deduction->deduction_name; ?> - <?php echo $deduction->deduction_notes; ?></td>
+                <td><?php echo number_format($deduction->max_amount,2); ?></td>
                 <td><?php echo number_format($deduction->amount,2); ?></td>
-                <td><?php echo date('F d, Y', strtotime($deduction->start_date)); ?></td>
+                <td><?php 
+                $computed = array('month'=>'Monthly', 'day'=>'Daily', 'hour'=>'Hourly');
+                echo $computed[($deduction->computed) ? $deduction->computed : 'month']; ?></td>
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
+
+                <a class="btn btn-warning btn-xs body_wrapper" href="<?php echo site_url("employees_deductions/entries/{$deduction->id}"); ?>">Entries</a>
 
                 <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Deduction" data-url="<?php echo site_url("employees_deductions/edit/{$deduction->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 

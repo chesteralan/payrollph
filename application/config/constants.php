@@ -110,7 +110,7 @@ $dept = array(
 				'names' => 'Name List',
 				'benefits' => 'Benefits List',
 				'earnings' => 'Earnings List',
-				'deductions' => 'Deductions List'
+				'deductions' => 'Deductions List',
 			),
 	),
 
@@ -125,3 +125,5 @@ $dept = array(
 );
 
 defined('USERACCOUNTS_RESTRICTIONS') OR define('USERACCOUNTS_RESTRICTIONS', serialize( $dept ) );
+
+defined('APP_NAME') OR define('APP_NAME', 'Payroll PH' );

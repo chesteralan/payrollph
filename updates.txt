@@ -1,0 +1,2 @@
+ALTER TABLE  `employees` ADD  `phone_number` VARCHAR( 100 ) NULL AFTER  `notes` ;
+ALTER TABLE  `employees` ADD  `address` TEXT NULL ;

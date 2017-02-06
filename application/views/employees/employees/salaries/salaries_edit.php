@@ -63,14 +63,7 @@
           </div>
     </div>
     <div class="col-md-6">
-    <div class="form-group">
-            <label>Primary Salary</label>
-<?php if( $salary->primary == 1 ) { ?>
-  <span class="btn btn-info btn-block">This is Primary</span>
-<?php } else { ?>
-        <a href="<?php echo site_url("employees_salaries/set_primary/{$salary->id}") . "?next=" . (($this->input->get('next'))?$this->input->get('next'):uri_string()); ?>" class="btn btn-success btn-md btn-block">Set as Primary</a>
-<?php } ?>
-      </div>
+
     </div>
 </div>
 
@@ -78,6 +71,10 @@
     <label>Notes</label>
     <textarea name="notes" class="form-control" rows="5"><?php echo $salary->notes; ?></textarea>
   </div>
+
+              <div class="form-group">
+                <p><label><input name="primary" type="checkbox" value="1"<?php echo ($salary->primary) ? ' CHECKED' : ''; ?>> Set Primary</label></p>
+              </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>

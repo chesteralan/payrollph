@@ -10,6 +10,7 @@ CREATE TABLE `payroll_employees_deductions` (
   `payroll_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `deduction_id` int(20) NOT NULL,
+  `entry_id` int(20) NOT NULL,
   `amount` decimal(10,5) NOT NULL,
   `notes` text,
   PRIMARY KEY (`id`),
@@ -31,6 +32,7 @@ class Payroll_employees_deductions_model extends MY_Model {
 	protected $payroll_id;
 	protected $name_id;
 	protected $deduction_id;
+	protected $entry_id;
 	protected $amount;
 	protected $notes;
 
@@ -46,8 +48,8 @@ class Payroll_employees_deductions_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_employees_deductions';
 		$this->_short_name = 'payroll_employees_deductions';
-		$this->_fields = array("id","payroll_id","name_id","deduction_id","amount","notes");
-		$this->_required = array("payroll_id","name_id","deduction_id","amount");
+		$this->_fields = array("id","payroll_id","name_id","deduction_id","entry_id","amount","notes");
+		$this->_required = array("payroll_id","name_id","deduction_id","entry_id","amount");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -156,6 +158,32 @@ class Payroll_employees_deductions_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: deduction_id --------------------------------------
+
+
+// ---------------------------- Start Field: entry_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `entry_id` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setEntryId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('entry_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `entry_id` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getEntryId() {
+			return $this->entry_id;
+		}
+	
+// ------------------------------ End Field: entry_id --------------------------------------
 
 
 // ---------------------------- Start Field: amount -------------------------------------- 
