@@ -16,18 +16,25 @@
   </head>
   <body >
 
-<h2>San Lorenzo College of Davao, Inc.</h2>
-<h3>Lorenzville Homes, Ulas, Davao City</h3>
-<h3>+63 (82) 233-0848 &middot; finance@slcd.edu.ph</h3>
+<div class="header-title">
+<h2><?php echo ($template->company_name) ? $template->company_name : ''; ?></h2>
+<h3><?php echo ($template->company_name) ? $template->company_address : ''; ?></h3>
+<h3><?php echo ($template->company_name) ? $template->company_contacts : ''; ?></h3>
+</div>
+
 <h3>PAYROLL SHEET</h3>
-<h3>For the period covered <?php echo date('F d, Y', strtotime($inclusive_dates->start_date)); ?> - <?php echo date('F d, Y', strtotime($inclusive_dates->end_date)); ?></h3>
+
+<h3 class="period">For the period covered <?php echo date('F d, Y', strtotime($inclusive_dates->start_date)); ?> - <?php echo date('F d, Y', strtotime($inclusive_dates->end_date)); ?></h3>
 
 
-<?php if( $payroll_groups ) { ?>
-  
+<?php if( $payroll_groups ) {  
+
+$total_net_pay = 0;
+  ?>
+  <div class="payroll">
   <?php foreach($payroll_groups as $payroll_group) { ?>
  
-          <table class="table table-default" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
+          <table class="table" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
               <tr class="warning">
                 <th class="text-left" width="15%"><?php echo $payroll_group->name; ?></th>
@@ -58,7 +65,8 @@
             <tbody>
             
 <?php if($payroll_group->employees) { 
-              foreach($payroll_group->employees as $employee) {
+
+foreach($payroll_group->employees as $employee) {
 
 
 $days_absent = 0;
@@ -128,7 +136,11 @@ if( $employee->salary ) {
                     echo number_format($employee->$var,2); ?></td>
                 <?php } ?>
                 <td class="text-right bold"><?php echo number_format($total_deductions,2); ?></td>
-                <td class="text-right bold"><?php echo number_format((($total_earnings + $gross_pay) - $total_deductions),2); ?></td>
+                <td class="text-right bold"><?php 
+                $net_pay = (($total_earnings + $gross_pay) - $total_deductions); 
+                $total_net_pay += $net_pay;
+                echo number_format($net_pay,2); 
+                 ?></td>
 
               </tr>
 <?php         } 
@@ -139,6 +151,32 @@ if( $employee->salary ) {
 
     <?php } ?>
 
+<table width="100%" class="total_net_pay">
+  <tr>
+    <td class="bold allcaps">Total Net Pay</td>
+    <td class="bold  allcaps text-right"><?php echo number_format($total_net_pay,2); ?></td>
+  </tr>
+</table>
+</div>
+
+<div class="signatories">
+  <table width="100%">
+    <tr>
+      <td width="33.33%"><p>Prepared By:</p>
+       <br>
+<span class="allcaps bold"><?php echo $this->session->name; ?></span>
+      </td>
+      <td width="33.33%"><p>Checked By:</p>
+       <br>
+<span class="allcaps bold"><?php echo $template->checked_by_name; ?></span>
+      </td>
+      <td width="33.33%"><p>Approved By:</p>
+      <br>
+<span class="allcaps bold"><?php echo $template->approved_by_name; ?></span>
+      </td>
+    </tr>
+  </table>
+</div>
 <?php } ?>
 
 

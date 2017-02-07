@@ -281,8 +281,14 @@ CREATE TABLE `payroll_inclusive_dates` (
 CREATE TABLE `payroll_templates` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
+  `company_name` varchar(200) DEFAULT NULL,
+  `company_address` varchar(200) DEFAULT NULL,
+  `company_contacts` varchar(200) DEFAULT NULL,
+  `checked_by` int(20) DEFAULT NULL,
+  `approved_by` int(20) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `checked_by` (`checked_by`,`approved_by`)
 );
 
 -- Table structure for table `payroll_templates_benefits` 

@@ -20,6 +20,7 @@ class Payroll_templates extends MY_Controller {
 		$this->load->model('Benefits_list_model');
 		$this->load->model('Earnings_list_model');
 		$this->load->model('Deductions_list_model');
+		$this->load->model('Names_list_model');
 
 	}
 
@@ -48,9 +49,19 @@ class Payroll_templates extends MY_Controller {
 
 			if( $this->input->post() ) {
 				$this->form_validation->set_rules('name', 'Template Name', 'trim|required');
+				$this->form_validation->set_rules('company_name', 'Company Name', 'trim');
+				$this->form_validation->set_rules('company_address', 'Company Address', 'trim');
+				$this->form_validation->set_rules('company_contacts', 'Company Contacts', 'trim');
+				$this->form_validation->set_rules('checked_by', 'Checked By', 'trim');
+				$this->form_validation->set_rules('approved_by', 'Approved By', 'trim');
 				if( $this->form_validation->run() ) {
 					$template = new $this->Payroll_templates_model;
 					$template->setName($this->input->post('name'));
+					$template->setCompanyName($this->input->post('company_name'));
+					$template->setCompanyAddress($this->input->post('company_address'));
+					$template->setCompanyContacts($this->input->post('company_contacts'));
+					$template->setCheckedBy($this->input->post('checked_by'));
+					$template->setApprovedBy($this->input->post('approved_by'));
 					$template->setActive(1);
 					$template->insert();
 				}
@@ -71,13 +82,30 @@ class Payroll_templates extends MY_Controller {
 		if( $template->nonEmpty() ) {
 			if( $this->input->post() ) {
 				$this->form_validation->set_rules('name', 'Template Name', 'trim|required');
+				$this->form_validation->set_rules('company_name', 'Company Name', 'trim');
+				$this->form_validation->set_rules('company_address', 'Company Address', 'trim');
+				$this->form_validation->set_rules('company_contacts', 'Company Contacts', 'trim');
+				$this->form_validation->set_rules('checked_by', 'Checked By', 'trim');
+				$this->form_validation->set_rules('approved_by', 'Approved By', 'trim');
 				if( $this->form_validation->run() ) {
-					$template->setName($this->input->post('name'));
+					$template->setName($this->input->post('name'),false,true);
+					$template->setCompanyName($this->input->post('company_name'),false,true);
+					$template->setCompanyAddress($this->input->post('company_address'),false,true);
+					$template->setCompanyContacts($this->input->post('company_contacts'),false,true);
+					$template->setCheckedBy($this->input->post('checked_by'),false,true);
+					$template->setApprovedBy($this->input->post('approved_by'),false,true);
 					$template->update();
 				}
 				$this->postNext();
 			}
 		}
+
+		$template->set_join('names_list cnl', 'cnl.id=payroll_templates.checked_by');
+		$template->set_join('names_list anl', 'anl.id=payroll_templates.approved_by');
+
+		$template->set_select('payroll_templates.*');
+		$template->set_select('cnl.full_name as checked_by_name');
+		$template->set_select('anl.full_name as approved_by_name');
 		$this->template_data->set('template', $template->get());
 
 		$this->template_data->set('output', $output);
@@ -298,6 +326,30 @@ class Payroll_templates extends MY_Controller {
 
 		$this->load->view('payroll/templates/templates_deductions', $this->template_data->get_data());
 
+	}
+
+	public function ajax($action='') {
+		$results = array();
+		switch($action) {
+			case 'search_name':
+				$names = new $this->Names_list_model;
+				if( $this->input->get('term') ) {
+					$names->set_where('full_name LIKE "%' . $this->input->get('term') . '%"');
+				}
+				$data = array();
+				foreach($names->populate() as $name) {
+					$data[] = array(
+						'label' => $name->full_name,
+						'id' => $name->id,
+						'desc' => $name->address . " - " . $name->contact_number,
+						);
+				}
+				$results = $data;
+			break;
+		}
+		$this->output
+        ->set_content_type('application/json')
+        ->set_output(json_encode( $results ));
 	}
 
 }

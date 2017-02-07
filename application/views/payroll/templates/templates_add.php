@@ -26,6 +26,39 @@
             <input name="name" type="text" class="form-control" value="<?php echo $this->input->post('name'); ?>">
           </div>
 
+          <div class="form-group">
+            <label>Company Name</label>
+            <input name="company_name" type="text" class="form-control" value="<?php echo $this->input->post('company_name'); ?>">
+          </div>
+
+          <div class="form-group">
+            <label>Company Address</label>
+            <input name="company_address" type="text" class="form-control" value="<?php echo $this->input->post('company_address'); ?>">
+          </div>
+
+          <div class="form-group">
+            <label>Company Contacts</label>
+            <input name="company_contacts" type="text" class="form-control" value="<?php echo $this->input->post('company_contacts'); ?>">
+          </div>
+
+        <div class="row">
+          <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Checked By</label>
+                    <input id="checked_by_name_id" name="checked_by" type="hidden" value="">
+                    <input class="form-control autocomplete-name_select ui-autocomplete-input" data-source="<?php echo site_url("payroll_templates/ajax/search_name"); ?>" data-name_id="checked_by_name_id" type="text" autocomplete="off">
+                  </div>
+          </div>
+          <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Approved by</label>
+                    <input id="approved_by_name_id" name="approved_by" type="hidden" value="">
+                    <input class="form-control autocomplete-name_select ui-autocomplete-input" data-source="<?php echo site_url("payroll_templates/ajax/search_name"); ?>" data-name_id="approved_by_name_id" type="text" autocomplete="off">
+                  </div>
+          </div>
+        </div>
+
+
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
         </div>

@@ -151,7 +151,7 @@ foreach($main_menu as $main=>$menu):
           <li class="hidden-xs hidden-sm">
                   <div class="navbar-form navbar-right" role="search">
         <div class="form-group">
-          <input name="q" type="text" class="form-control autocomplete-member_change" data-source="<?php echo site_url("welcome/ajax/change_member"); ?>" data-current_sub_uri="<?php echo uri_string(); ?>" placeholder="Search Employees">
+          <input name="q" type="text" class="form-control autocomplete-search_employee" data-source="<?php echo site_url("welcome/ajax/search_employee"); ?>" placeholder="Search Employees">
         </div>
 
       </div>

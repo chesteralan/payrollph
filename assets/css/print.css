@@ -108,3 +108,24 @@ a.no-link {
 		content:none
 	}
 }
+
+.header-title {
+  margin-bottom: 10px;
+}
+
+.payroll .table {
+  margin-top: 10px;
+}
+.period {
+  margin-top: 10px;
+}
+
+.signatories table td {
+  border:none;
+}
+.total_net_pay {
+  background: #CCC;
+}
+.total_net_pay td {
+  font-size: 12px;
+}

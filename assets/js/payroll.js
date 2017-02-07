@@ -136,8 +136,8 @@ var autocomplete_navbarsearch = function() {
     });
 };
 
-var init_member_change = function() {
-  $('.autocomplete-member_change').autocomplete({
+var navbar_search_employee = function() {
+  $('.autocomplete-search_employee').autocomplete({
       source: function( request, response ) {
         var ths = $(this);
         var source = ths[0]['element'][0]['dataset'].source;
@@ -850,7 +850,7 @@ var lending_schedule_details = function() {
       init_datepicker();
       init_payment_buttons();
       panelHeight();
-      init_member_change();
+      navbar_search_employee();
       addDeposits();
       //autocomplete_navbarsearch();
       //select_account_titles();

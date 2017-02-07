@@ -25,6 +25,7 @@
             <thead>
               <tr>
                 <th>Template Name</th>
+                <th>Company Name</th>
                 <?php if( hasAccess('payroll', 'templates', 'edit') ) { ?>
                   <th width="125px">Action</th>
                 <?php } ?>
@@ -34,6 +35,7 @@
             <?php foreach($templates as $template) { ?>
               <tr id="template-<?php echo $template->id; ?>">
                 <td><?php echo $template->name; ?></td>
+                <td><?php echo $template->company_name; ?></td>
               <?php if( hasAccess('payroll', 'templates', 'edit') ) { ?>
                 <td>
 

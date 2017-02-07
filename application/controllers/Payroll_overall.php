@@ -42,6 +42,16 @@ class Payroll_overall extends MY_Controller {
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
+		// template
+		$template = new $this->Payroll_templates_model;
+		$template->setId( $payroll_data->template_id , true);
+		$template->set_join('names_list cnl', 'cnl.id=payroll_templates.checked_by');
+		$template->set_join('names_list anl', 'anl.id=payroll_templates.approved_by');
+		$template->set_select('payroll_templates.*');
+		$template->set_select('cnl.full_name as checked_by_name');
+		$template->set_select('anl.full_name as approved_by_name');
+		$this->template_data->set('template', $template->get());
+
 		// earnings
 		$earnings_columns = new $this->Payroll_earnings_model('pe');
 		$earnings_columns->set_select('el.*');
