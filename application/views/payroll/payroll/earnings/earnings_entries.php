@@ -33,9 +33,10 @@
 
 foreach($earnings as $earning) { ?>
 
-  <a data-target="#ajaxModal" data-title="Edit Entry" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll_earnings/edit/{$earning->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
-    <h4 class="list-group-item-heading"><?php echo number_format($earning->amount,2); ?></h4>
-    <p class="list-group-item-text"><?php echo $earning->notes ?></p>
+  <a data-target="#ajaxModal" data-title="Edit Entry" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll_earnings/edit/{$earning->pee_id}/{$output}") . "?next=" . $this->input->get('next'); ?>">
+  <span class="badge pull-right"><?php echo number_format($earning->pee_amount,2); ?></span>
+    <h4 class="list-group-item-heading"><?php echo $earning->name; ?></h4>
+    <p class="list-group-item-text">Entry ID # <?php echo $earning->entry_id; ?><?php echo ($earning->enotes!='') ? ' - '.$earning->enotes : ''; ?></p>
   </a>
 
 <?php } ?>

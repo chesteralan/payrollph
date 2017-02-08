@@ -165,6 +165,7 @@ class Employees_deductions extends MY_Controller {
 		$employees_deductions->set_select("*");
 		$employees_deductions->set_select("p.name as payroll_name");
 		$employees_deductions->set_select("ped.id as ped_id");
+		$employees_deductions->set_select("ped.amount as ped_amount");
 		$employees_deductions->set_join("employees_deductions ed", 'ed.id=ped.entry_id');
 		$employees_deductions->set_join("deductions_list dl", 'dl.id=ped.deduction_id');
 		$employees_deductions->set_join("payroll p", 'p.id=ped.payroll_id');

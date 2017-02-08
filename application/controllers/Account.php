@@ -5,7 +5,7 @@ class Account extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->template_data->set('page_title', 'PayrollPH');
+		$this->template_data->set('page_title', 'Payroll PH');
 
 		$this->template_data->set('inner_page', false);
         if( $this->input->post('output') == 'inner_page') {
@@ -189,29 +189,40 @@ class Account extends CI_Controller {
 		$this->template_data->set('page_title', 'Account Settings');
 
 		$this->load->model('User_accounts_options_model');
+		$this->load->model('User_accounts_model');
 
-		if( $this->input->post('setting') ) {
-			
-			foreach($this->input->post('setting') as $key=>$value) {
-				$option = new $this->User_accounts_options_model;
-				$option->setUid($this->session->user_id,true,false);
-				$option->setKey($key,true,false);
-				$option->setDepartment('my',true,false);
-				$option->setSection('settings',true,false);
-				$option->setValue($value);
-				if( $option->nonEmpty() ) {
-					$option->update();
-				} else {
-					$option->insert();
-				}
+		if( $this->input->post() ) {
 
-				if( $key == 'theme') {
-					$user_settings = $this->session->user_settings;
-					$user_settings['theme'] = $value;
-					$this->session->set_userdata( 'user_settings', $user_settings );
-				}
+			if( $this->input->post('full_name') ) {
+				$user_account = new $this->User_accounts_model;
+				$user_account->setId($this->session->user_id,true,false);
+				$user_account->setName($this->input->post('full_name'),false,true);
+				$user_account->update();
+				$this->session->set_userdata( 'name', $this->input->post('full_name') );
 			}
-			$this->postNext(NULL, $output);
+
+			if( $this->input->post('setting') ) {
+				if( $this->input->post('setting') )foreach($this->input->post('setting') as $key=>$value) {
+					$option = new $this->User_accounts_options_model;
+					$option->setUid($this->session->user_id,true,false);
+					$option->setKey($key,true,false);
+					$option->setDepartment('my',true,false);
+					$option->setSection('settings',true,false);
+					$option->setValue($value);
+					if( $option->nonEmpty() ) {
+						$option->update();
+					} else {
+						$option->insert();
+					}
+
+					if( $key == 'theme') {
+						$user_settings = $this->session->user_settings;
+						$user_settings['theme'] = $value;
+						$this->session->set_userdata( 'user_settings', $user_settings );
+					}
+				}
+				$this->postNext(NULL, $output);
+			}
 		}
 
 		$options = new $this->User_accounts_options_model;

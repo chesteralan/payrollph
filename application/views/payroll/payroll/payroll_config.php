@@ -33,6 +33,7 @@
 
 </div>
 
+<?php if( $inclusive_dates ) { ?>
 <?php if( $generate ) { ?>
 <div class="list-group">
   <a data-target="#ajaxModal" data-title="Generate Payroll" class="list-group-item active" href="<?php echo site_url("payroll/generate/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
@@ -73,6 +74,7 @@
   </a>
 </div>
 
+<?php } ?>
 <?php } ?>
 
 

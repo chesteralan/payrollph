@@ -1,8 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <?php 
+$not_available = array();
+foreach ($not_available_days as $nad) {
+  $not_available[] = $nad->inclusive_date;
+}
 
 /* draws a calendar */
-function draw_calendar($month,$year,$inclusive_dates){
+function draw_calendar($month,$year,$inclusive_dates,$not_available_days){
 
   $inc_dates = array();
   if( $inclusive_dates ) {
@@ -38,12 +42,41 @@ function draw_calendar($month,$year,$inclusive_dates){
     $calendar.= '<td class="calendar-day text-right">';
 
       $list_date = date('Y-m-d', strtotime($year.'-'.$month.'-'.$list_day));
-      $calendar.= '<label class="date_checkbox">';
-      $calendar.= '<input type="hidden" name="inclusive_date[]" value="'.$list_date.'">';
-      $calendar.= '<input type="checkbox" name="selected[]" value="'.$list_date.'"';
-      $calendar.= (in_array($list_date, $inc_dates)) ? ' CHECKED':'';
-      $calendar.= '>';
-      $calendar.= '</label>';
+
+      $working_day = true;
+      switch ($running_day) {
+        case '0':
+          $working_day = WORK_ON_SUN;
+          break;
+        case '1':
+          $working_day = WORK_ON_MON;
+          break;
+        case '2':
+          $working_day = WORK_ON_TUE;
+          break;
+        case '3':
+          $working_day = WORK_ON_WED;
+          break;
+        case '4':
+          $working_day = WORK_ON_THU;
+          break;
+        case '5':
+          $working_day = WORK_ON_FRI;
+          break;
+        case '6':
+          $working_day = WORK_ON_SAT;
+          break;
+      }
+
+      if( $working_day ) {
+        $calendar.= '<label class="date_checkbox">';
+        $calendar.= '<input type="hidden" name="inclusive_date[]" value="'.$list_date.'">';
+        $calendar.= '<input type="checkbox" name="selected[]" value="'.$list_date.'"';
+        $calendar.= (in_array($list_date, $inc_dates)) ? ' CHECKED':'';
+        $calendar.= (in_array($list_date, $not_available_days)) ? ' CHECKED DISABLED':'';
+        $calendar.= '>';
+        $calendar.= '</label>';
+      }
 
       /* add in the day number */
       $calendar.= '<div class="day-number">';
@@ -114,7 +147,7 @@ $next = ($this->input->get('next')) ? $this->input->get('next') : 'payroll';
 <a href="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/{$output}") . "?next={$next}&month=" .  date('m', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))) . "&year=" .  date('Y', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?>" class="pull-left ajax-modal-inner">&lArr;</a>
 <?php echo date('F', strtotime($current_month."/1/1970")); ?> <?php echo $current_year; ?></h4> 
 <?php 
-echo draw_calendar($current_month,$current_year, $inclusive_dates);
+echo draw_calendar($current_month,$current_year, $inclusive_dates,$not_available);
 ?>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>

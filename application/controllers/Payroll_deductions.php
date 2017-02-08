@@ -45,6 +45,7 @@ class Payroll_deductions extends MY_Controller {
 		$this->template_data->set('payroll', $payroll_data);
 
 		$deductions_columns = new $this->Payroll_deductions_model('pd');
+		$deductions_columns->setPayrollId($id,true);
 		$deductions_columns->set_select('dl.*');
 		$deductions_columns->set_join('deductions_list dl', 'dl.id=pd.deduction_id');
 		$deductions_columns->set_order('pd.order', 'DESC');
@@ -105,8 +106,10 @@ class Payroll_deductions extends MY_Controller {
 		$deductions->setPayrollId($id,true);
 		$deductions->setNameId($name_id,true);
 		$deductions->setDeductionId($deduction_id,true);
-		$deductions->set_select('ped.*');
-		$deductions->set_select('(IF((SELECT(ped.notes)), ped.notes, ed.notes)) as notes');
+		$deductions->set_select('*');
+		$deductions->set_select('IF((ped.notes="" OR ped.notes IS NULL), ed.notes, ped.notes) as dnotes');
+		$deductions->set_select('ped.amount as ped_amount');
+		$deductions->set_select('ped.id as ped_id');
 		$deductions->set_join('employees_deductions ed', 'ed.id=ped.entry_id');
 		$deductions->set_join('deductions_list dl', 'ped.deduction_id=dl.id');
 		$this->template_data->set('deductions', $deductions->populate());

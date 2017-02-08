@@ -127,3 +127,12 @@ $dept = array(
 defined('USERACCOUNTS_RESTRICTIONS') OR define('USERACCOUNTS_RESTRICTIONS', serialize( $dept ) );
 
 defined('APP_NAME') OR define('APP_NAME', 'Payroll PH' );
+
+// working days
+defined('WORK_ON_SUN')      OR define('WORK_ON_SUN', false); 
+defined('WORK_ON_MON')      OR define('WORK_ON_MON', true); 
+defined('WORK_ON_TUE')      OR define('WORK_ON_TUE', true); 
+defined('WORK_ON_WED')      OR define('WORK_ON_WED', true); 
+defined('WORK_ON_THU')      OR define('WORK_ON_THU', true); 
+defined('WORK_ON_FRI')      OR define('WORK_ON_FRI', true); 
+defined('WORK_ON_SAT')      OR define('WORK_ON_SAT', true); 

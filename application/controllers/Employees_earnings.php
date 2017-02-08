@@ -157,15 +157,16 @@ class Employees_earnings extends MY_Controller {
 		$earning_data = $earnings->get();
 		$this->template_data->set('earning', $earning_data);
 
-		$employees_earnings = new $this->Payroll_employees_earnings_model('ped');
+		$employees_earnings = new $this->Payroll_employees_earnings_model('pee');
 		$employees_earnings->setNameId($entry->name_id,true);
 		$employees_earnings->setEntryId($id,true);
 		$employees_earnings->set_select("*");
 		$employees_earnings->set_select("p.name as payroll_name");
-		$employees_earnings->set_select("ped.id as ped_id");
-		$employees_earnings->set_join("employees_earnings ed", 'ed.id=ped.entry_id');
-		$employees_earnings->set_join("earnings_list dl", 'dl.id=ped.earning_id');
-		$employees_earnings->set_join("payroll p", 'p.id=ped.payroll_id');
+		$employees_earnings->set_select("pee.id as pee_id");
+		$employees_earnings->set_select("pee.amount as pee_amount");
+		$employees_earnings->set_join("employees_earnings ed", 'ed.id=pee.entry_id');
+		$employees_earnings->set_join("earnings_list dl", 'dl.id=pee.earning_id');
+		$employees_earnings->set_join("payroll p", 'p.id=pee.payroll_id');
 		$employees_earnings->set_limit(0);
 		$this->template_data->set('earnings', $employees_earnings->populate());
 

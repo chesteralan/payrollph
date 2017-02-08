@@ -52,6 +52,10 @@ class Payroll extends MY_Controller {
 		$payrolls->set_select('(SELECT name FROM payroll_templates WHERE id=payroll.template_id) as template_name');
 		$payrolls->set_select('(SELECT COUNT(*) FROM payroll_groups WHERE payroll_id=payroll.id) as groups_count');
 		$payrolls->set_start($start);
+		$payrolls->set_order('year', 'DESC');
+		$payrolls->set_order('month', 'DESC');
+		$payrolls->set_order('id', 'DESC');
+		
 		$payrolls_data = $payrolls->populate(); 
 		$this->template_data->set('payrolls', $payrolls_data);
 
@@ -172,6 +176,15 @@ class Payroll extends MY_Controller {
 		if( $payroll_group->nonEmpty() ) {
 			$generate = false;
 		}
+		$this->template_data->set('generate', $generate);
+
+		$inclusive_dates = false;
+		$dates = new $this->Payroll_inclusive_dates_model;
+		$dates->setPayrollId($id,true);
+		if( $dates->nonEmpty() ) {
+			$inclusive_dates = true;
+		}
+		$this->template_data->set('inclusive_dates', $inclusive_dates);
 /*
 		$payroll_earning = new $this->Payroll_earnings_model;
 		$payroll_earning->setPayrollId($id,true);
@@ -227,7 +240,7 @@ class Payroll extends MY_Controller {
 
 					foreach($this->input->post('selected') as $selected) {
 						$sel_dates = new $this->Payroll_inclusive_dates_model;
-						$sel_dates->setPayrollId($id,true);
+						$sel_dates->setPayrollId($id);
 						$sel_dates->setInclusiveDate($selected,true);
 						if( $sel_dates->nonEmpty() == false) {
 							$sel_dates->insert();
@@ -246,13 +259,23 @@ class Payroll extends MY_Controller {
 		$dates->set_order('inclusive_date', 'ASC');
 		$this->template_data->set('inclusive_dates', $dates->populate());
 
+		$not_available_days = new $this->Payroll_inclusive_dates_model;
+		$not_available_days->set_where('payroll_id !=' . $id);
+		$not_available_days->set_where('MONTH(inclusive_date)', $current_month);
+		$not_available_days->set_where('YEAR(inclusive_date)', $current_year);
+		$not_available_days->set_select('DAY(inclusive_date) as day');
+		$not_available_days->set_select('inclusive_date');
+		$not_available_days->set_limit(0);
+		$not_available_days->set_order('inclusive_date', 'ASC');
+		$this->template_data->set('not_available_days', $not_available_days->populate());
+
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/payroll_calendar', $this->template_data->get_data());
 	}
 
 	public function generate($id,$output='') {
 		
-		$redirect_uri = ( $this->input->get('next') ) ? $this->input->get('next') : 'payroll';
+		$redirect_uri = ( $this->input->get('next') ) ? $this->input->get('next') : 'payroll_salaries/view/' . $id;
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
@@ -367,30 +390,40 @@ class Payroll extends MY_Controller {
 					 $ee_earnings->setTrash(0,true);
 					 $ee_earnings->setActive(1,true);
 					 $ee_earnings->set_where('(start_date <= "' . date('Y-m-d') . '")');
+					 $ee_earnings->set_select("*");
+					 $ee_earnings->set_select('(SELECT SUM(amount) FROM payroll_employees_earnings ped WHERE ped.entry_id=employees_earnings.id AND ped.name_id=employees_earnings.name_id) as earned');
+
 					 foreach( $ee_earnings->populate() as $earning2 ) {
+					 	
 					 	$pee_earning = new $this->Payroll_employees_earnings_model;
 					 	$pee_earning->setPayrollId($id,true);
 					 	$pee_earning->setNameId($earning2->name_id,true);
 					 	$pee_earning->setEarningId($earning2->earning_id,true);
-					 	$pee_earning->setEntryId($earning2->earning_id,true);
+					 	$pee_earning->setEntryId($earning2->id,true);
 
 					 	switch( $earning2->computed ) {
 					 		case 'hour':
-					 			$amount = $earning2->amount * $days_present;
+					 			$eamount = $earning2->amount * $days_present;
 					 		break;
 					 		case 'day':
-					 			$amount = $earning2->amount * $days_present;
+					 			$eamount = $earning2->amount * $days_present;
 					 		break;
 					 		case 'month':
 					 		default:
-					 			$amount = $earning2->amount;
+					 			$eamount = $earning2->amount;
 					 		break;
 					 	}
 
-					 	$pee_earning->setAmount($amount);
-					 	if( $pee_earning->nonEmpty() === false ) {
+					 	if( floatval( $earning2->max_amount ) > 0 ) {
+					 		$ebalance = $earning2->max_amount - $earning2->earned;
+					 		$eamount = ( $ebalance >= $eamount) ? $eamount : $ebalance;
+					 	}
+
+					 	$pee_earning->setAmount($eamount);
+					 	if( ($pee_earning->nonEmpty() === false) && (floatval($eamount) > 0) ) {
 							$pee_earning->insert();
 						}
+
 					 }
 				}
 			} 
@@ -417,7 +450,11 @@ class Payroll extends MY_Controller {
 					 $ee_deductions->setTrash(0,true);
 					 $ee_deductions->setActive(1,true);
 					 $ee_deductions->set_where('(start_date <= "' . date('Y-m-d') . '")');
+					 $ee_deductions->set_limit(0);
+					 $ee_deductions->set_select("*");
+					 $ee_deductions->set_select('(SELECT SUM(amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=employees_deductions.id AND ped.name_id=employees_deductions.name_id) as deducted');
 					 foreach( $ee_deductions->populate() as $deduction2 ) {
+
 					 	$ped_deduction = new $this->Payroll_employees_deductions_model;
 					 	$ped_deduction->setPayrollId($id,true);
 					 	$ped_deduction->setNameId($deduction2->name_id,true);
@@ -426,19 +463,24 @@ class Payroll extends MY_Controller {
 
 					 	switch( $deduction2->computed ) {
 					 		case 'hour':
-					 			$amount = $deduction2->amount * $days_present;
+					 			$damount = $deduction2->amount * $days_present;
 					 		break;
 					 		case 'day':
-					 			$amount = $deduction2->amount * $days_present;
+					 			$damount = $deduction2->amount * $days_present;
 					 		break;
 					 		case 'month':
 					 		default:
-					 			$amount = $deduction2->amount;
+					 			$damount = $deduction2->amount;
 					 		break;
 					 	}
-					 	
-					 	$ped_deduction->setAmount($amount);
-					 	if( $ped_deduction->nonEmpty() === false ) {
+
+					 	if( floatval( $deduction2->max_amount ) > 0 ) {
+					 		$dbalance = $deduction2->max_amount - $deduction2->deducted;
+					 		$damount = ( $dbalance >= $damount) ? $damount : $dbalance;
+					 	}
+
+					 	$ped_deduction->setAmount($damount);
+					 	if( ($ped_deduction->nonEmpty() === false) && (floatval($damount) > 0)) {
 							$ped_deduction->insert();
 						}
 

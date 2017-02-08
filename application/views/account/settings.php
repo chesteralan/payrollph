@@ -13,7 +13,10 @@
             <form method="post">
 
 <?php endif; ?>
-
+              <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" class="form-control" name="full_name" value="<?php echo $this->session->name; ?>">
+              </div>
               <div class="form-group">
                 <label>Theme</label>
                 <select name="setting[theme]" class="form-control" title="- - Select Class - -">

@@ -39,7 +39,7 @@
 
 <?php if( isset($output) && ($output=='ajax') ) : ?>
 
-<a href="<?php echo site_url("employees_earnings/entries/{$earning->id}/ajax"); ?>" data-dismiss="modal" class="btn btn-success btn-xs ajax-modal-inner" data-title="Related Entries">View Related Entries</a>
+<a href="<?php echo site_url("employees_earnings/entries/{$earning->entry_id}/ajax"); ?>" data-dismiss="modal" class="btn btn-success btn-xs ajax-modal-inner" data-title="Related Entries">View Related Entries</a>
 
 <a href="<?php echo site_url("payroll_earnings/delete/{$earning->id}"); ?>" class="btn btn-danger btn-xs confirm">Delete this entry</a>
 

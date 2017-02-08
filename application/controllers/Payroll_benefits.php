@@ -44,6 +44,7 @@ class Payroll_benefits extends MY_Controller {
 		$this->template_data->set('payroll', $payroll_data);
 
 		$benefits_columns = new $this->Payroll_benefits_model('pb');
+		$benefits_columns->setPayrollId($id,true);
 		$benefits_columns->set_select('bl.*');
 		$benefits_columns->set_join('benefits_list bl', 'bl.id=pb.benefit_id');
 		$benefits_columns->set_order('pb.order', 'DESC');

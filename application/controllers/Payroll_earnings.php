@@ -38,6 +38,7 @@ class Payroll_earnings extends MY_Controller {
 		$this->template_data->set('payroll', $payroll_data);
 
 		$earnings_columns = new $this->Payroll_earnings_model('pe');
+		$earnings_columns->setPayrollId($id,true);
 		$earnings_columns->set_select('el.*');
 		$earnings_columns->set_join('earnings_list el', 'el.id=pe.earning_id');
 		$earnings_columns->set_order('pe.order', 'DESC');
@@ -100,8 +101,10 @@ class Payroll_earnings extends MY_Controller {
 		$earnings->setPayrollId($id,true);
 		$earnings->setNameId($name_id,true);
 		$earnings->setEarningId($earning_id,true);
-		$earnings->set_select('pee.*');
-		$earnings->set_select('(IF((SELECT(pee.notes)), pee.notes, ee.notes)) as notes');
+		$earnings->set_select('*');
+		$earnings->set_select('IF((pee.notes="" OR pee.notes IS NULL), ee.notes, pee.notes) as enotes');
+		$earnings->set_select('pee.amount as pee_amount');
+		$earnings->set_select('pee.id as pee_id');
 		$earnings->set_join('earnings_list el', 'pee.earning_id=el.id');
 		$earnings->set_join('employees_earnings ee', 'ee.id=pee.entry_id');
 		$this->template_data->set('earnings', $earnings->populate());

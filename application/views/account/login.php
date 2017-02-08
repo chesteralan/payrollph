@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?php echo (isset($page_title)) ? $page_title : 'COOP'; ?></title>
+    <title><?php echo (isset($page_title)) ? $page_title : APP_NAME; ?></title>
     <link href="<?php echo base_url('assets/themes/yeti/bootstrap.min.css'); ?>" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

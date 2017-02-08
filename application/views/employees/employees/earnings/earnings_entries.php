@@ -13,7 +13,6 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
-                <span class="pull-right bold"><?php echo number_format($entry->max_amount,2); ?></span>
                   <h3 class="panel-title bold">
                   <?php echo $earning->name; ?> - <?php echo $earning->notes; ?> (<?php echo $entry->notes; ?>)
                   </h3>
@@ -42,7 +41,7 @@ $total = 0;
             foreach($earnings as $earning) { ?>
               <tr id="earning-<?php echo $earning->id; ?>">
                 <td><?php echo $earning->payroll_name; ?></td>
-                <td><?php echo number_format($earning->amount,2);  $total += $earning->amount; ?></td>
+                <td><?php echo number_format($earning->pee_amount,2);  $total += $earning->pee_amount; ?></td>
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
 
@@ -61,12 +60,24 @@ $total = 0;
 </div>
 
 <div class="panel-footer">
-    <div class="pull-right">
-    <p class="text-right"><strong>Total:</strong> <?php echo number_format($total,2); ?></p>
-    <p><strong>Balance:</strong> <?php echo number_format($entry->max_amount-$total,2); ?></p>
-      
-    </div>
-    <div class="clearfix"></div>
+<table class="table table-default">
+<?php if( $entry->max_amount > 0) { ?>
+  <tr>
+    <td class="bold">Total Amount:</td>
+    <td class="text-right"><?php echo number_format($entry->max_amount,2); ?></td>
+  </tr>
+<?php } ?>
+  <tr>
+    <td class="bold">Deducted Amount:</td>
+    <td class="text-right"><?php echo number_format($total,2); ?></td>
+  </tr>
+<?php if( $entry->max_amount > 0) { ?>
+  <tr>
+    <td class="bold">Balance:</td>
+    <td class="text-right bold"><?php echo number_format($entry->max_amount-$total,2); ?></td>
+  </tr>
+<?php } ?>
+</table>
 </div>
 
 <?php } else { ?>
