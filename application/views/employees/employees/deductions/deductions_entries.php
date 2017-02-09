@@ -24,10 +24,12 @@
 
 <?php if( $deductions ) { ?>
 
+<center><a class="btn btn-success btn-xs ajax-modal-inner" href="<?php echo site_url("employees_deductions/edit/{$entry->id}/{$output}") . '?next=' . uri_string(); ?>">Edit Item</a></center>
+
           <table class="table table-default">
             <thead>
               <tr>
-                <th>Payroll</th>
+                <th>Payroll Name</th>
                 <th class="text-right">Amount</th>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                   <th width="50px" class="action_column">Action</th>
@@ -60,18 +62,22 @@ $total = 0;
 
 <div class="panel-footer">
 <table class="table table-default">
+<?php if( $entry->max_amount > 0 ) { ?>
   <tr>
     <td class="bold">Total Amount:</td>
     <td class="text-right"><?php echo number_format($entry->max_amount,2); ?></td>
   </tr>
+<?php } ?>
   <tr>
-    <td class="bold">Deducted Amount:</td>
+    <td class="bold">Total Amount Deducted:</td>
     <td class="text-right"><?php echo number_format($total,2); ?></td>
   </tr>
+<?php if( $entry->max_amount > 0 ) { ?>
   <tr>
     <td class="bold">Balance:</td>
     <td class="text-right bold"><?php echo number_format($entry->max_amount-$total,2); ?></td>
   </tr>
+<?php } ?>
 </table>
 </div>
 

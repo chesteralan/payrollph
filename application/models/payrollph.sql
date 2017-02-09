@@ -58,6 +58,16 @@ CREATE TABLE `employees` (
   KEY `position_id` (`position_id`)
 );
 
+-- Table structure for table `employees_absenses` 
+
+CREATE TABLE `employees_absenses` (
+  `name_id` int(20) NOT NULL,
+  `date_absent` date NOT NULL,
+  `with_pay` int(1) NOT NULL,
+  `leave_type` varchar(100) NOT NULL,
+  KEY `name_id` (`name_id`,`date_absent`)
+);
+
 -- Table structure for table `employees_benefits` 
 
 CREATE TABLE `employees_benefits` (

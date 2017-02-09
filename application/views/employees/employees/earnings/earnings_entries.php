@@ -24,6 +24,8 @@
 
 <?php if( $earnings ) { ?>
 
+<center><a class="btn btn-success btn-xs ajax-modal-inner" href="<?php echo site_url("employees_earnings/edit/{$entry->id}/{$output}") . '?next=' . uri_string(); ?>">Edit Item</a></center>
+
           <table class="table table-default">
             <thead>
               <tr>
@@ -68,7 +70,7 @@ $total = 0;
   </tr>
 <?php } ?>
   <tr>
-    <td class="bold">Deducted Amount:</td>
+    <td class="bold">Total Amount Earned:</td>
     <td class="text-right"><?php echo number_format($total,2); ?></td>
   </tr>
 <?php if( $entry->max_amount > 0) { ?>

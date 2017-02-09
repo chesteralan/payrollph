@@ -14,17 +14,18 @@
     <link href="<?php echo base_url('assets/css/print.css'); ?>" rel="stylesheet">
     
   </head>
-  <body >
+  <body id="payroll_print">
 
 <div class="header-title">
-<h2><?php echo ($template->company_name) ? $template->company_name : ''; ?></h2>
+<h2 class="allcaps"><?php echo ($template->company_name) ? $template->company_name : ''; ?></h2>
 <h3><?php echo ($template->company_name) ? $template->company_address : ''; ?></h3>
 <h3><?php echo ($template->company_name) ? $template->company_contacts : ''; ?></h3>
 </div>
 
-<h3>PAYROLL SHEET</h3>
-
-<h3 class="period">For the period covered <?php echo date('F d, Y', strtotime($inclusive_dates->start_date)); ?> - <?php echo date('F d, Y', strtotime($inclusive_dates->end_date)); ?></h3>
+<div class="full-border padding3">
+  <h3>PAYROLL SHEET</h3>
+  For the period covered <?php echo date('F d, Y', strtotime($inclusive_dates->start_date)); ?> - <?php echo date('F d, Y', strtotime($inclusive_dates->end_date)); ?>
+</div>
 
 
 <?php if( $payroll_groups ) {  
@@ -34,10 +35,10 @@ $total_net_pay = 0;
   <div class="payroll">
   <?php foreach($payroll_groups as $payroll_group) { ?>
  
-          <table class="table" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
+          <table cellspacing="0" cellpadding="0" class="table" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
-              <tr class="warning">
-                <th class="text-left" width="15%"><?php echo $payroll_group->name; ?></th>
+              <tr class="warning highlight allcaps">
+                <th class="text-left allcaps" width="15%"><?php echo $payroll_group->name; ?></th>
 <!--
                 <th width="5%" class="text-right">Working Days</th>
                 <th width="5%" class="text-right">Absenses</th>
@@ -136,7 +137,7 @@ if( $employee->salary ) {
                     echo number_format($employee->$var,2); ?></td>
                 <?php } ?>
                 <td class="text-right bold"><?php echo number_format($total_deductions,2); ?></td>
-                <td class="text-right bold"><?php 
+                <td class="text-right bold bigger"><?php 
                 $net_pay = (($total_earnings + $gross_pay) - $total_deductions); 
                 $total_net_pay += $net_pay;
                 echo number_format($net_pay,2); 
@@ -151,7 +152,7 @@ if( $employee->salary ) {
 
     <?php } ?>
 
-<table width="100%" class="total_net_pay">
+<table width="100%" class="total_net_pay full-border" cellspacing="0" cellpadding="0">
   <tr>
     <td class="bold allcaps">Total Net Pay</td>
     <td class="bold  allcaps text-right"><?php echo number_format($total_net_pay,2); ?></td>
@@ -160,17 +161,17 @@ if( $employee->salary ) {
 </div>
 
 <div class="signatories">
-  <table width="100%">
+  <table width="100%"  cellspacing="0" cellpadding="0">
     <tr>
       <td width="33.33%"><p>Prepared By:</p>
        <br>
 <span class="allcaps bold"><?php echo $this->session->name; ?></span>
       </td>
-      <td width="33.33%"><p>Checked By:</p>
+      <td width="33.33%" class="text-center"><p>Checked By:</p>
        <br>
 <span class="allcaps bold"><?php echo $template->checked_by_name; ?></span>
       </td>
-      <td width="33.33%"><p>Approved By:</p>
+      <td width="33.33%" class="text-right"><p>Approved By:</p>
       <br>
 <span class="allcaps bold"><?php echo $template->approved_by_name; ?></span>
       </td>

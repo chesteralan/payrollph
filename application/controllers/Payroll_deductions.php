@@ -154,15 +154,29 @@ class Payroll_deductions extends MY_Controller {
 
 	public function edit($id,$output='') {
 
-		$deductions = new $this->Payroll_employees_deductions_model('pee');
+		$deductions = new $this->Payroll_employees_deductions_model('ped');
 		$deductions->setId($id,true);
+		$deductions->set_select("*");
+
+		$deductions->set_select("(SELECT ed.max_amount FROM employees_deductions ed WHERE ed.id=ped.entry_id) as max_amount");
+
+		$deductions->set_select("(SELECT SUM(ped2.amount) FROM payroll_employees_deductions ped2 WHERE ped2.entry_id=ped.entry_id AND ped2.id!=ped.id) as amount_earned");
+
+		$deductions->set_select("((SELECT ed.max_amount FROM employees_deductions ed WHERE ed.id=ped.entry_id) - (SELECT SUM(ped2.amount) FROM payroll_employees_deductions ped2 WHERE ped2.entry_id=ped.entry_id AND ped2.id!=ped.id)) as amount_balance");
+
 		$deduction_data = $deductions->get();
 
 		if( $this->input->post() ) {
 			$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
 			$this->form_validation->set_rules('notes', 'Notes', 'trim');
 			if( $this->form_validation->run() ) {
-				$deductions->setAmount( str_replace(",", "", $this->input->post('amount')) );
+
+				$amount = str_replace(",", "", $this->input->post('amount'));
+				if( floatval($deduction_data->max_amount) > 0 ) {
+					$amount = ($amount >= $deduction_data->amount_balance) ? $deduction_data->amount_balance : $amount;
+				}
+				
+				$deductions->setAmount( $amount );
 				$deductions->setNotes($this->input->post('notes'));
 				$deductions->update();
 			}

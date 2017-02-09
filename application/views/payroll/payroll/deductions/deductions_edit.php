@@ -38,7 +38,7 @@
 
 <?php if( isset($output) && ($output=='ajax') ) : ?>
 
-<a href="<?php echo site_url("employees_deductions/entries/{$deduction->entry_id}/ajax"); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Related Entries">View Related Entries</a>
+<a href="<?php echo site_url("employees_deductions/entries/{$deduction->entry_id}/ajax"); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Related Entries" data-hide_footer="1">View Related Entries</a>
 
 <a href="<?php echo site_url("payroll_deductions/delete/{$deduction->id}"); ?>" class="btn btn-danger btn-xs confirm">Delete this entry</a>
 <?php endif; ?>

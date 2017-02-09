@@ -313,3 +313,10 @@ td.calendar-day .date_checkbox {
     height: 100%;
     text-align: left;
 }
+.panel-footer .table {
+	margin-bottom: 0!important;
+}
+.panel-footer .table td,
+.panel-footer .table th {
+	border-top:none!important;
+}

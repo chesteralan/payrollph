@@ -2,7 +2,7 @@ body {
   font-family: Arial;
   padding:0;
   margin:0;
-  font-size: 9px;
+  font-size: 9px; 
 }
 h1,h2,h3,h4,h5,h6 {
   margin: 0;
@@ -78,7 +78,7 @@ td {
 .text-center {
 	text-align:center;
 }
-table td {
+body#payroll_print table td {
 	border-bottom: 1px solid #CCC;
 }
 tr.overalltotal {
@@ -116,6 +116,10 @@ a.no-link {
 .payroll .table {
   margin-top: 10px;
 }
+.payroll .table td,
+.payroll .table th {
+  padding:5px;
+}
 .period {
   margin-top: 10px;
 }
@@ -125,7 +129,48 @@ a.no-link {
 }
 .total_net_pay {
   background: #CCC;
+  margin-top:10px;
 }
 .total_net_pay td {
   font-size: 12px;
+}
+.full-border {
+  border:1px solid #000;
+}
+.padding3 {
+  padding: 3px;
+}
+.padding5 {
+  padding: 5px;
+}
+body#payslip .payslip_box {
+    width: 330px;
+    min-height: 530px;
+    margin-bottom: 10px;
+    float:left;
+    margin-right:10px;
+    padding: 10px;
+}
+body#payslip .payslip_box .header-title {
+  margin-top:5px;
+}
+
+body#payslip .payslip_box .employee-name {
+  margin-top:10px;
+}
+
+body#payslip .payslip_box .table-details {
+  margin-top:5px;
+}
+.tab1 {
+  padding-left:20px;
+}
+.bigger {
+  font-size: 120%;
+}
+.highlight {
+  background: #BBB;
+}
+body#payslip table td {
+  border-bottom: 1px solid #CCC;
 }

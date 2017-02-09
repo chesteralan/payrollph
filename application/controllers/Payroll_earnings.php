@@ -5,7 +5,7 @@ class Payroll_earnings extends MY_Controller {
 	
 	public function __construct() {
 		parent::__construct();
-		$this->template_data->set('current_page', 'Payroll');
+		$this->template_data->set('current_page', 'Payroll Earnings');
 		$this->template_data->set('current_uri', 'payroll_earnings');
 		$this->template_data->set('navbar_search', true);
 
@@ -151,13 +151,26 @@ class Payroll_earnings extends MY_Controller {
 
 		$earnings = new $this->Payroll_employees_earnings_model('pee');
 		$earnings->setId($id,true);
+		$earnings->set_select("*");
+		
+		$earnings->set_select("(SELECT ee.max_amount FROM employees_earnings ee WHERE ee.id=pee.entry_id) as max_amount");
+		$earnings->set_select("(SELECT SUM(pee2.amount) FROM payroll_employees_earnings pee2 WHERE pee2.entry_id=pee.entry_id AND pee2.id!=pee.id) as amount_earned");
+
+		$earnings->set_select("((SELECT ee.max_amount FROM employees_earnings ee WHERE ee.id=pee.entry_id) - (SELECT SUM(pee2.amount) FROM payroll_employees_earnings pee2 WHERE pee2.entry_id=pee.entry_id AND pee2.id!=pee.id)) as amount_balance");
+
 		$earning_data = $earnings->get();
 
 		if( $this->input->post() ) {
 			$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
 			$this->form_validation->set_rules('notes', 'Notes', 'trim');
 			if( $this->form_validation->run() ) {
-				$earnings->setAmount( str_replace(",", "", $this->input->post('amount')) );
+
+				$amount = str_replace(",", "", $this->input->post('amount'));
+				if( floatval($earning_data->max_amount) > 0 ) {
+					$amount = ($amount >= $earning_data->amount_balance) ? $earning_data->amount_balance : $amount;
+				}
+
+				$earnings->setAmount( $amount );
 				$earnings->setNotes($this->input->post('notes'));
 				$earnings->update();
 			}
