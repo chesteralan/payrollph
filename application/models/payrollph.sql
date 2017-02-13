@@ -14,6 +14,7 @@ CREATE TABLE `benefits_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `notes` text,
+  `leave` int(1) DEFAULT '0',
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 );
@@ -63,8 +64,7 @@ CREATE TABLE `employees` (
 CREATE TABLE `employees_absenses` (
   `name_id` int(20) NOT NULL,
   `date_absent` date NOT NULL,
-  `with_pay` int(1) NOT NULL,
-  `leave_type` varchar(100) NOT NULL,
+  `leave_type` int(20) DEFAULT NULL,
   KEY `name_id` (`name_id`,`date_absent`)
 );
 

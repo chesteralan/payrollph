@@ -1,4 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+<?php if( isset($output) && ($output!='ajax') ) : ?>
+
 <?php $this->load->view('header'); ?>
 
 <?php if( ! $inner_page ): ?>
@@ -18,49 +21,26 @@
 
 <?php endif; ?>
 
-<?php if( $payroll_groups ) { ?>
-  
-  <?php foreach($payroll_groups as $payroll_group) { ?>
- 
-          <table class="table table-default" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
-            <thead>
-              <tr class="warning">
-                <th><?php echo $payroll_group->name; ?></th>
-                <th width="10%" class="text-right">Working Days</th>
-                <th width="10%" class="text-right">Absenses</th>
-                <th width="10%" class="text-right">Days Present</th>
-              </tr>
-            </thead>
-            <tbody>
-            
-<?php if($payroll_group->employees) { 
-              foreach($payroll_group->employees as $employee) {
-                $days_absent = 0;
-              ?>
-              <tr>
-                <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> (<?php echo $employee->position; ?>)
-                <a href="<?php echo site_url("employees_salaries/view/{$employee->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper"><span class="glyphicon glyphicon-cog"></span></a>
-                </td>
-                <td class="text-right"><?php echo $inclusive_dates->working_days; ?></td>
-                <td class="text-right">
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Employee Absenses" data-url="<?php echo site_url("payroll_dtr/absenses/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">
-                <?php echo $days_absent; ?>
-</a>
-                </td>
-                <td class="text-right"><?php $present_days = $inclusive_dates->working_days - $days_absent; echo $present_days; ?></td>
-              </tr>
-<?php         } 
-      } ?>
+<?php endif;  ?>
 
-            </tbody>
-          </table>
+<div class="list-group">
 
+<?php $n = 1;
+foreach( $inclusive_dates as $date ) {  ?>
+  <a data-target="#ajaxModal" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees_dtr/add_leave/{$name_id}/{$date->inclusive_date}/ajax") . "?next=" . $this->input->get('next'); ?>" data-title="<?php echo date('F d, Y (l)', strtotime($date->inclusive_date)); ?>">
+    <span class="glyphicon glyphicon-<?php echo ($date->absent) ? 'remove' : 'ok'; ?> pull-right" style="color:<?php echo ($date->absent) ? 'red' : 'green'; ?>;"></span>
+    <strong><?php echo $n; ?>.</strong> <?php echo date('F d, Y (l)', strtotime($date->inclusive_date)); ?>
+
+    <?php if($date->absent) { ?>
+        <span class="badge" style="margin-right:5px"><?php echo ($date->leave_type) ? $date->leave_type : 'No Leave'; ?></span>
     <?php } ?>
-<?php } else { ?>
+  </a>
+<?php $n++; 
+} ?>
 
-  <div class="text-center">No Group Assigned!</div>
+</div>
 
-<?php } ?>
+<?php if( isset($output) && ($output!='ajax') ) : ?>
 
 <?php if( ! $inner_page ): ?>
 
@@ -71,3 +51,5 @@
 </div>
 <?php endif; ?>
 <?php $this->load->view('footer'); ?>
+
+<?php endif; ?>

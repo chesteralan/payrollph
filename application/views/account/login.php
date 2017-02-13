@@ -1,5 +1,8 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); 
+if( is_view_exists("account/login_override") ) {
+  $this->load->view("account/login_override");
+} else {
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -95,3 +98,4 @@
     <script src="<?php echo base_url('assets/js/login.js'); ?>"></script>
   </body>
 </html>
+<?php } ?>

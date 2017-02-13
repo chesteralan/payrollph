@@ -9,6 +9,7 @@ CREATE TABLE `benefits_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `notes` text,
+  `leave` int(1) DEFAULT '0',
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 );
@@ -27,6 +28,7 @@ class Benefits_list_model extends MY_Model {
 	protected $id;
 	protected $name;
 	protected $notes;
+	protected $leave;
 	protected $active;
 
 	// --------------------------------------------------------------------
@@ -41,7 +43,7 @@ class Benefits_list_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'benefits_list';
 		$this->_short_name = 'benefits_list';
-		$this->_fields = array("id","name","notes","active");
+		$this->_fields = array("id","name","notes","leave","active");
 		$this->_required = array("name","active");
 		parent::__construct($short_name, $db_config);
 	}
@@ -125,6 +127,32 @@ class Benefits_list_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: notes --------------------------------------
+
+
+// ---------------------------- Start Field: leave -------------------------------------- 
+
+	/** 
+	* Sets a value to `leave` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setLeave($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('leave', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `leave` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getLeave() {
+			return $this->leave;
+		}
+	
+// ------------------------------ End Field: leave --------------------------------------
 
 
 // ---------------------------- Start Field: active -------------------------------------- 

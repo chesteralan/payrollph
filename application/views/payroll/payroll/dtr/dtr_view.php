@@ -10,7 +10,7 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
+                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong> (<?php echo date( 'F d,Y', strtotime( $inclusive_dates->start_date ) ); ?> - <?php echo date( 'F d,Y', strtotime( $inclusive_dates->end_date ) ); ?>)
 <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Employee Groups" data-url="<?php echo site_url("payroll/groups/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
                   </h3>
                 </div>
@@ -33,9 +33,9 @@
             </thead>
             <tbody>
             
-<?php if($payroll_group->employees) { 
+<?php if($payroll_group->employees) {
               foreach($payroll_group->employees as $employee) {
-                $days_absent = 0;
+                $days_absent = $employee->absenses;
               ?>
               <tr>
                 <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> (<?php echo $employee->position; ?>)
@@ -43,13 +43,14 @@
                 </td>
                 <td class="text-right"><?php echo $inclusive_dates->working_days; ?></td>
                 <td class="text-right">
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Employee Absenses" data-url="<?php echo site_url("payroll_dtr/absenses/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Employee Attendance" data-url="<?php echo site_url("payroll_dtr/absenses/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
                 <?php echo $days_absent; ?>
 </a>
                 </td>
                 <td class="text-right"><?php $present_days = $inclusive_dates->working_days - $days_absent; echo $present_days; ?></td>
               </tr>
-<?php         } 
+<?php         
+  } 
       } ?>
 
             </tbody>

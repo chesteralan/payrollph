@@ -8,8 +8,7 @@
 CREATE TABLE `employees_absenses` (
   `name_id` int(20) NOT NULL,
   `date_absent` date NOT NULL,
-  `with_pay` int(1) NOT NULL,
-  `leave_type` varchar(100) NOT NULL,
+  `leave_type` int(20) DEFAULT NULL,
   KEY `name_id` (`name_id`,`date_absent`)
 );
 
@@ -26,7 +25,6 @@ class Employees_absenses_model extends MY_Model {
 
 	protected $name_id;
 	protected $date_absent;
-	protected $with_pay;
 	protected $leave_type;
 
 	// --------------------------------------------------------------------
@@ -41,8 +39,8 @@ class Employees_absenses_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees_absenses';
 		$this->_short_name = 'employees_absenses';
-		$this->_fields = array("name_id","date_absent","with_pay","leave_type");
-		$this->_required = array("name_id","date_absent","with_pay","leave_type");
+		$this->_fields = array("name_id","date_absent","leave_type");
+		$this->_required = array("name_id","date_absent");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -99,32 +97,6 @@ class Employees_absenses_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: date_absent --------------------------------------
-
-
-// ---------------------------- Start Field: with_pay -------------------------------------- 
-
-	/** 
-	* Sets a value to `with_pay` variable
-	* @access public
-	* @param  String
-	* @return $this;
-	*/
-
-		public function setWithPay($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('with_pay', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
-	
-	/** 
-	* Get the value of `with_pay` variable
-	* @access public
-	* @return String;
-	*/
-
-		public function getWithPay() {
-			return $this->with_pay;
-		}
-	
-// ------------------------------ End Field: with_pay --------------------------------------
 
 
 // ---------------------------- Start Field: leave_type -------------------------------------- 

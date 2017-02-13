@@ -30,6 +30,10 @@
             <textarea name="notes" class="form-control"><?php echo $this->input->post('notes'); ?></textarea>
           </div>
 
+          <div class="form-group">
+            <label><input name="leave" type="checkbox" value="1"> Leave Benefit</label>
+          </div>
+
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
         </div>

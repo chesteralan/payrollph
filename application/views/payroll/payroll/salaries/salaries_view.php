@@ -29,8 +29,8 @@
 <!--
                 <th width="10%" class="text-right">Working Days</th>
                 <th width="10%" class="text-right">Absenses</th>
-                <th width="10%" class="text-right">Days Present</th>
 -->
+                <th width="10%" class="text-right">Days Present</th>
                 <th width="10%" class="text-right">Rate per day</th>
                 <th width="10%" class="text-right">Basic Salary</th>
                 <th width="10%" class="text-right">COLA</th>
@@ -41,7 +41,7 @@
             
 <?php if($payroll_group->employees) { 
               foreach($payroll_group->employees as $employee) {
-$days_absent = 0;
+$days_absent = $employee->absenses;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
@@ -75,8 +75,8 @@ if( $employee->salary ) {
                 <td class="text-right">
                 <?php echo $days_absent; ?>
                 </td>
-                <td class="text-right"><?php $present_days = $inclusive_dates->working_days - $days_absent; echo $present_days; ?></td>
 -->
+                <td class="text-right"><?php $present_days = $inclusive_dates->working_days - $days_absent; echo $present_days; ?></td>
                 <td class="text-right"><?php echo number_format($daily_rate,2); ?></td>
                 <td class="text-right"><?php $basic_salary = ($daily_rate * $present_days); echo number_format($basic_salary,2); ?></td>
                 <td class="text-right"><?php $cola = ($salary->cola * $present_days); echo number_format($cola,2); ?></td>

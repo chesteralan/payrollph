@@ -16,29 +16,35 @@
   </head>
   <body id="payslip">
 
-<?php if( $payroll_groups ) { ?>
+<?php if( $payroll_groups ) { 
+
+$box_count = 0;
+  ?>
 <?php foreach($payroll_groups as $payroll_group) { ?>
 <?php if($payroll_group->employees) { 
         foreach($payroll_group->employees as $employee) { 
+          $box_count++;
+          $odd_even = $box_count % 2;
 ?>
-<div class="payslip_box full-border">
+<div class="payslip_box full-border <?php echo ($odd_even > 0) ? 'odd' : 'even'; ?>">
   <div class="header-title">
 <h2 class="text-center allcaps"><?php echo ($template->company_name) ? $template->company_name : ''; ?></h2>
-<h3 class="text-center"><?php echo ($template->company_name) ? $template->company_address : ''; ?></h3>
-<h3 class="text-center"><?php echo ($template->company_name) ? $template->company_contacts : ''; ?></h3>
+<h3 class="text-center not-bold"><?php echo ($template->company_name) ? $template->company_address : ''; ?></h3>
+<h3 class="text-center not-bold"><?php echo ($template->company_name) ? $template->company_contacts : ''; ?></h3>
 </div>
 
-<div class="full-border padding3 text-center ">
+<div class="full-border padding3">
+<h3 class="pull-right">ID # <?php echo $payroll->id; ?></h3>
 <h2 class="">PAYSLIP</h2>
 <span><?php echo date('F d, Y', strtotime($inclusive_dates->start_date)); ?> - <?php echo date('F d, Y', strtotime($inclusive_dates->end_date)); ?></span>
 
 </div>
 
-<h1 class="text-center allcaps employee-name"><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?></h1>
+<h2 class="text-center allcaps employee-name underlined"><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?></h2>
 
 <?php 
 
-$days_absent = 0;
+$days_absent = $employee->absenses;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
@@ -71,23 +77,23 @@ $gross_pay = ($basic_salary + $cola);
 ?>
  <table width="100%" class="table table-details" cellpadding="0" cellspacing="0">
  <tr>
-  <td class="text-left allcaps"># of Working Days</td>
+  <td class="text-left"># of Working Days</td>
   <td class="text-right"><?php  echo $inclusive_dates->working_days; ?></td>
 </tr>
  <tr>
-  <td class="text-left allcaps">Days Absent</td>
+  <td class="text-left">Days Absent</td>
   <td class="text-right"><?php  echo $days_absent; ?></td>
 </tr>
  <tr>
-  <td class="text-left allcaps">Days Present</td>
+  <td class="text-left">Days Present</td>
   <td class="text-right"><?php  echo $present_days; ?></td>
 </tr>
  <tr>
-  <td class="text-left allcaps">Rate per day</td>
+  <td class="text-left">Rate per day</td>
   <td class="text-right"><?php  echo number_format($daily_rate,2); ?></td>
 </tr>
  <tr>
-  <td class="text-left allcaps">COLA</td>
+  <td class="text-left">COLA</td>
   <td class="text-right"><?php  echo number_format($cola,2); ?></td>
 </tr>
 <tr>
@@ -185,7 +191,8 @@ foreach( $earnings_columns as $column ) {
 </div>
 
 </div>
-<?php } ?>
+<?php 
+} ?>
 <?php } ?>
 <?php } ?>
 <?php } ?>

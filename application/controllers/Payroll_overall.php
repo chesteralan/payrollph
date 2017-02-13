@@ -42,6 +42,15 @@ class Payroll_overall extends MY_Controller {
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
+		// inclusive dates
+		$inclusive_dates = new $this->Payroll_inclusive_dates_model;
+		$inclusive_dates->setPayrollId($id,true);
+		$inclusive_dates->set_select('COUNT(*) as working_days');
+		$inclusive_dates->set_select('MIN(inclusive_date) as start_date');
+		$inclusive_dates->set_select('MAX(inclusive_date) as end_date');
+		$dates_data = $inclusive_dates->get();
+		$this->template_data->set('inclusive_dates', $dates_data);
+
 		// template
 		$template = new $this->Payroll_templates_model;
 		$template->setId( $payroll_data->template_id , true);
@@ -94,6 +103,9 @@ class Payroll_overall extends MY_Controller {
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 			$employees->set_where('e.group_id', $group->group_id);
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
+
+			$employees->set_select("(SELECT COUNT(*) FROM employees_absenses ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absenses");
+
 			$employees->set_limit(0);
 
 			foreach($columns_earnings as $column) {
@@ -123,13 +135,6 @@ class Payroll_overall extends MY_Controller {
 			$payroll_group_data[$key]->employees = $employees_data;
 		}
 		$this->template_data->set('payroll_groups', $payroll_group_data);
-
-		$inclusive_dates = new $this->Payroll_inclusive_dates_model;
-		$inclusive_dates->setPayrollId($id,true);
-		$inclusive_dates->set_select('COUNT(*) as working_days');
-		$inclusive_dates->set_select('MIN(inclusive_date) as start_date');
-		$inclusive_dates->set_select('MAX(inclusive_date) as end_date');
-		$this->template_data->set('inclusive_dates', $inclusive_dates->get());
 		
 		switch($output) {
 			case 'payslip':

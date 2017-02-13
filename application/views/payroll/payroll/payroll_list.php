@@ -28,6 +28,7 @@
           <table class="table table-default">
             <thead>
               <tr>
+                <th>ID</th>
                 <th>Payroll Description</th>
                 <th>Month</th>
                 <th>Year</th>
@@ -43,6 +44,7 @@
             <tbody>
             <?php foreach($payrolls as $payroll) { ?>
               <tr id="Payroll-<?php echo $payroll->id; ?>">
+                <td><?php echo $payroll->id; ?></td>
                 <td><?php echo $payroll->name; ?></td>
                 <td><?php echo date('F', strtotime($payroll->month."/1/1970")); ?></td>
                 <td><?php echo $payroll->year; ?></td>
@@ -57,7 +59,7 @@
                 <td>
 <?php if( $payroll->groups_count > 0 ) { ?>
 
-      <a class="btn btn-success btn-xs body_wrapper" href="<?php echo site_url("payroll_salaries/view/{$payroll->id}"); ?>">View</a>
+      <a class="btn btn-success btn-xs body_wrapper" href="<?php echo site_url("payroll_dtr/view/{$payroll->id}"); ?>">View</a>
 
 <?php } else { ?>
 

@@ -93,11 +93,20 @@ tr:hover{
 .bold {
 	font-weight: bold;
 }
+.not-bold {
+  font-weight: 400;
+}
 .transaction {
   text-align: left;
 }
 .transaction-amount {
   text-align: right;
+}
+.pull-right {
+  float: right;
+}
+.underlined {
+  text-decoration: underline;
 }
 a.no-link {
   text-decoration: none;
@@ -144,12 +153,15 @@ a.no-link {
   padding: 5px;
 }
 body#payslip .payslip_box {
-    width: 330px;
-    min-height: 530px;
+    width: 315px;
+    min-height: 470px;
     margin-bottom: 10px;
     float:left;
     margin-right:10px;
     padding: 10px;
+}
+body#payslip .payslip_box.even {
+  margin-right: 0px;
 }
 body#payslip .payslip_box .header-title {
   margin-top:5px;
@@ -173,4 +185,5 @@ body#payslip .payslip_box .table-details {
 }
 body#payslip table td {
   border-bottom: 1px solid #CCC;
+  padding: 1px 3px;
 }

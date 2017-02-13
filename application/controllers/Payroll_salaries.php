@@ -47,9 +47,17 @@ class Payroll_salaries extends MY_Controller {
 		$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');
 		$payroll_group->set_limit(0);
 		$payroll_group->set_order('pg.order', 'DESC');
-		//$payroll_group->set_select("(SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) as employee_count");
 		$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
 		$payroll_group_data =  $payroll_group->populate();
+
+		$inclusive_dates = new $this->Payroll_inclusive_dates_model;
+		$inclusive_dates->setPayrollId($id,true);
+		$inclusive_dates->set_select('COUNT(*) as working_days');
+		$inclusive_dates->set_select('MIN(inclusive_date) as start_date');
+		$inclusive_dates->set_select('MAX(inclusive_date) as end_date');
+		$dates_data = $inclusive_dates->get();
+		$this->template_data->set('inclusive_dates', $dates_data);
+
 		foreach($payroll_group_data as $key=>$group) {
 			$employees = new $this->Payroll_employees_model('pe');
 			$employees->setPayrollId($id,true);
@@ -57,6 +65,9 @@ class Payroll_salaries extends MY_Controller {
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 			$employees->set_where('e.group_id', $group->group_id);
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
+
+			$employees->set_select("(SELECT COUNT(*) FROM employees_absenses ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absenses");
+			
 			$employees->set_limit(0);
 			$employees_data = $employees->populate();
 			foreach( $employees_data as $eKey => $employee) {
@@ -70,13 +81,6 @@ class Payroll_salaries extends MY_Controller {
 			$payroll_group_data[$key]->employees = $employees_data;
 		}
 		$this->template_data->set('payroll_groups', $payroll_group_data);
-
-		$inclusive_dates = new $this->Payroll_inclusive_dates_model;
-		$inclusive_dates->setPayrollId($id,true);
-		$inclusive_dates->set_select('COUNT(*) as working_days');
-		$inclusive_dates->set_select('MIN(inclusive_date) as start_date');
-		$inclusive_dates->set_select('MAX(inclusive_date) as end_date');
-		$this->template_data->set('inclusive_dates', $inclusive_dates->get());
 		
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/salaries/salaries_view', $this->template_data->get_data());

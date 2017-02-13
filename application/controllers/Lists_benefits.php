@@ -19,6 +19,7 @@ class Lists_benefits extends MY_Controller {
 		
 		$benefits = new $this->Benefits_list_model;
 		$benefits->set_select("*");
+		$benefits->set_order('leave', 'ASC');
 		$benefits->set_order('name', 'ASC');
 		$this->template_data->set('benefits', $benefits->populate());
 
@@ -43,6 +44,7 @@ class Lists_benefits extends MY_Controller {
 				$benefits = new $this->Benefits_list_model;
 				$benefits->setName($this->input->post('benefit_name'));
 				$benefits->setNotes($this->input->post('notes'));
+				$benefits->setLeave( ($this->input->post('leave')) ? 1 : 0 );
 				if( $benefits->insert() ) {
 					redirect("lists_benefits");
 				}
@@ -58,15 +60,16 @@ class Lists_benefits extends MY_Controller {
 		$this->_isAuth('lists', 'benefits', 'edit');
 
 		$benefits = new $this->Benefits_list_model;
-		$benefits->setId($id,true);
+		$benefits->setId($id,true,false);
 
 		if( $benefits->nonEmpty() ) {
 			if( $this->input->post() ) {
 				$this->form_validation->set_rules('benefit_name', 'Benefit Name', 'trim|required');
 				$this->form_validation->set_rules('notes', 'Notes', 'trim');
 				if( $this->form_validation->run() ) {
-					$benefits->setName($this->input->post('benefit_name'));
-					$benefits->setNotes($this->input->post('notes'));
+					$benefits->setName($this->input->post('benefit_name'),false,true);
+					$benefits->setNotes($this->input->post('notes'),false,true);
+					$benefits->setLeave( (($this->input->post('leave')) ? 1 : 0),false,true);
 					$benefits->update();
 				}
 				$this->postNext();

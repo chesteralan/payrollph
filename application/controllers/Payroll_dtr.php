@@ -50,6 +50,15 @@ class Payroll_dtr extends MY_Controller {
 
 		$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
 		$payroll_group_data =  $payroll_group->populate();
+
+		$inclusive_dates = new $this->Payroll_inclusive_dates_model('pid');
+		$inclusive_dates->setPayrollId($id,true);
+		$inclusive_dates->set_select('COUNT(*) as working_days');
+		$inclusive_dates->set_select('MIN(pid.inclusive_date) as start_date');
+		$inclusive_dates->set_select('MAX(pid.inclusive_date) as end_date');
+		$dates_data = $inclusive_dates->get();
+		$this->template_data->set('inclusive_dates', $dates_data);
+
 		foreach($payroll_group_data as $key=>$group) {
 			$employees = new $this->Payroll_employees_model('pe');
 			$employees->setPayrollId($id,true);
@@ -57,24 +66,41 @@ class Payroll_dtr extends MY_Controller {
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 			$employees->set_where('e.group_id', $group->group_id);
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
+
+			$employees->set_select("(SELECT COUNT(*) FROM employees_absenses ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absenses");
+
 			$employees->set_limit(0);
-			$employees_data = $employees->populate();
+			$employees_data = $employees->populate(); 
 			$payroll_group_data[$key]->employees = $employees_data;
 		}
 		$this->template_data->set('payroll_groups', $payroll_group_data);
 
-		$inclusive_dates = new $this->Payroll_inclusive_dates_model;
-		$inclusive_dates->setPayrollId($id,true);
-		$inclusive_dates->set_select('COUNT(*) as working_days');
-		$inclusive_dates->set_select('MIN(inclusive_date) as start_date');
-		$inclusive_dates->set_select('MAX(inclusive_date) as end_date');
-		$this->template_data->set('inclusive_dates', $inclusive_dates->get());
-		
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/dtr/dtr_view', $this->template_data->get_data());
 	}
 
 	public function absenses($id,$name_id,$output='') {
+
+		$this->template_data->set('name_id', $name_id);
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$inclusive_dates = new $this->Payroll_inclusive_dates_model('pid');
+		$inclusive_dates->set_select("pid.*");
+		
+		$inclusive_dates->set_select("(SELECT COUNT(*) FROM employees_absenses ea WHERE ea.name_id={$name_id} AND pid.inclusive_date=ea.date_absent) as absent");
+		
+		$inclusive_dates->set_select("(SELECT bl.name FROM employees_absenses ea JOIN benefits_list bl ON ea.leave_type=bl.id WHERE ea.name_id={$name_id} AND pid.inclusive_date=ea.date_absent) as leave_type");
+
+		$inclusive_dates->setPayrollId($id,true);
+		$inclusive_dates->set_order('inclusive_date','ASC');
+		$inclusive_dates->set_limit(0); 
+		$this->template_data->set('inclusive_dates', $inclusive_dates->populate());
+
+		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/dtr/dtr_calendar', $this->template_data->get_data());
 	}
 

@@ -22,6 +22,7 @@
               <tr>
                 <th>Benefit Name</th>
                 <th>Notes</th>
+                <th>Leave</th>
                 <?php if( hasAccess('lists', 'benefits', 'edit') ) { ?>
                   <th width="105px">Action</th>
                 <?php } ?>
@@ -33,6 +34,7 @@
               <tr id="employee-benefit-<?php echo $benefit->id; ?>">
                 <td><?php echo $benefit->name; ?></td>
                 <td><?php echo $benefit->notes; ?></td>
+                <td><span class="glyphicon glyphicon-<?php echo ($benefit->leave) ? 'ok' : 'remove'; ?>"></span></td>
               <?php if( hasAccess('lists', 'benefits', 'edit') ) { ?>
                 <td>
                 <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Benefit" data-url="<?php echo site_url("lists_benefits/edit/{$benefit->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
