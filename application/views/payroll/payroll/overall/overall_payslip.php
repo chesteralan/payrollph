@@ -43,6 +43,7 @@ $box_count = 0;
 
 <h2 class="text-center allcaps employee-name underlined"><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?></h2>
 
+
 <?php 
 
 $days_absent = $employee->absenses;

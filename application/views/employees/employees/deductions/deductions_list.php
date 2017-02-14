@@ -9,7 +9,7 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
 <?php if( hasAccess('employees', 'employees', 'add') ) { ?>
-  <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Deduction" data-url="<?php echo site_url("employees_deductions/add/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Add Deduction</button>
+  <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Deduction" data-url="<?php echo site_url("employees_deductions/add/{$employee->name_id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>" style="margin-right: 5px">Add Deduction</button>
 <?php } ?>
                   <h3 class="panel-title bold">
                   <?php echo $current_page; ?>
@@ -46,7 +46,7 @@
 
                 <a class="btn btn-warning btn-xs body_wrapper" href="<?php echo site_url("employees_deductions/entries/{$deduction->id}"); ?>">Entries</a>
 
-                <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Deduction" data-url="<?php echo site_url("employees_deductions/edit/{$deduction->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
+                <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Deduction" data-url="<?php echo site_url("employees_deductions/edit/{$deduction->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>">Edit</button>
 
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees_deductions/delete/{$deduction->id}"); ?>" data-target="#salary-<?php echo $deduction->id; ?>">Delete</a>
 
