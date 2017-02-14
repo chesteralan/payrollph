@@ -18,6 +18,7 @@
 
 <?php if( $payroll_groups ) { 
 
+$total_earnings = 0;
 $box_count = 0;
   ?>
 <?php foreach($payroll_groups as $payroll_group) { ?>
@@ -108,7 +109,6 @@ $gross_pay = ($basic_salary + $cola);
    <td colspan="2" class="allcaps bold">Other Earnings</td>
  </tr>
 <?php 
-$total_earnings = 0;
 foreach( $earnings_columns as $column ) {
 ?>
 <tr>
