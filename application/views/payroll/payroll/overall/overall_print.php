@@ -32,8 +32,7 @@
 <?php if( $payroll_groups ) {  
 
 $total_net_pay = 0;
-$total_deductions = 0;
-$total_earnings = 0;
+
   ?>
   <div class="payroll">
   <?php foreach($payroll_groups as $payroll_group) { ?>
@@ -72,7 +71,8 @@ $total_earnings = 0;
 
 foreach($payroll_group->employees as $employee) {
 
-
+$total_deductions = 0;
+$total_earnings = 0;
 $days_absent = $employee->absenses;
 $monthly_rate = 0;
 $daily_rate = 0;
