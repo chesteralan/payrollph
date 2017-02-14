@@ -72,7 +72,7 @@
   </div>
 
               <div class="form-group">
-                <p><label><input name="primary" type="checkbox" value="1"> Set Primary</label></p>
+                <p><label><input name="primary" type="checkbox" value="1" CHECKED> Set Primary</label></p>
               </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
