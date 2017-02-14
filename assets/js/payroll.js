@@ -178,7 +178,7 @@ var navbar_search_employee = function() {
                         loadingDiv.remove();
                         window.history.replaceState('Object', $(document).prop('title'), ui.item.redirect);
                         window['uri_string'] = ui.item.redirect;
-                        $('.autocomplete-member_change').val('');
+                        $('.autocomplete-search_employee').val('');
                         init_coop();
                       });
                     });
