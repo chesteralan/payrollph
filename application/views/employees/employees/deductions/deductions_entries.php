@@ -13,6 +13,9 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
+<?php if( isset($output) && ($output!='ajax') ) { ?>
+<a class="btn btn-success btn-xs ajax-modal pull-right" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Item" data-url="<?php echo site_url("employees_deductions/edit/{$entry->id}/{$output}/ajax") . '?next=' . uri_string(); ?>">Edit Item</a>
+<?php } ?>
                   <h3 class="panel-title bold">
                   <?php echo $deduction->name; ?> - <?php echo $deduction->notes; ?> (<?php echo $entry->notes; ?>)
                   </h3>
@@ -23,9 +26,9 @@
 <?php endif; ?>
 
 <?php if( $deductions ) { ?>
-
-<center><a class="btn btn-success btn-xs ajax-modal-inner" href="<?php echo site_url("employees_deductions/edit/{$entry->id}/{$output}") . '?next=' . uri_string(); ?>">Edit Item</a></center>
-
+<?php if( isset($output) && ($output=='ajax') ) { ?>
+<center><a class="btn btn-success btn-xs ajax-modal-inner" href="<?php echo site_url("employees_deductions/edit/{$entry->id}/{$output}") . '?next=' . (($this->input->get('next'))?$this->input->get('next'):"employees_deductions/view/{$employee->name_id}"); ?>">Edit Item</a></center>
+<?php } ?>
           <table class="table table-default">
             <thead>
               <tr>

@@ -172,10 +172,9 @@ class Payroll_deductions extends MY_Controller {
 			if( $this->form_validation->run() ) {
 
 				$amount = str_replace(",", "", $this->input->post('amount'));
-				if( floatval($deduction_data->max_amount) > 0 ) {
-					$amount = ($amount >= $deduction_data->amount_balance) ? $deduction_data->amount_balance : $amount;
+				if( (floatval($deduction_data->max_amount) > 0 ) && (floatval($deduction_data->amount_balance) > 0 ) ) {
+					$amount = (floatval($amount) >= floatval($deduction_data->amount_balance)) ? $deduction_data->amount_balance : $amount;
 				}
-				
 				$deductions->setAmount( $amount );
 				$deductions->setNotes($this->input->post('notes'));
 				$deductions->update();
