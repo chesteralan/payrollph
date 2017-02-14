@@ -147,7 +147,8 @@ var navbar_search_employee = function() {
           dataType: "json",
           data: {
             term: request.term,
-            sub_uri : current_sub_uri
+            sub_uri : current_sub_uri,
+            uri_string : window.uri_string,
           },
           success: function( data ) {
             response( data );
@@ -156,7 +157,6 @@ var navbar_search_employee = function() {
       },
       minLength: 3,
       select: function( event, ui ) {
-          //window.location.href=ui.item.redirect;
               var divBody = $('#bodyWrapper');
               var loadingDiv = $('<div class="loading-wait"></div>');
               loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
@@ -169,6 +169,7 @@ var navbar_search_employee = function() {
                 method: 'POST',
                 data: {
                   output: 'body_wrapper',
+                  uri_string : window.uri_string,
                 },
                 success: function( data ) {
                     divBody.slideUp( function(){
@@ -176,6 +177,7 @@ var navbar_search_employee = function() {
                       $(this).slideDown(function(){
                         loadingDiv.remove();
                         window.history.replaceState('Object', $(document).prop('title'), ui.item.redirect);
+                        window['uri_string'] = ui.item.redirect;
                         $('.autocomplete-member_change').val('');
                         init_coop();
                       });
@@ -409,6 +411,7 @@ var bodyWrapper = function() {
                       $(this).slideDown(function(){
                         loadingDiv.remove();
                         window.history.replaceState('Object', $(document).prop('title'), ajax_url);
+                        window['uri_string'] = ajax_url;
                         $('.autocomplete-member_change').attr('data-current_sub_uri', ajax_url);
                         init_coop();
                       });
@@ -827,6 +830,7 @@ var lending_schedule_details = function() {
                       $(this).slideDown(function(){
                         loadingDiv.remove();
                         window.history.replaceState('Object', $(document).prop('title'), ajax_url);
+                        window['uri_string'] = ajax_url;
                         $('.autocomplete-member_change').attr('data-current_sub_uri', ajax_url);
                         init_coop();
                       });

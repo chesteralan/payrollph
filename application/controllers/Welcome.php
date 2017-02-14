@@ -40,11 +40,21 @@ class Welcome extends MY_Controller {
 				$employees->set_order('middlename', 'ASC');
 				$employees->set_limit(0); 
 
+				$ctrl = 'employees_salaries';
+				if( strpos($this->input->get('uri_string'), 'employees_earnings') ) {
+					$ctrl = 'employees_earnings';
+				}
+				elseif( strpos($this->input->get('uri_string'), 'employees_benefits') ) {
+					$ctrl = 'employees_benefits';
+				}
+				elseif( strpos($this->input->get('uri_string'), 'employees_deductions') ) {
+					$ctrl = 'employees_deductions';
+				}
 				foreach($employees->populate() as $employee) {
 					$results[] = array(
 						'label' => $employee->lastname . ", " . $employee->firstname. " " . substr($employee->middlename,0,1).".",
 						'id' => $employee->name_id,
-						'redirect'=> site_url( 'employees_salaries/view/' . $employee->name_id ),
+						'redirect'=> site_url( $ctrl . '/view/' . $employee->name_id ),
 						);
 				}
 			break;
