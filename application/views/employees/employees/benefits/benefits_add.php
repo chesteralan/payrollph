@@ -60,7 +60,7 @@
     <textarea name="notes" class="form-control" rows="3"></textarea>
   </div>
               <div class="form-group">
-                <p><label><input name="primary" type="checkbox" value="1"> Set as Primary</label></p>
+                <p><label><input name="primary" type="checkbox" value="1" CHECKED> Set as Primary</label></p>
               </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
