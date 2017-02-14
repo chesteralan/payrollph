@@ -12,7 +12,7 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Add <?php echo $deduction_data->name; ?></h3>
+          <h3 class="panel-title">Add <?php echo $benefit_data->name; ?></h3>
         </div>
 <form method="post">
         <div class="panel-body">
@@ -23,11 +23,17 @@
 <div class="row">
   <div class="col-md-6">
           <div class="form-group">
-            <label>Amount</label>
-            <input name="amount" type="text" class="form-control text-center" value="" required>
+            <label>Employee Share</label>
+            <input name="employee_share" type="text" class="form-control text-center" value="" required>
           </div>
   </div>
-  <div class="col-md-6"></div>
+  <div class="col-md-6">
+     <div class="form-group">
+            <label>Employer Share</label>
+            <input name="employer_share" type="text" class="form-control text-center" value="" required>
+          </div>
+
+  </div>
 </div> 
 
           <div class="form-group">

@@ -219,14 +219,18 @@ CREATE TABLE `payroll_employees` (
 -- Table structure for table `payroll_employees_benefits` 
 
 CREATE TABLE `payroll_employees_benefits` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
   `payroll_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `benefit_id` int(20) NOT NULL,
+  `entry_id` int(20) NOT NULL,
   `employee_share` decimal(10,5) DEFAULT '0.00000',
   `employer_share` decimal(10,5) DEFAULT '0.00000',
   `notes` text,
+  PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`),
-  KEY `benefit_id` (`benefit_id`)
+  KEY `benefit_id` (`benefit_id`),
+  KEY `entry_id` (`entry_id`)
 );
 
 -- Table structure for table `payroll_employees_deductions` 

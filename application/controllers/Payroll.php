@@ -509,13 +509,15 @@ class Payroll extends MY_Controller {
 					 $ee_benefits->setBenefitId($benefit->benefit_id,true);
 					 $ee_benefits->setTrash(0,true);
 					 $ee_benefits->setPrimary(1,true);
-					 $ee_benefits->set_where('(start_date >= "' . $payroll_dates->start_date . '")');
-					 $ee_benefits->set_where('(start_date <= "' . $payroll_dates->end_date . '")');
+					 $ee_benefits->set_where('(start_date <= "' . date('Y-m-d') . '")');
 					 foreach( $ee_benefits->populate() as $benefit2 ) {
 					 	$peb_benefit = new $this->Payroll_employees_benefits_model;
 					 	$peb_benefit->setPayrollId($id,true);
 					 	$peb_benefit->setNameId($benefit2->name_id,true);
 					 	$peb_benefit->setBenefitId($benefit2->id,true);
+					 	$peb_benefit->setEntryId($benefit2->id,true);
+					 	$peb_benefit->setEmployeeShare($benefit2->employee_share);
+					 	$peb_benefit->setEmployerShare($benefit2->employer_share);
 						if( $peb_benefit->nonEmpty() ) {
 							$peb_benefit->update();
 						} else {

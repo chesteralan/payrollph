@@ -6,14 +6,18 @@
  * Manipulates `payroll_employees_benefits` table on database
 
 CREATE TABLE `payroll_employees_benefits` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
   `payroll_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `benefit_id` int(20) NOT NULL,
+  `entry_id` int(20) NOT NULL,
   `employee_share` decimal(10,5) DEFAULT '0.00000',
   `employer_share` decimal(10,5) DEFAULT '0.00000',
   `notes` text,
+  PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`),
-  KEY `benefit_id` (`benefit_id`)
+  KEY `benefit_id` (`benefit_id`),
+  KEY `entry_id` (`entry_id`)
 );
 
  * @package			        Model
@@ -27,9 +31,11 @@ CREATE TABLE `payroll_employees_benefits` (
  
 class Payroll_employees_benefits_model extends MY_Model {
 
+	protected $id;
 	protected $payroll_id;
 	protected $name_id;
 	protected $benefit_id;
+	protected $entry_id;
 	protected $employee_share;
 	protected $employer_share;
 	protected $notes;
@@ -46,12 +52,38 @@ class Payroll_employees_benefits_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_employees_benefits';
 		$this->_short_name = 'payroll_employees_benefits';
-		$this->_fields = array("payroll_id","name_id","benefit_id","employee_share","employer_share","notes");
-		$this->_required = array("payroll_id","name_id","benefit_id");
+		$this->_fields = array("id","payroll_id","name_id","benefit_id","entry_id","employee_share","employer_share","notes");
+		$this->_required = array("payroll_id","name_id","benefit_id","entry_id");
 		parent::__construct($short_name, $db_config);
 	}
 
 	// --------------------------------------------------------------------
+
+
+// ---------------------------- Start Field: id -------------------------------------- 
+
+	/** 
+	* Sets a value to `id` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `id` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getId() {
+			return $this->id;
+		}
+	
+// ------------------------------ End Field: id --------------------------------------
 
 
 // ---------------------------- Start Field: payroll_id -------------------------------------- 
@@ -130,6 +162,32 @@ class Payroll_employees_benefits_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: benefit_id --------------------------------------
+
+
+// ---------------------------- Start Field: entry_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `entry_id` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setEntryId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('entry_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `entry_id` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getEntryId() {
+			return $this->entry_id;
+		}
+	
+// ------------------------------ End Field: entry_id --------------------------------------
 
 
 // ---------------------------- Start Field: employee_share -------------------------------------- 
