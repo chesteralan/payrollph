@@ -32,6 +32,8 @@
 <?php if( $payroll_groups ) {  
 
 $total_net_pay = 0;
+$total_deductions = 0;
+$total_earnings = 0;
   ?>
   <div class="payroll">
   <?php foreach($payroll_groups as $payroll_group) { ?>
@@ -111,7 +113,6 @@ if( $employee->salary ) {
                 <td class="text-right"><?php $gross_pay = ($basic_salary + $cola); echo number_format($gross_pay,2); ?></td>
 
 <?php 
-      $total_earnings = 0;
       if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
                     <td class="text-right"><?php 
                     $var = 'earnings_' . $column->id;
@@ -131,7 +132,6 @@ if( $employee->salary ) {
 <?php } ?>
 
 <?php 
-                $total_deductions = 0;
                 if( $deductions_columns ) foreach( $deductions_columns as $column ) { ?>
                     <td class="text-right"><?php 
                     $var = 'deductions_' . $column->id;
