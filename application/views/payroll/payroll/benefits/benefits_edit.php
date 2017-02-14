@@ -43,9 +43,9 @@
           </div>
 
 <?php if( isset($output) && ($output=='ajax') ) : ?>
-
+<?php if( $benefit->entry_id ) { ?>
 <a href="<?php echo site_url("employees_benefits/entries/{$benefit->entry_id}/ajax"); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Related Entries" data-hide_footer="1">View Related Entries</a>
-
+<?php } ?>
 <a href="<?php echo site_url("payroll_benefits/delete/{$benefit->id}"); ?>" class="btn btn-danger btn-xs confirm">Delete this entry</a>
 <?php endif; ?>
 
