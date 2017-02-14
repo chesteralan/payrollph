@@ -31,7 +31,7 @@
           <div class="form-group">
             <label>Rate per</label>
             <select class="form-control" title="Select a Rate" name="rate_per">
-                <option value="month">Month</option>
+                <option value="month" SELECTED>Month</option>
                 <option value="day">Day</option>
                 <option value="hour">Hour</option>
             </select>
