@@ -21,7 +21,7 @@ class System_users extends MY_Controller {
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'uri_segment' => 3,
-			'base_url' => base_url("system_users/index"),
+			'base_url' => base_url($this->config->item('index_page') . "/system_users/index"),
 			'total_rows' => $users->count_all_results(),
 			'per_page' => $users->get_limit(),
 			"ajax" => true,

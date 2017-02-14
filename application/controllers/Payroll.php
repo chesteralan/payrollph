@@ -61,7 +61,7 @@ class Payroll extends MY_Controller {
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'uri_segment' => 3,
-			'base_url' => base_url("payroll/index"),
+			'base_url' => base_url($this->config->item('index_page') . "/payroll/index"),
 			'total_rows' => $payrolls->count_all_results(),
 			'per_page' => $payrolls->get_limit(),
 			'ajax'=>true
@@ -87,7 +87,7 @@ class Payroll extends MY_Controller {
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'uri_segment' => 3,
-			'base_url' => base_url("payroll/index"),
+			'base_url' => base_url($this->config->item('index_page') . "/payroll/index"),
 			'total_rows' => $payrolls->count_all_results(),
 			'per_page' => $payrolls->get_limit(),
 			'ajax'=>true

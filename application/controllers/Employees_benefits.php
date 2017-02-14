@@ -35,7 +35,7 @@ class Employees_benefits extends MY_Controller {
 		$this->template_data->set('benefits', $benefits->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
-			'base_url' => base_url('employees_benefits/index/'),
+			'base_url' => base_url($this->config->item('index_page') . "/employees_benefits/index/"),
 			'total_rows' => $benefits->count_all_results(),
 			'per_page' => $benefits->get_limit(),
 			'ajax'=>true,

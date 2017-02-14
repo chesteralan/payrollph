@@ -23,7 +23,7 @@ class Lists_earnings extends MY_Controller {
 		$this->template_data->set('earnings', $earnings->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
-			'base_url' => base_url('lists_earnings/index/'),
+			'base_url' => base_url($this->config->item('index_page') . '/lists_earnings/index/'),
 			'total_rows' => $earnings->count_all_results(),
 			'per_page' => $earnings->get_limit(),
 			'ajax'=>true,

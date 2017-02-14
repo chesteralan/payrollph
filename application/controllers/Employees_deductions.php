@@ -38,7 +38,7 @@ class Employees_deductions extends MY_Controller {
 		$this->template_data->set('deductions', $deductions->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
-			'base_url' => base_url('employees_deductions/index/'),
+			'base_url' => base_url($this->config->item('index_page') . '/employees_deductions/index/'),
 			'total_rows' => $deductions->count_all_results(),
 			'per_page' => $deductions->get_limit(),
 			'ajax'=>true,
@@ -173,7 +173,7 @@ class Employees_deductions extends MY_Controller {
 		$this->template_data->set('deductions', $employees_deductions->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
-			'base_url' => base_url('employees_deductions/index/'),
+			'base_url' => base_url($this->config->item('index_page') . '/employees_deductions/index/'),
 			'total_rows' => $deductions->count_all_results(),
 			'per_page' => $deductions->get_limit(),
 			'ajax'=>true,

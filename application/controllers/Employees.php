@@ -29,7 +29,7 @@ class Employees extends MY_Controller {
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'uri_segment' => 3,
-			'base_url' => base_url("employees/index"),
+			'base_url' => base_url( $this->config->item('index_page') . "/employees/index"),
 			'total_rows' => $employees->count_all_results(),
 			'per_page' => $employees->get_limit(),
 			'ajax'=>true
@@ -53,7 +53,7 @@ class Employees extends MY_Controller {
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'uri_segment' => 4,
-			'base_url' => base_url("employees/group/{$id}"),
+			'base_url' => base_url($this->config->item('index_page') . "/employees/group/{$id}"),
 			'total_rows' => $employees->count_all_results(),
 			'per_page' => $employees->get_limit(),
 			'ajax'=>true
@@ -77,7 +77,7 @@ class Employees extends MY_Controller {
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'uri_segment' => 4,
-			'base_url' => base_url("employees/group/{$id}"),
+			'base_url' => base_url($this->config->item('index_page') . "/employees/group/{$id}"),
 			'total_rows' => $employees->count_all_results(),
 			'per_page' => $employees->get_limit(),
 			'ajax'=>true
@@ -139,7 +139,7 @@ class Employees extends MY_Controller {
 		
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'uri_segment' => 4,
-			'base_url' => base_url("employees/search_name/{$output}"),
+			'base_url' => base_url($this->config->item('index_page') . "/employees/search_name/{$output}"),
 			'total_rows' => $names->count_all_results(),
 			'per_page' => $names->get_limit(),
 			'attributes' => array(

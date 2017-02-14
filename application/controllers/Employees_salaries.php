@@ -33,7 +33,7 @@ class Employees_salaries extends MY_Controller {
 		$this->template_data->set('salaries', $salaries->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
-			'base_url' => base_url('employees_positions/index/'),
+			'base_url' => base_url($this->config->item('index_page') . '/employees_positions/index/'),
 			'total_rows' => $salaries->count_all_results(),
 			'per_page' => $salaries->get_limit(),
 			'ajax'=>true,

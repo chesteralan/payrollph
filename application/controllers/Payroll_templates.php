@@ -33,7 +33,7 @@ class Payroll_templates extends MY_Controller {
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'uri_segment' => 3,
-			'base_url' => base_url("payroll_templates/index"),
+			'base_url' => base_url($this->config->item('index_page') . "/payroll_templates/index"),
 			'total_rows' => $templates->count_all_results(),
 			'per_page' => $templates->get_limit(),
 			'ajax'=>true

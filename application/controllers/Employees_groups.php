@@ -25,7 +25,7 @@ class Employees_groups extends MY_Controller {
 		$this->template_data->set('groups', $groups->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
-			'base_url' => base_url('employees_groups/index/'),
+			'base_url' => base_url($this->config->item('index_page') . '/employees_groups/index/'),
 			'total_rows' => $groups->count_all_results(),
 			'per_page' => $groups->get_limit(),
 			'ajax'=>true,

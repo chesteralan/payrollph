@@ -44,7 +44,7 @@ class Lists_names extends MY_Controller {
 		$this->template_data->set('names', $names->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
-			'base_url' => base_url('lists_names/index/'),
+			'base_url' => base_url($this->config->item('index_page') . '/lists_names/index/'),
 			'total_rows' => $names->count_all_results(),
 			'per_page' => $names->get_limit(),
 			'ajax'=>true,
