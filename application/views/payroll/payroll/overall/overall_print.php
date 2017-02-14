@@ -123,6 +123,7 @@ if( $employee->salary ) {
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
                 <td class="text-right"><?php 
                     $ee = 'ee_share_' . $column->id;
+                    $total_deductions += $employee->$ee;
                     echo number_format($employee->$ee,2); ?></td>
                 <td class="text-right"><?php 
                     $er = 'er_share_' . $column->id;
