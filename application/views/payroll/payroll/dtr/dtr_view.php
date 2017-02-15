@@ -35,7 +35,7 @@
             
 <?php if($payroll_group->employees) {
               foreach($payroll_group->employees as $employee) {
-                $days_absent = $employee->absenses;
+                $days_absent = ($employee->absenses_hours) ? ($employee->absenses_hours /$employee->working_hours) : 0;
               ?>
               <tr>
                 <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> (<?php echo $employee->position; ?>)
@@ -44,7 +44,7 @@
                 <td class="text-right"><?php echo $inclusive_dates->working_days; ?></td>
                 <td class="text-right">
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Employee Attendance" data-url="<?php echo site_url("payroll_dtr/absenses/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
-                <?php echo $days_absent; ?>
+                <?php echo number_format($days_absent,2,".",""); ?>
 </a>
                 </td>
                 <td class="text-right"><?php $present_days = $inclusive_dates->working_days - $days_absent; echo $present_days; ?></td>

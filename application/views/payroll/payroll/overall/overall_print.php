@@ -73,7 +73,7 @@ foreach($payroll_group->employees as $employee) {
 
 $total_deductions = 0;
 $total_earnings = 0;
-$days_absent = $employee->absenses;
+$days_absent = ($employee->absenses_hours) ? ($employee->absenses_hours /$employee->working_hours) : 0;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;

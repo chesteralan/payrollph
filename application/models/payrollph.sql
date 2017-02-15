@@ -68,7 +68,9 @@ CREATE TABLE `employees` (
 CREATE TABLE `employees_absenses` (
   `name_id` int(20) NOT NULL,
   `date_absent` date NOT NULL,
+  `hours` int(2) DEFAULT '8',
   `leave_type` int(20) DEFAULT NULL,
+  `notes` text,
   KEY `name_id` (`name_id`,`date_absent`)
 );
 

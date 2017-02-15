@@ -106,6 +106,10 @@ class Payroll_overall extends MY_Controller {
 
 			$employees->set_select("(SELECT COUNT(*) FROM employees_absenses ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absenses");
 
+			$employees->set_select('(SELECT es.hours FROM employees_salaries es WHERE es.name_id=e.name_id AND es.primary=1 AND es.trash=0) as working_hours');
+
+			$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absenses ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absenses_hours");
+
 			$employees->set_limit(0);
 
 			foreach($columns_earnings as $column) {

@@ -33,6 +33,21 @@
             </select>
           </div>
 
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Number of Hours</label>
+            <input name="hours" type="text" class="form-control text-center" value="<?php echo ($absense) ? $absense->hours : $employee->working_hours; ?>" required>
+          </div>
+        </div>
+        <div class="col-md-6"></div>
+      </div>
+
+    <div class="form-group">
+      <label>Notes</label>
+      <textarea name="notes" class="form-control" rows="3"><?php echo ($absense) ? $absense->notes : ''; ?></textarea>
+    </div>
+
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>
         <div class="panel-footer">

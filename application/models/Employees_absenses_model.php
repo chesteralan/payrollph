@@ -8,7 +8,9 @@
 CREATE TABLE `employees_absenses` (
   `name_id` int(20) NOT NULL,
   `date_absent` date NOT NULL,
+  `hours` int(2) DEFAULT '8',
   `leave_type` int(20) DEFAULT NULL,
+  `notes` text,
   KEY `name_id` (`name_id`,`date_absent`)
 );
 
@@ -25,7 +27,9 @@ class Employees_absenses_model extends MY_Model {
 
 	protected $name_id;
 	protected $date_absent;
+	protected $hours;
 	protected $leave_type;
+	protected $notes;
 
 	// --------------------------------------------------------------------
 
@@ -39,7 +43,7 @@ class Employees_absenses_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees_absenses';
 		$this->_short_name = 'employees_absenses';
-		$this->_fields = array("name_id","date_absent","leave_type");
+		$this->_fields = array("name_id","date_absent","hours","leave_type","notes");
 		$this->_required = array("name_id","date_absent");
 		parent::__construct($short_name, $db_config);
 	}
@@ -99,6 +103,32 @@ class Employees_absenses_model extends MY_Model {
 // ------------------------------ End Field: date_absent --------------------------------------
 
 
+// ---------------------------- Start Field: hours -------------------------------------- 
+
+	/** 
+	* Sets a value to `hours` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setHours($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('hours', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `hours` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getHours() {
+			return $this->hours;
+		}
+	
+// ------------------------------ End Field: hours --------------------------------------
+
+
 // ---------------------------- Start Field: leave_type -------------------------------------- 
 
 	/** 
@@ -123,6 +153,32 @@ class Employees_absenses_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: leave_type --------------------------------------
+
+
+// ---------------------------- Start Field: notes -------------------------------------- 
+
+	/** 
+	* Sets a value to `notes` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `notes` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getNotes() {
+			return $this->notes;
+		}
+	
+// ------------------------------ End Field: notes --------------------------------------
 
 
 
