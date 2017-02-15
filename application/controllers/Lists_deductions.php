@@ -43,6 +43,7 @@ class Lists_deductions extends MY_Controller {
 				$deductions = new $this->Deductions_list_model;
 				$deductions->setName($this->input->post('deduction_name'));
 				$deductions->setNotes($this->input->post('notes'));
+				$deductions->setAccountTitle($this->input->post('account_title'));
 				if( $deductions->insert() ) {
 					redirect("lists_deductions");
 				}
@@ -65,8 +66,9 @@ class Lists_deductions extends MY_Controller {
 				$this->form_validation->set_rules('deduction_name', 'Deduction Name', 'trim|required');
 				$this->form_validation->set_rules('notes', 'Notes', 'trim');
 				if( $this->form_validation->run() ) {
-					$deductions->setName($this->input->post('deduction_name'));
-					$deductions->setNotes($this->input->post('notes'));
+					$deductions->setName($this->input->post('deduction_name'), false, true);
+					$deductions->setNotes($this->input->post('notes'), false, true);
+					$deductions->setAccountTitle($this->input->post('account_title'), false, true);
 					$deductions->update();
 				}
 				$this->postNext();

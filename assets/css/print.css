@@ -153,15 +153,18 @@ a.no-link {
   padding: 5px;
 }
 body#payslip .payslip_box {
-    width: 315px;
-    min-height: 470px;
-    margin-bottom: 10px;
+    width: 330px;
+    height: 540px;
+    margin-bottom: 20px;
     float:left;
     margin-right:10px;
     padding: 10px;
 }
 body#payslip .payslip_box.even {
   margin-right: 0px;
+}
+body#payslip .payslip_box.second-half {
+  margin-bottom: 0px;
 }
 body#payslip .payslip_box .header-title {
   margin-top:5px;
@@ -186,4 +189,7 @@ body#payslip .payslip_box .table-details {
 body#payslip table td {
   border-bottom: 1px solid #CCC;
   padding: 1px 3px;
+}
+@media print {
+    .page-break {page-break-after: always;}
 }

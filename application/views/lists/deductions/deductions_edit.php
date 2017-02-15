@@ -30,6 +30,11 @@
             <textarea name="notes" class="form-control"><?php echo $deduction->notes; ?></textarea>
           </div>
 
+          <div class="form-group">
+            <label>Account Title (Accounting)</label>
+            <input name="account_title" type="text" class="form-control" value="<?php echo $deduction->account_title; ?>">
+          </div>
+          
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
         </div>

@@ -10,6 +10,8 @@ CREATE TABLE `benefits_list` (
   `name` varchar(200) NOT NULL,
   `notes` text,
   `leave` int(1) DEFAULT '0',
+  `ee_account_title` varchar(200) DEFAULT NULL,
+  `er_account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 );
@@ -29,6 +31,8 @@ class Benefits_list_model extends MY_Model {
 	protected $name;
 	protected $notes;
 	protected $leave;
+	protected $ee_account_title;
+	protected $er_account_title;
 	protected $active;
 
 	// --------------------------------------------------------------------
@@ -43,7 +47,7 @@ class Benefits_list_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'benefits_list';
 		$this->_short_name = 'benefits_list';
-		$this->_fields = array("id","name","notes","leave","active");
+		$this->_fields = array("id","name","notes","leave","ee_account_title","er_account_title","active");
 		$this->_required = array("name","active");
 		parent::__construct($short_name, $db_config);
 	}
@@ -153,6 +157,58 @@ class Benefits_list_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: leave --------------------------------------
+
+
+// ---------------------------- Start Field: ee_account_title -------------------------------------- 
+
+	/** 
+	* Sets a value to `ee_account_title` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setEeAccountTitle($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('ee_account_title', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `ee_account_title` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getEeAccountTitle() {
+			return $this->ee_account_title;
+		}
+	
+// ------------------------------ End Field: ee_account_title --------------------------------------
+
+
+// ---------------------------- Start Field: er_account_title -------------------------------------- 
+
+	/** 
+	* Sets a value to `er_account_title` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setErAccountTitle($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('er_account_title', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `er_account_title` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getErAccountTitle() {
+			return $this->er_account_title;
+		}
+	
+// ------------------------------ End Field: er_account_title --------------------------------------
 
 
 // ---------------------------- Start Field: active -------------------------------------- 

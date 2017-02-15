@@ -41,6 +41,10 @@ class Payroll_deductions extends MY_Controller {
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
+		$payroll->set_select("*");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pe WHERE pe.payroll_id=payroll.id) as earnings_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_benefits` pb WHERE pb.payroll_id=payroll.id) as benefits_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_deductions` pd WHERE pd.payroll_id=payroll.id) as deductions_columns");
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
@@ -204,6 +208,69 @@ class Payroll_deductions extends MY_Controller {
 		$deduction_data = $deductions->get();
 		$deductions->delete();
 		redirect("payroll_deductions/view/{$deduction_data->payroll_id}");
+
+	}
+
+	public function item_schedule($id,$deduction_id,$output='') {
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$payroll->set_select("*");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pe WHERE pe.payroll_id=payroll.id) as earnings_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_benefits` pb WHERE pb.payroll_id=payroll.id) as benefits_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_deductions` pd WHERE pd.payroll_id=payroll.id) as deductions_columns");
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$deduction_list = new $this->Deductions_list_model;
+		$deduction_list->setId($deduction_id,true);
+		$this->template_data->set('deduction_data', $deduction_list->get());
+
+
+		$deductions = new $this->Payroll_employees_deductions_model('ped');
+		$deductions->setPayrollId($id,true);
+		$deductions->setDeductionId($deduction_id,true);
+		$deductions->set_select("ped.*");
+		$deductions->set_select("(SELECT ed.max_amount FROM employees_deductions ed WHERE ed.id=ped.entry_id) as max_amount");
+
+		$deductions->set_select("(SELECT SUM(ped2.amount) FROM payroll_employees_deductions ped2 WHERE ped2.entry_id=ped.entry_id AND ped2.id!=ped.id) as amount_paid");
+
+		$deductions->set_select("e.*");
+		$deductions->set_join("employees e", 'e.name_id=ped.name_id');
+
+		$deductions->set_order('e.lastname', 'ASC');
+		$deductions->set_order('e.firstname', 'ASC');
+		$deductions->set_order('e.middlename', 'ASC');
+		$deductions->set_limit(0);
+		$item_data = $deductions->populate();
+		$this->template_data->set('item_data', $item_data);
+
+		$this->template_data->set('output', $output);
+		if( $output == 'print') {
+
+			// inclusive dates
+			$inclusive_dates = new $this->Payroll_inclusive_dates_model;
+			$inclusive_dates->setPayrollId($id,true);
+			$inclusive_dates->set_select('COUNT(*) as working_days');
+			$inclusive_dates->set_select('MIN(inclusive_date) as start_date');
+			$inclusive_dates->set_select('MAX(inclusive_date) as end_date');
+			$dates_data = $inclusive_dates->get();
+			$this->template_data->set('inclusive_dates', $dates_data);
+
+			// template
+			$template = new $this->Payroll_templates_model;
+			$template->setId( $payroll_data->template_id , true);
+			$template->set_join('names_list cnl', 'cnl.id=payroll_templates.checked_by');
+			$template->set_join('names_list anl', 'anl.id=payroll_templates.approved_by');
+			$template->set_select('payroll_templates.*');
+			$template->set_select('cnl.full_name as checked_by_name');
+			$template->set_select('anl.full_name as approved_by_name');
+			$this->template_data->set('template', $template->get());
+
+			$this->load->view('payroll/payroll/deductions/deductions_item_schedule_print', $this->template_data->get_data());
+		} else {
+			$this->load->view('payroll/payroll/deductions/deductions_item_schedule', $this->template_data->get_data());
+		}
 
 	}
 

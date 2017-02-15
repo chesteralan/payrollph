@@ -41,6 +41,10 @@ class Payroll_benefits extends MY_Controller {
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
+		$payroll->set_select("*");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pe WHERE pe.payroll_id=payroll.id) as earnings_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_benefits` pb WHERE pb.payroll_id=payroll.id) as benefits_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_deductions` pd WHERE pd.payroll_id=payroll.id) as deductions_columns");
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
@@ -212,6 +216,65 @@ class Payroll_benefits extends MY_Controller {
 		$benefit_data = $benefits->get();
 		$benefits->delete();
 		redirect("payroll_benefits/view/{$benefit_data->payroll_id}");
+
+	}
+
+	public function item_schedule($id,$benefit_id,$output='') {
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$payroll->set_select("*");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pe WHERE pe.payroll_id=payroll.id) as earnings_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_benefits` pb WHERE pb.payroll_id=payroll.id) as benefits_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_deductions` pd WHERE pd.payroll_id=payroll.id) as deductions_columns");
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$benefits_list = new $this->Benefits_list_model;
+		$benefits_list->setId($benefit_id,true);
+		$this->template_data->set('benefit_data', $benefits_list->get());
+
+
+		$benefits = new $this->Payroll_employees_benefits_model('peb');
+		$benefits->setPayrollId($id,true);
+		$benefits->setBenefitId($benefit_id,true);
+		$benefits->set_select("peb.*");
+		$benefits->set_select("e.*");
+		$benefits->set_join("employees e", 'e.name_id=peb.name_id');
+
+		$benefits->set_order('e.lastname', 'ASC');
+		$benefits->set_order('e.firstname', 'ASC');
+		$benefits->set_order('e.middlename', 'ASC');
+		$benefits->set_limit(0);
+		$item_data = $benefits->populate();
+		$this->template_data->set('item_data', $item_data);
+
+		$this->template_data->set('output', $output);
+		if( $output == 'print') {
+
+			// inclusive dates
+			$inclusive_dates = new $this->Payroll_inclusive_dates_model;
+			$inclusive_dates->setPayrollId($id,true);
+			$inclusive_dates->set_select('COUNT(*) as working_days');
+			$inclusive_dates->set_select('MIN(inclusive_date) as start_date');
+			$inclusive_dates->set_select('MAX(inclusive_date) as end_date');
+			$dates_data = $inclusive_dates->get();
+			$this->template_data->set('inclusive_dates', $dates_data);
+		
+			// template
+			$template = new $this->Payroll_templates_model;
+			$template->setId( $payroll_data->template_id , true);
+			$template->set_join('names_list cnl', 'cnl.id=payroll_templates.checked_by');
+			$template->set_join('names_list anl', 'anl.id=payroll_templates.approved_by');
+			$template->set_select('payroll_templates.*');
+			$template->set_select('cnl.full_name as checked_by_name');
+			$template->set_select('anl.full_name as approved_by_name');
+			$this->template_data->set('template', $template->get());
+
+			$this->load->view('payroll/payroll/benefits/benefits_item_schedule_print', $this->template_data->get_data());
+		} else {
+			$this->load->view('payroll/payroll/benefits/benefits_item_schedule', $this->template_data->get_data());
+		}
 
 	}
 

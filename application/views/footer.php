@@ -8,7 +8,7 @@
 		<div class="col-md-12">
 			<center><small>
 				<p><a href="http://www.trokis.com/" target="footer_credits">Trokis Philippines</a> 
-				&copy; 2016 
+				&copy; <?php echo date('Y'); ?> 
 				<br>Developed by: 
 				<a href="http://www.chesteralan.com/" target="footer_credits">Chester Alan Tagudin</a> 
 				</p>

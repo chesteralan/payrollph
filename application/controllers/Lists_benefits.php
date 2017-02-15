@@ -45,6 +45,8 @@ class Lists_benefits extends MY_Controller {
 				$benefits->setName($this->input->post('benefit_name'));
 				$benefits->setNotes($this->input->post('notes'));
 				$benefits->setLeave( ($this->input->post('leave')) ? 1 : 0 );
+				$benefits->setEeAccountTitle($this->input->post('ee_account_title'));
+				$benefits->setErAccountTitle($this->input->post('er_account_title'));
 				if( $benefits->insert() ) {
 					redirect("lists_benefits");
 				}
@@ -70,6 +72,8 @@ class Lists_benefits extends MY_Controller {
 					$benefits->setName($this->input->post('benefit_name'),false,true);
 					$benefits->setNotes($this->input->post('notes'),false,true);
 					$benefits->setLeave( (($this->input->post('leave')) ? 1 : 0),false,true);
+					$benefits->setEeAccountTitle($this->input->post('ee_account_title'),false,true);
+					$benefits->setErAccountTitle($this->input->post('er_account_title'),false,true);
 					$benefits->update();
 				}
 				$this->postNext();

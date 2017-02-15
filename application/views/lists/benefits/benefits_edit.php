@@ -33,6 +33,16 @@
           <div class="form-group">
             <label><input name="leave" type="checkbox" value="1" <?php echo ($benefit->leave) ? 'CHECKED' : ''; ?>> Leave Benefit</label>
           </div>
+
+          <div class="form-group">
+            <label>Employee Share Account Title (Accounting)</label>
+            <input name="ee_account_title" type="text" class="form-control" value="<?php echo $benefit->ee_account_title; ?>">
+          </div>
+
+          <div class="form-group">
+            <label>Employer Share Account Title (Accounting)</label>
+            <input name="er_account_title" type="text" class="form-control" value="<?php echo $benefit->er_account_title; ?>">
+          </div>
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
         </div>

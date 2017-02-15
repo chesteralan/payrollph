@@ -15,6 +15,8 @@ CREATE TABLE `benefits_list` (
   `name` varchar(200) NOT NULL,
   `notes` text,
   `leave` int(1) DEFAULT '0',
+  `ee_account_title` varchar(200) DEFAULT NULL,
+  `er_account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 );
@@ -25,6 +27,7 @@ CREATE TABLE `deductions_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `notes` text,
+  `account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 );
@@ -35,6 +38,7 @@ CREATE TABLE `earnings_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `notes` text,
+  `account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 );

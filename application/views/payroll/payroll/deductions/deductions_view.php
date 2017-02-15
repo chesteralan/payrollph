@@ -10,23 +10,30 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
-<a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Deductions" data-url="<?php echo site_url("payroll/deductions/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
-                  </h3>
+                <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Deductions" data-url="<?php echo site_url("payroll/deductions/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
+                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong></h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 
 <?php endif; ?>
 
 <?php if( $payroll_groups && $deductions_columns ) { ?>
-  
-  <?php foreach($payroll_groups as $payroll_group) { ?>
+
+<?php
+$total = array();
+foreach( $deductions_columns as $column ) { 
+  $total[$column->id] = 0;
+}
+?>
+
+<?php foreach($payroll_groups as $payroll_group) { ?>
  
           <table class="table table-default" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
               <tr class="warning">
                 <th><?php echo $payroll_group->name; ?></th>
-<?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { ?>
+<?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { 
+  ?>
                 <th width="7%" class="text-right"><?php echo $column->name; ?></th>
 <?php } ?>
                 <th width="7%" class="text-right">Total</th>
@@ -49,6 +56,8 @@
                     <?php 
                     $var = 'deductions_' . $column->id;
                     $total_deductions += $employee->$var;
+                    $total[$column->id] += $employee->$var;
+
                     echo number_format($employee->$var,2); ?>
 </a>
                     </td>
@@ -56,12 +65,42 @@
                 <td class="text-right"><?php echo number_format($total_deductions,2); ?></td>
               </tr>
 <?php         } 
+
       } ?>
 
             </tbody>
           </table>
-
     <?php } ?>
+
+          <table class="table table-default" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
+            <thead>
+              <tr class="warning">
+                <th>TOTAL</th>
+<?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { ?>
+                <th width="7%" class="text-right"><?php echo $column->name; ?></th>
+<?php } ?>
+  <th width="7%" class="text-right">TOTAL</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr class="success">
+            <td></td>
+<?php 
+$total_deductions = 0;
+if( $deductions_columns ) foreach( $deductions_columns as $column ) { ?>
+                <td class="text-right">
+                <a href="<?php echo site_url("payroll_deductions/item_schedule/{$payroll->id}/{$column->id}"); ?>" class="body_wrapper">
+                  <strong><?php 
+$total_deductions += $total[$column->id];
+                  echo number_format($total[$column->id],2);?></strong>
+                  </a>
+                </td>
+<?php } ?>
+                <td class="text-right"><strong><?php echo number_format($total_deductions,2); ?></strong></td>
+  </tr>
+            </tbody>
+            </table>
+
 <?php } else { ?>
 
   <div class="text-center">No Group and/or Deduction Assigned!</div>

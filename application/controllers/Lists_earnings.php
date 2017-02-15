@@ -43,6 +43,7 @@ class Lists_earnings extends MY_Controller {
 				$earnings = new $this->Earnings_list_model;
 				$earnings->setName($this->input->post('earning_name'));
 				$earnings->setNotes($this->input->post('notes'));
+				$earnings->setAccountTitle($this->input->post('account_title'));
 				if( $earnings->insert() ) {
 					redirect("lists_earnings");
 				}
@@ -65,8 +66,9 @@ class Lists_earnings extends MY_Controller {
 				$this->form_validation->set_rules('earning_name', 'Earning Name', 'trim|required');
 				$this->form_validation->set_rules('notes', 'Notes', 'trim');
 				if( $this->form_validation->run() ) {
-					$earnings->setName($this->input->post('earning_name'));
-					$earnings->setNotes($this->input->post('notes'));
+					$earnings->setName($this->input->post('earning_name'), false, true);
+					$earnings->setNotes($this->input->post('notes'), false, true);
+					$earnings->setAccountTitle($this->input->post('account_title'), false, true);
 					$earnings->update();
 				}
 				$this->postNext();

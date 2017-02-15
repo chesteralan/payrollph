@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <div class="navbar-brand"><?php echo $payroll->name; ?>
+      <div class="navbar-brand"><?php echo $payroll->name;  ?>
         
         <a target="_blank" class="close" href="<?php echo site_url("payroll_overall/view/{$payroll->id}/payslip") . "?next=" . uri_string(); ?>" style="margin-left:10px"><span class="glyphicon glyphicon-th-large"></span></a>
 
@@ -28,9 +28,15 @@
 
 $url['payroll_dtr'] = array('uri' => 'payroll_dtr/view/' . $payroll->id, 'title'=>'Daily Time Record', 'access'=>hasAccess('payroll', 'payroll', 'view'));
 $url['payroll_salaries'] = array('uri' => 'payroll_salaries/view/' . $payroll->id, 'title'=>'Basic Salary', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+if( $payroll->earnings_columns > 0 ) {
 $url['payroll_earnings'] = array('uri' => 'payroll_earnings/view/' . $payroll->id, 'title'=>'Earnings', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+}
+if( $payroll->benefits_columns > 0 ) {
 $url['payroll_benefits'] = array('uri' => 'payroll_benefits/view/' . $payroll->id, 'title'=>'Benefits', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+}
+if( $payroll->deductions_columns > 0 ) {
 $url['payroll_deductions'] = array('uri' => 'payroll_deductions/view/' . $payroll->id, 'title'=>'Deductions', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+}
 
 foreach($url as $k=>$v) {
   if( $v['access'] ) {

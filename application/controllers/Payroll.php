@@ -514,7 +514,7 @@ class Payroll extends MY_Controller {
 					 	$peb_benefit = new $this->Payroll_employees_benefits_model;
 					 	$peb_benefit->setPayrollId($id,true);
 					 	$peb_benefit->setNameId($benefit2->name_id,true);
-					 	$peb_benefit->setBenefitId($benefit2->id,true);
+					 	$peb_benefit->setBenefitId($benefit2->benefit_id,true);
 					 	$peb_benefit->setEntryId($benefit2->id,true);
 					 	$peb_benefit->setEmployeeShare($benefit2->employee_share);
 					 	$peb_benefit->setEmployerShare($benefit2->employer_share);

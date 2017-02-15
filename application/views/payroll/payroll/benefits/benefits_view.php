@@ -19,8 +19,16 @@
 <?php endif; ?>
 
 <?php if( $payroll_groups && $benefits_columns ) { ?>
-  
-  <?php foreach($payroll_groups as $payroll_group) { ?>
+
+<?php 
+$total = array();
+if( $benefits_columns ) foreach( $benefits_columns as $column ) { 
+  $total[$column->id]['ee'] = 0;
+  $total[$column->id]['er'] = 0;
+}
+?>
+
+<?php foreach($payroll_groups as $payroll_group) { ?>
  
           <table class="table table-default" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
@@ -47,6 +55,7 @@
 
                 <?php 
                     $ee = 'ee_share_' . $column->id;
+                    $total[$column->id]['ee'] += $employee->$ee;
                     echo number_format($employee->$ee,2); ?>
 </a>
                     </td>
@@ -54,6 +63,7 @@
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo ($column->notes!='') ? $column->notes : $column->name; ?> (ER)" data-url="<?php echo site_url("payroll_benefits/entries/{$payroll->id}/{$employee->name_id}/{$column->id}/er/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
                 <?php 
                     $er = 'er_share_' . $column->id;
+                    $total[$column->id]['er'] += $employee->$er;
                     echo number_format($employee->$er,2); ?>
 </a>
                     </td>
@@ -64,8 +74,29 @@
 
             </tbody>
           </table>
-
     <?php } ?>
+
+          <table class="table table-default" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
+            <thead>
+              <tr class="warning">
+                <th>TOTAL</th>
+<?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
+                <th width="10%" class="text-right"><?php echo $column->name; ?>-EE</th>
+                <th width="10%" class="text-right"><?php echo $column->name; ?>-ER</th>
+<?php } ?>
+              </tr>
+            </thead>
+            <tbody>
+            <tr class="success">
+            <td></td>
+<?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
+                <td width="10%" class="text-right"><a href="<?php echo site_url("payroll_benefits/item_schedule/{$payroll->id}/{$column->id}"); ?>" class="body_wrapper"><strong><?php echo number_format($total[$column->id]['ee'],2);?></strong></a></td>
+                <td width="10%" class="text-right"><a href="<?php echo site_url("payroll_benefits/item_schedule/{$payroll->id}/{$column->id}"); ?>" class="body_wrapper"><strong><?php echo number_format($total[$column->id]['er'],2);?></strong></a></td>
+<?php } ?>
+  </tr>
+            </tbody>
+            </table>
+
 <?php } else { ?>
 
   <div class="text-center">No Group and/or Benefit Assigned!</div>

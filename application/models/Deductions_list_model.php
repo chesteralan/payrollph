@@ -9,6 +9,7 @@ CREATE TABLE `deductions_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `notes` text,
+  `account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 );
@@ -27,6 +28,7 @@ class Deductions_list_model extends MY_Model {
 	protected $id;
 	protected $name;
 	protected $notes;
+	protected $account_title;
 	protected $active;
 
 	// --------------------------------------------------------------------
@@ -41,7 +43,7 @@ class Deductions_list_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'deductions_list';
 		$this->_short_name = 'deductions_list';
-		$this->_fields = array("id","name","notes","active");
+		$this->_fields = array("id","name","notes","account_title","active");
 		$this->_required = array("name","active");
 		parent::__construct($short_name, $db_config);
 	}
@@ -125,6 +127,32 @@ class Deductions_list_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: notes --------------------------------------
+
+
+// ---------------------------- Start Field: account_title -------------------------------------- 
+
+	/** 
+	* Sets a value to `account_title` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setAccountTitle($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('account_title', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `account_title` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getAccountTitle() {
+			return $this->account_title;
+		}
+	
+// ------------------------------ End Field: account_title --------------------------------------
 
 
 // ---------------------------- Start Field: active -------------------------------------- 

@@ -34,6 +34,16 @@
             <label><input name="leave" type="checkbox" value="1"> Leave Benefit</label>
           </div>
 
+          <div class="form-group">
+            <label>Account Title (Accounting)</label>
+            <input name="account_title" type="text" class="form-control" value="<?php echo $this->input->post('account_title'); ?>">
+          </div>
+
+          <div class="form-group">
+            <label>Account Title (Accounting)</label>
+            <input name="account_title" type="text" class="form-control" value="<?php echo $this->input->post('account_title'); ?>">
+          </div>
+          
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
         </div>
