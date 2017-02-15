@@ -14,6 +14,7 @@ class Employees_benefits extends MY_Controller {
 		$this->load->model('Employees_model');
 		$this->load->model('Employees_benefits_model');
 		$this->load->model('Benefits_list_model');
+		$this->load->model('Payroll_employees_benefits_model');
 
 	}
 
@@ -154,4 +155,46 @@ class Employees_benefits extends MY_Controller {
 
 		$this->getNext("employees_benefits/view/{$salary_data->name_id}");
 	}
+
+	public function entries($id, $output='') {
+
+		$d_entry = new $this->Employees_benefits_model;
+		$d_entry->setId($id,true);
+		$entry = $d_entry->get();
+		$this->template_data->set('entry', $entry);
+
+		$employee = new $this->Employees_model;
+		$employee->setNameId($entry->name_id,true);
+		$this->template_data->set('employee', $employee->get());
+
+		$benefits = new $this->Benefits_list_model;
+		$benefits->setId($entry->benefit_id,true);
+		$benefit_data = $benefits->get();
+		$this->template_data->set('benefit', $benefit_data);
+
+		$employees_benefits = new $this->Payroll_employees_benefits_model('peb');
+		$employees_benefits->setNameId($entry->name_id,true);
+		$employees_benefits->setEntryId($id,true);
+		$employees_benefits->set_select("*");
+		$employees_benefits->set_select("p.name as payroll_name");
+		$employees_benefits->set_select("peb.id as peb_id");
+		$employees_benefits->set_select("peb.employee_share as peb_employee_share");
+		$employees_benefits->set_select("peb.employer_share as peb_employer_share");
+		$employees_benefits->set_join("employees_benefits ed", 'ed.id=peb.entry_id');
+		$employees_benefits->set_join("benefits_list dl", 'dl.id=peb.benefit_id');
+		$employees_benefits->set_join("payroll p", 'p.id=peb.payroll_id');
+		$employees_benefits->set_limit(0);
+		$this->template_data->set('benefits', $employees_benefits->populate());
+
+		$this->template_data->set('pagination', bootstrap_pagination(array(
+			'base_url' => base_url($this->config->item('index_page') . '/employees_benefits/index/'),
+			'total_rows' => $benefits->count_all_results(),
+			'per_page' => $benefits->get_limit(),
+			'ajax'=>true,
+		)));
+
+		$this->template_data->set('output', $output);
+		$this->load->view('employees/employees/benefits/benefits_entries', $this->template_data->get_data());
+	}
+
 }
