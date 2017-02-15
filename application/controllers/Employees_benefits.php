@@ -84,7 +84,9 @@ class Employees_benefits extends MY_Controller {
 		}
 
 		$benefits = new $this->Benefits_list_model;
+		$benefits->setLeave('0',true);
 		$benefits->set_order('name', 'ASC');
+
 		$this->template_data->set('benefits', $benefits->populate());
 
 		$this->template_data->set('output', $output);
@@ -135,6 +137,7 @@ class Employees_benefits extends MY_Controller {
 		$this->template_data->set('benefit', $benefits->get());
 		
 		$benefits = new $this->Benefits_list_model;
+		$benefits->setLeave('0',true);
 		$benefits->set_order('name', 'ASC');
 		$this->template_data->set('benefits', $benefits->populate());
 
