@@ -219,6 +219,9 @@ CREATE TABLE `payroll_employees` (
   `payroll_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `order` int(2) NOT NULL DEFAULT '0',
+  `payslip` int(1) DEFAULT '1',
+  `template` varchar(20) DEFAULT 'payslip',
+  `active` int(1) DEFAULT '1',
   KEY `name_id` (`payroll_id`,`name_id`)
 );
 

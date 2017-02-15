@@ -75,6 +75,7 @@ $cola = ($salary->cola * $present_days);
 $basic_salary = ($daily_rate * $present_days);
 $gross_pay = ($basic_salary + $cola);
 
+if( floatval( $gross_pay ) ) {
 ?>
  <table width="100%" class="table table-details" cellpadding="0" cellspacing="0">
  <tr>
@@ -102,7 +103,7 @@ $gross_pay = ($basic_salary + $cola);
   <td class="text-right bold"><?php  echo number_format($gross_pay,2); ?></td>
 </tr>
 </table>
-
+<?php } ?>
 <?php if( $earnings_columns ) { ?>
  <table width="100%" class="table table-details" cellpadding="0" cellspacing="0">
  <tr>
@@ -242,6 +243,7 @@ $cola = ($salary->cola * $present_days);
 $basic_salary = ($daily_rate * $present_days);
 $gross_pay = ($basic_salary + $cola);
 
+if( floatval( $gross_pay ) ) {
 ?>
  <table width="100%" class="table table-details" cellpadding="0" cellspacing="0">
  <tr>
@@ -269,7 +271,7 @@ $gross_pay = ($basic_salary + $cola);
   <td class="text-right bold"><?php  echo number_format($gross_pay,2); ?></td>
 </tr>
 </table>
-
+<?php } ?>
 <?php 
 $total_earnings = 0;
 if( $earnings_columns ) { ?>

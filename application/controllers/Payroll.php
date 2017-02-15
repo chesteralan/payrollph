@@ -581,6 +581,41 @@ class Payroll extends MY_Controller {
 
 	}
 
+	public function employees($id, $group_id, $output='') {
+
+		if( $this->input->post() ) {
+			foreach( $this->input->post('name_id') as $name_id ) {
+				if( ! in_array($name_id, $this->input->post('selected')) ) {
+					$pemployee = new $this->Payroll_employees_model;
+					$pemployee->setPayrollId($id,true);
+					$pemployee->setNameId($name_id,true);
+					$pemployee->setActive('0',false,true);
+					if( $pemployee->nonEmpty() ) {
+						$pemployee->update();
+					}
+				}
+			}
+			$this->postNext();
+		}
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$this->template_data->set('payroll', $payroll->get());
+		
+		$employees = new $this->Payroll_employees_model('pe');
+		$employees->setPayrollId($id,true);
+		$employees->set_select('*');
+		$employees->set_select('(SELECT ep.name FROM employees_positions ep WHERE ep.id=e.position_id) as position_name');
+		$employees->set_join('employees e', 'e.name_id=pe.name_id');
+		$employees->set_limit(0);
+		$employees->set_where('e.group_id', $group_id);
+		$this->template_data->set('employees', $employees->populate());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/templates/templates_employees', $this->template_data->get_data());
+
+	}
+
 	public function benefits($id, $output='') {
 
 		if( $this->input->post() ) {
