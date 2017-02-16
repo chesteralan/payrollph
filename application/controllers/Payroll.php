@@ -577,22 +577,27 @@ class Payroll extends MY_Controller {
 
 		$this->template_data->set('output', $output);
 
-		$this->load->view('payroll/templates/templates_groups', $this->template_data->get_data());
+		$this->load->view('payroll/payroll/payroll_groups', $this->template_data->get_data());
 
 	}
 
 	public function employees($id, $group_id, $output='') {
 
 		if( $this->input->post() ) {
-			foreach( $this->input->post('name_id') as $name_id ) {
-				if( ! in_array($name_id, $this->input->post('selected')) ) {
-					$pemployee = new $this->Payroll_employees_model;
-					$pemployee->setPayrollId($id,true);
-					$pemployee->setNameId($name_id,true);
+			foreach( $this->input->post('name_id') as $order=>$name_id ) {
+				$pemployee = new $this->Payroll_employees_model;
+				$pemployee->setPayrollId($id,true);
+				$pemployee->setNameId($name_id,true);
+				if( in_array($name_id, $this->input->post('selected')) ) {
+					$pemployee->setActive('1',false,true);
+				} else {
 					$pemployee->setActive('0',false,true);
-					if( $pemployee->nonEmpty() ) {
-						$pemployee->update();
-					}
+				}
+				$pemployee->setOrder($order,false,true);
+				$template = $this->input->post('payslip_template');
+				$pemployee->setTemplate($template[$name_id],false,true);
+				if( $pemployee->nonEmpty() ) {
+					$pemployee->update();
 				}
 			}
 			$this->postNext();
@@ -608,11 +613,12 @@ class Payroll extends MY_Controller {
 		$employees->set_select('(SELECT ep.name FROM employees_positions ep WHERE ep.id=e.position_id) as position_name');
 		$employees->set_join('employees e', 'e.name_id=pe.name_id');
 		$employees->set_limit(0);
+		$employees->set_order('pe.order','ASC');
 		$employees->set_where('e.group_id', $group_id);
 		$this->template_data->set('employees', $employees->populate());
 
 		$this->template_data->set('output', $output);
-		$this->load->view('payroll/templates/templates_employees', $this->template_data->get_data());
+		$this->load->view('payroll/payroll/payroll_employees', $this->template_data->get_data());
 
 	}
 
@@ -661,7 +667,7 @@ class Payroll extends MY_Controller {
 
 		$this->template_data->set('output', $output);
 
-		$this->load->view('payroll/templates/templates_benefits', $this->template_data->get_data());
+		$this->load->view('payroll/payroll/payroll_benefits', $this->template_data->get_data());
 
 	}
 
@@ -709,7 +715,7 @@ class Payroll extends MY_Controller {
 
 		$this->template_data->set('output', $output);
 
-		$this->load->view('payroll/templates/templates_earnings', $this->template_data->get_data());
+		$this->load->view('payroll/payroll/payroll_earnings', $this->template_data->get_data());
 
 	}
 
@@ -757,7 +763,7 @@ class Payroll extends MY_Controller {
 
 		$this->template_data->set('output', $output);
 
-		$this->load->view('payroll/templates/templates_deductions', $this->template_data->get_data());
+		$this->load->view('payroll/payroll/payroll_deductions', $this->template_data->get_data());
 
 	}
 

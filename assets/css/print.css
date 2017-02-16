@@ -153,15 +153,14 @@ a.no-link {
   padding: 5px;
 }
 body#payslip .payslip_box {
-    width: 330px;
-    height: 540px;
-    margin-bottom: 20px;
+    width: 320px;
+    min-height: 500px;
+    margin: 5px;
     float:left;
-    margin-right:10px;
     padding: 10px;
 }
-body#payslip .payslip_box.even {
-  margin-right: 0px;
+body#payslip .payslip_box.cash_voucher {
+    width: 675px;
 }
 body#payslip .payslip_box.second-half {
   margin-bottom: 0px;

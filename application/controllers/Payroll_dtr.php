@@ -77,6 +77,8 @@ class Payroll_dtr extends MY_Controller {
 
 			$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absenses ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absenses_hours");
 
+			$employees->setActive('1', true);
+			$employees->set_order('pe.order', 'ASC');
 			$employees->set_limit(0);
 			$employees_data = $employees->populate(); 
 			$payroll_group_data[$key]->employees = $employees_data;

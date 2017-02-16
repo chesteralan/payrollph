@@ -9,7 +9,6 @@ CREATE TABLE `payroll_employees` (
   `payroll_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `order` int(2) NOT NULL DEFAULT '0',
-  `payslip` int(1) DEFAULT '1',
   `template` varchar(20) DEFAULT 'payslip',
   `active` int(1) DEFAULT '1',
   KEY `name_id` (`payroll_id`,`name_id`)
@@ -29,7 +28,6 @@ class Payroll_employees_model extends MY_Model {
 	protected $payroll_id;
 	protected $name_id;
 	protected $order;
-	protected $payslip;
 	protected $template;
 	protected $active;
 
@@ -45,7 +43,7 @@ class Payroll_employees_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_employees';
 		$this->_short_name = 'payroll_employees';
-		$this->_fields = array("payroll_id","name_id","order","payslip","template","active");
+		$this->_fields = array("payroll_id","name_id","order","template","active");
 		$this->_required = array("payroll_id","name_id","order");
 		parent::__construct($short_name, $db_config);
 	}
@@ -129,32 +127,6 @@ class Payroll_employees_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: order --------------------------------------
-
-
-// ---------------------------- Start Field: payslip -------------------------------------- 
-
-	/** 
-	* Sets a value to `payslip` variable
-	* @access public
-	* @param  String
-	* @return $this;
-	*/
-
-		public function setPayslip($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('payslip', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
-	
-	/** 
-	* Get the value of `payslip` variable
-	* @access public
-	* @return String;
-	*/
-
-		public function getPayslip() {
-			return $this->payslip;
-		}
-	
-// ------------------------------ End Field: payslip --------------------------------------
 
 
 // ---------------------------- Start Field: template -------------------------------------- 

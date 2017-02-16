@@ -24,6 +24,8 @@ $box_count = 0;
 <?php if($payroll_group->employees) { 
         foreach($payroll_group->employees as $employee) { 
           $box_count++;
+
+if( $employee->payslip_template == 'payslip'):
 ?>
 
 <div class="payslip_box full-border odd <?php echo (($box_count % 2) == 0) ? 'second-half' : 'first-half'; ?>">
@@ -364,6 +366,34 @@ foreach( $earnings_columns as $column ) {
 </div>
 
 <?php 
+elseif( $employee->payslip_template == 'cash_voucher'):
+?>
+
+
+<div class="payslip_box cash_voucher full-border odd <?php echo (($box_count % 2) == 0) ? 'second-half' : 'first-half'; ?>">
+  <div class="header-title">
+
+<h2 class="text-center allcaps"><?php echo ($template->company_name) ? $template->company_name : ''; ?></h2>
+<h3 class="text-center not-bold"><?php echo ($template->company_name) ? $template->company_address : ''; ?></h3>
+<h3 class="text-center not-bold"><?php echo ($template->company_name) ? $template->company_contacts : ''; ?></h3>
+
+</div>
+
+<div class="full-border padding3">
+<h3 class="pull-right">ID # <?php echo $payroll->id; ?></h3>
+<h2 class="">CASH VOUCHER</h2>
+<span><?php echo date('F d, Y', strtotime($inclusive_dates->start_date)); ?> - <?php echo date('F d, Y', strtotime($inclusive_dates->end_date)); ?></span>
+
+</div>
+
+<h2 class="text-center allcaps employee-name underlined"><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?></h2>
+
+</div>
+
+
+<?php
+endif;
+
 echo (($box_count % 2) == 0) ? '<div class="page-break"></div>' : ''; 
 } ?>
 <?php } ?>

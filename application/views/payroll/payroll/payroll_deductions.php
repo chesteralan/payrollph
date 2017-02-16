@@ -21,12 +21,12 @@
 <?php endif; ?>
           
 <ul class="list-group sortable">
-  <?php foreach($groups as $group) { ?>
+  <?php foreach($deductions as $deduction) { ?>
   <li class="list-group-item">
-  <input type="hidden" name="group[]" value="<?php echo $group->id; ?>">
+  <input type="hidden" name="deduction[]" value="<?php echo $deduction->id; ?>">
   <span class="glyphicon glyphicon-sort pull-right"></span>
-    <h4 class="list-group-item-heading"><label><input type="checkbox" name="selected[]" value="<?php echo $group->id; ?>" <?php echo ($group->id==$group->selected) ? "CHECKED" : ""; ?>> <?php echo $group->name; ?></label></h4>
-    <p class="list-group-item-text"><?php echo $group->notes; ?></p>
+    <h4 class="list-group-item-heading"><label><input type="checkbox" name="selected[]" value="<?php echo $deduction->id; ?>" <?php echo ($deduction->id==$deduction->selected) ? "CHECKED" : ""; ?>> <?php echo $deduction->name; ?></label></h4>
+    <p class="list-group-item-text"><?php echo $deduction->notes; ?></p>
   </li>
   <?php } ?>
 </ul>

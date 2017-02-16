@@ -100,6 +100,7 @@ class Payroll_overall extends MY_Controller {
 			$employees = new $this->Payroll_employees_model('pe');
 			$employees->setPayrollId($id,true);
 			$employees->set_select('e.*');
+			$employees->set_select('pe.template as payslip_template');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 			$employees->set_where('e.group_id', $group->group_id);
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
@@ -109,8 +110,6 @@ class Payroll_overall extends MY_Controller {
 			$employees->set_select('(SELECT es.hours FROM employees_salaries es WHERE es.name_id=e.name_id AND es.primary=1 AND es.trash=0) as working_hours');
 
 			$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absenses ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absenses_hours");
-
-			$employees->set_limit(0);
 
 			foreach($columns_earnings as $column) {
 				$employees->set_select(sprintf('(SELECT SUM(amount) FROM payroll_employees_earnings pee WHERE pee.payroll_id=%s AND pee.name_id=pe.name_id AND pee.earning_id=%s) as earnings_%s', $id, $column->id, $column->id));
@@ -125,6 +124,10 @@ class Payroll_overall extends MY_Controller {
 			foreach($columns_deductions as $column) {
 				$employees->set_select(sprintf('(SELECT SUM(amount) FROM payroll_employees_deductions ped WHERE ped.payroll_id=%s AND ped.name_id=pe.name_id AND ped.deduction_id=%s) as deductions_%s', $id, $column->id, $column->id));
 			}
+
+			$employees->setActive('1', true);
+			$employees->set_order('pe.order', 'ASC');
+			$employees->set_limit(0);
 
 			$employees_data = $employees->populate();
 

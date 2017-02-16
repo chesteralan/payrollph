@@ -74,6 +74,9 @@ class Payroll_deductions extends MY_Controller {
 			foreach($columns as $column) {
 				$employees->set_select(sprintf('(SELECT SUM(amount) FROM payroll_employees_deductions ped WHERE ped.payroll_id=%s AND ped.name_id=pe.name_id AND ped.deduction_id=%s) as deductions_%s', $id, $column->id, $column->id));
 			}
+
+			$employees->setActive('1', true);
+			$employees->set_order('pe.order', 'ASC');
 			$employees->set_limit(0);
 			$employees_data = $employees->populate();
 			$payroll_group_data[$key]->employees = $employees_data;
@@ -241,6 +244,10 @@ class Payroll_deductions extends MY_Controller {
 		$deductions->set_order('e.lastname', 'ASC');
 		$deductions->set_order('e.firstname', 'ASC');
 		$deductions->set_order('e.middlename', 'ASC');
+
+		$benefits->set_join("payroll_employees pe", 'pe.name_id=peb.name_id');
+		$benefits->set_where('pe.active', 1);
+		
 		$deductions->set_limit(0);
 		$item_data = $deductions->populate();
 		$this->template_data->set('item_data', $item_data);

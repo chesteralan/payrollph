@@ -11,7 +11,7 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
-<a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Employee Groups" data-url="<?php echo site_url("payroll/groups/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
+<!--<a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Employee Groups" data-url="<?php echo site_url("payroll/groups/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>-->
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">

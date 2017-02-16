@@ -68,6 +68,8 @@ class Payroll_earnings extends MY_Controller {
 			foreach($columns as $column) {
 				$employees->set_select(sprintf('(SELECT SUM(amount) FROM payroll_employees_earnings pee WHERE pee.payroll_id=%s AND pee.name_id=pe.name_id AND pee.earning_id=%s) as earnings_%s', $id, $column->id, $column->id));
 			}
+			$employees->setActive('1', true);
+			$employees->set_order('pe.order', 'ASC');
 			$employees->set_limit(0);
 			$employees_data = $employees->populate();
 			$payroll_group_data[$key]->employees = $employees_data;

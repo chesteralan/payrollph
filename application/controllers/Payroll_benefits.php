@@ -76,6 +76,8 @@ class Payroll_benefits extends MY_Controller {
 				$employees->set_select(sprintf('(SELECT SUM(peb.employee_share) FROM payroll_employees_benefits peb JOIN employees_benefits eb ON peb.benefit_id=eb.id WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND eb.benefit_id=%s AND eb.primary=1 AND eb.trash=0) as ee_share_%s', $id, $column->id, $column->id));
 				$employees->set_select(sprintf('(SELECT SUM(peb.employer_share) FROM payroll_employees_benefits peb JOIN employees_benefits eb ON peb.benefit_id=eb.id WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND eb.benefit_id=%s AND eb.primary=1 AND eb.trash=0) as er_share_%s', $id, $column->id, $column->id));
 			}
+			$employees->setActive('1', true);
+			$employees->set_order('pe.order', 'ASC');
 			$employees->set_limit(0);
 			$employees_data = $employees->populate();
 			$payroll_group_data[$key]->employees = $employees_data;
@@ -245,6 +247,9 @@ class Payroll_benefits extends MY_Controller {
 		$benefits->set_order('e.lastname', 'ASC');
 		$benefits->set_order('e.firstname', 'ASC');
 		$benefits->set_order('e.middlename', 'ASC');
+
+		$benefits->set_join("payroll_employees pe", 'pe.name_id=peb.name_id');
+		$benefits->set_where('pe.active', 1);
 		$benefits->set_limit(0);
 		$item_data = $benefits->populate();
 		$this->template_data->set('item_data', $item_data);
