@@ -121,6 +121,7 @@ class Employees extends MY_Controller {
 
 		$positions = new $this->Employees_positions_model;
 		$positions->set_limit(0);
+		$positions->set_order('name', 'ASC');
 		$this->template_data->set('positions', $positions->populate());
 
 		$this->load->view('employees/employees/employees_add', $this->template_data->get_data());
