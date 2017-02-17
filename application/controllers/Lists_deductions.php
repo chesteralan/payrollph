@@ -20,6 +20,7 @@ class Lists_deductions extends MY_Controller {
 		$deductions = new $this->Deductions_list_model;
 		$deductions->set_select("*");
 		$deductions->set_order('name', 'ASC');
+		$deductions->set_start($start);
 		$this->template_data->set('deductions', $deductions->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(

@@ -22,6 +22,7 @@ class Employees_positions extends MY_Controller {
 		$positions->set_select("*");
 		$positions->set_select("(SELECT COUNT(*) FROM `employees` WHERE position_id=employees_positions.id) as employees_count");
 		$positions->set_order('name', 'ASC');
+		$positions->set_start($start);
 		$this->template_data->set('positions', $positions->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(

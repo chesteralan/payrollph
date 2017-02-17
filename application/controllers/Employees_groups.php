@@ -22,6 +22,7 @@ class Employees_groups extends MY_Controller {
 		$groups->set_select("*");
 		$groups->set_select("(SELECT COUNT(*) FROM `employees` WHERE group_id=employees_groups.id) as employees_count");
 		$groups->set_order('name', 'ASC');
+		$groups->set_start($start);
 		$this->template_data->set('groups', $groups->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(

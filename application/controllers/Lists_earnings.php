@@ -20,6 +20,7 @@ class Lists_earnings extends MY_Controller {
 		$earnings = new $this->Earnings_list_model;
 		$earnings->set_select("*");
 		$earnings->set_order('name', 'ASC');
+		$earnings->set_start($start);
 		$this->template_data->set('earnings', $earnings->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(

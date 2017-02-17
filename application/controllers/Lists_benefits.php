@@ -21,6 +21,7 @@ class Lists_benefits extends MY_Controller {
 		$benefits->set_select("*");
 		$benefits->set_order('leave', 'ASC');
 		$benefits->set_order('name', 'ASC');
+		$benefits->set_start($start);
 		$this->template_data->set('benefits', $benefits->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
