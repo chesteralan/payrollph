@@ -35,13 +35,13 @@
           </div>
 
           <div class="form-group">
-            <label>Account Title (Accounting)</label>
-            <input name="account_title" type="text" class="form-control" value="<?php echo $this->input->post('account_title'); ?>">
+            <label>Employee Share Account Title (Accounting)</label>
+            <input name="ee_account_title" type="text" class="form-control" value="<?php echo $this->input->post('ee_account_title'); ?>">
           </div>
 
           <div class="form-group">
-            <label>Account Title (Accounting)</label>
-            <input name="account_title" type="text" class="form-control" value="<?php echo $this->input->post('account_title'); ?>">
+            <label>Employer Share Account Title (Accounting)</label>
+            <input name="er_account_title" type="text" class="form-control" value="<?php echo $this->input->post('er_account_title'); ?>">
           </div>
           
 <?php if( isset($output) && ($output!='ajax') ) : ?>

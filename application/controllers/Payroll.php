@@ -275,7 +275,7 @@ class Payroll extends MY_Controller {
 
 	public function generate($id,$output='') {
 		
-		$redirect_uri = ( $this->input->get('next') ) ? $this->input->get('next') : 'payroll_salaries/view/' . $id;
+		$redirect_uri = ( $this->input->get('next') ) ? $this->input->get('next') : 'payroll_dtr/view/' . $id;
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
@@ -296,10 +296,12 @@ class Payroll extends MY_Controller {
 
 			$payroll_group = new $this->Payroll_groups_model;
 			$payroll_group->setPayrollId($id,true);
+
+/*			
 			if( $payroll_group->nonEmpty() ) {
-				//redirect( site_url($redirect_uri) . "#group_not_empty" );
+				redirect( site_url($redirect_uri) . "#group_not_empty" );
 			}
-/*
+
 			$payroll_earning = new $this->Payroll_earnings_model;
 			$payroll_earning->setPayrollId($id,true);
 			if( $payroll_earning->nonEmpty() ) {

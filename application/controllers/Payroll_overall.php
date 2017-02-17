@@ -116,8 +116,8 @@ class Payroll_overall extends MY_Controller {
 			}
 
 			foreach($columns_benefits as $column) {
-				$employees->set_select(sprintf('(SELECT SUM(peb.employee_share) FROM payroll_employees_benefits peb JOIN employees_benefits eb ON peb.benefit_id=eb.id WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND eb.benefit_id=%s AND eb.primary=1 AND eb.trash=0) as ee_share_%s', $id, $column->id, $column->id));
-				$employees->set_select(sprintf('(SELECT SUM(peb.employer_share) FROM payroll_employees_benefits peb JOIN employees_benefits eb ON peb.benefit_id=eb.id WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND eb.benefit_id=%s AND eb.primary=1 AND eb.trash=0) as er_share_%s', $id, $column->id, $column->id));
+				$employees->set_select(sprintf('(SELECT SUM(peb.employee_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s) as ee_share_%s', $id, $column->id, $column->id));
+				$employees->set_select(sprintf('(SELECT SUM(peb.employer_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s) as er_share_%s', $id, $column->id, $column->id));
 
 			}
 

@@ -25,7 +25,7 @@
 <?php endif; ?>
 <?php if( $employees ) { ?>
 
-          <table class="table table-default">
+          <table class="table table-default table-hover">
             <thead>
               <tr>
                 <th>Last Name</th>

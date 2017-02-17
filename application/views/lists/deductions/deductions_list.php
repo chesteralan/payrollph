@@ -18,7 +18,7 @@
 <?php endif; ?>
 <?php if( $deductions ) { ?>
 
-          <table class="table table-default">
+          <table class="table table-default table-hover">
             <thead>
               <tr>
                 <th>Deduction Name</th>

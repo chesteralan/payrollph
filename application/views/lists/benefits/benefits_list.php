@@ -17,7 +17,7 @@
 <?php endif; ?>
 <?php if( $benefits ) { ?>
 
-          <table class="table table-default">
+          <table class="table table-default table-hover">
             <thead>
               <tr>
                 <th>Benefit Name</th>

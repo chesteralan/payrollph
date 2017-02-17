@@ -16,7 +16,7 @@
 	    	<div class="panel-body" id="ajaxBodyInnerPage">
 <?php endif; ?>
 <?php if( $names ) { ?>
-	    		<table class="table table-default hidden-xs">
+	    		<table class="table table-default hidden-xs table-hover">
 	    			<thead>
 	    				<tr>
 	    					<th>Full Name</th>

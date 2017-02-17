@@ -17,7 +17,7 @@
 <?php endif; ?>
 <?php if( $earnings ) { ?>
 
-          <table class="table table-default">
+          <table class="table table-default table-hover">
             <thead>
               <tr>
                 <th>Earning Name</th>
