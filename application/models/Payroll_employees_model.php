@@ -10,6 +10,7 @@ CREATE TABLE `payroll_employees` (
   `name_id` int(20) NOT NULL,
   `order` int(2) NOT NULL DEFAULT '0',
   `template` varchar(20) DEFAULT 'payslip',
+  `print_group` int(20) DEFAULT NULL,
   `active` int(1) DEFAULT '1',
   KEY `name_id` (`payroll_id`,`name_id`)
 );
@@ -29,6 +30,7 @@ class Payroll_employees_model extends MY_Model {
 	protected $name_id;
 	protected $order;
 	protected $template;
+	protected $print_group;
 	protected $active;
 
 	// --------------------------------------------------------------------
@@ -43,7 +45,7 @@ class Payroll_employees_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_employees';
 		$this->_short_name = 'payroll_employees';
-		$this->_fields = array("payroll_id","name_id","order","template","active");
+		$this->_fields = array("payroll_id","name_id","order","template","print_group","active");
 		$this->_required = array("payroll_id","name_id","order");
 		parent::__construct($short_name, $db_config);
 	}
@@ -153,6 +155,32 @@ class Payroll_employees_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: template --------------------------------------
+
+
+// ---------------------------- Start Field: print_group -------------------------------------- 
+
+	/** 
+	* Sets a value to `print_group` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setPrintGroup($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('print_group', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `print_group` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getPrintGroup() {
+			return $this->print_group;
+		}
+	
+// ------------------------------ End Field: print_group --------------------------------------
 
 
 // ---------------------------- Start Field: active -------------------------------------- 

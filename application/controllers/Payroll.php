@@ -40,6 +40,7 @@ class Payroll extends MY_Controller {
 		$this->load->model('Earnings_list_model');
 		$this->load->model('Benefits_list_model');
 		$this->load->model('Deductions_list_model');
+		$this->load->model('Terms_list_model');
 
 
 	}
@@ -596,8 +597,13 @@ class Payroll extends MY_Controller {
 					$pemployee->setActive('0',false,true);
 				}
 				$pemployee->setOrder($order,false,true);
+
 				$template = $this->input->post('payslip_template');
 				$pemployee->setTemplate($template[$name_id],false,true);
+
+				$print_group = $this->input->post('print_group');
+				$pemployee->setPrintGroup($print_group[$name_id],false,true);
+
 				if( $pemployee->nonEmpty() ) {
 					$pemployee->update();
 				}
@@ -618,6 +624,14 @@ class Payroll extends MY_Controller {
 		$employees->set_order('pe.order','ASC');
 		$employees->set_where('e.group_id', $group_id);
 		$this->template_data->set('employees', $employees->populate());
+
+		$print_groups = new $this->Terms_list_model;
+		$print_groups->set_select("*");
+		$print_groups->set_order('name', 'ASC');
+		$print_groups->set_start(0);
+		$print_groups->setTrash('0',true);
+		$print_groups->setType('print_group',true);
+		$this->template_data->set('print_groups', $print_groups->populate());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/payroll_employees', $this->template_data->get_data());

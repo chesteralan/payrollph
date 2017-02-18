@@ -40,6 +40,7 @@ class Lists_names extends MY_Controller {
 
 		$names->set_order('names_list.full_name', 'ASC');
 		$names->set_start($start);
+		$names->setTrash('0',true);
 
 		$this->template_data->set('names', $names->populate());
 
@@ -132,7 +133,7 @@ class Lists_names extends MY_Controller {
 
 		$name = new $this->Names_list_model;
 		$name->setId($id, true,false);
-		$name->setTrash(1,false,false);
+		$name->setTrash('1',false,true);
 		$name->update();
 
 		redirect( "lists_names" );

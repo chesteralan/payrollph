@@ -37,6 +37,9 @@
                 <?php if( !isset($position) ) { ?>
                   <th>Position</th>
                 <?php } ?>
+                <?php if( !isset($area) ) { ?>
+                  <th>Area</th>
+                <?php } ?>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                   <th width="125px">Action</th>
                 <?php } ?>
@@ -56,10 +59,17 @@
                   </a>
                 </td>
                 <?php } ?>
-                  <?php if( !isset($position) ) { ?>
+                <?php if( !isset($position) ) { ?>
                 <td>
                 <a class="body_wrapper" href="<?php echo site_url("employees/position/{$employee->position_id}"); ?>">
                 <?php echo $employee->position_name; ?>
+                  </a>
+                </td>
+                <?php } ?>
+                <?php if( !isset($area) ) { ?>
+                <td>
+                <a class="body_wrapper" href="<?php echo site_url("employees/area/{$employee->area_id}"); ?>">
+                <?php echo $employee->area_name; ?>
                   </a>
                 </td>
                 <?php } ?>

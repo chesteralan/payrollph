@@ -22,6 +22,7 @@ class Lists_benefits extends MY_Controller {
 		$benefits->set_order('leave', 'ASC');
 		$benefits->set_order('name', 'ASC');
 		$benefits->set_start($start);
+		$benefits->setTrash('0',true);
 		$this->template_data->set('benefits', $benefits->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
@@ -95,6 +96,7 @@ class Lists_benefits extends MY_Controller {
 		$benefits = new $this->Benefits_list_model;
 		$benefits->setId($id,true,false);
 		$benefits->setActive('0',false,true);
+		$benefits->setTrash('1',false,true);
 		$benefits->update();
 
 		$this->getNext("lists_benefits");

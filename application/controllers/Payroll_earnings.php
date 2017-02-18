@@ -20,7 +20,9 @@ class Payroll_earnings extends MY_Controller {
 		$this->load->model('Payroll_employees_model');
 		$this->load->model('Payroll_employees_earnings_model');
 
+		$this->load->model('Employees_model');
 		$this->load->model('Earnings_list_model');
+		$this->load->model('Terms_list_model');
 
 
 	}
@@ -49,6 +51,14 @@ class Payroll_earnings extends MY_Controller {
 		$columns = $earnings_columns->populate();
 		$this->template_data->set('earnings_columns', $columns);
 
+		$print_groups = new $this->Terms_list_model;
+		$print_groups->set_select("*");
+		$print_groups->set_order('name', 'ASC');
+		$print_groups->set_start(0);
+		$print_groups->setTrash('0',true);
+		$print_groups->setType('print_group',true);
+		$this->template_data->set('print_groups', $print_groups->populate());
+		
 		$payroll_group = new $this->Payroll_groups_model('pg');
 		$payroll_group->setPayrollId($id,true);
 		$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');

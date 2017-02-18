@@ -1,18 +1,15 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * Benefits_list_model Class
+ * Terms_list_model Class
  *
- * Manipulates `benefits_list` table on database
+ * Manipulates `terms_list` table on database
 
-CREATE TABLE `benefits_list` (
+CREATE TABLE `terms_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `notes` text,
-  `leave` int(1) DEFAULT '0',
-  `ee_account_title` varchar(200) DEFAULT NULL,
-  `er_account_title` varchar(200) DEFAULT NULL,
-  `active` int(1) NOT NULL DEFAULT '1',
+  `type` varchar(50) DEFAULT NULL,
   `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 );
@@ -26,15 +23,12 @@ CREATE TABLE `benefits_list` (
  * @generator		        CodeIgniter Model Generator (CMG)
  */
  
-class Benefits_list_model extends MY_Model {
+class Terms_list_model extends MY_Model {
 
 	protected $id;
 	protected $name;
 	protected $notes;
-	protected $leave;
-	protected $ee_account_title;
-	protected $er_account_title;
-	protected $active;
+	protected $type;
 	protected $trash;
 
 	// --------------------------------------------------------------------
@@ -47,10 +41,10 @@ class Benefits_list_model extends MY_Model {
 	*/
 
 	function __construct($short_name=NULL, $db_config=NULL) {
-		$this->_table_name = 'benefits_list';
-		$this->_short_name = 'benefits_list';
-		$this->_fields = array("id","name","notes","leave","ee_account_title","er_account_title","active","trash");
-		$this->_required = array("name","active");
+		$this->_table_name = 'terms_list';
+		$this->_short_name = 'terms_list';
+		$this->_fields = array("id","name","notes","type","trash");
+		$this->_required = array("name");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -135,108 +129,30 @@ class Benefits_list_model extends MY_Model {
 // ------------------------------ End Field: notes --------------------------------------
 
 
-// ---------------------------- Start Field: leave -------------------------------------- 
+// ---------------------------- Start Field: type -------------------------------------- 
 
 	/** 
-	* Sets a value to `leave` variable
+	* Sets a value to `type` variable
 	* @access public
 	* @param  String
 	* @return $this;
 	*/
 
-		public function setLeave($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('leave', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		public function setType($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('type', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 		}
 	
 	/** 
-	* Get the value of `leave` variable
+	* Get the value of `type` variable
 	* @access public
 	* @return String;
 	*/
 
-		public function getLeave() {
-			return $this->leave;
+		public function getType() {
+			return $this->type;
 		}
 	
-// ------------------------------ End Field: leave --------------------------------------
-
-
-// ---------------------------- Start Field: ee_account_title -------------------------------------- 
-
-	/** 
-	* Sets a value to `ee_account_title` variable
-	* @access public
-	* @param  String
-	* @return $this;
-	*/
-
-		public function setEeAccountTitle($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('ee_account_title', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
-	
-	/** 
-	* Get the value of `ee_account_title` variable
-	* @access public
-	* @return String;
-	*/
-
-		public function getEeAccountTitle() {
-			return $this->ee_account_title;
-		}
-	
-// ------------------------------ End Field: ee_account_title --------------------------------------
-
-
-// ---------------------------- Start Field: er_account_title -------------------------------------- 
-
-	/** 
-	* Sets a value to `er_account_title` variable
-	* @access public
-	* @param  String
-	* @return $this;
-	*/
-
-		public function setErAccountTitle($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('er_account_title', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
-	
-	/** 
-	* Get the value of `er_account_title` variable
-	* @access public
-	* @return String;
-	*/
-
-		public function getErAccountTitle() {
-			return $this->er_account_title;
-		}
-	
-// ------------------------------ End Field: er_account_title --------------------------------------
-
-
-// ---------------------------- Start Field: active -------------------------------------- 
-
-	/** 
-	* Sets a value to `active` variable
-	* @access public
-	* @param  String
-	* @return $this;
-	*/
-
-		public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
-	
-	/** 
-	* Get the value of `active` variable
-	* @access public
-	* @return String;
-	*/
-
-		public function getActive() {
-			return $this->active;
-		}
-	
-// ------------------------------ End Field: active --------------------------------------
+// ------------------------------ End Field: type --------------------------------------
 
 
 // ---------------------------- Start Field: trash -------------------------------------- 
@@ -269,5 +185,5 @@ class Benefits_list_model extends MY_Model {
 
 }
 
-/* End of file Benefits_list_model.php */
-/* Location: ./application/models/Benefits_list_model.php */
+/* End of file Terms_list_model.php */
+/* Location: ./application/models/Terms_list_model.php */

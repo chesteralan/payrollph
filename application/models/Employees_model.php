@@ -12,15 +12,17 @@ CREATE TABLE `employees` (
   `firstname` varchar(100) NOT NULL,
   `middlename` varchar(100) NOT NULL,
   `position_id` int(20) DEFAULT NULL,
+  `area_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,
-  `status` varchar(100) DEFAULT NULL,
+  `status` int(20) DEFAULT NULL,
   `notes` text,
   `phone_number` varchar(100) DEFAULT NULL,
   `address` text,
   `trash` int(1) NOT NULL DEFAULT '0',
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),
-  KEY `position_id` (`position_id`)
+  KEY `position_id` (`position_id`),
+  KEY `area_id` (`area_id`)
 );
 
  * @package			        Model
@@ -40,6 +42,7 @@ class Employees_model extends MY_Model {
 	protected $firstname;
 	protected $middlename;
 	protected $position_id;
+	protected $area_id;
 	protected $hired;
 	protected $status;
 	protected $notes;
@@ -59,7 +62,7 @@ class Employees_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees';
 		$this->_short_name = 'employees';
-		$this->_fields = array("name_id","group_id","lastname","firstname","middlename","position_id","hired","status","notes","phone_number","address","trash");
+		$this->_fields = array("name_id","group_id","lastname","firstname","middlename","position_id","area_id","hired","status","notes","phone_number","address","trash");
 		$this->_required = array("name_id","lastname","firstname","middlename","trash");
 		parent::__construct($short_name, $db_config);
 	}
@@ -221,6 +224,32 @@ class Employees_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: position_id --------------------------------------
+
+
+// ---------------------------- Start Field: area_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `area_id` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setAreaId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('area_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `area_id` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getAreaId() {
+			return $this->area_id;
+		}
+	
+// ------------------------------ End Field: area_id --------------------------------------
 
 
 // ---------------------------- Start Field: hired -------------------------------------- 

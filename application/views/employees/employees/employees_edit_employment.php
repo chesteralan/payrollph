@@ -24,7 +24,7 @@
           <div class="form-group">
             <label>Group</label>
             <select class="form-control" title="Select a Group" name="group_id">
-              <?php foreach($groups as $group) { ?>
+              <?php if($groups) foreach($groups as $group) { ?>
                 <option value="<?php echo $group->id; ?>" <?php echo ($employee->group_id==$group->id) ? "SELECTED" : ""; ?>><?php echo $group->name; ?></option>
               <?php } ?>
             </select>
@@ -33,8 +33,17 @@
           <div class="form-group">
             <label>Position</label>
             <select class="form-control" title="Select a Position" name="position_id">
-              <?php foreach($positions as $position) { ?>
+              <?php if($positions) foreach($positions as $position) { ?>
                 <option value="<?php echo $position->id; ?>" <?php echo ($employee->position_id==$position->id) ? "SELECTED" : ""; ?>><?php echo $position->name; ?></option>
+              <?php } ?>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Area</label>
+            <select class="form-control" title="Select a Area" name="area_id">
+              <?php if($areas) foreach($areas as $area) { ?>
+                <option value="<?php echo $area->id; ?>" <?php echo ($employee->area_id==$area->id) ? "SELECTED" : ""; ?>><?php echo $area->name; ?></option>
               <?php } ?>
             </select>
           </div>
@@ -43,21 +52,16 @@
             <label>Date Hired</label>
             <input name="date_hired" type="text" class="form-control datepicker" value="<?php echo ($employee->hired) ? date('m/d/Y', strtotime($employee->hired)) : date('m/d/Y'); ?>">
           </div>
-
+<?php if( $employment_status ) { ?>
           <div class="form-group">
             <label>Status</label>
             <select class="form-control" title="Select a Status" name="status">
-              <?php foreach(array(
-                'probationary' => 'Probationary',
-                'temporary' => 'Temporary',
-                'regular' => 'Regular',
-                'contractual' => 'Contractual',
-                ) as $key=>$status) { ?>
-                <option value="<?php echo $key; ?>" <?php echo ($employee->status==$key) ? "SELECTED" : ""; ?>><?php echo $status; ?></option>
+              <?php foreach($employment_status as $status) { ?>
+                <option value="<?php echo $status->id; ?>" <?php echo ($employee->status==$status->id) ? "SELECTED" : ""; ?>><?php echo $status->name; ?></option>
               <?php } ?>
             </select>
           </div>
-
+<?php } ?>
           <div class="form-group">
             <label>Notes</label>
             <textarea name="notes" class="form-control"><?php echo $employee->notes; ?></textarea>

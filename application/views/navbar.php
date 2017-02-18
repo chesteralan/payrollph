@@ -59,6 +59,11 @@ $main_menu = array(
             'uri' => 'employees_positions',
             'permission' => 'positions',
           ),
+          'employees_areas' => array(
+            'title' => 'Areas',
+            'uri' => 'employees_areas',
+            'permission' => 'areas',
+          ),
         )
     ),
 
@@ -95,6 +100,11 @@ $main_menu = array(
       'uri' => 'system',
       'permission' => 'system',
       'sub_menus' => array(
+          'system_terms' => array(
+            'title' => 'Terminologies',
+            'uri' => 'system_terms',
+            'permission' => 'terms',
+          ),
           'system_users' => array(
             'title' => 'User Accounts',
             'uri' => 'system_users',

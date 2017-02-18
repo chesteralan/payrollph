@@ -28,6 +28,7 @@ class Payroll_overall extends MY_Controller {
 		$this->load->model('Payroll_templates_deductions_model');
 
 		$this->load->model('Employees_model');
+		$this->load->model('Terms_list_model');
 
 	}
 
@@ -35,7 +36,7 @@ class Payroll_overall extends MY_Controller {
 		redirect("payroll");
 	}
 	
-	public function view($id,$output='print') {
+	public function view($id, $group='0', $output='print') {
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);

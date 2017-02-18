@@ -25,15 +25,30 @@
   <li class="list-group-item">
   <input type="hidden" name="name_id[]" value="<?php echo $employee->name_id; ?>">
   <span class="glyphicon glyphicon-sort pull-right" style="margin-left: 10px;"></span>
+    <p class="pull-right"><?php echo $employee->position_name; ?></p>
     <h4 class="list-group-item-heading">
     <label><input type="checkbox" name="selected[]" value="<?php echo $employee->name_id; ?>" <?php echo ($employee->active==1) ? "CHECKED" : ""; ?>> <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?></label>
-    <select class="pull-right" name="payslip_template[<?php echo $employee->name_id; ?>]">
+    </h4>
+    
+<div class="row">
+  <div class="col-md-6">
+    <select class="form-control input-sm" name="payslip_template[<?php echo $employee->name_id; ?>]" data-style="btn-default btn-sm">
           <option value="none">No Payslip</option>
           <option value="payslip" <?php echo ($employee->template=='payslip') ? 'SELECTED' : ''; ?>>Payslip</option>
           <option value="cash_voucher" <?php echo ($employee->template=='cash_voucher') ? 'SELECTED' : ''; ?>>Cash Voucher</option>
       </select>
-    </h4>
-    <p class="list-group-item-text clearfix"><?php echo $employee->position_name; ?></p>
+  </div>
+  <div class="col-md-6">
+      <?php if( $print_groups ) { ?>
+            <select class="form-control input-sm" name="print_group[<?php echo $employee->name_id; ?>]" data-style="btn-default btn-sm">
+              <option value="none">No Print Group</option>
+              <?php foreach($print_groups as $grp) { ?>
+                <option value="<?php echo $grp->id; ?>" <?php echo ($employee->print_group==$grp->id) ? "SELECTED" : ""; ?>><?php echo $grp->name; ?></option>
+              <?php } ?>
+            </select>
+    <?php } ?>
+  </div>
+</div>
 
   </li>
   <?php } ?>

@@ -28,6 +28,7 @@ class Payroll_dtr extends MY_Controller {
 		$this->load->model('Payroll_templates_deductions_model');
 
 		$this->load->model('Employees_model');
+		$this->load->model('Terms_list_model');
 
 	}
 
@@ -45,6 +46,14 @@ class Payroll_dtr extends MY_Controller {
 		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_deductions` pd WHERE pd.payroll_id=payroll.id) as deductions_columns");
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
+
+		$print_groups = new $this->Terms_list_model;
+		$print_groups->set_select("*");
+		$print_groups->set_order('name', 'ASC');
+		$print_groups->set_start(0);
+		$print_groups->setTrash('0',true);
+		$print_groups->setType('print_group',true);
+		$this->template_data->set('print_groups', $print_groups->populate());
 
 		$payroll_group = new $this->Payroll_groups_model('pg');
 		$payroll_group->setPayrollId($id,true);

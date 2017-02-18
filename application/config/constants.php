@@ -101,6 +101,7 @@ $dept = array(
 				'employees' => 'Employees',
 				'groups' => 'Employee Groups',
 				'positions' => 'Employee Positions',
+				'areas' => 'Employee Areas',
 			),
 	), 
 
@@ -117,6 +118,7 @@ $dept = array(
 	'system' =>  (object) array(
 		'title' => 'System',
 		'sections' => array(
+				'terms' => 'Terminologies',
 				'users' => 'User Accounts',
 				'backup' => 'Database Backup',
 			),
@@ -136,3 +138,8 @@ defined('WORK_ON_WED')      OR define('WORK_ON_WED', true);
 defined('WORK_ON_THU')      OR define('WORK_ON_THU', true); 
 defined('WORK_ON_FRI')      OR define('WORK_ON_FRI', true); 
 defined('WORK_ON_SAT')      OR define('WORK_ON_SAT', true); 
+
+defined('TERM_TYPES')      OR define('TERM_TYPES', serialize( array(
+	'employment_status' => 'Employment Status',
+	'print_group' => 'Print Group',
+	) )); 

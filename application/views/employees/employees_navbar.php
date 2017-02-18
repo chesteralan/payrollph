@@ -19,6 +19,7 @@
 $url['employees'] = array('uri' => 'employees', 'title'=>'Employees', 'access'=>hasAccess('employees', 'employees', 'view'));
 $url['employees_groups'] = array('uri' => 'employees_groups', 'title'=>'Groups', 'access'=>hasAccess('employees', 'groups', 'view'));
 $url['employees_positions'] = array('uri' => 'employees_positions', 'title'=>'Positions', 'access'=>hasAccess('employees', 'positions', 'view'));
+$url['employees_areas'] = array('uri' => 'employees_areas', 'title'=>'Areas', 'access'=>hasAccess('employees', 'areas', 'view'));
 foreach($url as $k=>$v) {
   if( $v['access'] ) {
 ?>

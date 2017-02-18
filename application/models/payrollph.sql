@@ -18,6 +18,7 @@ CREATE TABLE `benefits_list` (
   `ee_account_title` varchar(200) DEFAULT NULL,
   `er_account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
+  `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 );
 
@@ -29,6 +30,7 @@ CREATE TABLE `deductions_list` (
   `notes` text,
   `account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
+  `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 );
 
@@ -40,6 +42,7 @@ CREATE TABLE `earnings_list` (
   `notes` text,
   `account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
+  `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 );
 
@@ -52,15 +55,17 @@ CREATE TABLE `employees` (
   `firstname` varchar(100) NOT NULL,
   `middlename` varchar(100) NOT NULL,
   `position_id` int(20) DEFAULT NULL,
+  `area_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,
-  `status` varchar(100) DEFAULT NULL,
+  `status` int(20) DEFAULT NULL,
   `notes` text,
   `phone_number` varchar(100) DEFAULT NULL,
   `address` text,
   `trash` int(1) NOT NULL DEFAULT '0',
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),
-  KEY `position_id` (`position_id`)
+  KEY `position_id` (`position_id`),
+  KEY `area_id` (`area_id`)
 );
 
 -- Table structure for table `employees_absenses` 
@@ -72,6 +77,16 @@ CREATE TABLE `employees_absenses` (
   `leave_type` int(20) DEFAULT NULL,
   `notes` text,
   KEY `name_id` (`name_id`,`date_absent`)
+);
+
+-- Table structure for table `employees_areas` 
+
+CREATE TABLE `employees_areas` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `notes` text,
+  `trash` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
 );
 
 -- Table structure for table `employees_benefits` 
@@ -220,6 +235,7 @@ CREATE TABLE `payroll_employees` (
   `name_id` int(20) NOT NULL,
   `order` int(2) NOT NULL DEFAULT '0',
   `template` varchar(20) DEFAULT 'payslip',
+  `print_group` int(20) DEFAULT NULL,
   `active` int(1) DEFAULT '1',
   KEY `name_id` (`payroll_id`,`name_id`)
 );
@@ -347,6 +363,17 @@ CREATE TABLE `payroll_templates_groups` (
   `group_id` int(20) NOT NULL,
   `order` int(2) NOT NULL DEFAULT '0',
   KEY `template_id` (`template_id`,`group_id`)
+);
+
+-- Table structure for table `terms_list` 
+
+CREATE TABLE `terms_list` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `notes` text,
+  `type` varchar(50) DEFAULT NULL,
+  `trash` int(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
 );
 
 -- Table structure for table `user_accounts` 

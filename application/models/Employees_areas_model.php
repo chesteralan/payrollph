@@ -1,17 +1,15 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * Earnings_list_model Class
+ * Employees_areas_model Class
  *
- * Manipulates `earnings_list` table on database
+ * Manipulates `employees_areas` table on database
 
-CREATE TABLE `earnings_list` (
+CREATE TABLE `employees_areas` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `notes` text,
-  `account_title` varchar(200) DEFAULT NULL,
-  `active` int(1) NOT NULL DEFAULT '1',
-  `trash` int(1) DEFAULT '0',
+  `trash` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 );
 
@@ -24,13 +22,11 @@ CREATE TABLE `earnings_list` (
  * @generator		        CodeIgniter Model Generator (CMG)
  */
  
-class Earnings_list_model extends MY_Model {
+class Employees_areas_model extends MY_Model {
 
 	protected $id;
 	protected $name;
 	protected $notes;
-	protected $account_title;
-	protected $active;
 	protected $trash;
 
 	// --------------------------------------------------------------------
@@ -43,10 +39,10 @@ class Earnings_list_model extends MY_Model {
 	*/
 
 	function __construct($short_name=NULL, $db_config=NULL) {
-		$this->_table_name = 'earnings_list';
-		$this->_short_name = 'earnings_list';
-		$this->_fields = array("id","name","notes","account_title","active","trash");
-		$this->_required = array("name","active");
+		$this->_table_name = 'employees_areas';
+		$this->_short_name = 'employees_areas';
+		$this->_fields = array("id","name","notes","trash");
+		$this->_required = array("name","trash");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -131,58 +127,6 @@ class Earnings_list_model extends MY_Model {
 // ------------------------------ End Field: notes --------------------------------------
 
 
-// ---------------------------- Start Field: account_title -------------------------------------- 
-
-	/** 
-	* Sets a value to `account_title` variable
-	* @access public
-	* @param  String
-	* @return $this;
-	*/
-
-		public function setAccountTitle($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('account_title', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
-	
-	/** 
-	* Get the value of `account_title` variable
-	* @access public
-	* @return String;
-	*/
-
-		public function getAccountTitle() {
-			return $this->account_title;
-		}
-	
-// ------------------------------ End Field: account_title --------------------------------------
-
-
-// ---------------------------- Start Field: active -------------------------------------- 
-
-	/** 
-	* Sets a value to `active` variable
-	* @access public
-	* @param  String
-	* @return $this;
-	*/
-
-		public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
-	
-	/** 
-	* Get the value of `active` variable
-	* @access public
-	* @return String;
-	*/
-
-		public function getActive() {
-			return $this->active;
-		}
-	
-// ------------------------------ End Field: active --------------------------------------
-
-
 // ---------------------------- Start Field: trash -------------------------------------- 
 
 	/** 
@@ -213,5 +157,5 @@ class Earnings_list_model extends MY_Model {
 
 }
 
-/* End of file Earnings_list_model.php */
-/* Location: ./application/models/Earnings_list_model.php */
+/* End of file Employees_areas_model.php */
+/* Location: ./application/models/Employees_areas_model.php */
