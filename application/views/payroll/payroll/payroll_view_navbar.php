@@ -12,7 +12,7 @@
       </button>
       <div class="navbar-brand"><?php echo $payroll->name;  ?>
         
-<?php if( $print_groups ) { ?>
+<?php if( isset($print_groups) && ($print_groups) ) { ?>
 
      <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Print Payroll" data-url="<?php echo site_url("payroll/print_group/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>" style="margin-left:10px" data-hide_footer="1"><span class="glyphicon glyphicon-print"></span></a>
 
@@ -35,14 +35,14 @@
 
 $url['payroll_dtr'] = array('uri' => 'payroll_dtr/view/' . $payroll->id, 'title'=>'Daily Time Record', 'access'=>hasAccess('payroll', 'payroll', 'view'));
 $url['payroll_salaries'] = array('uri' => 'payroll_salaries/view/' . $payroll->id, 'title'=>'Basic Salary', 'access'=>hasAccess('payroll', 'payroll', 'view'));
-if( $payroll->earnings_columns > 0 ) {
-$url['payroll_earnings'] = array('uri' => 'payroll_earnings/view/' . $payroll->id, 'title'=>'Earnings', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+if( (isset($payroll->earnings_columns)) && ( $payroll->earnings_columns > 0 ) ) {
+  $url['payroll_earnings'] = array('uri' => 'payroll_earnings/view/' . $payroll->id, 'title'=>'Earnings', 'access'=>hasAccess('payroll', 'payroll', 'view'));
 }
-if( $payroll->benefits_columns > 0 ) {
-$url['payroll_benefits'] = array('uri' => 'payroll_benefits/view/' . $payroll->id, 'title'=>'Benefits', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+if( (isset($payroll->benefits_columns)) && ( $payroll->benefits_columns > 0 ) ) {
+  $url['payroll_benefits'] = array('uri' => 'payroll_benefits/view/' . $payroll->id, 'title'=>'Benefits', 'access'=>hasAccess('payroll', 'payroll', 'view'));
 }
-if( $payroll->deductions_columns > 0 ) {
-$url['payroll_deductions'] = array('uri' => 'payroll_deductions/view/' . $payroll->id, 'title'=>'Deductions', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+if( (isset($payroll->deductions_columns)) && ( $payroll->deductions_columns > 0 ) ) {
+  $url['payroll_deductions'] = array('uri' => 'payroll_deductions/view/' . $payroll->id, 'title'=>'Deductions', 'access'=>hasAccess('payroll', 'payroll', 'view'));
 }
 
 foreach($url as $k=>$v) {

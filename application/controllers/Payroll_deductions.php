@@ -164,6 +164,14 @@ class Payroll_deductions extends MY_Controller {
 		$deduction_data->setId($deduction_id,true);
 		$this->template_data->set('deduction_data', $deduction_data->get());
 
+		$print_groups = new $this->Terms_list_model;
+		$print_groups->set_select("*");
+		$print_groups->set_order('name', 'ASC');
+		$print_groups->set_start(0);
+		$print_groups->setTrash('0',true);
+		$print_groups->setType('print_group',true);
+		$this->template_data->set('print_groups', $print_groups->populate());
+		
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/deductions/deductions_add', $this->template_data->get_data());
 	}
@@ -254,12 +262,20 @@ class Payroll_deductions extends MY_Controller {
 		$deductions->set_order('e.firstname', 'ASC');
 		$deductions->set_order('e.middlename', 'ASC');
 
-		$benefits->set_join("payroll_employees pe", 'pe.name_id=peb.name_id');
-		$benefits->set_where('pe.active', 1);
+		$deductions->set_join("payroll_employees pe", 'pe.name_id=ped.name_id');
+		$deductions->set_where('pe.active', 1);
 		
 		$deductions->set_limit(0);
 		$item_data = $deductions->populate();
 		$this->template_data->set('item_data', $item_data);
+
+		$print_groups = new $this->Terms_list_model;
+		$print_groups->set_select("*");
+		$print_groups->set_order('name', 'ASC');
+		$print_groups->set_start(0);
+		$print_groups->setTrash('0',true);
+		$print_groups->setType('print_group',true);
+		$this->template_data->set('print_groups', $print_groups->populate());
 
 		$this->template_data->set('output', $output);
 		if( $output == 'print') {
