@@ -171,7 +171,7 @@ class Payroll_deductions extends MY_Controller {
 		$print_groups->setTrash('0',true);
 		$print_groups->setType('print_group',true);
 		$this->template_data->set('print_groups', $print_groups->populate());
-		
+
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/deductions/deductions_add', $this->template_data->get_data());
 	}
@@ -253,7 +253,7 @@ class Payroll_deductions extends MY_Controller {
 		$deductions->set_select("ped.*");
 		$deductions->set_select("(SELECT ed.max_amount FROM employees_deductions ed WHERE ed.id=ped.entry_id) as max_amount");
 
-		$deductions->set_select("(SELECT SUM(ped2.amount) FROM payroll_employees_deductions ped2 WHERE ped2.entry_id=ped.entry_id AND ped2.id!=ped.id) as amount_paid");
+		$deductions->set_select("(SELECT SUM(ped2.amount) FROM payroll_employees_deductions ped2 WHERE ped.name_id=ped2.name_id AND ped.deduction_id=ped2.deduction_id AND ped2.entry_id=ped.entry_id AND ped2.id!=ped.id) as amount_paid");
 
 		$deductions->set_select("e.*");
 		$deductions->set_join("employees e", 'e.name_id=ped.name_id');
@@ -266,7 +266,7 @@ class Payroll_deductions extends MY_Controller {
 		$deductions->set_where('pe.active', 1);
 		
 		$deductions->set_limit(0);
-		$item_data = $deductions->populate();
+		$item_data = $deductions->populate(); print_r( $item_data );
 		$this->template_data->set('item_data', $item_data);
 
 		$print_groups = new $this->Terms_list_model;
