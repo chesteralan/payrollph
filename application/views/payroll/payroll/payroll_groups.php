@@ -26,9 +26,9 @@
   <input type="hidden" name="group[]" value="<?php echo $group->id; ?>">
   <span class="glyphicon glyphicon-sort pull-right"></span>
     <h4 class="list-group-item-heading"><label><input type="checkbox" name="selected[]" value="<?php echo $group->id; ?>" <?php echo ($group->id==$group->selected) ? "CHECKED" : ""; ?>> <?php echo $group->name; ?></label>
-    
+<?php if($group->id==$group->selected) { ?>
 <a href="<?php echo site_url("payroll/employees/{$payroll->id}/{$group->id}/ajax") . '?next=' . (($this->input->get('next'))?$this->input->get('next'):uri_string()); ?>" class="ajax-modal-inner"><span class="glyphicon glyphicon-user"></span></a>
-
+<?php } ?>
     </h4>
   
     <p class="list-group-item-text"><?php echo $group->notes; ?></p>

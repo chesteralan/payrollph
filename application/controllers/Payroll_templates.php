@@ -13,14 +13,17 @@ class Payroll_templates extends MY_Controller {
 
 		$this->load->model('Payroll_templates_model');
 		$this->load->model('Payroll_templates_groups_model');
+		$this->load->model('Payroll_templates_employees_model');
 		$this->load->model('Payroll_templates_benefits_model');
 		$this->load->model('Payroll_templates_earnings_model');
 		$this->load->model('Payroll_templates_deductions_model');
 		$this->load->model('Employees_groups_model');
+		$this->load->model('Employees_model');
 		$this->load->model('Benefits_list_model');
 		$this->load->model('Earnings_list_model');
 		$this->load->model('Deductions_list_model');
 		$this->load->model('Names_list_model');
+		$this->load->model('Terms_list_model');
 
 	}
 
@@ -181,6 +184,64 @@ class Payroll_templates extends MY_Controller {
 		$this->template_data->set('output', $output);
 
 		$this->load->view('payroll/templates/templates_groups', $this->template_data->get_data());
+
+	}
+
+	public function employees($id, $group_id, $output='') {
+
+		if( $this->input->post() ) {
+			foreach( $this->input->post('name_id') as $order=>$name_id ) {
+				$pemployee = new $this->Payroll_templates_employees_model;
+				$pemployee->setTemplateId($id,true);
+				$pemployee->setNameId($name_id,true);
+				if( in_array($name_id, $this->input->post('selected')) ) {
+					$pemployee->setActive('1');
+				} else {
+					$pemployee->setActive('0');
+				}
+				$pemployee->setOrder($order);
+
+				$template = $this->input->post('payslip_template');
+				$pemployee->setTemplate($template[$name_id]);
+
+				$print_group = $this->input->post('print_group');
+				$pemployee->setPrintGroup($print_group[$name_id]);
+
+				if( $pemployee->nonEmpty() ) {
+					$pemployee->set_exclude(array('template_id','name_id'));
+					$pemployee->update();
+				} else {
+					$pemployee->insert();
+				}
+			}
+			$this->postNext();
+		}
+
+		$template = new $this->Payroll_templates_model;
+		$template->setId($id,true);
+		$this->template_data->set('template', $template->get());
+		
+		$employees = new $this->Employees_model('e');
+		$employees->set_select('e.*');
+		$employees->set_select('(SELECT ep.name FROM employees_positions ep WHERE ep.id=e.position_id) as position_name');
+		$employees->set_limit(0);
+		$employees->set_where('e.group_id', $group_id);
+		$employees->set_join('payroll_templates_employees pte', 'pte.name_id=e.name_id');
+		$employees->set_select('pte.active');
+		$employees->set_select('pte.template');
+		$employees->set_select('pte.print_group');
+		$this->template_data->set('employees', $employees->populate());
+
+		$print_groups = new $this->Terms_list_model;
+		$print_groups->set_select("*");
+		$print_groups->set_order('name', 'ASC');
+		$print_groups->set_start(0);
+		$print_groups->setTrash('0',true);
+		$print_groups->setType('print_group',true);
+		$this->template_data->set('print_groups', $print_groups->populate());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/templates/templates_employees', $this->template_data->get_data());
 
 	}
 

@@ -1,0 +1,217 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+/**
+ * Payroll_templates_employees_model Class
+ *
+ * Manipulates `payroll_templates_employees` table on database
+
+CREATE TABLE `payroll_templates_employees` (
+  `template_id` int(20) NOT NULL,
+  `name_id` int(20) NOT NULL,
+  `order` int(2) NOT NULL DEFAULT '0',
+  `template` varchar(20) DEFAULT 'payslip',
+  `print_group` int(20) DEFAULT NULL,
+  `active` int(1) DEFAULT '1',
+  KEY `name_id` (`template_id`,`name_id`)
+);
+
+ * @package			        Model
+ * @version_number	        3.0.0
+ * @project			        Trokis Philippines
+ * @project_link	        http://www.trokis.com
+ * @author			        Chester Alan Tagudin
+ * @author_link		        http://www.chesteralan.com
+ * @generator		        CodeIgniter Model Generator (CMG)
+ */
+ 
+class Payroll_templates_employees_model extends MY_Model {
+
+	protected $template_id;
+	protected $name_id;
+	protected $order;
+	protected $template;
+	protected $print_group;
+	protected $active;
+
+	// --------------------------------------------------------------------
+
+	/**
+	* Construct 
+	* @access public
+	* @param  String
+	* @return Boolean;
+	*/
+
+	function __construct($short_name=NULL, $db_config=NULL) {
+		$this->_table_name = 'payroll_templates_employees';
+		$this->_short_name = 'payroll_templates_employees';
+		$this->_fields = array("template_id","name_id","order","template","print_group","active");
+		$this->_required = array("template_id","name_id","order");
+		parent::__construct($short_name, $db_config);
+	}
+
+	// --------------------------------------------------------------------
+
+
+// ---------------------------- Start Field: template_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `template_id` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `template_id` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getTemplateId() {
+			return $this->template_id;
+		}
+	
+// ------------------------------ End Field: template_id --------------------------------------
+
+
+// ---------------------------- Start Field: name_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `name_id` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `name_id` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getNameId() {
+			return $this->name_id;
+		}
+	
+// ------------------------------ End Field: name_id --------------------------------------
+
+
+// ---------------------------- Start Field: order -------------------------------------- 
+
+	/** 
+	* Sets a value to `order` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setOrder($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('order', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `order` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getOrder() {
+			return $this->order;
+		}
+	
+// ------------------------------ End Field: order --------------------------------------
+
+
+// ---------------------------- Start Field: template -------------------------------------- 
+
+	/** 
+	* Sets a value to `template` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setTemplate($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('template', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `template` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getTemplate() {
+			return $this->template;
+		}
+	
+// ------------------------------ End Field: template --------------------------------------
+
+
+// ---------------------------- Start Field: print_group -------------------------------------- 
+
+	/** 
+	* Sets a value to `print_group` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setPrintGroup($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('print_group', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `print_group` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getPrintGroup() {
+			return $this->print_group;
+		}
+	
+// ------------------------------ End Field: print_group --------------------------------------
+
+
+// ---------------------------- Start Field: active -------------------------------------- 
+
+	/** 
+	* Sets a value to `active` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `active` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getActive() {
+			return $this->active;
+		}
+	
+// ------------------------------ End Field: active --------------------------------------
+
+
+
+
+}
+
+/* End of file Payroll_templates_employees_model.php */
+/* Location: ./application/models/Payroll_templates_employees_model.php */
