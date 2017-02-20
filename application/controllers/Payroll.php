@@ -633,10 +633,11 @@ class Payroll extends MY_Controller {
 					$pemployee->update();
 				} else {
 					$pemployee->insert();
+					if( $pemployee->get() ) {
+						$this->_generate($id, $payroll_data, array($pemployee->get()));
+					}
 				}
-				if( $pemployee->get() ) {
-					$this->_generate($id, $payroll_data, array($pemployee->get()));
-				}
+				
 			}
 			$this->postNext();
 		}
