@@ -266,7 +266,7 @@ class Payroll_deductions extends MY_Controller {
 		$deductions->set_where('pe.active', 1);
 		
 		$deductions->set_limit(0);
-		$item_data = $deductions->populate(); print_r( $item_data );
+		$item_data = $deductions->populate(); 
 		$this->template_data->set('item_data', $item_data);
 
 		$print_groups = new $this->Terms_list_model;
