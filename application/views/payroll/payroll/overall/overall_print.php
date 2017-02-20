@@ -37,13 +37,14 @@ $total_net_pay = 0;
   <div class="payroll">
   <?php foreach($payroll_groups as $payroll_group) { ?>
  
+ <?php if($payroll_group->employees) { ?>
           <table cellspacing="0" cellpadding="0" class="table" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
               <tr class="warning highlight allcaps">
                 <th class="text-left allcaps" width="15%"><?php echo $payroll_group->name; ?></th>
 
                 <th width="5%" class="text-right">Working Days</th>
-                <th width="5%" class="text-right">Absenses</th>
+                <th width="5%" class="text-right">Absences</th>
                 <th width="5%" class="text-right">Days Present</th>
                 <th width="5%" class="text-right">Rate per day</th>
                 <th width="5%" class="text-right">Basic Salary</th>
@@ -67,13 +68,12 @@ $total_net_pay = 0;
             </thead>
             <tbody>
             
-<?php if($payroll_group->employees) { 
-
+<?php 
 foreach($payroll_group->employees as $employee) {
 
 $total_deductions = 0;
 $total_earnings = 0;
-$days_absent = ($employee->absenses_hours) ? ($employee->absenses_hours /$employee->working_hours) : 0;
+$days_absent = ($employee->absences_hours) ? ($employee->absences_hours /$employee->working_hours) : 0;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
@@ -147,12 +147,11 @@ if( $employee->salary ) {
                  ?></td>
 
               </tr>
-<?php         } 
-      } ?>
+<?php } ?>
 
             </tbody>
           </table>
-
+<?php } ?>
     <?php } ?>
 
 <table width="100%" class="total_net_pay full-border" cellspacing="0" cellpadding="0">

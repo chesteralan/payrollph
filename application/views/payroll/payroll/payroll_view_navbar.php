@@ -12,11 +12,16 @@
       </button>
       <div class="navbar-brand"><?php echo $payroll->name;  ?>
         
-        <a target="_blank" class="close" href="<?php echo site_url("payroll_overall/view/{$payroll->id}/payslip") . "?next=" . uri_string(); ?>" style="margin-left:10px"><span class="glyphicon glyphicon-th-large"></span></a>
 <?php if( $print_groups ) { ?>
-     
+
+     <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Print Payroll" data-url="<?php echo site_url("payroll/print_group/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>" style="margin-left:10px" data-hide_footer="1"><span class="glyphicon glyphicon-print"></span></a>
+
 <?php } else { ?>
+
+          <a target="_blank" class="close" href="<?php echo site_url("payroll_overall/view/{$payroll->id}/payslip") . "?next=" . uri_string(); ?>" style="margin-left:10px"><span class="glyphicon glyphicon-th-large"></span></a>
+
       <a target="_blank" class="close" href="<?php echo site_url("payroll_overall/view/{$payroll->id}/print") . "?next=" . uri_string(); ?>" style="margin-left:10px"><span class="glyphicon glyphicon-print"></span></a>
+
 <?php } ?>
         <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Payroll" data-url="<?php echo site_url("payroll/config/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>" style="margin-left:10px" data-hide_footer="1"><span class="glyphicon glyphicon-cog"></span></a>
 

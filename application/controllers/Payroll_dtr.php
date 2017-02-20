@@ -80,11 +80,11 @@ class Payroll_dtr extends MY_Controller {
 			$employees->set_where('e.group_id', $group->group_id);
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
 
-			$employees->set_select("(SELECT COUNT(*) FROM employees_absenses ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absenses");
+			$employees->set_select("(SELECT COUNT(*) FROM employees_absences ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences");
 
 			$employees->set_select('(SELECT es.hours FROM employees_salaries es WHERE es.name_id=e.name_id AND es.primary=1 AND es.trash=0) as working_hours');
 
-			$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absenses ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absenses_hours");
+			$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences_hours");
 
 			$employees->setActive('1', true);
 			$employees->set_order('pe.order', 'ASC');
@@ -98,7 +98,7 @@ class Payroll_dtr extends MY_Controller {
 		$this->load->view('payroll/payroll/dtr/dtr_view', $this->template_data->get_data());
 	}
 
-	public function absenses($id,$name_id,$output='') {
+	public function absences($id,$name_id,$output='') {
 
 		$this->template_data->set('name_id', $name_id);
 
@@ -110,9 +110,9 @@ class Payroll_dtr extends MY_Controller {
 		$inclusive_dates = new $this->Payroll_inclusive_dates_model('pid');
 		$inclusive_dates->set_select("pid.*");
 		
-		$inclusive_dates->set_select("(SELECT COUNT(*) FROM employees_absenses ea WHERE ea.name_id={$name_id} AND pid.inclusive_date=ea.date_absent) as absent");
+		$inclusive_dates->set_select("(SELECT COUNT(*) FROM employees_absences ea WHERE ea.name_id={$name_id} AND pid.inclusive_date=ea.date_absent) as absent");
 		
-		$inclusive_dates->set_select("(SELECT bl.name FROM employees_absenses ea JOIN benefits_list bl ON ea.leave_type=bl.id WHERE ea.name_id={$name_id} AND pid.inclusive_date=ea.date_absent) as leave_type");
+		$inclusive_dates->set_select("(SELECT bl.name FROM employees_absences ea JOIN benefits_list bl ON ea.leave_type=bl.id WHERE ea.name_id={$name_id} AND pid.inclusive_date=ea.date_absent) as leave_type");
 
 		$inclusive_dates->setPayrollId($id,true);
 		$inclusive_dates->set_order('inclusive_date','ASC');

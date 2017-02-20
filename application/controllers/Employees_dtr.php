@@ -12,7 +12,7 @@ class Employees_dtr extends MY_Controller {
 		$this->_isAuth('employees', 'positions', 'view');
 
 		$this->load->model('Employees_positions_model');
-		$this->load->model('Employees_absenses_model');
+		$this->load->model('Employees_absences_model');
 		$this->load->model('Employees_model');
 		$this->load->model('Benefits_list_model');
 
@@ -20,34 +20,34 @@ class Employees_dtr extends MY_Controller {
 
 	public function add_leave($name_id, $date, $output='') {
 
-		$absense = new $this->Employees_absenses_model;
-		$absense->setNameId($name_id,true);
-		$absense->setDateAbsent($date,true);
+		$absence = new $this->Employees_absences_model;
+		$absence->setNameId($name_id,true);
+		$absence->setDateAbsent($date,true);
 		if( $this->input->post() ) {
 			if( $this->input->post('absent') ) {
 				$this->form_validation->set_rules('absent', 'Absent', 'trim');
 				$this->form_validation->set_rules('hours', 'Number of Hours', 'trim');
 				$this->form_validation->set_rules('leave_type', 'Leave Type', 'trim');
 				if( $this->form_validation->run() ) {
-					$absense->setLeaveType($this->input->post('leave_type'));
+					$absence->setLeaveType($this->input->post('leave_type'));
 					$hours = ($this->input->post('hours')) ? intval($this->input->post('hours')) : 8;
-					$absense->setHours($hours);
-					$absense->setNotes($this->input->post('notes'));
-					if( $absense->nonEmpty() ) {
-						$absense->update();
+					$absence->setHours($hours);
+					$absence->setNotes($this->input->post('notes'));
+					if( $absence->nonEmpty() ) {
+						$absence->update();
 					} else {
-						$absense->insert();
+						$absence->insert();
 					}
 				}
 			} else {
 
-				if( $absense->nonEmpty() ) {
-					$absense->delete();
+				if( $absence->nonEmpty() ) {
+					$absence->delete();
 				}
 			}
 			$this->postNext();
 		}
-		$this->template_data->set('absense', $absense->get());
+		$this->template_data->set('absence', $absence->get());
 		
 		$this->template_data->set('date', $date);
 		

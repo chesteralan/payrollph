@@ -1,11 +1,11 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * Employees_absenses_model Class
+ * Employees_absences_model Class
  *
- * Manipulates `employees_absenses` table on database
+ * Manipulates `employees_absences` table on database
 
-CREATE TABLE `employees_absenses` (
+CREATE TABLE `employees_absences` (
   `name_id` int(20) NOT NULL,
   `date_absent` date NOT NULL,
   `hours` int(2) DEFAULT '8',
@@ -23,7 +23,7 @@ CREATE TABLE `employees_absenses` (
  * @generator		        CodeIgniter Model Generator (CMG)
  */
  
-class Employees_absenses_model extends MY_Model {
+class Employees_absences_model extends MY_Model {
 
 	protected $name_id;
 	protected $date_absent;
@@ -41,8 +41,8 @@ class Employees_absenses_model extends MY_Model {
 	*/
 
 	function __construct($short_name=NULL, $db_config=NULL) {
-		$this->_table_name = 'employees_absenses';
-		$this->_short_name = 'employees_absenses';
+		$this->_table_name = 'employees_absences';
+		$this->_short_name = 'employees_absences';
 		$this->_fields = array("name_id","date_absent","hours","leave_type","notes");
 		$this->_required = array("name_id","date_absent");
 		parent::__construct($short_name, $db_config);
@@ -185,5 +185,5 @@ class Employees_absenses_model extends MY_Model {
 
 }
 
-/* End of file Employees_absenses_model.php */
-/* Location: ./application/models/Employees_absenses_model.php */
+/* End of file Employees_absences_model.php */
+/* Location: ./application/models/Employees_absences_model.php */

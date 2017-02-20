@@ -12,7 +12,7 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Add Leave / Absense <strong>(<?php echo date('F d, Y', strtotime($date)); ?>)</strong></h3>
+          <h3 class="panel-title">Add Leave / Absence <strong>(<?php echo date('F d, Y', strtotime($date)); ?>)</strong></h3>
         </div>
         <form method="post">
         <div class="panel-body">
@@ -20,32 +20,32 @@
 <?php endif; ?>
           
            <div class="form-group">
-                <p><label><input name="absent" type="checkbox" value="1" <?php echo ($absense) ? 'CHECKED' : ''; ?>> Employee is Absent</label></p>
+                <p><label><input name="absent" type="checkbox" value="1" <?php echo ($absence) ? 'CHECKED' : ''; ?>> Employee is Absent</label></p>
             </div>
 
+      <div class="row">
+      <div class="col-md-6">
           <div class="form-group">
             <label>Leave Type</label>
             <select class="form-control" title="Leave Type" name="leave_type">
-                <option value="" <?php echo (($absense) && ($absense->leave_type==0)) ? 'SELECTED' : ''; ?>>Absense without Leave</option>
+                <option value="" <?php echo (($absence) && ($absence->leave_type==0)) ? 'SELECTED' : ''; ?>>Absence without Leave</option>
                 <?php foreach($leaves as $leave) { ?>
-                  <option value="<?php echo $leave->id; ?>" <?php echo (($absense) && ($absense->leave_type==$leave->id)) ? 'SELECTED' : ''; ?>><?php echo $leave->name; ?></option>
+                  <option value="<?php echo $leave->id; ?>" <?php echo (($absence) && ($absence->leave_type==$leave->id)) ? 'SELECTED' : ''; ?>><?php echo $leave->name; ?></option>
                 <?php } ?>
             </select>
           </div>
-
-      <div class="row">
+      </div>
         <div class="col-md-6">
           <div class="form-group">
             <label>Number of Hours</label>
-            <input name="hours" type="text" class="form-control text-center" value="<?php echo ($absense) ? $absense->hours : $employee->working_hours; ?>" required>
+            <input name="hours" type="text" class="form-control text-center" value="<?php echo ($absence) ? $absence->hours : $employee->working_hours; ?>" required>
           </div>
         </div>
-        <div class="col-md-6"></div>
       </div>
 
     <div class="form-group">
       <label>Notes</label>
-      <textarea name="notes" class="form-control" rows="3"><?php echo ($absense) ? $absense->notes : ''; ?></textarea>
+      <textarea name="notes" class="form-control" rows="3"><?php echo ($absence) ? $absence->notes : ''; ?></textarea>
     </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>

@@ -47,7 +47,7 @@ if( $employee->payslip_template == 'payslip'):
 
 <?php 
 
-$days_absent = $employee->absenses;
+$days_absent = $employee->absences;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
@@ -215,7 +215,7 @@ foreach( $earnings_columns as $column ) {
 
 <?php 
 
-$days_absent = $employee->absenses;
+$days_absent = $employee->absences;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;

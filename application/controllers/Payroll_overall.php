@@ -36,7 +36,7 @@ class Payroll_overall extends MY_Controller {
 		redirect("payroll");
 	}
 	
-	public function view($id, $group='0', $output='print') {
+	public function view($id, $print_group=0, $output='print') {
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
@@ -106,11 +106,11 @@ class Payroll_overall extends MY_Controller {
 			$employees->set_where('e.group_id', $group->group_id);
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
 
-			$employees->set_select("(SELECT COUNT(*) FROM employees_absenses ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absenses");
+			$employees->set_select("(SELECT COUNT(*) FROM employees_absences ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences");
 
 			$employees->set_select('(SELECT es.hours FROM employees_salaries es WHERE es.name_id=e.name_id AND es.primary=1 AND es.trash=0) as working_hours');
 
-			$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absenses ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absenses_hours");
+			$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences_hours");
 
 			foreach($columns_earnings as $column) {
 				$employees->set_select(sprintf('(SELECT SUM(amount) FROM payroll_employees_earnings pee WHERE pee.payroll_id=%s AND pee.name_id=pe.name_id AND pee.earning_id=%s) as earnings_%s', $id, $column->id, $column->id));
@@ -127,6 +127,9 @@ class Payroll_overall extends MY_Controller {
 			}
 
 			$employees->setActive('1', true);
+			if( $print_group > 0 ) {
+				$employees->setPrintGroup($print_group, true);
+			}
 			$employees->set_order('pe.order', 'ASC');
 			$employees->set_limit(0);
 

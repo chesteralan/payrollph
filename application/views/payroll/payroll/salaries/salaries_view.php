@@ -28,7 +28,7 @@
                 <th><?php echo $payroll_group->name; ?></th>
 <!--
                 <th width="10%" class="text-right">Working Days</th>
-                <th width="10%" class="text-right">Absenses</th>
+                <th width="10%" class="text-right">Absences</th>
 -->
                 <th width="10%" class="text-right">Days Present</th>
                 <th width="10%" class="text-right">Rate per day</th>
@@ -41,7 +41,7 @@
             
 <?php if($payroll_group->employees) { 
               foreach($payroll_group->employees as $employee) {
-$days_absent = $employee->absenses;
+$days_absent = $employee->absences;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;

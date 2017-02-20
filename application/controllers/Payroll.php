@@ -211,6 +211,25 @@ class Payroll extends MY_Controller {
 		$this->load->view('payroll/payroll/payroll_config', $this->template_data->get_data());
 	}
 
+	public function print_group($id,$output='') {
+		$this->_isAuth('payroll', 'payroll', 'edit');
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$this->template_data->set('payroll', $payroll->get());
+
+		$print_groups = new $this->Terms_list_model;
+		$print_groups->set_select("*");
+		$print_groups->set_order('name', 'ASC');
+		$print_groups->set_start(0);
+		$print_groups->setTrash('0',true);
+		$print_groups->setType('print_group',true);
+		$this->template_data->set('print_groups', $print_groups->populate());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/payroll_print', $this->template_data->get_data());
+	}
+
 	public function inclusive_dates($id,$output='') {
 		$this->_isAuth('payroll', 'payroll', 'edit');
 

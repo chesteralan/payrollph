@@ -18,7 +18,6 @@ CREATE TABLE `benefits_list` (
   `ee_account_title` varchar(200) DEFAULT NULL,
   `er_account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
-  `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 );
 
@@ -30,7 +29,6 @@ CREATE TABLE `deductions_list` (
   `notes` text,
   `account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
-  `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 );
 
@@ -42,7 +40,6 @@ CREATE TABLE `earnings_list` (
   `notes` text,
   `account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
-  `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 );
 
@@ -57,7 +54,7 @@ CREATE TABLE `employees` (
   `position_id` int(20) DEFAULT NULL,
   `area_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,
-  `status` int(20) DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL,
   `notes` text,
   `phone_number` varchar(100) DEFAULT NULL,
   `address` text,
@@ -68,9 +65,9 @@ CREATE TABLE `employees` (
   KEY `area_id` (`area_id`)
 );
 
--- Table structure for table `employees_absenses` 
+-- Table structure for table `employees_absences` 
 
-CREATE TABLE `employees_absenses` (
+CREATE TABLE `employees_absences` (
   `name_id` int(20) NOT NULL,
   `date_absent` date NOT NULL,
   `hours` int(2) DEFAULT '8',
