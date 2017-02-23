@@ -57,7 +57,7 @@
                 <?php } ?>
               <?php if( hasAccess('payroll', 'payroll', 'edit') ) { ?>
                 <td>
-<?php if( $payroll->groups_count > 0 ) { ?>
+<?php if(( $payroll->employees_count > 0 ) && ( $payroll->working_days > 0 )) { ?>
 
       <a class="btn btn-success btn-xs body_wrapper" href="<?php echo site_url("payroll_dtr/view/{$payroll->id}"); ?>">View</a>
 

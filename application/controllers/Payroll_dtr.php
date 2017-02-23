@@ -72,6 +72,10 @@ class Payroll_dtr extends MY_Controller {
 		$dates_data = $inclusive_dates->get();
 		$this->template_data->set('inclusive_dates', $dates_data);
 
+		if( $dates_data->working_days == 0 ) {
+			redirect("payroll");
+		}
+
 		foreach($payroll_group_data as $key=>$group) {
 			$employees = new $this->Payroll_employees_model('pe');
 			$employees->setPayrollId($id,true);

@@ -52,7 +52,8 @@ class Payroll extends MY_Controller {
 		$payrolls->setActive(1,true);
 		$payrolls->set_select('*');
 		$payrolls->set_select('(SELECT name FROM payroll_templates WHERE id=payroll.template_id) as template_name');
-		$payrolls->set_select('(SELECT COUNT(*) FROM payroll_groups WHERE payroll_id=payroll.id) as groups_count');
+		$payrolls->set_select('(SELECT COUNT(*) FROM payroll_employees WHERE payroll_id=payroll.id) as employees_count');
+		$payrolls->set_select('(SELECT COUNT(*) FROM payroll_inclusive_dates WHERE payroll_id=payroll.id) as working_days');
 		$payrolls->set_start($start);
 		$payrolls->set_order('year', 'DESC');
 		$payrolls->set_order('month', 'DESC');
@@ -230,24 +231,30 @@ class Payroll extends MY_Controller {
 				$this->form_validation->set_rules('inclusive_date[]', 'Inclusive Date', 'trim|required');
 				
 				if( $this->form_validation->run() ) {
-					foreach( $this->input->post('inclusive_date') as $list_date ) {
-						if( ! in_array($list_date, $this->input->post('selected')) ) {
-							$inc_date = new $this->Payroll_inclusive_dates_model;
-							$inc_date->setPayrollId($id,true);
-							$inc_date->setInclusiveDate($list_date,true);
-							if( $inc_date->nonEmpty() ) {
-								$inc_date->delete();
+					if( $this->input->post('selected') ) {
+						foreach( $this->input->post('inclusive_date') as $list_date ) {
+							if( ! in_array($list_date, $this->input->post('selected')) ) {
+								$inc_date = new $this->Payroll_inclusive_dates_model;
+								$inc_date->setPayrollId($id,true);
+								$inc_date->setInclusiveDate($list_date,true);
+								if( $inc_date->nonEmpty() ) {
+									$inc_date->delete();
+								}
 							}
 						}
-					}
 
-					foreach($this->input->post('selected') as $selected) {
-						$sel_dates = new $this->Payroll_inclusive_dates_model;
-						$sel_dates->setPayrollId($id);
-						$sel_dates->setInclusiveDate($selected,true);
-						if( $sel_dates->nonEmpty() == false) {
-							$sel_dates->insert();
+						foreach($this->input->post('selected') as $selected) {
+							$sel_dates = new $this->Payroll_inclusive_dates_model;
+							$sel_dates->setPayrollId($id);
+							$sel_dates->setInclusiveDate($selected,true);
+							if( $sel_dates->nonEmpty() == false) {
+								$sel_dates->insert();
+							}
 						}
+					} else {
+						$inc_date = new $this->Payroll_inclusive_dates_model;
+						$inc_date->setPayrollId($id,true);
+						$inc_date->delete();
 					}
 				}
 
