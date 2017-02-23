@@ -77,8 +77,10 @@ $days_absent = ($employee->absences_hours) ? ($employee->absences_hours /$employ
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
+$cola = 0;
 if( $employee->salary ) {
   $salary = $employee->salary;
+  $cola = $salary->cola;
   switch( $salary->rate_per ) {
     case 'month':
       $monthly_rate = $salary->amount;
@@ -109,7 +111,7 @@ if( $employee->salary ) {
                 <td class="text-right"><?php $present_days = $inclusive_dates->working_days - $days_absent; echo $present_days; ?></td>
                 <td class="text-right"><?php echo number_format($daily_rate,2); ?></td>
                 <td class="text-right"><?php $basic_salary = ($daily_rate * $present_days); echo number_format($basic_salary,2); ?></td>
-                <td class="text-right"><?php $cola = ($salary->cola * $present_days); echo number_format($cola,2); ?></td>
+                <td class="text-right"><?php $cola = ($cola * $present_days); echo number_format($cola,2); ?></td>
 
                 <td class="text-right"><?php $gross_pay = ($basic_salary + $cola); echo number_format($gross_pay,2); ?></td>
 
