@@ -55,6 +55,7 @@ CREATE TABLE `employees` (
   `firstname` varchar(100) NOT NULL,
   `middlename` varchar(100) NOT NULL,
   `position_id` int(20) DEFAULT NULL,
+  `area_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
   `notes` text,
@@ -86,6 +87,16 @@ CREATE TABLE `employees_absenses` (
   `leave_type` int(20) DEFAULT NULL,
   `notes` text,
   KEY `name_id` (`name_id`,`date_absent`)
+);
+
+-- Table structure for table `employees_areas` 
+
+CREATE TABLE `employees_areas` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `notes` text,
+  `trash` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
 );
 
 -- Table structure for table `employees_benefits` 
