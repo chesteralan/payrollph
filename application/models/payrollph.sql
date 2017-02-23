@@ -18,6 +18,7 @@ CREATE TABLE `benefits_list` (
   `ee_account_title` varchar(200) DEFAULT NULL,
   `er_account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
+  `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 );
 
@@ -29,6 +30,7 @@ CREATE TABLE `deductions_list` (
   `notes` text,
   `account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
+  `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 );
 
@@ -40,6 +42,7 @@ CREATE TABLE `earnings_list` (
   `notes` text,
   `account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
+  `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 );
 
@@ -52,7 +55,6 @@ CREATE TABLE `employees` (
   `firstname` varchar(100) NOT NULL,
   `middlename` varchar(100) NOT NULL,
   `position_id` int(20) DEFAULT NULL,
-  `area_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
   `notes` text,
@@ -61,8 +63,7 @@ CREATE TABLE `employees` (
   `trash` int(1) NOT NULL DEFAULT '0',
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),
-  KEY `position_id` (`position_id`),
-  KEY `area_id` (`area_id`)
+  KEY `position_id` (`position_id`)
 );
 
 -- Table structure for table `employees_absences` 
@@ -76,14 +77,15 @@ CREATE TABLE `employees_absences` (
   KEY `name_id` (`name_id`,`date_absent`)
 );
 
--- Table structure for table `employees_areas` 
+-- Table structure for table `employees_absenses` 
 
-CREATE TABLE `employees_areas` (
-  `id` int(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) NOT NULL,
+CREATE TABLE `employees_absenses` (
+  `name_id` int(20) NOT NULL,
+  `date_absent` date NOT NULL,
+  `hours` int(2) DEFAULT '8',
+  `leave_type` int(20) DEFAULT NULL,
   `notes` text,
-  `trash` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  KEY `name_id` (`name_id`,`date_absent`)
 );
 
 -- Table structure for table `employees_benefits` 
@@ -231,8 +233,9 @@ CREATE TABLE `payroll_employees` (
   `payroll_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `order` int(2) NOT NULL DEFAULT '0',
+  `payslip` int(1) DEFAULT '1',
   `template` varchar(20) DEFAULT 'payslip',
-  `print_group` int(20) DEFAULT NULL,
+  `print_group` int(20) DEFAULT '0',
   `active` int(1) DEFAULT '1',
   KEY `name_id` (`payroll_id`,`name_id`)
 );
