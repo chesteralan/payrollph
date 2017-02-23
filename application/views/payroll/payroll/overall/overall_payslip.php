@@ -106,13 +106,15 @@ if( floatval( $gross_pay ) ) {
 </tr>
 </table>
 <?php } ?>
-<?php if( $earnings_columns ) { ?>
+<?php 
+$total_earnings = 0;
+if( $earnings_columns ) { ?>
  <table width="100%" class="table table-details" cellpadding="0" cellspacing="0">
  <tr>
    <td colspan="2" class="allcaps bold">Other Earnings</td>
  </tr>
 <?php 
-$total_earnings = 0;
+
 foreach( $earnings_columns as $column ) {
 ?>
 <tr>
@@ -132,8 +134,9 @@ foreach( $earnings_columns as $column ) {
 </tr>
 </table>
 <?php } ?>
-<?php if( $benefits_columns || $deductions_columns ) { 
+<?php 
  $total_deductions = 0;
+if( $benefits_columns || $deductions_columns ) { 
   ?>
 <table width="100%" class="table table-details" cellpadding="0" cellspacing="0">
    <tr>
@@ -301,8 +304,9 @@ foreach( $earnings_columns as $column ) {
 </tr>
 </table>
 <?php } ?>
-<?php if( $benefits_columns || $deductions_columns ) { 
+<?php 
  $total_deductions = 0;
+if( $benefits_columns || $deductions_columns ) { 
   ?>
 <table width="100%" class="table table-details" cellpadding="0" cellspacing="0">
    <tr>
