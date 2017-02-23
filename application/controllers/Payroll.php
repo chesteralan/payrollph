@@ -26,6 +26,7 @@ class Payroll extends MY_Controller {
 		$this->load->model('Payroll_employees_benefits_model');
 
 		$this->load->model('Payroll_templates_groups_model');
+		$this->load->model('Payroll_templates_employees_model');
 		$this->load->model('Payroll_templates_benefits_model');
 		$this->load->model('Payroll_templates_earnings_model');
 		$this->load->model('Payroll_templates_deductions_model');
@@ -186,25 +187,7 @@ class Payroll extends MY_Controller {
 			$inclusive_dates = true;
 		}
 		$this->template_data->set('inclusive_dates', $inclusive_dates);
-/*
-		$payroll_earning = new $this->Payroll_earnings_model;
-		$payroll_earning->setPayrollId($id,true);
-		if( $payroll_earning->nonEmpty() ) {
-			$generate = false;
-		}
 
-		$payroll_deduction = new $this->Payroll_deductions_model;
-		$payroll_deduction->setPayrollId($id,true);
-		if( $payroll_deduction->nonEmpty() ) {
-			$generate = false;
-		}
-
-		$payroll_benefit = new $this->Payroll_benefits_model;
-		$payroll_benefit->setPayrollId($id,true);
-		if( $payroll_benefit->nonEmpty() ) {
-			$generate = false;
-		}
-*/
 		$this->template_data->set('generate', $generate);
 
 		$this->template_data->set('output', $output);
@@ -522,7 +505,7 @@ class Payroll extends MY_Controller {
 				$employees->set_limit(0);
 				$employees->set_where('e.group_id', $group->group_id);
 				$employees->set_where('pte.active', 1);
-				$employees->set_join('payroll_templates_employees pte', 'pte.name_id=e.name_id');
+				$employees->set_join('payroll_templates_employees pte', 'pte.name_id=e.name_id', 'RIGHT');
 				$employees->set_select('pte.active');
 				$employees->set_select('pte.template');
 				$employees->set_select('pte.print_group');
@@ -557,7 +540,6 @@ class Payroll extends MY_Controller {
 	public function groups($id, $output='') {
 
 		if( $this->input->post() ) {
-
 			foreach( $this->input->post('group') as $group_id ) {
 				if( ! in_array($group_id, $this->input->post('selected')) ) {
 					$pgroup = new $this->Payroll_groups_model;
@@ -581,7 +563,6 @@ class Payroll extends MY_Controller {
 					$pgroup->insert();
 				}
 			}
-
 			$this->postNext();
 		}
 

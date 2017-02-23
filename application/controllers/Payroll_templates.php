@@ -164,6 +164,19 @@ class Payroll_templates extends MY_Controller {
 				} else {
 					$pgroup->insert();
 				}
+				
+				$employees = new $this->Employees_model('e');
+				$employees->set_select('e.*');
+				$employees->set_limit(0);
+				$employees->set_where('e.group_id', $selected_id);
+				foreach($employees->populate() as $employee) {
+					$pte = new $this->Payroll_templates_employees_model('pte');
+					$pte->setTemplateId($id,true);
+					$pte->setNameId($employee->name_id,true);
+					if( $pte->nonEmpty() === FALSE ) {
+						$pte->insert();
+					}
+				}
 			}
 
 			$this->postNext();
