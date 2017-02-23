@@ -41,7 +41,7 @@
             
 <?php if($payroll_group->employees) { 
               foreach($payroll_group->employees as $employee) {
-$days_absent = $employee->absences;
+$days_absent = ($employee->absences_hours) ? ($employee->absences_hours /$employee->working_hours) : 0;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
