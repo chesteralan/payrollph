@@ -78,17 +78,6 @@ CREATE TABLE `employees_absences` (
   KEY `name_id` (`name_id`,`date_absent`)
 );
 
--- Table structure for table `employees_absenses` 
-
-CREATE TABLE `employees_absenses` (
-  `name_id` int(20) NOT NULL,
-  `date_absent` date NOT NULL,
-  `hours` int(2) DEFAULT '8',
-  `leave_type` int(20) DEFAULT NULL,
-  `notes` text,
-  KEY `name_id` (`name_id`,`date_absent`)
-);
-
 -- Table structure for table `employees_areas` 
 
 CREATE TABLE `employees_areas` (
