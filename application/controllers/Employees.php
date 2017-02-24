@@ -54,6 +54,7 @@ class Employees extends MY_Controller {
 		$employees->set_select('(SELECT name FROM employees_groups WHERE id=employees.group_id) as group_name');
 		$employees->set_select('(SELECT name FROM employees_positions WHERE id=employees.position_id) as position_name');
 		$employees->set_select('(SELECT name FROM employees_areas WHERE id=employees.area_id) as area_name');
+		$employees->set_start($start);
 		$this->template_data->set('employees', $employees->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
@@ -79,6 +80,7 @@ class Employees extends MY_Controller {
 		$employees->set_select('(SELECT name FROM employees_groups WHERE id=employees.group_id) as group_name');
 		$employees->set_select('(SELECT name FROM employees_positions WHERE id=employees.position_id) as position_name');
 		$employees->set_select('(SELECT name FROM employees_areas WHERE id=employees.area_id) as area_name');
+		$employees->set_start($start);
 		$this->template_data->set('employees', $employees->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
@@ -104,6 +106,7 @@ class Employees extends MY_Controller {
 		$employees->set_select('(SELECT name FROM employees_groups WHERE id=employees.group_id) as group_name');
 		$employees->set_select('(SELECT name FROM employees_positions WHERE id=employees.position_id) as position_name');
 		$employees->set_select('(SELECT name FROM employees_areas WHERE id=employees.area_id) as area_name');
+		$employees->set_start($start);
 		$this->template_data->set('employees', $employees->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
