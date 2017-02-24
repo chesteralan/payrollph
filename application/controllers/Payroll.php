@@ -83,7 +83,8 @@ class Payroll extends MY_Controller {
 		$payrolls->setActive(1,true);
 		$payrolls->set_select('*');
 		$payrolls->set_select('(SELECT name FROM payroll_templates WHERE id=payroll.template_id) as template_name');
-		$payrolls->set_select('(SELECT COUNT(*) FROM payroll_groups WHERE payroll_id=payroll.id) as groups_count');
+		$payrolls->set_select('(SELECT COUNT(*) FROM payroll_employees WHERE payroll_id=payroll.id) as employees_count');
+		$payrolls->set_select('(SELECT COUNT(*) FROM payroll_inclusive_dates WHERE payroll_id=payroll.id) as working_days');
 		$payrolls->setTemplateId($id,true);
 		$payrolls->set_start($start);
 		$this->template_data->set('payrolls', $payrolls->populate());
