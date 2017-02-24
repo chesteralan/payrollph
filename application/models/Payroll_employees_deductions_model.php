@@ -11,7 +11,7 @@ CREATE TABLE `payroll_employees_deductions` (
   `name_id` int(20) NOT NULL,
   `deduction_id` int(20) NOT NULL,
   `entry_id` int(20) NOT NULL,
-  `amount` decimal(10,5) NOT NULL,
+  `amount` decimal(30,5) NOT NULL,
   `notes` text,
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`payroll_id`,`deduction_id`)

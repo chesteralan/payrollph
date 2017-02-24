@@ -64,7 +64,8 @@ CREATE TABLE `employees` (
   `trash` int(1) NOT NULL DEFAULT '0',
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),
-  KEY `position_id` (`position_id`)
+  KEY `position_id` (`position_id`),
+  KEY `area_id` (`area_id`)
 );
 
 -- Table structure for table `employees_absences` 
@@ -94,8 +95,8 @@ CREATE TABLE `employees_benefits` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name_id` int(20) NOT NULL,
   `benefit_id` int(20) NOT NULL,
-  `employee_share` decimal(10,5) NOT NULL,
-  `employer_share` decimal(10,5) NOT NULL,
+  `employee_share` decimal(30,5) NOT NULL,
+  `employer_share` decimal(30,5) NOT NULL,
   `start_date` date DEFAULT NULL,
   `primary` int(1) DEFAULT '0',
   `trash` int(1) DEFAULT '1',
@@ -110,8 +111,8 @@ CREATE TABLE `employees_deductions` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name_id` int(20) NOT NULL,
   `deduction_id` int(20) NOT NULL,
-  `amount` decimal(10,5) NOT NULL,
-  `max_amount` decimal(10,5) DEFAULT '0.00000',
+  `amount` decimal(30,5) NOT NULL,
+  `max_amount` decimal(30,5) DEFAULT '0.00000',
   `start_date` date DEFAULT NULL,
   `computed` varchar(10) DEFAULT '',
   `active` int(1) DEFAULT '0',
@@ -127,8 +128,8 @@ CREATE TABLE `employees_earnings` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name_id` int(20) NOT NULL,
   `earning_id` int(20) NOT NULL,
-  `amount` decimal(10,5) NOT NULL,
-  `max_amount` decimal(10,5) DEFAULT '0.00000',
+  `amount` decimal(30,5) NOT NULL,
+  `max_amount` decimal(30,5) DEFAULT '0.00000',
   `start_date` date DEFAULT NULL,
   `computed` varchar(10) DEFAULT NULL,
   `active` int(1) DEFAULT '0',
@@ -163,7 +164,7 @@ CREATE TABLE `employees_positions` (
 CREATE TABLE `employees_salaries` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name_id` int(20) NOT NULL,
-  `amount` decimal(10,5) NOT NULL DEFAULT '0.00000',
+  `amount` decimal(30,5) NOT NULL DEFAULT '0.00000',
   `rate_per` varchar(10) NOT NULL DEFAULT 'month',
   `days` int(10) NOT NULL DEFAULT '26',
   `hours` int(10) NOT NULL DEFAULT '8',
@@ -233,9 +234,8 @@ CREATE TABLE `payroll_employees` (
   `payroll_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `order` int(2) NOT NULL DEFAULT '0',
-  `payslip` int(1) DEFAULT '1',
   `template` varchar(20) DEFAULT 'payslip',
-  `print_group` int(20) DEFAULT '0',
+  `print_group` int(20) DEFAULT NULL,
   `active` int(1) DEFAULT '1',
   KEY `name_id` (`payroll_id`,`name_id`)
 );
@@ -248,8 +248,8 @@ CREATE TABLE `payroll_employees_benefits` (
   `name_id` int(20) NOT NULL,
   `benefit_id` int(20) NOT NULL,
   `entry_id` int(20) NOT NULL,
-  `employee_share` decimal(10,5) DEFAULT '0.00000',
-  `employer_share` decimal(10,5) DEFAULT '0.00000',
+  `employee_share` decimal(30,5) DEFAULT '0.00000',
+  `employer_share` decimal(30,5) DEFAULT '0.00000',
   `notes` text,
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`),
@@ -265,7 +265,7 @@ CREATE TABLE `payroll_employees_deductions` (
   `name_id` int(20) NOT NULL,
   `deduction_id` int(20) NOT NULL,
   `entry_id` int(20) NOT NULL,
-  `amount` decimal(10,5) NOT NULL,
+  `amount` decimal(30,5) NOT NULL,
   `notes` text,
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`payroll_id`,`deduction_id`)
@@ -279,7 +279,7 @@ CREATE TABLE `payroll_employees_earnings` (
   `name_id` int(20) NOT NULL,
   `earning_id` int(20) NOT NULL,
   `entry_id` int(20) NOT NULL,
-  `amount` decimal(10,5) NOT NULL,
+  `amount` decimal(30,5) NOT NULL,
   `notes` text,
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`payroll_id`,`earning_id`)
@@ -291,7 +291,7 @@ CREATE TABLE `payroll_employees_salaries` (
   `payroll_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `salary_id` int(20) NOT NULL,
-  `amount` decimal(10,5) DEFAULT '0.00000',
+  `amount` decimal(30,5) DEFAULT '0.00000',
   `notes` text,
   KEY `name_id` (`name_id`),
   KEY `payroll_id` (`payroll_id`)

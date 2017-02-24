@@ -9,7 +9,7 @@ CREATE TABLE `payroll_employees_salaries` (
   `payroll_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `salary_id` int(20) NOT NULL,
-  `amount` decimal(10,5) DEFAULT '0.00000',
+  `amount` decimal(30,5) DEFAULT '0.00000',
   `notes` text,
   KEY `name_id` (`name_id`),
   KEY `payroll_id` (`payroll_id`)

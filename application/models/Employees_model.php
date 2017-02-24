@@ -21,7 +21,8 @@ CREATE TABLE `employees` (
   `trash` int(1) NOT NULL DEFAULT '0',
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),
-  KEY `position_id` (`position_id`)
+  KEY `position_id` (`position_id`),
+  KEY `area_id` (`area_id`)
 );
 
  * @package			        Model

@@ -8,7 +8,7 @@
 CREATE TABLE `employees_salaries` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name_id` int(20) NOT NULL,
-  `amount` decimal(10,5) NOT NULL DEFAULT '0.00000',
+  `amount` decimal(30,5) NOT NULL DEFAULT '0.00000',
   `rate_per` varchar(10) NOT NULL DEFAULT 'month',
   `days` int(10) NOT NULL DEFAULT '26',
   `hours` int(10) NOT NULL DEFAULT '8',
