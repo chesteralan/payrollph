@@ -83,7 +83,7 @@ class Employees extends MY_Controller {
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'uri_segment' => 4,
-			'base_url' => base_url($this->config->item('index_page') . "/employees/group/{$id}"),
+			'base_url' => base_url($this->config->item('index_page') . "/employees/position/{$id}"),
 			'total_rows' => $employees->count_all_results(),
 			'per_page' => $employees->get_limit(),
 			'ajax'=>true
