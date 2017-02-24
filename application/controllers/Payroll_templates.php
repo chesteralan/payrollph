@@ -175,6 +175,8 @@ class Payroll_templates extends MY_Controller {
 					$pte->setNameId($employee->name_id,true);
 					if( $pte->nonEmpty() === FALSE ) {
 						$pte->insert();
+					} else {
+						$pte->update();
 					}
 				}
 			}
@@ -243,6 +245,7 @@ class Payroll_templates extends MY_Controller {
 		$employees->set_select('pte.active');
 		$employees->set_select('pte.template');
 		$employees->set_select('pte.print_group');
+		$employees->set_where('pte.template_id', $id);
 		$this->template_data->set('employees', $employees->populate());
 
 		$print_groups = new $this->Terms_list_model;
