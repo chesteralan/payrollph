@@ -39,7 +39,7 @@ class Payroll_earnings extends MY_Controller {
 		$payroll->set_select("*");
 		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pe WHERE pe.payroll_id=payroll.id) as earnings_columns");
 		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_benefits` pb WHERE pb.payroll_id=payroll.id) as benefits_columns");
-		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_deductions` pd WHERE pd.payroll_id=payroll.id) as deductions_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pd WHERE pd.payroll_id=payroll.id) as earnings_columns");
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
@@ -215,6 +215,81 @@ class Payroll_earnings extends MY_Controller {
 		$earning_data = $earnings->get();
 		$earnings->delete();
 		redirect("payroll_earnings/view/{$earning_data->payroll_id}");
+
+	}
+
+	public function item_schedule($id,$earning_id,$output='') {
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$payroll->set_select("*");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pe WHERE pe.payroll_id=payroll.id) as earnings_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_benefits` pb WHERE pb.payroll_id=payroll.id) as benefits_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pd WHERE pd.payroll_id=payroll.id) as earnings_columns");
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$earning_list = new $this->Earnings_list_model;
+		$earning_list->setId($earning_id,true);
+		$this->template_data->set('earning_data', $earning_list->get());
+
+
+		$earnings = new $this->Payroll_employees_earnings_model('ped');
+		$earnings->setPayrollId($id,true);
+		$earnings->setearningId($earning_id,true);
+		$earnings->set_select("ped.*");
+		$earnings->set_select("(SELECT ed.max_amount FROM employees_earnings ed WHERE ed.id=ped.entry_id) as max_amount");
+
+		$earnings->set_select("(SELECT SUM(ped2.amount) FROM payroll_employees_earnings ped2 WHERE ped.name_id=ped2.name_id AND ped.earning_id=ped2.earning_id AND ped2.entry_id=ped.entry_id AND ped2.id!=ped.id) as amount_paid");
+
+		$earnings->set_select("e.*");
+		$earnings->set_join("employees e", 'e.name_id=ped.name_id');
+
+		$earnings->set_order('e.lastname', 'ASC');
+		$earnings->set_order('e.firstname', 'ASC');
+		$earnings->set_order('e.middlename', 'ASC');
+
+		$earnings->set_join("payroll_employees pe", 'pe.name_id=ped.name_id');
+		$earnings->set_where('pe.active', 1);
+		
+		$earnings->set_limit(0);
+		$item_data = $earnings->populate(); 
+		$this->template_data->set('item_data', $item_data);
+
+		$print_groups = new $this->Terms_list_model;
+		$print_groups->set_select("*");
+		$print_groups->set_order('name', 'ASC');
+		$print_groups->set_start(0);
+		$print_groups->setTrash('0',true);
+		$print_groups->setType('print_group',true);
+		$this->template_data->set('print_groups', $print_groups->populate());
+
+		$this->template_data->set('output', $output);
+		if( $output == 'print') {
+
+			// inclusive dates
+			$inclusive_dates = new $this->Payroll_inclusive_dates_model;
+			$inclusive_dates->setPayrollId($id,true);
+			$inclusive_dates->set_select('COUNT(*) as working_days');
+			$inclusive_dates->set_select('MIN(inclusive_date) as start_date');
+			$inclusive_dates->set_select('MAX(inclusive_date) as end_date');
+			$dates_data = $inclusive_dates->get();
+			$this->template_data->set('inclusive_dates', $dates_data);
+
+			// template
+			$template = new $this->Payroll_templates_model;
+			$template->setId( $payroll_data->template_id , true);
+			$template->set_join('names_list cnl', 'cnl.id=payroll_templates.checked_by');
+			$template->set_join('names_list anl', 'anl.id=payroll_templates.approved_by');
+			$template->set_select('payroll_templates.*');
+			$template->set_select('cnl.full_name as checked_by_name');
+			$template->set_select('anl.full_name as approved_by_name');
+			$this->template_data->set('template', $template->get());
+
+			$this->load->view('payroll/payroll/earnings/earnings_item_schedule_print', $this->template_data->get_data());
+		} else {
+			$this->load->view('payroll/payroll/earnings/earnings_item_schedule', $this->template_data->get_data());
+		}
 
 	}
 

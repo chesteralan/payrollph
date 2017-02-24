@@ -24,7 +24,7 @@
 </div>
 
 <div class="full-border padding3">
-  <h3><?php echo $deduction_data->name; ?> - <?php echo $deduction_data->notes; ?></h3>
+  <h3><?php echo $earning_data->name; ?> - <?php echo $earning_data->notes; ?></h3>
   For the period covered <?php echo date('F d, Y', strtotime($inclusive_dates->start_date)); ?> - <?php echo date('F d, Y', strtotime($inclusive_dates->end_date)); ?>
 </div>
 
@@ -57,7 +57,7 @@ $total_payment += $item->amount;
               ?>
               <tr>
                 <td><?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?>
-                <a href="<?php echo site_url("employees_deductions/view/{$item->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper"><span class="glyphicon glyphicon-cog"></span></a>
+                <a href="<?php echo site_url("employees_earnings/view/{$item->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper"><span class="glyphicon glyphicon-cog"></span></a>
                 </td>
                 <td class="text-right"><?php echo number_format($item->max_amount,2); ?></td>
                 <td class="text-right"><?php echo number_format($item->amount_paid,2); ?></td>

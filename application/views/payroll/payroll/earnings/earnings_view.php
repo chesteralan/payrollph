@@ -20,6 +20,13 @@
 
 <?php if( $payroll_groups && $earnings_columns ) { ?>
   
+<?php
+$total = array();
+foreach( $earnings_columns as $column ) { 
+  $total[$column->id] = 0;
+}
+?>
+
   <?php foreach($payroll_groups as $payroll_group) { ?>
  
           <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
@@ -50,7 +57,9 @@ $total_earnings = 0;
                     <?php 
                     $var = 'earnings_' . $column->id;
                     $total_earnings += $employee->$var;
-                    echo number_format($employee->$var,2); ?>
+                    $total[$column->id] += $employee->$var;
+                    echo number_format($employee->$var,2); 
+                    ?>
 </a>
                     </td>
                 <?php } ?>
@@ -63,6 +72,36 @@ $total_earnings = 0;
           </table>
 
     <?php } ?>
+
+    <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
+            <thead>
+              <tr class="warning">
+                <th>TOTAL</th>
+<?php if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
+                <th width="10%" class="text-right"><?php echo $column->name; ?></th>
+<?php } ?>
+  <th width="10%" class="text-right">TOTAL</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr class="success">
+            <td></td>
+<?php 
+$total_earnings = 0;
+if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
+                <td class="text-right">
+                <a href="<?php echo site_url("payroll_earnings/item_schedule/{$payroll->id}/{$column->id}"); ?>" class="body_wrapper">
+                  <strong><?php 
+$total_earnings += $total[$column->id];
+                  echo number_format($total[$column->id],2);?></strong>
+                  </a>
+                </td>
+<?php } ?>
+                <td class="text-right"><strong><?php echo number_format($total_earnings,2); ?></strong></td>
+  </tr>
+            </tbody>
+            </table>
+
 <?php } else { ?>
 
   <div class="text-center">No Group and/or Earnings Assigned!</div>

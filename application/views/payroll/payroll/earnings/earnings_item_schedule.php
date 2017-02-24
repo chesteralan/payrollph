@@ -1,37 +1,28 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php $this->load->view('header'); ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
+<?php if( ! $inner_page ): ?>
 
-    <title><?php echo (isset($page_title)) ? $page_title : APP_NAME; ?></title>
-    <link href="<?php echo base_url('assets/css/print.css'); ?>" rel="stylesheet">
-    
-  </head>
-  <body id="payroll_print">
+<?php $this->load->view('payroll/payroll/payroll_view_navbar'); ?>
 
-<h2 class="pull-right">PAYROLL ID: <?php echo $payroll->id; ?></h2>
-<div class="header-title">
-<h2 class="allcaps"><?php echo ($template->company_name) ? $template->company_name : ''; ?></h2>
-<h3><?php echo ($template->company_name) ? $template->company_address : ''; ?></h3>
-<h3><?php echo ($template->company_name) ? $template->company_contacts : ''; ?></h3>
-</div>
+<div class="container">
+    <div class="row">
+            <div class="col-md-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
 
-<div class="full-border padding3">
-  <h3><?php echo $deduction_data->name; ?> - <?php echo $deduction_data->notes; ?></h3>
-  For the period covered <?php echo date('F d, Y', strtotime($inclusive_dates->start_date)); ?> - <?php echo date('F d, Y', strtotime($inclusive_dates->end_date)); ?>
-</div>
+                <a class="pull-right close" href="<?php echo site_url("payroll_earnings/item_schedule/{$payroll->id}/{$earning_data->id}/print"); ?>" target="_blank"><span class="glyphicon glyphicon-print"></span></a>
+
+                  <h3 class="panel-title"><strong><?php echo $earning_data->name; ?> - <?php echo $earning_data->notes; ?></strong>
+                  </h3>
+                </div>
+                <div class="panel-body" id="ajaxBodyInnerPage">
+
+<?php endif; ?>
 
 <?php if( $item_data ) {  ?>
-  <div class="payroll">
-  
-         <table width="100%"  cellspacing="0" cellpadding="0" class="table">
+
+          <table class="table table-default" id="Payroll-Group">
             <thead>
               <tr class="warning">
                 <th>Employee Name</th>
@@ -57,7 +48,7 @@ $total_payment += $item->amount;
               ?>
               <tr>
                 <td><?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?>
-                <a href="<?php echo site_url("employees_deductions/view/{$item->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper"><span class="glyphicon glyphicon-cog"></span></a>
+                <a href="<?php echo site_url("employees_earnings/view/{$item->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper"><span class="glyphicon glyphicon-cog"></span></a>
                 </td>
                 <td class="text-right"><?php echo number_format($item->max_amount,2); ?></td>
                 <td class="text-right"><?php echo number_format($item->amount_paid,2); ?></td>
@@ -76,20 +67,19 @@ $total_payment += $item->amount;
             </tbody>
           </table>
 
-  </div>
-<div class="signatories">
-  <table width="100%"  cellspacing="0" cellpadding="0">
-    <tr>
-      <td width="33.33%"><p>Prepared By:</p>
-       <br>
-<span class="allcaps bold"><?php echo $this->session->name; ?></span>
-      </td>
-    </tr>
-  </table>
+
+<?php } else { ?>
+
+    <div class="text-center">No Item Found!</div>
+
+<?php }  ?>
+
+<?php if( ! $inner_page ): ?>
+
+              </div>
+              </div>
+            </div>
+    </div>
 </div>
-<?php } ?>
-
-
-
-  </body>
-</html>
+<?php endif; ?>
+<?php $this->load->view('footer'); ?>
