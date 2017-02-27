@@ -10,7 +10,7 @@ CREATE TABLE `employees_deductions` (
   `name_id` int(20) NOT NULL,
   `deduction_id` int(20) NOT NULL,
   `amount` decimal(30,5) NOT NULL,
-  `max_amount` decimal(30,5) DEFAULT '0.00000',
+  `max_amount` decimal(30,5) NOT NULL,
   `start_date` date DEFAULT NULL,
   `computed` varchar(10) DEFAULT '',
   `active` int(1) DEFAULT '0',
@@ -55,7 +55,7 @@ class Employees_deductions_model extends MY_Model {
 		$this->_table_name = 'employees_deductions';
 		$this->_short_name = 'employees_deductions';
 		$this->_fields = array("id","name_id","deduction_id","amount","max_amount","start_date","computed","active","trash","notes");
-		$this->_required = array("name_id","deduction_id","amount");
+		$this->_required = array("name_id","deduction_id","amount","max_amount");
 		parent::__construct($short_name, $db_config);
 	}
 

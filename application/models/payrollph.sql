@@ -112,7 +112,7 @@ CREATE TABLE `employees_deductions` (
   `name_id` int(20) NOT NULL,
   `deduction_id` int(20) NOT NULL,
   `amount` decimal(30,5) NOT NULL,
-  `max_amount` decimal(30,5) DEFAULT '0.00000',
+  `max_amount` decimal(30,5) NOT NULL,
   `start_date` date DEFAULT NULL,
   `computed` varchar(10) DEFAULT '',
   `active` int(1) DEFAULT '0',
@@ -336,6 +336,15 @@ CREATE TABLE `payroll_templates_benefits` (
   `benefit_id` int(20) NOT NULL,
   `order` int(2) NOT NULL DEFAULT '0',
   KEY `benefit_id` (`template_id`,`benefit_id`)
+);
+
+-- Table structure for table `payroll_templates_columns` 
+
+CREATE TABLE `payroll_templates_columns` (
+  `template_id` int(20) NOT NULL,
+  `term_id` int(20) NOT NULL,
+  `column_id` varchar(200) NOT NULL,
+  KEY `term_id` (`term_id`,`template_id`)
 );
 
 -- Table structure for table `payroll_templates_deductions` 

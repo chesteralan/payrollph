@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <div class="navbar-brand">Payroll</div>
+      <div class="navbar-brand"><?php echo $current_page; ?></div>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

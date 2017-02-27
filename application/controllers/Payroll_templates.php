@@ -5,7 +5,7 @@ class Payroll_templates extends MY_Controller {
 	
 	public function __construct() {
 		parent::__construct();
-		$this->template_data->set('current_page', 'Templates');
+		$this->template_data->set('current_page', 'Payroll Templates');
 		$this->template_data->set('current_uri', 'payroll_templates');
 		$this->template_data->set('navbar_search', true);
 
@@ -17,6 +17,7 @@ class Payroll_templates extends MY_Controller {
 		$this->load->model('Payroll_templates_benefits_model');
 		$this->load->model('Payroll_templates_earnings_model');
 		$this->load->model('Payroll_templates_deductions_model');
+		$this->load->model('Payroll_templates_columns_model');
 		$this->load->model('Employees_groups_model');
 		$this->load->model('Employees_model');
 		$this->load->model('Benefits_list_model');
@@ -32,6 +33,7 @@ class Payroll_templates extends MY_Controller {
 		$templates = new $this->Payroll_templates_model;
 		$templates->setActive('1', true);
 		$templates->set_select('*');
+		$templates->set_start($start);
 		$this->template_data->set('templates', $templates->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
@@ -194,6 +196,7 @@ class Payroll_templates extends MY_Controller {
 		$groups->set_select("(SELECT ptg.order FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.group_id = eg.id) as sort");
 		$groups->set_order("(SELECT ptg.order FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.group_id = eg.id)", 'DESC');
 		$groups->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=eg.id) > 0)");
+		$groups->set_limit(0);
 		$this->template_data->set('groups', $groups->populate());
 
 		$this->template_data->set('output', $output);
@@ -254,6 +257,7 @@ class Payroll_templates extends MY_Controller {
 		$print_groups->set_start(0);
 		$print_groups->setTrash('0',true);
 		$print_groups->setType('print_group',true);
+		$print_groups->set_limit(0);
 		$this->template_data->set('print_groups', $print_groups->populate());
 
 		$this->template_data->set('output', $output);
@@ -302,6 +306,7 @@ class Payroll_templates extends MY_Controller {
 		$benefits->set_select("(SELECT ptb.order FROM payroll_templates_benefits ptb WHERE ptb.template_id = {$id} AND ptb.benefit_id = bl.id) as sort");
 		$benefits->set_order("(SELECT ptb.order FROM payroll_templates_benefits ptb WHERE ptb.template_id = {$id} AND ptb.benefit_id = bl.id)", 'DESC');
 		$benefits->setLeave(0,true);
+		$benefits->set_limit(0);
 		$this->template_data->set('benefits', $benefits->populate());
 
 		$this->template_data->set('output', $output);
@@ -350,6 +355,7 @@ class Payroll_templates extends MY_Controller {
 		$earnings->set_select("(SELECT pte.earning_id FROM payroll_templates_earnings pte WHERE pte.template_id = {$id} AND pte.earning_id = el.id ) as selected");
 		$earnings->set_select("(SELECT pte.order FROM payroll_templates_earnings pte WHERE pte.template_id = {$id} AND pte.earning_id = el.id) as sort");
 		$earnings->set_order("(SELECT pte.order FROM payroll_templates_earnings pte WHERE pte.template_id = {$id} AND pte.earning_id = el.id)", 'DESC');
+		$earnings->set_limit(0);
 		$this->template_data->set('earnings', $earnings->populate());
 
 		$this->template_data->set('output', $output);
@@ -398,12 +404,88 @@ class Payroll_templates extends MY_Controller {
 		$deductions->set_select("(SELECT ptd.deduction_id FROM payroll_templates_deductions ptd WHERE ptd.template_id = {$id} AND ptd.deduction_id = dl.id ) as selected");
 		$deductions->set_select("(SELECT ptd.order FROM payroll_templates_deductions ptd WHERE ptd.template_id = {$id} AND ptd.deduction_id = dl.id) as sort");
 		$deductions->set_order("(SELECT ptd.order FROM payroll_templates_deductions ptd WHERE ptd.template_id = {$id} AND ptd.deduction_id = dl.id)", 'DESC');
+		$deductions->set_limit(0);
 		$this->template_data->set('deductions', $deductions->populate());
 
 		$this->template_data->set('output', $output);
 
 		$this->load->view('payroll/templates/templates_deductions', $this->template_data->get_data());
 
+	}
+
+	public function print_columns($id, $output='') {
+
+		if( $this->input->post('i') ) {
+			foreach($this->input->post('i') as $term_id=>$data) {
+				$columns = (isset($data['columns'])) ? $data['columns'] : array();
+				$selected = (isset($data['selected'])) ? $data['selected'] : array();
+				foreach($columns as $column) {
+					if( ! in_array($column, $selected) ) {
+						$tcol = new $this->Payroll_templates_columns_model;
+						$tcol->setTemplateId($id,true);
+						$tcol->setTermId($term_id,true);
+						$tcol->setColumnId($column,true);
+						if( $tcol->nonEmpty() ) {
+							$tcol->delete();
+						}
+					}
+				}
+				foreach($selected as $column) {
+					$tcol = new $this->Payroll_templates_columns_model;
+					$tcol->setTemplateId($id,true);
+					$tcol->setTermId($term_id,true);
+					$tcol->setColumnId($column,true);
+					if( $tcol->nonEmpty() ) {
+						$tcol->update();
+					} else {
+						$tcol->insert();
+					}
+				}
+			}
+			$this->postNext();
+		}
+
+		$tcol = new $this->Payroll_templates_columns_model;
+		$tcol->setTemplateId($id,true);
+		$tcol->set_limit(0);
+		$this->template_data->set('print_columns', $tcol->populate());
+
+		$print_groups = new $this->Terms_list_model;
+		$print_groups->set_select("*");
+		$print_groups->set_order('name', 'ASC');
+		$print_groups->set_start(0);
+		$print_groups->setTrash('0',true);
+		$print_groups->setType('print_group',true);
+		$print_groups->set_limit(0);
+		$this->template_data->set('print_groups', $print_groups->populate());
+
+		$earnings = new $this->Earnings_list_model('el');
+		$earnings->set_select('el.*');
+		$earnings->set_select("(SELECT pte.earning_id FROM payroll_templates_earnings pte WHERE pte.template_id = {$id} AND pte.earning_id = el.id ) as selected");
+		$earnings->set_select("(SELECT pte.order FROM payroll_templates_earnings pte WHERE pte.template_id = {$id} AND pte.earning_id = el.id) as sort");
+		$earnings->set_order("(SELECT pte.order FROM payroll_templates_earnings pte WHERE pte.template_id = {$id} AND pte.earning_id = el.id)", 'DESC');
+		$earnings->set_limit(0);
+		$this->template_data->set('earnings', $earnings->populate());
+
+		$benefits = new $this->Benefits_list_model('bl');
+		$benefits->set_select('bl.*');
+		$benefits->set_select("(SELECT ptb.benefit_id FROM payroll_templates_benefits ptb WHERE ptb.template_id = {$id} AND ptb.benefit_id = bl.id ) as selected");
+		$benefits->set_select("(SELECT ptb.order FROM payroll_templates_benefits ptb WHERE ptb.template_id = {$id} AND ptb.benefit_id = bl.id) as sort");
+		$benefits->set_order("(SELECT ptb.order FROM payroll_templates_benefits ptb WHERE ptb.template_id = {$id} AND ptb.benefit_id = bl.id)", 'DESC');
+		$benefits->setLeave(0,true);
+		$benefits->set_limit(0);
+		$this->template_data->set('benefits', $benefits->populate());
+
+		$deductions = new $this->Deductions_list_model('dl');
+		$deductions->set_select('dl.*');
+		$deductions->set_select("(SELECT ptd.deduction_id FROM payroll_templates_deductions ptd WHERE ptd.template_id = {$id} AND ptd.deduction_id = dl.id ) as selected");
+		$deductions->set_select("(SELECT ptd.order FROM payroll_templates_deductions ptd WHERE ptd.template_id = {$id} AND ptd.deduction_id = dl.id) as sort");
+		$deductions->set_order("(SELECT ptd.order FROM payroll_templates_deductions ptd WHERE ptd.template_id = {$id} AND ptd.deduction_id = dl.id)", 'DESC');
+		$deductions->set_limit(0);
+		$this->template_data->set('deductions', $deductions->populate());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/templates/templates_print_columns', $this->template_data->get_data());
 	}
 
 	public function ajax($action='') {

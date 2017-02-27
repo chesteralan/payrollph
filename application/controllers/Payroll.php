@@ -30,6 +30,7 @@ class Payroll extends MY_Controller {
 		$this->load->model('Payroll_templates_benefits_model');
 		$this->load->model('Payroll_templates_earnings_model');
 		$this->load->model('Payroll_templates_deductions_model');
+		$this->load->model('Payroll_templates_columns_model');
 
 		$this->load->model('Employees_model');
 		$this->load->model('Employees_groups_model');

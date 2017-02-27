@@ -46,6 +46,11 @@
     <p class="list-group-item-text">Deductions</p>
   </a>
 
+  <a data-target="#ajaxModal" data-title="Print Columns" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll_templates/print_columns/{$template->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+    <h4 class="list-group-item-heading">Print Columns</h4>
+    <p class="list-group-item-text">Print Columns</p>
+  </a>
+
 </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
