@@ -144,6 +144,7 @@ class Payroll_overall extends MY_Controller {
 				$salary->setNameId($employee->name_id,true);
 				$salary->set_join('employees_salaries es', 'es.id=pes.salary_id');
 				$salary->set_select('*, pes.amount as override');
+				$salary->set_where('es.trash', 0);
 				$employees_data[$eKey]->salary = $salary->get();
 			}
 
