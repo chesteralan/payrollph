@@ -147,17 +147,19 @@ a.no-link {
   border:1px solid #000;
 }
 .padding3 {
-  padding: 3px;
+  padding: 3px!important;
 }
 .padding5 {
-  padding: 5px;
+  padding: 5px!important;
 }
 body#payslip .payslip_box {
     width: 320px;
-    min-height: 500px;
     margin: 5px;
     float:left;
     padding: 10px;
+}
+body#payslip .payslip_box .inner_body {
+    min-height: 335px;
 }
 body#payslip .payslip_box.cash_voucher {
     width: 675px;
@@ -175,6 +177,12 @@ body#payslip .payslip_box .employee-name {
 
 body#payslip .payslip_box .table-details {
   margin-top:5px;
+}
+body#payslip .payslip_box.cash_voucher .table-details {
+  border:1px solid #000;
+}
+td.border-left {
+   border-left:1px solid #000;
 }
 .tab1 {
   padding-left:20px;
