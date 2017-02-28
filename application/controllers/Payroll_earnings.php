@@ -67,7 +67,7 @@ class Payroll_earnings extends MY_Controller {
 		if( intval($group_id) > 0 ) {
 			$payroll_group->setGroupId(intval($group_id),true);
 		}
-		
+
 		$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');
 		$payroll_group->set_limit(0);
 		$payroll_group->set_order('pg.order', 'DESC');

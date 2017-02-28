@@ -73,7 +73,7 @@ class Payroll_benefits extends MY_Controller {
 		if( intval($group_id) > 0 ) {
 			$payroll_group->setGroupId(intval($group_id),true);
 		}
-		
+
 		$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');
 		$payroll_group->set_limit(0);
 		$payroll_group->set_order('pg.order', 'DESC');
@@ -268,6 +268,8 @@ class Payroll_benefits extends MY_Controller {
 
 		$benefits->set_join("payroll_employees pe", 'pe.name_id=peb.name_id');
 		$benefits->set_where('pe.active', 1);
+		$benefits->set_where('pe.payroll_id', $id);
+		
 		$benefits->set_limit(0);
 		$item_data = $benefits->populate();
 		$this->template_data->set('item_data', $item_data);

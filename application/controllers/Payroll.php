@@ -88,6 +88,9 @@ class Payroll extends MY_Controller {
 		$payrolls->set_select('(SELECT COUNT(*) FROM payroll_inclusive_dates WHERE payroll_id=payroll.id) as working_days');
 		$payrolls->setTemplateId($id,true);
 		$payrolls->set_start($start);
+		$payrolls->set_order('year', 'DESC');
+		$payrolls->set_order('month', 'DESC');
+		$payrolls->set_order('id', 'DESC');
 		$this->template_data->set('payrolls', $payrolls->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(

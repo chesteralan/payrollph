@@ -33,6 +33,8 @@
       <li><a class="body_wrapper" href="<?php echo site_url('payroll'); ?>"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
 <?php 
 
+$group_id = (isset($group_id)) ? $group_id : 0;
+
 $url['payroll_dtr'] = array('uri' => "payroll_dtr/view/{$payroll->id}/{$group_id}", 'title'=>'Daily Time Record', 'access'=>hasAccess('payroll', 'payroll', 'view'));
 $url['payroll_salaries'] = array('uri' => "payroll_salaries/view/{$payroll->id}/{$group_id}", 'title'=>'Basic Salary', 'access'=>hasAccess('payroll', 'payroll', 'view'));
 if( (isset($payroll->earnings_columns)) && ( $payroll->earnings_columns > 0 ) ) {
