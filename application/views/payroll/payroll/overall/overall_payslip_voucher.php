@@ -30,8 +30,6 @@ $cola = ($salary->cola * $present_days);
 $basic_salary = ($daily_rate * $present_days);
 $gross_pay = ($basic_salary + $cola);
 
-$total_earnings = 0;
-
 ?>
 <div class="page">
 <div class="payslip_box cash_voucher full-border odd <?php echo (($box_count % 2) == 0) ? 'second-half' : 'first-half'; ?>">
@@ -60,11 +58,56 @@ $total_earnings = 0;
       </tr>
       <tr>
         <td class="padding5">
-          <table width="100%">
-              
-          </table>          
+<?php 
+$total_earnings = 0;
+if( $earnings_columns ) { ?>
+<table width="100%">
+<?php 
+foreach( $earnings_columns as $column ) {
+  $var = 'earnings_' . $column->id;
+  $total_earnings += $employee->$var;
+  if( floatval($employee->$var) > 0 ) {
+?>
+<tr>
+<td class="text-left"><?php echo $column->notes; ?></td>
+                    <td class="text-right"><?php 
+                    echo number_format($employee->$var,2); ?></td>
+</tr>
+<?php } ?>
+<?php } ?>
+<tr class="highlight">
+<td class="text-left allcaps bold">Total Earnings</td>
+<td class="text-right bold"><?php echo number_format($total_earnings,2); ?></td>
+</tr>
+</table>
+<?php } ?>
+<?php 
+$total_deductions = 0;
+if( $deductions_columns ) { ?>
+<table width="100%">
+<?php 
+foreach( $deductions_columns as $column ) {
+  $var = 'deductions_' . $column->id;
+  $total_deductions += $employee->$var;
+  if( floatval($employee->$var) > 0 ) {
+?>
+<tr>
+<td class="text-left"><?php echo $column->notes; ?></td>
+                    <td class="text-right"><?php 
+                    echo number_format($employee->$var,2); ?></td>
+</tr>
+<?php } ?>
+<?php } ?>
+<tr class="highlight">
+<td class="text-left allcaps bold">Total Deductions</td>
+<td class="text-right bold"><?php echo number_format($total_deductions,2); ?></td>
+</tr>
+</table>
+<?php } ?>
+          
+     
         </td>
-        <td class="padding5 border-left">Amount</td>
+        <td class="padding5 border-left text-center bold bigger"><?php echo number_format(($total_earnings-$total_deductions),2); ?></td>
       </tr>
     </table>
 </div>

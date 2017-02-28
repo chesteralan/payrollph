@@ -23,6 +23,9 @@ $days_absent = $employee->absences;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
+$cola = 0;
+$present_days = $inclusive_dates->working_days - $days_absent;
+
 if( $employee->salary ) {
   $salary = $employee->salary;
   switch( $salary->rate_per ) {
@@ -42,10 +45,9 @@ if( $employee->salary ) {
       $hourly_rate = $salary->amount;
     break;
   }
+  $cola = ($salary->cola * $present_days);
 }
 
-$present_days = $inclusive_dates->working_days - $days_absent;
-$cola = ($salary->cola * $present_days);
 $basic_salary = ($daily_rate * $present_days);
 $gross_pay = ($basic_salary + $cola);
 
@@ -86,7 +88,6 @@ if( $earnings_columns ) { ?>
    <td colspan="2" class="allcaps bold">Other Earnings</td>
  </tr>
 <?php 
-
 foreach( $earnings_columns as $column ) {
 ?>
 <tr>
@@ -193,6 +194,9 @@ $days_absent = $employee->absences;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
+$cola = 0;
+$present_days = $inclusive_dates->working_days - $days_absent;
+
 if( $employee->salary ) {
   $salary = $employee->salary;
   switch( $salary->rate_per ) {
@@ -212,10 +216,9 @@ if( $employee->salary ) {
       $hourly_rate = $salary->amount;
     break;
   }
+  $cola = ($salary->cola * $present_days);
 }
 
-$present_days = $inclusive_dates->working_days - $days_absent;
-$cola = ($salary->cola * $present_days);
 $basic_salary = ($daily_rate * $present_days);
 $gross_pay = ($basic_salary + $cola);
 

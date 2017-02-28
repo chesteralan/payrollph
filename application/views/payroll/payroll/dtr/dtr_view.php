@@ -44,7 +44,8 @@
             
 <?php if($payroll_group->employees) {
               foreach($payroll_group->employees as $employee) {
-                $days_absent = ($employee->absences_hours) ? ($employee->absences_hours /$employee->working_hours) : 0;
+$working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
+$days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
               ?>
               <tr>
                 <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> (<?php echo $employee->position; ?>)
