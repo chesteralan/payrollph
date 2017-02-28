@@ -150,16 +150,12 @@ class Payroll_overall extends MY_Controller {
 			$payroll_group_data[$key]->employees = $employees_data;
 		}
 		$this->template_data->set('payroll_groups', $payroll_group_data);
-		
-		$print_columns = false;
-		if( $print_group > 0) {
-			$tcol = new $this->Payroll_templates_columns_model;
-			$tcol->setTemplateId($payroll_data->template_id,true);
-			$tcol->setTermId($print_group,true);
-			$tcol->set_limit(0);
-			$print_columns = $tcol->populate();
-		}
-		
+				
+		$tcol = new $this->Payroll_templates_columns_model;
+		$tcol->setTemplateId($payroll_data->template_id,true);
+		$tcol->setTermId($print_group,true);
+		$tcol->set_limit(0);
+		$print_columns = $tcol->populate();
 		$this->template_data->set('print_columns', $print_columns);
 
 		switch($output) {
