@@ -33,16 +33,16 @@
       <li><a class="body_wrapper" href="<?php echo site_url('payroll'); ?>"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
 <?php 
 
-$url['payroll_dtr'] = array('uri' => 'payroll_dtr/view/' . $payroll->id, 'title'=>'Daily Time Record', 'access'=>hasAccess('payroll', 'payroll', 'view'));
-$url['payroll_salaries'] = array('uri' => 'payroll_salaries/view/' . $payroll->id, 'title'=>'Basic Salary', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+$url['payroll_dtr'] = array('uri' => "payroll_dtr/view/{$payroll->id}/{$group_id}", 'title'=>'Daily Time Record', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+$url['payroll_salaries'] = array('uri' => "payroll_salaries/view/{$payroll->id}/{$group_id}", 'title'=>'Basic Salary', 'access'=>hasAccess('payroll', 'payroll', 'view'));
 if( (isset($payroll->earnings_columns)) && ( $payroll->earnings_columns > 0 ) ) {
-  $url['payroll_earnings'] = array('uri' => 'payroll_earnings/view/' . $payroll->id, 'title'=>'Earnings', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+  $url['payroll_earnings'] = array('uri' => "payroll_earnings/view/{$payroll->id}/{$group_id}", 'title'=>'Earnings', 'access'=>hasAccess('payroll', 'payroll', 'view'));
 }
 if( (isset($payroll->benefits_columns)) && ( $payroll->benefits_columns > 0 ) ) {
-  $url['payroll_benefits'] = array('uri' => 'payroll_benefits/view/' . $payroll->id, 'title'=>'Benefits', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+  $url['payroll_benefits'] = array('uri' => "payroll_benefits/view/{$payroll->id}/{$group_id}", 'title'=>'Benefits', 'access'=>hasAccess('payroll', 'payroll', 'view'));
 }
 if( (isset($payroll->deductions_columns)) && ( $payroll->deductions_columns > 0 ) ) {
-  $url['payroll_deductions'] = array('uri' => 'payroll_deductions/view/' . $payroll->id, 'title'=>'Deductions', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+  $url['payroll_deductions'] = array('uri' => "payroll_deductions/view/{$payroll->id}/{$group_id}", 'title'=>'Deductions', 'access'=>hasAccess('payroll', 'payroll', 'view'));
 }
 
 foreach($url as $k=>$v) {

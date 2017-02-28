@@ -36,7 +36,9 @@ class Payroll_salaries extends MY_Controller {
 		redirect("payroll");
 	}
 	
-	public function view($id,$output='') {
+	public function view($id,$group_id=0,$output='') {
+
+		$this->template_data->set('group_id', $group_id);
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
@@ -57,6 +59,11 @@ class Payroll_salaries extends MY_Controller {
 		
 		$payroll_group = new $this->Payroll_groups_model('pg');
 		$payroll_group->setPayrollId($id,true);
+		
+		if( intval($group_id) > 0 ) {
+			$payroll_group->setGroupId(intval($group_id),true);
+		}
+
 		$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');
 		$payroll_group->set_limit(0);
 		$payroll_group->set_order('pg.order', 'DESC');

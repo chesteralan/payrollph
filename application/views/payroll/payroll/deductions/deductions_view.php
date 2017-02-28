@@ -31,7 +31,13 @@ foreach( $deductions_columns as $column ) {
           <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
               <tr class="warning">
-                <th><?php echo $payroll_group->name; ?></th>
+                <th>
+<?php if( intval($group_id) > 0 ) { ?>
+<a href="<?php echo site_url("payroll_deductions/view/{$payroll->id}"); ?>" class="glyphicon glyphicon-arrow-left body_wrapper"></a>
+<?php } else { ?>
+  <a href="<?php echo site_url("payroll_deductions/view/{$payroll->id}/{$payroll_group->group_id}"); ?>" class="glyphicon glyphicon-filter body_wrapper"></a>
+<?php } ?>
+                <?php echo $payroll_group->name; ?></th>
 <?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { 
   ?>
                 <th width="7%" class="text-right"><?php echo $column->name; ?></th>
