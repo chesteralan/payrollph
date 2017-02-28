@@ -1,4 +1,39 @@
+<?php 
 
+$days_absent = $employee->absences;
+$monthly_rate = 0;
+$daily_rate = 0;
+$hourly_rate = 0;
+if( $employee->salary ) {
+  $salary = $employee->salary;
+  switch( $salary->rate_per ) {
+    case 'month':
+      $monthly_rate = $salary->amount;
+      $daily_rate = ( $salary->amount / $salary->days );
+      $hourly_rate = ( $salary->amount / $salary->days / $salary->hours );
+    break;
+    case 'day':
+      $monthly_rate = ( $salary->amount * $salary->days );
+      $daily_rate = $salary->amount;
+      $hourly_rate = ( $salary->amount / $salary->hours );
+    break;
+    case 'hour':
+      $monthly_rate = ( $salary->amount * $salary->days * $salary->hours );
+      $daily_rate = ( $salary->amount * $salary->hours );
+      $hourly_rate = $salary->amount;
+    break;
+  }
+}
+
+$present_days = $inclusive_dates->working_days - $days_absent;
+$cola = ($salary->cola * $present_days);
+$basic_salary = ($daily_rate * $present_days);
+$gross_pay = ($basic_salary + $cola);
+
+$total_earnings = 0;
+
+?>
+<div class="page">
 <div class="payslip_box cash_voucher full-border odd <?php echo (($box_count % 2) == 0) ? 'second-half' : 'first-half'; ?>">
   <div class="header-title">
 
@@ -24,7 +59,11 @@
         <td class="text-center allcaps bold border-left">Amount</td>
       </tr>
       <tr>
-        <td class="padding5">Particulars</td>
+        <td class="padding5">
+          <table width="100%">
+              
+          </table>          
+        </td>
         <td class="padding5 border-left">Amount</td>
       </tr>
     </table>
@@ -47,6 +86,7 @@
 
 </div>
 
+</div>
 </div>
 
 

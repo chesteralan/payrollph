@@ -37,8 +37,6 @@ $box_count = 0;
         $this->load->view('payroll/payroll/overall/overall_payslip_voucher', $template_data); 
 
     }
-
-echo (($box_count % 2) == 0) ? '<div class="page-break"></div>' : ''; 
 } ?>
 <?php } ?>
 <?php } ?>

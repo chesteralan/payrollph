@@ -154,32 +154,30 @@ a.no-link {
 }
 body#payslip .payslip_box {
     width: 320px;
-    margin: 5px;
+    margin: 0px 10px 2px;
     float:left;
     padding: 10px;
 }
 body#payslip .payslip_box .inner_body {
     min-height: 335px;
 }
-body#payslip .payslip_box.cash_voucher {
-    width: 675px;
-}
-body#payslip .payslip_box.second-half {
-  margin-bottom: 0px;
-}
 body#payslip .payslip_box .header-title {
   margin-top:5px;
 }
-
 body#payslip .payslip_box .employee-name {
   margin-top:10px;
 }
-
 body#payslip .payslip_box .table-details {
   margin-top:5px;
 }
+body#payslip .payslip_box.cash_voucher {
+    width: 682px;
+}
 body#payslip .payslip_box.cash_voucher .table-details {
   border:1px solid #000;
+}
+body#payslip .payslip_box.cash_voucher .inner_body {
+    min-height: 320px;
 }
 td.border-left {
    border-left:1px solid #000;
@@ -198,5 +196,8 @@ body#payslip table td {
   padding: 1px 3px;
 }
 @media print {
-    .page-break {page-break-after: always;}
+    div.page {
+      page-break-after: always;
+      page-break-inside: avoid;
+    }
 }

@@ -1,4 +1,5 @@
 
+<div class="page">
 <div class="payslip_box full-border odd <?php echo (($box_count % 2) == 0) ? 'second-half' : 'first-half'; ?>">
   <div class="header-title">
 <h2 class="text-center allcaps"><?php echo ($template->company_name) ? $template->company_name : ''; ?></h2>
@@ -337,4 +338,5 @@ if( $benefits_columns || $deductions_columns ) {
   </table>
 </div>
 
+</div>
 </div>
