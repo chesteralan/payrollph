@@ -187,13 +187,15 @@ if( isColumn('gross_pay', $print_columns) ) { ?>
 <?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { 
   $var = 'deductions_' . $column->id;
   $total_deductions += $employee->$var;
-  $net_pay = (($total_earnings + $gross_pay) - $total_deductions); 
-  $total_net_pay += $net_pay;
   if( isColumn('deduction_' . $column->id, $print_columns) ) {
   ?>
                     <td class="text-right"><?php echo number_format($employee->$var,2); ?></td>
                 <?php } ?>
  <?php } ?>
+ <?php 
+$net_pay = (($total_earnings + $gross_pay) - $total_deductions); 
+  $total_net_pay += $net_pay;
+?>
                 <td class="text-right bold"><?php echo number_format($total_deductions,2); ?></td>
                 <td class="text-right bold bigger"><?php echo number_format($net_pay,2); 
                  ?></td>
