@@ -26,10 +26,11 @@
             <thead>
               <tr class="warning">
                 <th>Employee Name</th>
-                <th width="20%" class="text-right">Total Payables</th>
-                <th width="20%" class="text-right">Amount Paid</th>
-                <th width="20%" class="text-right">Balance</th>
-                <th width="20%" class="text-right">Current Payment</th>
+                <th width="25%">Notes</th>
+                <th width="13%" class="text-right">Total Receivables</th>
+                <th width="13%" class="text-right">Amount Received</th>
+                <th width="13%" class="text-right">Balance</th>
+                <th width="13%" class="text-right">Current Earnings</th>
               </tr>
             </thead>
             <tbody>
@@ -50,6 +51,9 @@ $total_payment += $item->amount;
                 <td><?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?>
                 <a href="<?php echo site_url("employees_earnings/view/{$item->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper"><span class="glyphicon glyphicon-cog"></span></a>
                 </td>
+                <td><?php echo $item->ee_notes; ?>
+                  <?php echo $item->item_notes; ?>
+                </td>
                 <td class="text-right"><?php echo number_format($item->max_amount,2); ?></td>
                 <td class="text-right"><?php echo number_format($item->amount_paid,2); ?></td>
                 <td class="text-right"><?php echo number_format(($item->max_amount - $item->amount_paid),2); ?></td>
@@ -60,6 +64,7 @@ $total_payment += $item->amount;
               <tr class="success">
                 <td><strong>Total</strong></td>
                 <td class="text-right"><strong><?php echo number_format($total_max_amount,2); ?></strong></td>
+                <td class="text-right"></td>
                 <td class="text-right"><strong><?php echo number_format($total_paid,2); ?></strong></td>
                 <td class="text-right"><strong><?php echo number_format($total_balance,2); ?></strong></td>
                 <td class="text-right"><strong><?php echo number_format($total_payment,2); ?></strong></td>

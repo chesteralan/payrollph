@@ -225,7 +225,7 @@ class Payroll_earnings extends MY_Controller {
 		$payroll->set_select("*");
 		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pe WHERE pe.payroll_id=payroll.id) as earnings_columns");
 		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_benefits` pb WHERE pb.payroll_id=payroll.id) as benefits_columns");
-		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pd WHERE pd.payroll_id=payroll.id) as earnings_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_deductions` pd WHERE pd.payroll_id=payroll.id) as deductions_columns");
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
@@ -234,23 +234,26 @@ class Payroll_earnings extends MY_Controller {
 		$this->template_data->set('earning_data', $earning_list->get());
 
 
-		$earnings = new $this->Payroll_employees_earnings_model('ped');
+		$earnings = new $this->Payroll_employees_earnings_model('pee');
 		$earnings->setPayrollId($id,true);
-		$earnings->setearningId($earning_id,true);
-		$earnings->set_select("ped.*");
-		$earnings->set_select("(SELECT ed.max_amount FROM employees_earnings ed WHERE ed.id=ped.entry_id) as max_amount");
+		$earnings->setEarningId($earning_id,true);
+		$earnings->set_select("pee.*");
+		$earnings->set_select("pee.notes as item_notes");
+		$earnings->set_select("(SELECT ee.max_amount FROM employees_earnings ee WHERE ee.id=pee.entry_id) as max_amount");
+		$earnings->set_select("(SELECT ee.notes FROM employees_earnings ee WHERE ee.id=pee.entry_id) as ee_notes");
 
-		$earnings->set_select("(SELECT SUM(ped2.amount) FROM payroll_employees_earnings ped2 WHERE ped.name_id=ped2.name_id AND ped.earning_id=ped2.earning_id AND ped2.entry_id=ped.entry_id AND ped2.id!=ped.id) as amount_paid");
+		$earnings->set_select("(SELECT SUM(pee2.amount) FROM payroll_employees_earnings pee2 WHERE pee.name_id=pee2.name_id AND pee.earning_id=pee2.earning_id AND pee2.entry_id=pee.entry_id AND pee2.id!=pee.id) as amount_paid");
 
 		$earnings->set_select("e.*");
-		$earnings->set_join("employees e", 'e.name_id=ped.name_id');
+		$earnings->set_join("employees e", 'e.name_id=pee.name_id');
 
 		$earnings->set_order('e.lastname', 'ASC');
 		$earnings->set_order('e.firstname', 'ASC');
 		$earnings->set_order('e.middlename', 'ASC');
 
-		$earnings->set_join("payroll_employees pe", 'pe.name_id=ped.name_id');
+		$earnings->set_join("payroll_employees pe", 'pe.name_id=pee.name_id');
 		$earnings->set_where('pe.active', 1);
+		$earnings->set_where('pe.payroll_id', $id);
 		
 		$earnings->set_limit(0);
 		$item_data = $earnings->populate(); 

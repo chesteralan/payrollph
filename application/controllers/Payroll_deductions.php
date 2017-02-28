@@ -264,6 +264,7 @@ class Payroll_deductions extends MY_Controller {
 
 		$deductions->set_join("payroll_employees pe", 'pe.name_id=ped.name_id');
 		$deductions->set_where('pe.active', 1);
+		$deductions->set_where('pe.payroll_id', $id);
 		
 		$deductions->set_limit(0);
 		$item_data = $deductions->populate(); 

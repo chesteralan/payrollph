@@ -29,7 +29,7 @@
                 <th width="20%" class="text-right">Total Payables</th>
                 <th width="20%" class="text-right">Amount Paid</th>
                 <th width="20%" class="text-right">Balance</th>
-                <th width="20%" class="text-right">Current Payment</th>
+                <th width="20%" class="text-right">Current Deductions</th>
               </tr>
             </thead>
             <tbody>
