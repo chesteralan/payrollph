@@ -457,11 +457,12 @@ class Payroll extends MY_Controller {
 					$payroll_deduction->insert();
 				}
 			}
+			
 			$payroll_deductions = new $this->Payroll_deductions_model;
 			$payroll_deductions->setPayrollId($id,true);
 			foreach( $payroll_deductions->populate() as $deduction ) {
 				if( $employees_data ) foreach( $employees_data as $employee ) {
-					 $this->_generate_earnings($id,$deduction->deduction_id, $employee);
+					 $this->_generate_deductions($id,$deduction->deduction_id, $employee);
 				}
 			}
 
