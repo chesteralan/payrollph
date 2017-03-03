@@ -18,6 +18,8 @@
 
 <?php endif; ?>
 
+<?php $total_salaries = 0; ?>
+
 <?php if( $payroll_groups ) { ?>
   
   <?php foreach($payroll_groups as $payroll_group) { ?>
@@ -72,6 +74,11 @@ if( $employee->salary ) {
     break;
   }
 }
+$present_days = $inclusive_dates->working_days - $days_absent;
+$basic_salary = ($daily_rate * $present_days); 
+$cola = ($salary->cola * $present_days);
+$employee_gross_pay = ($basic_salary + $cola);
+$total_salaries += $employee_gross_pay; 
               ?>
               <tr>
                 <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> (<?php echo $employee->position; ?>)
@@ -83,11 +90,11 @@ if( $employee->salary ) {
                 <?php echo $days_absent; ?>
                 </td>
 -->
-                <td class="text-right"><?php $present_days = $inclusive_dates->working_days - $days_absent; echo $present_days; ?></td>
+                <td class="text-right"><?php echo $present_days; ?></td>
                 <td class="text-right"><?php echo number_format($daily_rate,2); ?></td>
-                <td class="text-right"><?php $basic_salary = ($daily_rate * $present_days); echo number_format($basic_salary,2); ?></td>
-                <td class="text-right"><?php $cola = ($salary->cola * $present_days); echo number_format($cola,2); ?></td>
-                <td class="text-right"><?php echo number_format(($basic_salary + $cola),2); ?></td>
+                <td class="text-right"><?php echo number_format($basic_salary,2); ?></td>
+                <td class="text-right"><?php echo number_format($cola,2); ?></td>
+                <td class="text-right"><?php echo number_format($employee_gross_pay,2); ?></td>
               </tr>
 <?php         } 
       } ?>
@@ -96,6 +103,30 @@ if( $employee->salary ) {
           </table>
 
     <?php } ?>
+
+    <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
+            <thead>
+              <tr class="warning">
+                <th>TOTAL</th>
+                <th width="10%" class="text-right"></th>
+                <th width="10%" class="text-right"></th>
+                <th width="10%" class="text-right"></th>
+                <th width="10%" class="text-right"></th>
+                <th width="10%" class="text-right">Total Gross Pay</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr class="success">
+                <td></td>
+                <td class="text-right"></td>
+                <td class="text-right"></td>
+                <td class="text-right"></td>
+                <td class="text-right"></td>
+                <td class="text-right"><strong><?php echo number_format($total_salaries,2); ?></strong></td>
+  </tr>
+            </tbody>
+            </table>
+
 <?php } else { ?>
 
   <div class="text-center">No Group Assigned!</div>
