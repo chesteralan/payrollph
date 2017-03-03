@@ -31,6 +31,7 @@
                 <th width="13%" class="text-right">Amount Received</th>
                 <th width="13%" class="text-right">Balance</th>
                 <th width="13%" class="text-right">Current Earnings</th>
+                <th width="13%" class="text-right">Total Amount Received</th>
               </tr>
             </thead>
             <tbody>
@@ -40,12 +41,16 @@ $total_max_amount = 0;
 $total_paid = 0;
 $total_balance = 0;
 $total_payment = 0;
+$total_amount_payment = 0;
 foreach($item_data as $item) {
 
 $total_max_amount += $item->max_amount;
 $total_paid += $item->amount_paid;
-$total_balance += $item->max_amount - $item->amount_paid;
+$item_balance = ($item->max_amount > 0) ? ($item->max_amount - $item->amount_paid) : 0;
+$total_balance += $item_balance;
 $total_payment += $item->amount;
+$total_amount_payment += $item->amount_paid+$item->amount;
+
               ?>
               <tr>
                 <td><?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?>
@@ -56,18 +61,20 @@ $total_payment += $item->amount;
                 </td>
                 <td class="text-right"><?php echo number_format($item->max_amount,2); ?></td>
                 <td class="text-right"><?php echo number_format($item->amount_paid,2); ?></td>
-                <td class="text-right"><?php echo number_format(($item->max_amount - $item->amount_paid),2); ?></td>
+                <td class="text-right"><?php echo number_format($item_balance,2); ?></td>
                 <td class="text-right"><?php echo number_format($item->amount,2); ?></td>
+                <td class="text-right"><?php echo number_format(($item->amount_paid+$item->amount),2); ?></td>
               </tr>
 <?php } ?>
 
               <tr class="success">
                 <td><strong>Total</strong></td>
-                <td class="text-right"><strong><?php echo number_format($total_max_amount,2); ?></strong></td>
                 <td class="text-right"></td>
+                <td class="text-right"><strong><?php echo number_format($total_max_amount,2); ?></strong></td>
                 <td class="text-right"><strong><?php echo number_format($total_paid,2); ?></strong></td>
                 <td class="text-right"><strong><?php echo number_format($total_balance,2); ?></strong></td>
                 <td class="text-right"><strong><?php echo number_format($total_payment,2); ?></strong></td>
+                <td class="text-right"><strong><?php echo number_format($total_amount_payment,2); ?></strong></td>
               </tr>
             </tbody>
           </table>
