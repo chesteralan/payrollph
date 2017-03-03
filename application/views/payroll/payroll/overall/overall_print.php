@@ -69,7 +69,7 @@ $total_net_pay = 0;
 <?php if( isColumn('cola', $print_columns) ) { ?>
                 <th width="5%" class="text-right">COLA</th>
 <?php } ?>
-<?php if( isColumn('absences', $print_columns) ) { ?>
+<?php if( isColumn('absences_amount', $print_columns) ) { ?>
                 <th width="5%" class="text-right">Absences</th>
 <?php } ?>
 <?php if( isColumn('gross_pay', $print_columns) ) { ?>
@@ -161,7 +161,7 @@ if( isColumn('cola', $print_columns) ) { ?>
 <?php } ?>
 <?php 
 $absences = ($daily_rate * $days_absent);
-if( isColumn('absences', $print_columns) ) { ?>
+if( isColumn('absences_amount', $print_columns) ) { ?>
                 <td class="text-right">(<?php echo number_format($absences,2); ?>)</td>
 <?php } ?>
 <?php 
