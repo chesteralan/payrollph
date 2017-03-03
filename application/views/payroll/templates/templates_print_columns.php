@@ -49,7 +49,7 @@ function isSelected($group,$column_id,$print_columns) {
           'rate_per_day'=>'Rate Per Day', 
           'basic_salary'=>'Basic Salary', 
           'cola'=>'COLA', 
-          'absences_amount'=>'Absences', 
+          'absences_amount'=>'Absences Amount', 
           'gross_pay'=>'Gross Pay', 
         ) as $col_key=>$col_name) { ?>
             <div class="col-md-4">
@@ -104,6 +104,7 @@ function isSelected($group,$column_id,$print_columns) {
           'rate_per_day'=>'Rate Per Day', 
           'basic_salary'=>'Basic Salary', 
           'cola'=>'COLA', 
+          'absences_amount'=>'Absences Amount', 
           'gross_pay'=>'Gross Pay', 
         ) as $col_key=>$col_name) { ?>
             <div class="col-md-4">
