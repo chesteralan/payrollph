@@ -288,6 +288,117 @@ class Payroll extends MY_Controller {
 		$this->load->view('payroll/payroll/payroll_calendar', $this->template_data->get_data());
 	}
 
+	private function _generate_earnings($payroll_id,$earning_id,$employee) {
+		 $ee_earnings = new $this->Employees_earnings_model;
+		 $ee_earnings->setNameId($employee->name_id,true);
+		 $ee_earnings->setEarningId($earning_id,true);
+		 $ee_earnings->setTrash(0,true);
+		 $ee_earnings->setActive(1,true);
+		 $ee_earnings->set_where('(start_date <= "' . date('Y-m-d') . '")');
+		 $ee_earnings->set_select("*");
+		 $ee_earnings->set_select('(SELECT SUM(amount) FROM payroll_employees_earnings ped WHERE ped.entry_id=employees_earnings.id AND ped.name_id=employees_earnings.name_id) as earned');
+
+		 foreach( $ee_earnings->populate() as $earning2 ) {
+		 	
+		 	$pee_earning = new $this->Payroll_employees_earnings_model;
+		 	$pee_earning->setPayrollId($payroll_id,true);
+		 	$pee_earning->setNameId($earning2->name_id,true);
+		 	$pee_earning->setEarningId($earning2->earning_id,true);
+		 	$pee_earning->setEntryId($earning2->id,true);
+
+		 	switch( $earning2->computed ) {
+		 		case 'hour':
+		 			$eamount = $earning2->amount * $days_present;
+		 		break;
+		 		case 'day':
+		 			$eamount = $earning2->amount * $days_present;
+		 		break;
+		 		case 'month':
+		 		default:
+		 			$eamount = $earning2->amount;
+		 		break;
+		 	}
+
+		 	if( floatval( $earning2->max_amount ) > 0 ) {
+		 		$ebalance = $earning2->max_amount - $earning2->earned;
+		 		$eamount = ( $ebalance >= $eamount) ? $eamount : $ebalance;
+		 	}
+
+		 	$pee_earning->setAmount($eamount);
+		 	if( ($pee_earning->nonEmpty() === false) && (floatval($eamount) > 0) ) {
+				$pee_earning->insert();
+			}
+
+		 }
+	}
+
+	private function _generate_benefits($payroll_id,$benefit_id,$employee) {
+			$ee_benefits = new $this->Employees_benefits_model;
+			 $ee_benefits->setNameId($employee->name_id,true);
+			 $ee_benefits->setBenefitId($benefit_id,true);
+			 $ee_benefits->setTrash(0,true);
+			 $ee_benefits->setPrimary(1,true);
+			 $ee_benefits->set_where('(start_date <= "' . date('Y-m-d') . '")');
+			 foreach( $ee_benefits->populate() as $benefit2 ) {
+			 	$peb_benefit = new $this->Payroll_employees_benefits_model;
+			 	$peb_benefit->setPayrollId($payroll_id,true);
+			 	$peb_benefit->setNameId($benefit2->name_id,true);
+			 	$peb_benefit->setBenefitId($benefit2->benefit_id,true);
+			 	$peb_benefit->setEntryId($benefit2->id,true);
+			 	$peb_benefit->setEmployeeShare($benefit2->employee_share);
+			 	$peb_benefit->setEmployerShare($benefit2->employer_share);
+				if( $peb_benefit->nonEmpty() ) {
+					$peb_benefit->update();
+				} else {
+					$peb_benefit->insert();
+				}
+			 }
+	}
+
+	private function _generate_deductions($payroll_id,$deduction_id,$employee) {
+			 $ee_deductions = new $this->Employees_deductions_model;
+			 $ee_deductions->setNameId($employee->name_id,true);
+			 $ee_deductions->setDeductionId($deduction_id,true);
+			 $ee_deductions->setTrash(0,true);
+			 $ee_deductions->setActive(1,true);
+			 $ee_deductions->set_where('(start_date <= "' . date('Y-m-d') . '")');
+			 $ee_deductions->set_limit(0);
+			 $ee_deductions->set_select("*");
+			 $ee_deductions->set_select('(SELECT SUM(amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=employees_deductions.id AND ped.name_id=employees_deductions.name_id) as deducted');
+			 foreach( $ee_deductions->populate() as $deduction2 ) {
+
+			 	$ped_deduction = new $this->Payroll_employees_deductions_model;
+			 	$ped_deduction->setPayrollId($payroll_id,true);
+			 	$ped_deduction->setNameId($deduction2->name_id,true);
+			 	$ped_deduction->setDeductionId($deduction2->deduction_id,true);
+			 	$ped_deduction->setEntryId($deduction2->id,true);
+
+			 	switch( $deduction2->computed ) {
+			 		case 'hour':
+			 			$damount = $deduction2->amount * $days_present;
+			 		break;
+			 		case 'day':
+			 			$damount = $deduction2->amount * $days_present;
+			 		break;
+			 		case 'month':
+			 		default:
+			 			$damount = $deduction2->amount;
+			 		break;
+			 	}
+
+			 	if( floatval( $deduction2->max_amount ) > 0 ) {
+			 		$dbalance = $deduction2->max_amount - $deduction2->deducted;
+			 		$damount = ( $dbalance >= $damount) ? $damount : $dbalance;
+			 	}
+
+			 	$ped_deduction->setAmount($damount);
+			 	if( ($ped_deduction->nonEmpty() === false) && (floatval($damount) > 0)) {
+					$ped_deduction->insert();
+				}
+
+			 }
+	}
+
 	private function _generate($id,$payroll_data,$employees_data) {
 
 			if( $employees_data ) foreach( $employees_data as $employee ) {
@@ -322,49 +433,13 @@ class Payroll extends MY_Controller {
 				} else {
 					$payroll_earning->insert();
 				}
+			}
 
+			$payroll_earnings = new $this->Payroll_earnings_model;
+			$payroll_earnings->setPayrollId($id,true);
+			foreach( $payroll_earnings->populate() as $earning ) {
 				if( $employees_data ) foreach( $employees_data as $employee ) {
-					 $ee_earnings = new $this->Employees_earnings_model;
-					 $ee_earnings->setNameId($employee->name_id,true);
-					 $ee_earnings->setEarningId($earning->earning_id,true);
-					 $ee_earnings->setTrash(0,true);
-					 $ee_earnings->setActive(1,true);
-					 $ee_earnings->set_where('(start_date <= "' . date('Y-m-d') . '")');
-					 $ee_earnings->set_select("*");
-					 $ee_earnings->set_select('(SELECT SUM(amount) FROM payroll_employees_earnings ped WHERE ped.entry_id=employees_earnings.id AND ped.name_id=employees_earnings.name_id) as earned');
-
-					 foreach( $ee_earnings->populate() as $earning2 ) {
-					 	
-					 	$pee_earning = new $this->Payroll_employees_earnings_model;
-					 	$pee_earning->setPayrollId($id,true);
-					 	$pee_earning->setNameId($earning2->name_id,true);
-					 	$pee_earning->setEarningId($earning2->earning_id,true);
-					 	$pee_earning->setEntryId($earning2->id,true);
-
-					 	switch( $earning2->computed ) {
-					 		case 'hour':
-					 			$eamount = $earning2->amount * $days_present;
-					 		break;
-					 		case 'day':
-					 			$eamount = $earning2->amount * $days_present;
-					 		break;
-					 		case 'month':
-					 		default:
-					 			$eamount = $earning2->amount;
-					 		break;
-					 	}
-
-					 	if( floatval( $earning2->max_amount ) > 0 ) {
-					 		$ebalance = $earning2->max_amount - $earning2->earned;
-					 		$eamount = ( $ebalance >= $eamount) ? $eamount : $ebalance;
-					 	}
-
-					 	$pee_earning->setAmount($eamount);
-					 	if( ($pee_earning->nonEmpty() === false) && (floatval($eamount) > 0) ) {
-							$pee_earning->insert();
-						}
-
-					 }
+					$this->_generate_earnings($id,$earning->earning_id, $employee);
 				}
 			} 
 
@@ -372,7 +447,6 @@ class Payroll extends MY_Controller {
 			$temp_deductions->setTemplateId($payroll_data->template_id,true);
 			$temp_deductions->set_limit(0);
 			foreach( $temp_deductions->populate() as $deduction ) {
-
 				$payroll_deduction = new $this->Payroll_deductions_model;
 				$payroll_deduction->setPayrollId($id,true);
 				$payroll_deduction->setDeductionId($deduction->deduction_id,true);
@@ -382,50 +456,12 @@ class Payroll extends MY_Controller {
 				} else {
 					$payroll_deduction->insert();
 				}
-
+			}
+			$payroll_deductions = new $this->Payroll_deductions_model;
+			$payroll_deductions->setPayrollId($id,true);
+			foreach( $payroll_deductions->populate() as $deduction ) {
 				if( $employees_data ) foreach( $employees_data as $employee ) {
-					 $ee_deductions = new $this->Employees_deductions_model;
-					 $ee_deductions->setNameId($employee->name_id,true);
-					 $ee_deductions->setDeductionId($deduction->deduction_id,true);
-					 $ee_deductions->setTrash(0,true);
-					 $ee_deductions->setActive(1,true);
-					 $ee_deductions->set_where('(start_date <= "' . date('Y-m-d') . '")');
-					 $ee_deductions->set_limit(0);
-					 $ee_deductions->set_select("*");
-					 $ee_deductions->set_select('(SELECT SUM(amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=employees_deductions.id AND ped.name_id=employees_deductions.name_id) as deducted');
-					 foreach( $ee_deductions->populate() as $deduction2 ) {
-
-					 	$ped_deduction = new $this->Payroll_employees_deductions_model;
-					 	$ped_deduction->setPayrollId($id,true);
-					 	$ped_deduction->setNameId($deduction2->name_id,true);
-					 	$ped_deduction->setDeductionId($deduction2->deduction_id,true);
-					 	$ped_deduction->setEntryId($deduction2->id,true);
-
-					 	switch( $deduction2->computed ) {
-					 		case 'hour':
-					 			$damount = $deduction2->amount * $days_present;
-					 		break;
-					 		case 'day':
-					 			$damount = $deduction2->amount * $days_present;
-					 		break;
-					 		case 'month':
-					 		default:
-					 			$damount = $deduction2->amount;
-					 		break;
-					 	}
-
-					 	if( floatval( $deduction2->max_amount ) > 0 ) {
-					 		$dbalance = $deduction2->max_amount - $deduction2->deducted;
-					 		$damount = ( $dbalance >= $damount) ? $damount : $dbalance;
-					 	}
-
-					 	$ped_deduction->setAmount($damount);
-					 	if( ($ped_deduction->nonEmpty() === false) && (floatval($damount) > 0)) {
-							$ped_deduction->insert();
-						}
-
-					 }
-					 
+					 $this->_generate_earnings($id,$deduction->deduction_id, $employee);
 				}
 			}
 
@@ -442,28 +478,13 @@ class Payroll extends MY_Controller {
 				} else {
 					$payroll_benefit->insert();
 				}
+			}
 
+			$payroll_benefits = new $this->Payroll_benefits_model;
+			$payroll_benefits->setPayrollId($id,true);
+			foreach( $payroll_benefits->populate() as $benefit ) {
 				if( $employees_data ) foreach( $employees_data as $employee ) {
-					 $ee_benefits = new $this->Employees_benefits_model;
-					 $ee_benefits->setNameId($employee->name_id,true);
-					 $ee_benefits->setBenefitId($benefit->benefit_id,true);
-					 $ee_benefits->setTrash(0,true);
-					 $ee_benefits->setPrimary(1,true);
-					 $ee_benefits->set_where('(start_date <= "' . date('Y-m-d') . '")');
-					 foreach( $ee_benefits->populate() as $benefit2 ) {
-					 	$peb_benefit = new $this->Payroll_employees_benefits_model;
-					 	$peb_benefit->setPayrollId($id,true);
-					 	$peb_benefit->setNameId($benefit2->name_id,true);
-					 	$peb_benefit->setBenefitId($benefit2->benefit_id,true);
-					 	$peb_benefit->setEntryId($benefit2->id,true);
-					 	$peb_benefit->setEmployeeShare($benefit2->employee_share);
-					 	$peb_benefit->setEmployerShare($benefit2->employer_share);
-						if( $peb_benefit->nonEmpty() ) {
-							$peb_benefit->update();
-						} else {
-							$peb_benefit->insert();
-						}
-					 }
+					 $this->_generate_benefits($id,$benefit->benefit_id,$employee);
 				}
 			}
 
