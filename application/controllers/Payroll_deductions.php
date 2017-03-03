@@ -253,7 +253,6 @@ class Payroll_deductions extends MY_Controller {
 		$deduction_list->setId($deduction_id,true);
 		$this->template_data->set('deduction_data', $deduction_list->get());
 
-
 		$deductions = new $this->Payroll_employees_deductions_model('ped');
 		$deductions->setPayrollId($id,true);
 		$deductions->setDeductionId($deduction_id,true);

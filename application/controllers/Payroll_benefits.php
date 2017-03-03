@@ -254,7 +254,6 @@ class Payroll_benefits extends MY_Controller {
 		$benefits_list->setId($benefit_id,true);
 		$this->template_data->set('benefit_data', $benefits_list->get());
 
-
 		$benefits = new $this->Payroll_employees_benefits_model('peb');
 		$benefits->setPayrollId($id,true);
 		$benefits->setBenefitId($benefit_id,true);
@@ -274,6 +273,14 @@ class Payroll_benefits extends MY_Controller {
 		$item_data = $benefits->populate();
 		$this->template_data->set('item_data', $item_data);
 
+		$print_groups = new $this->Terms_list_model;
+		$print_groups->set_select("*");
+		$print_groups->set_order('name', 'ASC');
+		$print_groups->set_start(0);
+		$print_groups->setTrash('0',true);
+		$print_groups->setType('print_group',true);
+		$this->template_data->set('print_groups', $print_groups->populate());
+		
 		$this->template_data->set('output', $output);
 		if( $output == 'print') {
 
