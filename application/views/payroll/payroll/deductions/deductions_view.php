@@ -95,7 +95,7 @@ foreach( $deductions_columns as $column ) {
 $total_deductions = 0;
 if( $deductions_columns ) foreach( $deductions_columns as $column ) { ?>
                 <td class="text-right">
-                <a href="<?php echo site_url("payroll_deductions/item_schedule/{$payroll->id}/{$column->id}"); ?>" class="body_wrapper">
+                <a href="<?php echo site_url("payroll_deductions/item_schedule/{$payroll->id}/{$column->id}") . "?next=" . uri_string(); ?>" class="body_wrapper">
                   <strong><?php 
 $total_deductions += $total[$column->id];
                   echo number_format($total[$column->id],2);?></strong>
