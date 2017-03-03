@@ -25,13 +25,13 @@
           <table class="table table-default" id="Payroll-Group">
             <thead>
               <tr class="warning">
-                <th>Employee Name</th>
-                <th width="25%">Notes</th>
-                <th width="13%" class="text-right">Total Receivables</th>
-                <th width="13%" class="text-right">Amount Received</th>
-                <th width="13%" class="text-right">Balance</th>
-                <th width="13%" class="text-right">Current Earnings</th>
-                <th width="13%" class="text-right">Total Amount Received</th>
+                <th width="20%">Employee Name</th>
+                <th width="20%">Notes</th>
+                <th width="12%" class="text-right">Total Receivables</th>
+                <th width="12%" class="text-right">Amount Received</th>
+                <th width="12%" class="text-right">Balance</th>
+                <th width="12%" class="text-right">Current Earnings</th>
+                <th width="12%" class="text-right">Total Amount Received</th>
               </tr>
             </thead>
             <tbody>
