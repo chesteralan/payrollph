@@ -69,6 +69,9 @@ $total_net_pay = 0;
 <?php if( isColumn('cola', $print_columns) ) { ?>
                 <th width="5%" class="text-right">COLA</th>
 <?php } ?>
+<?php if( isColumn('absences', $print_columns) ) { ?>
+                <th width="5%" class="text-right">Absences</th>
+<?php } ?>
 <?php if( isColumn('gross_pay', $print_columns) ) { ?>
                 <th width="5%" class="text-right">Gross Pay</th>
 <?php } ?>
@@ -128,8 +131,6 @@ if( $employee->salary ) {
     break;
   }
 }
-
-
               ?>
               <tr>
                 <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> <!--(<?php echo $employee->position; ?>)-->
@@ -149,7 +150,7 @@ if( isColumn('days_present', $print_columns) ) { ?>
                 <td class="text-right"><?php echo number_format($daily_rate,2); ?></td>
 <?php } ?>
 <?php 
-$basic_salary = ($daily_rate * $present_days);
+$basic_salary = ($daily_rate * $inclusive_dates->working_days);
 if( isColumn('basic_salary', $print_columns) ) { ?>
                 <td class="text-right"><?php echo number_format($basic_salary,2); ?></td>
 <?php } ?>
@@ -159,7 +160,12 @@ if( isColumn('cola', $print_columns) ) { ?>
                 <td class="text-right"><?php echo number_format($cola,2); ?></td>
 <?php } ?>
 <?php 
-$gross_pay = ($basic_salary + $cola); 
+$absences = ($daily_rate * $days_absent);
+if( isColumn('cola', $print_columns) ) { ?>
+                <td class="text-right">(<?php echo number_format($absences,2); ?>)</td>
+<?php } ?>
+<?php 
+$gross_pay = (($basic_salary + $cola) - $absences); 
 if( isColumn('gross_pay', $print_columns) ) { ?>
                 <td class="text-right"><?php echo number_format($gross_pay,2); ?></td>
 <?php } ?>

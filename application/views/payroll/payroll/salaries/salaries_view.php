@@ -37,11 +37,12 @@
 <!--
                 <th width="10%" class="text-right">Working Days</th>
                 <th width="10%" class="text-right">Absences</th>
--->
-                <th width="10%" class="text-right">Days Present</th>
+
+                <th width="10%" class="text-right">Days Present</th>-->
                 <th width="10%" class="text-right">Rate per day</th>
                 <th width="10%" class="text-right">Basic Salary</th>
                 <th width="10%" class="text-right">COLA</th>
+                <th width="10%" class="text-right">Absenses</th>
                 <th width="10%" class="text-right">Gross Pay</th>
               </tr>
             </thead>
@@ -75,9 +76,10 @@ if( $employee->salary ) {
   }
 }
 $present_days = $inclusive_dates->working_days - $days_absent;
-$basic_salary = ($daily_rate * $present_days); 
+$absences = $days_absent * $daily_rate;
+$basic_salary = ($daily_rate * $inclusive_dates->working_days); 
 $cola = ($salary->cola * $present_days);
-$employee_gross_pay = ($basic_salary + $cola);
+$employee_gross_pay = (($basic_salary + $cola) - $absences);
 $total_salaries += $employee_gross_pay; 
               ?>
               <tr>
@@ -89,11 +91,12 @@ $total_salaries += $employee_gross_pay;
                 <td class="text-right">
                 <?php echo $days_absent; ?>
                 </td>
--->
-                <td class="text-right"><?php echo $present_days; ?></td>
+
+                <td class="text-right"><?php echo $present_days; ?></td>-->
                 <td class="text-right"><?php echo number_format($daily_rate,2); ?></td>
                 <td class="text-right"><?php echo number_format($basic_salary,2); ?></td>
                 <td class="text-right"><?php echo number_format($cola,2); ?></td>
+                <td class="text-right">(<?php echo number_format($absences,2); ?>)</td>
                 <td class="text-right"><?php echo number_format($employee_gross_pay,2); ?></td>
               </tr>
 <?php         } 
