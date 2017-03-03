@@ -161,7 +161,7 @@ if( isColumn('cola', $print_columns) ) { ?>
 <?php } ?>
 <?php 
 $absences = ($daily_rate * $days_absent);
-if( isColumn('cola', $print_columns) ) { ?>
+if( isColumn('absences', $print_columns) ) { ?>
                 <td class="text-right">(<?php echo number_format($absences,2); ?>)</td>
 <?php } ?>
 <?php 
