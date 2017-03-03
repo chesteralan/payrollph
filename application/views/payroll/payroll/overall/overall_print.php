@@ -41,59 +41,60 @@ function isColumn($column_id,$print_columns) {
 <?php if( $payroll_groups ) {  
 
 $total_net_pay = 0;
-
+$pc_count = (count($print_columns)) ? count($print_columns) : 1;
+$column_width = ceil(71 / $pc_count);
   ?>
   <div class="payroll">
   <?php foreach($payroll_groups as $payroll_group) { ?>
  
  <?php if($payroll_group->employees) { ?>
-          <table cellspacing="0" cellpadding="0" class="table" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
+          <table width="100%" cellspacing="0" cellpadding="0" class="table" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
               <tr class="warning highlight allcaps">
-                <th class="text-left allcaps" width="15%"><?php echo $payroll_group->name; ?></th>
+                <th class="text-left allcaps" width="<?php echo ($pc_count==1) ? '64' : '15'; ?>%"><?php echo $payroll_group->name; ?></th>
 <?php if( isColumn('working_days', $print_columns) ) { ?>
-                <th width="5%" class="text-right">Working Days</th>
+                <th width="<?php echo $column_width; ?>%" class="text-right">Working Days</th>
 <?php } ?>
 <?php if( isColumn('absences', $print_columns) ) { ?>
-                <th width="5%" class="text-right">Absences</th>
+                <th width="<?php echo $column_width; ?>%" class="text-right">Absences</th>
 <?php } ?>
 <?php if( isColumn('days_present', $print_columns) ) { ?>
-                <th width="5%" class="text-right">Days Present</th>
+                <th width="<?php echo $column_width; ?>%" class="text-right">Days Present</th>
 <?php } ?>
 <?php if( isColumn('rate_per_day', $print_columns) ) { ?>
-                <th width="5%" class="text-right">Rate per day</th>
+                <th width="<?php echo $column_width; ?>%" class="text-right">Rate per day</th>
 <?php } ?>
 <?php if( isColumn('basic_salary', $print_columns) ) { ?>
-                <th width="5%" class="text-right">Basic Salary</th>
+                <th width="<?php echo $column_width; ?>%" class="text-right">Basic Salary</th>
 <?php } ?>
 <?php if( isColumn('cola', $print_columns) ) { ?>
-                <th width="5%" class="text-right">COLA</th>
+                <th width="<?php echo $column_width; ?>%" class="text-right">COLA</th>
 <?php } ?>
 <?php if( isColumn('absences_amount', $print_columns) ) { ?>
-                <th width="5%" class="text-right">Absences</th>
+                <th width="<?php echo $column_width; ?>%" class="text-right">Absences</th>
 <?php } ?>
 <?php if( isColumn('gross_pay', $print_columns) ) { ?>
-                <th width="5%" class="text-right">Gross Pay</th>
+                <th width="<?php echo $column_width; ?>%" class="text-right">Gross Pay</th>
 <?php } ?>
 <?php if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
 <?php if( isColumn('earning_'.$column->id, $print_columns) ) { ?>
-                <th width="5%" class="text-right"><?php echo $column->name; ?></th>
+                <th width="<?php echo $column_width; ?>%" class="text-right"><?php echo $column->name; ?></th>
 <?php } ?>
 <?php } ?>
-                <th width="7%" class="text-right allcaps">Total Earnings</th>
+                <th width="<?php echo ($pc_count==1) ? '12' : '7'; ?>%" class="text-right allcaps">Total Earnings</th>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
 <?php if( isColumn('benefit_'.$column->id, $print_columns) ) { ?>
-                <th width="5%" class="text-right"><?php echo $column->name; ?>-EE</th>
-                <th width="5%" class="text-right"><?php echo $column->name; ?>-ER</th>
+                <th width="<?php echo $column_width; ?>%" class="text-right"><?php echo $column->name; ?>-EE</th>
+                <th width="<?php echo $column_width; ?>%" class="text-right"><?php echo $column->name; ?>-ER</th>
 <?php } ?>
 <?php } ?>
 <?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { ?>
 <?php if( isColumn('deduction_'.$column->id, $print_columns) ) { ?>
-                <th width="5%" class="text-right"><?php echo $column->name; ?></th>
+                <th width="<?php echo $column_width; ?>%" class="text-right"><?php echo $column->name; ?></th>
 <?php } ?>
 <?php } ?>
-                <th width="7%" class="text-right allcaps">Total Deductions</th>
-                <th width="5%" class="text-right allcaps">Net Pay</th>
+                <th width="<?php echo ($pc_count==1) ? '12' : '7'; ?>%" class="text-right allcaps">Total Deductions</th>
+                <th width="<?php echo ($pc_count==1) ? '12' : '5'; ?>%" class="text-right allcaps">Net Pay</th>
               </tr>
             </thead>
             <tbody>
