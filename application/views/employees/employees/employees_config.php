@@ -21,7 +21,7 @@
 <?php endif; ?>
           
 <div class="list-group">
-  <a data-target="#ajaxModal" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit_personal/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+  <a data-target="#ajaxModal" data-title="Personal Information" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit_personal/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Personal Information</h4>
     <p class="list-group-item-text">Employee's Personal Information</p>
   </a>

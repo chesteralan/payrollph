@@ -32,7 +32,7 @@
 	    				<tr id="name-<?php echo $name->id; ?>">
 	    					<td>
 <?php if( $name->is_employed ) { ?>
-	<a href="<?php echo site_url("employees/config/{$name->id}"); ?>" class="body_wrapper">
+	<a href="javascript:void(0);" data-url="<?php echo site_url("employees/config/{$name->id}/ajax"); ?>" class="ajax-modal" data-target="#ajaxModal" data-title="Configure Employee" data-toggle="modal">
 <?php } ?>
 	    					<?php echo $name->full_name; ?>
 <?php if( $name->is_employed ) { ?>
