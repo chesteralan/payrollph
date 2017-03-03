@@ -42,7 +42,7 @@
                 <th width="10%" class="text-right">Rate per day</th>
                 <th width="10%" class="text-right">Basic Salary</th>
                 <th width="10%" class="text-right">COLA</th>
-                <th width="10%" class="text-right">Absenses</th>
+                <th width="10%" class="text-right">Absences</th>
                 <th width="10%" class="text-right">Gross Pay</th>
               </tr>
             </thead>
