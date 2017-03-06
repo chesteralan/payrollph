@@ -20,8 +20,11 @@
           </li>
 <?php 
 
-$main_menu = array(
-  'payroll' => array(
+$main_menu = array();
+
+if( $this->session->userdata( 'current_company' ) ) {  
+
+  $main_menu['payroll'] = array(
       'title' => 'Payroll',
       'uri' => 'payroll',
       'permission' => 'payroll',
@@ -37,9 +40,9 @@ $main_menu = array(
             'permission' => 'templates',
           ),
         )
-    ),
+    );
 
-  'employees' => array(
+    $main_menu['employees'] = array(
       'title' => 'Employees',
       'uri' => 'employees',
       'permission' => 'employees',
@@ -65,9 +68,11 @@ $main_menu = array(
             'permission' => 'areas',
           ),
         )
-    ),
+    );
 
-  'lists' => array(
+}
+
+    $main_menu['lists'] = array(
       'title' => 'Lists',
       'uri' => 'lists',
       'permission' => 'lists',
@@ -93,13 +98,18 @@ $main_menu = array(
             'permission' => 'deductions',
           ),
         )
-    ),
+    );
 
-  'system' => array(
+    $main_menu['system'] = array(
       'title' => 'System',
       'uri' => 'system',
       'permission' => 'system',
       'sub_menus' => array(
+          'system_companies' => array(
+            'title' => 'Companies',
+            'uri' => 'system_companies',
+            'permission' => 'companies',
+          ),
           'system_terms' => array(
             'title' => 'Terminologies',
             'uri' => 'system_terms',
@@ -116,8 +126,8 @@ $main_menu = array(
             'permission' => 'backup',
           ),
         )
-    ),
-);
+    );
+
 
 foreach($main_menu as $main=>$menu): 
   if( ! isset( $menu['permission'] ) ) {

@@ -9,6 +9,8 @@ class Payroll_templates extends MY_Controller {
 		$this->template_data->set('current_uri', 'payroll_templates');
 		$this->template_data->set('navbar_search', true);
 
+		$this->_isCompanyId();
+
 		$this->_isAuth('payroll', 'templates', 'view');
 
 		$this->load->model('Payroll_templates_model');
@@ -31,6 +33,7 @@ class Payroll_templates extends MY_Controller {
 	public function index($start=0) {
 
 		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
 		$templates->setActive('1', true);
 		$templates->set_select('*');
 		$templates->set_start($start);

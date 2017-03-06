@@ -7,6 +7,7 @@
 
 CREATE TABLE `payroll_templates` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
+  `company_id` int(20) NOT NULL,
   `name` varchar(200) NOT NULL,
   `company_name` varchar(200) DEFAULT NULL,
   `company_address` varchar(200) DEFAULT NULL,
@@ -15,7 +16,8 @@ CREATE TABLE `payroll_templates` (
   `approved_by` int(20) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `checked_by` (`checked_by`,`approved_by`)
+  KEY `checked_by` (`checked_by`,`approved_by`),
+  KEY `company_id` (`company_id`)
 );
 
  * @package			        Model
@@ -30,6 +32,7 @@ CREATE TABLE `payroll_templates` (
 class Payroll_templates_model extends MY_Model {
 
 	protected $id;
+	protected $company_id;
 	protected $name;
 	protected $company_name;
 	protected $company_address;
@@ -50,8 +53,8 @@ class Payroll_templates_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_templates';
 		$this->_short_name = 'payroll_templates';
-		$this->_fields = array("id","name","company_name","company_address","company_contacts","checked_by","approved_by","active");
-		$this->_required = array("name","active");
+		$this->_fields = array("id","company_id","name","company_name","company_address","company_contacts","checked_by","approved_by","active");
+		$this->_required = array("company_id","name","active");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -82,6 +85,32 @@ class Payroll_templates_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: id --------------------------------------
+
+
+// ---------------------------- Start Field: company_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `company_id` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `company_id` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getCompanyId() {
+			return $this->company_id;
+		}
+	
+// ------------------------------ End Field: company_id --------------------------------------
 
 
 // ---------------------------- Start Field: name -------------------------------------- 

@@ -1,12 +1,43 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+class Login_Controller extends CI_Controller {
+    public function __construct()
+        {
+            parent::__construct();
+
+            if( (USER_AGENT_CHECK) && ((!$this->input->get_request_header('User-Agent')) || ( $this->input->get_request_header('User-Agent') != USER_AGENT_CHECK ) )) {
+                    show_404();
+            }
+
+            $this->template_data->set('page_title', 'Payroll PH');
+
+            $this->template_data->set('inner_page', false);
+            if( $this->input->post('output') == 'inner_page') {
+                $this->template_data->set('inner_page', true);
+            }
+
+            $this->template_data->set('body_wrapper', false);
+            if( $this->input->post('output') == 'body_wrapper') {
+                $this->template_data->set('body_wrapper', true);
+            }
+
+            // default,cerulean,cosmo,cyborg,darkly,flatly,journal,lumen,paper,readable,sandstone,simplex,slate,spacelab,superhero,united,yeti
+            $bootstrap_theme = ( isset($this->session->user_settings['theme']) && $this->session->user_settings['theme'] ) ? $this->session->user_settings['theme'] : 'yeti';
+            $this->template_data->set('bootstrap_theme', $bootstrap_theme);
+    }
+}
+
 class MY_Controller extends CI_Controller {
 
         public function __construct()
         {
                 parent::__construct();
-                
+
+                if( (USER_AGENT_CHECK) && ((!$this->input->get_request_header('User-Agent')) || ( $this->input->get_request_header('User-Agent') != USER_AGENT_CHECK ) )) {
+                        show_404();
+                }
+
                 if( ! $this->session->loggedIn || ! isset($this->session->loggedIn) ) {
                 	$this->session->sess_destroy();
                 	redirect( site_url( 'account/login' ) . "?next=" . urlencode( uri_string()) );
@@ -30,6 +61,12 @@ class MY_Controller extends CI_Controller {
                 $bootstrap_theme = ( isset($this->session->user_settings['theme']) && $this->session->user_settings['theme'] ) ? $this->session->user_settings['theme'] : 'yeti';
                 $this->template_data->set('bootstrap_theme', $bootstrap_theme);
 
+        }
+
+        public function _isCompanyId() {
+            if( ! $this->session->userdata('current_company_id') ) {
+                show_404();
+            }
         }
 
         public function _isAuth($dept, $sect=NULL, $action='view', $uri=false, $return=false) {

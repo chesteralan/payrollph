@@ -18,6 +18,7 @@ class Employees_areas extends MY_Controller {
 	public function index($start=0) {
 		
 		$areas = new $this->Employees_areas_model;
+		$areas->setCompanyId($this->session->userdata('current_company_id'),true);
 		$areas->setTrash(0,true);
 		$areas->set_select("*");
 		$areas->set_select("(SELECT COUNT(*) FROM `employees` WHERE area_id=employees_areas.id) as employees_count");
@@ -46,6 +47,7 @@ class Employees_areas extends MY_Controller {
 				$areas = new $this->Employees_areas_model;
 				$areas->setName($this->input->post('area_name'));
 				$areas->setNotes($this->input->post('notes'));
+				$areas->setCompanyId($this->session->userdata('current_company_id'));
 				if( $areas->insert() ) {
 					redirect("employees_areas");
 				}
@@ -68,8 +70,8 @@ class Employees_areas extends MY_Controller {
 				$this->form_validation->set_rules('area_name', 'Area Name', 'trim|required');
 				$this->form_validation->set_rules('notes', 'Notes', 'trim');
 				if( $this->form_validation->run() ) {
-					$areas->setName($this->input->post('area_name'));
-					$areas->setNotes($this->input->post('notes'));
+					$areas->setName($this->input->post('area_name'),false,true);
+					$areas->setNotes($this->input->post('notes'),false,true);
 					$areas->update();
 				}
 				$this->postNext();

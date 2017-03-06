@@ -18,6 +18,7 @@ class Employees_positions extends MY_Controller {
 	public function index($start=0) {
 		
 		$positions = new $this->Employees_positions_model;
+		$positions->setCompanyId($this->session->userdata('current_company_id'),true);
 		$positions->setTrash(0,true);
 		$positions->set_select("*");
 		$positions->set_select("(SELECT COUNT(*) FROM `employees` WHERE position_id=employees_positions.id) as employees_count");
@@ -46,6 +47,7 @@ class Employees_positions extends MY_Controller {
 				$positions = new $this->Employees_positions_model;
 				$positions->setName($this->input->post('position_name'));
 				$positions->setNotes($this->input->post('notes'));
+				$positions->setCompanyId($this->session->userdata('current_company_id'));
 				if( $positions->insert() ) {
 					redirect("employees_positions");
 				}
@@ -68,8 +70,8 @@ class Employees_positions extends MY_Controller {
 				$this->form_validation->set_rules('position_name', 'position Name', 'trim|required');
 				$this->form_validation->set_rules('notes', 'Notes', 'trim');
 				if( $this->form_validation->run() ) {
-					$positions->setName($this->input->post('position_name'));
-					$positions->setNotes($this->input->post('notes'));
+					$positions->setName($this->input->post('position_name'),false,true);
+					$positions->setNotes($this->input->post('notes'),false,true);
 					$positions->update();
 				}
 				$this->postNext();

@@ -16,6 +16,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
 <?php 
+$url['system_companies'] = array('uri' => 'system_companies', 'title'=>'Companies', 'access'=>hasAccess('system', 'companies', 'view'));
 $url['system_terms'] = array('uri' => 'system_terms', 'title'=>'Terminologies', 'access'=>hasAccess('system', 'terms', 'view'));
 $url['system_users'] = array('uri' => 'system_users', 'title'=>'User Accounts', 'access'=>hasAccess('system', 'users', 'view'));
 $url['system_backup'] = array('uri' => 'system_backup', 'title'=>'Database Backup', 'access'=>hasAccess('system', 'backup', 'view'));

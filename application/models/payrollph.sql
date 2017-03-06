@@ -22,6 +22,19 @@ CREATE TABLE `benefits_list` (
   PRIMARY KEY (`id`)
 );
 
+-- Table structure for table `companies_list` 
+
+CREATE TABLE `companies_list` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `address` varchar(200) DEFAULT NULL,
+  `phone` varchar(200) DEFAULT NULL,
+  `notes` text,
+  `default` int(1) DEFAULT '0',
+  `trash` int(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+);
+
 -- Table structure for table `deductions_list` 
 
 CREATE TABLE `deductions_list` (
@@ -50,6 +63,7 @@ CREATE TABLE `earnings_list` (
 
 CREATE TABLE `employees` (
   `name_id` int(20) NOT NULL,
+  `company_id` int(20) NOT NULL,
   `group_id` int(20) DEFAULT NULL,
   `lastname` varchar(100) NOT NULL,
   `firstname` varchar(100) NOT NULL,
@@ -65,7 +79,8 @@ CREATE TABLE `employees` (
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),
   KEY `position_id` (`position_id`),
-  KEY `area_id` (`area_id`)
+  KEY `area_id` (`area_id`),
+  KEY `company_id` (`company_id`)
 );
 
 -- Table structure for table `employees_absences` 
@@ -83,10 +98,12 @@ CREATE TABLE `employees_absences` (
 
 CREATE TABLE `employees_areas` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
+  `company_id` int(20) NOT NULL,
   `name` varchar(200) NOT NULL,
   `notes` text,
   `trash` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `company_id` (`company_id`)
 );
 
 -- Table structure for table `employees_benefits` 
@@ -143,20 +160,24 @@ CREATE TABLE `employees_earnings` (
 
 CREATE TABLE `employees_groups` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
+  `company_id` int(20) NOT NULL,
   `name` varchar(200) NOT NULL,
   `notes` text,
   `trash` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `company_id` (`company_id`)
 );
 
 -- Table structure for table `employees_positions` 
 
 CREATE TABLE `employees_positions` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
+  `company_id` int(20) NOT NULL,
   `name` varchar(200) NOT NULL,
   `notes` text,
   `trash` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `company_id` (`company_id`)
 );
 
 -- Table structure for table `employees_salaries` 
@@ -192,13 +213,15 @@ CREATE TABLE `names_list` (
 
 CREATE TABLE `payroll` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
+  `company_id` int(20) NOT NULL,
   `name` varchar(200) NOT NULL,
   `template_id` int(20) NOT NULL,
   `month` int(2) NOT NULL,
   `year` int(4) NOT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `template_id` (`template_id`)
+  KEY `template_id` (`template_id`),
+  KEY `company_id` (`company_id`)
 );
 
 -- Table structure for table `payroll_benefits` 
@@ -318,6 +341,7 @@ CREATE TABLE `payroll_inclusive_dates` (
 
 CREATE TABLE `payroll_templates` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
+  `company_id` int(20) NOT NULL,
   `name` varchar(200) NOT NULL,
   `company_name` varchar(200) DEFAULT NULL,
   `company_address` varchar(200) DEFAULT NULL,
@@ -326,7 +350,8 @@ CREATE TABLE `payroll_templates` (
   `approved_by` int(20) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `checked_by` (`checked_by`,`approved_by`)
+  KEY `checked_by` (`checked_by`,`approved_by`),
+  KEY `company_id` (`company_id`)
 );
 
 -- Table structure for table `payroll_templates_benefits` 

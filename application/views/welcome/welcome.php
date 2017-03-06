@@ -5,7 +5,9 @@
 
 <?php $this->load->view('welcome/welcome_navbar'); ?>
 
-    <div class="container" id="homepage">
+<div class="container" id="homepage">
+
+<?php if( $this->session->userdata( 'current_company' ) ) { ?>
 
 <div class="row">
 <?php if( isset( $this->session->menu_module['payroll'] ) ) { ?>
@@ -67,7 +69,7 @@
 <?php } ?>
 </div>
 
-
+<?php } ?>
 
     <div class="row">
 

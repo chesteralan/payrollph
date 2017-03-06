@@ -9,6 +9,8 @@ class Employees extends MY_Controller {
 		$this->template_data->set('current_uri', 'employees');
 		$this->template_data->set('navbar_search', true);
 
+		$this->_isCompanyId();
+		
 		$this->_isAuth('employees', 'employees', 'view');
 
 		$this->load->model('Names_list_model');
@@ -22,6 +24,7 @@ class Employees extends MY_Controller {
 	public function index($start=0) {
 
 		$employees = new $this->Employees_model;
+		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 		$employees->setTrash(0,true);
 		$employees->set_select('*');
 		$employees->set_select('(SELECT name FROM employees_groups WHERE id=employees.group_id) as group_name');
@@ -49,6 +52,7 @@ class Employees extends MY_Controller {
 		$this->template_data->set('group', $groups->get());
 
 		$employees = new $this->Employees_model;
+		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 		$employees->setGroupId($id,true);
 		$employees->set_select('*');
 		$employees->set_select('(SELECT name FROM employees_groups WHERE id=employees.group_id) as group_name');
@@ -75,6 +79,7 @@ class Employees extends MY_Controller {
 		$this->template_data->set('position', $position->get());
 
 		$employees = new $this->Employees_model;
+		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 		$employees->setPositionId($id,true);
 		$employees->set_select('*');
 		$employees->set_select('(SELECT name FROM employees_groups WHERE id=employees.group_id) as group_name');
@@ -101,6 +106,7 @@ class Employees extends MY_Controller {
 		$this->template_data->set('area', $area->get());
 
 		$employees = new $this->Employees_model;
+		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 		$employees->setAreaId($id,true);
 		$employees->set_select('*');
 		$employees->set_select('(SELECT name FROM employees_groups WHERE id=employees.group_id) as group_name');
@@ -149,10 +155,12 @@ class Employees extends MY_Controller {
 		}
 
 		$groups = new $this->Employees_groups_model;
+		$groups->setCompanyId($this->session->userdata('current_company_id'),true);
 		$groups->set_limit(0);
 		$this->template_data->set('groups', $groups->populate());
 
 		$positions = new $this->Employees_positions_model;
+		$positions->setCompanyId($this->session->userdata('current_company_id'),true);
 		$positions->set_limit(0);
 		$positions->set_order('name', 'ASC');
 		$this->template_data->set('positions', $positions->populate());
@@ -245,16 +253,19 @@ class Employees extends MY_Controller {
 		$this->template_data->set('employee', $employee->get());
 
 		$groups = new $this->Employees_groups_model;
+		$groups->setCompanyId($this->session->userdata('current_company_id'),true);
 		$groups->set_limit(0);
 		$groups->set_order('name');
 		$this->template_data->set('groups', $groups->populate());
 
 		$positions = new $this->Employees_positions_model;
+		$positions->setCompanyId($this->session->userdata('current_company_id'),true);
 		$positions->set_limit(0);
 		$positions->set_order('name');
 		$this->template_data->set('positions', $positions->populate());
 
 		$areas = new $this->Employees_areas_model;
+		$areas->setCompanyId($this->session->userdata('current_company_id'),true);
 		$areas->set_limit(0);
 		$areas->set_order('name');
 		$this->template_data->set('areas', $areas->populate());

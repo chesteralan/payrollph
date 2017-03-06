@@ -7,13 +7,15 @@
 
 CREATE TABLE `payroll` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
+  `company_id` int(20) NOT NULL,
   `name` varchar(200) NOT NULL,
   `template_id` int(20) NOT NULL,
   `month` int(2) NOT NULL,
   `year` int(4) NOT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `template_id` (`template_id`)
+  KEY `template_id` (`template_id`),
+  KEY `company_id` (`company_id`)
 );
 
  * @package			        Model
@@ -28,6 +30,7 @@ CREATE TABLE `payroll` (
 class Payroll_model extends MY_Model {
 
 	protected $id;
+	protected $company_id;
 	protected $name;
 	protected $template_id;
 	protected $month;
@@ -46,8 +49,8 @@ class Payroll_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll';
 		$this->_short_name = 'payroll';
-		$this->_fields = array("id","name","template_id","month","year","active");
-		$this->_required = array("name","template_id","month","year","active");
+		$this->_fields = array("id","company_id","name","template_id","month","year","active");
+		$this->_required = array("company_id","name","template_id","month","year","active");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -78,6 +81,32 @@ class Payroll_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: id --------------------------------------
+
+
+// ---------------------------- Start Field: company_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `company_id` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `company_id` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getCompanyId() {
+			return $this->company_id;
+		}
+	
+// ------------------------------ End Field: company_id --------------------------------------
 
 
 // ---------------------------- Start Field: name -------------------------------------- 

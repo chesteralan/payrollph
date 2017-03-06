@@ -118,6 +118,7 @@ $dept = array(
 	'system' =>  (object) array(
 		'title' => 'System',
 		'sections' => array(
+				'companies' => 'Companies',
 				'terms' => 'Terminologies',
 				'users' => 'User Accounts',
 				'backup' => 'Database Backup',
@@ -129,6 +130,7 @@ $dept = array(
 defined('USERACCOUNTS_RESTRICTIONS') OR define('USERACCOUNTS_RESTRICTIONS', serialize( $dept ) );
 
 defined('APP_NAME') OR define('APP_NAME', 'Payroll PH' );
+defined('USER_AGENT_CHECK') OR define('USER_AGENT_CHECK', false );
 
 // working days
 defined('WORK_ON_SUN')      OR define('WORK_ON_SUN', false); 

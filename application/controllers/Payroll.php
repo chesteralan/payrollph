@@ -4,12 +4,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Payroll extends MY_Controller {
 	
 	public function __construct() {
+		
 		parent::__construct();
+
 		$this->template_data->set('current_page', 'Payroll');
 		$this->template_data->set('current_uri', 'payroll');
 		$this->template_data->set('navbar_search', true);
 
+		$this->_isCompanyId();
+
 		$this->_isAuth('payroll', 'payroll', 'view');
+
 
 		$this->load->model('Payroll_model');
 		$this->load->model('Payroll_templates_model');
@@ -44,12 +49,12 @@ class Payroll extends MY_Controller {
 		$this->load->model('Deductions_list_model');
 		$this->load->model('Terms_list_model');
 
-
 	}
 
 	public function index($start=0) {
 
 		$payrolls = new $this->Payroll_model;
+		$payrolls->setCompanyId($this->session->userdata('current_company_id'),true);
 		$payrolls->setActive(1,true);
 		$payrolls->set_select('*');
 		$payrolls->set_select('(SELECT name FROM payroll_templates WHERE id=payroll.template_id) as template_name');
@@ -116,6 +121,7 @@ class Payroll extends MY_Controller {
 				$payroll->setTemplateId($this->input->post('template_id'));
 				$payroll->setMonth($this->input->post('month'));
 				$payroll->setYear($this->input->post('year'));
+				$payroll->setCompanyId($this->session->userdata('current_company_id'));
 				$payroll->setActive(1);
 				$payroll->insert();
 			}
@@ -123,6 +129,9 @@ class Payroll extends MY_Controller {
 		}
 
 		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->set_limit(0);
+		$templates->setActive('1',true);
 		$this->template_data->set('templates', $templates->populate());
 
 		$this->template_data->set('output', $output);
@@ -140,10 +149,10 @@ class Payroll extends MY_Controller {
 			if( $this->input->post() ) {
 				$this->form_validation->set_rules('name', 'Template Name', 'trim|required');
 				if( $this->form_validation->run() ) {
-					$payroll->setName($this->input->post('name'));
-					$payroll->setTemplateId($this->input->post('template_id'));
-					$payroll->setMonth($this->input->post('month'));
-					$payroll->setYear($this->input->post('year'));
+					$payroll->setName($this->input->post('name'),false,true);
+					$payroll->setTemplateId($this->input->post('template_id'),false,true);
+					$payroll->setMonth($this->input->post('month'),false,true);
+					$payroll->setYear($this->input->post('year'),false,true);
 					$payroll->update();
 				}
 				$this->postNext();
@@ -152,6 +161,8 @@ class Payroll extends MY_Controller {
 		$this->template_data->set('payroll', $payroll->get());
 
 		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->set_limit(0);
 		$templates->setActive('1',true);
 		$this->template_data->set('templates', $templates->populate());
 
@@ -251,7 +262,7 @@ class Payroll extends MY_Controller {
 						foreach($this->input->post('selected') as $selected) {
 							$sel_dates = new $this->Payroll_inclusive_dates_model;
 							$sel_dates->setPayrollId($id);
-							$sel_dates->setInclusiveDate($selected,true);
+							$sel_dates->setInclusiveDate($selected);
 							if( $sel_dates->nonEmpty() == false) {
 								$sel_dates->insert();
 							}
@@ -278,6 +289,8 @@ class Payroll extends MY_Controller {
 		$not_available_days->set_where('payroll_id !=' . $id);
 		$not_available_days->set_where('MONTH(inclusive_date)', $current_month);
 		$not_available_days->set_where('YEAR(inclusive_date)', $current_year);
+		$not_available_days->set_where('(SELECT payroll.active FROM payroll WHERE payroll.id=payroll_inclusive_dates.payroll_id ) = 1');
+		$not_available_days->set_where('(SELECT payroll.company_id FROM payroll WHERE payroll.id=payroll_inclusive_dates.payroll_id ) = ' . $this->session->userdata('current_company_id'));
 		$not_available_days->set_select('DAY(inclusive_date) as day');
 		$not_available_days->set_select('inclusive_date');
 		$not_available_days->set_limit(0);

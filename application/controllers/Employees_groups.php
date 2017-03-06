@@ -18,6 +18,7 @@ class Employees_groups extends MY_Controller {
 	public function index($start=0) {
 		
 		$groups = new $this->Employees_groups_model;
+		$groups->setCompanyId($this->session->userdata('current_company_id'),true);
 		$groups->setTrash(0,true);
 		$groups->set_select("*");
 		$groups->set_select("(SELECT COUNT(*) FROM `employees` WHERE group_id=employees_groups.id) as employees_count");
@@ -46,6 +47,7 @@ class Employees_groups extends MY_Controller {
 				$groups = new $this->Employees_groups_model;
 				$groups->setName($this->input->post('group_name'));
 				$groups->setNotes($this->input->post('notes'));
+				$groups->setCompanyId($this->session->userdata('current_company_id'));
 				if( $groups->insert() ) {
 					redirect("employees_groups");
 				}
@@ -68,8 +70,8 @@ class Employees_groups extends MY_Controller {
 				$this->form_validation->set_rules('group_name', 'Group Name', 'trim|required');
 				$this->form_validation->set_rules('notes', 'Notes', 'trim');
 				if( $this->form_validation->run() ) {
-					$groups->setName($this->input->post('group_name'));
-					$groups->setNotes($this->input->post('notes'));
+					$groups->setName($this->input->post('group_name'),false,true);
+					$groups->setNotes($this->input->post('notes'),false,true);
 					$groups->update();
 				}
 				$this->postNext();

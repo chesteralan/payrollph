@@ -7,6 +7,7 @@ class Welcome extends MY_Controller {
 		parent::__construct();
 		$this->load->model('User_accounts_model');
 		$this->load->model('Employees_model');
+		$this->load->model('Companies_list_model');
 	}
 
 	public function index() {
@@ -14,8 +15,26 @@ class Welcome extends MY_Controller {
 		$stats = new $this->User_accounts_model('ua');
 		$stats->set_select('(SELECT count(*) FROM user_accounts) as users_count');
 		$this->template_data->set('stats', $stats->get());
-		
+
+		$companies = new $this->Companies_list_model;
+		$companies->setTrash(0,true);
+		$companies->set_order('name', 'ASC');
+		$companies->set_limit(0);
+		$companies->set_where('id !=' . $this->session->userdata( 'current_company_id') );
+		$this->template_data->set('companies', $companies->populate());
+
 		$this->load->view('welcome/welcome', $this->template_data->get_data());
+	}
+
+	public function change_company($company_id) {
+		$default_company = new $this->Companies_list_model;
+		$default_company->setId($company_id,true);
+		if( $default_company->nonEmpty() ) {
+				$company = $default_company->getResults();
+				$this->session->set_userdata( 'current_company', $company->name );
+				$this->session->set_userdata( 'current_company_id', $company->id );
+		}
+		redirect("welcome");
 	}
 
 	public function ajax($action='') {

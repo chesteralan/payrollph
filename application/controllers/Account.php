@@ -1,26 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Account extends CI_Controller {
-
-	public function __construct() {
-		parent::__construct();
-		$this->template_data->set('page_title', 'Payroll PH');
-
-		$this->template_data->set('inner_page', false);
-        if( $this->input->post('output') == 'inner_page') {
-            $this->template_data->set('inner_page', true);
-        }
-
-        $this->template_data->set('body_wrapper', false);
-        if( $this->input->post('output') == 'body_wrapper') {
-            $this->template_data->set('body_wrapper', true);
-        }
-
-        // default,cerulean,cosmo,cyborg,darkly,flatly,journal,lumen,paper,readable,sandstone,simplex,slate,spacelab,superhero,united,yeti
-        $bootstrap_theme = ( isset($this->session->user_settings['theme']) && $this->session->user_settings['theme'] ) ? $this->session->user_settings['theme'] : 'yeti';
-        $this->template_data->set('bootstrap_theme', $bootstrap_theme);
-	}
+class Account extends Login_Controller {
 
 	public function index()
 	{
@@ -112,6 +93,15 @@ class Account extends CI_Controller {
 						$user_settings[$setting->key] = $setting->value;
 					}
 					$this->session->set_userdata( 'user_settings', $user_settings );
+
+					$this->load->model('Companies_list_model');
+					$default_company = new $this->Companies_list_model;
+					$default_company->setDefault(1,true);
+					if( $default_company->nonEmpty() ) {
+							$company = $default_company->getResults();
+							$this->session->set_userdata( 'current_company', $company->name );
+							$this->session->set_userdata( 'current_company_id', $company->id );
+					}
 
 					if( $output == 'ajax') {
 
