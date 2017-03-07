@@ -23,18 +23,18 @@
 <ul class="list-group">
  <li class="list-group-item">
 
-            <a target="_blank" class="pull-right" href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/payslip"); ?>" style="margin-left:10px"><span class="glyphicon glyphicon-th-large"></span></a>
+            <a class="pull-right" href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/payslip"); ?>" style="margin-left:10px"><span class="glyphicon glyphicon-th-large"></span></a>
 
-      <a target="_blank" class="pull-right" href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/print"); ?>" style="margin-left:10px"><span class="glyphicon glyphicon-print"></span></a>
+      <a class="pull-right" href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/print"); ?>" style="margin-left:10px"><span class="glyphicon glyphicon-print"></span></a>
 
     <h4 class="list-group-item-heading">All Employees</h4>
   </li>
   <?php foreach($print_groups as $group) { ?>
   <li class="list-group-item">
 
-            <a target="_blank" class="pull-right" href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$group->id}/payslip"); ?>" style="margin-left:10px"><span class="glyphicon glyphicon-th-large"></span></a>
+            <a class="pull-right" href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$group->id}/payslip"); ?>" style="margin-left:10px"><span class="glyphicon glyphicon-th-large"></span></a>
 
-      <a target="_blank" class="pull-right" href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$group->id}/print"); ?>" style="margin-left:10px"><span class="glyphicon glyphicon-print"></span></a>
+      <a class="pull-right" href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$group->id}/print"); ?>" style="margin-left:10px"><span class="glyphicon glyphicon-print"></span></a>
 
     <h4 class="list-group-item-heading"><?php echo $group->name; ?></h4>
   </li>

@@ -10,25 +10,27 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <div class="navbar-brand"><?php echo $payroll->name;  ?>
-        
-<?php if( isset($print_groups) && ($print_groups) ) { ?>
-
-     <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Print Payroll" data-url="<?php echo site_url("payroll/print_group/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>" style="margin-left:10px" data-hide_footer="1"><span class="glyphicon glyphicon-print"></span></a>
-
-<?php } else { ?>
-
-          <a target="_blank" class="close" href="<?php echo site_url("payroll_overall/view/{$payroll->id}/payslip") . "?next=" . uri_string(); ?>" style="margin-left:10px"><span class="glyphicon glyphicon-th-large"></span></a>
-
-      <a target="_blank" class="close" href="<?php echo site_url("payroll_overall/view/{$payroll->id}/print") . "?next=" . uri_string(); ?>" style="margin-left:10px"><span class="glyphicon glyphicon-print"></span></a>
-
-<?php } ?>
-        <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Payroll" data-url="<?php echo site_url("payroll/config/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>" style="margin-left:10px" data-hide_footer="1"><span class="glyphicon glyphicon-cog"></span></a>
-
-      </div>
+      <div class="navbar-brand"><?php echo $payroll->name;  ?></div>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        
+        <li><a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Payroll" data-url="<?php echo site_url("payroll/config/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1"><span class="glyphicon glyphicon-cog"></span></a></li>
+        
+        <?php if( isset($print_groups) && ($print_groups) ) { ?>
+
+     <li><a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Print Payroll" data-url="<?php echo site_url("payroll/print_group/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1"><span class="glyphicon glyphicon-print"></span></a></li>
+
+<?php } else { ?>
+
+      <li><a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/payslip") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-th-large"></span></a></li>
+
+      <li><a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/print") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-print"></span></a></li>
+
+<?php } ?>
+      </ul>
+
       <ul class="nav navbar-nav navbar-right">
       <li><a class="body_wrapper" href="<?php echo site_url('payroll'); ?>"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
 <?php 

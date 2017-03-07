@@ -70,6 +70,7 @@ class Payroll_templates extends MY_Controller {
 					$template->setCompanyContacts($this->input->post('company_contacts'));
 					$template->setCheckedBy($this->input->post('checked_by'));
 					$template->setApprovedBy($this->input->post('approved_by'));
+					$template->setCompanyId($this->session->userdata('current_company_id'));
 					$template->setActive(1);
 					$template->insert();
 				}
@@ -133,8 +134,14 @@ class Payroll_templates extends MY_Controller {
 
 	public function config($id, $output='') {
 
-		$template = new $this->Payroll_templates_model;
+		$template = new $this->Payroll_templates_model('pt');
 		$template->setId($id,true);
+		$template->set_select('pt.*');
+		$template->set_select('(SELECT COUNT(*) FROM `employees_groups` WHERE company_id='.$this->session->userdata('current_company_id').' ) as groups_count');
+		$template->set_select('(SELECT COUNT(*) FROM `earnings_list`) as earnings_count');
+		$template->set_select('(SELECT COUNT(*) FROM `benefits_list`) as benefits_count');
+		$template->set_select('(SELECT COUNT(*) FROM `deductions_list`) as deductions_count');
+		$template->set_select('(SELECT COUNT(*) FROM `terms_list` WHERE type="print_group") as print_columns_count');
 		$this->template_data->set('template', $template->get());
 		
 		$this->template_data->set('output', $output);

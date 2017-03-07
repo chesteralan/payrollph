@@ -40,7 +40,7 @@ var confirmRemove = function() {
            var divBody = $('#bodyWrapper');
             var loadingDiv = $('<div class="loading-wait"></div>');
             loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
-            var loadingImg = $('<img src="/assets/images/loader4.gif"/>');
+            var loadingImg = $('<img src="'+window.base_url+'assets/images/loader4.gif"/>');
             loadingImg.css('margin-top', Math.ceil( divBody.parent().height() / 2 ));
             loadingDiv.html( loadingImg );
             divBody.prepend( loadingDiv );
@@ -160,7 +160,7 @@ var navbar_search_employee = function() {
               var divBody = $('#bodyWrapper');
               var loadingDiv = $('<div class="loading-wait"></div>');
               loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
-              var loadingImg = $('<img src="/assets/images/loader4.gif"/>');
+              var loadingImg = $('<img src="'+window.base_url+'assets/images/loader4.gif"/>');
               loadingImg.css('margin-top', Math.ceil( divBody.parent().height() / 2 ));
               loadingDiv.html( loadingImg );
               divBody.prepend( loadingDiv );
@@ -392,7 +392,7 @@ var bodyWrapper = function() {
               var divBody = $('#bodyWrapper');
               var loadingDiv = $('<div class="loading-wait"></div>');
               loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
-              var loadingImg = $('<img src="/assets/images/loader4.gif"/>');
+              var loadingImg = $('<img src="'+window.base_url+'assets/images/loader4.gif"/>');
               loadingImg.css('margin-top', Math.ceil( divBody.parent().height() / 2 ));
               loadingDiv.html( loadingImg );
               divBody.prepend( loadingDiv );
@@ -810,7 +810,7 @@ var lending_schedule_details = function() {
               var divBody = $('#ajaxBodyInnerPage');
               var loadingDiv = $('<div class="loading-wait"></div>');
               loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
-              var loadingImg = $('<img src="/assets/images/loader4.gif"/>');
+              var loadingImg = $('<img src="'+window.base_url+'assets/images/loader4.gif"/>');
               loadingImg.css('margin-top', Math.ceil( divBody.parent().height() / 2 ));
               loadingDiv.html( loadingImg );
               divBody.prepend( loadingDiv );

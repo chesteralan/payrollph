@@ -41,13 +41,6 @@
   </div>
 </div>
 
-<div id="ajaxDialog" style="display: none;">
-  <p class="loader text-center">
-    <img src="<?php echo base_url("assets/images/loader4.gif"); ?>">
-  </p>
-  <div class="output"></div>
-</div>
-
     <script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/jqueryui/jquery-ui.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>

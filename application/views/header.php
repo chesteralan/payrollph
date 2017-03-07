@@ -34,6 +34,7 @@
     <script type="text/javascript">
       <!--
         window['uri_string'] = '<?php echo site_url( uri_string() ); ?>';
+        window['base_url'] = '<?php echo base_url(); ?>';
       -->
     </script>
   </head>
