@@ -31,6 +31,7 @@ CREATE TABLE `companies_list` (
   `phone` varchar(200) DEFAULT NULL,
   `notes` text,
   `default` int(1) DEFAULT '0',
+  `theme` varchar(50) DEFAULT NULL,
   `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 );

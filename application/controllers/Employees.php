@@ -19,6 +19,7 @@ class Employees extends MY_Controller {
 		$this->load->model('Employees_positions_model');
 		$this->load->model('Employees_areas_model');
 		$this->load->model('Terms_list_model');
+		$this->load->model('Companies_list_model');
 	}
 
 	public function index($start=0) {
@@ -148,6 +149,8 @@ class Employees extends MY_Controller {
 					$employee->setMiddlename($this->input->post('middlename'));
 					$employee->setGroupId($this->input->post('group_id'));
 					$employee->setPositionId($this->input->post('position_id'));
+					$employee->setAreaId($this->input->post('area_id'));
+					$employee->setCompanyId($this->session->userdata('current_company_id'));
 					$employee->insert();
 				}
 				$this->postNext();
@@ -164,6 +167,12 @@ class Employees extends MY_Controller {
 		$positions->set_limit(0);
 		$positions->set_order('name', 'ASC');
 		$this->template_data->set('positions', $positions->populate());
+
+		$areas = new $this->Employees_areas_model;
+		$areas->setCompanyId($this->session->userdata('current_company_id'),true);
+		$areas->set_limit(0);
+		$areas->set_order('name', 'ASC');
+		$this->template_data->set('areas', $areas->populate());
 
 		$this->load->view('employees/employees/employees_add', $this->template_data->get_data());
 
@@ -231,6 +240,7 @@ class Employees extends MY_Controller {
 
 		if( $employee->nonEmpty() ) {
 			if( $this->input->post() ) {
+				$this->form_validation->set_rules('company_id', 'Company', 'trim');
 				$this->form_validation->set_rules('group_id', 'Group', 'trim');
 				$this->form_validation->set_rules('position_id', 'Position', 'trim');
 				$this->form_validation->set_rules('area_id', 'Area', 'trim');
@@ -238,6 +248,7 @@ class Employees extends MY_Controller {
 				$this->form_validation->set_rules('status', 'Status', 'trim');
 				$this->form_validation->set_rules('notes', 'Notes', 'trim');
 				if( $this->form_validation->run() ) {
+					$employee->setCompanyId($this->input->post('company_id'),false,true);
 					$employee->setGroupId($this->input->post('group_id'),false,true);
 					$employee->setPositionId($this->input->post('position_id'),false,true);
 					$employee->setAreaId($this->input->post('area_id'),false,true);
@@ -249,26 +260,34 @@ class Employees extends MY_Controller {
 				$this->postNext();
 			}
 		}
+		$employee_data = $employee->get();
+		$this->template_data->set('employee', $employee_data);
 
-		$this->template_data->set('employee', $employee->get());
+		$company_id = ($employee_data->company_id > 0) ? $employee_data->company_id : $this->session->userdata('current_company_id');
 
 		$groups = new $this->Employees_groups_model;
-		$groups->setCompanyId($this->session->userdata('current_company_id'),true);
+		$groups->setCompanyId($company_id,true);
 		$groups->set_limit(0);
 		$groups->set_order('name');
 		$this->template_data->set('groups', $groups->populate());
 
 		$positions = new $this->Employees_positions_model;
-		$positions->setCompanyId($this->session->userdata('current_company_id'),true);
+		$positions->setCompanyId($company_id,true);
 		$positions->set_limit(0);
 		$positions->set_order('name');
 		$this->template_data->set('positions', $positions->populate());
 
 		$areas = new $this->Employees_areas_model;
-		$areas->setCompanyId($this->session->userdata('current_company_id'),true);
+		$areas->setCompanyId($company_id,true);
 		$areas->set_limit(0);
 		$areas->set_order('name');
 		$this->template_data->set('areas', $areas->populate());
+
+		$companies = new $this->Companies_list_model;
+		$companies->setTrash(0,true);
+		$companies->set_order('name', 'ASC');
+		$companies->set_limit(0);
+		$this->template_data->set('companies', $companies->populate());
 
 		$terms = new $this->Terms_list_model;
 		$terms->set_select("*");

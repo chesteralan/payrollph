@@ -26,16 +26,16 @@
     <p class="list-group-item-text">Employee's Personal Information</p>
   </a>
 
-   <a data-target="#ajaxModal" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit_employment/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
-    <h4 class="list-group-item-heading">Employment Information</h4>
-    <p class="list-group-item-text">Employee's Employment Records</p>
-  </a>
-
  <a data-target="#ajaxModal" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit_address/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Address and Contact</h4>
     <p class="list-group-item-text">Employee's Addresses and Contact Numbers</p>
   </a>
 
+   <a data-target="#ajaxModal" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit_employment/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+    <h4 class="list-group-item-heading">Employment Information</h4>
+    <p class="list-group-item-text">Employee's Employment Records</p>
+  </a>
+  
 </div>
 <div class="list-group">
 

@@ -56,6 +56,15 @@
             </select>
           </div>
 
+          <div class="form-group">
+            <label>Area</label>
+            <select class="form-control" title="Select an Area" name="area_id">
+              <?php foreach($areas as $area) { ?>
+                <option value="<?php echo $area->id; ?>"><?php echo $area->name; ?></option>
+              <?php } ?>
+            </select>
+          </div>
+
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>
         <div class="panel-footer">

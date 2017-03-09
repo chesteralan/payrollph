@@ -75,10 +75,11 @@ if( $employee->salary ) {
     break;
   }
 }
+$cola_rate = (isset($salary)) ? $salary->cola : 0;
 $present_days = $inclusive_dates->working_days - $days_absent;
 $absences = $days_absent * $daily_rate;
 $basic_salary = ($daily_rate * $inclusive_dates->working_days); 
-$cola = ($salary->cola * $present_days);
+$cola = ($cola_rate * $present_days);
 $employee_gross_pay = (($basic_salary + $cola) - $absences);
 $total_salaries += $employee_gross_pay; 
               ?>

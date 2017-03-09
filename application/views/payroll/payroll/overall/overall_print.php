@@ -25,11 +25,19 @@ function isColumn($column_id,$print_columns) {
   </head>
   <body id="payroll_print">
 
+<div class="print-topnav hide-print text-center allcaps">
+  <a href="<?php echo site_url("payroll_dtr/view/{$payroll->id}/{$print_group}"); ?>">Back</a>
+  &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/payslip"); ?>">Payslip</a>
+  <?php foreach($print_groups as $pg) { ?>
+    &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$pg->id}"); ?>"><?php echo $pg->name; ?></a>
+  <?php } ?>
+</div>
+
 <h2 class="pull-right">PAYROLL ID: <?php echo $payroll->id; ?></h2>
 <div class="header-title">
-<h2 class="allcaps"><?php echo ($template->company_name) ? $template->company_name : ''; ?></h2>
-<h3><?php echo ($template->company_name) ? $template->company_address : ''; ?></h3>
-<h3><?php echo ($template->company_name) ? $template->company_contacts : ''; ?></h3>
+<h2 class="allcaps"><?php echo ($company->name) ? $company->name : ''; ?></h2>
+<h3><?php echo ($company->address) ? $company->address : ''; ?></h3>
+<h3><?php echo ($company->phone) ? $company->phone : ''; ?></h3>
 </div>
 
 <div class="full-border padding3">

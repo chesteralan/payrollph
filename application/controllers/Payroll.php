@@ -86,6 +86,7 @@ class Payroll extends MY_Controller {
 		$this->template_data->set('template', $template->get());
 
 		$payrolls = new $this->Payroll_model;
+		$payrolls->setCompanyId($this->session->userdata('current_company_id'),true);
 		$payrolls->setActive(1,true);
 		$payrolls->set_select('*');
 		$payrolls->set_select('(SELECT name FROM payroll_templates WHERE id=payroll.template_id) as template_name');
@@ -253,6 +254,7 @@ class Payroll extends MY_Controller {
 								$inc_date = new $this->Payroll_inclusive_dates_model;
 								$inc_date->setPayrollId($id,true);
 								$inc_date->setInclusiveDate($list_date,true);
+								$inc_date->set_where("(SELECT company_id FROM payroll WHERE id=payroll_inclusive_dates.payroll_id) = " . $this->session->userdata('current_company_id'));
 								if( $inc_date->nonEmpty() ) {
 									$inc_date->delete();
 								}
@@ -261,8 +263,8 @@ class Payroll extends MY_Controller {
 
 						foreach($this->input->post('selected') as $selected) {
 							$sel_dates = new $this->Payroll_inclusive_dates_model;
-							$sel_dates->setPayrollId($id);
-							$sel_dates->setInclusiveDate($selected);
+							$sel_dates->setPayrollId($id, true);
+							$sel_dates->setInclusiveDate($selected, true);
 							if( $sel_dates->nonEmpty() == false) {
 								$sel_dates->insert();
 							}

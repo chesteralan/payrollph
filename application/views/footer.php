@@ -7,7 +7,8 @@
 	<div class="row">
 		<div class="col-md-12">
 			<center><small>
-				<p><a href="http://www.trokis.com/" target="footer_credits">Trokis Philippines</a> 
+      <p><strong><?php echo $this->session->userdata( 'current_company' ); ?></strong><br>
+				<a href="http://www.trokis.com/" target="footer_credits">Trokis Philippines</a> 
 				&copy; <?php echo date('Y'); ?> 
 				<br>Developed by: 
 				<a href="http://www.chesteralan.com/" target="footer_credits">Chester Alan Tagudin</a> 
@@ -48,6 +49,7 @@
     
     <script src="<?php echo base_url('assets/js/bootstrap-select/js/bootstrap-select.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/tag-it/js/tag-it.min.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/nprogress/nprogress.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/payroll.js'); ?>"></script>
   </body>
 </html>

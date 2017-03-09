@@ -389,6 +389,7 @@ var bodyWrapper = function() {
         $(this).prop('href', 'javascript:void(0);');
         $(this).attr('data-morph', 'bodyWrapper');
         $(this).click(function() {
+              NProgress.start();
               var divBody = $('#bodyWrapper');
               var loadingDiv = $('<div class="loading-wait"></div>');
               loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
@@ -417,6 +418,8 @@ var bodyWrapper = function() {
                       });
                     });
                 }
+              }).done(function(){
+                NProgress.done();  
               }); // $.ajax()
         }); // $(this).click()
       }
@@ -807,6 +810,7 @@ var lending_schedule_details = function() {
         $(this).prop('href', 'javascript:void(0);');
         $(this).attr('data-morph', 'ajaxPage');
         $(this).click(function(){
+              NProgress.start();
               var divBody = $('#ajaxBodyInnerPage');
               var loadingDiv = $('<div class="loading-wait"></div>');
               loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
@@ -837,6 +841,7 @@ var lending_schedule_details = function() {
                     });
                 }
               }); // $.ajax()
+              NProgress.done();
             }); // $(this).click()
         }
     });
@@ -863,4 +868,17 @@ var lending_schedule_details = function() {
       init_sortable();
  }
  init_coop();
+
+/** ******  NProgress  *********************** **/
+if (typeof NProgress != 'undefined') {
+    $(document).ready(function () {
+        NProgress.start();
+    });
+
+    $(window).load(function () {
+        NProgress.done();
+    });
+}
+/** ******  NProgress  *********************** **/
+
 })(jQuery);

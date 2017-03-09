@@ -58,10 +58,18 @@
 
                         <?php if( in_array('positions', $this->session->menu_module['employees'] ) ) { ?>
                           <a href="<?php echo site_url('employees_positions'); ?>" class="list-group-item body_wrapper">
-                            <span class="fa fa-users" aria-hidden="true"></span>
+                            <span class="fa fa-user-md" aria-hidden="true"></span>
                             Positions
                           </a>
                         <?php } ?>
+
+                        <?php if( in_array('areas', $this->session->menu_module['employees'] ) ) { ?>
+                          <a href="<?php echo site_url('employees_areas'); ?>" class="list-group-item body_wrapper">
+                            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                            Positions
+                          </a>
+                        <?php } ?>
+
 						</div>
 					</div>
     			</div>
@@ -71,6 +79,7 @@
 
 <?php } ?>
 
+<?php /*
     <div class="row">
 
 <?php if( isset( $this->session->menu_module['lists'] ) ) { 
@@ -147,7 +156,7 @@ if(
             </div>
 <?php } ?>
 <?php } ?>
-
+*/ ?>
     </div>    	
     </div>
 

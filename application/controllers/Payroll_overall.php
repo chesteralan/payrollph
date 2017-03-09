@@ -30,6 +30,7 @@ class Payroll_overall extends MY_Controller {
 
 		$this->load->model('Employees_model');
 		$this->load->model('Terms_list_model');
+		$this->load->model('Companies_list_model');
 
 	}
 
@@ -40,6 +41,10 @@ class Payroll_overall extends MY_Controller {
 	public function view($id, $print_group=0, $output='print') {
 
 		$this->template_data->set('print_group', $print_group);
+
+		$company = new $this->Companies_list_model;
+		$company->setId($this->session->userdata('current_company_id'),true);
+		$this->template_data->set('company', $company->get());
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
@@ -159,6 +164,14 @@ class Payroll_overall extends MY_Controller {
 		$print_columns = $tcol->populate();
 		$this->template_data->set('print_columns', $print_columns);
 
+		$print_groups = new $this->Terms_list_model;
+		$print_groups->set_select("*");
+		$print_groups->set_order('name', 'ASC');
+		$print_groups->set_start(0);
+		$print_groups->setTrash('0',true);
+		$print_groups->setType('print_group',true);
+		$this->template_data->set('print_groups', $print_groups->populate());
+		
 		switch($output) {
 			case 'payslip':
 				$this->load->view('payroll/payroll/overall/overall_payslip', $this->template_data->get_data());

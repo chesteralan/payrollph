@@ -101,6 +101,7 @@ class Account extends Login_Controller {
 							$company = $default_company->getResults();
 							$this->session->set_userdata( 'current_company', $company->name );
 							$this->session->set_userdata( 'current_company_id', $company->id );
+							$this->session->set_userdata( 'current_company_theme', $company->theme );
 					}
 
 					if( $output == 'ajax') {

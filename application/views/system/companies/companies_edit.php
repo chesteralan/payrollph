@@ -40,6 +40,16 @@
             <textarea name="notes" class="form-control" rows="10"><?php echo $company->notes; ?></textarea>
           </div>
 
+            <div class="form-group">
+              <label>Theme</label>
+              <select name="theme" class="form-control" title="- - Select Class - -">
+              <?php 
+              foreach(array('default','cerulean','cosmo','cyborg','darkly','flatly','journal','lumen','paper','readable','sandstone','simplex','slate','spacelab','superhero','united','yeti') as $theme) { ?>
+                <option <?php echo ($company->theme==$theme) ? 'SELECTED' : ''; ?>><?php echo $theme; ?></option>
+              <?php } ?>
+              </select>
+            </div>
+
         <div class="form-group">
             <label><input name="default" type="checkbox" value="1" <?php echo ($company->default==1) ? 'CHECKED' : ''; ?>> Default Company</label>
           </div>

@@ -153,13 +153,13 @@ a.no-link {
   padding: 5px!important;
 }
 body#payslip .payslip_box {
-    width: 320px;
-    margin: 0px 10px 2px;
+    width: 405px;
+    margin: 0px 10px 20px;
     float:left;
     padding: 10px;
 }
 body#payslip .payslip_box .inner_body {
-    min-height: 335px;
+    min-height: 345px;
 }
 body#payslip .payslip_box .header-title {
   margin-top:5px;
@@ -200,4 +200,25 @@ body#payslip table td {
       page-break-after: always;
       page-break-inside: avoid;
     }
+}
+@media print { 
+  a[href]:after { content: none !important; } 
+  .hide-print {
+    display: none;
+  }
+}
+.print-topnav {
+  position: fixed;
+  width: 550px;
+  top: 0;
+  left: 50%;
+  margin-top: 0; /* Negative half of height. */
+  margin-left: -250px; /* Negative half of width. */
+  border: 1px solid #000;
+  border-top:none;
+  padding:10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: #CCC;
+  font-size: 12px;
 }

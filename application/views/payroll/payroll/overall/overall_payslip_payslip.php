@@ -2,9 +2,9 @@
 <div class="page">
 <div class="payslip_box full-border odd <?php echo (($box_count % 2) == 0) ? 'second-half' : 'first-half'; ?>">
   <div class="header-title">
-<h2 class="text-center allcaps"><?php echo ($template->company_name) ? $template->company_name : ''; ?></h2>
-<h3 class="text-center not-bold"><?php echo ($template->company_name) ? $template->company_address : ''; ?></h3>
-<h3 class="text-center not-bold"><?php echo ($template->company_name) ? $template->company_contacts : ''; ?></h3>
+<h2 class="text-center allcaps"><?php echo ($company->name) ? $company->name : ''; ?></h2>
+<h3 class="text-center not-bold"><?php echo ($company->address) ? $company->address : ''; ?></h3>
+<h3 class="text-center not-bold"><?php echo ($company->phone) ? $company->phone : ''; ?></h3>
 </div>
 
 <div class="full-border padding3">
@@ -174,9 +174,9 @@ if( $benefits_columns || $deductions_columns ) {
 
 <div class="payslip_box full-border even <?php echo (($box_count % 2) == 0) ? 'second-half' : 'first-half'; ?>">
   <div class="header-title">
-<h2 class="text-center allcaps"><?php echo ($template->company_name) ? $template->company_name : ''; ?></h2>
-<h3 class="text-center not-bold"><?php echo ($template->company_name) ? $template->company_address : ''; ?></h3>
-<h3 class="text-center not-bold"><?php echo ($template->company_name) ? $template->company_contacts : ''; ?></h3>
+<h2 class="text-center allcaps"><?php echo ($company->name) ? $company->name : ''; ?></h2>
+<h3 class="text-center not-bold"><?php echo ($company->address) ? $company->address : ''; ?></h3>
+<h3 class="text-center not-bold"><?php echo ($company->phone) ? $company->phone : ''; ?></h3>
 </div>
 
 <div class="full-border padding3">

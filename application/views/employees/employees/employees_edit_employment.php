@@ -66,7 +66,16 @@
             <label>Notes</label>
             <textarea name="notes" class="form-control"><?php echo $employee->notes; ?></textarea>
           </div>
-          
+
+          <div class="form-group">
+            <label>Transfer Company</label>
+            <select class="form-control" title="Select a Company" name="company_id">
+              <?php if($companies) foreach($companies as $company) { ?>
+                <option value="<?php echo $company->id; ?>" <?php echo ($employee->company_id==$company->id) ? "SELECTED" : ""; ?>><?php echo $company->name; ?></option>
+              <?php } ?>
+            </select>
+          </div>
+
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
         </div>

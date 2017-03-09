@@ -49,6 +49,8 @@ class System_companies extends MY_Controller {
 				$companies->setAddress($this->input->post('address'));
 				$companies->setPhone($this->input->post('phone'));
 				$companies->setNotes($this->input->post('notes'));
+				$bootstrap_theme = ( isset($this->session->user_settings['theme']) && $this->session->user_settings['theme'] ) ? $this->session->user_settings['theme'] : 'yeti';
+				$companies->setTheme($bootstrap_theme);
 				if( $companies->insert() ) {
 					redirect("system_companies");
 				}
@@ -77,6 +79,7 @@ class System_companies extends MY_Controller {
 					$companies->setAddress($this->input->post('address'),false,true);
 					$companies->setPhone($this->input->post('phone'),false,true);
 					$companies->setNotes($this->input->post('notes'),false,true);
+					$companies->setTheme($this->input->post('theme'),false,true);
 					$companies->setDefault(($this->input->post('default')?1:0),false,true);
 					$companies->update();
 				}

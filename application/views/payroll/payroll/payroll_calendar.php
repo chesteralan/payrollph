@@ -152,6 +152,10 @@ echo draw_calendar($current_month,$current_year, $inclusive_dates,$not_available
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>
+                <div class="panel-footer">
+          <button type="submit" class="btn btn-success">Submit</button>
+          <a href="<?php echo site_url($current_uri); ?>" class="btn btn-warning">Back</a>
+        </div>
 </form>
       </div>
     </div>
