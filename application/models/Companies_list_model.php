@@ -7,12 +7,12 @@
 
 CREATE TABLE `companies_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
+  `theme` varchar(50) DEFAULT NULL,
   `name` varchar(200) NOT NULL,
   `address` varchar(200) DEFAULT NULL,
   `phone` varchar(200) DEFAULT NULL,
   `notes` text,
   `default` int(1) DEFAULT '0',
-  `theme` varchar(50) DEFAULT NULL,
   `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 );
@@ -29,12 +29,12 @@ CREATE TABLE `companies_list` (
 class Companies_list_model extends MY_Model {
 
 	protected $id;
+	protected $theme;
 	protected $name;
 	protected $address;
 	protected $phone;
 	protected $notes;
 	protected $default;
-	protected $theme;
 	protected $trash;
 
 	// --------------------------------------------------------------------
@@ -49,7 +49,7 @@ class Companies_list_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'companies_list';
 		$this->_short_name = 'companies_list';
-		$this->_fields = array("id","name","address","phone","notes","default","theme","trash");
+		$this->_fields = array("id","theme","name","address","phone","notes","default","trash");
 		$this->_required = array("name");
 		parent::__construct($short_name, $db_config);
 	}
@@ -81,6 +81,32 @@ class Companies_list_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: id --------------------------------------
+
+
+// ---------------------------- Start Field: theme -------------------------------------- 
+
+	/** 
+	* Sets a value to `theme` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setTheme($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('theme', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `theme` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getTheme() {
+			return $this->theme;
+		}
+	
+// ------------------------------ End Field: theme --------------------------------------
 
 
 // ---------------------------- Start Field: name -------------------------------------- 
@@ -211,32 +237,6 @@ class Companies_list_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: default --------------------------------------
-
-
-// ---------------------------- Start Field: theme -------------------------------------- 
-
-	/** 
-	* Sets a value to `theme` variable
-	* @access public
-	* @param  String
-	* @return $this;
-	*/
-
-		public function setTheme($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('theme', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
-	
-	/** 
-	* Get the value of `theme` variable
-	* @access public
-	* @return String;
-	*/
-
-		public function getTheme() {
-			return $this->theme;
-		}
-	
-// ------------------------------ End Field: theme --------------------------------------
 
 
 // ---------------------------- Start Field: trash -------------------------------------- 

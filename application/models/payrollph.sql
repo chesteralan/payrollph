@@ -26,12 +26,12 @@ CREATE TABLE `benefits_list` (
 
 CREATE TABLE `companies_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
+  `theme` varchar(50) DEFAULT NULL,
   `name` varchar(200) NOT NULL,
   `address` varchar(200) DEFAULT NULL,
   `phone` varchar(200) DEFAULT NULL,
   `notes` text,
   `default` int(1) DEFAULT '0',
-  `theme` varchar(50) DEFAULT NULL,
   `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 );
@@ -80,8 +80,7 @@ CREATE TABLE `employees` (
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),
   KEY `position_id` (`position_id`),
-  KEY `area_id` (`area_id`),
-  KEY `company_id` (`company_id`)
+  KEY `area_id` (`area_id`)
 );
 
 -- Table structure for table `employees_absences` 
@@ -103,8 +102,7 @@ CREATE TABLE `employees_areas` (
   `name` varchar(200) NOT NULL,
   `notes` text,
   `trash` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `company_id` (`company_id`)
+  PRIMARY KEY (`id`)
 );
 
 -- Table structure for table `employees_benefits` 
@@ -165,8 +163,7 @@ CREATE TABLE `employees_groups` (
   `name` varchar(200) NOT NULL,
   `notes` text,
   `trash` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `company_id` (`company_id`)
+  PRIMARY KEY (`id`)
 );
 
 -- Table structure for table `employees_positions` 
@@ -177,8 +174,7 @@ CREATE TABLE `employees_positions` (
   `name` varchar(200) NOT NULL,
   `notes` text,
   `trash` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `company_id` (`company_id`)
+  PRIMARY KEY (`id`)
 );
 
 -- Table structure for table `employees_salaries` 
@@ -221,8 +217,7 @@ CREATE TABLE `payroll` (
   `year` int(4) NOT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `template_id` (`template_id`),
-  KEY `company_id` (`company_id`)
+  KEY `template_id` (`template_id`)
 );
 
 -- Table structure for table `payroll_benefits` 
@@ -344,15 +339,11 @@ CREATE TABLE `payroll_templates` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `company_id` int(20) NOT NULL,
   `name` varchar(200) NOT NULL,
-  `company_name` varchar(200) DEFAULT NULL,
-  `company_address` varchar(200) DEFAULT NULL,
-  `company_contacts` varchar(200) DEFAULT NULL,
   `checked_by` int(20) DEFAULT NULL,
   `approved_by` int(20) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `checked_by` (`checked_by`,`approved_by`),
-  KEY `company_id` (`company_id`)
+  KEY `checked_by` (`checked_by`,`approved_by`)
 );
 
 -- Table structure for table `payroll_templates_benefits` 

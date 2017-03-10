@@ -18,7 +18,11 @@
 
 <?php endif; ?>
 
-<?php $total_salaries = 0; ?>
+<?php 
+$total_basic_salary = 0; 
+$total_absences = 0;
+$total_gross_pay = 0; 
+?>
 
 <?php if( $payroll_groups ) { ?>
   
@@ -34,11 +38,7 @@
   <a href="<?php echo site_url("payroll_salaries/view/{$payroll->id}/{$payroll_group->group_id}"); ?>" class="glyphicon glyphicon-filter body_wrapper"></a>
 <?php } ?>
                 <?php echo $payroll_group->name; ?></th>
-<!--
-                <th width="10%" class="text-right">Working Days</th>
-                <th width="10%" class="text-right">Absences</th>
 
-                <th width="10%" class="text-right">Days Present</th>-->
                 <th width="10%" class="text-right">Rate per day</th>
                 <th width="10%" class="text-right">Basic Salary</th>
                 <th width="10%" class="text-right">COLA</th>
@@ -78,22 +78,19 @@ if( $employee->salary ) {
 $cola_rate = (isset($salary)) ? $salary->cola : 0;
 $present_days = $inclusive_dates->working_days - $days_absent;
 $absences = $days_absent * $daily_rate;
+$total_absences += $absences;
 $basic_salary = ($daily_rate * $inclusive_dates->working_days); 
+$total_basic_salary += $basic_salary;
 $cola = ($cola_rate * $present_days);
 $employee_gross_pay = (($basic_salary + $cola) - $absences);
-$total_salaries += $employee_gross_pay; 
+$total_gross_pay += $employee_gross_pay; 
               ?>
               <tr>
                 <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> (<?php echo $employee->position; ?>)
                 <a href="<?php echo site_url("employees_salaries/view/{$employee->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper"><span class="glyphicon glyphicon-cog"></span></a>
                 </td>
-<!--
-                <td class="text-right"><?php echo $inclusive_dates->working_days; ?></td>
-                <td class="text-right">
-                <?php echo $days_absent; ?>
-                </td>
 
-                <td class="text-right"><?php echo $present_days; ?></td>-->
+
                 <td class="text-right"><?php echo number_format($daily_rate,2); ?></td>
                 <td class="text-right"><?php echo number_format($basic_salary,2); ?></td>
                 <td class="text-right"><?php echo number_format($cola,2); ?></td>
@@ -113,20 +110,20 @@ $total_salaries += $employee_gross_pay;
               <tr class="warning">
                 <th>TOTAL</th>
                 <th width="10%" class="text-right"></th>
-                <th width="10%" class="text-right"></th>
-                <th width="10%" class="text-right"></th>
-                <th width="10%" class="text-right"></th>
-                <th width="10%" class="text-right">Total Gross Pay</th>
+                <th width="10%" class="text-right">Basic Salary</th>
+                <th width="10%" class="text-right">COLA</th>
+                <th width="10%" class="text-right">Absences</th>
+                <th width="10%" class="text-right">Gross Pay</th>
               </tr>
             </thead>
             <tbody>
             <tr class="success">
                 <td></td>
                 <td class="text-right"></td>
+                <td class="text-right"><strong><?php echo number_format($total_basic_salary,2); ?></strong></td>
                 <td class="text-right"></td>
-                <td class="text-right"></td>
-                <td class="text-right"></td>
-                <td class="text-right"><strong><?php echo number_format($total_salaries,2); ?></strong></td>
+                <td class="text-right"><strong>(<?php echo number_format($total_absences,2); ?>)</strong></td>
+                <td class="text-right"><strong><?php echo number_format($total_gross_pay,2); ?></strong></td>
   </tr>
             </tbody>
             </table>

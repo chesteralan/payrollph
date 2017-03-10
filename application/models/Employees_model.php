@@ -23,8 +23,7 @@ CREATE TABLE `employees` (
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),
   KEY `position_id` (`position_id`),
-  KEY `area_id` (`area_id`),
-  KEY `company_id` (`company_id`)
+  KEY `area_id` (`area_id`)
 );
 
  * @package			        Model

@@ -36,6 +36,7 @@ class Payroll_templates extends MY_Controller {
 		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
 		$templates->setActive('1', true);
 		$templates->set_select('*');
+		$templates->set_select('(SELECT COUNT(*) FROM `payroll` WHERE template_id=payroll_templates.id) as payroll_count');
 		$templates->set_start($start);
 		$this->template_data->set('templates', $templates->populate());
 

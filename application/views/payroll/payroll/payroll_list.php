@@ -35,7 +35,7 @@
                 <?php if(!isset($template)) { ?>
                 <th>Template</th>
                 <?php } ?>
-
+                <th>Working Days</th>
                 <?php if( hasAccess('payroll', 'payroll', 'edit') ) { ?>
                   <th width="125px">Action</th>
                 <?php } ?>
@@ -55,6 +55,7 @@
                   </a>
                 </td>
                 <?php } ?>
+                <td><?php echo $payroll->working_days; ?></td>
               <?php if( hasAccess('payroll', 'payroll', 'edit') ) { ?>
                 <td>
 <?php if(( $payroll->employees_count > 0 ) && ( $payroll->working_days > 0 )) { ?>

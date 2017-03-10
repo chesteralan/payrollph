@@ -191,6 +191,14 @@ td.border-left {
 .highlight {
   background: #BBB;
 }
+.highlight.total {
+  background: #EEE;
+}
+.highlight.total td {
+  font-weight: bold;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000!important;
+}
 body#payslip table td {
   border-bottom: 1px solid #CCC;
   padding: 1px 3px;
@@ -216,9 +224,16 @@ body#payslip table td {
   margin-left: -250px; /* Negative half of width. */
   border: 1px solid #000;
   border-top:none;
-  padding:10px;
+  padding:7px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   background-color: #CCC;
   font-size: 12px;
+}
+.print-topnav a {
+  text-decoration: none;
+  color:#000;
+}
+.print-topnav a:hover {
+  font-weight: bold;
 }
