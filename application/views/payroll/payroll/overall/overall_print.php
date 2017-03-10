@@ -115,6 +115,9 @@ $group_gross_pay = 0;
 $group_total_earnings = 0;
 $group_total_deductions = 0;
 $group_net_pay = 0;
+$group_earnings = array();
+$group_benefits = array();
+$group_deductions = array();
 
 foreach($payroll_group->employees as $employee) {
 
@@ -192,20 +195,38 @@ if( isColumn('gross_pay', $print_columns) ) { ?>
                 <td class="text-right"><?php echo number_format($gross_pay,2); ?></td>
 <?php } ?>
 
-<?php if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
+<?php 
+
+if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
       <?php 
       $var = 'earnings_' . $column->id;
+      if( !isset($group_earnings[$var]) ) {
+      		$group_earnings[$var] = 0;
+      }
+      $group_earnings[$var] += $employee->$var;
       $total_earnings += $employee->$var;
-      $group_total_earnings += $total_earnings;
       if( isColumn('earning_' . $column->id, $print_columns) ) { ?>
                     <td class="text-right"><?php echo number_format($employee->$var,2); ?></td>
                 <?php } ?>
     <?php } ?>
-      <td class="text-right bold"><?php echo number_format(($total_earnings + $gross_pay),2); ?></td>
+      <td class="text-right bold"><?php 
+$total_gross_earnings = ($total_earnings + $gross_pay);
+$group_total_earnings += $total_gross_earnings;
+      echo number_format($total_gross_earnings,2); ?></td>
 
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { 
   $ee = 'ee_share_' . $column->id;
+  if( !isset($group_benefits[$ee]) ) {
+      		$group_benefits[$ee] = 0;
+  }
+  $group_benefits[$ee] += $employee->$ee;
+
   $er = 'er_share_' . $column->id;
+  if( !isset($group_benefits[$er]) ) {
+      		$group_benefits[$er] = 0;
+  }
+
+  $group_benefits[$er] += $employee->$er;
   $total_deductions += $employee->$ee;
   $group_total_deductions += $total_deductions;
   if( isColumn('benefit_' . $column->id, $print_columns) ) {
@@ -217,6 +238,10 @@ if( isColumn('gross_pay', $print_columns) ) { ?>
 
 <?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { 
   $var = 'deductions_' . $column->id;
+  if( !isset($group_deductions[$var]) ) {
+      $group_deductions[$var] = 0;
+   }
+   $group_deductions[$var] += $employee->$var;
   $total_deductions += $employee->$var;
   if( isColumn('deduction_' . $column->id, $print_columns) ) {
   ?>
@@ -269,24 +294,32 @@ if( isColumn('gross_pay', $print_columns) ) { ?>
                 <td class="text-right"><?php echo number_format($group_gross_pay,2); ?></td>
 <?php } ?>
 
-<?php if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
-  <?php if( isColumn('earning_' . $column->id, $print_columns) ) { ?>
-                      <td class="text-right"></td>
+<?php 
+
+if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
+  <?php if( isColumn('earning_' . $column->id, $print_columns) ) {
+$var = 'earnings_' . $column->id;
+   ?>
+                      <td class="text-right"><?php echo number_format($group_earnings[$var],2); ?></td>
   <?php } ?>
 <?php } ?>
       <td class="text-right bold"><?php echo number_format($group_total_earnings,2); ?></td>
 
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
-  <?php  if( isColumn('benefit_' . $column->id, $print_columns) ) { ?>
-                  <td class="text-right"></td>
-                  <td class="text-right"></td>
+  <?php  if( isColumn('benefit_' . $column->id, $print_columns) ) { 
+$ee = 'ee_share_' . $column->id;
+$er = 'er_share_' . $column->id;
+  	?>
+                  <td class="text-right"><?php echo number_format($group_benefits[$ee],2); ?></td>
+                  <td class="text-right"><?php echo number_format($group_benefits[$er],2); ?></td>
   <?php } ?>
 <?php } ?>
 
 <?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { 
   if( isColumn('deduction_' . $column->id, $print_columns) ) {
+  	$var = 'deductions_' . $column->id;
   ?>
-                    <td class="text-right"></td>
+                    <td class="text-right"><?php echo number_format($group_deductions[$var],2); ?></td>
                 <?php } ?>
  <?php } ?>
                 <td class="text-right bold"><?php echo number_format($group_total_deductions,2); ?></td>
