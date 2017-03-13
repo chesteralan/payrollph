@@ -21,10 +21,21 @@
 
 <?php endif; ?>
 
-          <div class="form-group">
-            <label>Template Name</label>
-            <input name="name" type="text" class="form-control" value="<?php echo $template->name; ?>">
+
+      <div class="row">
+          <div class="col-md-10">
+              <div class="form-group">
+                <label>Template Name</label>
+                <input name="name" type="text" class="form-control" value="<?php echo $template->name; ?>">
+              </div>
           </div>
+          <div class="col-md-2">
+                   <div class="form-group">
+                    <label>Pages</label>
+                    <input name="pages" type="text" class="form-control text-right" value="<?php echo $template->pages; ?>">
+                  </div>
+          </div>
+        </div>
 
         <div class="row">
           <div class="col-md-6">

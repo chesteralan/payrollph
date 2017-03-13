@@ -546,9 +546,10 @@ class Payroll extends MY_Controller {
 				$payroll_group->setPayrollId($id,true);
 				$payroll_group->setGroupId($group->group_id,true);
 				$payroll_group->setOrder($group->order);
+				$payroll_group->setPage($group->page);
 				if( $payroll_group->nonEmpty() === FALSE ) {
 					$payroll_group->insert();
-				}
+				} 
 
 				$employees = new $this->Employees_model('e');
 				$employees->setCompanyId($this->session->userdata('current_company_id'),true);
@@ -573,7 +574,7 @@ class Payroll extends MY_Controller {
 					$payroll_employees->setActive($employee->active);
 					if( $payroll_employees->nonEmpty() === FALSE ) {
 						$payroll_employees->insert();
-					}
+					} 
 				}
 			}
 
@@ -617,6 +618,8 @@ class Payroll extends MY_Controller {
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
+		$payroll->set_select("*");
+		$payroll->set_select("(SELECT pages from payroll_templates WHERE id=payroll.template_id) as pages");
 		$this->template_data->set('payroll', $payroll->get());
 		
 		$groups = new $this->Employees_groups_model('eg');

@@ -14,7 +14,8 @@ CREATE TABLE `payroll` (
   `year` int(4) NOT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `template_id` (`template_id`)
+  KEY `template_id` (`template_id`),
+  KEY `company_id` (`company_id`)
 );
 
  * @package			        Model

@@ -30,7 +30,18 @@
 <a href="<?php echo site_url("payroll_templates/employees/{$template->id}/{$group->id}/ajax") . '?next=' . (($this->input->get('next'))?$this->input->get('next'):uri_string()); ?>" class="ajax-modal-inner"><span class="glyphicon glyphicon-user"></span></a>
 <?php } ?>
     </h4>
-    <p class="list-group-item-text"><?php echo $group->notes; ?></p>
+    <div class="row">
+      <div class="col-md-10">
+          <p class="list-group-item-text"><?php echo $group->notes; ?></p>
+      </div>
+      <div class="col-md-2">
+        <select class="form-control input-sm" name="page[<?php echo $group->id; ?>]" data-style="btn-default btn-sm">
+        <?php for($i=1;$i < ($template->pages + 1); $i++) { ?>
+            <option><?php echo $i; ?></option>
+        <?php } ?>
+        </select>
+      </div>
+    </div>
   </li>
   <?php } ?>
 </ul>

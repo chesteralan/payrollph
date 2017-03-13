@@ -81,20 +81,19 @@ CREATE TABLE `employees` (
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),
   KEY `position_id` (`position_id`),
-  KEY `area_id` (`area_id`)
+  KEY `area_id` (`area_id`),
+  KEY `company_id` (`company_id`)
 );
 
 -- Table structure for table `employees_absences` 
 
 CREATE TABLE `employees_absences` (
   `name_id` int(20) NOT NULL,
-  `company_id` int(20) NOT NULL,
   `date_absent` date NOT NULL,
   `hours` int(2) DEFAULT '8',
   `leave_type` int(20) DEFAULT NULL,
   `notes` text,
-  KEY `name_id` (`name_id`,`date_absent`),
-  KEY `company_id` (`company_id`)
+  KEY `name_id` (`name_id`,`date_absent`)
 );
 
 -- Table structure for table `employees_areas` 
@@ -105,15 +104,16 @@ CREATE TABLE `employees_areas` (
   `name` varchar(200) NOT NULL,
   `notes` text,
   `trash` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `company_id` (`company_id`)
 );
 
 -- Table structure for table `employees_benefits` 
 
 CREATE TABLE `employees_benefits` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
-  `name_id` int(20) NOT NULL,
   `company_id` int(20) NOT NULL,
+  `name_id` int(20) NOT NULL,
   `benefit_id` int(20) NOT NULL,
   `employee_share` decimal(30,5) NOT NULL,
   `employer_share` decimal(30,5) NOT NULL,
@@ -130,8 +130,8 @@ CREATE TABLE `employees_benefits` (
 
 CREATE TABLE `employees_deductions` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
-  `name_id` int(20) NOT NULL,
   `company_id` int(20) NOT NULL,
+  `name_id` int(20) NOT NULL,
   `deduction_id` int(20) NOT NULL,
   `amount` decimal(30,5) NOT NULL,
   `max_amount` decimal(30,5) NOT NULL,
@@ -149,8 +149,8 @@ CREATE TABLE `employees_deductions` (
 
 CREATE TABLE `employees_earnings` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
-  `name_id` int(20) NOT NULL,
   `company_id` int(20) NOT NULL,
+  `name_id` int(20) NOT NULL,
   `earning_id` int(20) NOT NULL,
   `amount` decimal(30,5) NOT NULL,
   `max_amount` decimal(30,5) DEFAULT '0.00000',
@@ -172,7 +172,8 @@ CREATE TABLE `employees_groups` (
   `name` varchar(200) NOT NULL,
   `notes` text,
   `trash` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `company_id` (`company_id`)
 );
 
 -- Table structure for table `employees_positions` 
@@ -183,15 +184,16 @@ CREATE TABLE `employees_positions` (
   `name` varchar(200) NOT NULL,
   `notes` text,
   `trash` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `company_id` (`company_id`)
 );
 
 -- Table structure for table `employees_salaries` 
 
 CREATE TABLE `employees_salaries` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
-  `name_id` int(20) NOT NULL,
   `company_id` int(20) NOT NULL,
+  `name_id` int(20) NOT NULL,
   `amount` decimal(30,5) NOT NULL DEFAULT '0.00000',
   `rate_per` varchar(10) NOT NULL DEFAULT 'month',
   `days` int(10) NOT NULL DEFAULT '26',
@@ -228,7 +230,8 @@ CREATE TABLE `payroll` (
   `year` int(4) NOT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `template_id` (`template_id`)
+  KEY `template_id` (`template_id`),
+  KEY `company_id` (`company_id`)
 );
 
 -- Table structure for table `payroll_benefits` 
@@ -333,6 +336,7 @@ CREATE TABLE `payroll_groups` (
   `payroll_id` int(20) NOT NULL,
   `group_id` int(20) NOT NULL,
   `order` int(2) NOT NULL DEFAULT '0',
+  `page` int(2) DEFAULT '1',
   KEY `group_id` (`payroll_id`,`group_id`)
 );
 
@@ -350,11 +354,13 @@ CREATE TABLE `payroll_templates` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `company_id` int(20) NOT NULL,
   `name` varchar(200) NOT NULL,
+  `pages` int(2) DEFAULT '1',
   `checked_by` int(20) DEFAULT NULL,
   `approved_by` int(20) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `checked_by` (`checked_by`,`approved_by`)
+  KEY `checked_by` (`checked_by`,`approved_by`),
+  KEY `company_id` (`company_id`)
 );
 
 -- Table structure for table `payroll_templates_benefits` 
@@ -411,6 +417,7 @@ CREATE TABLE `payroll_templates_groups` (
   `template_id` int(20) NOT NULL,
   `group_id` int(20) NOT NULL,
   `order` int(2) NOT NULL DEFAULT '0',
+  `page` int(2) DEFAULT '1',
   KEY `template_id` (`template_id`,`group_id`)
 );
 

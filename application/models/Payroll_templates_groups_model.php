@@ -9,6 +9,7 @@ CREATE TABLE `payroll_templates_groups` (
   `template_id` int(20) NOT NULL,
   `group_id` int(20) NOT NULL,
   `order` int(2) NOT NULL DEFAULT '0',
+  `page` int(2) DEFAULT '1',
   KEY `template_id` (`template_id`,`group_id`)
 );
 
@@ -26,6 +27,7 @@ class Payroll_templates_groups_model extends MY_Model {
 	protected $template_id;
 	protected $group_id;
 	protected $order;
+	protected $page;
 
 	// --------------------------------------------------------------------
 
@@ -39,7 +41,7 @@ class Payroll_templates_groups_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_templates_groups';
 		$this->_short_name = 'payroll_templates_groups';
-		$this->_fields = array("template_id","group_id","order");
+		$this->_fields = array("template_id","group_id","order","page");
 		$this->_required = array("template_id","group_id","order");
 		parent::__construct($short_name, $db_config);
 	}
@@ -123,6 +125,32 @@ class Payroll_templates_groups_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: order --------------------------------------
+
+
+// ---------------------------- Start Field: page -------------------------------------- 
+
+	/** 
+	* Sets a value to `page` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setPage($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('page', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `page` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getPage() {
+			return $this->page;
+		}
+	
+// ------------------------------ End Field: page --------------------------------------
 
 
 

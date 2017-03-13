@@ -7,13 +7,11 @@
 
 CREATE TABLE `employees_absences` (
   `name_id` int(20) NOT NULL,
-  `company_id` int(20) NOT NULL,
   `date_absent` date NOT NULL,
   `hours` int(2) DEFAULT '8',
   `leave_type` int(20) DEFAULT NULL,
   `notes` text,
-  KEY `name_id` (`name_id`,`date_absent`),
-  KEY `company_id` (`company_id`)
+  KEY `name_id` (`name_id`,`date_absent`)
 );
 
  * @package			        Model
@@ -28,7 +26,6 @@ CREATE TABLE `employees_absences` (
 class Employees_absences_model extends MY_Model {
 
 	protected $name_id;
-	protected $company_id;
 	protected $date_absent;
 	protected $hours;
 	protected $leave_type;
@@ -46,8 +43,8 @@ class Employees_absences_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees_absences';
 		$this->_short_name = 'employees_absences';
-		$this->_fields = array("name_id","company_id","date_absent","hours","leave_type","notes");
-		$this->_required = array("name_id","company_id","date_absent");
+		$this->_fields = array("name_id","date_absent","hours","leave_type","notes");
+		$this->_required = array("name_id","date_absent");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -78,32 +75,6 @@ class Employees_absences_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: name_id --------------------------------------
-
-
-// ---------------------------- Start Field: company_id -------------------------------------- 
-
-	/** 
-	* Sets a value to `company_id` variable
-	* @access public
-	* @param  String
-	* @return $this;
-	*/
-
-		public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
-	
-	/** 
-	* Get the value of `company_id` variable
-	* @access public
-	* @return String;
-	*/
-
-		public function getCompanyId() {
-			return $this->company_id;
-		}
-	
-// ------------------------------ End Field: company_id --------------------------------------
 
 
 // ---------------------------- Start Field: date_absent -------------------------------------- 

@@ -9,11 +9,13 @@ CREATE TABLE `payroll_templates` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `company_id` int(20) NOT NULL,
   `name` varchar(200) NOT NULL,
+  `pages` int(2) DEFAULT '1',
   `checked_by` int(20) DEFAULT NULL,
   `approved_by` int(20) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `checked_by` (`checked_by`,`approved_by`)
+  KEY `checked_by` (`checked_by`,`approved_by`),
+  KEY `company_id` (`company_id`)
 );
 
  * @package			        Model
@@ -30,6 +32,7 @@ class Payroll_templates_model extends MY_Model {
 	protected $id;
 	protected $company_id;
 	protected $name;
+	protected $pages;
 	protected $checked_by;
 	protected $approved_by;
 	protected $active;
@@ -46,7 +49,7 @@ class Payroll_templates_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_templates';
 		$this->_short_name = 'payroll_templates';
-		$this->_fields = array("id","company_id","name","checked_by","approved_by","active");
+		$this->_fields = array("id","company_id","name","pages","checked_by","approved_by","active");
 		$this->_required = array("company_id","name","active");
 		parent::__construct($short_name, $db_config);
 	}
@@ -130,6 +133,32 @@ class Payroll_templates_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: name --------------------------------------
+
+
+// ---------------------------- Start Field: pages -------------------------------------- 
+
+	/** 
+	* Sets a value to `pages` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setPages($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('pages', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `pages` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getPages() {
+			return $this->pages;
+		}
+	
+// ------------------------------ End Field: pages --------------------------------------
 
 
 // ---------------------------- Start Field: checked_by -------------------------------------- 

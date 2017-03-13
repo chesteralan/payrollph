@@ -63,6 +63,7 @@ class Payroll_templates extends MY_Controller {
 				if( $this->form_validation->run() ) {
 					$template = new $this->Payroll_templates_model;
 					$template->setName($this->input->post('name'));
+					$template->setPages($this->input->post('pages'));
 					$template->setCheckedBy($this->input->post('checked_by'));
 					$template->setApprovedBy($this->input->post('approved_by'));
 					$template->setCompanyId($this->session->userdata('current_company_id'));
@@ -90,6 +91,7 @@ class Payroll_templates extends MY_Controller {
 				$this->form_validation->set_rules('approved_by', 'Approved By', 'trim');
 				if( $this->form_validation->run() ) {
 					$template->setName($this->input->post('name'),false,true);
+					$template->setPages($this->input->post('pages'),false,true);
 					$template->setCheckedBy($this->input->post('checked_by'),false,true);
 					$template->setApprovedBy($this->input->post('approved_by'),false,true);
 					$template->update();

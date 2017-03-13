@@ -7,8 +7,8 @@
 
 CREATE TABLE `employees_earnings` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
-  `name_id` int(20) NOT NULL,
   `company_id` int(20) NOT NULL,
+  `name_id` int(20) NOT NULL,
   `earning_id` int(20) NOT NULL,
   `amount` decimal(30,5) NOT NULL,
   `max_amount` decimal(30,5) DEFAULT '0.00000',
@@ -34,8 +34,8 @@ CREATE TABLE `employees_earnings` (
 class Employees_earnings_model extends MY_Model {
 
 	protected $id;
-	protected $name_id;
 	protected $company_id;
+	protected $name_id;
 	protected $earning_id;
 	protected $amount;
 	protected $max_amount;
@@ -57,8 +57,8 @@ class Employees_earnings_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees_earnings';
 		$this->_short_name = 'employees_earnings';
-		$this->_fields = array("id","name_id","company_id","earning_id","amount","max_amount","start_date","computed","active","trash","notes");
-		$this->_required = array("name_id","company_id","earning_id","amount");
+		$this->_fields = array("id","company_id","name_id","earning_id","amount","max_amount","start_date","computed","active","trash","notes");
+		$this->_required = array("company_id","name_id","earning_id","amount");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -91,32 +91,6 @@ class Employees_earnings_model extends MY_Model {
 // ------------------------------ End Field: id --------------------------------------
 
 
-// ---------------------------- Start Field: name_id -------------------------------------- 
-
-	/** 
-	* Sets a value to `name_id` variable
-	* @access public
-	* @param  String
-	* @return $this;
-	*/
-
-		public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
-	
-	/** 
-	* Get the value of `name_id` variable
-	* @access public
-	* @return String;
-	*/
-
-		public function getNameId() {
-			return $this->name_id;
-		}
-	
-// ------------------------------ End Field: name_id --------------------------------------
-
-
 // ---------------------------- Start Field: company_id -------------------------------------- 
 
 	/** 
@@ -141,6 +115,32 @@ class Employees_earnings_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: company_id --------------------------------------
+
+
+// ---------------------------- Start Field: name_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `name_id` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `name_id` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getNameId() {
+			return $this->name_id;
+		}
+	
+// ------------------------------ End Field: name_id --------------------------------------
 
 
 // ---------------------------- Start Field: earning_id -------------------------------------- 

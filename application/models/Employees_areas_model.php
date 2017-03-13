@@ -11,7 +11,8 @@ CREATE TABLE `employees_areas` (
   `name` varchar(200) NOT NULL,
   `notes` text,
   `trash` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `company_id` (`company_id`)
 );
 
  * @package			        Model
