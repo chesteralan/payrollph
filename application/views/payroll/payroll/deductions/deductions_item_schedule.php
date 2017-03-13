@@ -22,7 +22,7 @@
 
 <?php if( $item_data ) {  ?>
 
-          <table class="table table-default" id="Payroll-Group">
+          <table class="table table-default table-hover" id="Payroll-Group">
             <thead>
               <tr class="warning">
                 <th>Employee Name</th>
