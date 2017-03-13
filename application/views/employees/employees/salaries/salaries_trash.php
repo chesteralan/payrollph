@@ -8,12 +8,11 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
-<?php if( hasAccess('employees', 'employees', 'add') ) { ?>
-  <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Basic Salary" data-url="<?php echo site_url("employees_salaries/add/{$employee->name_id}/ajax") . "?next=" . ( ( ($this->input->get('next')) && ($this->input->get('next') != 'employees') ) ? $this->input->get('next') : uri_string()); ?>" style="margin-right: 5px">Add Basic Salary</button>
-<?php } ?>
+
+<a href="<?php echo site_url("employees_salaries/view/{$employee->name_id}"); ?>" class="btn btn-warning btn-xs pull-right body_wrapper">Back</a>
+
                   <h3 class="panel-title bold">
-                  <a href="<?php echo site_url("employees_salaries/trash/{$employee->name_id}"); ?>" class="fa fa-trash body_wrapper"></a>
-                  <?php echo $current_page; ?>
+                  <?php echo $current_page; ?> - Trash Bin
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
@@ -30,7 +29,7 @@
                 <th>Daily Rate</th>
                 <th>Hourly Rate</th>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
-                  <th width="105px">Action</th>
+                  <th width="200px">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -68,9 +67,9 @@ switch( $salary->rate_per ) {
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
 
-                <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Basic Salary" data-url="<?php echo site_url("employees_salaries/edit/{$salary->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>">Edit</button>
+                <a class="btn btn-info btn-xs confirm_remove" href="<?php echo site_url("employees_salaries/restore/{$salary->id}"); ?>" data-target="#salary-<?php echo $salary->id; ?>">Restore</a>
 
-                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees_salaries/delete/{$salary->id}"); ?>" data-target="#salary-<?php echo $salary->id; ?>">Delete</a>
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees_salaries/delete/{$salary->id}"); ?>" data-target="#salary-<?php echo $salary->id; ?>">Delete Permanently</a>
 
                 </td>
               <?php } ?>

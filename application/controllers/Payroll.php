@@ -306,6 +306,7 @@ class Payroll extends MY_Controller {
 	private function _generate_earnings($payroll_id,$earning_id,$employee) {
 		 $ee_earnings = new $this->Employees_earnings_model;
 		 $ee_earnings->setNameId($employee->name_id,true);
+		 $ee_earnings->setCompanyId($this->session->userdata('current_company_id'),true);
 		 $ee_earnings->setEarningId($earning_id,true);
 		 $ee_earnings->setTrash(0,true);
 		 $ee_earnings->setActive(1,true);
@@ -349,6 +350,7 @@ class Payroll extends MY_Controller {
 
 	private function _generate_benefits($payroll_id,$benefit_id,$employee) {
 			$ee_benefits = new $this->Employees_benefits_model;
+			 $ee_benefits->setCompanyId($this->session->userdata('current_company_id'),true);
 			 $ee_benefits->setNameId($employee->name_id,true);
 			 $ee_benefits->setBenefitId($benefit_id,true);
 			 $ee_benefits->setTrash(0,true);
@@ -372,6 +374,7 @@ class Payroll extends MY_Controller {
 
 	private function _generate_deductions($payroll_id,$deduction_id,$employee) {
 			 $ee_deductions = new $this->Employees_deductions_model;
+			 $ee_deductions->setCompanyId($this->session->userdata('current_company_id'),true);
 			 $ee_deductions->setNameId($employee->name_id,true);
 			 $ee_deductions->setDeductionId($deduction_id,true);
 			 $ee_deductions->setTrash(0,true);
@@ -418,6 +421,7 @@ class Payroll extends MY_Controller {
 
 			if( $employees_data ) foreach( $employees_data as $employee ) {
 					$salary = new $this->Employees_salaries_model;
+					$salary->setCompanyId($this->session->userdata('current_company_id'),true);
 					$salary->setNameId($employee->name_id,true);
 					$salary->setPrimary(1,true);
 					$salary->setTrash(0,true);
@@ -549,6 +553,7 @@ class Payroll extends MY_Controller {
 				}
 
 				$employees = new $this->Employees_model('e');
+				$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 				$employees->set_select('e.*');
 				$employees->set_select('(SELECT ep.name FROM employees_positions ep WHERE ep.id=e.position_id) as position_name');
 				$employees->set_limit(0);
@@ -620,6 +625,7 @@ class Payroll extends MY_Controller {
 		$this->template_data->set('payroll', $payroll->get());
 		
 		$groups = new $this->Employees_groups_model('eg');
+		$groups->setCompanyId($this->session->userdata('current_company_id'),true);
 		$groups->set_select('eg.*');
 		$groups->set_select("(SELECT ptg.group_id FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.group_id = eg.id ) as selected");
 		$groups->set_select("(SELECT ptg.order FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.group_id = eg.id) as sort");
@@ -673,6 +679,7 @@ class Payroll extends MY_Controller {
 		}
 		
 		$employees = new $this->Employees_model('e');
+		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 		$employees->set_select('e.*');
 		$employees->set_select('(SELECT ep.name FROM employees_positions ep WHERE ep.id=e.position_id) as position_name');
 		$employees->set_limit(0);

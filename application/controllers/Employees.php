@@ -332,8 +332,7 @@ class Employees extends MY_Controller {
 
 		$employee = new $this->Employees_model;
 		$employee->setNameId($id,true,false);
-		$employee->setTrash(1,false,true);
-		$employee->update();
+		$employee->delete();
 
 		$this->getNext("employees");
 	}

@@ -15,6 +15,16 @@ var init_datepicker = function() {
   });
 };
 
+var select_all_print_column = function() {
+  $('.select_all_print_column').click(function(){
+      var id = $(this).attr('data-id');
+      if( $(this).is(':checked') ) {
+          $('.print_column_' + id).prop('checked',true);
+      } else {
+          $('.print_column_' + id).prop('checked',false);
+      }
+  });
+};
 
 var confirmButton = function() {
   $('.confirm').click(function(){
@@ -430,6 +440,7 @@ var loadLib = function() {
 
     bodyWrapper();
     init_sortable();
+    select_all_print_column();
 
 $('#ajaxModal .datepicker').datepicker();
         $('#ajaxModal select').selectpicker({
@@ -866,6 +877,7 @@ var lending_schedule_details = function() {
       //hoverPop();
       checkSelectedReceipts();
       init_sortable();
+      select_all_print_column();
  }
  init_coop();
 

@@ -58,17 +58,11 @@ class Payroll_templates extends MY_Controller {
 
 			if( $this->input->post() ) {
 				$this->form_validation->set_rules('name', 'Template Name', 'trim|required');
-				$this->form_validation->set_rules('company_name', 'Company Name', 'trim');
-				$this->form_validation->set_rules('company_address', 'Company Address', 'trim');
-				$this->form_validation->set_rules('company_contacts', 'Company Contacts', 'trim');
 				$this->form_validation->set_rules('checked_by', 'Checked By', 'trim');
 				$this->form_validation->set_rules('approved_by', 'Approved By', 'trim');
 				if( $this->form_validation->run() ) {
 					$template = new $this->Payroll_templates_model;
 					$template->setName($this->input->post('name'));
-					$template->setCompanyName($this->input->post('company_name'));
-					$template->setCompanyAddress($this->input->post('company_address'));
-					$template->setCompanyContacts($this->input->post('company_contacts'));
 					$template->setCheckedBy($this->input->post('checked_by'));
 					$template->setApprovedBy($this->input->post('approved_by'));
 					$template->setCompanyId($this->session->userdata('current_company_id'));
@@ -92,16 +86,10 @@ class Payroll_templates extends MY_Controller {
 		if( $template->nonEmpty() ) {
 			if( $this->input->post() ) {
 				$this->form_validation->set_rules('name', 'Template Name', 'trim|required');
-				$this->form_validation->set_rules('company_name', 'Company Name', 'trim');
-				$this->form_validation->set_rules('company_address', 'Company Address', 'trim');
-				$this->form_validation->set_rules('company_contacts', 'Company Contacts', 'trim');
 				$this->form_validation->set_rules('checked_by', 'Checked By', 'trim');
 				$this->form_validation->set_rules('approved_by', 'Approved By', 'trim');
 				if( $this->form_validation->run() ) {
 					$template->setName($this->input->post('name'),false,true);
-					$template->setCompanyName($this->input->post('company_name'),false,true);
-					$template->setCompanyAddress($this->input->post('company_address'),false,true);
-					$template->setCompanyContacts($this->input->post('company_contacts'),false,true);
 					$template->setCheckedBy($this->input->post('checked_by'),false,true);
 					$template->setApprovedBy($this->input->post('approved_by'),false,true);
 					$template->update();
@@ -136,6 +124,7 @@ class Payroll_templates extends MY_Controller {
 	public function config($id, $output='') {
 
 		$template = new $this->Payroll_templates_model('pt');
+		$template->setCompanyId($this->session->userdata('current_company_id'),true);
 		$template->setId($id,true);
 		$template->set_select('pt.*');
 		$template->set_select('(SELECT COUNT(*) FROM `employees_groups` WHERE company_id='.$this->session->userdata('current_company_id').' ) as groups_count');
@@ -202,6 +191,7 @@ class Payroll_templates extends MY_Controller {
 		$this->template_data->set('template', $template->get());
 		
 		$groups = new $this->Employees_groups_model('eg');
+		$groups->setCompanyId($this->session->userdata('current_company_id'),true);
 		$groups->set_select('eg.*');
 		$groups->set_select("(SELECT ptg.group_id FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.group_id = eg.id ) as selected");
 		$groups->set_select("(SELECT ptg.order FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.group_id = eg.id) as sort");

@@ -77,6 +77,7 @@ CREATE TABLE `employees` (
   `phone_number` varchar(100) DEFAULT NULL,
   `address` text,
   `trash` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`name_id`),
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),
   KEY `position_id` (`position_id`),
@@ -87,11 +88,13 @@ CREATE TABLE `employees` (
 
 CREATE TABLE `employees_absences` (
   `name_id` int(20) NOT NULL,
+  `company_id` int(20) NOT NULL,
   `date_absent` date NOT NULL,
   `hours` int(2) DEFAULT '8',
   `leave_type` int(20) DEFAULT NULL,
   `notes` text,
-  KEY `name_id` (`name_id`,`date_absent`)
+  KEY `name_id` (`name_id`,`date_absent`),
+  KEY `company_id` (`company_id`)
 );
 
 -- Table structure for table `employees_areas` 
@@ -110,6 +113,7 @@ CREATE TABLE `employees_areas` (
 CREATE TABLE `employees_benefits` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name_id` int(20) NOT NULL,
+  `company_id` int(20) NOT NULL,
   `benefit_id` int(20) NOT NULL,
   `employee_share` decimal(30,5) NOT NULL,
   `employer_share` decimal(30,5) NOT NULL,
@@ -118,7 +122,8 @@ CREATE TABLE `employees_benefits` (
   `trash` int(1) DEFAULT '1',
   `notes` text,
   PRIMARY KEY (`id`),
-  KEY `name_id` (`name_id`,`benefit_id`)
+  KEY `name_id` (`name_id`,`benefit_id`),
+  KEY `company_id` (`company_id`)
 );
 
 -- Table structure for table `employees_deductions` 
@@ -126,6 +131,7 @@ CREATE TABLE `employees_benefits` (
 CREATE TABLE `employees_deductions` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name_id` int(20) NOT NULL,
+  `company_id` int(20) NOT NULL,
   `deduction_id` int(20) NOT NULL,
   `amount` decimal(30,5) NOT NULL,
   `max_amount` decimal(30,5) NOT NULL,
@@ -135,7 +141,8 @@ CREATE TABLE `employees_deductions` (
   `trash` int(1) DEFAULT '1',
   `notes` text,
   PRIMARY KEY (`id`),
-  KEY `name_id` (`name_id`,`deduction_id`)
+  KEY `name_id` (`name_id`,`deduction_id`),
+  KEY `company_id` (`company_id`)
 );
 
 -- Table structure for table `employees_earnings` 
@@ -143,6 +150,7 @@ CREATE TABLE `employees_deductions` (
 CREATE TABLE `employees_earnings` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name_id` int(20) NOT NULL,
+  `company_id` int(20) NOT NULL,
   `earning_id` int(20) NOT NULL,
   `amount` decimal(30,5) NOT NULL,
   `max_amount` decimal(30,5) DEFAULT '0.00000',
@@ -152,7 +160,8 @@ CREATE TABLE `employees_earnings` (
   `trash` int(1) DEFAULT '0',
   `notes` text,
   PRIMARY KEY (`id`),
-  KEY `name_id` (`name_id`,`earning_id`)
+  KEY `name_id` (`name_id`,`earning_id`),
+  KEY `company_id` (`company_id`)
 );
 
 -- Table structure for table `employees_groups` 
@@ -182,6 +191,7 @@ CREATE TABLE `employees_positions` (
 CREATE TABLE `employees_salaries` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name_id` int(20) NOT NULL,
+  `company_id` int(20) NOT NULL,
   `amount` decimal(30,5) NOT NULL DEFAULT '0.00000',
   `rate_per` varchar(10) NOT NULL DEFAULT 'month',
   `days` int(10) NOT NULL DEFAULT '26',
@@ -191,7 +201,8 @@ CREATE TABLE `employees_salaries` (
   `primary` int(1) DEFAULT '0',
   `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `name_id` (`name_id`)
+  KEY `name_id` (`name_id`),
+  KEY `company_id` (`company_id`)
 );
 
 -- Table structure for table `names_list` 

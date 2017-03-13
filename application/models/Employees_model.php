@@ -20,6 +20,7 @@ CREATE TABLE `employees` (
   `phone_number` varchar(100) DEFAULT NULL,
   `address` text,
   `trash` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`name_id`),
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),
   KEY `position_id` (`position_id`),
@@ -65,7 +66,7 @@ class Employees_model extends MY_Model {
 		$this->_table_name = 'employees';
 		$this->_short_name = 'employees';
 		$this->_fields = array("name_id","company_id","group_id","lastname","firstname","middlename","position_id","area_id","hired","status","notes","phone_number","address","trash");
-		$this->_required = array("name_id","company_id","lastname","firstname","middlename","trash");
+		$this->_required = array("company_id","lastname","firstname","middlename","trash");
 		parent::__construct($short_name, $db_config);
 	}
 

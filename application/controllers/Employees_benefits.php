@@ -29,6 +29,7 @@ class Employees_benefits extends MY_Controller {
 		$this->template_data->set('employee', $employee->get());
 
 		$benefits = new $this->Employees_benefits_model;
+		$benefits->setCompanyId($this->session->userdata('current_company_id'),true);
 		$benefits->setNameId($id,true);
 		$benefits->set_select("*");
 		$benefits->set_select("(SELECT name FROM benefits_list WHERE id=employees_benefits.benefit_id) as benefit_name");
@@ -63,6 +64,7 @@ class Employees_benefits extends MY_Controller {
 				$set_primary = ($this->input->post('primary')) ? true : false;
 				if( $set_primary ) {
 					$primary_benefit = new $this->Employees_benefits_model;
+					$primary_benefit->setCompanyId($this->session->userdata('current_company_id'),true);
 					$primary_benefit->setNameId($id,true,false);
 					$primary_benefit->setBenefitId($this->input->post('benefit_id'),true,false);
 					$primary_benefit->setPrimary(0,false,true);
@@ -71,6 +73,7 @@ class Employees_benefits extends MY_Controller {
 
 				$benefits = new $this->Employees_benefits_model;
 				$benefits->setNameId($id);
+				$benefits->setCompanyId($this->session->userdata('current_company_id'));
 				$benefits->setBenefitId($this->input->post('benefit_id'));
 				$benefits->setEmployeeShare( str_replace(",", "", $this->input->post('ee_share')) );
 				$benefits->setEmployerShare( str_replace(",", "", $this->input->post('er_share')) );

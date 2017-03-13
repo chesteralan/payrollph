@@ -29,6 +29,7 @@ class Employees_earnings extends MY_Controller {
 		$this->template_data->set('employee', $employee->get());
 
 		$earnings = new $this->Employees_earnings_model;
+		$earnings->setCompanyId($this->session->userdata('current_company_id'),true);
 		$earnings->setNameId($id,true);
 		$earnings->set_select("*");
 		$earnings->set_select("(SELECT name FROM earnings_list WHERE id=employees_earnings.earning_id) as earnings_name");
@@ -62,6 +63,7 @@ class Employees_earnings extends MY_Controller {
 			if( $this->form_validation->run() ) {
 				$earnings = new $this->Employees_earnings_model;
 				$earnings->setNameId($id);
+				$earnings->setCompanyId($this->session->userdata('current_company_id'));
 				$earnings->setEarningId($this->input->post('earning_id'));
 				$earnings->setAmount( str_replace(",", "", $this->input->post('amount')) );
 				$earnings->setStartDate( date('Y-m-d', strtotime($this->input->post('start_date')) ));

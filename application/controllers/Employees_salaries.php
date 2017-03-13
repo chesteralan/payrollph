@@ -27,6 +27,7 @@ class Employees_salaries extends MY_Controller {
 		$this->template_data->set('employee', $employee->get());
 
 		$salaries = new $this->Employees_salaries_model;
+		$salaries->setCompanyId($this->session->userdata('current_company_id'),true);
 		$salaries->setNameId($id,true);
 		$salaries->set_select("*");
 		$salaries->setTrash('0',true);
@@ -67,6 +68,7 @@ class Employees_salaries extends MY_Controller {
 
 				$salaries = new $this->Employees_salaries_model;
 				$salaries->setNameId($id);
+				$salaries->setCompanyId($this->session->userdata('current_company_id'));
 				$salaries->setAmount( str_replace(",", "", $this->input->post('amount')) );
 				$salaries->setRatePer($this->input->post('rate_per'));
 				$salaries->setDays($this->input->post('num_of_days'));
@@ -107,6 +109,7 @@ class Employees_salaries extends MY_Controller {
 					$set_primary = ($this->input->post('primary')) ? true : false;
 					if( $set_primary ) {
 						$primary_salary = new $this->Employees_salaries_model;
+						$primary_salary->setCompanyId($this->session->userdata('current_company_id'),true);
 						$primary_salary->setNameId($salary_data->name_id,true,false);
 						$primary_salary->setPrimary(0,false,true);
 						$primary_salary->update();
@@ -139,6 +142,43 @@ class Employees_salaries extends MY_Controller {
 		$salaries = new $this->Employees_salaries_model;
 		$salaries->setId($id,true,false);
 		$salaries->setTrash('1',false,true);
+		$salaries->update();
+
+		$salary_data = $salaries->get();
+
+		$this->getNext("employees_salaries/view/{$salary_data->name_id}");
+	}
+
+	public function trash($id, $start=0) {
+
+		$employee = new $this->Employees_model;
+		$employee->setNameId($id,true);
+		$this->template_data->set('employee', $employee->get());
+
+		$salaries = new $this->Employees_salaries_model;
+		$salaries->setCompanyId($this->session->userdata('current_company_id'),true);
+		$salaries->setNameId($id,true);
+		$salaries->set_select("*");
+		$salaries->setTrash('1',true);
+		$this->template_data->set('salaries', $salaries->populate());
+
+		$this->template_data->set('pagination', bootstrap_pagination(array(
+			'base_url' => base_url($this->config->item('index_page') . '/employees_positions/index/'),
+			'total_rows' => $salaries->count_all_results(),
+			'per_page' => $salaries->get_limit(),
+			'ajax'=>true,
+		)));
+		
+		$this->load->view('employees/employees/salaries/salaries_trash', $this->template_data->get_data());
+	}
+
+	public function restore($id) {
+		
+		$this->_isAuth('employees', 'positions', 'delete');
+
+		$salaries = new $this->Employees_salaries_model;
+		$salaries->setId($id,true,false);
+		$salaries->setTrash('0',false,true);
 		$salaries->update();
 
 		$salary_data = $salaries->get();

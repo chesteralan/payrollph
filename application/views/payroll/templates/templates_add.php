@@ -26,21 +26,6 @@
             <input name="name" type="text" class="form-control" value="<?php echo $this->input->post('name'); ?>">
           </div>
 
-          <div class="form-group">
-            <label>Company Name</label>
-            <input name="company_name" type="text" class="form-control" value="<?php echo $this->input->post('company_name'); ?>">
-          </div>
-
-          <div class="form-group">
-            <label>Company Address</label>
-            <input name="company_address" type="text" class="form-control" value="<?php echo $this->input->post('company_address'); ?>">
-          </div>
-
-          <div class="form-group">
-            <label>Company Contacts</label>
-            <input name="company_contacts" type="text" class="form-control" value="<?php echo $this->input->post('company_contacts'); ?>">
-          </div>
-
         <div class="row">
           <div class="col-md-6">
                   <div class="form-group">

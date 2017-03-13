@@ -30,6 +30,7 @@ class Employees_deductions extends MY_Controller {
 		$this->template_data->set('employee', $employee->get());
 
 		$deductions = new $this->Employees_deductions_model;
+		$deductions->setCompanyId($this->session->userdata('current_company_id'),true);
 		$deductions->setNameId($id,true);
 		$deductions->set_select("*");
 		$deductions->set_select("(SELECT name FROM deductions_list WHERE id=employees_deductions.deduction_id) as deduction_name");
@@ -63,6 +64,7 @@ class Employees_deductions extends MY_Controller {
 			$this->form_validation->set_rules('notes', 'Notes', 'trim');
 			if( $this->form_validation->run() ) {
 				$deductions = new $this->Employees_deductions_model;
+				$deductions->setCompanyId($this->session->userdata('current_company_id'));
 				$deductions->setnameId($id);
 				$deductions->setDeductionId($this->input->post('deduction_id'));
 				$deductions->setAmount( str_replace(",", "", $this->input->post('amount')) );

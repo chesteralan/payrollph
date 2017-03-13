@@ -34,6 +34,7 @@ function isSelected($group,$column_id,$print_columns) {
 <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="heading-0">
       <h4 class="panel-title">
+      <input type="checkbox" class="select_all_print_column pull-right" data-id="0">
         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-0" aria-expanded="true" aria-controls="collapse-0">
           All Employees
         </a>
@@ -52,18 +53,18 @@ function isSelected($group,$column_id,$print_columns) {
           'absences_amount'=>'Absences Amount', 
           'gross_pay'=>'Gross Pay', 
         ) as $col_key=>$col_name) { ?>
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-4 col-xs-4">
               <input type="hidden" name="i[0][columns][]" value="<?php echo $col_key; ?>">
-              <label><input <?php echo (isSelected(0, $col_key, $print_columns)) ? 'CHECKED' : ''; ?> type="checkbox" name="i[0][selected][]" value="<?php echo $col_key; ?>"> <?php echo $col_name; ?></label></div>
+              <label><input class="print_column_0" <?php echo (isSelected(0, $col_key, $print_columns)) ? 'CHECKED' : ''; ?> type="checkbox" name="i[0][selected][]" value="<?php echo $col_key; ?>"> <?php echo $col_name; ?></label></div>
         <?php } ?>
         </div>
 
 <?php if( $earnings ) { ?>
         <div class="row" style="border-top: 1px solid #DDD; margin-top: 10px; padding-top: 10px;">
         <?php foreach($earnings as $earning) { ?>
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-4 col-xs-4">
               <input type="hidden" name="i[0][columns][]" value="earning_<?php echo $earning->id; ?>">
-              <label><input <?php echo (isSelected(0, 'earning_'.$earning->id, $print_columns)) ? 'CHECKED' : ''; ?> type="checkbox" name="i[0][selected][]" value="earning_<?php echo $earning->id; ?>"> <?php echo $earning->name; ?></label></div>
+              <label><input class="print_column_0" <?php echo (isSelected(0, 'earning_'.$earning->id, $print_columns)) ? 'CHECKED' : ''; ?> type="checkbox" name="i[0][selected][]" value="earning_<?php echo $earning->id; ?>"> <?php echo $earning->name; ?></label></div>
         <?php } ?>
         </div>
 <?php } ?>
@@ -71,9 +72,9 @@ function isSelected($group,$column_id,$print_columns) {
 <?php if( $benefits ) { ?>
         <div class="row" style="border-top: 1px solid #DDD; margin-top: 10px; padding-top: 10px;">
         <?php foreach($benefits as $benefit) { ?>
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-4 col-xs-4">
               <input type="hidden" name="i[0][columns][]" value="benefit_<?php echo $benefit->id; ?>">
-            <label><input <?php echo (isSelected(0, 'benefit_'.$benefit->id, $print_columns)) ? 'CHECKED' : ''; ?> type="checkbox" name="i[0][selected][]" value="benefit_<?php echo $benefit->id; ?>"> <?php echo $benefit->name; ?></label></div>
+            <label><input class="print_column_0" <?php echo (isSelected(0, 'benefit_'.$benefit->id, $print_columns)) ? 'CHECKED' : ''; ?> type="checkbox" name="i[0][selected][]" value="benefit_<?php echo $benefit->id; ?>"> <?php echo $benefit->name; ?></label></div>
         <?php } ?>
         </div>
 <?php } ?>
@@ -81,9 +82,9 @@ function isSelected($group,$column_id,$print_columns) {
 <?php if( $deductions ) { ?>
         <div class="row" style="border-top: 1px solid #DDD; margin-top: 10px; padding-top: 10px;">
         <?php if( $deductions ) foreach($deductions as $deduction) { ?>
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-4 col-xs-4">
               <input type="hidden" name="i[0][columns][]" value="deduction_<?php echo $deduction->id; ?>">
-              <label><input <?php echo (isSelected(0, 'deduction_'.$deduction->id, $print_columns)) ? 'CHECKED' : ''; ?> type="checkbox" name="i[0][selected][]" value="deduction_<?php echo $deduction->id; ?>"> <?php echo $deduction->name; ?></label></div>
+              <label><input class="print_column_0" <?php echo (isSelected(0, 'deduction_'.$deduction->id, $print_columns)) ? 'CHECKED' : ''; ?> type="checkbox" name="i[0][selected][]" value="deduction_<?php echo $deduction->id; ?>"> <?php echo $deduction->name; ?></label></div>
         <?php } ?>
         </div>
 <?php } ?>
@@ -96,6 +97,7 @@ function isSelected($group,$column_id,$print_columns) {
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="heading-<?php echo $grp->id; ?>">
       <h4 class="panel-title">
+      <input type="checkbox" class="select_all_print_column pull-right" data-id="<?php echo $grp->id; ?>">
         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-<?php echo $grp->id; ?>" aria-expanded="true" aria-controls="collapse-<?php echo $grp->id; ?>">
           <?php echo $grp->name; ?>
         </a>
@@ -114,35 +116,35 @@ function isSelected($group,$column_id,$print_columns) {
           'absences_amount'=>'Absences Amount', 
           'gross_pay'=>'Gross Pay', 
         ) as $col_key=>$col_name) { ?>
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-4 col-xs-4">
               <input type="hidden" name="i[<?php echo $grp->id; ?>][columns][]" value="<?php echo $col_key; ?>">
-              <label><input <?php echo (isSelected($grp->id, $col_key, $print_columns)) ? 'CHECKED' : ''; ?> type="checkbox" name="i[<?php echo $grp->id; ?>][selected][]" value="<?php echo $col_key; ?>"> <?php echo $col_name; ?></label></div>
+              <label><input class="print_column_<?php echo $grp->id; ?>" <?php echo (isSelected($grp->id, $col_key, $print_columns)) ? 'CHECKED' : ''; ?> type="checkbox" name="i[<?php echo $grp->id; ?>][selected][]" value="<?php echo $col_key; ?>"> <?php echo $col_name; ?></label></div>
         <?php } ?>
         </div>
 <?php if( $earnings ) { ?>
         <div class="row" style="border-top: 1px solid #DDD; margin-top: 10px; padding-top: 10px;">
         <?php foreach($earnings as $earning) { ?>
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-4 col-xs-4">
               <input type="hidden" name="i[<?php echo $grp->id; ?>][columns][]" value="earning_<?php echo $earning->id; ?>">
-              <label><input <?php echo (isSelected($grp->id, 'earning_'.$earning->id, $print_columns)) ? 'CHECKED' : ''; ?> type="checkbox" name="i[<?php echo $grp->id; ?>][selected][]" value="earning_<?php echo $earning->id; ?>"> <?php echo $earning->name; ?></label></div>
+              <label><input class="print_column_<?php echo $grp->id; ?>" <?php echo (isSelected($grp->id, 'earning_'.$earning->id, $print_columns)) ? 'CHECKED' : ''; ?> type="checkbox" name="i[<?php echo $grp->id; ?>][selected][]" value="earning_<?php echo $earning->id; ?>"> <?php echo $earning->name; ?></label></div>
         <?php } ?>
         </div>
 <?php } ?>
 <?php if( $benefits ) { ?>
         <div class="row" style="border-top: 1px solid #DDD; margin-top: 10px; padding-top: 10px;">
         <?php foreach($benefits as $benefit) { ?>
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-4 col-xs-4">
               <input type="hidden" name="i[<?php echo $grp->id; ?>][columns][]" value="benefit_<?php echo $benefit->id; ?>">
-            <label><input <?php echo (isSelected($grp->id, 'benefit_'.$benefit->id, $print_columns)) ? 'CHECKED' : ''; ?> type="checkbox" name="i[<?php echo $grp->id; ?>][selected][]" value="benefit_<?php echo $benefit->id; ?>"> <?php echo $benefit->name; ?></label></div>
+            <label><input class="print_column_<?php echo $grp->id; ?>" <?php echo (isSelected($grp->id, 'benefit_'.$benefit->id, $print_columns)) ? 'CHECKED' : ''; ?> type="checkbox" name="i[<?php echo $grp->id; ?>][selected][]" value="benefit_<?php echo $benefit->id; ?>"> <?php echo $benefit->name; ?></label></div>
         <?php } ?>
         </div>
 <?php } ?>
 <?php if( $deductions ) { ?>
         <div class="row" style="border-top: 1px solid #DDD; margin-top: 10px; padding-top: 10px;">
         <?php foreach($deductions as $deduction) { ?>
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-4 col-xs-4">
               <input type="hidden" name="i[<?php echo $grp->id; ?>][columns][]" value="deduction_<?php echo $deduction->id; ?>">
-              <label><input <?php echo (isSelected($grp->id, 'deduction_'.$deduction->id, $print_columns)) ? 'CHECKED' : ''; ?> type="checkbox" name="i[<?php echo $grp->id; ?>][selected][]" value="deduction_<?php echo $deduction->id; ?>"> <?php echo $deduction->name; ?></label></div>
+              <label><input class="print_column_<?php echo $grp->id; ?>" <?php echo (isSelected($grp->id, 'deduction_'.$deduction->id, $print_columns)) ? 'CHECKED' : ''; ?> type="checkbox" name="i[<?php echo $grp->id; ?>][selected][]" value="deduction_<?php echo $deduction->id; ?>"> <?php echo $deduction->name; ?></label></div>
         <?php } ?>
         </div>
 <?php } ?>

@@ -92,7 +92,11 @@ $total_gross_pay += $employee_gross_pay;
 
 
                 <td class="text-right"><?php echo number_format($daily_rate,2); ?></td>
-                <td class="text-right"><?php echo number_format($basic_salary,2); ?></td>
+                <td class="text-right">
+                <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Basic Salary" data-url="<?php echo site_url("payroll_salaries/entries/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
+                <?php echo number_format($basic_salary,2); ?>
+                </a>
+                </td>
                 <td class="text-right"><?php echo number_format($cola,2); ?></td>
                 <td class="text-right">(<?php echo number_format($absences,2); ?>)</td>
                 <td class="text-right"><?php echo number_format($employee_gross_pay,2); ?></td>
