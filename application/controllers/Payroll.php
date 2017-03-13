@@ -546,9 +546,7 @@ class Payroll extends MY_Controller {
 				$payroll_group->setPayrollId($id,true);
 				$payroll_group->setGroupId($group->group_id,true);
 				$payroll_group->setOrder($group->order);
-				if( $payroll_group->nonEmpty() ) {
-					$payroll_group->update();
-				} else {
+				if( $payroll_group->nonEmpty() === FALSE ) {
 					$payroll_group->insert();
 				}
 
@@ -573,10 +571,7 @@ class Payroll extends MY_Controller {
 					$payroll_employees->setTemplate($employee->template);
 					$payroll_employees->setPrintGroup($employee->print_group);
 					$payroll_employees->setActive($employee->active);
-					if( $payroll_employees->nonEmpty() ) {
-						$payroll_employees->set_exclude(array('payroll_id','name_id'));
-						$payroll_employees->update();
-					} else {
+					if( $payroll_employees->nonEmpty() === FALSE ) {
 						$payroll_employees->insert();
 					}
 				}
