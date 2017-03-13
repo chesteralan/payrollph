@@ -68,6 +68,7 @@ class Payroll_salaries extends MY_Controller {
 		$payroll_group->set_limit(0);
 		$payroll_group->set_order('pg.order', 'DESC');
 		$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
+		$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
 		$payroll_group_data =  $payroll_group->populate();
 
 		$inclusive_dates = new $this->Payroll_inclusive_dates_model;

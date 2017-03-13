@@ -406,7 +406,7 @@ var bodyWrapper = function() {
               var loadingImg = $('<img src="'+window.base_url+'assets/images/loader4.gif"/>');
               loadingImg.css('margin-top', Math.ceil( divBody.parent().height() / 2 ));
               //loadingDiv.html( loadingImg );
-              //divBody.prepend( loadingDiv );
+              divBody.prepend( loadingDiv );
 
               var ajax_url = $(this).attr('data-url');
 
