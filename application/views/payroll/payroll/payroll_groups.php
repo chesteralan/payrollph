@@ -36,8 +36,10 @@
       </div>
       <div class="col-md-2">
         <select class="form-control input-sm" name="page[<?php echo $group->id; ?>]" data-style="btn-default btn-sm">
-        <?php for($i=1;$i < ($payroll->pages + 1); $i++) { ?>
-            <option><?php echo $i; ?></option>
+        <?php 
+        $page_selected = (isset($group->page)) ? $group->page : 1;
+        for($i=1;$i < ($payroll->pages + 1); $i++) { ?>
+            <option <?php echo ($page_selected==$i) ? 'selected' : ''; ?>><?php echo $i; ?></option>
         <?php } ?>
         </select>
       </div>

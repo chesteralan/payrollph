@@ -1,8 +1,8 @@
 body {
-  font-family: Arial;
+  font-family: sans-serif;
   padding:0;
   margin:0;
-  font-size: 9px; 
+  font-size: 8px; 
 }
 h1,h2,h3,h4,h5,h6 {
   margin: 0;
@@ -154,7 +154,7 @@ a.no-link {
 }
 body#payslip .payslip_box {
     width: 405px;
-    margin: 0px 10px 20px;
+    margin: 5px;
     float:left;
     padding: 10px;
 }
@@ -221,14 +221,15 @@ body#payslip table td {
   top: 0;
   left: 50%;
   margin-top: 0; /* Negative half of height. */
-  margin-left: -250px; /* Negative half of width. */
+  margin-left: -275px; /* Negative half of width. */
   border: 1px solid #000;
   border-top:none;
-  padding:7px;
+  padding:3px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   background-color: #CCC;
-  font-size: 12px;
+  font-size: 11px;
+  z-index: 99;
 }
 .print-topnav a {
   text-decoration: none;
@@ -236,4 +237,14 @@ body#payslip table td {
 }
 .print-topnav a:hover {
   font-weight: bold;
+}
+.print-topnav.topnav2 {
+  top:20px;
+  z-index: 98;
+  width: 400px;
+  margin-left: -200px; 
+}
+.config_box {
+  width: 500px;
+  margin: 50px auto;
 }

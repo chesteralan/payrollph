@@ -607,6 +607,9 @@ class Payroll extends MY_Controller {
 				$pgroup->setPayrollId($id,true);
 				$pgroup->setGroupId($selected_id,true);
 				$pgroup->setOrder(($len - $order));
+				$pages = $this->input->post('page');
+				$page = ( isset($pages[$selected_id]) ) ? $pages[$selected_id] : 1;
+				$pgroup->setPage($page);
 				if( $pgroup->nonEmpty() ) {
 					$pgroup->update();
 				} else {
@@ -627,6 +630,7 @@ class Payroll extends MY_Controller {
 		$groups->set_select('eg.*');
 		$groups->set_select("(SELECT ptg.group_id FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.group_id = eg.id ) as selected");
 		$groups->set_select("(SELECT ptg.order FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.group_id = eg.id) as sort");
+		$groups->set_select("(SELECT ptg.page FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.group_id = eg.id) as page");
 		$groups->set_order("(SELECT ptg.order FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.group_id = eg.id)", 'DESC');
 		$groups->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=eg.id) > 0)");
 		$this->template_data->set('groups', $groups->populate());

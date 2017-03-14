@@ -31,6 +31,9 @@ class Payroll_overall extends MY_Controller {
 		$this->load->model('Employees_model');
 		$this->load->model('Terms_list_model');
 		$this->load->model('Companies_list_model');
+		$this->load->model('Benefits_list_model');
+		$this->load->model('Earnings_list_model');
+		$this->load->model('Deductions_list_model');
 
 	}
 
@@ -38,9 +41,11 @@ class Payroll_overall extends MY_Controller {
 		redirect("payroll");
 	}
 	
-	public function view($id, $print_group=0, $output='print') {
+	public function view($id, $print_group=0, $output='print', $current_page=1) {
 
 		$this->template_data->set('print_group', $print_group);
+		$this->template_data->set('output', $output);
+		$this->template_data->set('current_page', $current_page);
 
 		$company = new $this->Companies_list_model;
 		$company->setId($this->session->userdata('current_company_id'),true);
@@ -51,6 +56,9 @@ class Payroll_overall extends MY_Controller {
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
+		$template = new $this->Payroll_templates_model;
+		$template->setId($payroll_data->template_id,true);
+		$this->template_data->set('template', $template->get());
 		// inclusive dates
 		$inclusive_dates = new $this->Payroll_inclusive_dates_model;
 		$inclusive_dates->setPayrollId($id,true);
@@ -172,14 +180,65 @@ class Payroll_overall extends MY_Controller {
 		$print_groups->setType('print_group',true);
 		$this->template_data->set('print_groups', $print_groups->populate());
 		
-		switch($output) {
-			case 'payslip':
-				$this->load->view('payroll/payroll/overall/overall_payslip', $this->template_data->get_data());
-			break;
-			default:
-				$this->load->view('payroll/payroll/overall/overall_print', $this->template_data->get_data());
-			break;
-		}
+			switch($output) {
+				case 'payslip':
+					$this->load->view('payroll/payroll/overall/overall_payslip', $this->template_data->get_data());
+				break;
+				case 'payslip_long':
+					$this->template_data->set('paper_size', 'long');
+					$this->load->view('payroll/payroll/overall/overall_payslip', $this->template_data->get_data());
+				break;
+				default:
+					$this->load->view('payroll/payroll/overall/overall_print', $this->template_data->get_data());
+				break;
+			}
+	}
+
+	public function config($id) {
+
+		$company = new $this->Companies_list_model;
+		$company->setId($this->session->userdata('current_company_id'),true);
+		$this->template_data->set('company', $company->get());
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$print_groups = new $this->Terms_list_model;
+		$print_groups->set_select("*");
+		$print_groups->set_order('name', 'ASC');
+		$print_groups->set_start(0);
+		$print_groups->setTrash('0',true);
+		$print_groups->setType('print_group',true);
+		$this->template_data->set('print_groups', $print_groups->populate());
+
+		$earnings = new $this->Earnings_list_model('el');
+		$earnings->set_select('el.*');
+		$earnings->set_select("(SELECT pte.earning_id FROM payroll_templates_earnings pte WHERE pte.template_id = {$id} AND pte.earning_id = el.id ) as selected");
+		$earnings->set_select("(SELECT pte.order FROM payroll_templates_earnings pte WHERE pte.template_id = {$id} AND pte.earning_id = el.id) as sort");
+		$earnings->set_order("(SELECT pte.order FROM payroll_templates_earnings pte WHERE pte.template_id = {$id} AND pte.earning_id = el.id)", 'DESC');
+		$earnings->set_limit(0);
+		$this->template_data->set('earnings', $earnings->populate());
+
+		$benefits = new $this->Benefits_list_model('bl');
+		$benefits->set_select('bl.*');
+		$benefits->set_select("(SELECT ptb.benefit_id FROM payroll_templates_benefits ptb WHERE ptb.template_id = {$id} AND ptb.benefit_id = bl.id ) as selected");
+		$benefits->set_select("(SELECT ptb.order FROM payroll_templates_benefits ptb WHERE ptb.template_id = {$id} AND ptb.benefit_id = bl.id) as sort");
+		$benefits->set_order("(SELECT ptb.order FROM payroll_templates_benefits ptb WHERE ptb.template_id = {$id} AND ptb.benefit_id = bl.id)", 'DESC');
+		$benefits->setLeave(0,true);
+		$benefits->set_limit(0);
+		$this->template_data->set('benefits', $benefits->populate());
+
+		$deductions = new $this->Deductions_list_model('dl');
+		$deductions->set_select('dl.*');
+		$deductions->set_select("(SELECT ptd.deduction_id FROM payroll_templates_deductions ptd WHERE ptd.template_id = {$id} AND ptd.deduction_id = dl.id ) as selected");
+		$deductions->set_select("(SELECT ptd.order FROM payroll_templates_deductions ptd WHERE ptd.template_id = {$id} AND ptd.deduction_id = dl.id) as sort");
+		$deductions->set_order("(SELECT ptd.order FROM payroll_templates_deductions ptd WHERE ptd.template_id = {$id} AND ptd.deduction_id = dl.id)", 'DESC');
+		$deductions->set_limit(0);
+		$this->template_data->set('deductions', $deductions->populate());
+
+		$this->load->view('payroll/payroll/overall/overall_config', $this->template_data->get_data());
 	}
 
 }
