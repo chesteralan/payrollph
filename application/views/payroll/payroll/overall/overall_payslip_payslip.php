@@ -19,7 +19,8 @@
 <div class="inner_body">
 <?php 
 
-$days_absent = $employee->absences;
+$working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
+$days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
@@ -190,7 +191,8 @@ if( $benefits_columns || $deductions_columns ) {
 
 <div class="inner_body">
 <?php 
-$days_absent = $employee->absences;
+$working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
+$days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
