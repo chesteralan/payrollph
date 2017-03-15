@@ -188,6 +188,9 @@ class Payroll_overall extends MY_Controller {
 					$this->template_data->set('paper_size', 'long');
 					$this->load->view('payroll/payroll/overall/overall_payslip', $this->template_data->get_data());
 				break;
+				case 'denomination':
+					$this->load->view('payroll/payroll/overall/overall_denomination', $this->template_data->get_data());
+				break;
 				default:
 					$this->load->view('payroll/payroll/overall/overall_print', $this->template_data->get_data());
 				break;

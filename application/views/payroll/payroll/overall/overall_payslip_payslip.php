@@ -112,7 +112,7 @@ foreach( $earnings_columns as $column ) {
  <table width="100%" class="table table-details" cellpadding="0" cellspacing="0">
  <tr class="">
 <td class="text-left bold allcaps">Gross Pay</td>
-      <td class="text-right bold"><?php echo number_format(($total_earnings + $gross_pay),2); ?></td>
+      <td class="text-right bold"><?php echo number_format(($total_earnings + $net_pay),2); ?></td>
 </tr>
 </table>
 <?php } ?>
@@ -158,7 +158,7 @@ if( $benefits_columns || $deductions_columns ) {
 <tr class="highlight">
 <td class="text-left allcaps bold bigger">Net Pay</td>
                 <td class="text-right bold bigger"><?php 
-                $net_pay = (($total_earnings + $gross_pay) - $total_deductions); 
+                $net_pay = (($total_earnings + $net_pay) - $total_deductions); 
                 echo number_format($net_pay,2); 
                  ?></td>
               </tr>
@@ -291,7 +291,7 @@ foreach( $earnings_columns as $column ) {
  <table width="100%" class="table table-details" cellpadding="0" cellspacing="0">
  <tr class="">
 <td class="text-left bold allcaps">Gross Pay</td>
-      <td class="text-right bold"><?php echo number_format(($total_earnings + $gross_pay),2); ?></td>
+      <td class="text-right bold"><?php echo number_format(($total_earnings + $net_pay),2); ?></td>
 </tr>
 </table>
 <?php } ?>
@@ -338,7 +338,7 @@ if( $benefits_columns || $deductions_columns ) {
 <tr class="highlight">
 <td class="text-left allcaps bold bigger">Net Pay</td>
                 <td class="text-right bold bigger"><?php 
-                $net_pay = (($total_earnings + $gross_pay) - $total_deductions); 
+                $net_pay = (($total_earnings + $net_pay) - $total_deductions); 
                 echo number_format($net_pay,2); 
                  ?></td>
               </tr>
