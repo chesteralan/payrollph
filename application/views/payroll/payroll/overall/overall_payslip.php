@@ -23,11 +23,6 @@
     &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$pg->id}/payslip"); ?>"><?php echo $pg->name; ?></a>
   <?php } ?>
 </div>
-<div class="print-topnav topnav2 hide-print text-center allcaps">
-
-    <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/payslip"); ?>">Short Paper</a>
-    &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/payslip_long"); ?>">Long Paper</a>
-</div>
 
 <?php if( $payroll_groups ) { 
 
