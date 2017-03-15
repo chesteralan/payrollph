@@ -49,6 +49,7 @@ if( $employee->salary ) {
   $cola = ($salary->cola * $present_days);
 }
 
+$absences = ($daily_rate * $days_absent);
 $basic_salary = ($daily_rate * $present_days);
 $gross_pay = ($basic_salary + $cola);
 
@@ -116,6 +117,9 @@ if( $benefits_columns || $deductions_columns ) {
    <tr>
    <td colspan="2" class="allcaps bold">Deductions</td>
  </tr>
+ <td class="text-left tab1">Absences</td>
+                <td class="text-right">(<?php echo number_format($absences,2); ?>)</td>
+                </tr>
 <?php if( $benefits_columns ) { ?>
 <?php foreach( $benefits_columns as $column ) { ?>
 <tr>
@@ -220,7 +224,7 @@ if( $employee->salary ) {
   }
   $cola = ($salary->cola * $present_days);
 }
-
+$absences = ($daily_rate * $days_absent);
 $basic_salary = ($daily_rate * $present_days);
 $gross_pay = ($basic_salary + $cola);
 
@@ -288,6 +292,10 @@ if( $benefits_columns || $deductions_columns ) {
    <tr>
    <td colspan="2" class="allcaps bold">Deductions</td>
  </tr>
+<tr>
+<td class="text-left tab1">Absences</td>
+                <td class="text-right">(<?php echo number_format($absences,2); ?>)</td>
+                </tr>
 <?php if( $benefits_columns ) { ?>
 <?php foreach( $benefits_columns as $column ) { ?>
 <tr>
