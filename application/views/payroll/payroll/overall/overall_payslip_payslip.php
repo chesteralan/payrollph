@@ -50,24 +50,23 @@ if( $employee->salary ) {
 }
 
 $absences = ($daily_rate * $days_absent);
-$basic_salary = ($daily_rate * $present_days);
+$basic_salary = ($daily_rate * $inclusive_dates->working_days);
+$net_salary = ($daily_rate * $present_days);
 $gross_pay = ($basic_salary + $cola);
+$net_pay = ($net_salary + $cola);
 
 if( floatval( $gross_pay ) ) {
 ?>
+ <table width="100%" class="table table-details" cellpadding="0" cellspacing="0" style="margin-top:10px">
+ <tr>
+  <td class="text-left">Working Days: <strong><?php  echo $inclusive_dates->working_days; ?></strong></td>
+
+  <td class="text-left">Days Absent:  <strong><?php  echo $days_absent; ?> </strong></td>
+
+  <td class="text-left">Days Present:  <strong><?php  echo $present_days; ?> </strong></td>
+</tr>
+</table>
  <table width="100%" class="table table-details" cellpadding="0" cellspacing="0">
- <tr>
-  <td class="text-left"># of Working Days</td>
-  <td class="text-right"><?php  echo $inclusive_dates->working_days; ?></td>
-</tr>
- <tr>
-  <td class="text-left">Days Absent</td>
-  <td class="text-right"><?php  echo $days_absent; ?></td>
-</tr>
- <tr>
-  <td class="text-left">Days Present</td>
-  <td class="text-right"><?php  echo $present_days; ?></td>
-</tr>
  <tr>
   <td class="text-left">Rate per day</td>
   <td class="text-right"><?php  echo number_format($daily_rate,2); ?></td>
@@ -79,6 +78,14 @@ if( floatval( $gross_pay ) ) {
 <tr>
   <td class="text-left  bold allcaps">Basic Salary</td>
   <td class="text-right bold"><?php  echo number_format($gross_pay,2); ?></td>
+</tr>
+ <tr>
+ <td class="text-left tab1"><strong>Less:</strong> Absences</td>
+                <td class="text-right">(<?php echo number_format($absences,2); ?>)</td>
+                </tr>
+<tr>
+  <td class="text-left  bold allcaps">Net Basic Salary</td>
+  <td class="text-right bold"><?php  echo number_format($net_pay,2); ?></td>
 </tr>
 </table>
 <?php } ?>
@@ -117,9 +124,6 @@ if( $benefits_columns || $deductions_columns ) {
    <tr>
    <td colspan="2" class="allcaps bold">Deductions</td>
  </tr>
- <td class="text-left tab1">Absences</td>
-                <td class="text-right">(<?php echo number_format($absences,2); ?>)</td>
-                </tr>
 <?php if( $benefits_columns ) { ?>
 <?php foreach( $benefits_columns as $column ) { ?>
 <tr>
@@ -225,24 +229,23 @@ if( $employee->salary ) {
   $cola = ($salary->cola * $present_days);
 }
 $absences = ($daily_rate * $days_absent);
-$basic_salary = ($daily_rate * $present_days);
+$basic_salary = ($daily_rate * $inclusive_dates->working_days);
+$net_salary = ($daily_rate * $present_days);
 $gross_pay = ($basic_salary + $cola);
+$net_pay = ($net_salary + $cola);
 
 if( floatval( $gross_pay ) ) {
 ?>
+ <table width="100%" class="table table-details" cellpadding="0" cellspacing="0" style="margin-top:10px">
+ <tr>
+  <td class="text-left">Working Days: <strong><?php  echo $inclusive_dates->working_days; ?></strong></td>
+
+  <td class="text-left">Days Absent:  <strong><?php  echo $days_absent; ?> </strong></td>
+
+  <td class="text-left">Days Present:  <strong><?php  echo $present_days; ?> </strong></td>
+</tr>
+</table>
  <table width="100%" class="table table-details" cellpadding="0" cellspacing="0">
- <tr>
-  <td class="text-left"># of Working Days</td>
-  <td class="text-right"><?php  echo $inclusive_dates->working_days; ?></td>
-</tr>
- <tr>
-  <td class="text-left">Days Absent</td>
-  <td class="text-right"><?php  echo $days_absent; ?></td>
-</tr>
- <tr>
-  <td class="text-left">Days Present</td>
-  <td class="text-right"><?php  echo $present_days; ?></td>
-</tr>
  <tr>
   <td class="text-left">Rate per day</td>
   <td class="text-right"><?php  echo number_format($daily_rate,2); ?></td>
@@ -254,6 +257,14 @@ if( floatval( $gross_pay ) ) {
 <tr>
   <td class="text-left  bold allcaps">Basic Salary</td>
   <td class="text-right bold"><?php  echo number_format($gross_pay,2); ?></td>
+</tr>
+ <tr>
+ <td class="text-left tab1"><strong>Less:</strong> Absences</td>
+                <td class="text-right">(<?php echo number_format($absences,2); ?>)</td>
+                </tr>
+<tr>
+  <td class="text-left  bold allcaps">Net Basic Salary</td>
+  <td class="text-right bold"><?php  echo number_format($net_pay,2); ?></td>
 </tr>
 </table>
 <?php } ?>
@@ -292,10 +303,7 @@ if( $benefits_columns || $deductions_columns ) {
    <tr>
    <td colspan="2" class="allcaps bold">Deductions</td>
  </tr>
-<tr>
-<td class="text-left tab1">Absences</td>
-                <td class="text-right">(<?php echo number_format($absences,2); ?>)</td>
-                </tr>
+
 <?php if( $benefits_columns ) { ?>
 <?php foreach( $benefits_columns as $column ) { ?>
 <tr>
