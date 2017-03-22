@@ -25,6 +25,9 @@
   <li class="list-group-item">
   <input type="hidden" name="deduction[]" value="<?php echo $deduction->id; ?>">
   <span class="glyphicon glyphicon-sort pull-right"></span>
+  <?php if($deduction->id==$deduction->selected) { ?>
+  <a class="pull-right" href="<?php echo site_url("payroll_deductions/reset/{$payroll_id}/{$deduction->id}") . "?next=" . $this->input->get('next'); ?>" style="margin-right:5px;"><span class="glyphicon glyphicon-refresh"></span></a>
+  <?php } ?>
     <h4 class="list-group-item-heading"><label><input type="checkbox" name="selected[]" value="<?php echo $deduction->id; ?>" <?php echo ($deduction->id==$deduction->selected) ? "CHECKED" : ""; ?>> <?php echo $deduction->name; ?></label></h4>
     <p class="list-group-item-text"><?php echo $deduction->notes; ?></p>
   </li>

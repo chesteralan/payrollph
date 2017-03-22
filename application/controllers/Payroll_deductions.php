@@ -315,4 +315,19 @@ class Payroll_deductions extends MY_Controller {
 
 	}
 
+	public function reset($id,$deduction_id) {
+
+		$deductions = new $this->Payroll_employees_deductions_model;
+		$deductions->setPayrollId($id, true);
+		$deductions->setDeductionId($deduction_id,true);
+		$deductions->delete();
+		
+		if( $this->input->get('next') ) {
+			redirect( $this->input->get('next') );
+		} else {
+			redirect( "payroll_deductions/view/{$id}" );
+		}
+
+	}
+
 }

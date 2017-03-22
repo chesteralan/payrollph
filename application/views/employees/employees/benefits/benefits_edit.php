@@ -60,10 +60,23 @@
     <textarea name="notes" class="form-control" rows="5"><?php echo $benefit->notes; ?></textarea>
   </div>
 
+      <div class="row">          
+        <div class="col-md-6">
               <div class="form-group">
                 <p><label><input name="primary" type="checkbox" value="1"<?php echo ($benefit->primary) ? ' CHECKED' : ''; ?>> Set as Primary</label></p>
               </div>
-              
+        </div>
+        <div class="col-md-6">
+              <div class="form-group">
+              <?php foreach($templates as $template) { ?>
+                <p><label>
+                  <input name="template[]" type="hidden" value="<?php echo $template->id; ?>">
+                  <input name="template_selected[]" type="checkbox" value="<?php echo $template->id; ?>"<?php echo ($template->selected) ? ' CHECKED' : ''; ?>> Generate on: <?php echo $template->name; ?></label></p>
+              <?php } ?>
+              </div>
+        </div>
+      </div>
+
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>
         <div class="panel-footer">

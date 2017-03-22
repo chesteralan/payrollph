@@ -25,6 +25,9 @@
   <li class="list-group-item">
   <input type="hidden" name="benefit[]" value="<?php echo $benefit->id; ?>">
   <span class="glyphicon glyphicon-sort pull-right"></span>
+  <?php if($benefit->id==$benefit->selected) { ?>
+  <a class="pull-right" href="<?php echo site_url("payroll_benefits/reset/{$payroll_id}/{$benefit->id}") . "?next=" . $this->input->get('next'); ?>" style="margin-right:5px;"><span class="glyphicon glyphicon-refresh"></span></a>
+  <?php } ?>
     <h4 class="list-group-item-heading"><label><input type="checkbox" name="selected[]" value="<?php echo $benefit->id; ?>" <?php echo ($benefit->id==$benefit->selected) ? "CHECKED" : ""; ?>> <?php echo $benefit->name; ?></label></h4>
     <p class="list-group-item-text"><?php echo $benefit->notes; ?></p>
   </li>

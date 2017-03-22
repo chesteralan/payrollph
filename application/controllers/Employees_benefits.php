@@ -13,8 +13,10 @@ class Employees_benefits extends MY_Controller {
 
 		$this->load->model('Employees_model');
 		$this->load->model('Employees_benefits_model');
+		$this->load->model('Employees_benefits_templates_model');
 		$this->load->model('Benefits_list_model');
 		$this->load->model('Payroll_employees_benefits_model');
+		$this->load->model('Payroll_templates_model');
 
 	}
 
@@ -133,6 +135,25 @@ class Employees_benefits extends MY_Controller {
 					$benefits->setNotes($this->input->post('notes'),false,true);
 					$benefits->update();
 				}
+
+				if( $this->input->post('template') ) {
+					foreach( $this->input->post('template') as $template ) {
+						if( ! in_array($template, $this->input->post('template_selected')) ) {
+							$eb_template = new $this->Employees_benefits_templates_model;
+							$eb_template->setEbId($id,true);
+							$eb_template->setTemplateId($template,true);
+							$eb_template->delete();
+						}
+					}
+					foreach( $this->input->post('template_selected') as $selected_id ) {
+						$eb_template = new $this->Employees_benefits_templates_model;
+						$eb_template->setEbId($id,true);
+						$eb_template->setTemplateId($selected_id,true);
+						if( ! $eb_template->nonEmpty() ) {
+							$eb_template->insert();
+						}
+					}
+				}
 				$this->postNext();
 			}
 		}
@@ -143,6 +164,14 @@ class Employees_benefits extends MY_Controller {
 		$benefits->setLeave('0',true);
 		$benefits->set_order('name', 'ASC');
 		$this->template_data->set('benefits', $benefits->populate());
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->set_limit(0);
+		$templates->set_select("*");
+		$templates->set_select("(SELECT COUNT(*) FROM `employees_benefits_templates` WHERE eb_id={$id} AND template_id=payroll_templates.id) as selected");
+		$templates->setActive('1',true);
+		$this->template_data->set('templates', $templates->populate());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('employees/employees/benefits/benefits_edit', $this->template_data->get_data());

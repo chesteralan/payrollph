@@ -42,7 +42,7 @@
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
 
-                <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Deduction" data-url="<?php echo site_url("employees_benefits/edit/{$benefit->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>">Edit</button>
+                <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Benefit" data-url="<?php echo site_url("employees_benefits/edit/{$benefit->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>">Edit</button>
 
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees_benefits/delete/{$benefit->id}"); ?>" data-target="#salary-<?php echo $benefit->id; ?>">Delete</a>
 

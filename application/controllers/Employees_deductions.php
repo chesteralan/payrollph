@@ -13,9 +13,10 @@ class Employees_deductions extends MY_Controller {
 
 		$this->load->model('Employees_model');
 		$this->load->model('Employees_deductions_model');
+		$this->load->model('Employees_deductions_templates_model');
 		$this->load->model('Deductions_list_model');
-
 		$this->load->model('Payroll_employees_deductions_model');
+		$this->load->model('Payroll_templates_model');
 
 	}
 
@@ -117,6 +118,24 @@ class Employees_deductions extends MY_Controller {
 					$deductions->setComputed($this->input->post('computed'),false,true);
 					$deductions->update();
 				}
+				if( $this->input->post('template') ) {
+					foreach( $this->input->post('template') as $template ) {
+						if( ! in_array($template, $this->input->post('template_selected')) ) {
+							$ed_template = new $this->Employees_deductions_templates_model;
+							$ed_template->setEdId($id,true);
+							$ed_template->setTemplateId($template,true);
+							$ed_template->delete();
+						}
+					}
+					foreach( $this->input->post('template_selected') as $selected_id ) {
+						$ed_template = new $this->Employees_deductions_templates_model;
+						$ed_template->setEdId($id,true);
+						$ed_template->setTemplateId($selected_id,true);
+						if( ! $ed_template->nonEmpty() ) {
+							$ed_template->insert();
+						}
+					}
+				}
 				$this->postNext();
 			}
 		}
@@ -126,6 +145,14 @@ class Employees_deductions extends MY_Controller {
 		$deductions = new $this->Deductions_list_model;
 		$deductions->set_order('name', 'ASC');
 		$this->template_data->set('deductions', $deductions->populate());
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->set_limit(0);
+		$templates->set_select("*");
+		$templates->set_select("(SELECT COUNT(*) FROM `employees_deductions_templates` WHERE ed_id={$id} AND template_id=payroll_templates.id) as selected");
+		$templates->setActive('1',true);
+		$this->template_data->set('templates', $templates->populate());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('employees/employees/deductions/deductions_edit', $this->template_data->get_data());

@@ -291,6 +291,7 @@ CREATE TABLE `payroll_employees` (
   `payroll_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `order` int(2) NOT NULL DEFAULT '0',
+  `payslip` varchar(20) DEFAULT 'payslip',
   `template` varchar(20) DEFAULT 'payslip',
   `print_group` int(20) DEFAULT NULL,
   `active` int(1) DEFAULT '1',

@@ -304,4 +304,19 @@ class Payroll_earnings extends MY_Controller {
 
 	}
 
+	public function reset($id,$earning_id) {
+
+		$earnings = new $this->Payroll_employees_earnings_model;
+		$earnings->setPayrollId($id, true);
+		$earnings->setEarningId($earning_id,true);
+		$earnings->delete();
+		
+		if( $this->input->get('next') ) {
+			redirect( $this->input->get('next') );
+		} else {
+			redirect( "payroll_benefits/view/{$id}" );
+		}
+
+	}
+
 }

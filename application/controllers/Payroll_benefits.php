@@ -312,4 +312,19 @@ class Payroll_benefits extends MY_Controller {
 
 	}
 
+	public function reset($id,$benefit_id) {
+
+		$benefits = new $this->Payroll_employees_benefits_model;
+		$benefits->setPayrollId($id, true);
+		$benefits->setBenefitId($benefit_id,true);
+		$benefits->delete();
+		
+		if( $this->input->get('next') ) {
+			redirect( $this->input->get('next') );
+		} else {
+			redirect( "payroll_benefits/view/{$id}" );
+		}
+
+	}
+
 }

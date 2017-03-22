@@ -303,7 +303,7 @@ class Payroll extends MY_Controller {
 		$this->load->view('payroll/payroll/payroll_calendar', $this->template_data->get_data());
 	}
 
-	private function _generate_earnings($payroll_id,$earning_id,$employee) {
+	private function _generate_earnings($payroll_data,$earning_id,$employee) {
 		 $ee_earnings = new $this->Employees_earnings_model;
 		 $ee_earnings->setNameId($employee->name_id,true);
 		 $ee_earnings->setCompanyId($this->session->userdata('current_company_id'),true);
@@ -313,11 +313,12 @@ class Payroll extends MY_Controller {
 		 $ee_earnings->set_where('(start_date <= "' . date('Y-m-d') . '")');
 		 $ee_earnings->set_select("*");
 		 $ee_earnings->set_select('(SELECT SUM(amount) FROM payroll_employees_earnings ped WHERE ped.entry_id=employees_earnings.id AND ped.name_id=employees_earnings.name_id) as earned');
+		 $ee_earnings->set_where("((SELECT COUNT(*) FROM `employees_earnings_templates` WHERE ee_id=employees_earnings.id AND template_id={$payroll_data->template_id}) > 0)");
 
 		 foreach( $ee_earnings->populate() as $earning2 ) {
 		 	
 		 	$pee_earning = new $this->Payroll_employees_earnings_model;
-		 	$pee_earning->setPayrollId($payroll_id,true);
+		 	$pee_earning->setPayrollId($payroll_data->id,true);
 		 	$pee_earning->setNameId($earning2->name_id,true);
 		 	$pee_earning->setEarningId($earning2->earning_id,true);
 		 	$pee_earning->setEntryId($earning2->id,true);
@@ -348,7 +349,7 @@ class Payroll extends MY_Controller {
 		 }
 	}
 
-	private function _generate_benefits($payroll_id,$benefit_id,$employee) {
+	private function _generate_benefits($payroll_data,$benefit_id,$employee) {
 			$ee_benefits = new $this->Employees_benefits_model;
 			 $ee_benefits->setCompanyId($this->session->userdata('current_company_id'),true);
 			 $ee_benefits->setNameId($employee->name_id,true);
@@ -356,9 +357,10 @@ class Payroll extends MY_Controller {
 			 $ee_benefits->setTrash(0,true);
 			 $ee_benefits->setPrimary(1,true);
 			 $ee_benefits->set_where('(start_date <= "' . date('Y-m-d') . '")');
+			 $ee_benefits->set_where("((SELECT COUNT(*) FROM `employees_benefits_templates` WHERE eb_id=employees_benefits.id AND template_id={$payroll_data->template_id}) > 0)");
 			 foreach( $ee_benefits->populate() as $benefit2 ) {
 			 	$peb_benefit = new $this->Payroll_employees_benefits_model;
-			 	$peb_benefit->setPayrollId($payroll_id,true);
+			 	$peb_benefit->setPayrollId($payroll_data->id,true);
 			 	$peb_benefit->setNameId($benefit2->name_id,true);
 			 	$peb_benefit->setBenefitId($benefit2->benefit_id,true);
 			 	$peb_benefit->setEntryId($benefit2->id,true);
@@ -372,7 +374,7 @@ class Payroll extends MY_Controller {
 			 }
 	}
 
-	private function _generate_deductions($payroll_id,$deduction_id,$employee) {
+	private function _generate_deductions($payroll_data,$deduction_id,$employee) {
 			 $ee_deductions = new $this->Employees_deductions_model;
 			 $ee_deductions->setCompanyId($this->session->userdata('current_company_id'),true);
 			 $ee_deductions->setNameId($employee->name_id,true);
@@ -383,10 +385,11 @@ class Payroll extends MY_Controller {
 			 $ee_deductions->set_limit(0);
 			 $ee_deductions->set_select("*");
 			 $ee_deductions->set_select('(SELECT SUM(amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=employees_deductions.id AND ped.name_id=employees_deductions.name_id) as deducted');
+			 $ee_deductions->set_where("((SELECT COUNT(*) FROM `employees_deductions_templates` WHERE ed_id=employees_deductions.id AND template_id={$payroll_data->template_id}) > 0)");
 			 foreach( $ee_deductions->populate() as $deduction2 ) {
 
 			 	$ped_deduction = new $this->Payroll_employees_deductions_model;
-			 	$ped_deduction->setPayrollId($payroll_id,true);
+			 	$ped_deduction->setPayrollId($payroll_data->id,true);
 			 	$ped_deduction->setNameId($deduction2->name_id,true);
 			 	$ped_deduction->setDeductionId($deduction2->deduction_id,true);
 			 	$ped_deduction->setEntryId($deduction2->id,true);
@@ -417,7 +420,7 @@ class Payroll extends MY_Controller {
 			 }
 	}
 
-	private function _generate($id,$payroll_data,$employees_data) {
+	private function _generate($payroll_data,$employees_data) {
 
 			if( $employees_data ) foreach( $employees_data as $employee ) {
 					$salary = new $this->Employees_salaries_model;
@@ -428,7 +431,7 @@ class Payroll extends MY_Controller {
 				if( $salary->nonEmpty() ) {
 					$salary_data = $salary->getResults();
 					$payroll_salary = new $this->Payroll_employees_salaries_model;
-					$payroll_salary->setPayrollId($id,true);
+					$payroll_salary->setPayrollId($payroll_data->id,true);
 					$payroll_salary->setNameId($employee->name_id,true);
 					$payroll_salary->setSalaryId($salary_data->id);
 					if( $payroll_salary->nonEmpty() ) {
@@ -444,7 +447,7 @@ class Payroll extends MY_Controller {
 			$temp_earnings->set_limit(0);
 			foreach( $temp_earnings->populate() as $earning ) {
 				$payroll_earning = new $this->Payroll_earnings_model;
-				$payroll_earning->setPayrollId($id,true);
+				$payroll_earning->setPayrollId($payroll_data->id,true);
 				$payroll_earning->setEarningId($earning->earning_id,true);
 				$payroll_earning->setOrder($earning->order);
 				if( $payroll_earning->nonEmpty() ) {
@@ -455,10 +458,10 @@ class Payroll extends MY_Controller {
 			}
 
 			$payroll_earnings = new $this->Payroll_earnings_model;
-			$payroll_earnings->setPayrollId($id,true);
+			$payroll_earnings->setPayrollId($payroll_data->id,true);
 			foreach( $payroll_earnings->populate() as $earning ) {
 				if( $employees_data ) foreach( $employees_data as $employee ) {
-					$this->_generate_earnings($id,$earning->earning_id, $employee);
+					$this->_generate_earnings($payroll_data,$earning->earning_id, $employee);
 				}
 			} 
 
@@ -467,7 +470,7 @@ class Payroll extends MY_Controller {
 			$temp_deductions->set_limit(0);
 			foreach( $temp_deductions->populate() as $deduction ) {
 				$payroll_deduction = new $this->Payroll_deductions_model;
-				$payroll_deduction->setPayrollId($id,true);
+				$payroll_deduction->setPayrollId($payroll_data->id,true);
 				$payroll_deduction->setDeductionId($deduction->deduction_id,true);
 				$payroll_deduction->setOrder($deduction->order);
 				if( $payroll_deduction->nonEmpty() ) {
@@ -478,10 +481,10 @@ class Payroll extends MY_Controller {
 			}
 			
 			$payroll_deductions = new $this->Payroll_deductions_model;
-			$payroll_deductions->setPayrollId($id,true);
+			$payroll_deductions->setPayrollId($payroll_data->id,true);
 			foreach( $payroll_deductions->populate() as $deduction ) {
 				if( $employees_data ) foreach( $employees_data as $employee ) {
-					 $this->_generate_deductions($id,$deduction->deduction_id, $employee);
+					 $this->_generate_deductions($payroll_data,$deduction->deduction_id, $employee);
 				}
 			}
 
@@ -490,7 +493,7 @@ class Payroll extends MY_Controller {
 			$temp_benefits->set_limit(0);
 			foreach( $temp_benefits->populate() as $benefit ) {
 				$payroll_benefit = new $this->Payroll_benefits_model;
-				$payroll_benefit->setPayrollId($id,true);
+				$payroll_benefit->setPayrollId($payroll_data->id,true);
 				$payroll_benefit->setBenefitId($benefit->benefit_id,true);
 				$payroll_benefit->setOrder($benefit->order);
 				if( $payroll_benefit->nonEmpty() ) {
@@ -501,10 +504,10 @@ class Payroll extends MY_Controller {
 			}
 
 			$payroll_benefits = new $this->Payroll_benefits_model;
-			$payroll_benefits->setPayrollId($id,true);
+			$payroll_benefits->setPayrollId($payroll_data->id,true);
 			foreach( $payroll_benefits->populate() as $benefit ) {
 				if( $employees_data ) foreach( $employees_data as $employee ) {
-					 $this->_generate_benefits($id,$benefit->benefit_id,$employee);
+					 $this->_generate_benefits($payroll_data,$benefit->benefit_id,$employee);
 				}
 			}
 
@@ -579,7 +582,7 @@ class Payroll extends MY_Controller {
 			}
 
 			if( $employees_data ) {
-				$this->_generate( $id, $payroll_data, $employees_data );
+				$this->_generate( $payroll_data, $employees_data );
 			}
 
 		endif;
@@ -672,7 +675,7 @@ class Payroll extends MY_Controller {
 				} else {
 					$pemployee->insert();
 					if( $pemployee->get() ) {
-						$this->_generate($id, $payroll_data, array($pemployee->get()));
+						$this->_generate( $payroll_data, array($pemployee->get()));
 					}
 				}
 				
@@ -750,7 +753,8 @@ class Payroll extends MY_Controller {
 		$this->template_data->set('benefits', $benefits->populate());
 
 		$this->template_data->set('output', $output);
-
+		$this->template_data->set('payroll_id', $id);
+		
 		$this->load->view('payroll/payroll/payroll_benefits', $this->template_data->get_data());
 
 	}
@@ -798,6 +802,7 @@ class Payroll extends MY_Controller {
 		$this->template_data->set('earnings', $earnings->populate());
 
 		$this->template_data->set('output', $output);
+		$this->template_data->set('payroll_id', $id);
 
 		$this->load->view('payroll/payroll/payroll_earnings', $this->template_data->get_data());
 
@@ -846,6 +851,7 @@ class Payroll extends MY_Controller {
 		$this->template_data->set('deductions', $deductions->populate());
 
 		$this->template_data->set('output', $output);
+		$this->template_data->set('payroll_id', $id);
 
 		$this->load->view('payroll/payroll/payroll_deductions', $this->template_data->get_data());
 

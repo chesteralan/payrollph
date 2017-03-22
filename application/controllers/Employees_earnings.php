@@ -13,6 +13,7 @@ class Employees_earnings extends MY_Controller {
 
 		$this->load->model('Employees_model');
 		$this->load->model('Employees_earnings_model');
+		$this->load->model('Employees_earnings_templates_model');
 		$this->load->model('Earnings_list_model');
 		$this->load->model('Payroll_employees_earnings_model');
 		$this->load->model('Payroll_templates_model');
@@ -116,6 +117,24 @@ class Employees_earnings extends MY_Controller {
 					$earnings->setNotes($this->input->post('notes'),false,true);
 					$earnings->update();
 				}
+				if( $this->input->post('template') ) {
+					foreach( $this->input->post('template') as $template ) {
+						if( ! in_array($template, $this->input->post('template_selected')) ) {
+							$ee_template = new $this->Employees_earnings_templates_model;
+							$ee_template->setEeId($id,true);
+							$ee_template->setTemplateId($template,true);
+							$ee_template->delete();
+						}
+					}
+					foreach( $this->input->post('template_selected') as $selected_id ) {
+						$ee_template = new $this->Employees_earnings_templates_model;
+						$ee_template->setEeId($id,true);
+						$ee_template->setTemplateId($selected_id,true);
+						if( ! $ee_template->nonEmpty() ) {
+							$ee_template->insert();
+						}
+					}
+				}
 				$this->postNext();
 			}
 		}
@@ -129,9 +148,11 @@ class Employees_earnings extends MY_Controller {
 		$templates = new $this->Payroll_templates_model;
 		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
 		$templates->set_limit(0);
+		$templates->set_select("*");
+		$templates->set_select("(SELECT COUNT(*) FROM `employees_earnings_templates` WHERE ee_id={$id} AND template_id=payroll_templates.id) as selected");
 		$templates->setActive('1',true);
 		$this->template_data->set('templates', $templates->populate());
-		
+
 		$this->template_data->set('output', $output);
 		$this->load->view('employees/employees/earnings/earnings_edit', $this->template_data->get_data());
 	}

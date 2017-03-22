@@ -86,7 +86,9 @@
         <div class="col-md-6">
               <div class="form-group">
               <?php foreach($templates as $template) { ?>
-                <p><label><input name="template[]" type="checkbox" value="<?php echo $template->id; ?>"> Generate on: <?php echo $template->name; ?></label></p>
+                <p><label>
+                  <input name="template[]" type="hidden" value="<?php echo $template->id; ?>">
+                  <input name="template_selected[]" type="checkbox" value="<?php echo $template->id; ?>"<?php echo ($template->selected) ? ' CHECKED' : ''; ?>> Generate on: <?php echo $template->name; ?></label></p>
               <?php } ?>
               </div>
         </div>
