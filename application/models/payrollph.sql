@@ -126,6 +126,14 @@ CREATE TABLE `employees_benefits` (
   KEY `company_id` (`company_id`)
 );
 
+-- Table structure for table `employees_benefits_templates` 
+
+CREATE TABLE `employees_benefits_templates` (
+  `eb_id` int(20) NOT NULL,
+  `template_id` int(20) NOT NULL,
+  KEY `eb_id` (`eb_id`,`template_id`)
+);
+
 -- Table structure for table `employees_deductions` 
 
 CREATE TABLE `employees_deductions` (
@@ -145,6 +153,14 @@ CREATE TABLE `employees_deductions` (
   KEY `company_id` (`company_id`)
 );
 
+-- Table structure for table `employees_deductions_templates` 
+
+CREATE TABLE `employees_deductions_templates` (
+  `ed_id` int(20) NOT NULL,
+  `template_id` int(20) NOT NULL,
+  KEY `ed_id` (`ed_id`,`template_id`)
+);
+
 -- Table structure for table `employees_earnings` 
 
 CREATE TABLE `employees_earnings` (
@@ -162,6 +178,14 @@ CREATE TABLE `employees_earnings` (
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`earning_id`),
   KEY `company_id` (`company_id`)
+);
+
+-- Table structure for table `employees_earnings_templates` 
+
+CREATE TABLE `employees_earnings_templates` (
+  `ee_id` int(20) NOT NULL,
+  `template_id` int(20) NOT NULL,
+  KEY `ee_id` (`ee_id`,`template_id`)
 );
 
 -- Table structure for table `employees_groups` 

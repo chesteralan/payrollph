@@ -72,14 +72,25 @@
         </div>
       </div>
 
-      <div class="form-group">
+<div class="form-group">
     <label>Notes</label>
     <textarea name="notes" class="form-control" rows="3"><?php echo $earning->notes; ?></textarea>
   </div>
 
+      <div class="row">          
+        <div class="col-md-6">
               <div class="form-group">
                 <p><label><input name="active" type="checkbox" value="1"<?php echo ($earning->active) ? ' CHECKED' : ''; ?>> Set Active</label></p>
               </div>
+        </div>
+        <div class="col-md-6">
+              <div class="form-group">
+              <?php foreach($templates as $template) { ?>
+                <p><label><input name="template[]" type="checkbox" value="<?php echo $template->id; ?>"> Generate on: <?php echo $template->name; ?></label></p>
+              <?php } ?>
+              </div>
+        </div>
+      </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>

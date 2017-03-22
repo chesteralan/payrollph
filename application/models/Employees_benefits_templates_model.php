@@ -1,0 +1,105 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+/**
+ * Employees_benefits_templates_model Class
+ *
+ * Manipulates `employees_benefits_templates` table on database
+
+CREATE TABLE `employees_benefits_templates` (
+  `eb_id` int(20) NOT NULL,
+  `template_id` int(20) NOT NULL,
+  KEY `eb_id` (`eb_id`,`template_id`)
+);
+
+ * @package			        Model
+ * @version_number	        3.0.0
+ * @project			        Trokis Philippines
+ * @project_link	        http://www.trokis.com
+ * @author			        Chester Alan Tagudin
+ * @author_link		        http://www.chesteralan.com
+ * @generator		        CodeIgniter Model Generator (CMG)
+ */
+ 
+class Employees_benefits_templates_model extends MY_Model {
+
+	protected $eb_id;
+	protected $template_id;
+
+	// --------------------------------------------------------------------
+
+	/**
+	* Construct 
+	* @access public
+	* @param  String
+	* @return Boolean;
+	*/
+
+	function __construct($short_name=NULL, $db_config=NULL) {
+		$this->_table_name = 'employees_benefits_templates';
+		$this->_short_name = 'employees_benefits_templates';
+		$this->_fields = array("eb_id","template_id");
+		$this->_required = array("eb_id","template_id");
+		parent::__construct($short_name, $db_config);
+	}
+
+	// --------------------------------------------------------------------
+
+
+// ---------------------------- Start Field: eb_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `eb_id` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setEbId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('eb_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `eb_id` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getEbId() {
+			return $this->eb_id;
+		}
+	
+// ------------------------------ End Field: eb_id --------------------------------------
+
+
+// ---------------------------- Start Field: template_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `template_id` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `template_id` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getTemplateId() {
+			return $this->template_id;
+		}
+	
+// ------------------------------ End Field: template_id --------------------------------------
+
+
+
+
+}
+
+/* End of file Employees_benefits_templates_model.php */
+/* Location: ./application/models/Employees_benefits_templates_model.php */

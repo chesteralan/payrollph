@@ -15,6 +15,7 @@ class Employees_earnings extends MY_Controller {
 		$this->load->model('Employees_earnings_model');
 		$this->load->model('Earnings_list_model');
 		$this->load->model('Payroll_employees_earnings_model');
+		$this->load->model('Payroll_templates_model');
 
 	}
 
@@ -125,6 +126,12 @@ class Employees_earnings extends MY_Controller {
 		$earnings->set_order('name', 'ASC');
 		$this->template_data->set('earnings', $earnings->populate());
 
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->set_limit(0);
+		$templates->setActive('1',true);
+		$this->template_data->set('templates', $templates->populate());
+		
 		$this->template_data->set('output', $output);
 		$this->load->view('employees/employees/earnings/earnings_edit', $this->template_data->get_data());
 	}

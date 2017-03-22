@@ -28,15 +28,17 @@ function compress($filename, $dir, $files){
     return true;
 } 
 
-function table_sql($link, $table) {
+function table_sql($link, $table, $showDropCreateTable=false) {
     $return='';
 
     $result = mysqli_query($link,'SELECT * FROM '.$table);
     $num_fields = mysqli_num_fields($result);
 
-    $return.= 'DROP TABLE '.$table.';';
-    $row2 = mysqli_fetch_row(mysqli_query($link,'SHOW CREATE TABLE '.$table));
-    $return.= "\n\n".$row2[1].";\n\n";
+    if( $showDropCreateTable ) {
+        $return.= 'DROP TABLE '.$table.';';
+        $row2 = mysqli_fetch_row(mysqli_query($link,'SHOW CREATE TABLE '.$table));
+        $return.= "\n\n".$row2[1].";\n\n";
+    }
 
     $attrs = array();
     $attrs_query = mysqli_query($link,'SHOW COLUMNS FROM '.$table);
