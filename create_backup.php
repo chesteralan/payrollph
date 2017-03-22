@@ -40,17 +40,20 @@ function table_sql($link, $table, $showDropCreateTable=false) {
         $return.= "\n\n".$row2[1].";\n\n";
     }
 
+    $fields = array();
     $attrs = array();
     $attrs_query = mysqli_query($link,'SHOW COLUMNS FROM '.$table);
     while($attr = mysqli_fetch_row($attrs_query)) {
-        $attrs[] = $attr;    
+        $attrs[] = $attr; 
+        $fields[] = "`{$attr[0]}`";   
     }
 
     for ($i = 0; $i < $num_fields; $i++) 
     {
         while($row = mysqli_fetch_row($result))
         {
-            $return .= 'INSERT INTO '.$table.' VALUES(';
+            $return .= 'INSERT INTO '.$table.'';
+            $values = ' VALUES(';
             for($j=0; $j<$num_fields; $j++) 
             {
                 $row[$j] = addslashes($row[$j]);
@@ -58,25 +61,27 @@ function table_sql($link, $table, $showDropCreateTable=false) {
                 if (isset($row[$j])) { 
                     if( $row[$j]=="" ) { 
                         if( $attrs[$j][2] == 'YES' ) {
-                            $return .= 'NULL'; 
+                            $values .= 'NULL'; 
                         } else {
-                            $return .= '""'; 
+                            $values .= '""'; 
                         }
                     } else {
-                        $return .= '"'.$row[$j].'"'; 
+                        $values .= '"'.$row[$j].'"'; 
                     }
                 } else {
                     if( $attrs[$j][2] == 'YES' ) {
-                        $return .= 'NULL'; 
+                        $values .= 'NULL'; 
                     } else {
-                        $return .= '""'; 
+                        $values .= '""'; 
                     }
                 }
                 if ($j<($num_fields-1)) { 
-                    $return .= ','; 
+                    $values .= ','; 
                 }
             }
-            $return .= ");\n";
+            $values .= ");\n";
+            $return .= " (" . implode(",", $fields) . ") ";
+            $return .= $values;
         }
     }
 
