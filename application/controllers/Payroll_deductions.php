@@ -27,6 +27,7 @@ class Payroll_deductions extends MY_Controller {
 		$this->load->model('Payroll_templates_benefits_model');
 		$this->load->model('Payroll_templates_deductions_model');
 		$this->load->model('Payroll_templates_deductions_model');
+		$this->load->model('Payroll_templates_employees_model');
 
 		$this->load->model('Employees_model');
 		$this->load->model('Terms_list_model');
@@ -342,6 +343,14 @@ class Payroll_deductions extends MY_Controller {
 		$template->set_select("(SELECT COUNT(*) FROM `payroll_templates_deductions` pd WHERE pd.template_id=payroll_templates.id) as deductions_columns");
 		$this->template_data->set('template', $template->get());
 
+		$deductions_columns = new $this->Payroll_templates_deductions_model('pd');
+		$deductions_columns->setTemplateId($template_id,true);
+		$deductions_columns->set_select('dl.*');
+		$deductions_columns->set_join('deductions_list dl', 'dl.id=pd.deduction_id');
+		$deductions_columns->set_order('pd.order', 'DESC');
+		$columns = $deductions_columns->populate();
+		$this->template_data->set('deductions_columns', $columns);
+
 		$payroll_group = new $this->Payroll_templates_groups_model('pg');
 		$payroll_group->setTemplateId($template_id,true);
 		if( intval($group_id) > 0 ) {
@@ -359,17 +368,16 @@ class Payroll_deductions extends MY_Controller {
 			$employees->set_select('e.*');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 			$employees->set_where('e.group_id', $group->group_id);
-			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');			
+			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
+			
+			foreach($columns as $column) {
+				$employees->set_select(sprintf('(SELECT SUM(amount) FROM employees_deductions ped WHERE ((SELECT COUNT(*) FROM employees_deductions_templates WHERE template_id=%s AND ed_id=ped.id) >= 1) AND ped.name_id=pe.name_id AND ped.deduction_id=%s) as deductions_%s', $template_id, $column->id, $column->id, $column->id));
+			}
+
 			$employees->setActive('1', true);
 			$employees->set_order('pe.order', 'ASC');
 			$employees->set_limit(0);
 			$employees_data = $employees->populate();
-			foreach( $employees_data as $eKey => $employee) {
-				$salary = new $this->Employees_salaries_model('es');
-				$salary->setNameId($employee->name_id,true);
-				$salary->set_where('es.trash', 0);
-				$employees_data[$eKey]->salary = $salary->get();
-			}
 			$payroll_group_data[$key]->employees = $employees_data;
 		}
 
@@ -377,7 +385,7 @@ class Payroll_deductions extends MY_Controller {
 
 		$this->template_data->set('payroll_groups', $payroll_group_data);
 
-		$this->load->view('payroll/payroll/earnings/earnings_preview', $this->template_data->get_data());
+		$this->load->view('payroll/payroll/deductions/deductions_preview', $this->template_data->get_data());
 	}
 
 

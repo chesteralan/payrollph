@@ -26,6 +26,7 @@ class Payroll_benefits extends MY_Controller {
 		$this->load->model('Payroll_templates_benefits_model');
 		$this->load->model('Payroll_templates_earnings_model');
 		$this->load->model('Payroll_templates_benefits_model');
+		$this->load->model('Payroll_templates_employees_model');
 
 		$this->load->model('Employees_model');
 		$this->load->model('Benefits_list_model');
@@ -339,6 +340,14 @@ class Payroll_benefits extends MY_Controller {
 		$template->set_select("(SELECT COUNT(*) FROM `payroll_templates_deductions` pd WHERE pd.template_id=payroll_templates.id) as deductions_columns");
 		$this->template_data->set('template', $template->get());
 
+		$benefits_columns = new $this->Payroll_templates_benefits_model('pb');
+		$benefits_columns->setTemplateId($template_id,true);
+		$benefits_columns->set_select('bl.*');
+		$benefits_columns->set_join('benefits_list bl', 'bl.id=pb.benefit_id');
+		$benefits_columns->set_order('pb.order', 'DESC');
+		$columns = $benefits_columns->populate();
+		$this->template_data->set('benefits_columns', $columns);
+
 		$payroll_group = new $this->Payroll_templates_groups_model('pg');
 		$payroll_group->setTemplateId($template_id,true);
 		if( intval($group_id) > 0 ) {
@@ -356,17 +365,17 @@ class Payroll_benefits extends MY_Controller {
 			$employees->set_select('e.*');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 			$employees->set_where('e.group_id', $group->group_id);
-			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');			
+			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
+			
+			foreach($columns as $column) {
+				$employees->set_select(sprintf('(SELECT SUM(peb.employee_share) FROM employees_benefits peb WHERE ((SELECT COUNT(*) FROM employees_benefits_templates WHERE template_id=%s AND eb_id=peb.id) >= 1) AND peb.name_id=pe.name_id AND peb.benefit_id=%s) as ee_share_%s', $template_id, $column->id, $column->id, $column->id));
+				$employees->set_select(sprintf('(SELECT SUM(peb.employer_share) FROM employees_benefits peb WHERE ((SELECT COUNT(*) FROM employees_benefits_templates WHERE template_id=%s AND eb_id=peb.id) >= 1) AND peb.name_id=pe.name_id AND peb.benefit_id=%s) as er_share_%s', $template_id, $column->id, $column->id, $column->id));
+			}
+
 			$employees->setActive('1', true);
 			$employees->set_order('pe.order', 'ASC');
 			$employees->set_limit(0);
 			$employees_data = $employees->populate();
-			foreach( $employees_data as $eKey => $employee) {
-				$salary = new $this->Employees_salaries_model('es');
-				$salary->setNameId($employee->name_id,true);
-				$salary->set_where('es.trash', 0);
-				$employees_data[$eKey]->salary = $salary->get();
-			}
 			$payroll_group_data[$key]->employees = $employees_data;
 		}
 
@@ -374,7 +383,7 @@ class Payroll_benefits extends MY_Controller {
 
 		$this->template_data->set('payroll_groups', $payroll_group_data);
 
-		$this->load->view('payroll/payroll/earnings/earnings_preview', $this->template_data->get_data());
+		$this->load->view('payroll/payroll/benefits/benefits_preview', $this->template_data->get_data());
 	}
 
 
