@@ -330,4 +330,55 @@ class Payroll_deductions extends MY_Controller {
 
 	}
 
+	public function preview($template_id,$group_id=0) {
+		
+		$this->template_data->set('group_id', $group_id);
+		
+		$template = new $this->Payroll_templates_model;
+		$template->setId($template_id,true);
+		$template->set_select("*");
+		$template->set_select("(SELECT COUNT(*) FROM `payroll_templates_earnings` pe WHERE pe.template_id=payroll_templates.id) as earnings_columns");
+		$template->set_select("(SELECT COUNT(*) FROM `payroll_templates_benefits` pb WHERE pb.template_id=payroll_templates.id) as benefits_columns");
+		$template->set_select("(SELECT COUNT(*) FROM `payroll_templates_deductions` pd WHERE pd.template_id=payroll_templates.id) as deductions_columns");
+		$this->template_data->set('template', $template->get());
+
+		$payroll_group = new $this->Payroll_templates_groups_model('pg');
+		$payroll_group->setTemplateId($template_id,true);
+		if( intval($group_id) > 0 ) {
+			$payroll_group->setGroupId(intval($group_id),true);
+		}
+		$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');
+		$payroll_group->set_limit(0);
+		$payroll_group->set_order('pg.order', 'DESC');
+		$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
+		$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
+		$payroll_group_data =  $payroll_group->populate();
+		foreach($payroll_group_data as $key=>$group) {
+			$employees = new $this->Payroll_templates_employees_model('pe');
+			$employees->setTemplateId($template_id,true);
+			$employees->set_select('e.*');
+			$employees->set_join('employees e', 'e.name_id=pe.name_id');
+			$employees->set_where('e.group_id', $group->group_id);
+			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');			
+			$employees->setActive('1', true);
+			$employees->set_order('pe.order', 'ASC');
+			$employees->set_limit(0);
+			$employees_data = $employees->populate();
+			foreach( $employees_data as $eKey => $employee) {
+				$salary = new $this->Employees_salaries_model('es');
+				$salary->setNameId($employee->name_id,true);
+				$salary->set_where('es.trash', 0);
+				$employees_data[$eKey]->salary = $salary->get();
+			}
+			$payroll_group_data[$key]->employees = $employees_data;
+		}
+
+		
+
+		$this->template_data->set('payroll_groups', $payroll_group_data);
+
+		$this->load->view('payroll/payroll/earnings/earnings_preview', $this->template_data->get_data());
+	}
+
+
 }
