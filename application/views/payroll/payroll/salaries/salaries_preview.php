@@ -40,7 +40,6 @@ $total_gross_pay = 0;
                 <th width="10%" class="text-right">Rate per day</th>
                 <th width="10%" class="text-right">Basic Salary</th>
                 <th width="10%" class="text-right">COLA</th>
-                <th width="10%" class="text-right">Absences</th>
                 <th width="10%" class="text-right">Gross Pay</th>
               </tr>
             </thead>
@@ -75,12 +74,10 @@ if( $employee->salary ) {
 }
 $cola_rate = (isset($salary)) ? $salary->cola : 0;
 $present_days = ceil($salary->days / 2);
-$absences = $days_absent * $daily_rate;
-$total_absences += $absences;
 $basic_salary = ($daily_rate * $present_days); 
 $total_basic_salary += $basic_salary;
 $cola = ($cola_rate * $present_days);
-$employee_gross_pay = (($basic_salary + $cola) - $absences);
+$employee_gross_pay = ($basic_salary + $cola);
 $total_gross_pay += $employee_gross_pay; 
               ?>
               <tr>
@@ -92,7 +89,6 @@ $total_gross_pay += $employee_gross_pay;
                 <td class="text-right"><?php echo number_format($daily_rate,2); ?></td>
                 <td class="text-right"><?php echo number_format($basic_salary,2); ?></td>
                 <td class="text-right"><?php echo number_format($cola,2); ?></td>
-                <td class="text-right">(<?php echo number_format($absences,2); ?>)</td>
                 <td class="text-right"><?php echo number_format($employee_gross_pay,2); ?></td>
               </tr>
 <?php         } 
@@ -110,7 +106,6 @@ $total_gross_pay += $employee_gross_pay;
                 <th width="10%" class="text-right"></th>
                 <th width="10%" class="text-right">Basic Salary</th>
                 <th width="10%" class="text-right">COLA</th>
-                <th width="10%" class="text-right">Absences</th>
                 <th width="10%" class="text-right">Gross Pay</th>
               </tr>
             </thead>
@@ -120,7 +115,6 @@ $total_gross_pay += $employee_gross_pay;
                 <td class="text-right"></td>
                 <td class="text-right"><strong><?php echo number_format($total_basic_salary,2); ?></strong></td>
                 <td class="text-right"></td>
-                <td class="text-right"><strong>(<?php echo number_format($total_absences,2); ?>)</strong></td>
                 <td class="text-right"><strong><?php echo number_format($total_gross_pay,2); ?></strong></td>
   </tr>
             </tbody>
