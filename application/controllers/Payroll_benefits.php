@@ -332,6 +332,13 @@ class Payroll_benefits extends MY_Controller {
 		
 		$this->template_data->set('group_id', $group_id);
 		
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$templates->set_select('*');
+		$templates->set_limit(0);
+		$this->template_data->set('templates', $templates->populate());
+		
 		$template = new $this->Payroll_templates_model;
 		$template->setId($template_id,true);
 		$template->set_select("*");

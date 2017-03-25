@@ -434,9 +434,13 @@ class Payroll extends MY_Controller {
 					$payroll_salary->setPayrollId($payroll_data->id,true);
 					$payroll_salary->setNameId($employee->name_id,true);
 					$payroll_salary->setSalaryId($salary_data->id);
-					if( $payroll_salary->nonEmpty() ) {
-						$payroll_salary->update();
-					} else {
+					$payroll_salary->setAmount($salary_data->amount);
+					$payroll_salary->setRatePer($salary_data->rate_per);
+					$payroll_salary->setDays($salary_data->days);
+					$payroll_salary->setHours($salary_data->hours);
+					$payroll_salary->setCola($salary_data->cola);
+					$payroll_salary->setNotes($salary_data->notes);
+					if( ! $payroll_salary->nonEmpty() ) {
 						$payroll_salary->insert();
 					}
 				}
@@ -450,9 +454,7 @@ class Payroll extends MY_Controller {
 				$payroll_earning->setPayrollId($payroll_data->id,true);
 				$payroll_earning->setEarningId($earning->earning_id,true);
 				$payroll_earning->setOrder($earning->order);
-				if( $payroll_earning->nonEmpty() ) {
-					$payroll_earning->update();
-				} else {
+				if( ! $payroll_earning->nonEmpty() ) {
 					$payroll_earning->insert();
 				}
 			}
@@ -473,9 +475,7 @@ class Payroll extends MY_Controller {
 				$payroll_deduction->setPayrollId($payroll_data->id,true);
 				$payroll_deduction->setDeductionId($deduction->deduction_id,true);
 				$payroll_deduction->setOrder($deduction->order);
-				if( $payroll_deduction->nonEmpty() ) {
-					$payroll_deduction->update();
-				} else {
+				if( ! $payroll_deduction->nonEmpty() ) {
 					$payroll_deduction->insert();
 				}
 			}
@@ -496,9 +496,7 @@ class Payroll extends MY_Controller {
 				$payroll_benefit->setPayrollId($payroll_data->id,true);
 				$payroll_benefit->setBenefitId($benefit->benefit_id,true);
 				$payroll_benefit->setOrder($benefit->order);
-				if( $payroll_benefit->nonEmpty() ) {
-					$payroll_benefit->update();
-				} else {
+				if( ! $payroll_benefit->nonEmpty() ) {
 					$payroll_benefit->insert();
 				}
 			}

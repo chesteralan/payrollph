@@ -11,7 +11,7 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
-<!--<a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Employee Groups" data-url="<?php echo site_url("payroll/groups/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>-->
+<a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Employee Groups" data-url="<?php echo site_url("payroll/groups/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
@@ -87,15 +87,22 @@ $total_gross_pay += $employee_gross_pay;
               ?>
               <tr>
                 <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> (<?php echo $employee->position; ?>)
-                <a href="<?php echo site_url("employees_salaries/view/{$employee->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper"><span class="glyphicon glyphicon-cog"></span></a>
+                <!-- <a href="<?php echo site_url("employees_salaries/view/{$employee->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper"><span class="glyphicon glyphicon-cog"></span></a>-->
+
+                <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Employee Salary" data-url="<?php echo site_url("employees_salaries/ajax/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
+
                 </td>
 
 
                 <td class="text-right"><?php echo number_format($daily_rate,2); ?></td>
                 <td class="text-right">
-                <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Basic Salary" data-url="<?php echo site_url("payroll_salaries/entries/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
+<?php if($employee->salary) { ?>
+                <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Basic Salary" data-url="<?php echo site_url("payroll_salaries/entry/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">
+<?php } ?>
                 <?php echo number_format($basic_salary,2); ?>
+<?php if($employee->salary) { ?>
                 </a>
+<?php } ?>
                 </td>
                 <td class="text-right"><?php echo number_format($cola,2); ?></td>
                 <td class="text-right">(<?php echo number_format($absences,2); ?>)</td>

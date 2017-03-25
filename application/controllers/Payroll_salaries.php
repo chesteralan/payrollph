@@ -104,9 +104,9 @@ class Payroll_salaries extends MY_Controller {
 				$salary = new $this->Payroll_employees_salaries_model('pes');
 				$salary->setPayrollId($id,true);
 				$salary->setNameId($employee->name_id,true);
-				$salary->set_join('employees_salaries es', 'es.id=pes.salary_id');
-				$salary->set_select('*, pes.amount as override');
-				$salary->set_where('es.trash', 0);
+				//$salary->set_join('employees_salaries es', 'es.id=pes.salary_id');
+				//$salary->set_select('*, pes.amount as override');
+				//$salary->set_where('es.trash', 0);
 				$employees_data[$eKey]->salary = $salary->get();
 			}
 			$payroll_group_data[$key]->employees = $employees_data;
@@ -117,10 +117,68 @@ class Payroll_salaries extends MY_Controller {
 		$this->load->view('payroll/payroll/salaries/salaries_view', $this->template_data->get_data());
 	}
 
+	public function entry($id,$name_id,$output='') {
+
+		$this->template_data->set('payroll_id', $id);
+		$this->template_data->set('name_id', $name_id);
+
+		$salary = new $this->Payroll_employees_salaries_model('pee');
+		$salary->setPayrollId($id,true);
+		$salary->setNameId($name_id,true);
+
+		if( $this->input->post() ) {
+				$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
+				$this->form_validation->set_rules('rate_per', 'Rate per', 'trim|required');
+				$this->form_validation->set_rules('num_of_days', 'Number of Days / Month', 'trim|required');
+				$this->form_validation->set_rules('num_of_hours', 'Number of Hours / Day', 'trim|required');
+				$this->form_validation->set_rules('cola', 'COLA', 'trim');
+				$this->form_validation->set_rules('notes', 'Notes', 'trim');
+				if( $this->form_validation->run() ) {
+
+					$salary->setAmount( str_replace(",", "", $this->input->post('amount')),false,true);
+					$salary->setRatePer($this->input->post('rate_per'),false,true);
+					$salary->setDays($this->input->post('num_of_days'),false,true);
+					$salary->setHours($this->input->post('num_of_hours'),false,true);
+					$salary->setCola($this->input->post('cola'),false,true);
+					$salary->setNotes($this->input->post('notes'),false,true);
+					$salary->update();
+					
+				}
+				$this->postNext();
+			}
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$salary->set_select('*');
+		$this->template_data->set('salary', $salary->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/salaries/salaries_entry', $this->template_data->get_data());
+	}
+
+	public function delete_entry($payroll_id, $entry_id) {
+		
+		$salary = new $this->Payroll_employees_salaries_model;
+		$salary->setId($entry_id,true);
+		$salary->delete();
+
+		$this->getNext("payroll_salaries/view/{$payroll_id}/0");
+	}
+
 	public function preview($template_id,$group_id=0) {
 		
 		$this->template_data->set('group_id', $group_id);
-		
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$templates->set_select('*');
+		$templates->set_limit(0);
+		$this->template_data->set('templates', $templates->populate());
+
 		$template = new $this->Payroll_templates_model;
 		$template->setId($template_id,true);
 		$template->set_select("*");

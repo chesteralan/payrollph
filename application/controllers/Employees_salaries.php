@@ -34,13 +34,29 @@ class Employees_salaries extends MY_Controller {
 		$this->template_data->set('salaries', $salaries->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
-			'base_url' => base_url($this->config->item('index_page') . '/employees_positions/index/'),
+			'base_url' => base_url($this->config->item('index_page') . "/employees_salaries/view/{$id}"),
 			'total_rows' => $salaries->count_all_results(),
 			'per_page' => $salaries->get_limit(),
 			'ajax'=>true,
 		)));
 		
 		$this->load->view('employees/employees/salaries/salaries_list', $this->template_data->get_data());
+	}
+
+	public function ajax($id) {
+
+		$salaries = new $this->Employees_salaries_model;
+		$salaries->setCompanyId($this->session->userdata('current_company_id'),true);
+		$salaries->setNameId($id,true);
+		$salaries->set_select("*");
+		$salaries->setTrash('0',true);
+		$salaries->set_limit(0);
+
+		$this->template_data->set('salaries', $salaries->populate());
+
+		$this->template_data->set('name_id', $id);
+
+		$this->load->view('employees/employees/salaries/salaries_ajax', $this->template_data->get_data());
 	}
 
 	public function add($id, $output='') {

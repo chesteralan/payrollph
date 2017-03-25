@@ -14,6 +14,16 @@
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-left">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <?php foreach($templates as $temp) { ?>
+              <li><a href="<?php echo site_url("{$current_uri}/preview/{$temp->id}"); ?>"><?php echo $temp->name; ?></a></li>
+            <?php } ?>
+          </ul>
+        </li>
+      </ul>
       <ul class="nav navbar-nav navbar-right">
       <li><a class="body_wrapper" href="<?php echo site_url('payroll_templates'); ?>"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
 <?php 

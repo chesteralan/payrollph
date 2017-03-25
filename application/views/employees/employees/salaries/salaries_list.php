@@ -1,6 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
 <?php $this->load->view('header'); ?>
+
 <?php if( ! $inner_page ): ?>
+
 <?php $this->load->view('employees/employees/employees_view_navbar'); ?>
 
 <div class="container">
@@ -18,6 +21,7 @@
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 <?php endif; ?>
+
 <?php if( $salaries ) { ?>
 
           <table class="table table-default">
@@ -87,6 +91,7 @@ switch( $salary->rate_per ) {
   <div class="text-center">No Basic Salary Found!</div>
 
 <?php } ?>
+
 <?php if( ! $inner_page ): ?>
 
               </div>
@@ -94,5 +99,7 @@ switch( $salary->rate_per ) {
             </div>
     </div>
 </div>
+
 <?php endif; ?>
+
 <?php $this->load->view('footer'); ?>

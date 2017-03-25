@@ -346,11 +346,17 @@ CREATE TABLE `payroll_employees_earnings` (
 -- Table structure for table `payroll_employees_salaries` 
 
 CREATE TABLE `payroll_employees_salaries` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
   `payroll_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `salary_id` int(20) NOT NULL,
   `amount` decimal(30,5) DEFAULT '0.00000',
   `notes` text,
+  `rate_per` varchar(10) DEFAULT 'month',
+  `days` int(10) DEFAULT '26',
+  `hours` int(10) DEFAULT '8',
+  `cola` decimal(10,5) DEFAULT '0.00000',
+  PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`),
   KEY `payroll_id` (`payroll_id`)
 );

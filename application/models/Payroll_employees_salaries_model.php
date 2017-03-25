@@ -6,11 +6,17 @@
  * Manipulates `payroll_employees_salaries` table on database
 
 CREATE TABLE `payroll_employees_salaries` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
   `payroll_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `salary_id` int(20) NOT NULL,
   `amount` decimal(30,5) DEFAULT '0.00000',
   `notes` text,
+  `rate_per` varchar(10) DEFAULT 'month',
+  `days` int(10) DEFAULT '26',
+  `hours` int(10) DEFAULT '8',
+  `cola` decimal(10,5) DEFAULT '0.00000',
+  PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`),
   KEY `payroll_id` (`payroll_id`)
 );
@@ -26,11 +32,16 @@ CREATE TABLE `payroll_employees_salaries` (
  
 class Payroll_employees_salaries_model extends MY_Model {
 
+	protected $id;
 	protected $payroll_id;
 	protected $name_id;
 	protected $salary_id;
 	protected $amount;
 	protected $notes;
+	protected $rate_per;
+	protected $days;
+	protected $hours;
+	protected $cola;
 
 	// --------------------------------------------------------------------
 
@@ -44,12 +55,38 @@ class Payroll_employees_salaries_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_employees_salaries';
 		$this->_short_name = 'payroll_employees_salaries';
-		$this->_fields = array("payroll_id","name_id","salary_id","amount","notes");
+		$this->_fields = array("id","payroll_id","name_id","salary_id","amount","notes","rate_per","days","hours","cola");
 		$this->_required = array("payroll_id","name_id","salary_id");
 		parent::__construct($short_name, $db_config);
 	}
 
 	// --------------------------------------------------------------------
+
+
+// ---------------------------- Start Field: id -------------------------------------- 
+
+	/** 
+	* Sets a value to `id` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `id` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getId() {
+			return $this->id;
+		}
+	
+// ------------------------------ End Field: id --------------------------------------
 
 
 // ---------------------------- Start Field: payroll_id -------------------------------------- 
@@ -180,6 +217,110 @@ class Payroll_employees_salaries_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: notes --------------------------------------
+
+
+// ---------------------------- Start Field: rate_per -------------------------------------- 
+
+	/** 
+	* Sets a value to `rate_per` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setRatePer($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('rate_per', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `rate_per` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getRatePer() {
+			return $this->rate_per;
+		}
+	
+// ------------------------------ End Field: rate_per --------------------------------------
+
+
+// ---------------------------- Start Field: days -------------------------------------- 
+
+	/** 
+	* Sets a value to `days` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setDays($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('days', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `days` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getDays() {
+			return $this->days;
+		}
+	
+// ------------------------------ End Field: days --------------------------------------
+
+
+// ---------------------------- Start Field: hours -------------------------------------- 
+
+	/** 
+	* Sets a value to `hours` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setHours($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('hours', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `hours` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getHours() {
+			return $this->hours;
+		}
+	
+// ------------------------------ End Field: hours --------------------------------------
+
+
+// ---------------------------- Start Field: cola -------------------------------------- 
+
+	/** 
+	* Sets a value to `cola` variable
+	* @access public
+	* @param  String
+	* @return $this;
+	*/
+
+		public function setCola($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('cola', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `cola` variable
+	* @access public
+	* @return String;
+	*/
+
+		public function getCola() {
+			return $this->cola;
+		}
+	
+// ------------------------------ End Field: cola --------------------------------------
 
 
 
