@@ -18,9 +18,9 @@
 
 <h2 class="pull-right">PAYROLL ID: <?php echo $payroll->id; ?></h2>
 <div class="header-title">
-<h2 class="allcaps"><?php echo ($template->company_name) ? $template->company_name : ''; ?></h2>
-<h3><?php echo ($template->company_name) ? $template->company_address : ''; ?></h3>
-<h3><?php echo ($template->company_name) ? $template->company_contacts : ''; ?></h3>
+<h2 class="allcaps"><?php echo ($company->name) ? $company->name : ''; ?></h2>
+<h3><?php echo ($company->address) ? $company->address : ''; ?></h3>
+<h3><?php echo ($company->phone) ? $company->phone : ''; ?></h3>
 </div>
 
 <div class="full-border padding3">
@@ -34,11 +34,12 @@
          <table width="100%"  cellspacing="0" cellpadding="0" class="table">
             <thead>
               <tr class="warning">
-                <th>Employee Name</th>
-                <th width="20%" class="text-right">Total Payables</th>
-                <th width="20%" class="text-right">Amount Paid</th>
-                <th width="20%" class="text-right">Balance</th>
-                <th width="20%" class="text-right">Current Payment</th>
+                <th class="text-left">Employee Name</th>
+                <th width="15%" class="text-right">Total Payables</th>
+                <th width="15%" class="text-right">Amount Paid</th>
+                <th width="15%" class="text-right">Balance</th>
+                <th width="15%" class="text-right">Current Payment</th>
+                <th width="15%" class="text-right">New Balance</th>
               </tr>
             </thead>
             <tbody>
@@ -48,12 +49,15 @@ $total_max_amount = 0;
 $total_paid = 0;
 $total_balance = 0;
 $total_payment = 0;
+$new_balance = 0;
+
 foreach($item_data as $item) {
 
 $total_max_amount += $item->max_amount;
 $total_paid += $item->amount_paid;
 $total_balance += $item->max_amount - $item->amount_paid;
 $total_payment += $item->amount;
+$new_balance += ($item->max_amount - $item->amount_paid) - $item->amount;
               ?>
               <tr>
                 <td><?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?>
@@ -63,6 +67,7 @@ $total_payment += $item->amount;
                 <td class="text-right"><?php echo number_format($item->amount_paid,2); ?></td>
                 <td class="text-right"><?php echo number_format(($item->max_amount - $item->amount_paid),2); ?></td>
                 <td class="text-right"><?php echo number_format($item->amount,2); ?></td>
+                <td class="text-right"><?php echo number_format(($item->max_amount - $item->amount_paid) - $item->amount,2); ?></td>
               </tr>
 <?php } ?>
 
@@ -72,6 +77,7 @@ $total_payment += $item->amount;
                 <td class="text-right"><strong><?php echo number_format($total_paid,2); ?></strong></td>
                 <td class="text-right"><strong><?php echo number_format($total_balance,2); ?></strong></td>
                 <td class="text-right"><strong><?php echo number_format($total_payment,2); ?></strong></td>
+                <td class="text-right"><strong><?php echo number_format($new_balance,2); ?></strong></td>
               </tr>
             </tbody>
           </table>
@@ -82,7 +88,11 @@ $total_payment += $item->amount;
     <tr>
       <td width="33.33%"><p>Prepared By:</p>
        <br>
-<span class="allcaps bold"><?php echo $this->session->name; ?></span>
+        <span class="allcaps bold"><?php echo $this->session->name; ?></span>
+      </td>
+      <td width="33.33%" class="text-right"><p>Prepared By:</p>
+       <br>
+        <span class="allcaps bold"><?php echo $template->checked_by_name; ?></span>
       </td>
     </tr>
   </table>

@@ -310,7 +310,7 @@ class Payroll extends MY_Controller {
 		 $ee_earnings->setEarningId($earning_id,true);
 		 $ee_earnings->setTrash(0,true);
 		 $ee_earnings->setActive(1,true);
-		 $ee_earnings->set_where('(start_date <= "' . date('Y-m-d') . '")');
+		 $ee_earnings->set_where('(start_date <= "' . date('Y-m-d', strtotime($payroll_data->inclusive_dates->end_date)) . '")');
 		 $ee_earnings->set_select("*");
 		 $ee_earnings->set_select('(SELECT SUM(amount) FROM payroll_employees_earnings ped WHERE ped.entry_id=employees_earnings.id AND ped.name_id=employees_earnings.name_id) as earned');
 		 $ee_earnings->set_where("((SELECT COUNT(*) FROM `employees_earnings_templates` WHERE ee_id=employees_earnings.id AND template_id={$payroll_data->template_id}) > 0)");
@@ -356,7 +356,7 @@ class Payroll extends MY_Controller {
 			 $ee_benefits->setBenefitId($benefit_id,true);
 			 $ee_benefits->setTrash(0,true);
 			 $ee_benefits->setPrimary(1,true);
-			 $ee_benefits->set_where('(start_date <= "' . date('Y-m-d') . '")');
+			 $ee_benefits->set_where('(start_date <= "' . date('Y-m-d', strtotime($payroll_data->inclusive_dates->end_date)) . '")');
 			 $ee_benefits->set_where("((SELECT COUNT(*) FROM `employees_benefits_templates` WHERE eb_id=employees_benefits.id AND template_id={$payroll_data->template_id}) > 0)");
 			 foreach( $ee_benefits->populate() as $benefit2 ) {
 			 	$peb_benefit = new $this->Payroll_employees_benefits_model;
@@ -381,11 +381,12 @@ class Payroll extends MY_Controller {
 			 $ee_deductions->setDeductionId($deduction_id,true);
 			 $ee_deductions->setTrash(0,true);
 			 $ee_deductions->setActive(1,true);
-			 $ee_deductions->set_where('(start_date <= "' . date('Y-m-d') . '")');
+			 $ee_deductions->set_where('(start_date <= "' . date('Y-m-d', strtotime($payroll_data->inclusive_dates->end_date)) . '")');
 			 $ee_deductions->set_limit(0);
 			 $ee_deductions->set_select("*");
 			 $ee_deductions->set_select('(SELECT SUM(amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=employees_deductions.id AND ped.name_id=employees_deductions.name_id) as deducted');
 			 $ee_deductions->set_where("((SELECT COUNT(*) FROM `employees_deductions_templates` WHERE ed_id=employees_deductions.id AND template_id={$payroll_data->template_id}) > 0)");
+			 
 			 foreach( $ee_deductions->populate() as $deduction2 ) {
 
 			 	$ped_deduction = new $this->Payroll_employees_deductions_model;
@@ -527,6 +528,8 @@ class Payroll extends MY_Controller {
 			$inclusive_dates->set_select('MIN(inclusive_date) as start_date');
 			$inclusive_dates->set_select('MAX(inclusive_date) as end_date');
 			$payroll_dates = $inclusive_dates->get();
+
+			$payroll_data->inclusive_dates = $payroll_dates;
 
 			$payroll_absent = 0;
 
@@ -691,7 +694,8 @@ class Payroll extends MY_Controller {
 		$employees->set_select('pe.active');
 		$employees->set_select('pe.template');
 		$employees->set_select('pe.print_group');
-		$employees->set_select('pe.order');
+		$employees->set_select('pe.order'); 
+		$employees->set_order('pe.order', 'ASC'); 
 		$this->template_data->set('employees', $employees->populate());
 
 		$print_groups = new $this->Terms_list_model;

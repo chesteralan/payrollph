@@ -59,6 +59,7 @@ class Payroll_overall extends MY_Controller {
 		$template = new $this->Payroll_templates_model;
 		$template->setId($payroll_data->template_id,true);
 		$this->template_data->set('template', $template->get());
+		
 		// inclusive dates
 		$inclusive_dates = new $this->Payroll_inclusive_dates_model;
 		$inclusive_dates->setPayrollId($id,true);

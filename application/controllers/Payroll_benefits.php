@@ -31,6 +31,7 @@ class Payroll_benefits extends MY_Controller {
 		$this->load->model('Employees_model');
 		$this->load->model('Benefits_list_model');
 		$this->load->model('Terms_list_model');
+		$this->load->model('Companies_list_model');
 
 	}
 
@@ -253,6 +254,10 @@ class Payroll_benefits extends MY_Controller {
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
+		$company = new $this->Companies_list_model;
+		$company->setId($this->session->userdata('current_company_id'),true);
+		$this->template_data->set('company', $company->get());
+		
 		$benefits_list = new $this->Benefits_list_model;
 		$benefits_list->setId($benefit_id,true);
 		$this->template_data->set('benefit_data', $benefits_list->get());

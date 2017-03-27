@@ -18,9 +18,9 @@
 
 <h2 class="pull-right">PAYROLL ID: <?php echo $payroll->id; ?></h2>
 <div class="header-title">
-<h2 class="allcaps"><?php echo ($template->company_name) ? $template->company_name : ''; ?></h2>
-<h3><?php echo ($template->company_name) ? $template->company_address : ''; ?></h3>
-<h3><?php echo ($template->company_name) ? $template->company_contacts : ''; ?></h3>
+<h2 class="allcaps"><?php echo ($company->name) ? $company->name : ''; ?></h2>
+<h3><?php echo ($company->address) ? $company->address : ''; ?></h3>
+<h3><?php echo ($company->phone) ? $company->phone : ''; ?></h3>
 </div>
 
 <div class="full-border padding3">
@@ -34,7 +34,7 @@
          <table width="100%"  cellspacing="0" cellpadding="0" class="table">
             <thead>
               <tr class="warning">
-                <th>Employee Name</th>
+                <th class="text-left">Employee Name</th>
                 <th width="20%" class="text-right">Total Payables</th>
                 <th width="20%" class="text-right">Amount Paid</th>
                 <th width="20%" class="text-right">Balance</th>
@@ -83,6 +83,10 @@ $total_payment += $item->amount;
       <td width="33.33%"><p>Prepared By:</p>
        <br>
 <span class="allcaps bold"><?php echo $this->session->name; ?></span>
+      </td>
+            <td width="33.33%" class="text-right"><p>Prepared By:</p>
+       <br>
+        <span class="allcaps bold"><?php echo $template->checked_by_name; ?></span>
       </td>
     </tr>
   </table>

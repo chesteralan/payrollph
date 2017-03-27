@@ -29,6 +29,7 @@ class Payroll_earnings extends MY_Controller {
 		$this->load->model('Payroll_templates_employees_model');
 		$this->load->model('Payroll_templates_earnings_model');
 
+		$this->load->model('Companies_list_model');
 
 	}
 
@@ -242,6 +243,10 @@ class Payroll_earnings extends MY_Controller {
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
+		$company = new $this->Companies_list_model;
+		$company->setId($this->session->userdata('current_company_id'),true);
+		$this->template_data->set('company', $company->get());
+		
 		$earning_list = new $this->Earnings_list_model;
 		$earning_list->setId($earning_id,true);
 		$this->template_data->set('earning_data', $earning_list->get());

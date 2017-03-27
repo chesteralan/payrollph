@@ -31,6 +31,7 @@ class Payroll_deductions extends MY_Controller {
 
 		$this->load->model('Employees_model');
 		$this->load->model('Terms_list_model');
+		$this->load->model('Companies_list_model');
 
 	}
 
@@ -252,6 +253,10 @@ class Payroll_deductions extends MY_Controller {
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
+		$company = new $this->Companies_list_model;
+		$company->setId($this->session->userdata('current_company_id'),true);
+		$this->template_data->set('company', $company->get());
+
 		$deduction_list = new $this->Deductions_list_model;
 		$deduction_list->setId($deduction_id,true);
 		$this->template_data->set('deduction_data', $deduction_list->get());
@@ -260,9 +265,11 @@ class Payroll_deductions extends MY_Controller {
 		$deductions->setPayrollId($id,true);
 		$deductions->setDeductionId($deduction_id,true);
 		$deductions->set_select("ped.*");
-		$deductions->set_select("(SELECT ed.max_amount FROM employees_deductions ed WHERE ed.id=ped.entry_id) as max_amount");
+		$deductions->set_select("SUM((SELECT ed.max_amount FROM employees_deductions ed WHERE ed.id=ped.entry_id)) as max_amount");
 
-		$deductions->set_select("(SELECT SUM(ped2.amount) FROM payroll_employees_deductions ped2 WHERE ped.name_id=ped2.name_id AND ped.deduction_id=ped2.deduction_id AND ped2.entry_id=ped.entry_id AND ped2.id!=ped.id) as amount_paid");
+		$deductions->set_select("SUM((SELECT SUM(ped2.amount) FROM payroll_employees_deductions ped2 WHERE ped.name_id=ped2.name_id AND ped.deduction_id=ped2.deduction_id AND ped2.entry_id=ped.entry_id AND ped2.id!=ped.id)) as amount_paid");
+
+		$deductions->set_select("SUM(ped.amount) as amount");
 
 		$deductions->set_select("e.*");
 		$deductions->set_join("employees e", 'e.name_id=ped.name_id');
@@ -274,6 +281,8 @@ class Payroll_deductions extends MY_Controller {
 		$deductions->set_join("payroll_employees pe", 'pe.name_id=ped.name_id');
 		$deductions->set_where('pe.active', 1);
 		$deductions->set_where('pe.payroll_id', $id);
+		
+		$deductions->set_group_by('ped.name_id');
 		
 		$deductions->set_limit(0);
 		$item_data = $deductions->populate(); 
