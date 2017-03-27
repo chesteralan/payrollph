@@ -46,7 +46,7 @@ function isSelected($group,$column_id,$print_columns) {
         <?php foreach(array(
           'working_days'=>'Working Days',
           'absences'=>'Absences',
-          'days_present'=>'Days Present',
+          //'days_present'=>'Days Present',
           'rate_per_day'=>'Rate Per Day', 
           'basic_salary'=>'Basic Salary', 
           'cola'=>'COLA', 
@@ -109,7 +109,7 @@ function isSelected($group,$column_id,$print_columns) {
         <?php foreach(array(
           'working_days'=>'Working Days',
           'absences'=>'Absences',
-          'days_present'=>'Days Present',
+          //'days_present'=>'Days Present',
           'rate_per_day'=>'Rate Per Day', 
           'basic_salary'=>'Basic Salary', 
           'cola'=>'COLA', 

@@ -37,15 +37,18 @@ function isColumn($ths, $column_id,$print_columns) {
   <?php foreach($print_groups as $pg) { ?>
     &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$pg->id}/{$output}/{$current_page}"); ?>"><?php echo $pg->name; ?></a>
   <?php } ?>
-  &middot; <a href="<?php echo site_url("payroll_overall/config/{$payroll->id}") . "?next=" . uri_string(); ?>">Config</a>
+   &middot; <a href="<?php echo site_url("payroll_overall/summary/{$payroll->id}"); ?>">Summary</a>
 </div>
+<?php if(!$print_group) { ?>
 <div class="print-topnav topnav2 hide-print text-center allcaps">
 
     <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/{$output}/1"); ?>">Page 1</a>
 <?php for($i=2;$i <= $template->pages; $i++) { ?>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/{$output}/{$i}"); ?>">Page <?php echo $i; ?></a>
 <?php } ?>
+
 </div>
+<?php } ?>
 
 <h2 class="pull-right">PAYROLL ID: <?php echo $payroll->id; ?></h2>
 <div class="header-title">
@@ -55,7 +58,7 @@ function isColumn($ths, $column_id,$print_columns) {
 </div>
 
 <div class="full-border padding3">
-  <h3>PAYROLL SHEET</h3>
+  <h3>PAYROLL SUMMARY</h3>
   For the period covered <?php echo date('F d, Y', strtotime($inclusive_dates->start_date)); ?> - <?php echo date('F d, Y', strtotime($inclusive_dates->end_date)); ?>
 </div>
 
@@ -67,11 +70,7 @@ $pc_count = (count($print_columns)) ? count($print_columns) : 1;
 $column_width = ceil(71 / $pc_count);
   ?>
   <div class="payroll">
-<?php foreach($payroll_groups as $payroll_group) { 
-if( $payroll_group->page != $current_page ) {
-  continue;
-}
-  ?>
+<?php foreach($payroll_groups as $payroll_group) { ?>
   <?php if($payroll_group->employees) { ?>
           <table width="100%" cellspacing="0" cellpadding="0" class="table" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
@@ -83,9 +82,11 @@ if( $payroll_group->page != $current_page ) {
 <?php if( isColumn($this, 'absences', $print_columns) ) { ?>
                 <th width="<?php echo $column_width; ?>%" class="text-right">Absences</th>
 <?php } ?>
+<?php /*
 <?php if( isColumn($this, 'days_present', $print_columns) ) { ?>
                 <th width="<?php echo $column_width; ?>%" class="text-right">Days Present</th>
 <?php } ?>
+*/ ?>
 <?php if( isColumn($this, 'rate_per_day', $print_columns) ) { ?>
                 <th width="<?php echo $column_width; ?>%" class="text-right">Rate per day</th>
 <?php } ?>
@@ -183,15 +184,17 @@ $group_gross_pay += $gross_pay;
                 <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> <!--(<?php echo $employee->position; ?>)-->
                 </td>
 <?php if( isColumn($this, 'working_days', $print_columns) ) { ?>
-                <td class="text-right"><?php echo $inclusive_dates->working_days; ?></td>
+                <td class="text-right">15<?php //echo $inclusive_dates->working_days; ?></td>
 <?php } ?>
 <?php if( isColumn($this, 'absences', $print_columns) ) { ?>
                 <td class="text-right"><?php echo $days_absent; ?></td>
 <?php } ?>
+<?php /*
 <?php 
 if( isColumn($this, 'days_present', $print_columns) ) { ?>
                 <td class="text-right"><?php echo $present_days; ?></td>
 <?php } ?>
+*/ ?>
 <?php if( isColumn($this, 'rate_per_day', $print_columns) ) { ?>
                 <td class="text-right"><?php echo number_format($daily_rate,2); ?></td>
 <?php } ?>
@@ -287,10 +290,12 @@ $group_net_pay += $net_pay;
 <?php if( isColumn($this, 'absences', $print_columns) ) { ?>
                 <td class="text-right"></td>
 <?php } ?>
+<?php /*
 <?php 
 if( isColumn($this, 'days_present', $print_columns) ) { ?>
                 <td class="text-right"></td>
 <?php } ?>
+*/ ?>
 <?php if( isColumn($this, 'rate_per_day', $print_columns) ) { ?>
                 <td class="text-right"></td>
 <?php } ?>

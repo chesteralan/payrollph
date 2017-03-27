@@ -41,7 +41,7 @@ class Payroll_overall extends MY_Controller {
 		redirect("payroll");
 	}
 	
-	public function view($id, $print_group=0, $output='print', $current_page=1) {
+	private function _print($id, $print_group=0, $output='print', $current_page=1) {
 
 		$this->template_data->set('print_group', $print_group);
 		$this->template_data->set('output', $output);
@@ -114,10 +114,12 @@ class Payroll_overall extends MY_Controller {
 		$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
 		$payroll_group_data =  $payroll_group->populate();
 		foreach($payroll_group_data as $key=>$group) {
+
 			$employees = new $this->Payroll_employees_model('pe');
 			$employees->setPayrollId($id,true);
 			$employees->set_select('e.*');
 			$employees->set_select('pe.template as payslip_template');
+			$employees->set_select('pe.print_group');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 			$employees->set_where('e.group_id', $group->group_id);
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
@@ -179,7 +181,17 @@ class Payroll_overall extends MY_Controller {
 		$print_groups->setTrash('0',true);
 		$print_groups->setType('print_group',true);
 		$this->template_data->set('print_groups', $print_groups->populate());
-		
+
+	}
+
+	public function view($id, $print_group=0, $output='print', $current_page=1) {
+
+		$this->template_data->set('print_group', $print_group);
+		$this->template_data->set('output', $output);
+		$this->template_data->set('current_page', $current_page);
+
+		$this->_print($id,$print_group, $output, $current_page);
+
 			switch($output) {
 				case 'payslip':
 					$this->load->view('payroll/payroll/overall/overall_payslip', $this->template_data->get_data());
@@ -195,6 +207,11 @@ class Payroll_overall extends MY_Controller {
 					$this->load->view('payroll/payroll/overall/overall_print', $this->template_data->get_data());
 				break;
 			}
+	}
+
+	public function summary($id) {
+		$this->_print($id);
+		$this->load->view('payroll/payroll/overall/overall_summary', $this->template_data->get_data());
 	}
 
 	public function config($id) {
