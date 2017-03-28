@@ -228,8 +228,12 @@ class Payroll_earnings extends MY_Controller {
 		$earnings->setId($id,true);
 		$earning_data = $earnings->get();
 		$earnings->delete();
-		redirect("payroll_earnings/view/{$earning_data->payroll_id}");
 
+		if( $this->input->get('next') ) {
+			redirect( $this->input->get('next') );
+		} else {
+			redirect("payroll_earnings/view/{$earning_data->payroll_id}");
+		}
 	}
 
 	public function item_schedule($id,$earning_id,$output='') {
@@ -324,7 +328,7 @@ class Payroll_earnings extends MY_Controller {
 		if( $this->input->get('next') ) {
 			redirect( $this->input->get('next') );
 		} else {
-			redirect( "payroll_benefits/view/{$id}" );
+			redirect( "payroll_earnings/view/{$id}" );
 		}
 
 	}

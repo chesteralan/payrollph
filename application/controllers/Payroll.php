@@ -304,6 +304,7 @@ class Payroll extends MY_Controller {
 	}
 
 	private function _generate_earnings($payroll_data,$earning_id,$employee) {
+
 		 $ee_earnings = new $this->Employees_earnings_model;
 		 $ee_earnings->setNameId($employee->name_id,true);
 		 $ee_earnings->setCompanyId($this->session->userdata('current_company_id'),true);
@@ -315,6 +316,8 @@ class Payroll extends MY_Controller {
 		 $ee_earnings->set_select('(SELECT SUM(amount) FROM payroll_employees_earnings ped WHERE ped.entry_id=employees_earnings.id AND ped.name_id=employees_earnings.name_id) as earned');
 		 $ee_earnings->set_where("((SELECT COUNT(*) FROM `employees_earnings_templates` WHERE ee_id=employees_earnings.id AND template_id={$payroll_data->template_id}) > 0)");
 
+		 $days_present = ($payroll_data->inclusive_dates->working_days);
+
 		 foreach( $ee_earnings->populate() as $earning2 ) {
 		 	
 		 	$pee_earning = new $this->Payroll_employees_earnings_model;
@@ -325,13 +328,16 @@ class Payroll extends MY_Controller {
 
 		 	switch( $earning2->computed ) {
 		 		case 'hour':
+		 			$pee_earning->setNotes(number_format($earning2->amount,2) . " X " . $days_present . " days");
 		 			$eamount = $earning2->amount * $days_present;
 		 		break;
 		 		case 'day':
+		 			$pee_earning->setNotes(number_format($earning2->amount,2) . " X " . $days_present . " days");
 		 			$eamount = $earning2->amount * $days_present;
 		 		break;
 		 		case 'month':
 		 		default:
+		 			$pee_earning->setNotes($days_present . " days");
 		 			$eamount = $earning2->amount;
 		 		break;
 		 	}
@@ -387,6 +393,8 @@ class Payroll extends MY_Controller {
 			 $ee_deductions->set_select('(SELECT SUM(amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=employees_deductions.id AND ped.name_id=employees_deductions.name_id) as deducted');
 			 $ee_deductions->set_where("((SELECT COUNT(*) FROM `employees_deductions_templates` WHERE ed_id=employees_deductions.id AND template_id={$payroll_data->template_id}) > 0)");
 			 
+			 $days_present = ($payroll_data->inclusive_dates->working_days);
+
 			 foreach( $ee_deductions->populate() as $deduction2 ) {
 
 			 	$ped_deduction = new $this->Payroll_employees_deductions_model;
@@ -397,13 +405,16 @@ class Payroll extends MY_Controller {
 
 			 	switch( $deduction2->computed ) {
 			 		case 'hour':
+			 			$ped_deduction->setNotes(number_format($deduction2->amount,2) . " X " . $days_present . " days");
 			 			$damount = $deduction2->amount * $days_present;
 			 		break;
 			 		case 'day':
+			 			$ped_deduction->setNotes(number_format($deduction2->amount,2) . " X " . $days_present . " days");
 			 			$damount = $deduction2->amount * $days_present;
 			 		break;
 			 		case 'month':
 			 		default:
+			 			$ped_deduction->setNotes($days_present . " days");
 			 			$damount = $deduction2->amount;
 			 		break;
 			 	}

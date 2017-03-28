@@ -1,4 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php 
+$query_string = '?';
+if($this->input->get()) {
+  foreach($this->input->get() as $key=>$value) {
+    $query_string .= $key . "=" . $value . "&";
+  }
+}
+?>
 <?php $this->load->view('header'); ?>
 
 <?php if( ! $inner_page ): ?>
@@ -11,17 +19,21 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
 
-                <a class="pull-right close" href="<?php echo site_url("payroll_deductions/item_schedule/{$payroll->id}/{$deduction_data->id}/print"); ?>" target="_blank"><span class="glyphicon glyphicon-print"></span></a>
+                <a class="pull-right close" href="<?php echo site_url("payroll_deductions/item_schedule/{$payroll->id}/{$deduction_data->id}/print") . $query_string; ?>" target="_blank"><span class="glyphicon glyphicon-print"></span></a>
 
-                  <h3 class="panel-title"><strong><?php echo $deduction_data->name; ?> - <?php echo $deduction_data->notes; ?></strong>
+                  <h3 class="panel-title"><strong><?php echo $deduction_data->name; ?> - <?php echo $deduction_data->notes; ?></strong> 
+                  <?php if( !$this->input->get('remove_grouping')) { ?>
+                  <small class="badge">Grouped by Name <a href="<?php echo site_url(uri_string()) . $query_string . "remove_grouping=1"; ?>" class="glyphicon glyphicon-remove" title="Remove Grouping"></a></small>
+                  <?php } ?>
                   </h3>
+
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 
 <?php endif; ?>
 
 <?php if( $item_data ) {  ?>
-
+<form method="post">
           <table class="table table-default table-hover" id="Payroll-Group">
             <thead>
               <tr class="warning">
@@ -32,6 +44,11 @@
                 <th width="13%" class="text-right">Current Deductions</th>
                 <th width="13%" class="text-right">Total Amount Paid</th>
                 <th width="13%" class="text-right">New Balance</th>
+<?php if( $this->input->get('remove_grouping')) { ?>
+                <th width="1%" class="text-right">
+                  <button class="glyphicon glyphicon-remove btn btn-danger btn-xs confirm" type="submit"></button>
+                </th>
+<?php } ?>
               </tr>
             </thead>
             <tbody>
@@ -64,6 +81,9 @@ $total_new_balance += ($item->max_amount-($item->amount_paid+$item->amount));
                 <td class="text-right"><?php echo number_format($item->amount,2); ?></td>
                 <td class="text-right"><?php echo number_format(($item->amount_paid+$item->amount),2); ?></td>
                 <td class="text-right"><?php echo number_format(($item->max_amount-($item->amount_paid+$item->amount)),2); ?></td>
+<?php if( $this->input->get('remove_grouping')) { ?>
+                <td class="text-right"><input type="checkbox" name="remove_item[]" value="<?php echo $item->id; ?>"></td>
+<?php } ?>
               </tr>
 <?php } ?>
 
@@ -75,6 +95,9 @@ $total_new_balance += ($item->max_amount-($item->amount_paid+$item->amount));
                 <td class="text-right"><strong><?php echo number_format($total_payment,2); ?></strong></td>
                 <td class="text-right"><strong><?php echo number_format($total_amount_payment,2); ?></strong></td>
                 <td class="text-right"><strong><?php echo number_format($total_new_balance,2); ?></strong></td>
+<?php if( $this->input->get('remove_grouping')) { ?>
+                <td class="text-right"><button class="glyphicon glyphicon-remove btn btn-danger btn-xs confirm" type="submit"></button></td>
+<?php } ?>
               </tr>
             </tbody>
           </table>

@@ -36,7 +36,7 @@ foreach($deductions as $deduction) {   ?>
   <a data-target="#ajaxModal" data-title="Edit Entry" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll_deductions/edit/{$deduction->ped_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
   <span class="badge pull-right"><?php echo number_format($deduction->ped_amount,2); ?></span>
     <h4 class="list-group-item-heading"><?php echo $deduction->name; ?> (<?php echo number_format($deduction->max_amount,2); ?>)</h4>
-    <p class="list-group-item-text">Entry ID # <?php echo $deduction->entry_id; ?><?php echo ($deduction->dnotes!="") ? ' - '.$deduction->dnotes : ''; ?></p>
+    <p class="list-group-item-text"><?php if( $deduction->entry_id ) { ?>Entry ID # <?php echo $deduction->entry_id; ?> &middot; <?php } ?><?php echo ($deduction->dnotes!="") ? $deduction->dnotes : ''; ?></p>
   </a>
 
 <?php } ?>

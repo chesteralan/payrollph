@@ -238,11 +238,22 @@ class Payroll_deductions extends MY_Controller {
 		$deductions->setId($id,true);
 		$deduction_data = $deductions->get();
 		$deductions->delete();
-		redirect("payroll_deductions/view/{$deduction_data->payroll_id}");
+
+		if( $this->input->get('next') ) {
+			redirect( $this->input->get('next') );
+		} else {
+			redirect("payroll_deductions/view/{$deduction_data->payroll_id}");
+		}
 
 	}
 
 	public function item_schedule($id,$deduction_id,$output='') {
+
+		if( $this->input->post('remove_item') ) {
+			$deductions = new $this->Payroll_employees_deductions_model('ped');
+			$deductions->set_where_in('id', $this->input->post('remove_item'));
+			$deductions->delete();
+		}
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
@@ -265,12 +276,6 @@ class Payroll_deductions extends MY_Controller {
 		$deductions->setPayrollId($id,true);
 		$deductions->setDeductionId($deduction_id,true);
 		$deductions->set_select("ped.*");
-		$deductions->set_select("SUM((SELECT ed.max_amount FROM employees_deductions ed WHERE ed.id=ped.entry_id)) as max_amount");
-
-		$deductions->set_select("SUM((SELECT SUM(ped2.amount) FROM payroll_employees_deductions ped2 WHERE ped.name_id=ped2.name_id AND ped.deduction_id=ped2.deduction_id AND ped2.entry_id=ped.entry_id AND ped2.id!=ped.id)) as amount_paid");
-
-		$deductions->set_select("SUM(ped.amount) as amount");
-
 		$deductions->set_select("e.*");
 		$deductions->set_join("employees e", 'e.name_id=ped.name_id');
 
@@ -282,7 +287,16 @@ class Payroll_deductions extends MY_Controller {
 		$deductions->set_where('pe.active', 1);
 		$deductions->set_where('pe.payroll_id', $id);
 		
-		$deductions->set_group_by('ped.name_id');
+		if( !$this->input->get('remove_grouping')) {
+			$deductions->set_select("SUM((SELECT ed.max_amount FROM employees_deductions ed WHERE ed.id=ped.entry_id)) as max_amount");	
+			$deductions->set_select("SUM((SELECT SUM(ped2.amount) FROM payroll_employees_deductions ped2 WHERE ped.name_id=ped2.name_id AND ped.deduction_id=ped2.deduction_id AND ped2.entry_id=ped.entry_id AND ped2.id!=ped.id)) as amount_paid");
+			$deductions->set_select("SUM(ped.amount) as amount");
+			$deductions->set_group_by('ped.name_id');
+		} else {
+			$deductions->set_select("(SELECT ed.max_amount FROM employees_deductions ed WHERE ed.id=ped.entry_id) as max_amount");	
+			$deductions->set_select("(SELECT SUM(ped2.amount) FROM payroll_employees_deductions ped2 WHERE ped.name_id=ped2.name_id AND ped.deduction_id=ped2.deduction_id AND ped2.entry_id=ped.entry_id AND ped2.id!=ped.id) as amount_paid");
+			$deductions->set_select("ped.amount as amount");
+		}
 		
 		$deductions->set_limit(0);
 		$item_data = $deductions->populate(); 

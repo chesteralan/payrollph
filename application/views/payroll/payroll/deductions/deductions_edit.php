@@ -38,9 +38,9 @@
 
 <?php if( isset($output) && ($output=='ajax') ) : ?>
 <?php if( $deduction->entry_id ) { ?>
-<a href="<?php echo site_url("employees_deductions/entries/{$deduction->entry_id}/ajax") . '?next=' . (($this->input->get('next')) ? $this->input->get('next') : "payroll_deductions/view/{$deduction->payroll_id}"); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Related Entries" data-hide_footer="1">View Related Entries</a>
+<a href="<?php echo site_url("employees_deductions/entries/{$deduction->entry_id}/ajax") . (($this->input->get('next')) ? '?next=' . $this->input->get('next') : "payroll_deductions/view/{$deduction->payroll_id}"); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Related Entries" data-hide_footer="1">View Related Entries</a>
 <?php } ?>
-<a href="<?php echo site_url("payroll_deductions/delete/{$deduction->id}"); ?>" class="btn btn-danger btn-xs confirm">Delete this entry</a>
+<a href="<?php echo site_url("payroll_deductions/delete/{$deduction->id}") . (($this->input->get('next')) ? '?next=' . $this->input->get('next') : "payroll_deductions/view/{$deduction->payroll_id}"); ?>" class="btn btn-danger btn-xs confirm">Delete this entry</a>
 <?php endif; ?>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
