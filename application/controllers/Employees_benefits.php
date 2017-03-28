@@ -30,12 +30,24 @@ class Employees_benefits extends MY_Controller {
 		$employee->setNameId($id,true);
 		$this->template_data->set('employee', $employee->get());
 
-		$benefits = new $this->Employees_benefits_model;
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$templates->set_limit(0);
+		$templates_data = $templates->populate();
+		$this->template_data->set('templates', $templates_data);
+
+		$benefits = new $this->Employees_benefits_model('eb');
 		$benefits->setCompanyId($this->session->userdata('current_company_id'),true);
 		$benefits->setNameId($id,true);
 		$benefits->set_select("*");
-		$benefits->set_select("(SELECT name FROM benefits_list WHERE id=employees_benefits.benefit_id) as benefit_name");
+		$benefits->set_select("(SELECT name FROM benefits_list WHERE id=eb.benefit_id) as benefit_name");
 		$benefits->setTrash('0',true);
+
+		foreach($templates_data as $temp) {
+			$benefits->set_select("(SELECT COUNT(*) FROM employees_benefits_templates ebt WHERE ebt.eb_id=eb.id AND ebt.template_id={$temp->id}) as temp_{$temp->id}");
+		}
+
 		$this->template_data->set('benefits', $benefits->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(

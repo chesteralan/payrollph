@@ -26,6 +26,9 @@
                 <th>Max Amount</th>
                 <th>Amount</th>
                 <th>Rate per</th>
+                <?php foreach($templates as $temp) { ?>
+                  <th class="text-center"><?php echo $temp->name; ?></th>
+                <?php } ?>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                   <th width="165px" class="action_column">Action</th>
                 <?php } ?>
@@ -41,6 +44,13 @@
                 <td><?php 
                 $computed = array('month'=>'Monthly', 'day'=>'Daily', 'hour'=>'Hourly');
                 echo $computed[($deduction->computed) ? $deduction->computed : 'month']; ?></td>
+             
+                <?php foreach($templates as $temp) { 
+                  $var = 'temp_' . $temp->id;
+                  ?>
+                  <td class="text-center"><span class="glyphicon glyphicon-<?php echo ($deduction->$var) ? 'ok' : 'remove'; ?>"></span></td>
+                <?php } ?>
+                
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
 

@@ -30,12 +30,24 @@ class Employees_earnings extends MY_Controller {
 		$employee->setNameId($id,true);
 		$this->template_data->set('employee', $employee->get());
 
-		$earnings = new $this->Employees_earnings_model;
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$templates->set_limit(0);
+		$templates_data = $templates->populate();
+		$this->template_data->set('templates', $templates_data);
+
+		$earnings = new $this->Employees_earnings_model('ee');
 		$earnings->setCompanyId($this->session->userdata('current_company_id'),true);
 		$earnings->setNameId($id,true);
 		$earnings->set_select("*");
-		$earnings->set_select("(SELECT name FROM earnings_list WHERE id=employees_earnings.earning_id) as earnings_name");
+		$earnings->set_select("(SELECT name FROM earnings_list WHERE id=ee.earning_id) as earnings_name");
 		$earnings->setTrash('0',true);
+
+		foreach($templates_data as $temp) {
+			$earnings->set_select("(SELECT COUNT(*) FROM employees_earnings_templates eet WHERE eet.ee_id=ee.id AND eet.template_id={$temp->id}) as temp_{$temp->id}");
+		}
+
 		$this->template_data->set('earnings', $earnings->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(

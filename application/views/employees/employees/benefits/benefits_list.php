@@ -26,6 +26,9 @@
                 <th>Employee Share</th>
                 <th>Employer Share</th>
                 <th>Start</th>
+                <?php foreach($templates as $temp) { ?>
+                  <th class="text-center"><?php echo $temp->name; ?></th>
+                <?php } ?>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                   <th width="105px" class="action_column">Action</th>
                 <?php } ?>
@@ -39,9 +42,15 @@
                 <td><?php echo number_format($benefit->employee_share,2); ?></td>
                 <td><?php echo number_format($benefit->employer_share,2); ?></td>
                 <td><?php echo date('F d, Y', strtotime($benefit->start_date)); ?></td>
+
+                <?php foreach($templates as $temp) { 
+                  $var = 'temp_' . $temp->id;
+                  ?>
+                  <td class="text-center"><span class="glyphicon glyphicon-<?php echo ($benefit->$var) ? 'ok' : 'remove'; ?>"></span></td>
+                <?php } ?>
+                
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
-
                 <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Benefit" data-url="<?php echo site_url("employees_benefits/edit/{$benefit->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>">Edit</button>
 
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees_benefits/delete/{$benefit->id}"); ?>" data-target="#salary-<?php echo $benefit->id; ?>">Delete</a>

@@ -12,6 +12,8 @@ class Lists_deductions extends MY_Controller {
 		$this->_isAuth('lists', 'deductions', 'view');
 
 		$this->load->model('Deductions_list_model');
+		$this->load->model('Employees_deductions_model');
+		$this->load->model('Payroll_templates_model');
 
 	}
 
@@ -96,4 +98,46 @@ class Lists_deductions extends MY_Controller {
 
 		$this->getNext("lists_deductions");
 	}
+
+	public function items($id, $start=0) {
+		
+		$earnings = new $this->Deductions_list_model;
+		$earnings->setId($id,true);
+		$earnings->set_select("*");
+		$this->template_data->set('earning', $earnings->get());
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$templates->set_limit(0);
+		$templates_data = $templates->populate();
+		$this->template_data->set('templates', $templates_data);
+
+		$items = new $this->Employees_deductions_model('ed');
+		$items->setDeductionId($id,true);
+		$items->setCompanyId($this->session->userdata('current_company_id'),true);
+		$items->setActive(1,true);
+		$items->setTrash(0,true);
+		$items->set_where('(start_date <="' . date('Y-m-d') .'")');
+		$items->set_join('employees e', 'e.name_id=ed.name_id');
+		$items->set_select("e.*");
+		$items->set_select("ed.*");
+		$items->set_start($start);
+
+		foreach($templates_data as $temp) {
+			$items->set_select("(SELECT COUNT(*) FROM employees_deductions_templates edt WHERE edt.ed_id=ed.id AND edt.template_id={$temp->id}) as temp_{$temp->id}");
+		}
+
+		$this->template_data->set('items', $items->populate());
+		
+		$this->template_data->set('pagination', bootstrap_pagination(array(
+			'base_url' => base_url($this->config->item('index_page') . '/lists_deductions/items/' . $id),
+			'total_rows' => $items->count_all_results(),
+			'per_page' => $items->get_limit(),
+			'ajax'=>true,
+		)));
+
+		$this->load->view('lists/deductions/deductions_items', $this->template_data->get_data());
+	}
+
 }

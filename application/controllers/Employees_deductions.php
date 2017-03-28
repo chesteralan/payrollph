@@ -30,13 +30,25 @@ class Employees_deductions extends MY_Controller {
 		$employee->setNameId($id,true);
 		$this->template_data->set('employee', $employee->get());
 
-		$deductions = new $this->Employees_deductions_model;
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$templates->set_limit(0);
+		$templates_data = $templates->populate();
+		$this->template_data->set('templates', $templates_data);
+
+		$deductions = new $this->Employees_deductions_model('ed');
 		$deductions->setCompanyId($this->session->userdata('current_company_id'),true);
 		$deductions->setNameId($id,true);
-		$deductions->set_select("*");
-		$deductions->set_select("(SELECT name FROM deductions_list WHERE id=employees_deductions.deduction_id) as deduction_name");
-		$deductions->set_select("(SELECT notes FROM deductions_list WHERE id=employees_deductions.deduction_id) as deduction_notes");
+		$deductions->set_select("ed.*");
+		$deductions->set_select("(SELECT name FROM deductions_list WHERE id=ed.deduction_id) as deduction_name");
+		$deductions->set_select("(SELECT notes FROM deductions_list WHERE id=ed.deduction_id) as deduction_notes");
 		$deductions->setTrash('0',true);
+
+		foreach($templates_data as $temp) {
+			$deductions->set_select("(SELECT COUNT(*) FROM employees_deductions_templates edt WHERE edt.ed_id=ed.id AND edt.template_id={$temp->id}) as temp_{$temp->id}");
+		}
+
 		$this->template_data->set('deductions', $deductions->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(

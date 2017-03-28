@@ -23,7 +23,7 @@
                 <th>Earning Name</th>
                 <th>Notes</th>
                 <?php if( hasAccess('lists', 'earnings', 'edit') ) { ?>
-                  <th width="105px">Action</th>
+                  <th width="145px">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -38,6 +38,9 @@
                 <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Earning" data-url="<?php echo site_url("lists_earnings/edit/{$earning->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("lists_earnings/delete/{$earning->id}"); ?>" data-target="#employee-group-<?php echo $earning->id; ?>">Delete</a>
+
+                 <a class="btn btn-success btn-xs body_wrapper" href="<?php echo site_url("lists_earnings/items/{$earning->id}"); ?>">Items</a>
+
                 </td>
               <?php } ?>
               </tr>
