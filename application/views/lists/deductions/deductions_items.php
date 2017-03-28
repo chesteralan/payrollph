@@ -23,7 +23,7 @@
                 <?php foreach($templates as $temp) { ?>
                   <th class="text-center"><?php echo $temp->name; ?></th>
                 <?php } ?>
-                <th width="90px" class="text-right">Action</th>
+                <th width="130px" class="text-right">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -40,6 +40,9 @@
                 <?php } ?>
                 <td class="text-right">
                   <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Deduction" data-url="<?php echo site_url("employees_deductions/edit/{$item->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
+
+                  <button type="button" class="btn btn-success btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Deduction Entries" data-url="<?php echo site_url("employees_deductions/entries/{$item->id}/ajax") . "?next=" . uri_string(); ?>">Entries</button>
+
                 </td>
               </tr>
             <?php } ?>
