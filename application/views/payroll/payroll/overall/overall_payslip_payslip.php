@@ -50,7 +50,8 @@ if( $employee->salary ) {
 }
 
 $absences = ($daily_rate * $days_absent);
-$basic_salary = ($daily_rate * $inclusive_dates->working_days);
+//$basic_salary = ($daily_rate * $inclusive_dates->working_days);
+$basic_salary = ($monthly_rate / 2);
 $net_salary = ($daily_rate * $present_days);
 $gross_pay = ($basic_salary + $cola);
 $net_pay = ($net_salary + $cola);
@@ -59,7 +60,7 @@ if( floatval( $gross_pay ) ) {
 ?>
  <table width="100%" class="table table-details" cellpadding="0" cellspacing="0" style="margin-top:10px">
  <tr>
-  <td class="text-left">Working Days: <strong><?php  echo $inclusive_dates->working_days; ?></strong></td>
+  <td class="text-left">Working Days: <strong>15<?php //echo $inclusive_dates->working_days; ?></strong></td>
 
   <td class="text-left">Days Absent:  <strong><?php  echo $days_absent; ?> </strong></td>
 
@@ -229,7 +230,8 @@ if( $employee->salary ) {
   $cola = ($salary->cola * $present_days);
 }
 $absences = ($daily_rate * $days_absent);
-$basic_salary = ($daily_rate * $inclusive_dates->working_days);
+//$basic_salary = ($daily_rate * $inclusive_dates->working_days);
+$basic_salary = ($monthly_rate / 2);
 $net_salary = ($daily_rate * $present_days);
 $gross_pay = ($basic_salary + $cola);
 $net_pay = ($net_salary + $cola);
@@ -238,7 +240,7 @@ if( floatval( $gross_pay ) ) {
 ?>
  <table width="100%" class="table table-details" cellpadding="0" cellspacing="0" style="margin-top:10px">
  <tr>
-  <td class="text-left">Working Days: <strong><?php  echo $inclusive_dates->working_days; ?></strong></td>
+  <td class="text-left">Working Days: <strong>15<?php //echo $inclusive_dates->working_days; ?></strong></td>
 
   <td class="text-left">Days Absent:  <strong><?php  echo $days_absent; ?> </strong></td>
 
