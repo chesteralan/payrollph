@@ -49,6 +49,8 @@ class Payroll_dtr extends MY_Controller {
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
+		$this->session->set_userdata('current_payroll', $payroll_data);
+
 		$print_groups = new $this->Terms_list_model;
 		$print_groups->set_select("*");
 		$print_groups->set_order('name', 'ASC');
