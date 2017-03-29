@@ -83,7 +83,7 @@ $total_new_balance += ($item->max_amount-($item->amount_paid+$item->amount));
                 </td>
                 <td class="text-right"><?php echo number_format($item_balance,2); ?></td>
                 <td class="text-right">
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?> - Current Deduction" data-url="<?php echo site_url("payroll_deductions/edit/{$item->id}/ajax") . "?edit_only=1next=" . uri_string(); ?>">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?> - Current Deduction" data-url="<?php echo site_url("payroll_deductions/edit/{$item->id}/ajax") . "?edit_only=1&next=" . uri_string(); ?>">
                 <?php echo number_format($item->amount,2); ?>
 </a>
                 </td>
