@@ -49,7 +49,9 @@ class Payroll_dtr extends MY_Controller {
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
-		$this->session->set_userdata('current_payroll', $payroll_data);
+		if( $this->input->get('set_current') ) {
+			$this->session->set_userdata('current_payroll', $payroll_data);
+		}
 
 		$print_groups = new $this->Terms_list_model;
 		$print_groups->set_select("*");

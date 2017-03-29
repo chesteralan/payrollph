@@ -60,7 +60,7 @@
                 <td>
 <?php if(( $payroll->employees_count > 0 ) && ( $payroll->working_days > 0 )) { ?>
 
-      <a class="btn btn-success btn-xs" href="<?php echo site_url("payroll_dtr/view/{$payroll->id}"); ?>">View</a>
+      <a class="btn btn-success btn-xs" href="<?php echo site_url("payroll_dtr/view/{$payroll->id}") . "?set_current=1"; ?>">View</a>
 
 <?php } else { ?>
 
