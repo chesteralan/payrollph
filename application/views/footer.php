@@ -21,12 +21,12 @@
 <!-- #blankModal Modal -->
 <div class="modal fade" id="ajaxModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
   <div class="modal-dialog" role="document">
+<form method="post" action="" id="ajaxModalForm">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title text-center"><span class="title"></span></h4>
       </div>
-      <form method="post" action="" id="ajaxModalForm">
       <div class="modal-body">
         <p class="loader text-center">
         	<img src="<?php echo base_url("assets/images/loader4.gif"); ?>">
@@ -37,8 +37,8 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
-      </form>
     </div>
+</form>
   </div>
 </div>
 
