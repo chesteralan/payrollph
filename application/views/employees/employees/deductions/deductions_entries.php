@@ -27,9 +27,9 @@
 
 <?php if( $deductions ) { ?>
 <?php if( isset($output) && ($output=='ajax') ) { ?>
-<?php if( !$this->input->get('no_action') ) { ?>
+
 <center><a class="btn btn-success btn-xs ajax-modal-inner" href="<?php echo site_url("employees_deductions/edit/{$entry->id}/{$output}") . '?next=' . (($this->input->get('next'))?$this->input->get('next'):"employees_deductions/view/{$employee->name_id}"); ?>">Edit Item</a></center>
-<?php } ?>
+
 <?php } ?>
           <table class="table table-default">
             <thead>

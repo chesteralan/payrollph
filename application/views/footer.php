@@ -19,8 +19,8 @@
 </div>
 
 <!-- #blankModal Modal -->
-<div class="modal fade" id="ajaxModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="ajaxModal">
+  <div class="modal-dialog">
 <form method="post" action="" id="ajaxModalForm">
     <div class="modal-content">
       <div class="modal-header">

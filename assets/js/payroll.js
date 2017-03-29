@@ -520,7 +520,11 @@ $('.ajax-modal-inner').each(function(){
   $(this).click(function(){
     ajaxModalUrl = $(this).attr('data-url');
 
-    $('#ajaxModal form').prop( 'action', ajaxModalUrl );
+    if( $('#ajaxModal form').is() ) {
+      $('#ajaxModal form').prop( 'action', ajaxModalUrl );
+    } else {
+      $('#ajaxModal .modal-content').wrap('<form action="'+ajaxModalUrl+'" method="post"></form>');
+    }
     $('#ajaxModal .modal-title').text( $(this).attr('data-title') );
 
     var back_level_n = 0;
@@ -606,7 +610,12 @@ var setupAjaxModal = function(){
 var loadAjaxModal = function() {
   setupAjaxModal();
   $('#ajaxModal').on('shown.bs.modal', function () {
-    $('#ajaxModal form').prop( 'action', ajaxModalUrl );
+    if( $('#ajaxModal form').is() ) {
+      $('#ajaxModal form').prop( 'action', ajaxModalUrl );
+    } else {
+      $('#ajaxModal .modal-content').wrap('<form action="'+ajaxModalUrl+'" method="post"></form>');
+    }
+
       $.ajax({
         url : ajaxModalUrl,
         method : 'GET',
@@ -624,30 +633,6 @@ var loadAjaxModal = function() {
       $('#ajaxModal .modal-footer').hide();
       $('#ajaxModal .output').html( '' );
       $('#ajax-modal-backlink').remove();
-  });
-
-  $('.ajax-dialog').click(function(){
-     ajaxModalUrl = $(this).attr('data-url');
-    $('#ajaxDialog form').prop( 'action', ajaxModalUrl );
-    $('#ajaxDialog .loader').slideDown('slow');
-    $('#ajaxDialog .output').slideUp('slow').html( '' );
-      $.ajax({
-        url : ajaxModalUrl,
-        method : 'GET',
-        dataType : 'html'
-      }).success(function(html){
-        $('#ajaxDialog .loader').slideUp('slow', function(){
-          $('#ajaxDialog .output').css('display', 'none').html( html ).slideDown('slow');
-        });
-        
-      });
-    $('#ajaxDialog').dialog({
-      resizable: false,
-      height: "auto",
-      width: '80%',
-      modal: true,
-      title : $(this).attr('data-title'),
-    }).css('overflow', 'inherit');
   });
 
 };
