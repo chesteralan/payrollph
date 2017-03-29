@@ -58,7 +58,7 @@ foreach( $deductions_columns as $column ) {
                 $total_deductions = 0;
                 if( $deductions_columns ) foreach( $deductions_columns as $column ) { ?>
                     <td class="text-right">
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo ($column->notes!='') ? $column->notes : $column->name; ?>" data-url="<?php echo site_url("payroll_deductions/entries/{$payroll->id}/{$employee->name_id}/{$column->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> - <?php echo ($column->notes!='') ? $column->notes : $column->name; ?>" data-url="<?php echo site_url("payroll_deductions/entries/{$payroll->id}/{$employee->name_id}/{$column->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
                     <?php 
                     $var = 'deductions_' . $column->id;
                     $total_deductions += $employee->$var;

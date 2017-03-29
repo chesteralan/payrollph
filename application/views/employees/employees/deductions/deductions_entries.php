@@ -27,7 +27,9 @@
 
 <?php if( $deductions ) { ?>
 <?php if( isset($output) && ($output=='ajax') ) { ?>
+<?php if( !$this->input->get('no_action') ) { ?>
 <center><a class="btn btn-success btn-xs ajax-modal-inner" href="<?php echo site_url("employees_deductions/edit/{$entry->id}/{$output}") . '?next=' . (($this->input->get('next'))?$this->input->get('next'):"employees_deductions/view/{$employee->name_id}"); ?>">Edit Item</a></center>
+<?php } ?>
 <?php } ?>
           <table class="table table-default">
             <thead>
@@ -35,7 +37,9 @@
                 <th>Payroll Name</th>
                 <th class="text-right">Amount</th>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
+<?php if( !$this->input->get('no_action') ) { ?>
                   <th width="50px" class="action_column">Action</th>
+<?php } ?>
                 <?php } ?>
               </tr>
             </thead>
@@ -48,10 +52,12 @@ $total = 0;
                 <td><?php echo $deduction->payroll_name; ?></td>
                 <td class="text-right"><?php echo number_format($deduction->ped_amount,2); $total += $deduction->ped_amount; ?></td>
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
+<?php if( !$this->input->get('no_action') ) { ?>
                 <td>
                 <a class="btn btn-warning btn-xs body_wrapper" data-dismiss="modal" href="<?php echo site_url("payroll_deductions/view/{$deduction->payroll_id}") . '?next=' . uri_string(); ?>">Payroll</a>
 
                 </td>
+<?php } ?>
               <?php } ?>
               </tr>
             <?php } ?>

@@ -76,11 +76,23 @@ $total_new_balance += ($item->max_amount-($item->amount_paid+$item->amount));
                 <a href="<?php echo site_url("employees_deductions/view/{$item->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper"><span class="glyphicon glyphicon-cog"></span></a>
                 </td>
                 <td class="text-right"><?php echo number_format($item->max_amount,2); ?></td>
-                <td class="text-right"><?php echo number_format($item->amount_paid,2); ?></td>
+                <td class="text-right">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?> - Amount Paid" data-url="<?php echo site_url("employees_deductions/entries/{$item->entry_id}/ajax") . "?no_action=1&exempt={$item->id}&next=" . uri_string(); ?>" data-hide_footer="1">
+                <?php echo number_format($item->amount_paid,2); ?>
+</a>
+                </td>
                 <td class="text-right"><?php echo number_format($item_balance,2); ?></td>
-                <td class="text-right"><?php echo number_format($item->amount,2); ?></td>
+                <td class="text-right">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?> - Current Deduction" data-url="<?php echo site_url("payroll_deductions/edit/{$item->id}/ajax") . "?edit_only=1next=" . uri_string(); ?>">
+                <?php echo number_format($item->amount,2); ?>
+</a>
+                </td>
                 <td class="text-right"><?php echo number_format(($item->amount_paid+$item->amount),2); ?></td>
-                <td class="text-right"><?php echo number_format(($item->max_amount-($item->amount_paid+$item->amount)),2); ?></td>
+                <td class="text-right">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?> - New Balance" data-url="<?php echo site_url("employees_deductions/entries/{$item->entry_id}/ajax") . "?no_action=1&next=" . uri_string(); ?>" data-hide_footer="1">
+                <?php echo number_format(($item->max_amount-($item->amount_paid+$item->amount)),2); ?>
+</a>
+                </td>
 <?php if( $this->input->get('remove_grouping')) { ?>
                 <td class="text-right"><input type="checkbox" name="remove_item[]" value="<?php echo $item->id; ?>"></td>
 <?php } ?>

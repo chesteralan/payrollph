@@ -211,6 +211,11 @@ class Employees_deductions extends MY_Controller {
 		$employees_deductions->set_join("deductions_list dl", 'dl.id=ped.deduction_id');
 		$employees_deductions->set_join("payroll p", 'p.id=ped.payroll_id');
 		$employees_deductions->set_limit(0);
+		
+		if( $this->input->get('exempt') ) {
+			$employees_deductions->set_where('ped.id !=' . $this->input->get('exempt'));
+		}
+
 		$this->template_data->set('deductions', $employees_deductions->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
