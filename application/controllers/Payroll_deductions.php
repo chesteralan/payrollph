@@ -214,7 +214,8 @@ class Payroll_deductions extends MY_Controller {
 				$deductions->setNotes($this->input->post('notes'));
 				$deductions->update();
 			}
-			redirect("payroll_deductions/view/{$deduction_data->payroll_id}");
+			//redirect("payroll_deductions/view/{$deduction_data->payroll_id}");
+			$this->postNext();
 		}
 
 		$this->template_data->set('deduction', $deductions->get());
