@@ -13,8 +13,11 @@ function isColumn($ths, $column_id,$print_columns) {
     }
     return false;
 }  
-
 $print_group_total = array();
+$print_group_total[0] = 0;
+foreach($print_groups as $pg1) {
+  $print_group_total[$pg1->id] = 0;
+}
 
 ?>
 
@@ -169,20 +172,25 @@ $net_pay = (($total_earnings + $gross_pay) - $total_deductions);
 $total_net_pay += $net_pay;
 $group_net_pay += $net_pay;
 
-$print_group_total[$employee->print_group] += $net_pay;
+$print_group_total[(($employee->print_group)?$employee->print_group:0)] += $net_pay;
 
 }
 }
 }
+
  ?>
 
 <table width="100%" class="table full-border" cellspacing="0" cellpadding="0">
   <?php foreach($print_groups as $pg) { ?>
-     <tr>
+  <tr>
     <td class="bold allcaps"><?php echo $pg->name; ?></td>
     <td class="bold  allcaps text-right"><?php echo number_format($print_group_total[$pg->id],2); ?></td>
   </tr>
   <?php } ?>
+  <tr>
+    <td class="bold allcaps">ERROR - There is/are unassigned employee(s).</td>
+    <td class="bold  allcaps text-right"><?php echo number_format($print_group_total[0],2); ?></td>
+  </tr>
 </table>
 
 <table width="100%" class="total_net_pay full-border" cellspacing="0" cellpadding="0">
