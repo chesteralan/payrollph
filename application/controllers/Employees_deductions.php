@@ -228,5 +228,34 @@ class Employees_deductions extends MY_Controller {
 		$this->template_data->set('output', $output);
 		$this->load->view('employees/employees/deductions/deductions_entries', $this->template_data->get_data());
 	}
+
+	public function summary($deduction_id, $name_id, $output='') {
+
+
+		$employee = new $this->Employees_model;
+		$employee->setNameId($name_id,true);
+		$this->template_data->set('employee', $employee->get());
+
+		$deductions = new $this->Deductions_list_model;
+		$deductions->setId($deduction_id,true);
+		$deduction_data = $deductions->get();
+		$this->template_data->set('deduction', $deduction_data);
+
+		$employees_deductions = new $this->Employees_deductions_model;
+		$employees_deductions->setNameId($name_id,true);
+		$employees_deductions->setDeductionId($deduction_id,true);
+		$employees_deductions->set_select("SUM(max_amount) as total_max_amount");
+		$employees_deductions_data = $employees_deductions->get();
+		$this->template_data->set('employees_deductions', $employees_deductions_data);
+
+		$payroll_deductions = new $this->Payroll_employees_deductions_model('ped');
+		$payroll_deductions->setNameId($name_id,true);
+		$payroll_deductions->setDeductionId($deduction_id,true);
+		$payroll_deductions->set_select("SUM(ped.amount) as total_amount");
+		$this->template_data->set('payroll_deductions', $payroll_deductions->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('employees/employees/deductions/deductions_summary', $this->template_data->get_data());
+	}
 	
 }

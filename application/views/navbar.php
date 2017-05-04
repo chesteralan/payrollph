@@ -166,6 +166,17 @@ foreach($main_menu as $main=>$menu):
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
+
+<?php if( hasAccess('developer_tools', 'themes', 'view') ) { ?>
+   <li class="hidden-xs hidden-sm dropdown">
+   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong><?php echo $this->session->userdata('current_company_theme' ); ?></strong> <span class="caret hidden-xs"></span></a>
+   <ul class="dropdown-menu">
+   <?php foreach(array('default','cerulean','cosmo','cyborg','darkly','flatly','journal','lumen','paper','readable','sandstone','simplex','slate','spacelab','superhero','united','yeti') as $theme) { ?>
+            <li class="<?php echo ($this->session->userdata('current_company_theme')==$theme)?'active':''; ?>"><a href="<?php echo site_url('welcome/change_current_theme/' .  $theme) . "?uri=" . uri_string(); ?>"><?php echo $theme; ?></a></li>
+    <?php } ?>
+    </ul>
+  </li>
+<?php } ?>
 <?php if( isset($this->session->current_payroll ) ) { ?>
           <li class="active hidden-xs hidden-sm dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong><?php echo $this->session->current_payroll->name; ?></strong> <span class="caret hidden-xs"></span></a>

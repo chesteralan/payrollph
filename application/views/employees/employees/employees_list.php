@@ -41,7 +41,7 @@
                   <th>Area</th>
                 <?php } ?>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
-                  <th width="125px">Action</th>
+                  <th width="140px">Action</th>
                 <?php } ?>
               </tr>
             </thead>

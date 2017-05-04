@@ -37,7 +37,7 @@
                 <?php } ?>
                 <th>Working Days</th>
                 <?php if( hasAccess('payroll', 'payroll', 'edit') ) { ?>
-                  <th width="125px">Action</th>
+                  <th width="135px">Action</th>
                 <?php } ?>
               </tr>
             </thead>

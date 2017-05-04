@@ -124,6 +124,13 @@ $dept = array(
 				'backup' => 'Database Backup',
 			),
 	),
+
+	'developer_tools' =>  (object) array(
+		'title' => 'Developer Tools',
+		'sections' => array(
+				'themes' => 'Themes',
+			),
+	),
  
 );
 

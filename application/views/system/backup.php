@@ -36,7 +36,7 @@
 						<tr>
 							<th>Backup File</th>
 							<th>Filesize</th>
-							<th width="140px" class="text-right">Action</th>
+							<th width="170px" class="text-right">Action</th>
 						</tr>
 					</thead>
 					<tbody>

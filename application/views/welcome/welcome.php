@@ -66,7 +66,7 @@
                         <?php if( in_array('areas', $this->session->menu_module['employees'] ) ) { ?>
                           <a href="<?php echo site_url('employees_areas'); ?>" class="list-group-item body_wrapper">
                             <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                            Positions
+                            Area
                           </a>
                         <?php } ?>
 

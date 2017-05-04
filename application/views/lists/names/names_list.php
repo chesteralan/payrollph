@@ -23,7 +23,7 @@
 	    					<th>Address</th>
 	    					<th>Contact Number</th>
 	    					<?php if( hasAccess('lists', 'names', 'edit') ) { ?>
-	    					<th width="105px">Action</th>
+	    					<th width="125px">Action</th>
 	    					<?php } ?>
 	    				</tr>
 	    			</thead>

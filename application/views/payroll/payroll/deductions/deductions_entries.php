@@ -12,7 +12,8 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <a class="btn btn-success btn-xs pull-right" href="<?php echo site_url("payroll_deductions/add/{$payroll_id}/{$name_id}/{$deduction_id}") . '?next=' . uri_string(); ?>">Add Earning</a>
+          <a class="btn btn-success btn-xs pull-right" href="<?php echo site_url("payroll_deductions/add/{$payroll_id}/{$name_id}/{$deduction_id}") . '?next=' . uri_string(); ?>">Add Entry</a>
+          <a style="margin-right:10px" class="btn btn-warning btn-xs pull-right" href="<?php echo site_url("employees_deductions/summary/{$deduction_id}/{$name_id}") . '?next=' . uri_string(); ?>">Summary</a>
           <h3 class="panel-title"><?php echo $deduction_data->name; ?></h3>
         </div>
 
@@ -22,7 +23,8 @@
 <?php endif; ?>
 
 <?php if( isset($output) && ($output=='ajax') ) : ?>
-<p class="text-center"><a href="<?php echo site_url("payroll_deductions/add/{$payroll_id}/{$name_id}/{$deduction_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Entry">Add Entry</a></p>
+<p class="text-center"><a href="<?php echo site_url("payroll_deductions/add/{$payroll_id}/{$name_id}/{$deduction_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Entry - <?php echo $deduction_data->name; ?>">Add Entry</a> <a href="<?php echo site_url("employees_deductions/summary/{$deduction_id}/{$name_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-warning btn-xs ajax-modal-inner" data-title="Summary - <?php echo $deduction_data->name; ?>">Summary</a>
+</p>
 <?php endif; ?>
 
 <?php if( $deductions ) { ?>

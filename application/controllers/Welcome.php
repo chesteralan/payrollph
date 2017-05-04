@@ -38,6 +38,11 @@ class Welcome extends MY_Controller {
 		redirect("welcome");
 	}
 
+	public function change_current_theme($theme) {
+		$this->session->set_userdata( 'current_company_theme', $theme );
+		redirect( $this->input->get('uri') );
+	}
+
 	public function ajax($action='') {
 		$results = array();
 		switch($action) {

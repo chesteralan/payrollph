@@ -24,7 +24,7 @@
                 <th>Deduction Name</th>
                 <th>Notes</th>
                 <?php if( hasAccess('lists', 'deductions', 'edit') ) { ?>
-                  <th width="145px">Action</th>
+                  <th width="170px">Action</th>
                 <?php } ?>
               </tr>
             </thead>

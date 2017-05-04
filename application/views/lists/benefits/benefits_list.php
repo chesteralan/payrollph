@@ -26,7 +26,7 @@
                 <th>ER Account Title</th>
                 <th>Leave</th>
                 <?php if( hasAccess('lists', 'benefits', 'edit') ) { ?>
-                  <th width="145px">Action</th>
+                  <th width="170px">Action</th>
                 <?php } ?>
               </tr>
             </thead>

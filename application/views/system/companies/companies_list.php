@@ -25,7 +25,7 @@
                 <th>Address</th>
                 <th>Phone</th>
                 <?php if( hasAccess('system', 'companies', 'edit') ) { ?>
-                  <th width="105px">Action</th>
+                  <th width="125px">Action</th>
                 <?php } ?>
               </tr>
             </thead>

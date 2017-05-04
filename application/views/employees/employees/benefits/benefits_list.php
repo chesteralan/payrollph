@@ -30,7 +30,7 @@
                   <th class="text-center"><?php echo $temp->name; ?></th>
                 <?php } ?>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
-                  <th width="105px" class="action_column">Action</th>
+                  <th width="125px" class="action_column">Action</th>
                 <?php } ?>
               </tr>
             </thead>

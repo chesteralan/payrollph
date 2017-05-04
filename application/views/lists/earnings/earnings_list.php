@@ -23,7 +23,7 @@
                 <th>Earning Name</th>
                 <th>Notes</th>
                 <?php if( hasAccess('lists', 'earnings', 'edit') ) { ?>
-                  <th width="145px">Action</th>
+                  <th width="180px">Action</th>
                 <?php } ?>
               </tr>
             </thead>

@@ -24,7 +24,7 @@
                 <th>Term Name</th>
                 <th>Type</th>
                 <?php if( hasAccess('system', 'terms', 'edit') ) { ?>
-                  <th width="105px">Action</th>
+                  <th width="125px">Action</th>
                 <?php } ?>
               </tr>
             </thead>

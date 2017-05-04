@@ -30,7 +30,7 @@
                   <th class="text-center"><?php echo $temp->name; ?></th>
                 <?php } ?>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
-                  <th width="165px" class="action_column">Action</th>
+                  <th width="185px" class="action_column">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -38,7 +38,7 @@
 
             <?php foreach($deductions as $deduction) { ?>
               <tr id="salary-<?php echo $deduction->id; ?>" class="<?php echo ($deduction->active==1) ? 'success' : ''; ?>">
-                <td><?php echo $deduction->deduction_name; ?> - <?php echo $deduction->deduction_notes; ?></td>
+                <td><a class="body_wrapper" href="<?php echo site_url("employees_deductions/summary/{$deduction->deduction_id}/{$deduction->name_id}") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>"><?php echo $deduction->deduction_name; ?> - <?php echo $deduction->deduction_notes; ?></a></td>
                 <td><?php echo number_format($deduction->max_amount,2); ?></td>
                 <td><?php echo number_format($deduction->amount,2); ?></td>
                 <td><?php 

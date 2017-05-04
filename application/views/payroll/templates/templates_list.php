@@ -27,7 +27,7 @@
                 <th>Template Name</th>
                 <th>Payroll</th>
                 <?php if( hasAccess('payroll', 'templates', 'edit') ) { ?>
-                  <th width="200px">Action</th>
+                  <th width="210px">Action</th>
                 <?php } ?>
               </tr>
             </thead>

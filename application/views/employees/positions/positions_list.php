@@ -23,7 +23,7 @@
                 <th>Position Name</th>
                 <th>Employees</th>
                 <?php if( hasAccess('employees', 'positions', 'edit') ) { ?>
-                  <th width="105px">Action</th>
+                  <th width="125px">Action</th>
                 <?php } ?>
               </tr>
             </thead>
