@@ -32,10 +32,11 @@
 
 <?php if( $employees_status ) { ?>
     <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Employees <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo ($current_employee_status) ? $current_employee_status->name : 'All Employees'; ?> <span class="caret"></span></a>
           <ul class="dropdown-menu">
+            <li class="<?php echo (!$current_employee_status) ? 'active' : ''; ?>"><a href="<?php echo site_url("payroll/change_status/0") . "?uri=" . uri_string(); ?>">All Employees</a></li>
             <?php foreach($employees_status as $emp_stat) { ?>
-                <li><a href="<?php echo site_url("payroll/change_status/{$emp_stat->status}") . "?uri=" . uri_string(); ?>"><?php echo $emp_stat->status_name; ?></a></li>
+                <li class="<?php echo (($current_employee_status) && ($current_employee_status->id == $emp_stat->status)) ? 'active' : ''; ?>"><a href="<?php echo site_url("payroll/change_status/{$emp_stat->status}") . "?uri=" . uri_string(); ?>"><?php echo $emp_stat->status_name; ?></a></li>
             <?php } ?>
           </ul>
         </li>

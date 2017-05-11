@@ -27,7 +27,7 @@ foreach( $deductions_columns as $column ) {
 ?>
 
 <?php foreach($payroll_groups as $payroll_group) { ?>
- 
+ <?php if($payroll_group->employees) { ?>
           <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
               <tr class="warning">
@@ -47,7 +47,7 @@ foreach( $deductions_columns as $column ) {
             </thead>
             <tbody>
             
-<?php if($payroll_group->employees) { 
+<?php 
               foreach($payroll_group->employees as $employee) {
               ?>
               <tr>
@@ -70,12 +70,11 @@ foreach( $deductions_columns as $column ) {
                 <?php } ?>
                 <td class="text-right"><?php echo number_format($total_deductions,2); ?></td>
               </tr>
-<?php         } 
-
-      } ?>
+<?php } ?>
 
             </tbody>
           </table>
+<?php } ?>
     <?php } ?>
 
           <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">

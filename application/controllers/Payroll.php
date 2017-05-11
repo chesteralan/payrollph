@@ -870,4 +870,9 @@ class Payroll extends MY_Controller {
 
 	}
 
+	public function change_status($status_id) {
+		$this->session->set_userdata('employees_status_id', $status_id);
+		redirect($this->input->get('uri'));
+	}
+
 }

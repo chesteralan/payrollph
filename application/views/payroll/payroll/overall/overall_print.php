@@ -248,7 +248,6 @@ $group_total_earnings += $total_gross_earnings;
 
   $group_benefits[$er] += $employee->$er;
   $total_deductions += $employee->$ee;
-  $group_total_deductions += $total_deductions;
   if( isColumn($this, 'benefit_' . $column->id, $print_columns) ) {
 ?>
                 <td class="text-right"><?php echo number_format($employee->$ee,2); ?></td>
@@ -272,6 +271,7 @@ $group_total_earnings += $total_gross_earnings;
 $net_pay = (($total_earnings + $gross_pay) - $total_deductions); 
 $total_net_pay += $net_pay;
 $group_net_pay += $net_pay;
+$group_total_deductions += $total_deductions;
 ?>
                 <td class="text-right bold"><?php echo number_format($total_deductions,2); ?></td>
                 <td class="text-right bold bigger"><?php echo number_format($net_pay,2); ?></td>

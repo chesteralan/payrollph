@@ -62,7 +62,7 @@ function denomination($amount, $d, $less=0) {
 </div>
 
 <div class="full-border padding3">
-  <h3>PAYROLL SHEET</h3>
+  <h3>DENOMINATION SHEET</h3>
   For the period covered <?php echo date('F d, Y', strtotime($inclusive_dates->start_date)); ?> - <?php echo date('F d, Y', strtotime($inclusive_dates->end_date)); ?>
 </div>
 
