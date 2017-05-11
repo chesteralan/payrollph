@@ -12,8 +12,13 @@ CREATE TABLE `payroll_deductions` (
   KEY `deduction_id` (`payroll_id`,`deduction_id`)
 );
 
+ ALTER TABLE  `payroll_deductions` ADD  `payroll_id` int(20) NOT NULL   ;
+ ALTER TABLE  `payroll_deductions` ADD  `deduction_id` int(20) NOT NULL   ;
+ ALTER TABLE  `payroll_deductions` ADD  `order` int(2) NOT NULL   DEFAULT '0';
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -52,8 +57,6 @@ class Payroll_deductions_model extends MY_Model {
 	/** 
 	* Sets a value to `payroll_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -63,7 +66,6 @@ class Payroll_deductions_model extends MY_Model {
 	/** 
 	* Get the value of `payroll_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getPayrollId() {
@@ -78,8 +80,6 @@ class Payroll_deductions_model extends MY_Model {
 	/** 
 	* Sets a value to `deduction_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setDeductionId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -89,7 +89,6 @@ class Payroll_deductions_model extends MY_Model {
 	/** 
 	* Get the value of `deduction_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getDeductionId() {
@@ -104,8 +103,6 @@ class Payroll_deductions_model extends MY_Model {
 	/** 
 	* Sets a value to `order` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setOrder($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -115,7 +112,6 @@ class Payroll_deductions_model extends MY_Model {
 	/** 
 	* Get the value of `order` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getOrder() {

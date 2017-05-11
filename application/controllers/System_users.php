@@ -12,6 +12,8 @@ class System_users extends MY_Controller {
 		
 		$this->load->model('User_accounts_model');
 		$this->load->model('User_accounts_restrictions_model');
+		$this->load->model('User_accounts_companies_model');
+		$this->load->model('Companies_list_model');
 	}
 
 	public function index($start=0) {
@@ -165,6 +167,48 @@ class System_users extends MY_Controller {
 		$this->template_data->set('output', $output);
 
 		$this->load->view('system/user_accounts/user_accounts_restrictions', $this->template_data->get_data());
+	}
+
+	public function companies($id, $output='') {
+
+		$this->_isAuth('system', 'users', 'edit');
+		
+		$user = new $this->User_accounts_model;
+		$user->setId($id, true);
+		$user_data = $user->get();
+		$this->template_data->set('user', $user_data);
+
+		if( $this->input->post() && ($user_data) ) {
+			
+			foreach($this->input->post('company') as $company_id) {
+				$new = new $this->User_accounts_companies_model();
+				$new->setUid($user_data->id,true);
+				$new->setCompanyId($company_id,true);
+				if( $new->nonEmpty() ) {
+					if( !in_array($company_id, $this->input->post('company_checked'))) {
+						$new->delete();
+					}
+				} else {
+					if( in_array($company_id, $this->input->post('company_checked'))) {
+						$new->insert();
+					}
+				}
+			} 
+
+			if( $this->input->get('next') ) {
+				redirect( $this->input->get('next') . "?success=true" );
+			} else {
+				redirect( site_url("system_users") . "?success=true" );
+			}
+		}
+
+		$companies = new $this->Companies_list_model('c');
+		$companies->set_select('c.*');
+		$companies->set_select("(SELECT COUNT(*) FROM user_accounts_companies uc WHERE uc.uid={$user_data->id} AND uc.company_id=c.id) as selected");
+		$this->template_data->set('companies', $companies->populate());		
+
+		$this->template_data->set('output', $output);
+		$this->load->view('system/user_accounts/user_accounts_companies', $this->template_data->get_data());
 	}
 
 }

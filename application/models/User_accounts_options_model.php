@@ -14,8 +14,15 @@ CREATE TABLE `user_accounts_options` (
   KEY `uid` (`uid`)
 );
 
+ ALTER TABLE  `user_accounts_options` ADD  `uid` int(20) NOT NULL   ;
+ ALTER TABLE  `user_accounts_options` ADD  `department` varchar(200) NOT NULL   ;
+ ALTER TABLE  `user_accounts_options` ADD  `section` varchar(200) NOT NULL   ;
+ ALTER TABLE  `user_accounts_options` ADD  `key` varchar(200) NOT NULL   ;
+ ALTER TABLE  `user_accounts_options` ADD  `value` text NOT NULL   ;
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -56,8 +63,6 @@ class User_accounts_options_model extends MY_Model {
 	/** 
 	* Sets a value to `uid` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setUid($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -67,7 +72,6 @@ class User_accounts_options_model extends MY_Model {
 	/** 
 	* Get the value of `uid` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getUid() {
@@ -82,8 +86,6 @@ class User_accounts_options_model extends MY_Model {
 	/** 
 	* Sets a value to `department` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setDepartment($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -93,7 +95,6 @@ class User_accounts_options_model extends MY_Model {
 	/** 
 	* Get the value of `department` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getDepartment() {
@@ -108,8 +109,6 @@ class User_accounts_options_model extends MY_Model {
 	/** 
 	* Sets a value to `section` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setSection($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -119,7 +118,6 @@ class User_accounts_options_model extends MY_Model {
 	/** 
 	* Get the value of `section` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getSection() {
@@ -134,8 +132,6 @@ class User_accounts_options_model extends MY_Model {
 	/** 
 	* Sets a value to `key` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setKey($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -145,7 +141,6 @@ class User_accounts_options_model extends MY_Model {
 	/** 
 	* Get the value of `key` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getKey() {
@@ -160,8 +155,6 @@ class User_accounts_options_model extends MY_Model {
 	/** 
 	* Sets a value to `value` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setValue($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -171,7 +164,6 @@ class User_accounts_options_model extends MY_Model {
 	/** 
 	* Get the value of `value` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getValue() {

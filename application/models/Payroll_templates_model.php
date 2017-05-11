@@ -18,8 +18,17 @@ CREATE TABLE `payroll_templates` (
   KEY `company_id` (`company_id`)
 );
 
+ ALTER TABLE  `payroll_templates` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ ALTER TABLE  `payroll_templates` ADD  `company_id` int(20) NOT NULL   ;
+ ALTER TABLE  `payroll_templates` ADD  `name` varchar(200) NOT NULL   ;
+ ALTER TABLE  `payroll_templates` ADD  `pages` int(2) NULL   DEFAULT '1';
+ ALTER TABLE  `payroll_templates` ADD  `checked_by` int(20) NULL   ;
+ ALTER TABLE  `payroll_templates` ADD  `approved_by` int(20) NULL   ;
+ ALTER TABLE  `payroll_templates` ADD  `active` int(1) NOT NULL   DEFAULT '1';
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -62,8 +71,6 @@ class Payroll_templates_model extends MY_Model {
 	/** 
 	* Sets a value to `id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -73,7 +80,6 @@ class Payroll_templates_model extends MY_Model {
 	/** 
 	* Get the value of `id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getId() {
@@ -88,8 +94,6 @@ class Payroll_templates_model extends MY_Model {
 	/** 
 	* Sets a value to `company_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -99,7 +103,6 @@ class Payroll_templates_model extends MY_Model {
 	/** 
 	* Get the value of `company_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getCompanyId() {
@@ -114,8 +117,6 @@ class Payroll_templates_model extends MY_Model {
 	/** 
 	* Sets a value to `name` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -125,7 +126,6 @@ class Payroll_templates_model extends MY_Model {
 	/** 
 	* Get the value of `name` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getName() {
@@ -140,8 +140,6 @@ class Payroll_templates_model extends MY_Model {
 	/** 
 	* Sets a value to `pages` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setPages($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -151,7 +149,6 @@ class Payroll_templates_model extends MY_Model {
 	/** 
 	* Get the value of `pages` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getPages() {
@@ -166,8 +163,6 @@ class Payroll_templates_model extends MY_Model {
 	/** 
 	* Sets a value to `checked_by` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setCheckedBy($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -177,7 +172,6 @@ class Payroll_templates_model extends MY_Model {
 	/** 
 	* Get the value of `checked_by` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getCheckedBy() {
@@ -192,8 +186,6 @@ class Payroll_templates_model extends MY_Model {
 	/** 
 	* Sets a value to `approved_by` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setApprovedBy($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -203,7 +195,6 @@ class Payroll_templates_model extends MY_Model {
 	/** 
 	* Get the value of `approved_by` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getApprovedBy() {
@@ -218,8 +209,6 @@ class Payroll_templates_model extends MY_Model {
 	/** 
 	* Sets a value to `active` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -229,7 +218,6 @@ class Payroll_templates_model extends MY_Model {
 	/** 
 	* Get the value of `active` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getActive() {

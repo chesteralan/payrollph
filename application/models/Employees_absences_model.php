@@ -14,8 +14,15 @@ CREATE TABLE `employees_absences` (
   KEY `name_id` (`name_id`,`date_absent`)
 );
 
+ ALTER TABLE  `employees_absences` ADD  `name_id` int(20) NOT NULL   ;
+ ALTER TABLE  `employees_absences` ADD  `date_absent` date NOT NULL   ;
+ ALTER TABLE  `employees_absences` ADD  `hours` int(2) NULL   DEFAULT '8';
+ ALTER TABLE  `employees_absences` ADD  `leave_type` int(20) NULL   ;
+ ALTER TABLE  `employees_absences` ADD  `notes` text NULL   ;
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -56,8 +63,6 @@ class Employees_absences_model extends MY_Model {
 	/** 
 	* Sets a value to `name_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -67,7 +72,6 @@ class Employees_absences_model extends MY_Model {
 	/** 
 	* Get the value of `name_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getNameId() {
@@ -82,8 +86,6 @@ class Employees_absences_model extends MY_Model {
 	/** 
 	* Sets a value to `date_absent` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setDateAbsent($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -93,7 +95,6 @@ class Employees_absences_model extends MY_Model {
 	/** 
 	* Get the value of `date_absent` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getDateAbsent() {
@@ -108,8 +109,6 @@ class Employees_absences_model extends MY_Model {
 	/** 
 	* Sets a value to `hours` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setHours($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -119,7 +118,6 @@ class Employees_absences_model extends MY_Model {
 	/** 
 	* Get the value of `hours` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getHours() {
@@ -134,8 +132,6 @@ class Employees_absences_model extends MY_Model {
 	/** 
 	* Sets a value to `leave_type` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setLeaveType($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -145,7 +141,6 @@ class Employees_absences_model extends MY_Model {
 	/** 
 	* Get the value of `leave_type` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getLeaveType() {
@@ -160,8 +155,6 @@ class Employees_absences_model extends MY_Model {
 	/** 
 	* Sets a value to `notes` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -171,7 +164,6 @@ class Employees_absences_model extends MY_Model {
 	/** 
 	* Get the value of `notes` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getNotes() {

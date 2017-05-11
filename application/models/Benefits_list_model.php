@@ -17,8 +17,18 @@ CREATE TABLE `benefits_list` (
   PRIMARY KEY (`id`)
 );
 
+ ALTER TABLE  `benefits_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ ALTER TABLE  `benefits_list` ADD  `name` varchar(200) NOT NULL   ;
+ ALTER TABLE  `benefits_list` ADD  `notes` text NULL   ;
+ ALTER TABLE  `benefits_list` ADD  `leave` int(1) NULL   DEFAULT '0';
+ ALTER TABLE  `benefits_list` ADD  `ee_account_title` varchar(200) NULL   ;
+ ALTER TABLE  `benefits_list` ADD  `er_account_title` varchar(200) NULL   ;
+ ALTER TABLE  `benefits_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';
+ ALTER TABLE  `benefits_list` ADD  `trash` int(1) NULL   DEFAULT '0';
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -62,8 +72,6 @@ class Benefits_list_model extends MY_Model {
 	/** 
 	* Sets a value to `id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -73,7 +81,6 @@ class Benefits_list_model extends MY_Model {
 	/** 
 	* Get the value of `id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getId() {
@@ -88,8 +95,6 @@ class Benefits_list_model extends MY_Model {
 	/** 
 	* Sets a value to `name` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -99,7 +104,6 @@ class Benefits_list_model extends MY_Model {
 	/** 
 	* Get the value of `name` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getName() {
@@ -114,8 +118,6 @@ class Benefits_list_model extends MY_Model {
 	/** 
 	* Sets a value to `notes` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -125,7 +127,6 @@ class Benefits_list_model extends MY_Model {
 	/** 
 	* Get the value of `notes` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getNotes() {
@@ -140,8 +141,6 @@ class Benefits_list_model extends MY_Model {
 	/** 
 	* Sets a value to `leave` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setLeave($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -151,7 +150,6 @@ class Benefits_list_model extends MY_Model {
 	/** 
 	* Get the value of `leave` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getLeave() {
@@ -166,8 +164,6 @@ class Benefits_list_model extends MY_Model {
 	/** 
 	* Sets a value to `ee_account_title` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setEeAccountTitle($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -177,7 +173,6 @@ class Benefits_list_model extends MY_Model {
 	/** 
 	* Get the value of `ee_account_title` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getEeAccountTitle() {
@@ -192,8 +187,6 @@ class Benefits_list_model extends MY_Model {
 	/** 
 	* Sets a value to `er_account_title` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setErAccountTitle($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -203,7 +196,6 @@ class Benefits_list_model extends MY_Model {
 	/** 
 	* Get the value of `er_account_title` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getErAccountTitle() {
@@ -218,8 +210,6 @@ class Benefits_list_model extends MY_Model {
 	/** 
 	* Sets a value to `active` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -229,7 +219,6 @@ class Benefits_list_model extends MY_Model {
 	/** 
 	* Get the value of `active` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getActive() {
@@ -244,8 +233,6 @@ class Benefits_list_model extends MY_Model {
 	/** 
 	* Sets a value to `trash` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -255,7 +242,6 @@ class Benefits_list_model extends MY_Model {
 	/** 
 	* Get the value of `trash` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getTrash() {

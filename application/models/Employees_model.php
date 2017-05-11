@@ -15,7 +15,7 @@ CREATE TABLE `employees` (
   `position_id` int(20) DEFAULT NULL,
   `area_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,
-  `status` varchar(100) DEFAULT NULL,
+  `status` int(20) DEFAULT NULL,
   `notes` text,
   `phone_number` varchar(100) DEFAULT NULL,
   `address` text,
@@ -28,8 +28,24 @@ CREATE TABLE `employees` (
   KEY `company_id` (`company_id`)
 );
 
+ ALTER TABLE  `employees` ADD  `name_id` int(20) NOT NULL   PRIMARY KEY;
+ ALTER TABLE  `employees` ADD  `company_id` int(20) NOT NULL   ;
+ ALTER TABLE  `employees` ADD  `group_id` int(20) NULL   ;
+ ALTER TABLE  `employees` ADD  `lastname` varchar(100) NOT NULL   ;
+ ALTER TABLE  `employees` ADD  `firstname` varchar(100) NOT NULL   ;
+ ALTER TABLE  `employees` ADD  `middlename` varchar(100) NOT NULL   ;
+ ALTER TABLE  `employees` ADD  `position_id` int(20) NULL   ;
+ ALTER TABLE  `employees` ADD  `area_id` int(20) NULL   ;
+ ALTER TABLE  `employees` ADD  `hired` date NULL   ;
+ ALTER TABLE  `employees` ADD  `status` int(20) NULL   ;
+ ALTER TABLE  `employees` ADD  `notes` text NULL   ;
+ ALTER TABLE  `employees` ADD  `phone_number` varchar(100) NULL   ;
+ ALTER TABLE  `employees` ADD  `address` text NULL   ;
+ ALTER TABLE  `employees` ADD  `trash` int(1) NOT NULL   DEFAULT '0';
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -79,8 +95,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Sets a value to `name_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -90,7 +104,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Get the value of `name_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getNameId() {
@@ -105,8 +118,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Sets a value to `company_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -116,7 +127,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Get the value of `company_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getCompanyId() {
@@ -131,8 +141,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Sets a value to `group_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setGroupId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -142,7 +150,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Get the value of `group_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getGroupId() {
@@ -157,8 +164,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Sets a value to `lastname` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setLastname($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -168,7 +173,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Get the value of `lastname` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getLastname() {
@@ -183,8 +187,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Sets a value to `firstname` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setFirstname($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -194,7 +196,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Get the value of `firstname` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getFirstname() {
@@ -209,8 +210,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Sets a value to `middlename` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setMiddlename($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -220,7 +219,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Get the value of `middlename` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getMiddlename() {
@@ -235,8 +233,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Sets a value to `position_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setPositionId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -246,7 +242,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Get the value of `position_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getPositionId() {
@@ -261,8 +256,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Sets a value to `area_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setAreaId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -272,7 +265,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Get the value of `area_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getAreaId() {
@@ -287,8 +279,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Sets a value to `hired` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setHired($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -298,7 +288,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Get the value of `hired` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getHired() {
@@ -313,8 +302,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Sets a value to `status` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setStatus($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -324,7 +311,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Get the value of `status` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getStatus() {
@@ -339,8 +325,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Sets a value to `notes` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -350,7 +334,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Get the value of `notes` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getNotes() {
@@ -365,8 +348,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Sets a value to `phone_number` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setPhoneNumber($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -376,7 +357,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Get the value of `phone_number` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getPhoneNumber() {
@@ -391,8 +371,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Sets a value to `address` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setAddress($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -402,7 +380,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Get the value of `address` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getAddress() {
@@ -417,8 +394,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Sets a value to `trash` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -428,7 +403,6 @@ class Employees_model extends MY_Model {
 	/** 
 	* Get the value of `trash` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getTrash() {

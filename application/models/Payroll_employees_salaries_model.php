@@ -21,8 +21,20 @@ CREATE TABLE `payroll_employees_salaries` (
   KEY `payroll_id` (`payroll_id`)
 );
 
+ ALTER TABLE  `payroll_employees_salaries` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ ALTER TABLE  `payroll_employees_salaries` ADD  `payroll_id` int(20) NOT NULL   ;
+ ALTER TABLE  `payroll_employees_salaries` ADD  `name_id` int(20) NOT NULL   ;
+ ALTER TABLE  `payroll_employees_salaries` ADD  `salary_id` int(20) NOT NULL   ;
+ ALTER TABLE  `payroll_employees_salaries` ADD  `amount` decimal(30,5) NULL   DEFAULT '0.00000';
+ ALTER TABLE  `payroll_employees_salaries` ADD  `notes` text NULL   ;
+ ALTER TABLE  `payroll_employees_salaries` ADD  `rate_per` varchar(10) NULL   DEFAULT 'month';
+ ALTER TABLE  `payroll_employees_salaries` ADD  `days` int(10) NULL   DEFAULT '26';
+ ALTER TABLE  `payroll_employees_salaries` ADD  `hours` int(10) NULL   DEFAULT '8';
+ ALTER TABLE  `payroll_employees_salaries` ADD  `cola` decimal(10,5) NULL   DEFAULT '0.00000';
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -68,8 +80,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Sets a value to `id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -79,7 +89,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Get the value of `id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getId() {
@@ -94,8 +103,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Sets a value to `payroll_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -105,7 +112,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Get the value of `payroll_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getPayrollId() {
@@ -120,8 +126,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Sets a value to `name_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -131,7 +135,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Get the value of `name_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getNameId() {
@@ -146,8 +149,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Sets a value to `salary_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setSalaryId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -157,7 +158,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Get the value of `salary_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getSalaryId() {
@@ -172,8 +172,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Sets a value to `amount` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setAmount($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -183,7 +181,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Get the value of `amount` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getAmount() {
@@ -198,8 +195,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Sets a value to `notes` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -209,7 +204,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Get the value of `notes` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getNotes() {
@@ -224,8 +218,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Sets a value to `rate_per` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setRatePer($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -235,7 +227,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Get the value of `rate_per` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getRatePer() {
@@ -250,8 +241,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Sets a value to `days` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setDays($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -261,7 +250,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Get the value of `days` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getDays() {
@@ -276,8 +264,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Sets a value to `hours` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setHours($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -287,7 +273,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Get the value of `hours` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getHours() {
@@ -302,8 +287,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Sets a value to `cola` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setCola($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -313,7 +296,6 @@ class Payroll_employees_salaries_model extends MY_Model {
 	/** 
 	* Get the value of `cola` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getCola() {

@@ -15,8 +15,15 @@ CREATE TABLE `names_list` (
   UNIQUE KEY `full_name` (`full_name`)
 );
 
+ ALTER TABLE  `names_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ ALTER TABLE  `names_list` ADD  `full_name` varchar(200) NOT NULL   UNIQUE KEY;
+ ALTER TABLE  `names_list` ADD  `address` varchar(200) NULL   ;
+ ALTER TABLE  `names_list` ADD  `contact_number` varchar(200) NULL   ;
+ ALTER TABLE  `names_list` ADD  `trash` int(1) NOT NULL   DEFAULT '0';
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -57,8 +64,6 @@ class Names_list_model extends MY_Model {
 	/** 
 	* Sets a value to `id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -68,7 +73,6 @@ class Names_list_model extends MY_Model {
 	/** 
 	* Get the value of `id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getId() {
@@ -83,8 +87,6 @@ class Names_list_model extends MY_Model {
 	/** 
 	* Sets a value to `full_name` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setFullName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -94,7 +96,6 @@ class Names_list_model extends MY_Model {
 	/** 
 	* Get the value of `full_name` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getFullName() {
@@ -109,8 +110,6 @@ class Names_list_model extends MY_Model {
 	/** 
 	* Sets a value to `address` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setAddress($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -120,7 +119,6 @@ class Names_list_model extends MY_Model {
 	/** 
 	* Get the value of `address` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getAddress() {
@@ -135,8 +133,6 @@ class Names_list_model extends MY_Model {
 	/** 
 	* Sets a value to `contact_number` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setContactNumber($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -146,7 +142,6 @@ class Names_list_model extends MY_Model {
 	/** 
 	* Get the value of `contact_number` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getContactNumber() {
@@ -161,8 +156,6 @@ class Names_list_model extends MY_Model {
 	/** 
 	* Sets a value to `trash` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -172,7 +165,6 @@ class Names_list_model extends MY_Model {
 	/** 
 	* Get the value of `trash` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getTrash() {

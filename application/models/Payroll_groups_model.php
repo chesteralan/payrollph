@@ -13,8 +13,14 @@ CREATE TABLE `payroll_groups` (
   KEY `group_id` (`payroll_id`,`group_id`)
 );
 
+ ALTER TABLE  `payroll_groups` ADD  `payroll_id` int(20) NOT NULL   ;
+ ALTER TABLE  `payroll_groups` ADD  `group_id` int(20) NOT NULL   ;
+ ALTER TABLE  `payroll_groups` ADD  `order` int(2) NOT NULL   DEFAULT '0';
+ ALTER TABLE  `payroll_groups` ADD  `page` int(2) NULL   DEFAULT '1';
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -54,8 +60,6 @@ class Payroll_groups_model extends MY_Model {
 	/** 
 	* Sets a value to `payroll_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -65,7 +69,6 @@ class Payroll_groups_model extends MY_Model {
 	/** 
 	* Get the value of `payroll_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getPayrollId() {
@@ -80,8 +83,6 @@ class Payroll_groups_model extends MY_Model {
 	/** 
 	* Sets a value to `group_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setGroupId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -91,7 +92,6 @@ class Payroll_groups_model extends MY_Model {
 	/** 
 	* Get the value of `group_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getGroupId() {
@@ -106,8 +106,6 @@ class Payroll_groups_model extends MY_Model {
 	/** 
 	* Sets a value to `order` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setOrder($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -117,7 +115,6 @@ class Payroll_groups_model extends MY_Model {
 	/** 
 	* Get the value of `order` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getOrder() {
@@ -132,8 +129,6 @@ class Payroll_groups_model extends MY_Model {
 	/** 
 	* Sets a value to `page` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setPage($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -143,7 +138,6 @@ class Payroll_groups_model extends MY_Model {
 	/** 
 	* Get the value of `page` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getPage() {

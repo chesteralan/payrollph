@@ -180,20 +180,22 @@ $print_group_total[(($employee->print_group)?$employee->print_group:0)] += $net_
 
  ?>
 
-<table width="100%" class="table full-border" cellspacing="0" cellpadding="0">
+<table width="100%" class="table full-border summary" cellspacing="0" cellpadding="0">
   <?php foreach($print_groups as $pg) { ?>
   <tr>
     <td class="bold allcaps"><?php echo $pg->name; ?></td>
     <td class="bold  allcaps text-right"><?php echo number_format($print_group_total[$pg->id],2); ?></td>
   </tr>
   <?php } ?>
+<?php if( $print_group_total[0] ) { ?>
   <tr>
     <td class="bold allcaps">ERROR - There is/are unassigned employee(s).</td>
     <td class="bold  allcaps text-right"><?php echo number_format($print_group_total[0],2); ?></td>
   </tr>
+<?php } ?>
 </table>
 
-<table width="100%" class="total_net_pay full-border" cellspacing="0" cellpadding="0">
+<table width="100%" class="total_net_pay full-border summary" cellspacing="0" cellpadding="0">
 
   <tr>
     <td class="bold allcaps">Total Net Pay</td>

@@ -12,8 +12,13 @@ CREATE TABLE `payroll_templates_benefits` (
   KEY `benefit_id` (`template_id`,`benefit_id`)
 );
 
+ ALTER TABLE  `payroll_templates_benefits` ADD  `template_id` int(20) NOT NULL   ;
+ ALTER TABLE  `payroll_templates_benefits` ADD  `benefit_id` int(20) NOT NULL   ;
+ ALTER TABLE  `payroll_templates_benefits` ADD  `order` int(2) NOT NULL   DEFAULT '0';
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -52,8 +57,6 @@ class Payroll_templates_benefits_model extends MY_Model {
 	/** 
 	* Sets a value to `template_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -63,7 +66,6 @@ class Payroll_templates_benefits_model extends MY_Model {
 	/** 
 	* Get the value of `template_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getTemplateId() {
@@ -78,8 +80,6 @@ class Payroll_templates_benefits_model extends MY_Model {
 	/** 
 	* Sets a value to `benefit_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setBenefitId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -89,7 +89,6 @@ class Payroll_templates_benefits_model extends MY_Model {
 	/** 
 	* Get the value of `benefit_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getBenefitId() {
@@ -104,8 +103,6 @@ class Payroll_templates_benefits_model extends MY_Model {
 	/** 
 	* Sets a value to `order` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setOrder($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -115,7 +112,6 @@ class Payroll_templates_benefits_model extends MY_Model {
 	/** 
 	* Get the value of `order` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getOrder() {

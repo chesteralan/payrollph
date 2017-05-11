@@ -15,8 +15,16 @@ CREATE TABLE `earnings_list` (
   PRIMARY KEY (`id`)
 );
 
+ ALTER TABLE  `earnings_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ ALTER TABLE  `earnings_list` ADD  `name` varchar(200) NOT NULL   ;
+ ALTER TABLE  `earnings_list` ADD  `notes` text NULL   ;
+ ALTER TABLE  `earnings_list` ADD  `account_title` varchar(200) NULL   ;
+ ALTER TABLE  `earnings_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';
+ ALTER TABLE  `earnings_list` ADD  `trash` int(1) NULL   DEFAULT '0';
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -58,8 +66,6 @@ class Earnings_list_model extends MY_Model {
 	/** 
 	* Sets a value to `id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -69,7 +75,6 @@ class Earnings_list_model extends MY_Model {
 	/** 
 	* Get the value of `id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getId() {
@@ -84,8 +89,6 @@ class Earnings_list_model extends MY_Model {
 	/** 
 	* Sets a value to `name` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -95,7 +98,6 @@ class Earnings_list_model extends MY_Model {
 	/** 
 	* Get the value of `name` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getName() {
@@ -110,8 +112,6 @@ class Earnings_list_model extends MY_Model {
 	/** 
 	* Sets a value to `notes` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -121,7 +121,6 @@ class Earnings_list_model extends MY_Model {
 	/** 
 	* Get the value of `notes` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getNotes() {
@@ -136,8 +135,6 @@ class Earnings_list_model extends MY_Model {
 	/** 
 	* Sets a value to `account_title` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setAccountTitle($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -147,7 +144,6 @@ class Earnings_list_model extends MY_Model {
 	/** 
 	* Get the value of `account_title` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getAccountTitle() {
@@ -162,8 +158,6 @@ class Earnings_list_model extends MY_Model {
 	/** 
 	* Sets a value to `active` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -173,7 +167,6 @@ class Earnings_list_model extends MY_Model {
 	/** 
 	* Get the value of `active` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getActive() {
@@ -188,8 +181,6 @@ class Earnings_list_model extends MY_Model {
 	/** 
 	* Sets a value to `trash` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -199,7 +190,6 @@ class Earnings_list_model extends MY_Model {
 	/** 
 	* Get the value of `trash` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getTrash() {

@@ -16,8 +16,17 @@ CREATE TABLE `user_accounts_restrictions` (
   KEY `uid` (`uid`)
 );
 
+ ALTER TABLE  `user_accounts_restrictions` ADD  `uid` int(20) NOT NULL   ;
+ ALTER TABLE  `user_accounts_restrictions` ADD  `department` varchar(50) NOT NULL   ;
+ ALTER TABLE  `user_accounts_restrictions` ADD  `section` varchar(50) NOT NULL   ;
+ ALTER TABLE  `user_accounts_restrictions` ADD  `view` int(1) NOT NULL   DEFAULT '0';
+ ALTER TABLE  `user_accounts_restrictions` ADD  `add` int(1) NOT NULL   DEFAULT '0';
+ ALTER TABLE  `user_accounts_restrictions` ADD  `edit` int(1) NOT NULL   DEFAULT '0';
+ ALTER TABLE  `user_accounts_restrictions` ADD  `delete` int(1) NOT NULL   DEFAULT '0';
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -60,8 +69,6 @@ class User_accounts_restrictions_model extends MY_Model {
 	/** 
 	* Sets a value to `uid` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setUid($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -71,7 +78,6 @@ class User_accounts_restrictions_model extends MY_Model {
 	/** 
 	* Get the value of `uid` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getUid() {
@@ -86,8 +92,6 @@ class User_accounts_restrictions_model extends MY_Model {
 	/** 
 	* Sets a value to `department` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setDepartment($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -97,7 +101,6 @@ class User_accounts_restrictions_model extends MY_Model {
 	/** 
 	* Get the value of `department` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getDepartment() {
@@ -112,8 +115,6 @@ class User_accounts_restrictions_model extends MY_Model {
 	/** 
 	* Sets a value to `section` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setSection($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -123,7 +124,6 @@ class User_accounts_restrictions_model extends MY_Model {
 	/** 
 	* Get the value of `section` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getSection() {
@@ -138,8 +138,6 @@ class User_accounts_restrictions_model extends MY_Model {
 	/** 
 	* Sets a value to `view` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setView($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -149,7 +147,6 @@ class User_accounts_restrictions_model extends MY_Model {
 	/** 
 	* Get the value of `view` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getView() {
@@ -164,8 +161,6 @@ class User_accounts_restrictions_model extends MY_Model {
 	/** 
 	* Sets a value to `add` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setAdd($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -175,7 +170,6 @@ class User_accounts_restrictions_model extends MY_Model {
 	/** 
 	* Get the value of `add` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getAdd() {
@@ -190,8 +184,6 @@ class User_accounts_restrictions_model extends MY_Model {
 	/** 
 	* Sets a value to `edit` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setEdit($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -201,7 +193,6 @@ class User_accounts_restrictions_model extends MY_Model {
 	/** 
 	* Get the value of `edit` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getEdit() {
@@ -216,8 +207,6 @@ class User_accounts_restrictions_model extends MY_Model {
 	/** 
 	* Sets a value to `delete` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setDelete($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -227,7 +216,6 @@ class User_accounts_restrictions_model extends MY_Model {
 	/** 
 	* Get the value of `delete` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getDelete() {

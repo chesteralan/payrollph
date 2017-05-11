@@ -29,6 +29,18 @@
       <li><a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/print") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-print"></span></a></li>
 
 <?php } ?>
+
+<?php if( $employees_status ) { ?>
+    <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Employees <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <?php foreach($employees_status as $emp_stat) { ?>
+                <li><a href="<?php echo site_url("payroll/change_status/{$emp_stat->status}") . "?uri=" . uri_string(); ?>"><?php echo $emp_stat->status_name; ?></a></li>
+            <?php } ?>
+          </ul>
+        </li>
+<?php } ?>
+
       </ul>
 
       <ul class="nav navbar-nav navbar-right">

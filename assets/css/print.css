@@ -31,7 +31,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 table td {
   vertical-align: middle;
-  padding: 3px;
+  padding: 2px;
 }
 .border-bottom td {
   border-bottom: 1px solid #000;
@@ -46,10 +46,14 @@ table td {
   text-align: left;
 }
 th {
-	font-size: 10px;
+	font-size: 8px;
 }
 td {
-	font-size: 10px;
+	font-size: 8px;
+}
+table.summary td {
+  font-size: 12px;
+  padding:10px!important;
 }
 .signature {
   border-top:1px solid #000;
@@ -127,7 +131,7 @@ a.no-link {
 }
 .payroll .table td,
 .payroll .table th {
-  padding:5px;
+  padding:2px;
 }
 .period {
   margin-top: 10px;
@@ -142,6 +146,9 @@ a.no-link {
 }
 .total_net_pay td {
   font-size: 12px;
+}
+.total_net_pay.summary td {
+  font-size: 15px;
 }
 .full-border {
   border:1px solid #000;

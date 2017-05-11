@@ -72,7 +72,7 @@ CREATE TABLE `employees` (
   `position_id` int(20) DEFAULT NULL,
   `area_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,
-  `status` varchar(100) DEFAULT NULL,
+  `status` int(20) DEFAULT NULL,
   `notes` text,
   `phone_number` varchar(100) DEFAULT NULL,
   `address` text,
@@ -473,6 +473,14 @@ CREATE TABLE `user_accounts` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `id` (`id`)
+);
+
+-- Table structure for table `user_accounts_companies` 
+
+CREATE TABLE `user_accounts_companies` (
+  `uid` int(20) NOT NULL,
+  `company_id` int(20) NOT NULL,
+  KEY `uid` (`uid`,`company_id`)
 );
 
 -- Table structure for table `user_accounts_options` 

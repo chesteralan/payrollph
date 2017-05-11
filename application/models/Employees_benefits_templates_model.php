@@ -11,8 +11,12 @@ CREATE TABLE `employees_benefits_templates` (
   KEY `eb_id` (`eb_id`,`template_id`)
 );
 
+ ALTER TABLE  `employees_benefits_templates` ADD  `eb_id` int(20) NOT NULL   ;
+ ALTER TABLE  `employees_benefits_templates` ADD  `template_id` int(20) NOT NULL   ;
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -50,8 +54,6 @@ class Employees_benefits_templates_model extends MY_Model {
 	/** 
 	* Sets a value to `eb_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setEbId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -61,7 +63,6 @@ class Employees_benefits_templates_model extends MY_Model {
 	/** 
 	* Get the value of `eb_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getEbId() {
@@ -76,8 +77,6 @@ class Employees_benefits_templates_model extends MY_Model {
 	/** 
 	* Sets a value to `template_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -87,7 +86,6 @@ class Employees_benefits_templates_model extends MY_Model {
 	/** 
 	* Get the value of `template_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getTemplateId() {

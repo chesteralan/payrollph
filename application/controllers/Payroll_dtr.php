@@ -110,6 +110,17 @@ class Payroll_dtr extends MY_Controller {
 		}
 		$this->template_data->set('payroll_groups', $payroll_group_data);
 
+		$employees_status = new $this->Payroll_employees_model('pe');
+		$employees_status->setPayrollId($id,true);
+		$employees_status->set_select('e.status');
+		$employees_status->set_select('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status) as status_name');
+		$employees_status->set_join('employees e', 'e.name_id=pe.name_id');
+		$employees_status->set_limit(0);
+		$employees_status->set_group_by('e.status');
+		$employees_status->set_where('e.status IS NOT NULL');
+		$employees_status->set_order('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status)', 'ASC');
+		$this->template_data->set('employees_status', $employees_status->populate());
+
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/dtr/dtr_view', $this->template_data->get_data());
 	}

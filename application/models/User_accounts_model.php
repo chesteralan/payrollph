@@ -15,8 +15,14 @@ CREATE TABLE `user_accounts` (
   KEY `id` (`id`)
 );
 
+ ALTER TABLE  `user_accounts` ADD  `id` int(10) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ ALTER TABLE  `user_accounts` ADD  `username` varchar(200) NOT NULL   UNIQUE KEY;
+ ALTER TABLE  `user_accounts` ADD  `password` varchar(200) NOT NULL   ;
+ ALTER TABLE  `user_accounts` ADD  `name` varchar(200) NOT NULL   ;
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -56,8 +62,6 @@ class User_accounts_model extends MY_Model {
 	/** 
 	* Sets a value to `id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -67,7 +71,6 @@ class User_accounts_model extends MY_Model {
 	/** 
 	* Get the value of `id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getId() {
@@ -82,8 +85,6 @@ class User_accounts_model extends MY_Model {
 	/** 
 	* Sets a value to `username` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setUsername($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -93,7 +94,6 @@ class User_accounts_model extends MY_Model {
 	/** 
 	* Get the value of `username` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getUsername() {
@@ -108,8 +108,6 @@ class User_accounts_model extends MY_Model {
 	/** 
 	* Sets a value to `password` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setPassword($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -119,7 +117,6 @@ class User_accounts_model extends MY_Model {
 	/** 
 	* Get the value of `password` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getPassword() {
@@ -134,8 +131,6 @@ class User_accounts_model extends MY_Model {
 	/** 
 	* Sets a value to `name` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -145,7 +140,6 @@ class User_accounts_model extends MY_Model {
 	/** 
 	* Get the value of `name` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getName() {

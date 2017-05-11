@@ -11,8 +11,12 @@ CREATE TABLE `payroll_inclusive_dates` (
   KEY `payroll_id` (`payroll_id`)
 );
 
+ ALTER TABLE  `payroll_inclusive_dates` ADD  `payroll_id` int(20) NOT NULL   ;
+ ALTER TABLE  `payroll_inclusive_dates` ADD  `inclusive_date` date NOT NULL   ;
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -50,8 +54,6 @@ class Payroll_inclusive_dates_model extends MY_Model {
 	/** 
 	* Sets a value to `payroll_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -61,7 +63,6 @@ class Payroll_inclusive_dates_model extends MY_Model {
 	/** 
 	* Get the value of `payroll_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getPayrollId() {
@@ -76,8 +77,6 @@ class Payroll_inclusive_dates_model extends MY_Model {
 	/** 
 	* Sets a value to `inclusive_date` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setInclusiveDate($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -87,7 +86,6 @@ class Payroll_inclusive_dates_model extends MY_Model {
 	/** 
 	* Get the value of `inclusive_date` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getInclusiveDate() {

@@ -17,8 +17,17 @@ CREATE TABLE `payroll_employees_deductions` (
   KEY `name_id` (`name_id`,`payroll_id`,`deduction_id`)
 );
 
+ ALTER TABLE  `payroll_employees_deductions` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ ALTER TABLE  `payroll_employees_deductions` ADD  `payroll_id` int(20) NOT NULL   ;
+ ALTER TABLE  `payroll_employees_deductions` ADD  `name_id` int(20) NOT NULL   ;
+ ALTER TABLE  `payroll_employees_deductions` ADD  `deduction_id` int(20) NOT NULL   ;
+ ALTER TABLE  `payroll_employees_deductions` ADD  `entry_id` int(20) NOT NULL   ;
+ ALTER TABLE  `payroll_employees_deductions` ADD  `amount` decimal(30,5) NOT NULL   ;
+ ALTER TABLE  `payroll_employees_deductions` ADD  `notes` text NULL   ;
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -61,8 +70,6 @@ class Payroll_employees_deductions_model extends MY_Model {
 	/** 
 	* Sets a value to `id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -72,7 +79,6 @@ class Payroll_employees_deductions_model extends MY_Model {
 	/** 
 	* Get the value of `id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getId() {
@@ -87,8 +93,6 @@ class Payroll_employees_deductions_model extends MY_Model {
 	/** 
 	* Sets a value to `payroll_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -98,7 +102,6 @@ class Payroll_employees_deductions_model extends MY_Model {
 	/** 
 	* Get the value of `payroll_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getPayrollId() {
@@ -113,8 +116,6 @@ class Payroll_employees_deductions_model extends MY_Model {
 	/** 
 	* Sets a value to `name_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -124,7 +125,6 @@ class Payroll_employees_deductions_model extends MY_Model {
 	/** 
 	* Get the value of `name_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getNameId() {
@@ -139,8 +139,6 @@ class Payroll_employees_deductions_model extends MY_Model {
 	/** 
 	* Sets a value to `deduction_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setDeductionId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -150,7 +148,6 @@ class Payroll_employees_deductions_model extends MY_Model {
 	/** 
 	* Get the value of `deduction_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getDeductionId() {
@@ -165,8 +162,6 @@ class Payroll_employees_deductions_model extends MY_Model {
 	/** 
 	* Sets a value to `entry_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setEntryId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -176,7 +171,6 @@ class Payroll_employees_deductions_model extends MY_Model {
 	/** 
 	* Get the value of `entry_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getEntryId() {
@@ -191,8 +185,6 @@ class Payroll_employees_deductions_model extends MY_Model {
 	/** 
 	* Sets a value to `amount` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setAmount($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -202,7 +194,6 @@ class Payroll_employees_deductions_model extends MY_Model {
 	/** 
 	* Get the value of `amount` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getAmount() {
@@ -217,8 +208,6 @@ class Payroll_employees_deductions_model extends MY_Model {
 	/** 
 	* Sets a value to `notes` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -228,7 +217,6 @@ class Payroll_employees_deductions_model extends MY_Model {
 	/** 
 	* Get the value of `notes` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getNotes() {

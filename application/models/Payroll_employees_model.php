@@ -16,8 +16,17 @@ CREATE TABLE `payroll_employees` (
   KEY `name_id` (`payroll_id`,`name_id`)
 );
 
+ ALTER TABLE  `payroll_employees` ADD  `payroll_id` int(20) NOT NULL   ;
+ ALTER TABLE  `payroll_employees` ADD  `name_id` int(20) NOT NULL   ;
+ ALTER TABLE  `payroll_employees` ADD  `order` int(2) NOT NULL   DEFAULT '0';
+ ALTER TABLE  `payroll_employees` ADD  `payslip` varchar(20) NULL   DEFAULT 'payslip';
+ ALTER TABLE  `payroll_employees` ADD  `template` varchar(20) NULL   DEFAULT 'payslip';
+ ALTER TABLE  `payroll_employees` ADD  `print_group` int(20) NULL   ;
+ ALTER TABLE  `payroll_employees` ADD  `active` int(1) NULL   DEFAULT '1';
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -60,8 +69,6 @@ class Payroll_employees_model extends MY_Model {
 	/** 
 	* Sets a value to `payroll_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -71,7 +78,6 @@ class Payroll_employees_model extends MY_Model {
 	/** 
 	* Get the value of `payroll_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getPayrollId() {
@@ -86,8 +92,6 @@ class Payroll_employees_model extends MY_Model {
 	/** 
 	* Sets a value to `name_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -97,7 +101,6 @@ class Payroll_employees_model extends MY_Model {
 	/** 
 	* Get the value of `name_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getNameId() {
@@ -112,8 +115,6 @@ class Payroll_employees_model extends MY_Model {
 	/** 
 	* Sets a value to `order` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setOrder($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -123,7 +124,6 @@ class Payroll_employees_model extends MY_Model {
 	/** 
 	* Get the value of `order` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getOrder() {
@@ -138,8 +138,6 @@ class Payroll_employees_model extends MY_Model {
 	/** 
 	* Sets a value to `payslip` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setPayslip($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -149,7 +147,6 @@ class Payroll_employees_model extends MY_Model {
 	/** 
 	* Get the value of `payslip` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getPayslip() {
@@ -164,8 +161,6 @@ class Payroll_employees_model extends MY_Model {
 	/** 
 	* Sets a value to `template` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setTemplate($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -175,7 +170,6 @@ class Payroll_employees_model extends MY_Model {
 	/** 
 	* Get the value of `template` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getTemplate() {
@@ -190,8 +184,6 @@ class Payroll_employees_model extends MY_Model {
 	/** 
 	* Sets a value to `print_group` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setPrintGroup($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -201,7 +193,6 @@ class Payroll_employees_model extends MY_Model {
 	/** 
 	* Get the value of `print_group` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getPrintGroup() {
@@ -216,8 +207,6 @@ class Payroll_employees_model extends MY_Model {
 	/** 
 	* Sets a value to `active` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -227,7 +216,6 @@ class Payroll_employees_model extends MY_Model {
 	/** 
 	* Get the value of `active` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getActive() {

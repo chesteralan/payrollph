@@ -21,8 +21,20 @@ CREATE TABLE `employees_benefits` (
   KEY `company_id` (`company_id`)
 );
 
+ ALTER TABLE  `employees_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ ALTER TABLE  `employees_benefits` ADD  `company_id` int(20) NOT NULL   ;
+ ALTER TABLE  `employees_benefits` ADD  `name_id` int(20) NOT NULL   ;
+ ALTER TABLE  `employees_benefits` ADD  `benefit_id` int(20) NOT NULL   ;
+ ALTER TABLE  `employees_benefits` ADD  `employee_share` decimal(30,5) NOT NULL   ;
+ ALTER TABLE  `employees_benefits` ADD  `employer_share` decimal(30,5) NOT NULL   ;
+ ALTER TABLE  `employees_benefits` ADD  `start_date` date NULL   ;
+ ALTER TABLE  `employees_benefits` ADD  `primary` int(1) NULL   DEFAULT '0';
+ ALTER TABLE  `employees_benefits` ADD  `trash` int(1) NULL   DEFAULT '1';
+ ALTER TABLE  `employees_benefits` ADD  `notes` text NULL   ;
+
+
  * @package			        Model
- * @version_number	        3.0.0
+ * @version_number	        4.0.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -68,8 +80,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Sets a value to `id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -79,7 +89,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Get the value of `id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getId() {
@@ -94,8 +103,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Sets a value to `company_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -105,7 +112,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Get the value of `company_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getCompanyId() {
@@ -120,8 +126,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Sets a value to `name_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -131,7 +135,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Get the value of `name_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getNameId() {
@@ -146,8 +149,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Sets a value to `benefit_id` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setBenefitId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -157,7 +158,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Get the value of `benefit_id` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getBenefitId() {
@@ -172,8 +172,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Sets a value to `employee_share` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setEmployeeShare($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -183,7 +181,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Get the value of `employee_share` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getEmployeeShare() {
@@ -198,8 +195,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Sets a value to `employer_share` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setEmployerShare($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -209,7 +204,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Get the value of `employer_share` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getEmployerShare() {
@@ -224,8 +218,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Sets a value to `start_date` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setStartDate($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -235,7 +227,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Get the value of `start_date` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getStartDate() {
@@ -250,8 +241,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Sets a value to `primary` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setPrimary($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -261,7 +250,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Get the value of `primary` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getPrimary() {
@@ -276,8 +264,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Sets a value to `trash` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -287,7 +273,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Get the value of `trash` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getTrash() {
@@ -302,8 +287,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Sets a value to `notes` variable
 	* @access public
-	* @param  String
-	* @return $this;
 	*/
 
 		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
@@ -313,7 +296,6 @@ class Employees_benefits_model extends MY_Model {
 	/** 
 	* Get the value of `notes` variable
 	* @access public
-	* @return String;
 	*/
 
 		public function getNotes() {
