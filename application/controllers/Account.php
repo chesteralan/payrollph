@@ -136,7 +136,7 @@ class Account extends Login_Controller {
 						//if( $this->input->get('next') ) {
 						//	redirect($this->input->get('next'));
 						//} else {
-							redirect(site_url('select_company') . "?next=" . $this->input->get('next'));
+							redirect(site_url('welcome/select_company') . "?next=" . $this->input->get('next'));
 						//}
 
 					}
