@@ -93,7 +93,7 @@ $d001 = 0;
 ?>
 <?php foreach($payroll_groups as $payroll_group) { 
 if( $payroll_group->page != $current_page ) {
-  continue;
+  //continue;
 }
   ?>
   <?php if($payroll_group->employees) { ?>
