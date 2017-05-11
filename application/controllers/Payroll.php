@@ -871,8 +871,28 @@ class Payroll extends MY_Controller {
 	}
 
 	public function change_status($status_id) {
-		$this->session->set_userdata('employees_status_id', $status_id);
+		$term = new $this->Terms_list_model('t');
+		$term->setId($status_id,true);
+		$term->setType('employment_status',true);
+		if( $term->nonEmpty() ) {
+			$this->session->set_userdata('employees_status', $term->getResults());
+		} else {
+			$this->session->set_userdata('employees_status', false);
+		}
 		redirect($this->input->get('uri'));
+	}
+
+	public function select_payroll($payroll_id) {
+		
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($payroll_id,true);
+		if( $payroll->nonEmpty() ) {
+			$this->session->set_userdata('current_payroll', $payroll->getResults() );
+			$this->session->set_userdata('employees_status_id', false);
+			redirect("payroll_dtr/view/{$payroll_id}");
+		}
+		redirect("welcome");
+		
 	}
 
 }

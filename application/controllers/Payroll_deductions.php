@@ -90,8 +90,8 @@ class Payroll_deductions extends MY_Controller {
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 			$employees->set_where('e.group_id', $group->group_id);
 
-			if( $this->session->userdata('employees_status_id') ) {
-				$employees->set_where('e.status', $this->session->userdata('employees_status_id'));
+			if( $this->session->userdata('employees_status') ) {
+				$employees->set_where('e.status', $this->session->userdata('employees_status')->id);
 			}
 
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
@@ -125,14 +125,6 @@ class Payroll_deductions extends MY_Controller {
 		$employees_status->set_where('e.status IS NOT NULL');
 		$employees_status->set_order('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status)', 'ASC');
 		$this->template_data->set('employees_status', $employees_status->populate());
-
-		$current_employee_status_data = false;
-		if( $this->session->userdata('employees_status_id') ) {
-			$current_employee_status = new $this->Terms_list_model('t');
-			$current_employee_status->setId($this->session->userdata('employees_status_id'),true);
-			$current_employee_status_data = $current_employee_status->get();
-		} 
-		$this->template_data->set('current_employee_status', $current_employee_status_data);
 		
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/deductions/deductions_view', $this->template_data->get_data());

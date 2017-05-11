@@ -57,6 +57,7 @@ if( is_view_exists("account/login_override") ) {
     <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
         <div class="panel panel-primary">
           <div class="panel-heading">Login</div>
+          <form method="post">
           <div class="panel-body" id="divBody">
               <div class="form-group">
                 <label>Username</label>
@@ -67,9 +68,10 @@ if( is_view_exists("account/login_override") ) {
                 <input id="txtPassword" type="password" class="form-control enter-submit" placeholder="Password" name="password" required="required">
               </div>
               <div class="form-group">
-                <input type="submit" class="btn btn-success btn-block" value="Login" id="btnLogin">
+                <input type="submit" class="btn btn-success btn-block" value="Login">
               </div>
           </div>
+          </form>
         </div>
     </div>
 </div>

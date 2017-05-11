@@ -6,24 +6,50 @@ class Welcome extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('User_accounts_model');
+		$this->load->model('User_accounts_companies_model');
 		$this->load->model('Employees_model');
 		$this->load->model('Companies_list_model');
 	}
 
 	public function index() {
 
-		$stats = new $this->User_accounts_model('ua');
-		$stats->set_select('(SELECT count(*) FROM user_accounts) as users_count');
-		$this->template_data->set('stats', $stats->get());
+		//$stats = new $this->User_accounts_model('ua');
+		//$stats->set_select('(SELECT count(*) FROM user_accounts) as users_count');
+		//$this->template_data->set('stats', $stats->get());
 
-		$companies = new $this->Companies_list_model;
-		$companies->setTrash(0,true);
-		$companies->set_order('name', 'ASC');
-		$companies->set_limit(0);
-		$companies->set_where('id !=' . $this->session->userdata( 'current_company_id') );
+		$companies = new $this->User_accounts_companies_model('uc');
+		$companies->setUid($this->session->userdata('user_id'),true);
+		$companies->set_join('companies_list cl', 'uc.company_id=cl.id');
+		$companies->set_select('cl.*');
+		$companies->set_where('cl.id !=' . $this->session->userdata( 'current_company_id') );
 		$this->template_data->set('companies', $companies->populate());
 
 		$this->load->view('welcome/welcome', $this->template_data->get_data());
+	}
+
+	public function select_company($id=NULL,$output='') {
+
+		$companies = new $this->User_accounts_companies_model('uc');
+		$companies->setUid($this->session->userdata('user_id'),true);
+		$companies->set_join('companies_list cl', 'uc.company_id=cl.id');
+		$companies->set_select('cl.*');
+		if($id) {
+			$companies->set_where('cl.id', $id);
+			if( $companies->nonEmpty() ) {
+				$company =  $companies->getResults();
+				$this->session->set_userdata( 'current_company', $company->name );
+				$this->session->set_userdata( 'current_company_id', $company->id );
+				$this->session->set_userdata( 'current_company_theme', $company->theme );
+				redirect(site_url('welcome'));
+			} else {
+				redirect(site_url('welcome/select_company'));
+			}
+		}
+		$companies->set_where('cl.id !=' . $this->session->userdata( 'current_company_id') );
+		$this->template_data->set('companies', $companies->populate());
+
+		$this->template_data->set( 'output', $output );
+		$this->load->view('welcome/select_company', $this->template_data->get_data());
 	}
 
 	public function change_company($company_id) {

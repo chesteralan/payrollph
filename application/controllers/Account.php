@@ -94,15 +94,32 @@ class Account extends Login_Controller {
 					}
 					$this->session->set_userdata( 'user_settings', $user_settings );
 
-					$this->load->model('Companies_list_model');
-					$default_company = new $this->Companies_list_model;
-					$default_company->setDefault(1,true);
-					if( $default_company->nonEmpty() ) {
-							$company = $default_company->getResults();
-							$this->session->set_userdata( 'current_company', $company->name );
-							$this->session->set_userdata( 'current_company_id', $company->id );
-							$this->session->set_userdata( 'current_company_theme', $company->theme );
+					$this->load->model('User_accounts_companies_model');
+					$companies = new $this->User_accounts_companies_model('uc');
+					$companies->setUid($this->session->userdata('user_id'),true);
+					$companies->set_join('companies_list cl', 'uc.company_id=cl.id');
+					$companies->set_select('cl.*');
+					if( $companies->nonEmpty() ) {
+						$company =  $companies->getResults();
+						$this->session->set_userdata( 'current_company', $company->name );
+						$this->session->set_userdata( 'current_company_id', $company->id );
+						$this->session->set_userdata( 'current_company_theme', $company->theme );
+						if( $this->input->get('next') ) {
+							redirect($this->input->get('next'));
+						} else {
+							redirect(site_url('welcome'));
+						}
 					}
+
+					//$this->load->model('Companies_list_model');
+					//$default_company = new $this->Companies_list_model;
+					//$default_company->setDefault(1,true);
+					//if( $default_company->nonEmpty() ) {
+					//		$company = $default_company->getResults();
+					//		$this->session->set_userdata( 'current_company', $company->name );
+					//		$this->session->set_userdata( 'current_company_id', $company->id );
+					//		$this->session->set_userdata( 'current_company_theme', $company->theme );
+					//}
 
 					if( $output == 'ajax') {
 
@@ -116,11 +133,11 @@ class Account extends Login_Controller {
 
 					} else {
 
-						if( $this->input->get('next') ) {
-							redirect($this->input->get('next'));
-						} else {
-							redirect('welcome');
-						}
+						//if( $this->input->get('next') ) {
+						//	redirect($this->input->get('next'));
+						//} else {
+							redirect(site_url('select_company') . "?next=" . $this->input->get('next'));
+						//}
 
 					}
 					
