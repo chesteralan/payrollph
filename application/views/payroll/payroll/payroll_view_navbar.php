@@ -30,7 +30,7 @@
 
 <?php } ?>
 
-<?php if( $employees_status ) { ?>
+<?php if( isset($employees_status) && ($employees_status) ) { ?>
     <li class="dropdown">
           <a href="#" class="dropdown-toggle bold" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo ($this->session->userdata('employees_status')) ? $this->session->userdata('employees_status')->name : 'All Employees'; ?> <span class="caret"></span></a>
           <ul class="dropdown-menu">

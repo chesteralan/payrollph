@@ -208,11 +208,9 @@ class Payroll_deductions extends MY_Controller {
 		$deductions = new $this->Payroll_employees_deductions_model('ped');
 		$deductions->setId($id,true);
 		$deductions->set_select("*");
-
+		$deductions->set_select("(SELECT dl.name FROM deductions_list dl WHERE dl.id=ped.deduction_id) as deduction_name");
 		$deductions->set_select("(SELECT ed.max_amount FROM employees_deductions ed WHERE ed.id=ped.entry_id) as max_amount");
-
 		$deductions->set_select("(SELECT SUM(ped2.amount) FROM payroll_employees_deductions ped2 WHERE ped2.entry_id=ped.entry_id AND ped2.id!=ped.id) as amount_earned");
-
 		$deductions->set_select("((SELECT ed.max_amount FROM employees_deductions ed WHERE ed.id=ped.entry_id) - (SELECT SUM(ped2.amount) FROM payroll_employees_deductions ped2 WHERE ped2.entry_id=ped.entry_id AND ped2.id!=ped.id)) as amount_balance");
 
 		$deduction_data = $deductions->get();

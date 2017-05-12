@@ -22,7 +22,8 @@
 
 <?php endif; ?>
 
-<?php if( $employees_deductions || $payroll_deductions) { ?>
+<?php if( $employees_deductions->total_max_amount || $payroll_deductions->total_amount ) { ?>
+
           <table class="table table-default">
             <tbody>
             <?php if( $employees_deductions->total_max_amount > 0) { ?>
@@ -45,9 +46,13 @@
             <?php } ?>
             </tbody>
           </table>
+
 <?php } else { ?>
-  No Deductions Found!
+
+  <p class="text-center">No Deductions Found!</p>
+
 <?php } ?>
+
 </div>
 
 

@@ -27,7 +27,14 @@
             <input name="amount" type="text" class="form-control text-center" value="<?php echo number_format($deduction->amount,2); ?>" required>
           </div>
   </div>
-  <div class="col-md-6"></div>
+  <div class="col-md-6">
+  <?php if( $deduction->entry_id ) { ?>
+          <div class="form-group">
+            <label>Connected to</label>
+            <span class="form-control"><?php echo $deduction->deduction_name; ?> (<?php echo number_format($deduction->max_amount,2); ?>)</span>
+          </div>
+  <?php } ?>
+  </div>
 </div> 
 
   

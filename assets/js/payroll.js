@@ -519,11 +519,11 @@ $('.ajax-modal-inner').each(function(){
   $(this).prop('href', 'javascript:void(0);');
   $(this).click(function(){
     ajaxModalUrl = $(this).attr('data-url');
-
-    if( $('#ajaxModal form').is() ) {
-      $('#ajaxModal form').prop( 'action', ajaxModalUrl );
+    var ajaxForm = $('#ajaxModalForm');
+    if( typeof ajaxForm[0] != 'undefined' ) {
+      $('#ajaxModalForm').prop( 'action', ajaxModalUrl );
     } else {
-      $('#ajaxModal .modal-content').wrap('<form action="'+ajaxModalUrl+'" method="post"></form>');
+      $('#ajaxModal .modal-content').wrap('<form action="'+ajaxModalUrl+'" method="post" id="ajaxModalForm"></form>');
     }
     $('#ajaxModal .modal-title').text( $(this).attr('data-title') );
 
@@ -610,10 +610,11 @@ var setupAjaxModal = function(){
 var loadAjaxModal = function() {
   setupAjaxModal();
   $('#ajaxModal').on('shown.bs.modal', function () {
-    if( $('#ajaxModal form').is() ) {
-      $('#ajaxModal form').prop( 'action', ajaxModalUrl );
+    var ajaxForm = $('#ajaxModalForm');
+    if( typeof ajaxForm[0] != 'undefined' ) {
+      $('#ajaxModalForm').prop( 'action', ajaxModalUrl );
     } else {
-      $('#ajaxModal .modal-content').wrap('<form action="'+ajaxModalUrl+'" method="post"></form>');
+      $('#ajaxModal .modal-content').wrap('<form action="'+ajaxModalUrl+'" method="post" id="ajaxModalForm"></form>');
     }
 
       $.ajax({
