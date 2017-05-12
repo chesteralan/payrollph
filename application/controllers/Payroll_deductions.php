@@ -30,6 +30,8 @@ class Payroll_deductions extends MY_Controller {
 		$this->load->model('Payroll_templates_employees_model');
 
 		$this->load->model('Employees_model');
+		$this->load->model('Employees_deductions_model');
+
 		$this->load->model('Terms_list_model');
 		$this->load->model('Companies_list_model');
 
@@ -176,6 +178,7 @@ class Payroll_deductions extends MY_Controller {
 				$deductions->setNameId($name_id,true);
 				$deductions->setDeductionId($deduction_id,true);
 				$deductions->setAmount( str_replace(",", "", $this->input->post('amount')) );
+				$deductions->setEntryId( $this->input->post('entry_id') );
 				$deductions->setNotes($this->input->post('notes'));
 				$deductions->insert();
 			}
@@ -198,6 +201,14 @@ class Payroll_deductions extends MY_Controller {
 		$print_groups->setTrash('0',true);
 		$print_groups->setType('print_group',true);
 		$this->template_data->set('print_groups', $print_groups->populate());
+
+		$employees_deductions = new $this->Employees_deductions_model('ed');
+		$employees_deductions->setDeductionId($deduction_id,true);
+		$employees_deductions->setNameId($name_id,true);
+		$employees_deductions->set_select("ed.*");
+		$employees_deductions->set_select("(ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) as balance");
+		$employees_deductions->set_where("(ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) > 0");
+		$this->template_data->set('employees_deductions', $employees_deductions->populate());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/deductions/deductions_add', $this->template_data->get_data());

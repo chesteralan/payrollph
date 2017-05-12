@@ -27,14 +27,23 @@
             <input name="amount" type="text" class="form-control text-center" value="" required>
           </div>
   </div>
-  <div class="col-md-6"></div>
+  <div class="col-md-6">
+          <div class="form-group">
+            <label>Connect to</label>
+            <select name="entry_id" class="form-control">
+                <option value="0">- - No Connection - -</option>
+                <?php foreach($employees_deductions as $entry) { ?>
+                    <option value="<?php echo $entry->id; ?>"><?php echo $deduction_data->name; ?> (Max: <?php echo number_format($entry->max_amount,2); ?> - Bal: <?php echo number_format($entry->balance,2); ?>)</option>
+                <?php } ?>
+            </select>
+          </div>
+  </div>
 </div> 
 
           <div class="form-group">
             <label>Notes</label>
             <textarea name="notes" class="form-control" rows="3"><?php echo $this->input->post('notes'); ?></textarea>
           </div>
-
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>
