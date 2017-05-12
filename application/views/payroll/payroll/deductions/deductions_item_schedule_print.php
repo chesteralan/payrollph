@@ -14,7 +14,7 @@
     <link href="<?php echo base_url('assets/css/print.css'); ?>" rel="stylesheet">
     
   </head>
-  <body id="payroll_print">
+  <body id="payroll_print" class="item_schedule">
 
 <h2 class="pull-right">PAYROLL ID: <?php echo $payroll->id; ?></h2>
 <div class="header-title">
@@ -90,7 +90,7 @@ $new_balance += ($item->max_amount - $item->amount_paid) - $item->amount;
        <br>
         <span class="allcaps bold"><?php echo $this->session->name; ?></span>
       </td>
-      <td width="33.33%" class="text-right"><p>Prepared By:</p>
+      <td width="33.33%" class="text-right"><p>Checked By:</p>
        <br>
         <span class="allcaps bold"><?php echo $template->checked_by_name; ?></span>
       </td>

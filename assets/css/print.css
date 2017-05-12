@@ -54,6 +54,15 @@ td {
 .payslip_box td {
   font-size: 9px!important; 
 }
+#payroll_print.item_schedule {
+  font-size: 10px;
+}
+#payroll_print.item_schedule  th {
+  font-size: 11px;
+}
+#payroll_print.item_schedule td {
+  font-size: 11px;
+}
 table.summary td {
   font-size: 12px;
   padding:10px!important;
