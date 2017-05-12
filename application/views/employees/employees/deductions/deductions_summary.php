@@ -22,7 +22,7 @@
 
 <?php endif; ?>
 
-
+<?php if( $employees_deductions || $payroll_deductions) { ?>
           <table class="table table-default">
             <tbody>
             <?php if( $employees_deductions->total_max_amount > 0) { ?>
@@ -45,7 +45,9 @@
             <?php } ?>
             </tbody>
           </table>
-
+<?php } else { ?>
+  No Deductions Found!
+<?php } ?>
 </div>
 
 

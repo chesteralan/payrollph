@@ -40,6 +40,7 @@
                 <?php if( !isset($area) ) { ?>
                   <th>Area</th>
                 <?php } ?>
+                <th>Status</th>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                   <th width="140px">Action</th>
                 <?php } ?>
@@ -73,6 +74,7 @@
                   </a>
                 </td>
                 <?php } ?>
+                <td><?php echo $employee->status_name; ?></td>
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
 

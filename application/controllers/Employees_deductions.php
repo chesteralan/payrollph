@@ -252,6 +252,7 @@ class Employees_deductions extends MY_Controller {
 		$payroll_deductions->setNameId($name_id,true);
 		$payroll_deductions->setDeductionId($deduction_id,true);
 		$payroll_deductions->set_select("SUM(ped.amount) as total_amount");
+		$payroll_deductions->set_where("ped.entry_id != 0");
 		$this->template_data->set('payroll_deductions', $payroll_deductions->get());
 
 		$this->template_data->set('output', $output);
