@@ -40,6 +40,7 @@ class Welcome extends MY_Controller {
 				$this->session->set_userdata( 'current_company', $company->name );
 				$this->session->set_userdata( 'current_company_id', $company->id );
 				$this->session->set_userdata( 'current_company_theme', $company->theme );
+				$this->session->set_userdata('employees_status', false);
 				redirect(site_url('welcome'));
 			} else {
 				redirect(site_url('welcome/select_company'));
@@ -60,6 +61,7 @@ class Welcome extends MY_Controller {
 				$this->session->set_userdata( 'current_company', $company->name );
 				$this->session->set_userdata( 'current_company_id', $company->id );
 				$this->session->set_userdata( 'current_company_theme', $company->theme );
+				$this->session->set_userdata('employees_status', false);
 		}
 		redirect("welcome");
 	}
