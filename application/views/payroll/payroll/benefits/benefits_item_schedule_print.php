@@ -14,7 +14,7 @@
     <link href="<?php echo base_url('assets/css/print.css'); ?>" rel="stylesheet">
     
   </head>
-  <body id="payroll_print">
+  <body id="payroll_print" class="item_schedule">
 
 <h2 class="pull-right">PAYROLL ID: <?php echo $payroll->id; ?></h2>
 <div class="header-title">
