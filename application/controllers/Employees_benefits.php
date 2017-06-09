@@ -95,7 +95,18 @@ class Employees_benefits extends MY_Controller {
 				$benefits->setPrimary(($this->input->post('primary')) ? 1 : 0);
 				$benefits->setTrash(0);
 				$benefits->setNotes($this->input->post('notes'));
-				$benefits->insert();
+				if( $benefits->insert() ) {
+					if( $this->input->post('template_selected') ) {
+						foreach( $this->input->post('template_selected') as $selected_id ) {
+							$eb_template = new $this->Employees_benefits_templates_model;
+							$eb_template->setEbId($benefits->get_inserted_id(),true);
+							$eb_template->setTemplateId($selected_id,true);
+							if( ! $eb_template->nonEmpty() ) {
+								$eb_template->insert();
+							}
+						}
+					}
+				}
 			}
 			$this->postNext();
 		}
@@ -105,6 +116,13 @@ class Employees_benefits extends MY_Controller {
 		$benefits->set_order('name', 'ASC');
 
 		$this->template_data->set('benefits', $benefits->populate());
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->set_limit(0);
+		$templates->set_select("*");
+		$templates->setActive('1',true);
+		$this->template_data->set('templates', $templates->populate());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('employees/employees/benefits/benefits_add', $this->template_data->get_data());

@@ -31,12 +31,15 @@ class MY_Model extends CI_Model
     protected $_results = FALSE;
     protected $_distinct = FALSE;
     protected $_cache_on = FALSE;
-    
-    public function __construct($short_name=NULL, $db_config=NULL) {
+    protected $_db = NULL;
+    protected $_inserted_id = NULL;
+
+    public function __construct($short_name=NULL, $db_config='default') {
         parent::__construct();
+        $this->_db = $this->db;
         $this->_short_name = ($short_name!=NULL && (trim($short_name)!='')) ? $short_name : $this->_short_name;
         if( $db_config ) {
-            $this->load->database( $db_config, FALSE, TRUE );
+            $this->_db = $this->load->database( $db_config, TRUE, TRUE );
         }
     }
 
@@ -79,13 +82,13 @@ class MY_Model extends CI_Model
             $this->setup_group_by();
             
             if( $this->_cache_on ) {
-                $this->db->cache_on();
+                $this->_db->cache_on();
             }
             
-            $query = $this->db->get($this->_table_name . ' ' . $this->_short_name, 1);
+            $query = $this->_db->get($this->_table_name . ' ' . $this->_short_name, 1);
             
             if( $this->_cache_on ) {
-                $this->db->cache_off();
+                $this->_db->cache_off();
             }
             
             $result = $query->result();
@@ -109,6 +112,10 @@ class MY_Model extends CI_Model
     }
 
 
+    public function get_results() {
+        return $this->_results;
+    }
+
     // --------------------------------------------------------------------
 
     /**
@@ -121,7 +128,7 @@ class MY_Model extends CI_Model
     public function delete() {
         if ( $this->has_conditions() ) {
                 $this->setup_conditions();
-                return $this->db->delete($this->_table_name);
+                return $this->_db->delete($this->_table_name);
         }
     }
 
@@ -166,7 +173,7 @@ class MY_Model extends CI_Model
         if ( ( $this->get_data() ) && ( $this->has_conditions() ) ) {
                                 $this->_set_db_data(); 
                 $this->setup_conditions();
-                return $this->db->update( $this->_table_name . ' ' . $this->_short_name );
+                return $this->_db->update( $this->_table_name . ' ' . $this->_short_name );
         }
     }
 
@@ -183,13 +190,31 @@ class MY_Model extends CI_Model
     public function insert() {
         if( $this->get_data() ) {
             $this->_set_db_data(); 
-            if( $this->db->insert( $this->_table_name ) === TRUE ) {
-                $this->id = $this->db->insert_id();
+            if( $this->_db->insert( $this->_table_name ) === TRUE ) {
+                $this->id = $this->_db->insert_id();
+                $this->_inserted_id = $this->_db->insert_id();
                 return TRUE;
             } else {
                 return FALSE;
             }
         }
+    }
+
+
+    // --------------------------------------------------------------------
+
+
+    // --------------------------------------------------------------------
+
+    /**
+    * Get Inserted Id 
+    * @access public
+    * @param  String
+    * @return Boolean;
+    */
+
+    public function get_inserted_id() {
+        return $this->_inserted_id;
     }
 
 
@@ -205,8 +230,8 @@ class MY_Model extends CI_Model
     public function replace() {
         if( $this->get_data() ) {
             $this->_set_db_data(); 
-            if( $this->db->replace( $this->_table_name ) === TRUE ) {
-                $this->id = $this->db->insert_id();
+            if( $this->_db->replace( $this->_table_name ) === TRUE ) {
+                $this->id = $this->_db->insert_id();
                 return TRUE;
             } else {
                 return FALSE;
@@ -225,7 +250,7 @@ class MY_Model extends CI_Model
     public function get() {
         
         if( $this->_select ) {
-                $this->db->select( implode(',' , $this->_select) );
+                $this->_db->select( implode(',' , $this->_select) );
         }
         
         $this->setup_join();
@@ -234,20 +259,20 @@ class MY_Model extends CI_Model
         
         if( $this->_order ) {
             foreach( $this->_order as $field=>$orientation ) {
-                $this->db->order_by( $field, $orientation );
+                $this->_db->order_by( $field, $orientation );
             }
         }
         
-        $this->db->limit( 1, $this->_start);
+        $this->_db->limit( 1, $this->_start);
         
         if( $this->_cache_on ) {
-            $this->db->cache_on();
+            $this->_db->cache_on();
         }
         
-        $query = $this->db->get($this->_table_name . ' ' . $this->_short_name);
+        $query = $this->_db->get($this->_table_name . ' ' . $this->_short_name);
         
         if( $this->_cache_on ) {
-            $this->db->cache_off();
+            $this->_db->cache_off();
         }
         
         $result = $query->result();
@@ -274,11 +299,11 @@ class MY_Model extends CI_Model
     public function populate() {
     
         if( $this->_distinct ) {
-            $this->db->distinct();
+            $this->_db->distinct();
         }
         
         if( $this->_select ) {
-                $this->db->select( implode(',' , $this->_select ) );
+                $this->_db->select( implode(',' , $this->_select ) );
         }
         
         $this->setup_join();
@@ -287,22 +312,22 @@ class MY_Model extends CI_Model
         
         if( $this->_order ) {
             foreach( $this->_order as $field=>$orientation ) {
-                $this->db->order_by( $field, $orientation );
+                $this->_db->order_by( $field, $orientation );
             }
         }
         
         if( $this->_limit > 0 ) {
-            $this->db->limit( $this->_limit,$this->_start);
+            $this->_db->limit( $this->_limit,$this->_start);
         }
         
         if( $this->_cache_on ) {
-            $this->db->cache_on();
+            $this->_db->cache_on();
         }
         
-        $query = $this->db->get($this->_table_name . ' ' . $this->_short_name);
+        $query = $this->_db->get($this->_table_name . ' ' . $this->_short_name);
         
         if( $this->_cache_on ) {
-            $this->db->cache_off();
+            $this->_db->cache_off();
         }
             
         $this->_results = $query->result();
@@ -322,10 +347,10 @@ class MY_Model extends CI_Model
     public function recursive($match, $find, $child='id', $level=10, $conn='children') {
             if( $level == 0 ) return;
             if( $this->_limit > 0 ) {
-                $this->db->limit( $this->_limit,$this->_start);
+                $this->_db->limit( $this->_limit,$this->_start);
             }
             if( $this->_select ) {
-                    $this->db->select( implode(',' , $this->_select) );
+                    $this->_db->select( implode(',' , $this->_select) );
             }
             
             $this->setup_join();
@@ -336,18 +361,18 @@ class MY_Model extends CI_Model
             
             if( $this->_order ) {
                 foreach( $this->_order as $field=>$orientation ) {
-                    $this->db->order_by( $field, $orientation );
+                    $this->_db->order_by( $field, $orientation );
                 }
             }
             
             if( $this->_cache_on ) {
-                $this->db->cache_on();
+                $this->_db->cache_on();
             }
             
-            $query = $this->db->get($this->_table_name . ' ' . $this->_short_name);
+            $query = $this->_db->get($this->_table_name . ' ' . $this->_short_name);
             
             if( $this->_cache_on ) {
-                $this->db->cache_off();
+                $this->_db->cache_off();
             }
             
             $results=array();
@@ -372,10 +397,10 @@ class MY_Model extends CI_Model
     public function recursive_one($match, $find, $get_field='id', $container=array(), $primary_field='id', $level=10) {
             if( $level == 0 ) return;
             if( $this->_limit > 0 ) {
-                $this->db->limit( $this->_limit,$this->_start);
+                $this->_db->limit( $this->_limit,$this->_start);
             }
             if( $this->_select ) {
-                    $this->db->select( implode(',' , $this->_select) );
+                    $this->_db->select( implode(',' , $this->_select) );
             }
             
             $this->setup_join();
@@ -386,18 +411,18 @@ class MY_Model extends CI_Model
             
             if( $this->_order ) {
                 foreach( $this->_order as $field=>$orientation ) {
-                    $this->db->order_by( $field, $orientation );
+                    $this->_db->order_by( $field, $orientation );
                 }
             }
             
             if( $this->_cache_on ) {
-                $this->db->cache_on();
+                $this->_db->cache_on();
             }
             
-            $query = $this->db->get($this->_table_name . ' ' . $this->_short_name);
+            $query = $this->_db->get($this->_table_name . ' ' . $this->_short_name);
             
             if( $this->_cache_on ) {
-                $this->db->cache_off();
+                $this->_db->cache_off();
             }
             
             if( $query->result() ) {
@@ -496,7 +521,7 @@ class MY_Model extends CI_Model
         if( $this->get_data() ) {
             foreach($this->get_data() as $key=> $value) {
                 if( !is_null($value) ) {
-                    $this->db->set($key, $value);
+                    $this->_db->set($key, $value);
                 }
             }
         }
@@ -583,10 +608,10 @@ class MY_Model extends CI_Model
     protected function __apply_condition($what, $condition) {
         if( is_array( $condition ) ) {
             foreach( $condition as $key => $value ) {
-                $this->db->$what( $key , $value );
+                $this->_db->$what( $key , $value );
             }
         } else {
-            $this->db->$what( $condition );
+            $this->_db->$what( $condition );
         }
     }
     
@@ -710,7 +735,7 @@ class MY_Model extends CI_Model
     private function setup_join() {
         if( $this->_join ) {
             foreach( $this->_join as $join ) {
-                $this->db->join( $join['table'], $join['connection'], $join['option'] );
+                $this->_db->join( $join['table'], $join['connection'], $join['option'] );
             }
             return false;
         }
@@ -1134,7 +1159,7 @@ class MY_Model extends CI_Model
         
     private function setup_group_by() {
         if( $this->_group_by ) {
-            $this->db->group_by( $this->_group_by );
+            $this->_db->group_by( $this->_group_by );
             return true;
         }
         return false;
@@ -1254,7 +1279,7 @@ class MY_Model extends CI_Model
     */
 
     public function count_all() {
-        return  $this->db->count_all($this->_table_name . ' ' . $this->_short_name);
+        return  $this->_db->count_all($this->_table_name . ' ' . $this->_short_name);
     }
 
     // --------------------------------------------------------------------
@@ -1266,17 +1291,17 @@ class MY_Model extends CI_Model
 
     public function count_all_results() {
                 $numrows = 0;
-                $this->db->from($this->_table_name . ' ' . $this->_short_name);
+                $this->_db->from($this->_table_name . ' ' . $this->_short_name);
         $this->setup_conditions();
         $this->setup_join();
         if( $this->setup_group_by() ) {
-            $this->db->select($this->_short_name . ".*");
-            $sql_select = $this->db->get_compiled_select();
-            $query = $this->db->query("SELECT COUNT(*) as numrows FROM ({$sql_select}) as numrows_table;");
+            $this->_db->select($this->_short_name . ".*");
+            $sql_select = $this->_db->get_compiled_select();
+            $query = $this->_db->query("SELECT COUNT(*) as numrows FROM ({$sql_select}) as numrows_table;");
             $result = $query->result();
             $numrows = $result[0]->numrows;
         } else {
-            $numrows = $this->db->count_all_results();
+            $numrows = $this->_db->count_all_results();
         }
         return  $numrows;
     }
@@ -1290,19 +1315,19 @@ class MY_Model extends CI_Model
 
     public function sql_function($function, $field, $alias=false, $hasConditions=true) {
                 if( $this->_select ) {
-                $this->db->select( implode(',' , $this->_select) );
+                $this->_db->select( implode(',' , $this->_select) );
         }
         if( $alias ) {
-                        $this->db->select($function.'('.$field.') AS ' . $alias);
+                        $this->_db->select($function.'('.$field.') AS ' . $alias);
         } else {
-                        $this->db->select($function.'('.$field.')');
+                        $this->_db->select($function.'('.$field.')');
         }
         if( $hasConditions ) {
                         $this->setup_join();
                         $this->setup_conditions();
                         $this->setup_group_by();
                 }
-        return  $this->db->get($this->_table_name . ' ' . $this->_short_name, 1);
+        return  $this->_db->get($this->_table_name . ' ' . $this->_short_name, 1);
     }   
     // --------------------------------------------------------------------
 
@@ -1323,4 +1348,7 @@ class MY_Model extends CI_Model
         $this->_cache_on = $value;
     }
 
+    public function db_close() {
+        $this->_db->close();
+    }
 }

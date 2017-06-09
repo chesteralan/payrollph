@@ -59,10 +59,25 @@
     <label>Notes</label>
     <textarea name="notes" class="form-control" rows="3"></textarea>
   </div>
+
+
+      <div class="row">          
+        <div class="col-md-6">
               <div class="form-group">
                 <p><label><input name="primary" type="checkbox" value="1" CHECKED> Set as Primary</label></p>
               </div>
-
+        </div>
+        <div class="col-md-6">
+              <div class="form-group">
+              <?php foreach($templates as $template) { ?>
+                <p><label>
+                  <input name="template_selected[]" type="checkbox" value="<?php echo $template->id; ?>"> Generate on: <?php echo $template->name; ?>
+                </label></p>
+              <?php } ?>
+              </div>
+        </div>
+      </div>
+      
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>
         <div class="panel-footer">

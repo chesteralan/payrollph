@@ -86,7 +86,18 @@ class Employees_earnings extends MY_Controller {
 				$earnings->setActive(($this->input->post('active')) ? 1 : 0);
 				$earnings->setTrash(0);
 				$earnings->setNotes($this->input->post('notes'));
-				$earnings->insert();
+				if( $earnings->insert() ) {
+					if( $this->input->post('template_selected') ) {
+						foreach( $this->input->post('template_selected') as $selected_id ) {
+							$ee_template = new $this->Employees_earnings_templates_model;
+							$ee_template->setEeId($earnings->get_inserted_id(),true);
+							$ee_template->setTemplateId($selected_id,true);
+							if( ! $ee_template->nonEmpty() ) {
+								$ee_template->insert();
+							}
+						}
+					}
+				}
 			}
 			$this->postNext();
 		}
@@ -94,6 +105,13 @@ class Employees_earnings extends MY_Controller {
 		$earnings = new $this->Earnings_list_model;
 		$earnings->set_order('name', 'ASC');
 		$this->template_data->set('earnings', $earnings->populate());
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->set_limit(0);
+		$templates->set_select("*");
+		$templates->setActive('1',true);
+		$this->template_data->set('templates', $templates->populate());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('employees/employees/earnings/earnings_add', $this->template_data->get_data());

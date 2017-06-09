@@ -28,12 +28,15 @@
           </div>
   </div>
   <div class="col-md-6">
-  <?php if( $deduction->entry_id ) { ?>
           <div class="form-group">
-            <label>Connected to</label>
-            <span class="form-control"><?php echo $deduction->deduction_name; ?> (<?php echo number_format($deduction->max_amount,2); ?>)</span>
+            <label>Connect to</label>
+            <select name="entry_id" class="form-control">
+                <option value="0">- - No Connection - -</option>
+                <?php foreach($employees_deductions as $entry) { ?>
+                    <option value="<?php echo $entry->id; ?>" <?php echo ($deduction->entry_id==$entry->id) ? 'SELECTED' : ''; ?>><?php echo $deduction_data->name; ?> (Max: <?php echo number_format($entry->max_amount,2); ?> - Bal: <?php echo number_format($entry->balance,2); ?>)</option>
+                <?php } ?>
+            </select>
           </div>
-  <?php } ?>
   </div>
 </div> 
 

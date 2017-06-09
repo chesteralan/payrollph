@@ -87,7 +87,18 @@ class Employees_deductions extends MY_Controller {
 				$deductions->setTrash(0);
 				$deductions->setNotes($this->input->post('notes'));
 				$deductions->setComputed($this->input->post('computed'));
-				$deductions->insert();
+				if( $deductions->insert() ) {
+					if( $this->input->post('template_selected') ) {
+						foreach( $this->input->post('template_selected') as $selected_id ) {
+							$ed_template = new $this->Employees_deductions_templates_model;
+							$ed_template->setEdId($deductions->get_inserted_id(),true);
+							$ed_template->setTemplateId($selected_id,true);
+							if( ! $ed_template->nonEmpty() ) {
+								$ed_template->insert();
+							}
+						}
+					}
+				}
 			}
 			$this->postNext();
 		}
@@ -95,6 +106,13 @@ class Employees_deductions extends MY_Controller {
 		$deductions = new $this->Deductions_list_model;
 		$deductions->set_order('name', 'ASC');
 		$this->template_data->set('deductions', $deductions->populate());
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->set_limit(0);
+		$templates->set_select("*");
+		$templates->setActive('1',true);
+		$this->template_data->set('templates', $templates->populate());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('employees/employees/deductions/deductions_add', $this->template_data->get_data());
