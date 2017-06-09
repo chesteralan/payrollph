@@ -220,24 +220,24 @@ class Payroll_templates extends MY_Controller {
 				$pemployee->setTemplateId($id,true);
 				$pemployee->setNameId($name_id,true);
 				if( in_array($name_id, $this->input->post('selected')) ) {
-					$pemployee->setActive('1');
+					$pemployee->setOrder($order);
+
+					$template = $this->input->post('payslip_template');
+					$pemployee->setTemplate($template[$name_id]);
+
+					$print_group = $this->input->post('print_group');
+					$pemployee->setPrintGroup($print_group[$name_id]);
+
+					if( $pemployee->nonEmpty() ) {
+						$pemployee->set_exclude(array('template_id','name_id'));
+						$pemployee->update();
+					} else {
+						$pemployee->insert();
+					}
 				} else {
-					$pemployee->setActive('0');
+					$pemployee->delete();
 				}
-				$pemployee->setOrder($order);
-
-				$template = $this->input->post('payslip_template');
-				$pemployee->setTemplate($template[$name_id]);
-
-				$print_group = $this->input->post('print_group');
-				$pemployee->setPrintGroup($print_group[$name_id]);
-
-				if( $pemployee->nonEmpty() ) {
-					$pemployee->set_exclude(array('template_id','name_id'));
-					$pemployee->update();
-				} else {
-					$pemployee->insert();
-				}
+				
 			}
 			$this->postNext();
 		}
@@ -251,11 +251,17 @@ class Payroll_templates extends MY_Controller {
 		$employees->set_select('(SELECT ep.name FROM employees_positions ep WHERE ep.id=e.position_id) as position_name');
 		$employees->set_limit(0);
 		$employees->set_where('e.group_id', $group_id);
-		$employees->set_join('payroll_templates_employees pte', 'pte.name_id=e.name_id');
-		$employees->set_select('pte.active');
-		$employees->set_select('pte.template');
-		$employees->set_select('pte.print_group');
-		$employees->set_where('pte.template_id', $id);
+		//$employees->set_join('payroll_templates_employees pte', 'pte.name_id=e.name_id');
+		//$employees->set_select('pte.active');
+		//$employees->set_select('pte.template');
+		//$employees->set_select('pte.print_group');
+		//$employees->set_select('pte.template_id');
+		//$employees->set_group_by('e.name_id');
+		//$employees->set_where('pte.template_id', $id);
+		$employees->set_select('(SELECT pte.active FROM payroll_templates_employees pte WHERE pte.name_id=e.name_id AND pte.template_id='.$id.') as active');
+		$employees->set_select('(SELECT pte.template FROM payroll_templates_employees pte WHERE pte.name_id=e.name_id AND pte.template_id='.$id.') as template');
+		$employees->set_select('(SELECT pte.print_group FROM payroll_templates_employees pte WHERE pte.name_id=e.name_id AND pte.template_id='.$id.') as print_group');
+		$employees->set_select('(SELECT pte.template_id FROM payroll_templates_employees pte WHERE pte.name_id=e.name_id AND pte.template_id='.$id.') as template_id');
 		$this->template_data->set('employees', $employees->populate());
 
 		$print_groups = new $this->Terms_list_model;

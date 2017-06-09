@@ -167,6 +167,7 @@ class Employees extends MY_Controller {
 		$groups = new $this->Employees_groups_model;
 		$groups->setCompanyId($this->session->userdata('current_company_id'),true);
 		$groups->set_limit(0);
+		$groups->set_order('name', 'ASC');
 		$this->template_data->set('groups', $groups->populate());
 
 		$positions = new $this->Employees_positions_model;
@@ -275,19 +276,19 @@ class Employees extends MY_Controller {
 		$groups = new $this->Employees_groups_model;
 		$groups->setCompanyId($company_id,true);
 		$groups->set_limit(0);
-		$groups->set_order('name');
+		$groups->set_order('name', 'ASC');
 		$this->template_data->set('groups', $groups->populate());
 
 		$positions = new $this->Employees_positions_model;
 		$positions->setCompanyId($company_id,true);
 		$positions->set_limit(0);
-		$positions->set_order('name');
+		$positions->set_order('name', 'ASC');
 		$this->template_data->set('positions', $positions->populate());
 
 		$areas = new $this->Employees_areas_model;
 		$areas->setCompanyId($company_id,true);
 		$areas->set_limit(0);
-		$areas->set_order('name');
+		$areas->set_order('name', 'ASC');
 		$this->template_data->set('areas', $areas->populate());
 
 		$companies = new $this->Companies_list_model;

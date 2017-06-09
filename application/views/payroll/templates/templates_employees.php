@@ -27,7 +27,7 @@
   <span class="glyphicon glyphicon-sort pull-right" style="margin-left: 10px;"></span>
     <p class="pull-right"><?php echo $employee->position_name; ?></p>
     <h4 class="list-group-item-heading">
-    <label><input type="checkbox" name="selected[]" value="<?php echo $employee->name_id; ?>" <?php echo (($employee->active==1)||is_null($employee->active)) ? "CHECKED" : ""; ?>> <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?></label>
+    <label><input type="checkbox" name="selected[]" value="<?php echo $employee->name_id; ?>" <?php echo ($employee->template_id==$template->id) ? "CHECKED" : ""; ?>> <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?></label>
     </h4>
     
 <div class="row">
