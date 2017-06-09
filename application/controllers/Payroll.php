@@ -660,7 +660,16 @@ class Payroll extends MY_Controller {
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
-		$payroll_data = $payroll->get();
+		if( $payroll->nonEmpty() ) {
+			$payroll_data = $payroll->getResults();
+			$inclusive_dates = new $this->Payroll_inclusive_dates_model;
+			$inclusive_dates->setPayrollId($id,true);
+			$inclusive_dates->set_select('COUNT(*) as working_days');
+			$inclusive_dates->set_select('MIN(inclusive_date) as start_date');
+			$inclusive_dates->set_select('MAX(inclusive_date) as end_date');
+			$payroll_dates = $inclusive_dates->get();
+			$payroll_data->inclusive_dates = $payroll_dates;
+		}
 		$this->template_data->set('payroll', $payroll_data);
 
 		if( $this->input->post() ) {

@@ -207,7 +207,9 @@ class Payroll_deductions extends MY_Controller {
 		$employees_deductions->setNameId($name_id,true);
 		$employees_deductions->set_select("ed.*");
 		$employees_deductions->set_select("(ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) as balance");
-		$employees_deductions->set_where("(ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) > 0");
+		$employees_deductions->set_where("ed.active=1");
+		$employees_deductions->set_where("(((ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) IS NULL)");
+		$employees_deductions->set_where_or("((ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) > 0))");
 		$this->template_data->set('employees_deductions', $employees_deductions->populate());
 
 		$this->template_data->set('output', $output);
