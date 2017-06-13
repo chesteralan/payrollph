@@ -8,10 +8,26 @@
 	<div class="col-md-12">
 	    <div class="panel panel-default">
 	    	<div class="panel-heading">
-<?php if( hasAccess('lists', 'names', 'add') ) { ?>
- <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Name" data-url="<?php echo site_url("lists_names/add/ajax") . "?next=" . uri_string(); ?>">Add Name</button>
-<?php } ?>
+
+<div class="row">
+<div class="col-md-9">
 	    		<h3 class="panel-title">Names List</h3>
+</div>
+<div class="col-md-3">
+<form method="get" action="<?php echo site_url("lists_names"); ?>">
+<div class="input-group input-group-sm">
+  <input type="text" name="q" class="form-control" placeholder="Search for..." value="<?php echo $this->input->get('q'); ?>">
+  <span class="input-group-btn">
+    <button class="btn btn-default" type="submit">Search</button>
+    
+<?php if( hasAccess('lists', 'names', 'add') ) { ?>
+ <a type="button" class="btn btn-success ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Name" data-url="<?php echo site_url("lists_names/add/ajax") . "?next=" . uri_string(); ?>">Add Name</a>
+<?php } ?>
+
+  </span>
+</div><!-- /input-group -->
+</div>
+</div>
 	    	</div>
 	    	<div class="panel-body" id="ajaxBodyInnerPage">
 <?php endif; ?>
