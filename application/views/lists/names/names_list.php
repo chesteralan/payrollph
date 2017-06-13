@@ -26,6 +26,7 @@
 
   </span>
 </div><!-- /input-group -->
+</form>
 </div>
 </div>
 	    	</div>
