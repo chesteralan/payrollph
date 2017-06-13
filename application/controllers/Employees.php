@@ -34,6 +34,7 @@ class Employees extends MY_Controller {
 		$employees->set_select('(SELECT name FROM terms_list WHERE id=employees.status) as status_name');
 		$employees->set_order('lastname', 'ASC');
 		$employees->set_start($start);
+
 		$this->template_data->set('employees', $employees->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
@@ -141,6 +142,7 @@ class Employees extends MY_Controller {
 
 		$names = new $this->Names_list_model;
 		$names->setId($id, true);
+		$names->setTrash(0,true);
 		$this->template_data->set('name', $names->get());
 
 		if( $names->nonEmpty() ) {
@@ -193,6 +195,7 @@ class Employees extends MY_Controller {
 		$names = new $this->Names_list_model;
 		$names->set_start($start);
 		$names->set_limit(5);
+		$names->setTrash(0,true);
 		$names->set_order('names_list.full_name', 'ASC');
 		$names->set_where('(SELECT COUNT(*) FROM `employees` WHERE name_id=names_list.id) = 0');
 		$this->template_data->set('names', $names->populate());
