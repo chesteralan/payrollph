@@ -32,7 +32,10 @@
   <a href="<?php echo site_url("payroll_dtr/view/{$payroll->id}/{$payroll_group->group_id}"); ?>" class="glyphicon glyphicon-filter body_wrapper"></a>
 <?php } ?>
                 <?php echo $payroll_group->name; ?>
-                  
+
+
+<a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Sort <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll/employees/{$payroll->id}/{$payroll_group->id}/ajax") . "?action=sort&next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-sort"></span></a>
+
 
                 </th>
                 <th width="10%" class="text-right">Working Days</th>

@@ -12,7 +12,13 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Configure Payroll Employees</h3>
+          <h3 class="panel-title">
+<?php if($this->input->get('action')!='sort') { ?>
+  Configure Payroll Employees
+<?php } else { ?>
+  Sort Payroll Employees
+<?php } ?>
+          </h3>
         </div>
 <form method="post">
         <div class="panel-body">
@@ -29,7 +35,7 @@
     <h4 class="list-group-item-heading">
     <label><input type="checkbox" name="selected[]" value="<?php echo $employee->name_id; ?>" <?php echo ($employee->active==1) ? "CHECKED" : ""; ?>> <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?></label>
     </h4>
-    
+<?php if($this->input->get('action')!='sort') { ?>
 <div class="row">
   <div class="col-md-6">
     <select class="form-control input-sm" name="payslip_template[<?php echo $employee->name_id; ?>]" data-style="btn-default btn-sm">
@@ -49,7 +55,7 @@
     <?php } ?>
   </div>
 </div>
-
+<?php } ?>
   </li>
   <?php } ?>
 </div>

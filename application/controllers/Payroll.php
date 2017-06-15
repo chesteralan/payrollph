@@ -715,8 +715,12 @@ class Payroll extends MY_Controller {
 		$employees->set_select('pe.template');
 		$employees->set_select('pe.print_group');
 		$employees->set_select('pe.order'); 
-		$employees->set_order('pe.order', 'ASC'); 
-		$this->template_data->set('employees', $employees->populate());
+		$employees->set_order('pe.order', 'ASC');
+		if( $this->input->get('action') == 'sort') {
+			$employees->set_where('pe.active', 1);
+		} 
+		$employees_data = $employees->populate();
+		$this->template_data->set('employees', $employees_data);
 
 		$print_groups = new $this->Terms_list_model;
 		$print_groups->set_select("*");
