@@ -89,7 +89,7 @@
               <div class="form-group">
               <?php foreach($templates as $template) { ?>
                 <p><label>
-                  <input name="template_selected[]" type="checkbox" value="<?php echo $template->id; ?>"> Generate on: <?php echo $template->name; ?>
+                  <input name="template_selected[]" type="checkbox" value="<?php echo $template->id; ?>" CHECKED> Generate on: <?php echo $template->name; ?>
                 </label></p>
               <?php } ?>
               </div>
