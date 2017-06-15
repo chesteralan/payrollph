@@ -24,12 +24,13 @@
 <?php if( isset($output) && ($output=='ajax') ) : ?>
 
 <p>
-<a href="<?php echo site_url("payroll_benefits/add/{$payroll_id}/{$name_id}/{$benefit_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Entry">Add Payroll Entry</a><em> - This will add an item to this current payroll only.</em>
+<a href="<?php echo site_url("payroll_benefits/add/{$payroll_id}/{$name_id}/{$benefit_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Payroll Entry">Add Payroll Entry</a><em><small> - This will add an item to this current payroll only.</small></em>
 </p>
+<!--
 <p>
-<a href="<?php echo site_url("payroll_benefits/add/{$payroll_id}/{$name_id}/{$benefit_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-info btn-xs ajax-modal-inner" data-title="Add Entry">Add Employee Benefit</a><em> - This will add a permanent item to the employee.</em>
+<a href="<?php echo site_url("employees_benefits/add/{$name_id}/ajax") . "?payroll_id={$payroll_id}&benefit_id={$benefit_id}&next=" . uri_string(); ?>" class="btn btn-info btn-xs ajax-modal-inner" data-title="Add Employee Benefit">Add Employee Benefit</a><small><em> - This will add a item to the employee's benefits, add item to this current payroll, and generate entries to future payroll.</em></small>
 </p>
-
+-->
 <?php endif; ?>
 
 <?php if( $benefits ) { ?>

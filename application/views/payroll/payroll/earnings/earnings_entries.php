@@ -22,7 +22,8 @@
 <?php endif; ?>
 
 <?php if( isset($output) && ($output=='ajax') ) : ?>
-<p class="text-center"><a href="<?php echo site_url("payroll_earnings/add/{$payroll_id}/{$name_id}/{$earning_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Entry">Add Entry</a></p>
+<p><a href="<?php echo site_url("payroll_earnings/add/{$payroll_id}/{$name_id}/{$earning_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Payroll Entry">Add Payroll Entry</a> <em><small> - This will add an item to this current payroll only.</small></em>
+</p>
 <?php endif; ?>
 
 <?php if( $earnings ) { ?>

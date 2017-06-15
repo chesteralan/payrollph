@@ -392,3 +392,8 @@ td.calendar-day .date_checkbox {
 }
 
 /* *********  end nprogress  **************************** */
+
+.stickynav1.navbar-fixed-top {
+	top: 50px;
+	z-index: 999;
+}

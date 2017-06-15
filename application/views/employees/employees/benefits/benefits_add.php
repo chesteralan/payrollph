@@ -21,11 +21,19 @@
         
           <div class="form-group">
             <label>Benefit</label>
+<?php if( $this->input->get('benefit_id') ) { ?>
+<div class="form-control">
+  <?php foreach($benefits as $benefit) { 
+    echo ($benefit->id==$this->input->get('benefit_id')) ? $benefit->name . ' - ' . $benefit->notes : '';
+  } ?>
+</div>
+<?php } else { ?>
             <select class="form-control" title="Select a Benefit" name="benefit_id" required>
             <?php foreach($benefits as $benefit) { ?>
                 <option value="<?php echo $benefit->id; ?>"><?php echo $benefit->name; ?><?php echo ($benefit->notes) ? ' - ' . $benefit->notes : ''; ?></option>
             <?php } ?>
             </select>
+<?php } ?>
           </div>  
 
       <div class="row">
@@ -71,7 +79,7 @@
               <div class="form-group">
               <?php foreach($templates as $template) { ?>
                 <p><label>
-                  <input name="template_selected[]" type="checkbox" value="<?php echo $template->id; ?>"> Generate on: <?php echo $template->name; ?>
+                  <input name="template_selected[]" type="checkbox" value="<?php echo $template->id; ?>" CHECKED> Generate on: <?php echo $template->name; ?>
                 </label></p>
               <?php } ?>
               </div>

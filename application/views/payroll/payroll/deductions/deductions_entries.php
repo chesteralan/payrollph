@@ -23,7 +23,10 @@
 <?php endif; ?>
 
 <?php if( isset($output) && ($output=='ajax') ) : ?>
-<p class="text-center"><a href="<?php echo site_url("payroll_deductions/add/{$payroll_id}/{$name_id}/{$deduction_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Entry - <?php echo $deduction_data->name; ?>">Add Entry</a> <a href="<?php echo site_url("employees_deductions/summary/{$deduction_id}/{$name_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-warning btn-xs ajax-modal-inner" data-title="Summary - <?php echo $deduction_data->name; ?>">Summary</a>
+<p><a href="<?php echo site_url("payroll_deductions/add/{$payroll_id}/{$name_id}/{$deduction_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Entry - <?php echo $deduction_data->name; ?>">Add Payroll Entry</a> <em><small> - This will add an item to this current payroll only.</small></em>
+</p>
+<p>
+<a href="<?php echo site_url("employees_deductions/summary/{$deduction_id}/{$name_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-warning btn-xs ajax-modal-inner" data-title="Summary - <?php echo $deduction_data->name; ?>">Summary</a>
 </p>
 <?php endif; ?>
 

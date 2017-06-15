@@ -881,4 +881,16 @@ if (typeof NProgress != 'undefined') {
 }
 /** ******  NProgress  *********************** **/
 
+$(document).scroll(function(e){
+  console.log( $(this).scrollTop() );
+    if( ( $(this).scrollTop() > 22 ) && ( $('.stickynav1').length > 0 ) ) {
+      $('.stickynav1').addClass('navbar-fixed-top');
+      $('body').css('padding-top', '145px');
+    } else {
+      $('.stickynav1').removeClass('navbar-fixed-top');
+      $('body').css('padding-top', '70px');
+    }
+
+});
+
 })(jQuery);
