@@ -22,7 +22,14 @@
 <?php endif; ?>
 
 <?php if( isset($output) && ($output=='ajax') ) : ?>
-<p class="text-center"><a href="<?php echo site_url("payroll_benefits/add/{$payroll_id}/{$name_id}/{$benefit_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Entry">Add Entry</a></p>
+
+<p>
+<a href="<?php echo site_url("payroll_benefits/add/{$payroll_id}/{$name_id}/{$benefit_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Entry">Add Payroll Entry</a><em> - This will add an item to this current payroll only.</em>
+</p>
+<p>
+<a href="<?php echo site_url("payroll_benefits/add/{$payroll_id}/{$name_id}/{$benefit_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-info btn-xs ajax-modal-inner" data-title="Add Entry">Add Employee Benefit</a><em> - This will add a permanent item to the employee.</em>
+</p>
+
 <?php endif; ?>
 
 <?php if( $benefits ) { ?>
