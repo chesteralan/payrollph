@@ -20,6 +20,10 @@ class Lists_benefits extends MY_Controller {
 	public function index($start=0) {
 		
 		$benefits = new $this->Benefits_list_model;
+		if( $this->input->get('q') ) {
+			$benefits->set_where('name LIKE "%' . $this->input->get('q') . '%"');
+			$benefits->set_where_or('notes LIKE "%' . $this->input->get('q') . '%"');
+		}
 		$benefits->set_select("*");
 		$benefits->set_order('leave', 'ASC');
 		$benefits->set_order('name', 'ASC');

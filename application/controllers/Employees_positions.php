@@ -18,6 +18,9 @@ class Employees_positions extends MY_Controller {
 	public function index($start=0) {
 		
 		$positions = new $this->Employees_positions_model;
+		if( $this->input->get('q') ) {
+			$positions->set_where('name LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+		}
 		$positions->setCompanyId($this->session->userdata('current_company_id'),true);
 		$positions->setTrash(0,true);
 		$positions->set_select("*");

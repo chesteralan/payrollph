@@ -18,6 +18,9 @@ class Employees_areas extends MY_Controller {
 	public function index($start=0) {
 		
 		$areas = new $this->Employees_areas_model;
+		if( $this->input->get('q') ) {
+			$areas->set_where('name LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+		}
 		$areas->setCompanyId($this->session->userdata('current_company_id'),true);
 		$areas->setTrash(0,true);
 		$areas->set_select("*");

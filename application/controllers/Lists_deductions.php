@@ -20,6 +20,10 @@ class Lists_deductions extends MY_Controller {
 	public function index($start=0) {
 		
 		$deductions = new $this->Deductions_list_model;
+		if( $this->input->get('q') ) {
+			$deductions->set_where('name LIKE "%' . $this->input->get('q') . '%"');
+			$deductions->set_where_or('notes LIKE "%' . $this->input->get('q') . '%"');
+		}
 		$deductions->set_select("*");
 		$deductions->set_order('name', 'ASC');
 		$deductions->set_start($start);

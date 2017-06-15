@@ -20,6 +20,12 @@ class Lists_earnings extends MY_Controller {
 	public function index($start=0) {
 		
 		$earnings = new $this->Earnings_list_model;
+
+		if( $this->input->get('q') ) {
+			$earnings->set_where('name LIKE "%' . $this->input->get('q') . '%"');
+			$earnings->set_where_or('notes LIKE "%' . $this->input->get('q') . '%"');
+		}
+
 		$earnings->set_select("*");
 		$earnings->set_order('name', 'ASC');
 		$earnings->set_start($start);

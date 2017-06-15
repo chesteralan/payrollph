@@ -25,6 +25,11 @@ class Employees extends MY_Controller {
 	public function index($start=0) {
 
 		$employees = new $this->Employees_model;
+		if( $this->input->get('q') ) {
+			$employees->set_where('(lastname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+			$employees->set_where_or('firstname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+			$employees->set_where_or('middlename LIKE "%' . $this->input->get('q') . '%")', NULL, 99);
+		}
 		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 		$employees->setTrash(0,true);
 		$employees->set_select('*');
@@ -55,6 +60,11 @@ class Employees extends MY_Controller {
 		$this->template_data->set('group', $groups->get());
 
 		$employees = new $this->Employees_model;
+		if( $this->input->get('q') ) {
+			$employees->set_where('(lastname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+			$employees->set_where_or('firstname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+			$employees->set_where_or('middlename LIKE "%' . $this->input->get('q') . '%")', NULL, 99);
+		}
 		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 		$employees->setGroupId($id,true);
 		$employees->set_select('*');
@@ -84,6 +94,11 @@ class Employees extends MY_Controller {
 		$this->template_data->set('position', $position->get());
 
 		$employees = new $this->Employees_model;
+		if( $this->input->get('q') ) {
+			$employees->set_where('(lastname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+			$employees->set_where_or('firstname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+			$employees->set_where_or('middlename LIKE "%' . $this->input->get('q') . '%")', NULL, 99);
+		}
 		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 		$employees->setPositionId($id,true);
 		$employees->set_select('*');
@@ -113,6 +128,11 @@ class Employees extends MY_Controller {
 		$this->template_data->set('area', $area->get());
 
 		$employees = new $this->Employees_model;
+		if( $this->input->get('q') ) {
+			$employees->set_where('(lastname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+			$employees->set_where_or('firstname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+			$employees->set_where_or('middlename LIKE "%' . $this->input->get('q') . '%")', NULL, 99);
+		}
 		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 		$employees->setAreaId($id,true);
 		$employees->set_select('*');

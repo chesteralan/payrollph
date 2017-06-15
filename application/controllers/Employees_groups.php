@@ -18,6 +18,9 @@ class Employees_groups extends MY_Controller {
 	public function index($start=0) {
 		
 		$groups = new $this->Employees_groups_model;
+		if( $this->input->get('q') ) {
+			$groups->set_where('name LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+		}
 		$groups->setCompanyId($this->session->userdata('current_company_id'),true);
 		$groups->setTrash(0,true);
 		$groups->set_select("*");

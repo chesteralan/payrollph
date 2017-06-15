@@ -8,10 +8,32 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
+
+<div class="row">
+<div class="col-md-9">
+                    <h3 class="panel-title bold"><?php echo $current_page; ?>
+                    <?php if( $this->input->get('q') ) { ?>
+                    <span class="badge"><?php echo $this->input->get('q'); ?> <a href="<?php echo site_url(uri_string()); ?>"><span class="glyphicon glyphicon-remove"></span></a></span>
+                    <?php } ?>
+          </h3>
+</div>
+<div class="col-md-3">
+<form method="get" action="<?php echo site_url(uri_string()); ?>">
+<div class="input-group input-group-sm">
+  <input type="text" name="q" class="form-control" placeholder="Search for..." value="<?php echo $this->input->get('q'); ?>">
+  <span class="input-group-btn">
+    <button class="btn btn-default" type="submit">Search</button>
+    
 <?php if( hasAccess('employees', 'areas', 'add') ) { ?>
-  <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Area" data-url="<?php echo site_url("employees_areas/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Add Area</button>
+  <button type="button" class="btn btn-success ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Area" data-url="<?php echo site_url("employees_areas/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Add Area</button>
 <?php } ?>
-                  <h3 class="panel-title bold"><?php echo $current_page; ?></h3>
+
+  </span>
+</div><!-- /input-group -->
+</form>
+</div>
+</div>
+
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 <?php endif; ?>
