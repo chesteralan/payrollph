@@ -51,9 +51,13 @@ $total = 0;
               <tr id="deduction-<?php echo $deduction->id; ?>">
                 <td><?php echo $deduction->payroll_name; ?></td>
                 <td class="text-right">
-                <a class="ajax-modal-inner" href="<?php echo site_url("payroll_deductions/edit/{$deduction->ped_id}/{$output}") . '?next=' . (($this->input->get('next'))?$this->input->get('next'):"employees_deductions/view/{$employee->name_id}"); ?>">
-                <?php echo number_format($deduction->ped_amount,2); $total += $deduction->ped_amount; ?>
-                </a>
+<?php if($output=='ajax') { ?>
+<a class="ajax-modal-inner" href="<?php echo site_url("payroll_deductions/edit/{$deduction->ped_id}/{$output}") . '?next=' . (($this->input->get('next'))?$this->input->get('next'):"employees_deductions/view/{$employee->name_id}"); ?>">
+<?php } else { ?>
+   <a class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Item" data-url="<?php echo site_url("payroll_deductions/edit/{$deduction->ped_id}/ajax")  . '?next=' . uri_string(); ?>">
+<?php } ?>
+<?php echo number_format($deduction->ped_amount,2); $total += $deduction->ped_amount; ?>
+</a>
                 </td>
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
 <?php if( !$this->input->get('no_action') ) { ?>
