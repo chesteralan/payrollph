@@ -31,11 +31,8 @@
 
             <?php foreach($items as $item) { ?>
               <tr id="employee-group-<?php echo $item->id; ?>">
-                <td>
-<a href="<?php echo site_url("employees_deductions/view/{$item->name_id}"); ?>">
-                <?php echo $item->lastname; ?>, <?php echo $item->firstname; ?>
-</a>
-                </td>
+                <td><a href="<?php echo site_url("employees_deductions/view/{$item->name_id}"); ?>" class="body_wrapper">
+                <?php echo $item->lastname; ?>, <?php echo $item->firstname; ?></a></td>
                 <td><?php echo $item->notes; ?></td>
                 <td class="text-right"><?php echo number_format($item->max_amount,2); ?></td>
                 <td class="text-right"><?php echo number_format($item->amount,2); ?></td>
