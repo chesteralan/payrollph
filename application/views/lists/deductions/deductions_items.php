@@ -17,7 +17,7 @@
           <table class="table table-default table-hover">
             <thead>
               <tr>
-                <th>Earning Name</th>
+                <th>Deduction Name</th>
                 <th>Notes</th>
                 <th class="text-right">Amount</th>
                 <?php foreach($templates as $temp) { ?>
@@ -30,7 +30,11 @@
 
             <?php foreach($items as $item) { ?>
               <tr id="employee-group-<?php echo $item->id; ?>">
-                <td><?php echo $item->lastname; ?>, <?php echo $item->firstname; ?></td>
+                <td>
+<a href="<?php echo site_url("employees_deductions/view/{$item->name_id}"); ?>">
+                <?php echo $item->lastname; ?>, <?php echo $item->firstname; ?>
+</a>
+                </td>
                 <td><?php echo $item->notes; ?></td>
                 <td class="text-right"><?php echo number_format($item->amount,2); ?></td>
                 <?php foreach($templates as $temp) { 
