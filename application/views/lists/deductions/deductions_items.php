@@ -19,6 +19,7 @@
               <tr>
                 <th>Deduction Name</th>
                 <th>Notes</th>
+                <th class="text-right">Whole Amount</th>
                 <th class="text-right">Amount</th>
                 <?php foreach($templates as $temp) { ?>
                   <th class="text-center"><?php echo $temp->name; ?></th>
@@ -36,6 +37,7 @@
 </a>
                 </td>
                 <td><?php echo $item->notes; ?></td>
+                <td class="text-right"><?php echo number_format($item->max_amount,2); ?></td>
                 <td class="text-right"><?php echo number_format($item->amount,2); ?></td>
                 <?php foreach($templates as $temp) { 
                   $var = 'temp_' . $temp->id;
