@@ -22,6 +22,7 @@
 
 <?php 
 $total = array();
+$total_benefits = 0;
 if( $benefits_columns ) foreach( $benefits_columns as $column ) { 
   $total[$column->id]['ee'] = 0;
   $total[$column->id]['er'] = 0;
@@ -51,17 +52,18 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
                 <th width="10%" class="text-right"><?php echo $column->name; ?>-EE</th>
                 <th width="10%" class="text-right"><?php echo $column->name; ?>-ER</th>
 <?php } ?>
+<th width="10%" class="text-right">TOTAL EE</th>
               </tr>
             </thead>
             <tbody>
 <?php 
               foreach($payroll_group->employees as $employee) {
+$total_benefit = 0;
               ?>
               <tr>
                 <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> (<?php echo $employee->position; ?>)
 <a href="<?php echo site_url("employees_benefits/view/{$employee->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper"><span class="glyphicon glyphicon-cog"></span></a>
                 </td>
-
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
                 <td class="text-right">
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo ($column->notes!='') ? $column->notes : $column->name; ?> (EE)" data-url="<?php echo site_url("payroll_benefits/entries/{$payroll->id}/{$employee->name_id}/{$column->id}/ee/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
@@ -69,6 +71,8 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
                 <?php 
                     $ee = 'ee_share_' . $column->id;
                     $total[$column->id]['ee'] += $employee->$ee;
+                    $total_benefit += $employee->$ee;
+                    $total_benefits += $employee->$ee;
                     echo number_format($employee->$ee,2); ?>
 </a>
                     </td>
@@ -81,6 +85,7 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
 </a>
                     </td>
 <?php } ?>
+<td class="text-right"><?php echo number_format($total_benefit,2); ?></td>
               </tr>
 <?php } ?>
 
@@ -97,6 +102,7 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
                 <th width="10%" class="text-right"><?php echo $column->name; ?>-EE</th>
                 <th width="10%" class="text-right"><?php echo $column->name; ?>-ER</th>
 <?php } ?>
+                <th width="10%" class="text-right">TOTAL EE</th>
               </tr>
             </thead>
             <tbody>
@@ -106,6 +112,7 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
                 <td width="10%" class="text-right"><a href="<?php echo site_url("payroll_benefits/item_schedule/{$payroll->id}/{$column->id}"); ?>" class="body_wrapper"><strong><?php echo number_format($total[$column->id]['ee'],2);?></strong></a></td>
                 <td width="10%" class="text-right"><a href="<?php echo site_url("payroll_benefits/item_schedule/{$payroll->id}/{$column->id}"); ?>" class="body_wrapper"><strong><?php echo number_format($total[$column->id]['er'],2);?></strong></a></td>
 <?php } ?>
+<td class="text-right"><?php echo number_format($total_benefits,2); ?></td>
   </tr>
             </tbody>
             </table>
