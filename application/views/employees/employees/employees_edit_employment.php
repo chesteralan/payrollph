@@ -21,6 +21,8 @@
 
 <?php endif; ?>
 
+<div class="row">
+  <div class="col-md-6">
           <div class="form-group">
             <label>Group</label>
             <select class="form-control" title="Select a Group" name="group_id">
@@ -29,7 +31,8 @@
               <?php } ?>
             </select>
           </div>
-
+  </div>
+  <div class="col-md-6">
           <div class="form-group">
             <label>Position</label>
             <select class="form-control" title="Select a Position" name="position_id">
@@ -38,7 +41,10 @@
               <?php } ?>
             </select>
           </div>
-
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
           <div class="form-group">
             <label>Area</label>
             <select class="form-control" title="Select a Area" name="area_id">
@@ -47,11 +53,15 @@
               <?php } ?>
             </select>
           </div>
-
+  </div>
+  <div class="col-md-6">
           <div class="form-group">
             <label>Date Hired</label>
             <input name="date_hired" type="text" class="form-control datepicker" value="<?php echo ($employee->hired) ? date('m/d/Y', strtotime($employee->hired)) : date('m/d/Y'); ?>">
           </div>
+  </div>
+</div>
+
 <?php if( $employment_status ) { ?>
           <div class="form-group">
             <label>Status</label>
