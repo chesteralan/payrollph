@@ -28,7 +28,9 @@ class Payroll_dtr extends MY_Controller {
 		$this->load->model('Payroll_templates_deductions_model');
 
 		$this->load->model('Employees_model');
+		$this->load->model('Employees_leave_benefits_model');
 		$this->load->model('Terms_list_model');
+		$this->load->model('Benefits_list_model');
 
 	}
 
@@ -127,6 +129,110 @@ class Payroll_dtr extends MY_Controller {
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/dtr/dtr_view', $this->template_data->get_data());
+	}
+
+public function leave_benefits($id,$group_id=0,$output='') {
+
+		$this->template_data->set('current_page', 'Leave Benefits');
+
+		$this->template_data->set('group_id', $group_id);
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$payroll->set_select("*");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pe WHERE pe.payroll_id=payroll.id) as earnings_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_benefits` pb WHERE pb.payroll_id=payroll.id) as benefits_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_deductions` pd WHERE pd.payroll_id=payroll.id) as deductions_columns");
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$leave = new $this->Benefits_list_model('b');
+		$leave->setLeave(1,true);
+		$leave->setTrash(0,true);
+		$leave->set_select("*");
+		$leave_benefits = $leave->populate();
+		$this->template_data->set('leave_benefits', $leave_benefits);
+
+		$print_groups = new $this->Terms_list_model;
+		$print_groups->set_select("*");
+		$print_groups->set_order('name', 'ASC');
+		$print_groups->set_start(0);
+		$print_groups->setTrash('0',true);
+		$print_groups->setType('print_group',true);
+		$this->template_data->set('print_groups', $print_groups->populate());
+
+		$payroll_group = new $this->Payroll_groups_model('pg');
+		$payroll_group->setPayrollId($id,true);
+
+		if( intval($group_id) > 0 ) {
+			$payroll_group->setGroupId(intval($group_id),true);
+		}
+
+		$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');
+		$payroll_group->set_limit(0);
+		$payroll_group->set_order('pg.order', 'DESC');
+
+		$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
+		$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
+		$payroll_group_data =  $payroll_group->populate();
+
+		$inclusive_dates = new $this->Payroll_inclusive_dates_model('pid');
+		$inclusive_dates->setPayrollId($id,true);
+		$inclusive_dates->set_select('COUNT(*) as working_days');
+		$inclusive_dates->set_select('MIN(pid.inclusive_date) as start_date');
+		$inclusive_dates->set_select('MAX(pid.inclusive_date) as end_date');
+		$dates_data = $inclusive_dates->get();
+		$this->template_data->set('inclusive_dates', $dates_data);
+
+		if( $dates_data->working_days == 0 ) {
+			redirect("payroll");
+		}
+
+		foreach($payroll_group_data as $key=>$group) {
+			$employees = new $this->Payroll_employees_model('pe');
+			if( $this->session->userdata('current_employee') ) {
+				$employees->setNameId($this->session->userdata('current_employee')->name_id,true);
+			}
+			$employees->setPayrollId($id,true);
+			$employees->set_select('e.*');
+			$employees->set_join('employees e', 'e.name_id=pe.name_id');
+			$employees->set_where('e.group_id', $group->group_id);
+
+			if( $this->session->userdata('employees_status') ) {
+				$employees->set_where('e.status', $this->session->userdata('employees_status')->id);
+			}
+
+			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
+
+
+			foreach( $leave_benefits as $leave1) {
+				$employees->set_select("(SELECT elb.days FROM employees_leave_benefits elb WHERE elb.company_id=e.company_id AND elb.name_id=e.name_id AND elb.benefit_id={$leave1->id}) as allowed_leave_{$leave1->id}");
+				$employees->set_select("(SELECT SUM(eab.hours/8) FROM employees_absences eab WHERE eab.name_id=e.name_id AND eab.leave_type={$leave1->id} AND YEAR(eab.date_absent)='".date('Y')."') as availed_leave_{$leave1->id}");
+			}
+
+
+			$employees->setActive('1', true);
+			$employees->set_order('pe.order', 'ASC');
+			$employees->set_limit(0);
+			$employees_data = $employees->populate(); 
+			$payroll_group_data[$key]->employees = $employees_data;
+		}
+		$this->template_data->set('payroll_groups', $payroll_group_data);
+
+		$employees_status = new $this->Payroll_employees_model('pe');
+		$employees_status->setPayrollId($id,true);
+		$employees_status->set_select('e.status');
+		$employees_status->set_select('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status) as status_name');
+		$employees_status->set_join('employees e', 'e.name_id=pe.name_id');
+		$employees_status->set_limit(0);
+		$employees_status->set_group_by('e.status');
+		$employees_status->set_where('e.status IS NOT NULL');
+		$employees_status->set_order('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status)', 'ASC');
+		$this->template_data->set('employees_status', $employees_status->populate());
+
+		$this->template_data->set('output', $output);
+
+		$this->load->view('payroll/payroll/dtr/dtr_leave_benefits', $this->template_data->get_data());
 	}
 
 	public function absences($id,$name_id,$output='') {

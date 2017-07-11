@@ -72,7 +72,7 @@ CREATE TABLE `employees` (
   `position_id` int(20) DEFAULT NULL,
   `area_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,
-  `status` int(20) DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL,
   `notes` text,
   `phone_number` varchar(100) DEFAULT NULL,
   `address` text,
@@ -197,6 +197,19 @@ CREATE TABLE `employees_groups` (
   `notes` text,
   `trash` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
+  KEY `company_id` (`company_id`)
+);
+
+-- Table structure for table `employees_leave_benefits` 
+
+CREATE TABLE `employees_leave_benefits` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `company_id` int(20) NOT NULL,
+  `name_id` int(20) NOT NULL,
+  `benefit_id` int(20) NOT NULL,
+  `days` int(2) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `name_id` (`name_id`,`benefit_id`),
   KEY `company_id` (`company_id`)
 );
 

@@ -30,7 +30,7 @@
             <select class="form-control" title="Leave Type" name="leave_type">
                 <option value="" <?php echo (($absence) && ($absence->leave_type==0)) ? 'SELECTED' : ''; ?>>Absence without Leave</option>
                 <?php foreach($leaves as $leave) { ?>
-                  <option value="<?php echo $leave->id; ?>" <?php echo (($absence) && ($absence->leave_type==$leave->id)) ? 'SELECTED' : ''; ?>><?php echo $leave->name; ?></option>
+                  <option value="<?php echo $leave->id; ?>" <?php echo (($absence) && ($absence->leave_type==$leave->id)) ? 'SELECTED' : ''; ?>><?php echo $leave->name; ?> (<?php echo number_format($leave->availed,2); ?> / <?php echo number_format($leave->days,2); ?>)</option>
                 <?php } ?>
             </select>
           </div>

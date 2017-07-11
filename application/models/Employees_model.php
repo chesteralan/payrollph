@@ -15,7 +15,7 @@ CREATE TABLE `employees` (
   `position_id` int(20) DEFAULT NULL,
   `area_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,
-  `status` int(20) DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL,
   `notes` text,
   `phone_number` varchar(100) DEFAULT NULL,
   `address` text,
@@ -37,7 +37,7 @@ CREATE TABLE `employees` (
  ALTER TABLE  `employees` ADD  `position_id` int(20) NULL   ;
  ALTER TABLE  `employees` ADD  `area_id` int(20) NULL   ;
  ALTER TABLE  `employees` ADD  `hired` date NULL   ;
- ALTER TABLE  `employees` ADD  `status` int(20) NULL   ;
+ ALTER TABLE  `employees` ADD  `status` varchar(100) NULL   ;
  ALTER TABLE  `employees` ADD  `notes` text NULL   ;
  ALTER TABLE  `employees` ADD  `phone_number` varchar(100) NULL   ;
  ALTER TABLE  `employees` ADD  `address` text NULL   ;

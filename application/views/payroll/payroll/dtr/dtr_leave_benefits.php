@@ -10,10 +10,8 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong> (<?php echo date( 'F d,Y', strtotime( $inclusive_dates->start_date ) ); ?> - <?php echo date( 'F d,Y', strtotime( $inclusive_dates->end_date ) ); ?>)
-<a class="body_wrapper" href="<?php echo site_url("payroll_dtr/leave_benefits/{$payroll->id}"); ?>"><small>Leave Benefits</small></a>
-
-<a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Inclusive Dates" data-url="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
+                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
+<a class="body_wrapper" href="<?php echo site_url("payroll_dtr/view/{$payroll->id}"); ?>"><small>Daily Time Record</small></a>
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
@@ -42,31 +40,27 @@
 <?php } ?>
 
                 </th>
-                <th width="10%" class="text-right">Working Days</th>
-                <th width="10%" class="text-right">Absences</th>
-                <th width="10%" class="text-right">Days Present</th>
+<?php foreach($leave_benefits as $leave) { ?>
+                <th width="10%" class="text-right"><?php echo $leave->name; ?></th>
+<?php } ?>
               </tr>
             </thead>
             <tbody>
             
-<?php 
-              foreach($payroll_group->employees as $employee) {
-$working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
-$days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
-              ?>
+<?php foreach($payroll_group->employees as $employee) { ?>
               <tr>
                 <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> (<?php echo $employee->position; ?>)
 <?php if( !$this->session->userdata('current_employee') ) { ?>
                 <a href="<?php echo site_url("payroll_dtr/select_employee/{$employee->name_id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
                 </td>
-                <td class="text-right"><?php echo $inclusive_dates->working_days; ?></td>
-                <td class="text-right">
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Employee Attendance" data-url="<?php echo site_url("payroll_dtr/absences/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
-                <?php echo $days_absent; ?>
-</a>
-                </td>
-                <td class="text-right"><?php $present_days = $inclusive_dates->working_days - $days_absent; echo $present_days; ?></td>
+<?php foreach($leave_benefits as $leave) { ?>
+                <td class="text-right"><?php 
+$var1 = 'allowed_leave_' . $leave->id;
+$var2 = 'availed_leave_' . $leave->id;
+                echo number_format($employee->$var2,2) . " / " . number_format($employee->$var1,2); ?></td>
+<?php } ?>
+                
               </tr>
 <?php } ?>
 

@@ -20,6 +20,8 @@ class Employees extends MY_Controller {
 		$this->load->model('Employees_areas_model');
 		$this->load->model('Terms_list_model');
 		$this->load->model('Companies_list_model');
+		$this->load->model('Benefits_list_model');
+		$this->load->model('Employees_leave_benefits_model');
 	}
 
 	public function index($start=0) {
@@ -379,6 +381,42 @@ class Employees extends MY_Controller {
 
 		$this->load->view('employees/employees/employees_config', $this->template_data->get_data());
 
+	}
+
+	public function edit_leave_benefits($id,$output='') {
+
+		$employee = new $this->Employees_model;
+		$employee->setNameId($id,true);
+		$employee_data = $employee->get();
+		$this->template_data->set('employee', $employee_data);
+
+		if( $this->input->post('leave') ) {
+			foreach($this->input->post('leave') as $benefit_id=>$days) {
+				$leave_b = new $this->Employees_leave_benefits_model('elb');
+				$leave_b->setCompanyId($employee_data->company_id,true);
+				$leave_b->setNameId($employee_data->name_id,true);
+				$leave_b->setBenefitId($benefit_id,true);
+
+				if( $leave_b->nonEmpty() ) {
+					$leave_b->setDays($days,false,true);
+					$leave_b->update();
+				} else {
+					$leave_b->setDays($days);
+					$leave_b->insert();
+				}
+			}
+			$this->postNext();
+		}
+		
+		$leave = new $this->Benefits_list_model('b');
+		$leave->setLeave(1,true);
+		$leave->setTrash(0,true);
+		$leave->set_select("*");
+		$leave->set_select("(SELECT elb.days FROM employees_leave_benefits elb WHERE elb.name_id={$employee_data->name_id} AND elb.company_id={$employee_data->company_id} AND b.id=elb.benefit_id LIMIT 1) as days");
+		$this->template_data->set('leaves', $leave->populate());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('employees/employees/employees_edit_leave_benefits', $this->template_data->get_data());
 	}
 
 }
