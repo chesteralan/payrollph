@@ -11,7 +11,9 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
+
 <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Earnings" data-url="<?php echo site_url("payroll/earnings/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
+
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
@@ -33,15 +35,18 @@ foreach( $earnings_columns as $column ) {
             <thead>
               <tr class="warning">
                 <th>
+<?php if( !$this->session->userdata('current_employee') ) { ?>
 <?php if( intval($group_id) > 0 ) { ?>
-<a href="<?php echo site_url("payroll_earnings/view/{$payroll->id}"); ?>" class="glyphicon glyphicon-arrow-left body_wrapper"></a>
+<a href="<?php echo site_url("payroll_earnings/view/{$payroll->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></a>
 <?php } else { ?>
-  <a href="<?php echo site_url("payroll_earnings/view/{$payroll->id}/{$payroll_group->group_id}"); ?>" class="glyphicon glyphicon-filter body_wrapper"></a>
+  <a href="<?php echo site_url("payroll_earnings/view/{$payroll->id}/{$payroll_group->group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></a>
 <?php } ?>
+<?php } ?>
+
                 <?php echo $payroll_group->name; ?>
-
+<?php if( !$this->session->userdata('current_employee') ) { ?>
 <a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Sort <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll/employees/{$payroll->id}/{$payroll_group->id}/ajax") . "?action=sort&next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-sort"></span></a>
-
+<?php } ?>
                 </th>
 <?php if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
                 <th width="10%" class="text-right"><?php echo $column->name; ?></th>
@@ -81,7 +86,7 @@ $total_earnings = 0;
           </table>
 <?php } ?>
     <?php } ?>
-
+<?php if( !$this->session->userdata('current_employee') ) { ?>
     <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
               <tr class="warning">
@@ -110,7 +115,7 @@ $total_earnings += $total[$column->id];
   </tr>
             </tbody>
             </table>
-
+<?php } ?>
 <?php } else { ?>
 
   <div class="text-center">No Group and/or Earnings Assigned!</div>

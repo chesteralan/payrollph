@@ -87,6 +87,9 @@ class Payroll_deductions extends MY_Controller {
 
 		foreach($payroll_group_data as $key=>$group) {
 			$employees = new $this->Payroll_employees_model('pe');
+			if( $this->session->userdata('current_employee') ) {
+				$employees->setNameId($this->session->userdata('current_employee')->name_id,true);
+			}
 			$employees->setPayrollId($id,true);
 			$employees->set_select('e.*');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');

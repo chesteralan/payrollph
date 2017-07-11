@@ -30,6 +30,16 @@
 
 <?php } ?>
 
+<?php if( $this->session->userdata('current_employee') ) { 
+$current_employee = $this->session->userdata('current_employee');
+  ?>
+  <li class="active hidden-xs hidden-sm dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong><?php echo $current_employee->lastname; ?>, <?php echo $current_employee->firstname; ?> <?php echo substr($current_employee->middlename,0,1)."."; ?></strong> <span class="caret hidden-xs"></span></a>
+     <ul class="dropdown-menu">
+            <li><a href="<?php echo site_url('payroll_dtr/clear_current_employee') . "?next=" . urlencode(uri_string()); ?>">Cancel</a></li>
+        </ul>
+  </li>
+<?php } else { ?>
 <?php if( isset($employees_status) && ($employees_status) ) { ?>
     <li class="dropdown">
           <a href="#" class="dropdown-toggle bold" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo ($this->session->userdata('employees_status')) ? $this->session->userdata('employees_status')->name : 'All Employees'; ?> <span class="caret"></span></a>
@@ -40,6 +50,7 @@
             <?php } ?>
           </ul>
         </li>
+<?php } ?>
 <?php } ?>
 
       </ul>
@@ -61,6 +72,7 @@ if( (isset($payroll->benefits_columns)) && ( $payroll->benefits_columns > 0 ) ) 
 if( (isset($payroll->deductions_columns)) && ( $payroll->deductions_columns > 0 ) ) {
   $url['payroll_deductions'] = array('uri' => "payroll_deductions/view/{$payroll->id}/{$group_id}", 'title'=>'Deductions', 'access'=>hasAccess('payroll', 'payroll', 'view'));
 }
+$url['payroll_summary'] = array('uri' => "payroll_summary/view/{$payroll->id}/{$group_id}", 'title'=>'Summary', 'access'=>hasAccess('payroll', 'payroll', 'view'));
 
 foreach($url as $k=>$v) {
   if( $v['access'] ) {
