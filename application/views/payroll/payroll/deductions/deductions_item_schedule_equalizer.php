@@ -35,7 +35,7 @@ if($this->input->get()) {
 
 <?php endif; ?>
 
-<?php if( $item_data ) {  ?>
+<?php if( $item_data ) { print_r( $equalizer ); ?>
 <form method="post">
           <table class="table table-default table-hover" id="Payroll-Group">
             <thead>

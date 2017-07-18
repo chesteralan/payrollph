@@ -44,7 +44,9 @@ $total_payment += $item->employee_share + $item->employer_share;
               ?>
               <tr>
                 <td><?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?>
+<?php if(!$payroll->lock) { ?>
                 <a href="<?php echo site_url("employees_benefits/view/{$item->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper"><span class="glyphicon glyphicon-cog"></span></a>
+<?php } ?>
                 </td>
                 <td class="text-right"><?php echo number_format($item->employee_share,2); ?></td>
                 <td class="text-right"><?php echo number_format($item->employer_share,2); ?></td>

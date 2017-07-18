@@ -12,8 +12,9 @@
                 <div class="panel-heading">
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong> (<?php echo date( 'F d,Y', strtotime( $inclusive_dates->start_date ) ); ?> - <?php echo date( 'F d,Y', strtotime( $inclusive_dates->end_date ) ); ?>)
 <a class="body_wrapper" href="<?php echo site_url("payroll_dtr/leave_benefits/{$payroll->id}"); ?>"><small>Leave Benefits</small></a>
-
+<?php if(!$payroll->lock) { ?>
 <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Inclusive Dates" data-url="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
+<?php } ?>
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
@@ -37,8 +38,10 @@
 <?php } ?>
                 <?php echo $payroll_group->name; ?>
 
+<?php if(!$payroll->lock) { ?>
 <?php if( !$this->session->userdata('current_employee') ) { ?>
 <a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Sort <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll/employees/{$payroll->id}/{$payroll_group->id}/ajax") . "?action=sort&next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-sort"></span></a>
+<?php } ?>
 <?php } ?>
 
                 </th>
@@ -56,15 +59,20 @@ $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $worki
               ?>
               <tr>
                 <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> (<?php echo $employee->position; ?>)
+                
 <?php if( !$this->session->userdata('current_employee') ) { ?>
                 <a href="<?php echo site_url("payroll_dtr/select_employee/{$employee->name_id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
                 </td>
                 <td class="text-right"><?php echo $inclusive_dates->working_days; ?></td>
                 <td class="text-right">
+<?php if(!$payroll->lock) { ?>
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Employee Attendance" data-url="<?php echo site_url("payroll_dtr/absences/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
+<?php } ?>
                 <?php echo $days_absent; ?>
+<?php if(!$payroll->lock) { ?>
 </a>
+<?php } ?>
                 </td>
                 <td class="text-right"><?php $present_days = $inclusive_dates->working_days - $days_absent; echo $present_days; ?></td>
               </tr>

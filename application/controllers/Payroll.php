@@ -154,6 +154,7 @@ class Payroll extends MY_Controller {
 					$payroll->setTemplateId($this->input->post('template_id'),false,true);
 					$payroll->setMonth($this->input->post('month'),false,true);
 					$payroll->setYear($this->input->post('year'),false,true);
+					$payroll->setLock((($this->input->post('lock'))?1:0),false,true);
 					$payroll->update();
 				}
 				$this->postNext();
@@ -180,6 +181,26 @@ class Payroll extends MY_Controller {
 		$payroll->update();
 
 		$this->getNext("payroll");
+	}
+
+	public function lock($id) {
+		$this->_isAuth('payroll', 'payroll', 'edit');
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$payroll->setLock(1,false,true);
+		$payroll->update();
+		redirect($this->input->get('next'));
+	}
+
+	public function unlock($id) {
+		$this->_isAuth('payroll', 'payroll', 'edit');
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$payroll->setLock(0,false,true);
+		$payroll->update();
+		redirect($this->input->get('next'));
 	}
 
 	public function config($id,$output='') {

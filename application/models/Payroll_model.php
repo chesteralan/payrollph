@@ -13,6 +13,7 @@ CREATE TABLE `payroll` (
   `month` int(2) NOT NULL,
   `year` int(4) NOT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
+  `lock` int(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `template_id` (`template_id`),
   KEY `company_id` (`company_id`)
@@ -25,6 +26,7 @@ CREATE TABLE `payroll` (
  ALTER TABLE  `payroll` ADD  `month` int(2) NOT NULL   ;
  ALTER TABLE  `payroll` ADD  `year` int(4) NOT NULL   ;
  ALTER TABLE  `payroll` ADD  `active` int(1) NOT NULL   DEFAULT '1';
+ ALTER TABLE  `payroll` ADD  `lock` int(1) NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -45,6 +47,7 @@ class Payroll_model extends MY_Model {
 	protected $month;
 	protected $year;
 	protected $active;
+	protected $lock;
 
 	// --------------------------------------------------------------------
 
@@ -58,7 +61,7 @@ class Payroll_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll';
 		$this->_short_name = 'payroll';
-		$this->_fields = array("id","company_id","name","template_id","month","year","active");
+		$this->_fields = array("id","company_id","name","template_id","month","year","active","lock");
 		$this->_required = array("company_id","name","template_id","month","year","active");
 		parent::__construct($short_name, $db_config);
 	}
@@ -225,6 +228,29 @@ class Payroll_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: active --------------------------------------
+
+
+// ---------------------------- Start Field: lock -------------------------------------- 
+
+	/** 
+	* Sets a value to `lock` variable
+	* @access public
+	*/
+
+		public function setLock($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('lock', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `lock` variable
+	* @access public
+	*/
+
+		public function getLock() {
+			return $this->lock;
+		}
+	
+// ------------------------------ End Field: lock --------------------------------------
 
 
 

@@ -10,7 +10,9 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
+<?php if(!$payroll->lock) { ?>
                 <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Deductions" data-url="<?php echo site_url("payroll/deductions/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
+<?php } ?>
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong></h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
@@ -41,8 +43,10 @@ foreach( $deductions_columns as $column ) {
 <?php } ?>
 
                 <?php echo $payroll_group->name; ?>
+<?php if(!$payroll->lock) { ?>
 <?php if( !$this->session->userdata('current_employee') ) { ?>
-<a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Sort <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll/employees/{$payroll->id}/{$payroll_group->id}/ajax") . "?action=sort&next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-sort"></span></a>
+ <a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Sort <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll/employees/{$payroll->id}/{$payroll_group->id}/ajax") . "?action=sort&next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-sort"></span></a>
+<?php } ?>
 <?php } ?>
                 </th>
 <?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { 
@@ -59,20 +63,26 @@ foreach( $deductions_columns as $column ) {
               ?>
               <tr>
                 <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> (<?php echo $employee->position; ?>)
+<?php if(!$payroll->lock) { ?>
                 <a href="<?php echo site_url("employees_deductions/view/{$employee->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper"><span class="glyphicon glyphicon-cog"></span></a>
+<?php } ?>
                 </td>
                 <?php 
                 $total_deductions = 0;
                 if( $deductions_columns ) foreach( $deductions_columns as $column ) { ?>
                     <td class="text-right">
+<?php if(!$payroll->lock) { ?>
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> - <?php echo ($column->notes!='') ? $column->notes : $column->name; ?>" data-url="<?php echo site_url("payroll_deductions/entries/{$payroll->id}/{$employee->name_id}/{$column->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
+<?php } ?>
                     <?php 
                     $var = 'deductions_' . $column->id;
                     $total_deductions += $employee->$var;
                     $total[$column->id] += $employee->$var;
 
                     echo number_format($employee->$var,2); ?>
+<?php if(!$payroll->lock) { ?>
 </a>
+<?php } ?>
                     </td>
                 <?php } ?>
                 <td class="text-right"><?php echo number_format($total_deductions,2); ?></td>

@@ -266,6 +266,7 @@ CREATE TABLE `payroll` (
   `month` int(2) NOT NULL,
   `year` int(4) NOT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
+  `lock` int(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `template_id` (`template_id`),
   KEY `company_id` (`company_id`)

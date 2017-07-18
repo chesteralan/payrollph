@@ -54,7 +54,9 @@ $total_amount_payment += $item->amount_paid+$item->amount;
               ?>
               <tr>
                 <td><?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?>
+<?php if(!$payroll->lock) { ?>
                 <a href="<?php echo site_url("employees_earnings/view/{$item->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper"><span class="glyphicon glyphicon-cog"></span></a>
+<?php } ?>
                 </td>
                 <td><?php echo $item->ee_notes; ?>
                   <?php echo $item->item_notes; ?>

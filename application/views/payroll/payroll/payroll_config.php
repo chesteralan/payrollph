@@ -21,16 +21,19 @@
 <?php endif; ?>
           
 <div class="list-group">
+
   <a data-target="#ajaxModal" data-title="Payroll Details" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll/edit/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+<?php if($payroll->lock) { ?>  
+  <span class="badge">Locked</span>
+<?php } ?>
     <h4 class="list-group-item-heading">Payroll Details</h4>
     <p class="list-group-item-text">Payroll Details</p>
   </a>
-
+<?php if(!$payroll->lock) { ?> 
   <a data-target="#ajaxModal" data-title="Inclusive Dates" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>" >
     <h4 class="list-group-item-heading">Inclusive Dates</h4>
     <p class="list-group-item-text">Inclusive Dates</p>
   </a>
-
 </div>
 
 <?php if( $inclusive_dates ) { ?>
@@ -72,6 +75,7 @@
     <h4 class="list-group-item-heading">Generate Payroll</h4>
     <p class="list-group-item-text">Generate Payroll</p>
   </a>
+<?php } ?>
 </div>
 
 <?php } ?>

@@ -344,6 +344,32 @@ class Payroll_deductions extends MY_Controller {
 		$item_data = $deductions->populate(); 
 		$this->template_data->set('item_data', $item_data);
 
+if( $this->input->get('equalizer') == '1' ) {
+		$items = new $this->Employees_deductions_model('ed');
+		$items->setDeductionId($deduction_id,true);
+		$items->setCompanyId($this->session->userdata('current_company_id'),true);
+		$items->setActive(1,true);
+		$items->setTrash(0,true);
+		$items->set_where('(start_date <="' . date('Y-m-d') .'")');
+		$items->set_join('employees e', 'e.name_id=ed.name_id');
+		$items->set_select("e.*");
+		$items->set_select("ed.*");
+		$items->set_start(0);
+		$items->set_order('e.lastname', 'ASC');
+
+		$items->set_select("(SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id) as amount_paid");
+		$items->set_select("(ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) as balance");
+
+		$items->set_group_by("ed.name_id");
+		$items->set_limit(0);
+		$items->set_where("(ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) > 0");
+		$items->set_select("SUM(ed.max_amount) as max_amount");
+		$items->set_select("SUM(ed.amount) as amount");
+		$items->set_select("(SUM(ed.max_amount) - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) as balance");
+
+		$this->template_data->set('equalizer', $items->populate());
+}
+
 		$print_groups = new $this->Terms_list_model;
 		$print_groups->set_select("*");
 		$print_groups->set_order('name', 'ASC');
@@ -376,7 +402,11 @@ class Payroll_deductions extends MY_Controller {
 
 			$this->load->view('payroll/payroll/deductions/deductions_item_schedule_print', $this->template_data->get_data());
 		} else {
-			$this->load->view('payroll/payroll/deductions/deductions_item_schedule', $this->template_data->get_data());
+			if( $this->input->get('equalizer') == '1' ) {
+				$this->load->view('payroll/payroll/deductions/deductions_item_schedule_equalizer', $this->template_data->get_data());
+			} else {
+				$this->load->view('payroll/payroll/deductions/deductions_item_schedule', $this->template_data->get_data());
+			}
 		}
 
 	}

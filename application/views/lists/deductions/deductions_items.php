@@ -8,6 +8,11 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
+<?php if($this->input->get('group_by') == 'employee') { ?>
+                <a href="<?php echo site_url( uri_string() ); ?>" class="pull-right" title="Remove Grouping"><span class="glyphicon glyphicon-resize-full"></span></a>
+<?php } else { ?>
+                <a href="<?php echo site_url( uri_string() ); ?>?group_by=employee" class="pull-right" title="Group by Employee"><span class="glyphicon glyphicon-resize-small"></span></a>
+<?php } ?>
                   <h3 class="panel-title bold"><?php echo $current_page; ?>: <?php echo $earning->name; ?></h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
@@ -18,24 +23,46 @@
             <thead>
               <tr>
                 <th>Deduction Name</th>
+<?php if(!$this->input->get('group_by')) { ?>
                 <th>Notes</th>
+<?php } ?>
                 <th class="text-right">Whole Amount</th>
                 <th class="text-right">Amount</th>
+                <th class="text-right">Amount Paid</th>
+                <th class="text-right">Balance</th>
+<?php if(!$this->input->get('group_by')) { ?>
                 <?php foreach($templates as $temp) { ?>
                   <th class="text-center"><?php echo $temp->name; ?></th>
                 <?php } ?>
                 <th width="130px" class="text-right">Action</th>
+<?php } ?>
               </tr>
             </thead>
             <tbody>
-
-            <?php foreach($items as $item) { ?>
+<?php 
+$max_amount_total = 0;
+$amount_total = 0;
+$amount_paid_total = 0;
+$balance_total = 0;
+       foreach($items as $item) { ?>
               <tr id="employee-group-<?php echo $item->id; ?>">
-                <td><a href="<?php echo site_url("employees_deductions/view/{$item->name_id}"); ?>" class="body_wrapper">
-                <?php echo $item->lastname; ?>, <?php echo $item->firstname; ?></a></td>
+                <td>
+<?php if(!$this->input->get('group_by')) { ?>
+                <a href="<?php echo site_url("employees_deductions/view/{$item->name_id}"); ?>" class="body_wrapper">
+<?php } ?>
+                <?php echo $item->lastname; ?>, <?php echo $item->firstname; ?>
+<?php if(!$this->input->get('group_by')) { ?>
+                </a>
+<?php } ?>
+</td>
+<?php if(!$this->input->get('group_by')) { ?>
                 <td><?php echo $item->notes; ?></td>
-                <td class="text-right"><?php echo number_format($item->max_amount,2); ?></td>
-                <td class="text-right"><?php echo number_format($item->amount,2); ?></td>
+<?php } ?>
+                <td class="text-right"><?php echo number_format($item->max_amount,2); $max_amount_total+=$item->max_amount; ?></td>
+                <td class="text-right"><?php echo number_format($item->amount,2); $amount_total+=$item->amount; ?></td>
+                <td class="text-right"><?php echo number_format($item->amount_paid,2); $amount_paid_total+=$item->amount_paid; ?></td>
+                <td class="text-right"><?php echo number_format($item->balance,2); $balance_total+=$item->balance; ?></td>
+<?php if(!$this->input->get('group_by')) { ?>
                 <?php foreach($templates as $temp) { 
                   $var = 'temp_' . $temp->id;
                   ?>
@@ -47,9 +74,19 @@
                   <button type="button" class="btn btn-success btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Deduction Entries" data-url="<?php echo site_url("employees_deductions/entries/{$item->id}/ajax") . "?next=" . uri_string(); ?>">Entries</button>
 
                 </td>
+<?php } ?>
               </tr>
             <?php } ?>
 
+<?php if($this->input->get('group_by')) { ?>
+<tr class="success">
+                <td <?php if(!$this->input->get('group_by')) { ?>colspan="2"<?php } ?> class="bold">Total</td>
+                <td class="text-right bold"><?php echo number_format($max_amount_total,2); ?></td>
+                <td class="text-right bold"><?php echo number_format($amount_total,2); ?></td>
+                <td class="text-right bold"><?php echo number_format($amount_paid_total,2); ?></td>
+                <td class="text-right bold"><?php echo number_format($balance_total,2); ?></td>
+              </tr>
+<?php } ?>
             </tbody>
           </table>
 

@@ -133,6 +133,19 @@ class Lists_deductions extends MY_Controller {
 			$items->set_select("(SELECT COUNT(*) FROM employees_deductions_templates edt WHERE edt.ed_id=ed.id AND edt.template_id={$temp->id}) as temp_{$temp->id}");
 		}
 
+		$items->set_select("(SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id) as amount_paid");
+		$items->set_select("(ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) as balance");
+
+		if( $this->input->get('group_by') == 'employee' ) {
+			$items->set_group_by("ed.name_id");
+			$items->set_limit(0);
+			$items->set_where("(ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) > 0");
+			$items->set_select("SUM(ed.max_amount) as max_amount");
+			$items->set_select("SUM(ed.amount) as amount");
+			$items->set_select("(SUM(ed.max_amount) - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) as balance");
+		} else {
+			$items->set_select("(ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) as balance");
+		}
 		$this->template_data->set('items', $items->populate());
 		
 		$this->template_data->set('pagination', bootstrap_pagination(array(

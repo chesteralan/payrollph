@@ -21,6 +21,11 @@
 
 <?php endif; ?>
 
+<?php if($payroll->lock=='1') { ?>
+
+  <a href="<?php echo site_url("payroll/unlock/{$payroll->id}") . "?next=" . $this->input->get('next') ; ?>" class="btn btn-xs btn-success confirm">Unlock Payroll</a>
+
+<?php } else { ?>
           <div class="form-group">
             <label>Payroll Name</label>
             <input name="name" type="text" class="form-control" value="<?php echo $payroll->name; ?>">
@@ -57,6 +62,9 @@
         </div>    
   </div>
 </div>
+
+  <a href="<?php echo site_url("payroll/lock/{$payroll->id}") . "?next=" . $this->input->get('next') ; ?>" class="btn btn-xs btn-danger confirm">Lock Payroll</a>
+<?php } ?>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
