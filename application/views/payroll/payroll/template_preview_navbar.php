@@ -23,7 +23,7 @@
             <?php } ?>
           </ul>
         </li>
-        <li><a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Payroll" data-url="<?php echo site_url("payroll_templates/config/{$temp->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1"><span class="glyphicon glyphicon-cog"></span></a></li>
+        <li><a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Payroll" data-url="<?php echo site_url("payroll_templates/config/{$template->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1"><span class="glyphicon glyphicon-cog"></span></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       <li><a class="body_wrapper" href="<?php echo site_url('payroll_templates'); ?>"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
