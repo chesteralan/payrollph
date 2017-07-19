@@ -6,6 +6,44 @@ var current_uri = '';
  var init_sortable = function() {
     $( ".sortable" ).sortable();
     $( ".sortable" ).disableSelection();
+
+    $('.sortable-asc').click(function(){
+        var elm = $(this).attr('data-sortable');
+        var mylist = $('.' + elm);
+        var listitems = mylist.children('li').get();
+        var label_arr = [];
+        var listitems_arr = {};
+        
+        for(i in listitems) {
+          var label = $(listitems[i]).find('.list-group-item-heading label').text();
+          label_arr.push(label.trim());
+          listitems_arr[label.trim()] = listitems[i];
+        }
+        label_arr.sort();
+        for(n in label_arr) {
+            mylist.append( listitems_arr[label_arr[n]] );
+        }
+    });
+
+    $('.sortable-desc').click(function(){
+        var elm = $(this).attr('data-sortable');
+        var mylist = $('.' + elm);
+        var listitems = mylist.children('li').get();
+        var label_arr = [];
+        var listitems_arr = {};
+        
+        for(i in listitems) {
+          var label = $(listitems[i]).find('.list-group-item-heading label').text();
+          label_arr.push(label.trim());
+          listitems_arr[label.trim()] = listitems[i];
+        }
+        label_arr.sort();
+        label_arr.reverse();
+        for(n in label_arr) {
+            mylist.append( listitems_arr[label_arr[n]] );
+        }
+    });
+
  };
 
 var init_datepicker = function() {
@@ -882,7 +920,6 @@ if (typeof NProgress != 'undefined') {
 /** ******  NProgress  *********************** **/
 
 $(document).scroll(function(e){
-  console.log( $(this).scrollTop() );
     if( ( $(this).scrollTop() > 22 ) && ( $('.stickynav1').length > 0 ) ) {
       $('.stickynav1').addClass('navbar-fixed-top');
       $('body').css('padding-top', '145px');
@@ -890,7 +927,6 @@ $(document).scroll(function(e){
       $('.stickynav1').removeClass('navbar-fixed-top');
       $('body').css('padding-top', '70px');
     }
-
 });
 
 })(jQuery);

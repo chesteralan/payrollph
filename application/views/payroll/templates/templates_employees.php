@@ -19,8 +19,13 @@
   <?php echo (validation_errors()) ? '<div class="alert alert-danger">' . validation_errors() . '</div>' : ''; ?>
 
 <?php endif; ?>
-          
-<div class="list-group sortable">
+
+<div class="btn-group" role="group" aria-label="..." style="margin-bottom: 5px;">
+  <button class="btn btn-default btn-xs sortable-asc" data-sortable="sortable-employees" type="button"><span class="glyphicon glyphicon-sort-by-alphabet"></span></button> 
+  <button class="btn btn-default btn-xs sortable-desc" data-sortable="sortable-employees" type="button"><span class="glyphicon glyphicon-sort-by-alphabet-alt"></span></button> 
+</div>
+
+<div class="list-group sortable sortable-employees">
   <?php foreach($employees as $employee) { ?>
   <li class="list-group-item">
   <input type="hidden" name="name_id[]" value="<?php echo $employee->name_id; ?>">

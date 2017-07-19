@@ -37,7 +37,11 @@ foreach( $deductions_columns as $column ) {
 <?php } else { ?>
   <a href="<?php echo site_url("payroll_deductions/preview/{$template->id}/{$payroll_group->group_id}"); ?>" class="glyphicon glyphicon-filter body_wrapper"></a>
 <?php } ?>
-                <?php echo $payroll_group->name; ?></th>
+                <?php echo $payroll_group->name; ?> 
+
+<a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Sort <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll_templates/employees/{$template->id}/{$payroll_group->id}/ajax") . "?action=sort&next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-sort"></span></a>
+
+                </th>
 <?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { 
   ?>
                 <th width="7%" class="text-right"><?php echo $column->name; ?></th>

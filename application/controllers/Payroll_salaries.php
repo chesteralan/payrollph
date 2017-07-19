@@ -216,7 +216,9 @@ class Payroll_salaries extends MY_Controller {
 		$payroll_group->set_order('pg.order', 'DESC');
 		$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
 		$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
+
 		$payroll_group_data =  $payroll_group->populate();
+
 		foreach($payroll_group_data as $key=>$group) {
 			$employees = new $this->Payroll_templates_employees_model('pe');
 			$employees->setTemplateId($template_id,true);

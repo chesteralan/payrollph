@@ -25,8 +25,12 @@
   <?php echo (validation_errors()) ? '<div class="alert alert-danger">' . validation_errors() . '</div>' : ''; ?>
 
 <?php endif; ?>
-          
-<div class="list-group sortable">
+<div class="btn-group" role="group" aria-label="..." style="margin-bottom: 5px;">
+  <button class="btn btn-default btn-xs sortable-asc" data-sortable="sortable-employees" type="button"><span class="glyphicon glyphicon-sort-by-alphabet"></span></button> 
+  <button class="btn btn-default btn-xs sortable-desc" data-sortable="sortable-employees" type="button"><span class="glyphicon glyphicon-sort-by-alphabet-alt"></span></button> 
+</div>
+
+<div class="list-group sortable sortable-employees">
   <?php foreach($employees as $employee) { ?>
   <li class="list-group-item">
   <input type="hidden" name="name_id[]" value="<?php echo $employee->name_id; ?>">
@@ -37,14 +41,14 @@
     </h4>
 <?php if($this->input->get('action')!='sort') { ?>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6 col-sm-6 col-xs-6">
     <select class="form-control input-sm" name="payslip_template[<?php echo $employee->name_id; ?>]" data-style="btn-default btn-sm">
           <option value="none">No Payslip</option>
           <option value="payslip" <?php echo ($employee->template=='payslip') ? 'SELECTED' : ''; ?>>Payslip</option>
           <option value="cash_voucher" <?php echo ($employee->template=='cash_voucher') ? 'SELECTED' : ''; ?>>Cash Voucher</option>
       </select>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-6 col-sm-6 col-xs-6">
       <?php if( $print_groups ) { ?>
             <select class="form-control input-sm" name="print_group[<?php echo $employee->name_id; ?>]" data-style="btn-default btn-sm">
               <option value="none">No Print Group</option>

@@ -14,12 +14,17 @@
         <div class="panel-heading">
           <h3 class="panel-title">Configure Payroll Template</h3>
         </div>
-
+<form method="post">
         <div class="panel-body">
   <?php echo (validation_errors()) ? '<div class="alert alert-danger">' . validation_errors() . '</div>' : ''; ?>
 
 <?php endif; ?>
-          
+
+<div class="btn-group" role="group" aria-label="..." style="margin-bottom: 5px;">
+  <button class="btn btn-default btn-xs sortable-asc" data-sortable="sortable" type="button"><span class="glyphicon glyphicon-sort-by-alphabet"></span></button> 
+  <button class="btn btn-default btn-xs sortable-desc" data-sortable="sortable" type="button"><span class="glyphicon glyphicon-sort-by-alphabet-alt"></span></button> 
+</div>
+
 <ul class="list-group sortable">
   <?php foreach($groups as $group) { ?>
   <li class="list-group-item">
@@ -50,7 +55,11 @@
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>
-
+        <div class="panel-footer">
+          <button type="submit" class="btn btn-success">Submit</button>
+          <a href="<?php echo site_url($current_uri); ?>" class="btn btn-warning">Back</a>
+        </div>
+        </form>
       </div>
     </div>
 </div>

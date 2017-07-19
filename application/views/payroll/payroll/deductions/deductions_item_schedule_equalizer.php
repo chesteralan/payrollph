@@ -34,8 +34,12 @@ if($this->input->get()) {
                 <div class="panel-body" id="ajaxBodyInnerPage">
 
 <?php endif; ?>
+<?php 
 
-<?php if( $item_data ) { print_r( $equalizer ); ?>
+$item_added = array();
+
+?>
+<?php if( $item_data ) {  ?>
 <form method="post">
           <table class="table table-default table-hover" id="Payroll-Group">
             <thead>
@@ -47,10 +51,12 @@ if($this->input->get()) {
                 <th width="13%" class="text-right">Current Deductions</th>
                 <th width="13%" class="text-right">Total Amount Paid</th>
                 <th width="13%" class="text-right">New Balance</th>
+<?php if(!$payroll->lock) { ?>
 <?php if( $this->input->get('remove_grouping')) { ?>
                 <th width="1%" class="text-right">
                   <button class="glyphicon glyphicon-remove btn btn-danger btn-xs confirm" type="submit"></button>
                 </th>
+<?php } ?>
 <?php } ?>
               </tr>
             </thead>
@@ -65,6 +71,8 @@ $total_amount_payment = 0;
 $total_new_balance = 0;
 
 foreach($item_data as $item) {
+  
+  $item_added[] = $item->name_id;
 
 $total_max_amount += $item->max_amount;
 $total_paid += $item->amount_paid;
@@ -110,8 +118,10 @@ $total_new_balance += ($item->max_amount-($item->amount_paid+$item->amount));
 </a>
 <?php } ?>
                 </td>
+<?php if(!$payroll->lock) { ?>
 <?php if( $this->input->get('remove_grouping')) { ?>
                 <td class="text-right"><input type="checkbox" name="remove_item[]" value="<?php echo $item->id; ?>"></td>
+<?php } ?>
 <?php } ?>
               </tr>
 <?php } ?>
@@ -124,8 +134,10 @@ $total_new_balance += ($item->max_amount-($item->amount_paid+$item->amount));
                 <td class="text-right"><strong><?php echo number_format($total_payment,2); ?></strong></td>
                 <td class="text-right"><strong><?php echo number_format($total_amount_payment,2); ?></strong></td>
                 <td class="text-right"><strong><?php echo number_format($total_new_balance,2); ?></strong></td>
+<?php if(!$payroll->lock) { ?>
 <?php if( $this->input->get('remove_grouping')) { ?>
                 <td class="text-right"><button class="glyphicon glyphicon-remove btn btn-danger btn-xs confirm" type="submit"></button></td>
+<?php } ?>
 <?php } ?>
               </tr>
             </tbody>
@@ -135,6 +147,110 @@ $total_new_balance += ($item->max_amount-($item->amount_paid+$item->amount));
 <?php } else { ?>
 
     <div class="text-center">No Item Found!</div>
+
+<?php }  ?>
+
+<?php //-----------------------------------------------------------------------------------------------------------  ?>
+
+<?php if( $equalizer ) {  ?>
+
+          <table class="table table-default table-hover" id="Payroll-Group">
+            <thead>
+              <tr class="warning">
+                <th>Employee Name</th>
+                <th width="13%" class="text-right">Total Payables</th>
+                <th width="13%" class="text-right">Amount Paid</th>
+                <th width="13%" class="text-right">Balance</th>
+                <th width="13%" class="text-right">Current Deductions</th>
+                <th width="13%" class="text-right">Total Amount Paid</th>
+                <th width="13%" class="text-right"></th>
+<?php if(!$payroll->lock) { ?>
+<?php if( $this->input->get('remove_grouping')) { ?>
+                <th width="1%" class="text-right">
+                </th>
+<?php } ?>
+<?php } ?>
+              </tr>
+            </thead>
+            <tbody>
+            
+<?php 
+
+foreach($equalizer as $item) {
+  
+  if( in_array($item->name_id, $item_added) ) {
+      continue;
+  }
+
+$total_max_amount += $item->max_amount;
+$total_paid += $item->amount_paid;
+$item_balance = ($item->max_amount > 0) ? ($item->max_amount - $item->amount_paid) : 0;
+$total_balance += $item_balance;
+$total_payment += $item->amount;
+$total_amount_payment += $item->amount_paid+$item->amount;
+$total_new_balance += ($item->max_amount-($item->amount_paid+$item->amount));
+              ?>
+              <tr class="danger">
+                <td><?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?>
+<?php if(!$payroll->lock) { ?>
+                <a href="<?php echo site_url("employees_deductions/view/{$item->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper"><span class="glyphicon glyphicon-cog"></span></a>
+<?php } ?>
+                </td>
+                <td class="text-right"><?php echo number_format($item->max_amount,2); ?></td>
+                <td class="text-right">
+<?php if(!$payroll->lock) { ?>
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?> - Amount Paid" data-url="<?php echo site_url("employees_deductions/entries/{$item->entry_id}/ajax") . "?no_action=1&exempt={$item->id}&next=" . uri_string(); ?>" data-hide_footer="1">
+<?php } ?>
+                <?php echo number_format($item->amount_paid,2); ?>
+<?php if(!$payroll->lock) { ?>
+</a>
+<?php } ?>
+                </td>
+                <td class="text-right"><?php echo number_format($item_balance,2); ?></td>
+                <td class="text-right bold">
+<?php if(!$payroll->lock) { ?>
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?> - Current Deduction" data-url="<?php echo site_url("payroll_deductions/edit/{$item->id}/ajax") . "?edit_only=1&next=" . uri_string(); ?>">
+<?php } ?>
+                <?php echo number_format($item->amount,2); ?>
+<?php if(!$payroll->lock) { ?>
+</a>
+<?php } ?>
+                </td>
+                <td class="text-right"><?php echo number_format(($item->amount_paid+$item->amount),2); ?></td>
+                <td class="text-right">
+<?php if(!$payroll->lock) { ?>
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?> - New Balance" data-url="<?php echo site_url("employees_deductions/entries/{$item->entry_id}/ajax") . "?no_action=1&next=" . uri_string(); ?>" data-hide_footer="1">
+<?php } ?>
+                
+<?php if(!$payroll->lock) { ?>
+</a>
+<?php } ?>
+                </td>
+<?php if(!$payroll->lock) { ?>
+<?php if( $this->input->get('remove_grouping')) { ?>
+                <td class="text-right"></td>
+<?php } ?>
+<?php } ?>
+              </tr>
+<?php } ?>
+
+              <tr class="success">
+                <td><strong>Total</strong></td>
+                <td class="text-right"><strong><?php echo number_format($total_max_amount,2); ?></strong></td>
+                <td class="text-right"><strong><?php echo number_format($total_paid,2); ?></strong></td>
+                <td class="text-right"><strong><?php echo number_format($total_balance,2); ?></strong></td>
+                <td class="text-right"><strong><?php echo number_format($total_payment,2); ?></strong></td>
+                <td class="text-right"><strong><?php echo number_format($total_amount_payment,2); ?></strong></td>
+                <td class="text-right"></td>
+<?php if(!$payroll->lock) { ?>
+<?php if( $this->input->get('remove_grouping')) { ?>
+                <td class="text-right"></td>
+<?php } ?>
+<?php } ?>
+              </tr>
+            </tbody>
+          </table>
+
 
 <?php }  ?>
 
