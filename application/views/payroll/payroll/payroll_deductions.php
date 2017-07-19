@@ -19,7 +19,12 @@
   <?php echo (validation_errors()) ? '<div class="alert alert-danger">' . validation_errors() . '</div>' : ''; ?>
 
 <?php endif; ?>
-          
+
+<div class="btn-group" role="group" aria-label="..." style="margin-bottom: 5px;">
+  <button class="btn btn-default btn-xs sortable-asc" data-sortable="sortable" type="button"><span class="glyphicon glyphicon-sort-by-alphabet"></span></button> 
+  <button class="btn btn-default btn-xs sortable-desc" data-sortable="sortable" type="button"><span class="glyphicon glyphicon-sort-by-alphabet-alt"></span></button> 
+</div>
+
 <ul class="list-group sortable">
   <?php foreach($deductions as $deduction) { ?>
   <li class="list-group-item">
