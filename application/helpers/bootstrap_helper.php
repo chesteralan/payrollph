@@ -8,7 +8,7 @@ if ( ! function_exists('bootstrap_pagination'))
         $defaults['base_url'] = base_url();
         $defaults['total_rows'] = 10;
         $defaults['per_page'] = 0;
-        $defaults['full_tag_open'] = '<div class="btn-group btn-group-sm">';
+        $defaults['full_tag_open'] = '<div class="pagination btn-group btn-group-sm">';
         $defaults['full_tag_close'] = '</div>';
 
         $defaults['cur_tag_open'] = '<div class="btn btn-default active"><strong>';

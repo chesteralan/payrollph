@@ -397,3 +397,14 @@ td.calendar-day .date_checkbox {
 	top: 50px;
 	z-index: 999;
 }
+
+@media print { 
+  a:after { content:''; }
+  a[href]:after { content: none !important; } 
+  .hide-print {
+    display: none;
+  }
+  .pagination {
+  	display: none;
+  }
+}
