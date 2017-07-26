@@ -35,6 +35,8 @@
                   <th class="text-center"><?php echo $temp->name; ?></th>
                 <?php } ?>
                 <th width="130px" class="text-right">Action</th>
+<?php } else { ?>
+                <th class="text-right">before deduction</th>
 <?php } ?>
               </tr>
             </thead>
@@ -74,6 +76,8 @@ $balance_total = 0;
                   <button type="button" class="btn btn-success btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Deduction Entries" data-url="<?php echo site_url("employees_deductions/entries/{$item->id}/ajax") . "?next=" . uri_string(); ?>">Entries</button>
 
                 </td>
+<?php } else { ?>
+                <th class="text-right"><?php echo number_format(($item->balance + $item->amount),2); ?></th>
 <?php } ?>
               </tr>
             <?php } ?>
@@ -85,6 +89,7 @@ $balance_total = 0;
                 <td class="text-right bold"><?php echo number_format($amount_total,2); ?></td>
                 <td class="text-right bold"><?php echo number_format($amount_paid_total,2); ?></td>
                 <td class="text-right bold"><?php echo number_format($balance_total,2); ?></td>
+                <td class="text-right bold"><?php echo number_format(($balance_total+$amount_total),2); ?></td>
               </tr>
 <?php } ?>
             </tbody>
