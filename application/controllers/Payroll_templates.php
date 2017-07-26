@@ -257,7 +257,7 @@ class Payroll_templates extends MY_Controller {
 		$employees->set_select('pte.print_group');
 		$employees->set_select('pte.template_id');
 		$employees->set_group_by('e.name_id');
-		$employees->set_where('pte.template_id', $id);
+		//$employees->set_where('pte.template_id', $id);
 		$employees->set_order('pte.order','ASC');
 		//$employees->set_order('(SELECT pte.order FROM payroll_templates_employees pte WHERE pte.name_id=e.name_id AND pte.template_id='.$id.')', 'ASC'); 
 		//$employees->set_select('(SELECT pte.active FROM payroll_templates_employees pte WHERE pte.name_id=e.name_id AND pte.template_id='.$id.') as active');
