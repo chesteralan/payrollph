@@ -44,10 +44,10 @@ $balance_total = 0;
        foreach($items as $item) { ?>
               <tr id="employee-group-<?php echo $item->id; ?>">
                 <td>
-                <?php echo $item->lastname; ?>, <?php echo $item->firstname; ?>
+                <a class="body_wrapper" href="<?php echo site_url("employees_deductions/view/{$item->name_id}"); ?>"><?php echo $item->lastname; ?>, <?php echo $item->firstname; ?></a>
 </td>
 
-<td><?php echo $item->payroll_name; ?></td>
+<td><a class="body_wrapper" href="<?php echo site_url("payroll_dtr/view/{$item->payroll_id}/0"); ?>"><?php echo $item->payroll_name; ?></a></td>
 <td class="text-right"><?php echo number_format($item->max_amount,2); ?></td>
                 <td class="text-right"><?php echo number_format($item->amount,2); $amount_total+=$item->amount; ?></td>
 
