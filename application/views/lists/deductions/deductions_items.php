@@ -13,7 +13,7 @@
 <?php } else { ?>
                 <a href="<?php echo site_url( uri_string() ); ?>?group_by=employee" class="pull-right" title="Group by Employee"><span class="glyphicon glyphicon-resize-small"></span></a>
 <?php } ?>
-                  <h3 class="panel-title bold"><?php echo $current_page; ?>: <?php echo $earning->name; ?></h3>
+                  <h3 class="panel-title bold"><?php echo $current_page; ?>:  <?php echo $deduction->name; ?> <small><?php echo $deduction->notes; ?></h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 <?php endif; ?>

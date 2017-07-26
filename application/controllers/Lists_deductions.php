@@ -11,9 +11,11 @@ class Lists_deductions extends MY_Controller {
 
 		$this->_isAuth('lists', 'deductions', 'view');
 
+		$this->load->model('Employees_model');
 		$this->load->model('Deductions_list_model');
 		$this->load->model('Employees_deductions_model');
 		$this->load->model('Payroll_templates_model');
+		$this->load->model('Payroll_employees_deductions_model');
 
 	}
 
@@ -103,12 +105,12 @@ class Lists_deductions extends MY_Controller {
 		$this->getNext("lists_deductions");
 	}
 
-	public function items($id, $start=0) {
+	public function items($id, $name_id=0, $start=0) {
 		
-		$earnings = new $this->Deductions_list_model;
-		$earnings->setId($id,true);
-		$earnings->set_select("*");
-		$this->template_data->set('earning', $earnings->get());
+		$deduction = new $this->Deductions_list_model;
+		$deduction->setId($id,true);
+		$deduction->set_select("*");
+		$this->template_data->set('deduction', $deduction->get());
 
 		$templates = new $this->Payroll_templates_model;
 		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
@@ -149,13 +151,69 @@ class Lists_deductions extends MY_Controller {
 		$this->template_data->set('items', $items->populate());
 		
 		$this->template_data->set('pagination', bootstrap_pagination(array(
-			'base_url' => base_url($this->config->item('index_page') . '/lists_deductions/items/' . $id),
+			'uri_segment' => 5,
+			'base_url' => base_url($this->config->item('index_page') . "/lists_deductions/items/{$id}/{$name_id}"),
 			'total_rows' => $items->count_all_results(),
 			'per_page' => $items->get_limit(),
 			'ajax'=>true,
 		)));
 
 		$this->load->view('lists/deductions/deductions_items', $this->template_data->get_data());
+	}
+
+	public function entries($id, $name_id=0, $start=0) {
+		
+		if( $name_id ) {
+			$employee = new $this->Employees_model;
+			$employee->setNameId($name_id,true);
+			$employee->set_select("*");
+			$this->template_data->set('employee', $employee->get());
+		}
+
+		$deduction = new $this->Deductions_list_model;
+		$deduction->setId($id,true);
+		$deduction->set_select("*");
+		$this->template_data->set('deduction', $deduction->get());
+
+		$items = new $this->Payroll_employees_deductions_model('ped');
+		$items->set_select("ped.*");
+		$items->setDeductionId($id,true);
+		$items->set_join('employees e', 'e.name_id=ped.name_id');
+		$items->set_select("e.*");
+		$items->set_join('employees_deductions ed', 'ed.id=ped.entry_id');
+		$items->set_select("ed.max_amount");
+		$items->set_where('(ed.start_date <="' . date('Y-m-d') .'")');
+		$items->set_where("e.company_id=" . $this->session->userdata('current_company_id'));
+		$items->set_join('payroll p', 'p.id=ped.payroll_id');
+		$items->set_select("p.name as payroll_name");
+		$items->set_start($start);
+		$items->set_order('ped.id', 'DESC');
+		if( $name_id ) {
+			$items->set_where('(ped.name_id =' . $name_id .')');
+		}
+		$this->template_data->set('items', $items->populate());
+		
+		$this->template_data->set('pagination', bootstrap_pagination(array(
+			'uri_segment' => 5,
+			'base_url' => base_url($this->config->item('index_page') . "/lists_deductions/entries/{$id}/{$name_id}"),
+			'total_rows' => $items->count_all_results(),
+			'per_page' => $items->get_limit(),
+			'ajax'=>true,
+		)));
+
+		$employees = new $this->Payroll_employees_deductions_model('ped');
+		$employees->setDeductionId($id,true);
+		$employees->set_join('employees e', 'e.name_id=ped.name_id');
+		$employees->set_select("e.*");
+		$employees->set_where("e.company_id=" . $this->session->userdata('current_company_id'));
+		$employees->set_join('employees_deductions ed', 'ed.id=ped.entry_id');
+		$employees->set_where('(ed.start_date <="' . date('Y-m-d') .'")');
+		$employees->set_order('e.lastname', 'ASC');
+		$employees->set_group_by('e.name_id');
+		$employees->set_limit(0);
+		$this->template_data->set('employees', $employees->populate());
+
+		$this->load->view('lists/deductions/deductions_entries', $this->template_data->get_data());
 	}
 
 }

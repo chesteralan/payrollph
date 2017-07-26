@@ -46,7 +46,7 @@
                 <th>Deduction Name</th>
                 <th>Notes</th>
                 <?php if( hasAccess('lists', 'deductions', 'edit') ) { ?>
-                  <th width="170px">Action</th>
+                  <th width="250px">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -63,6 +63,8 @@
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("lists_deductions/delete/{$deduction->id}"); ?>" data-target="#employee-group-<?php echo $deduction->id; ?>">Delete</a>
 
                 <a class="btn btn-success btn-xs body_wrapper" href="<?php echo site_url("lists_deductions/items/{$deduction->id}"); ?>">Items</a>
+
+                <a class="btn btn-info btn-xs body_wrapper" href="<?php echo site_url("lists_deductions/entries/{$deduction->id}"); ?>">Entries</a>
                 
                 </td>
               <?php } ?>
