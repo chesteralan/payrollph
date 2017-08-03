@@ -27,14 +27,23 @@
 
 <?php $n = 1;
 foreach( $inclusive_dates as $date ) {  ?>
+<?php if( $payroll->lock ) { ?>
+  <div class="list-group-item">
+<?php } else { ?>
   <a data-target="#ajaxModal" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees_dtr/add_leave/{$name_id}/{$date->inclusive_date}/ajax") . "?next=" . $this->input->get('next'); ?>" data-title="<?php echo date('F d, Y (l)', strtotime($date->inclusive_date)); ?>">
+<?php } ?>
     <span class="glyphicon glyphicon-<?php echo ($date->absent) ? 'remove' : 'ok'; ?> pull-right" style="color:<?php echo ($date->absent) ? 'red' : 'green'; ?>;"></span>
     <strong><?php echo $n; ?>.</strong> <?php echo date('F d, Y (l)', strtotime($date->inclusive_date)); ?>
 
     <?php if($date->absent) { ?>
         <span class="badge" style="margin-right:5px"><?php echo ($date->leave_type) ? $date->leave_type : 'No Leave'; ?></span>
     <?php } ?>
+<?php if( $payroll->lock ) { ?>
+  </div>
+<?php } else { ?>
   </a>
+<?php } ?>
+
 <?php $n++; 
 } ?>
 

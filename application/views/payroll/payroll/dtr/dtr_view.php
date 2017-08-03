@@ -66,13 +66,10 @@ $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $worki
                 </td>
                 <td class="text-right"><?php echo $inclusive_dates->working_days; ?></td>
                 <td class="text-right">
-<?php if(!$payroll->lock) { ?>
+
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Employee Attendance" data-url="<?php echo site_url("payroll_dtr/absences/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
-<?php } ?>
                 <?php echo $days_absent; ?>
-<?php if(!$payroll->lock) { ?>
 </a>
-<?php } ?>
                 </td>
                 <td class="text-right"><?php $present_days = $inclusive_dates->working_days - $days_absent; echo $present_days; ?></td>
               </tr>
