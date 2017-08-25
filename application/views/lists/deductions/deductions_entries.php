@@ -8,15 +8,15 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
-                
+
 <div class="btn-group pull-right">
   <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <?php echo (isset($employee)&&($employee)) ? $employee->lastname . ", " . $employee->firstname : 'Filter by Employee'; ?> <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-     <li><a href="<?php echo site_url("lists_deductions/entries/{$deduction->id}/0"); ?>">- - Show All - -</a></li>
+     <li><a href="<?php echo site_url("lists_deductions/entries/{$deduction->id}/0"); ?>" class="body_wrapper">- - Show All - -</a></li>
   <?php foreach( $employees as $emp ) { ?>
-    <li class="<?php echo (isset($employee)&&($employee)&&($emp->name_id==$employee->name_id)) ? 'active' : ''; ?>"><a href="<?php echo site_url("lists_deductions/entries/{$deduction->id}/{$emp->name_id}"); ?>"><?php echo $emp->lastname . ", " . $emp->firstname; ?></a></li>
+    <li class="<?php echo (isset($employee)&&($employee)&&($emp->name_id==$employee->name_id)) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url("lists_deductions/entries/{$deduction->id}/{$emp->name_id}"); ?>"><?php echo $emp->lastname . ", " . $emp->firstname; ?></a></li>
   <?php } ?>
   </ul>
 </div>

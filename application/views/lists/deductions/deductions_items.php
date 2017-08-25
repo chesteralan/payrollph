@@ -14,9 +14,9 @@
     <?php echo (isset($employee)&&($employee)) ? $employee->lastname . ", " . $employee->firstname : 'Filter by Employee'; ?> <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-     <li><a href="<?php echo site_url("lists_deductions/items/{$deduction->id}/0"); ?>">- - Show All - -</a></li>
+     <li><a class="body_wrapper" href="<?php echo site_url("lists_deductions/items/{$deduction->id}/0"); ?>">- - Show All - -</a></li>
   <?php foreach( $employees as $emp ) { ?>
-    <li class="<?php echo (isset($employee)&&($employee)&&($emp->name_id==$employee->name_id)) ? 'active' : ''; ?>"><a href="<?php echo site_url("lists_deductions/items/{$deduction->id}/{$emp->name_id}"); ?>"><?php echo $emp->lastname . ", " . $emp->firstname; ?></a></li>
+    <li class="<?php echo (isset($employee)&&($employee)&&($emp->name_id==$employee->name_id)) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url("lists_deductions/items/{$deduction->id}/{$emp->name_id}"); ?>"><?php echo $emp->lastname . ", " . $emp->firstname; ?></a></li>
   <?php } ?>
   </ul>
 </div>
