@@ -8,6 +8,7 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
+                
 <div class="btn-group pull-right">
   <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <?php echo (isset($employee)&&($employee)) ? $employee->lastname . ", " . $employee->firstname : 'Filter by Employee'; ?> <span class="caret"></span>

@@ -107,6 +107,13 @@ class Lists_deductions extends MY_Controller {
 
 	public function items($id, $name_id=0, $start=0) {
 		
+		if( $name_id ) {
+			$employee = new $this->Employees_model;
+			$employee->setNameId($name_id,true);
+			$employee->set_select("*");
+			$this->template_data->set('employee', $employee->get());
+		}
+
 		$deduction = new $this->Deductions_list_model;
 		$deduction->setId($id,true);
 		$deduction->set_select("*");
@@ -148,6 +155,11 @@ class Lists_deductions extends MY_Controller {
 		} else {
 			$items->set_select("(ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) as balance");
 		}
+
+		if( $name_id ) {
+			$items->set_where('(e.name_id =' . $name_id .')');
+		}
+
 		$this->template_data->set('items', $items->populate());
 		
 		$this->template_data->set('pagination', bootstrap_pagination(array(
@@ -157,6 +169,18 @@ class Lists_deductions extends MY_Controller {
 			'per_page' => $items->get_limit(),
 			'ajax'=>true,
 		)));
+
+		$employees = new $this->Payroll_employees_deductions_model('ped');
+		$employees->setDeductionId($id,true);
+		$employees->set_join('employees e', 'e.name_id=ped.name_id');
+		$employees->set_select("e.*");
+		$employees->set_where("e.company_id=" . $this->session->userdata('current_company_id'));
+		$employees->set_join('employees_deductions ed', 'ed.id=ped.entry_id');
+		$employees->set_where('(ed.start_date <="' . date('Y-m-d') .'")');
+		$employees->set_order('e.lastname', 'ASC');
+		$employees->set_group_by('e.name_id');
+		$employees->set_limit(0);
+		$this->template_data->set('employees', $employees->populate());
 
 		$this->load->view('lists/deductions/deductions_items', $this->template_data->get_data());
 	}
