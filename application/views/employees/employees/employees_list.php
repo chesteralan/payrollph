@@ -99,7 +99,34 @@
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
 
-                <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Employee" data-url="<?php echo site_url("employees/config/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">Config</button>
+
+<div class="btn-group">
+                  <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Employee" data-url="<?php echo site_url("employees/config/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">Config</button>
+  <button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-right">
+    <li><a data-title="Personal Information" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("employees/edit_personal/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Personal Information</a></li>
+ <li><a data-title="Address and Contact" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("employees/edit_address/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Address and Contact</a></li>
+
+   <li><a data-title="Employment Information" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("employees/edit_employment/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Employment Information</a></li>
+    
+    <li role="separator" class="divider"></li>
+
+    <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_salaries/view/{$employee->name_id}"); ?>">
+Basic Salary</a></li>
+
+  <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_earnings/view/{$employee->name_id}"); ?>">Additional Earnings</a></li>
+
+  <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_benefits/view/{$employee->name_id}");  ?>">Employee Benefits</a></li>
+  
+   <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_deductions/view/{$employee->name_id}");  ?>">Employee Deductions</a></li>
+
+  <li><a data-title="Leave Benefits" data-target="#ajaxModal" href="#ajaxModal" data-toggle="modal" class="ajax-modal" data-url="<?php echo site_url("employees/edit_leave_benefits/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Leave Benefits</a></li>
+
+  </ul>
+</div>
 
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees/delete/{$employee->name_id}"); ?>" data-target="#employee-<?php echo $employee->name_id; ?>">Delete</a>
                 </td>

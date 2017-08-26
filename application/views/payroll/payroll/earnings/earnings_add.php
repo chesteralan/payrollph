@@ -27,7 +27,17 @@
             <input name="amount" type="text" class="form-control text-center" value="" required>
           </div>
   </div>
-  <div class="col-md-6"></div>
+    <div class="col-md-6">
+          <div class="form-group">
+            <label>Connect to</label>
+            <select name="entry_id" class="form-control">
+                <option value="0">- - No Connection - -</option>
+                <?php foreach($employees_earnings as $entry) { ?>
+                    <option value="<?php echo $entry->id; ?>"><?php echo $earning_data->name; ?> (Amount: <?php echo number_format($entry->amount,2); ?>)</option>
+                <?php } ?>
+            </select>
+          </div>
+  </div>
 </div> 
           
   

@@ -22,6 +22,7 @@ class Payroll_earnings extends MY_Controller {
 
 		$this->load->model('Employees_model');
 		$this->load->model('Employees_salaries_model');
+		$this->load->model('Employees_earnings_model');
 		$this->load->model('Earnings_list_model');
 		$this->load->model('Terms_list_model');
 
@@ -177,6 +178,7 @@ class Payroll_earnings extends MY_Controller {
 				$earnings->setEarningId($earning_id,true);
 				$earnings->setAmount( str_replace(",", "", $this->input->post('amount')) );
 				$earnings->setNotes($this->input->post('notes'));
+				$earnings->setEntryId( $this->input->post('entry_id') );
 				$earnings->insert();
 			}
 			redirect("payroll_earnings/view/{$id}");
@@ -190,6 +192,16 @@ class Payroll_earnings extends MY_Controller {
 		$earning_data = new $this->Earnings_list_model;
 		$earning_data->setId($earning_id,true);
 		$this->template_data->set('earning_data', $earning_data->get());
+
+		$employees_earnings = new $this->Employees_earnings_model('ee');
+		$employees_earnings->setEarningId($earning_id,true);
+		$employees_earnings->setNameId($name_id,true);
+		$employees_earnings->set_select("ee.*");
+		$employees_earnings->set_select("(ee.max_amount - (SELECT SUM(pee.amount) FROM payroll_employees_earnings pee WHERE pee.entry_id=ee.id)) as balance");
+		$employees_earnings->set_where("ee.active=1");
+		//$employees_earnings->set_where("(((ee.max_amount - (SELECT SUM(pee.amount) FROM payroll_employees_earnings pee WHERE pee.entry_id=ee.id)) IS NULL)");
+		//$employees_earnings->set_where_or("((ee.max_amount - (SELECT SUM(pee.amount) FROM payroll_employees_earnings pee WHERE pee.entry_id=ee.id)) > 0))");
+		$this->template_data->set('employees_earnings', $employees_earnings->populate());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/earnings/earnings_add', $this->template_data->get_data());
@@ -218,8 +230,9 @@ class Payroll_earnings extends MY_Controller {
 					$amount = ($amount >= $earning_data->amount_balance) ? $earning_data->amount_balance : $amount;
 				}
 
-				$earnings->setAmount( $amount );
-				$earnings->setNotes($this->input->post('notes'));
+				$earnings->setAmount( $amount, false, true );
+				$earnings->setNotes($this->input->post('notes'), false, true);
+				$earnings->setEntryId( $this->input->post('entry_id'), false, true );
 				$earnings->update();
 			}
 			redirect("payroll_earnings/view/{$earning_data->payroll_id}");
@@ -235,6 +248,16 @@ class Payroll_earnings extends MY_Controller {
 		$earning_list = new $this->Earnings_list_model;
 		$earning_list->setId($earning_data->earning_id,true);
 		$this->template_data->set('earning_data', $earning_list->get());
+
+		$employees_earnings = new $this->Employees_earnings_model('ee');
+		$employees_earnings->setEarningId($earning_data->earning_id,true);
+		$employees_earnings->setNameId($earning_data->name_id,true);
+		$employees_earnings->set_select("ee.*");
+		$employees_earnings->set_select("(ee.max_amount - (SELECT SUM(pee.amount) FROM payroll_employees_earnings pee WHERE pee.entry_id=ee.id)) as balance");
+		$employees_earnings->set_where("ee.active=1");
+		//$employees_earnings->set_where("(((ee.max_amount - (SELECT SUM(pee.amount) FROM payroll_employees_earnings pee WHERE pee.entry_id=ee.id)) IS NULL)");
+		//$employees_earnings->set_where_or("((ee.max_amount - (SELECT SUM(pee.amount) FROM payroll_employees_earnings pee WHERE pee.entry_id=ee.id)) > 0))");
+		$this->template_data->set('employees_earnings', $employees_earnings->populate());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/earnings/earnings_edit', $this->template_data->get_data());
