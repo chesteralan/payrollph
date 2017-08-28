@@ -63,7 +63,7 @@
                 <?php } ?>
                 <th>Status</th>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
-                  <th width="140px">Action</th>
+                  <th width="150px">Action</th>
                 <?php } ?>
               </tr>
             </thead>
