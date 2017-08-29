@@ -190,6 +190,10 @@ body#payslip .payslip_box.payslip2 {
     width: 690px;
     margin: 0 0 30px 0;
 }
+
+body#payslip .payslip_box.payslip2.second-half {
+    margin: 0;
+}
 body#payslip .payslip_box .inner_body {
     
 }
@@ -242,7 +246,7 @@ body#payslip table.bordered td {
     div.page {
       page-break-after: always;
       page-break-inside: avoid;
-      border-bottom:1px solid;
+      border-bottom:1px solid #FFF;
     }
 }
 @media print { 
