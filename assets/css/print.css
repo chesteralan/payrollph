@@ -46,13 +46,13 @@ table td {
   text-align: left;
 }
 th {
-	font-size: 8px;
+	font-size: 10px;
 }
 td {
-	font-size: 8px;
+	font-size: 10px;
 }
 .payslip_box td {
-  font-size: 9px!important; 
+  font-size: 12px!important; 
 }
 #payroll_print.item_schedule {
   font-size: 10px;
@@ -177,8 +177,11 @@ body#payslip .payslip_box {
     float:left;
     padding: 10px;
 }
+body#payslip .payslip_box.payslip2 {
+    width: 690px;
+}
 body#payslip .payslip_box .inner_body {
-    min-height: 345px;
+    
 }
 body#payslip .payslip_box .header-title {
   margin-top:5px;
@@ -218,7 +221,7 @@ td.border-left {
   border-top: 1px solid #000;
   border-bottom: 1px solid #000!important;
 }
-body#payslip table td {
+body#payslip table.bordered td {
   border-bottom: 1px solid #CCC;
   padding: 1px 3px;
 }

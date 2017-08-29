@@ -40,6 +40,10 @@ $box_count = 0;
 
         $this->load->view('payroll/payroll/overall/overall_payslip_payslip', $template_data);
 
+    } elseif( $employee->payslip_template == 'payslip2') {
+
+        $this->load->view('payroll/payroll/overall/overall_payslip_payslip2', $template_data); 
+
     } elseif( $employee->payslip_template == 'cash_voucher') {
 
         $this->load->view('payroll/payroll/overall/overall_payslip_voucher', $template_data); 
