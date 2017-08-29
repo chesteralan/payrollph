@@ -12,7 +12,7 @@
   <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Deduction" data-url="<?php echo site_url("employees_deductions/add/{$employee->name_id}/ajax") . "?next=" . ( ( ($this->input->get('next')) && ($this->input->get('next') != 'employees') ) ? $this->input->get('next') : uri_string()); ?>" style="margin-right: 5px">Add Deduction</button>
 <?php } ?>
                   <h3 class="panel-title bold">
-                  <?php echo $current_page; ?> <span class="badge">Active</span> <a href="<?php echo site_url("employees_deductions/archived/{$employee->name_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-folder-close"></span></a>
+                  <?php echo $current_page; ?> <span class="badge">Archived</span> <a href="<?php echo site_url("employees_deductions/view/{$employee->name_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-folder-open"></span></a>
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
@@ -22,19 +22,19 @@
           <table class="table table-default">
             <thead>
               <tr>
-                <th>Deduction Name 
-                <?php if( $this->input->get('filter') ) { ?>
- <a class="body_wrapper" href="<?php echo site_url("employees_deductions/view/{$employee->name_id}"); ?>"><span class="glyphicon glyphicon-remove"></span></a>
+                <th>Deduction Name
+ <?php if( $this->input->get('filter') ) { ?>
+ <a class="body_wrapper" href="<?php echo site_url("employees_deductions/archived/{$employee->name_id}"); ?>"><span class="glyphicon glyphicon-remove"></span></a>
 <?php } ?>
- </th>
+                </th>
                 <th>Max Amount</th>
                 <th>Amount</th>
-                <th>Balance</th>
+                <th>Rate per</th>
                 <?php foreach($templates as $temp) { ?>
-                  <th class="text-center" width="5%"><?php echo $temp->name; ?></th>
+                  <th class="text-center"><?php echo $temp->name; ?></th>
                 <?php } ?>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
-                  <th width="125px" class="action_column">Action</th>
+                  <th width="185px" class="action_column">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -44,14 +44,14 @@
               <tr id="salary-<?php echo $deduction->id; ?>" class="<?php echo ($deduction->active==1) ? 'success' : ''; ?>">
                 <td><?php echo $deduction->deduction_name; ?> - <?php echo $deduction->deduction_notes; ?>
 <?php if( !$this->input->get('filter') ) { ?>
- <a class="body_wrapper" href="<?php echo site_url("employees_deductions/view/{$deduction->name_id}") . "?filter=" . $deduction->deduction_id; ?>"><span class="glyphicon glyphicon-filter"></span></a>
+ <a class="body_wrapper" href="<?php echo site_url("employees_deductions/archived/{$deduction->name_id}") . "?filter=" . $deduction->deduction_id; ?>"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
-
- <a class="body_wrapper" href="<?php echo site_url("employees_deductions/analyze/{$deduction->name_id}/{$deduction->deduction_id}"); ?>"><span class="glyphicon glyphicon-signal"></span></a>
-                </td>
+ </td>
                 <td><?php echo number_format($deduction->max_amount,2); ?></td>
                 <td><?php echo number_format($deduction->amount,2); ?></td>
-                <td><?php echo ($deduction->balance) ? number_format($deduction->balance,2) : ""; ?></td>
+                <td><?php 
+                $computed = array('month'=>'Monthly', 'day'=>'Daily', 'hour'=>'Hourly');
+                echo $computed[($deduction->computed) ? $deduction->computed : 'month']; ?></td>
              
                 <?php foreach($templates as $temp) { 
                   $var = 'temp_' . $temp->id;
@@ -65,9 +65,9 @@
                 <a class="btn btn-warning btn-xs body_wrapper" href="<?php echo site_url("employees_deductions/entries/{$deduction->id}"); ?>">Entries</a>
 
                 <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Deduction" data-url="<?php echo site_url("employees_deductions/edit/{$deduction->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>">Edit</button>
-<?php /*
+
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees_deductions/delete/{$deduction->id}"); ?>" data-target="#salary-<?php echo $deduction->id; ?>">Delete</a>
-*/ ?>
+
                 </td>
               <?php } ?>
               </tr>

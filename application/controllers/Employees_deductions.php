@@ -44,21 +44,77 @@ class Employees_deductions extends MY_Controller {
 		$deductions->set_select("(SELECT name FROM deductions_list WHERE id=ed.deduction_id) as deduction_name");
 		$deductions->set_select("(SELECT notes FROM deductions_list WHERE id=ed.deduction_id) as deduction_notes");
 		$deductions->setTrash('0',true);
+		$deductions->setActive('1', true);
+
+		if( $this->input->get('filter') ) {
+			$deductions->setDeductionId($this->input->get('filter'),true);
+		}
 
 		foreach($templates_data as $temp) {
 			$deductions->set_select("(SELECT COUNT(*) FROM employees_deductions_templates edt WHERE edt.ed_id=ed.id AND edt.template_id={$temp->id}) as temp_{$temp->id}");
 		}
 
+		$deductions->set_select("(IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) as balance");
+		
+		$deductions->set_where("(((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) IS NULL)");
+		$deductions->set_where_or("((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) > 0))");
+
+
+		//print_r( $deductions->populate() );
 		$this->template_data->set('deductions', $deductions->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
-			'base_url' => base_url($this->config->item('index_page') . '/employees_deductions/index/'),
+			'base_url' => base_url($this->config->item('index_page') . '/employees_deductions/view/' . $id),
 			'total_rows' => $deductions->count_all_results(),
 			'per_page' => $deductions->get_limit(),
 			'ajax'=>true,
 		)));
 		
 		$this->load->view('employees/employees/deductions/deductions_list', $this->template_data->get_data());
+	}
+
+	public function archived($id, $start=0) {
+
+		$employee = new $this->Employees_model;
+		$employee->setNameId($id,true);
+		$this->template_data->set('employee', $employee->get());
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$templates->set_limit(0);
+		$templates_data = $templates->populate();
+		$this->template_data->set('templates', $templates_data);
+
+		$deductions = new $this->Employees_deductions_model('ed');
+		$deductions->setCompanyId($this->session->userdata('current_company_id'),true);
+		$deductions->setNameId($id,true);
+		$deductions->set_select("ed.*");
+		$deductions->set_select("(SELECT name FROM deductions_list WHERE id=ed.deduction_id) as deduction_name");
+		$deductions->set_select("(SELECT notes FROM deductions_list WHERE id=ed.deduction_id) as deduction_notes");
+		$deductions->setTrash('0',true);
+
+		if( $this->input->get('filter') ) {
+			$deductions->setDeductionId($this->input->get('filter'),true);
+		}
+
+		foreach($templates_data as $temp) {
+			$deductions->set_select("(SELECT COUNT(*) FROM employees_deductions_templates edt WHERE edt.ed_id=ed.id AND edt.template_id={$temp->id}) as temp_{$temp->id}");
+		}
+
+		$deductions->set_where("((ed.active=0)");
+		$deductions->set_where_or("((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) = 0))");
+
+		$this->template_data->set('deductions', $deductions->populate());
+
+		$this->template_data->set('pagination', bootstrap_pagination(array(
+			'base_url' => base_url($this->config->item('index_page') . '/employees_deductions/archived/' . $id),
+			'total_rows' => $deductions->count_all_results(),
+			'per_page' => $deductions->get_limit(),
+			'ajax'=>true,
+		)));
+		
+		$this->load->view('employees/employees/deductions/deductions_archived', $this->template_data->get_data());
 	}
 
 	public function add($id, $output='') {
@@ -275,6 +331,36 @@ class Employees_deductions extends MY_Controller {
 
 		$this->template_data->set('output', $output);
 		$this->load->view('employees/employees/deductions/deductions_summary', $this->template_data->get_data());
+	}
+
+	public function analyze($name_id, $deduction_id, $output='') {
+
+
+		$employee = new $this->Employees_model;
+		$employee->setNameId($name_id,true);
+		$this->template_data->set('employee', $employee->get());
+
+		$deductions = new $this->Deductions_list_model;
+		$deductions->setId($deduction_id,true);
+		$deduction_data = $deductions->get();
+		$this->template_data->set('deduction', $deduction_data);
+
+		$employees_deductions = new $this->Employees_deductions_model;
+		$employees_deductions->setNameId($name_id,true);
+		$employees_deductions->setDeductionId($deduction_id,true);
+		$employees_deductions->set_select("SUM(max_amount) as total_max_amount");
+		$employees_deductions_data = $employees_deductions->get();
+		$this->template_data->set('employees_deductions', $employees_deductions_data);
+
+		$payroll_deductions = new $this->Payroll_employees_deductions_model('ped');
+		$payroll_deductions->setNameId($name_id,true);
+		$payroll_deductions->setDeductionId($deduction_id,true);
+		$payroll_deductions->set_select("SUM(ped.amount) as total_amount");
+		$payroll_deductions->set_where("ped.entry_id != 0");
+		$this->template_data->set('payroll_deductions', $payroll_deductions->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('employees/employees/deductions/deductions_analyze', $this->template_data->get_data());
 	}
 	
 }
