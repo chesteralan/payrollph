@@ -87,7 +87,7 @@ var confirmRemove = function() {
         $(this).click(function(){
            var divBody = $('#bodyWrapper');
             var loadingDiv = $('<div class="loading-wait"></div>');
-            loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
+            //loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
             //var loadingImg = $('<img src="'+window.base_url+'assets/images/loader4.gif"/>');
             //loadingImg.css('margin-top', Math.ceil( divBody.parent().height() / 2 ));
             //loadingDiv.html( loadingImg );
@@ -208,7 +208,7 @@ var navbar_search_employee = function() {
       select: function( event, ui ) {
               var divBody = $('#bodyWrapper');
               var loadingDiv = $('<div class="loading-wait"></div>');
-              loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
+              //loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
               //var loadingImg = $('<img src="'+window.base_url+'assets/images/loader4.gif"/>');
               //loadingImg.css('margin-top', Math.ceil( divBody.parent().height() / 2 ));
               //loadingDiv.html( loadingImg );
@@ -442,7 +442,7 @@ var bodyWrapper = function() {
               NProgress.start();
               var divBody = $('#bodyWrapper');
               var loadingDiv = $('<div class="loading-wait"></div>');
-              loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
+              //loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
               //var loadingImg = $('<img src="'+window.base_url+'assets/images/loader4.gif"/>');
               //loadingImg.css('margin-top', Math.ceil( divBody.parent().height() / 2 ));
               //loadingDiv.html( loadingImg );
@@ -850,7 +850,7 @@ var lending_schedule_details = function() {
               NProgress.start();
               var divBody = $('#ajaxBodyInnerPage');
               var loadingDiv = $('<div class="loading-wait"></div>');
-              loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
+              //loadingDiv.css('height', ( divBody.parent().height() - 43 ) );
               //var loadingImg = $('<img src="'+window.base_url+'assets/images/loader4.gif"/>');
               //loadingImg.css('margin-top', Math.ceil( divBody.parent().height() / 2 ));
               //loadingDiv.html( loadingImg );
@@ -918,14 +918,14 @@ if (typeof NProgress != 'undefined') {
     });
 }
 /** ******  NProgress  *********************** **/
-
+var current_padding_top = $('body').css('padding-top');
 $(document).scroll(function(e){
     if( ( $(this).scrollTop() > 22 ) && ( $('.stickynav1').length > 0 ) ) {
       $('.stickynav1').addClass('navbar-fixed-top');
       $('body').css('padding-top', '145px');
     } else {
       $('.stickynav1').removeClass('navbar-fixed-top');
-      $('body').css('padding-top', '70px');
+      $('body').css('padding-top', current_padding_top);
     }
 });
 

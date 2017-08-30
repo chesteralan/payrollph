@@ -397,7 +397,6 @@ td.calendar-day .date_checkbox {
 	top: 50px;
 	z-index: 999;
 }
-
 @media print { 
   a:after { content:''; }
   a[href]:after { content: none !important; } 
@@ -407,4 +406,83 @@ td.calendar-day .date_checkbox {
   .pagination {
   	display: none;
   }
+}
+
+/* ******************** custom theme adjustments ***************************** */
+
+body.theme-readable {
+	padding-top: 85px;
+}
+body.theme-readable .stickynav1.navbar-fixed-top {
+	top: 67px;
+	z-index: 999;
+}
+
+body.theme-darkly {
+	padding-top: 80px;
+}
+body.theme-darkly .stickynav1.navbar-fixed-top {
+	top: 61px;
+	z-index: 999;
+}
+
+body.theme-flatly {
+	padding-top: 80px;
+}
+body.theme-flatly .stickynav1.navbar-fixed-top {
+	top: 61px;
+	z-index: 999;
+}
+
+body.theme-journal {
+	padding-top: 80px;
+}
+body.theme-journal .stickynav1.navbar-fixed-top {
+	top: 60px;
+	z-index: 999;
+}
+
+body.theme-lumen .stickynav1.navbar-fixed-top {
+	top: 54px;
+	z-index: 999;
+}
+
+body.theme-paper {
+	padding-top: 80px;
+}
+body.theme-paper .stickynav1.navbar-fixed-top {
+	top: 65px;
+	z-index: 999;
+}
+
+body.theme-sandstone {
+	padding-top: 80px;
+}
+body.theme-sandstone .stickynav1.navbar-fixed-top {
+	top: 63px;
+	z-index: 999;
+}
+
+body.theme-simplex {
+	padding-top: 60px;
+}
+body.theme-simplex .stickynav1.navbar-fixed-top {
+	top: 40px;
+	z-index: 999;
+}
+
+body.theme-superhero {
+	padding-top: 60px;
+}
+body.theme-superhero .stickynav1.navbar-fixed-top {
+	top: 40px;
+	z-index: 999;
+}
+
+body.theme-yeti {
+	padding-top: 65px;
+}
+body.theme-yeti .stickynav1.navbar-fixed-top {
+	top: 45px;
+	z-index: 999;
 }

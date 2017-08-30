@@ -215,8 +215,8 @@ $current_payroll = $this->session->userdata('current_payroll');
           <span class="glyphicon glyphicon-user hidden-xs"></span></a>
           <ul class="dropdown-menu">
             <span class="dropdown-header"><?php echo $this->session->name; ?></span>
-            <li><a href="javascript:void(0);" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Account Settings" data-url="<?php echo site_url("account/settings/ajax") . "?next=" . uri_string(); ?>">Account Settings</a></li>
-            <li><a class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Password" data-url="<?php echo site_url("account/change_password/ajax") . "?next=" . uri_string(); ?>">Change Password</a></li>
+            <li><a href="#ajaxModal" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Account Settings" data-url="<?php echo site_url("account/settings/ajax") . "?next=" . uri_string(); ?>">Account Settings</a></li>
+            <li><a href="#ajaxModal" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Password" data-url="<?php echo site_url("account/change_password/ajax") . "?next=" . uri_string(); ?>">Change Password</a></li>
             <li><a href="<?php echo site_url('account/logout') . "?next=" . urlencode( uri_string() ); ?>">Logout</a></li>
           </ul>
         </li>

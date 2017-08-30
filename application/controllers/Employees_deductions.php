@@ -102,6 +102,8 @@ class Employees_deductions extends MY_Controller {
 			$deductions->set_select("(SELECT COUNT(*) FROM employees_deductions_templates edt WHERE edt.ed_id=ed.id AND edt.template_id={$temp->id}) as temp_{$temp->id}");
 		}
 
+		$deductions->set_select("(IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) as balance");
+
 		$deductions->set_where("((ed.active=0)");
 		$deductions->set_where_or("((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) = 0))");
 
@@ -115,6 +117,55 @@ class Employees_deductions extends MY_Controller {
 		)));
 		
 		$this->load->view('employees/employees/deductions/deductions_archived', $this->template_data->get_data());
+	}
+
+	public function trash($id, $start=0) {
+
+		$employee = new $this->Employees_model;
+		$employee->setNameId($id,true);
+		$this->template_data->set('employee', $employee->get());
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$templates->set_limit(0);
+		$templates_data = $templates->populate();
+		$this->template_data->set('templates', $templates_data);
+
+		$deductions = new $this->Employees_deductions_model('ed');
+		$deductions->setCompanyId($this->session->userdata('current_company_id'),true);
+		$deductions->setNameId($id,true);
+		$deductions->set_select("ed.*");
+		$deductions->set_select("(SELECT name FROM deductions_list WHERE id=ed.deduction_id) as deduction_name");
+		$deductions->set_select("(SELECT notes FROM deductions_list WHERE id=ed.deduction_id) as deduction_notes");
+		$deductions->setTrash(1,true);
+		//$deductions->setActive('1', true);
+
+		if( $this->input->get('filter') ) {
+			$deductions->setDeductionId($this->input->get('filter'),true);
+		}
+
+		foreach($templates_data as $temp) {
+			$deductions->set_select("(SELECT COUNT(*) FROM employees_deductions_templates edt WHERE edt.ed_id=ed.id AND edt.template_id={$temp->id}) as temp_{$temp->id}");
+		}
+
+		$deductions->set_select("(IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) as balance");
+		
+		//$deductions->set_where("(((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) IS NULL)");
+		//$deductions->set_where_or("((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) > 0))");
+
+		$deductions->set_select("(SELECT COUNT(*) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id) as entries");
+
+		$this->template_data->set('deductions', $deductions->populate());
+
+		$this->template_data->set('pagination', bootstrap_pagination(array(
+			'base_url' => base_url($this->config->item('index_page') . '/employees_deductions/trash/' . $id),
+			'total_rows' => $deductions->count_all_results(),
+			'per_page' => $deductions->get_limit(),
+			'ajax'=>true,
+		)));
+		
+		$this->load->view('employees/employees/deductions/deductions_trash', $this->template_data->get_data());
 	}
 
 	public function add($id, $output='') {
@@ -250,7 +301,30 @@ class Employees_deductions extends MY_Controller {
 
 		$deductions = new $this->Employees_deductions_model;
 		$deductions->setId($id,true,false);
-		$deductions->setTrash('1',false,true);
+		$deductions->set_select("(SELECT COUNT(*) FROM payroll_employees_deductions ped WHERE ped.entry_id={$id}) as entries");
+		$salary_data = $deductions->get();
+
+		if( $this->input->get('permanent') == '1') {
+			if( $salary_data->entries <= 0 ) {
+				$deductions->delete();
+			}
+		} else {
+			$deductions->setActive('0',true,false);
+			$deductions->setTrash('1',false,true);
+			$deductions->update();
+		}
+
+
+		$this->getNext("employees_deductions/view/{$salary_data->name_id}");
+	}
+
+	public function restore($id) {
+		
+		$this->_isAuth('employees', 'employees', 'edit');
+
+		$deductions = new $this->Employees_deductions_model;
+		$deductions->setId($id,true,false);
+		$deductions->setTrash('0',false,true);
 		$deductions->update();
 
 		$salary_data = $deductions->get();

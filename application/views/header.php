@@ -39,7 +39,7 @@
       -->
     </script>
   </head>
-  <body >
+  <body class="theme-<?php echo ((isset($bootstrap_theme)) ? $bootstrap_theme : 'default' ); ?>">
 
 <?php $this->load->view('navbar'); ?>
 

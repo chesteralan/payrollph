@@ -9,10 +9,9 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title bold">
-                  <?php echo $current_page; ?> <span class="badge">Archived</span> 
-                  <a href="<?php echo site_url("employees_deductions/view/{$employee->name_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-folder-open"></span></a>
+                  <?php echo $current_page; ?> <span class="badge">Trash Bin</span> 
+                  <a href="<?php echo site_url("employees_deductions/archived/{$employee->name_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-folder-close"></span></a>
 
-                  <a href="<?php echo site_url("employees_deductions/trash/{$employee->name_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-trash"></span></a>
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
@@ -34,7 +33,7 @@
                   <th class="text-center" width="5%"><?php echo $temp->name; ?></th>
                 <?php } ?>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
-                  <th width="185px" class="action_column">Action</th>
+                  <th width="230px" class="action_column">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -60,11 +59,9 @@
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
 
-                <a class="btn btn-warning btn-xs body_wrapper" href="<?php echo site_url("employees_deductions/entries/{$deduction->id}"); ?>">Entries</a>
-
-                <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Deduction" data-url="<?php echo site_url("employees_deductions/edit/{$deduction->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>">Edit</button>
-<?php if( !$deduction->active ) { ?>
-                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees_deductions/delete/{$deduction->id}"); ?>" data-target="#salary-<?php echo $deduction->id; ?>">Delete</a>
+                <a class="btn btn-success btn-xs body_wrapper" href="<?php echo site_url("employees_deductions/restore/{$deduction->id}"); ?>">Restore</a>
+<?php if( $deduction->entries <= 0) { ?>
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees_deductions/delete/{$deduction->id}") . "?permanent=1"; ?>" data-target="#salary-<?php echo $deduction->id; ?>">Delete Permanently</a>
 <?php } ?>
                 </td>
               <?php } ?>
