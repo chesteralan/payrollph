@@ -1,9 +1,17 @@
 <?php
 
 define('BASEPATH', '');
-define('ENVIRONMENT', 'production');
-require_once("application/config/database.php");
-require_once("application/config/config.php");
+define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+switch(ENVIRONMENT) {
+    case 'development':
+        require_once("application/config/database.php");
+        require_once("application/config/config.php");
+    break;
+    default:
+        require_once("application/".ENVIRONMENT."/config/database.php");
+        require_once("application/".ENVIRONMENT."/config/config.php");
+    break;
+}
 $dbconn = $db[$active_group];
 
 // set Timezone

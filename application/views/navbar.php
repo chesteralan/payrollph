@@ -198,12 +198,12 @@ $current_payroll = $this->session->userdata('current_payroll');
 <?php if( hasAccess('employees', 'employees', 'view') ) { ?>
 <?php if( count( $this->session->menu_module ) > 0 ) { ?>
           <li class="hidden-xs hidden-sm">
-                  <div class="navbar-form navbar-right" role="search">
+                  <form class="navbar-form navbar-right" role="search" action="<?php echo site_url("employees"); ?>">
         <div class="form-group">
           <input name="q" type="text" class="form-control autocomplete-search_employee" data-source="<?php echo site_url("welcome/ajax/search_employee"); ?>" placeholder="Search Employees">
         </div>
 
-      </div>
+      </form>
           </li>
 <?php } ?>
 <?php } ?>

@@ -22,29 +22,80 @@
 
 <?php endif; ?>
 
-<?php if( $employees_deductions->total_max_amount || $payroll_deductions->total_amount ) { ?>
+<?php 
+$total_max_amount = 0;
+if( $deductions && $payroll_deductions ) { ?>
 
           <table class="table table-default">
+            <thead>
+              <tr>
+                <th>Payroll</th>
+                <?php foreach($deductions as $ed) { ?>
+                  <th width="10%" class="text-right"><?php 
+                  $total_max_amount += $ed->max_amount;
+                  echo number_format($ed->max_amount,2);
+                  ?></th>
+                <?php } ?>
+                <th width="10%" class="text-right"><?php echo number_format($total_max_amount,2); ?></th>
+              </tr>
+            </thead>
             <tbody>
-            <?php if( $employees_deductions->total_max_amount > 0) { ?>
-              <tr id="deduction-<?php echo $deduction->id; ?>">
-                <td>Total Amount to be deducted</td>
-                <td class="text-right"><?php echo number_format($employees_deductions->total_max_amount,2); ?></td>
-              </tr>
-            <?php } ?>
-            <?php if( $payroll_deductions->total_amount ) { ?>
-              <tr id="deduction-<?php echo $deduction->id; ?>">
-                <td>Amount already deducted to payroll</td>
-                <td class="text-right"><?php echo number_format($payroll_deductions->total_amount,2); ?></td>
-              </tr>
-            <?php } ?>
-            <?php if( $employees_deductions->total_max_amount > 0) { ?>
-              <tr id="deduction-<?php echo $deduction->id; ?>" class="bold">
-                <td>Balance</td>
-                <td class="text-right"><?php echo number_format(($employees_deductions->total_max_amount-$payroll_deductions->total_amount),2); ?></td>
-              </tr>
-            <?php } ?>
+<?php 
+$payroll_total = array();
+foreach( $payrolls as $payroll) { 
+?>
+            <tr>
+              <td><?php echo $payroll->payroll_name; ?></td>
+              <?php 
+$ed_total = 0;
+              foreach($deductions as $ed) { 
+                if( !isset($payroll_total[$ed->id]) ) {
+                  $payroll_total[$ed->id] = 0;
+                }
+                ?>
+                <td class="text-right">
+                  <?php 
+                  $ped_total = 0;
+                  foreach($payroll_deductions as $ped) { 
+                    if( ($ped->payroll_id == $payroll->id) && ($ped->entry_id == $ed->id) ) {
+                      $ped_total+=$ped->ped_amount;
+                      $ed_total+=$ped->ped_amount;
+                      $payroll_total[$ed->id]+=$ped->ped_amount;
+                    } 
+                  } 
+
+                  echo number_format($ped_total,2);
+                  ?>
+                </td>
+              <?php } ?>
+              <td class="text-right"><?php echo number_format($ed_total,2); ?></td>
+            </tr>
+<?php } ?>
             </tbody>
+            <tfoot>
+              <tr class="success">
+                <th>TOTAL</th>
+                  <?php 
+                  $ped_amount_grand = 0;
+                  foreach($deductions as $ed) { ?>
+                    <th class="text-right"><?php 
+                    $ped_amount_grand += $payroll_total[$ed->id];
+                    echo number_format($payroll_total[$ed->id],2); 
+                    ?></th>
+                  <?php } ?>
+                <th class="text-right"><?php echo number_format($ped_amount_grand,2); ?></th>
+              </tr>
+              <tr>
+                <th>BALANCE</th>
+                  <?php 
+                  foreach($deductions as $ed) { ?>
+                    <th class="text-right"><?php 
+                    echo number_format(($ed->max_amount - $payroll_total[$ed->id]),2); 
+                    ?></th>
+                  <?php } ?>
+                <th class="text-right"><?php echo number_format(($total_max_amount - $ped_amount_grand),2); ?></th>
+              </tr>
+            </tfoot>
           </table>
 
 <?php } else { ?>

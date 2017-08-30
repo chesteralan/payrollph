@@ -41,7 +41,10 @@
             <?php if( $employees_deductions->total_max_amount > 0) { ?>
               <tr id="deduction-<?php echo $deduction->id; ?>" class="bold">
                 <td>Balance</td>
-                <td class="text-right"><?php echo number_format(($employees_deductions->total_max_amount-$payroll_deductions->total_amount),2); ?></td>
+                <td class="text-right">
+<a href="<?php echo site_url("employees_deductions/analyze/{$employee->name_id}/{$deduction->id}"); ?>" class="body_wrapper">
+                <?php echo number_format(($employees_deductions->total_max_amount-$payroll_deductions->total_amount),2); ?>
+</a></td>
               </tr>
             <?php } ?>
             </tbody>
