@@ -8,8 +8,8 @@ switch(ENVIRONMENT) {
         require_once("application/config/config.php");
     break;
     default:
-        require_once("application/".ENVIRONMENT."/config/database.php");
-        require_once("application/".ENVIRONMENT."/config/config.php");
+        require_once("application/config/".ENVIRONMENT."/database.php");
+        require_once("application/config/".ENVIRONMENT."/config.php");
     break;
 }
 $dbconn = $db[$active_group];
