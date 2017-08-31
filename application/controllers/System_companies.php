@@ -13,6 +13,10 @@ class System_companies extends MY_Controller {
 
 		$this->load->model('Companies_list_model');
 
+		if( !$this->config->item('multi_company') ) {
+			redirect("welcome");
+		}
+
 	}
 
 	public function index($start=0) {

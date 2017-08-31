@@ -8,8 +8,10 @@
 		<div class="col-md-12">
 			<center><small>
       <p><strong>
+<?php if( $this->config->item('multi_company') ) { ?>
 <a class="ajax-modal" href="#ajaxModal" data-hide_footer="1" data-toggle="modal" data-target="#ajaxModal" data-title="Change Company" data-url="<?php echo site_url("welcome/select_company/0/ajax") . "?next=" . uri_string(); ?>">
       <?php echo $this->session->userdata( 'current_company' ); ?></a></strong><br>
+<?php } ?>
 				<a href="http://www.trokis.com/" target="footer_credits">Trokis Philippines</a> 
 				&copy; <?php echo date('Y'); ?> 
 				<br>Developed by: 

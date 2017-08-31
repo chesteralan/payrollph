@@ -36,7 +36,9 @@ if( $deductions && $payroll_deductions ) { ?>
                   echo number_format($ed->max_amount,2);
                   ?></th>
                 <?php } ?>
-                <th width="10%" class="text-right"><?php echo number_format($total_max_amount,2); ?></th>
+                <?php if( count( $deductions ) > 1 ) { ?>
+                  <th width="10%" class="text-right"><?php echo number_format($total_max_amount,2); ?></th>
+                <?php } ?>
               </tr>
             </thead>
             <tbody>
@@ -68,7 +70,9 @@ $ed_total = 0;
                   ?>
                 </td>
               <?php } ?>
+              <?php if( count( $deductions ) > 1 ) { ?>
               <td class="text-right"><?php echo number_format($ed_total,2); ?></td>
+              <?php } ?>
             </tr>
 <?php } ?>
             </tbody>
@@ -83,7 +87,9 @@ $ed_total = 0;
                     echo number_format($payroll_total[$ed->id],2); 
                     ?></th>
                   <?php } ?>
+                  <?php if( count( $deductions ) > 1 ) { ?>
                 <th class="text-right"><?php echo number_format($ped_amount_grand,2); ?></th>
+                <?php } ?>
               </tr>
               <tr>
                 <th>BALANCE</th>
@@ -93,7 +99,9 @@ $ed_total = 0;
                     echo number_format(($ed->max_amount - $payroll_total[$ed->id]),2); 
                     ?></th>
                   <?php } ?>
+                  <?php if( count( $deductions ) > 1 ) { ?>
                 <th class="text-right"><?php echo number_format(($total_max_amount - $ped_amount_grand),2); ?></th>
+                <?php } ?>
               </tr>
             </tfoot>
           </table>

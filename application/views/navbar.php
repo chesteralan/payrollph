@@ -100,32 +100,35 @@ if( $this->session->userdata( 'current_company' ) ) {
         )
     );
 
+if( $this->config->item('multi_company') ) {
+    $system_submenus['system_companies'] = array(
+            'title' => 'Companies',
+            'uri' => 'system_companies',
+            'permission' => 'companies',
+          );
+}
+    $system_submenus['system_terms'] = array(
+            'title' => 'Terminologies',
+            'uri' => 'system_terms',
+            'permission' => 'terms',
+          );
+
+    $system_submenus['system_users'] = array(
+            'title' => 'User Accounts',
+            'uri' => 'system_users',
+            'permission' => 'users',
+          );
+    $system_submenus['system_backup'] = array(
+            'title' => 'Database Backup',
+            'uri' => 'system_backup',
+            'permission' => 'backup',
+        );
+
     $main_menu['system'] = array(
       'title' => 'System',
       'uri' => 'system',
       'permission' => 'system',
-      'sub_menus' => array(
-          'system_companies' => array(
-            'title' => 'Companies',
-            'uri' => 'system_companies',
-            'permission' => 'companies',
-          ),
-          'system_terms' => array(
-            'title' => 'Terminologies',
-            'uri' => 'system_terms',
-            'permission' => 'terms',
-          ),
-          'system_users' => array(
-            'title' => 'User Accounts',
-            'uri' => 'system_users',
-            'permission' => 'users',
-          ),
-          'system_backup' => array(
-            'title' => 'Database Backup',
-            'uri' => 'system_backup',
-            'permission' => 'backup',
-          ),
-        )
+      'sub_menus' => $system_submenus,
     );
 
 
