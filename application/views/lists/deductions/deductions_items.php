@@ -22,13 +22,14 @@
 </div>
 
 <?php if( !isset($employee) ) { ?>
-<?php if($this->input->get('group_by') == 'employee') { ?>
-                <a href="<?php echo site_url( uri_string() ); ?>" class="pull-right" title="Remove Grouping"><span class="glyphicon glyphicon-resize-full"></span></a>
-<?php } else { ?>
-                <a href="<?php echo site_url( uri_string() ); ?>?group_by=employee" class="pull-right" title="Group by Employee"><span class="glyphicon glyphicon-resize-small"></span></a>
+
+                <a href="<?php echo site_url( "lists_deductions/summary/{$deduction->id}" ); ?>" class="pull-right" title="Group by Employee"><span class="glyphicon glyphicon-resize-small"></span></a>
+
 <?php } ?>
-<?php } ?>
-                  <h3 class="panel-title bold"><?php echo $current_page; ?>:  <?php echo $deduction->name; ?> <small><?php echo $deduction->notes; ?></h3>
+                  <h3 class="panel-title bold"><?php echo $current_page; ?>:  <?php echo $deduction->name; ?> <small><?php echo $deduction->notes; ?></small>
+                  <span class="badge">Active</span> <a href="<?php echo site_url("lists_deductions/archived/{$deduction->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-folder-close"></span></a>
+
+                  </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 <?php endif; ?>
@@ -38,21 +39,17 @@
             <thead>
               <tr>
                 <th>Deduction Name</th>
-<?php if(!$this->input->get('group_by')) { ?>
                 <th>Notes</th>
-<?php } ?>
                 <th class="text-right">Whole Amount</th>
                 <th class="text-right">Amount</th>
                 <th class="text-right">Amount Paid</th>
                 <th class="text-right">Balance</th>
-<?php if(!$this->input->get('group_by')) { ?>
+
                 <?php foreach($templates as $temp) { ?>
-                  <th class="text-center"><?php echo $temp->name; ?></th>
+                  <th class="text-center" width="5%"><?php echo $temp->name; ?></th>
                 <?php } ?>
                 <th width="130px" class="text-right">Action</th>
-<?php } else { ?>
-                <th class="text-right">before deduction</th>
-<?php } ?>
+
               </tr>
             </thead>
             <tbody>
@@ -64,22 +61,23 @@ $balance_total = 0;
        foreach($items as $item) { ?>
               <tr id="employee-group-<?php echo $item->id; ?>">
                 <td>
-<?php if(!$this->input->get('group_by')) { ?>
-                <a href="<?php echo site_url("employees_deductions/view/{$item->name_id}"); ?>" class="body_wrapper">
-<?php } ?>
-                <?php echo $item->lastname; ?>, <?php echo $item->firstname; ?>
-<?php if(!$this->input->get('group_by')) { ?>
-                </a>
-<?php } ?>
+
+                <a href="<?php echo site_url("employees_deductions/view/{$item->name_id}"); ?>?filter=<?php echo $deduction->id; ?>" class="body_wrapper"><?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1); ?>.</a>
+
 </td>
-<?php if(!$this->input->get('group_by')) { ?>
+
                 <td><?php echo $item->notes; ?></td>
-<?php } ?>
                 <td class="text-right"><?php echo number_format($item->max_amount,2); $max_amount_total+=$item->max_amount; ?></td>
                 <td class="text-right"><?php echo number_format($item->amount,2); $amount_total+=$item->amount; ?></td>
                 <td class="text-right"><?php echo number_format($item->amount_paid,2); $amount_paid_total+=$item->amount_paid; ?></td>
-                <td class="text-right"><?php echo number_format($item->balance,2); $balance_total+=$item->balance; ?></td>
-<?php if(!$this->input->get('group_by')) { ?>
+                <td class="text-right"><?php 
+if( $item->balance ) {
+  echo number_format($item->balance,2); $balance_total+=$item->balance; 
+} else {
+   echo number_format($item->max_amount,2); $balance_total+=$item->max_amount; 
+}
+              ?></td>
+
                 <?php foreach($templates as $temp) { 
                   $var = 'temp_' . $temp->id;
                   ?>
@@ -91,22 +89,9 @@ $balance_total = 0;
                   <button type="button" class="btn btn-success btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Deduction Entries" data-url="<?php echo site_url("employees_deductions/entries/{$item->id}/ajax") . "?next=" . uri_string(); ?>">Entries</button>
 
                 </td>
-<?php } else { ?>
-                <th class="text-right"><?php echo number_format(($item->balance + $item->amount),2); ?></th>
-<?php } ?>
+
               </tr>
             <?php } ?>
-
-<?php if($this->input->get('group_by')) { ?>
-<tr class="success">
-                <td <?php if(!$this->input->get('group_by')) { ?>colspan="2"<?php } ?> class="bold">Total</td>
-                <td class="text-right bold"><?php echo number_format($max_amount_total,2); ?></td>
-                <td class="text-right bold"><?php echo number_format($amount_total,2); ?></td>
-                <td class="text-right bold"><?php echo number_format($amount_paid_total,2); ?></td>
-                <td class="text-right bold"><?php echo number_format($balance_total,2); ?></td>
-                <td class="text-right bold"><?php echo number_format(($balance_total+$amount_total),2); ?></td>
-              </tr>
-<?php } ?>
             </tbody>
           </table>
 
@@ -114,7 +99,7 @@ $balance_total = 0;
 
 <?php } else { ?>
 
-  <div class="text-center">No Earning Found!</div>
+  <div class="text-center">No Deductions Found!</div>
 
 <?php } ?>
 <?php if( ! $inner_page ): ?>

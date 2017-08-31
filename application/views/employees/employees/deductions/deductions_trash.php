@@ -10,7 +10,7 @@
                 <div class="panel-heading">
                   <h3 class="panel-title bold">
                   <?php echo $current_page; ?> <span class="badge">Trash Bin</span> 
-                  <a href="<?php echo site_url("employees_deductions/archived/{$employee->name_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-folder-close"></span></a>
+                  <a href="<?php echo site_url("employees_deductions/archived/{$employee->name_id}"); ?><?php echo ($this->input->get('filter')) ? "?filter=" . $this->input->get('filter') : ""; ?>" class="body_wrapper"><span class="glyphicon glyphicon-folder-close"></span></a>
 
                   </h3>
                 </div>

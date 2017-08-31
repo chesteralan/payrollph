@@ -1314,7 +1314,7 @@ class MY_Model extends CI_Model
     */
 
     public function sql_function($function, $field, $alias=false, $hasConditions=true) {
-                if( $this->_select ) {
+        if( $this->_select ) {
                 $this->_db->select( implode(',' , $this->_select) );
         }
         if( $alias ) {
@@ -1323,10 +1323,10 @@ class MY_Model extends CI_Model
                         $this->_db->select($function.'('.$field.')');
         }
         if( $hasConditions ) {
-                        $this->setup_join();
-                        $this->setup_conditions();
-                        $this->setup_group_by();
-                }
+                $this->setup_join();
+                $this->setup_conditions();
+                $this->setup_group_by();
+        }
         return  $this->_db->get($this->_table_name . ' ' . $this->_short_name, 1);
     }   
     // --------------------------------------------------------------------
@@ -1350,5 +1350,17 @@ class MY_Model extends CI_Model
 
     public function db_close() {
         $this->_db->close();
+    }
+
+    public function get_compiled_select() {
+        if( $this->_select ) {
+                $this->_db->select( implode(',' , $this->_select) );
+        }
+        
+            $this->setup_join();
+            $this->setup_conditions();
+            $this->setup_group_by();
+        
+        return $this->_db->get_compiled_select( $this->_table_name . " " . $this->_short_name );
     }
 }

@@ -20,7 +20,7 @@
   <a href="<?php echo site_url("payroll_dtr/view/{$payroll->id}"); ?>">Back</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}"); ?>">Print</a>
   <?php foreach($print_groups as $pg) { ?>
-    &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$pg->id}/payslip"); ?>"><?php echo $pg->name; ?></a>
+  &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$pg->id}/payslip"); ?>"><?php echo $pg->name; ?></a>
   <?php } ?>
 </div>
 

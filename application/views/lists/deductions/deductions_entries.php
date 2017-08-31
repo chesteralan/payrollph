@@ -66,7 +66,7 @@ $balance_total = 0;
 
 <?php } else { ?>
 
-  <div class="text-center">No Earning Found!</div>
+  <div class="text-center">No Deductions Found!</div>
 
 <?php } ?>
 <?php if( ! $inner_page ): ?>

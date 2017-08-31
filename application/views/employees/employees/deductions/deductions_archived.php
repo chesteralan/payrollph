@@ -10,9 +10,9 @@
                 <div class="panel-heading">
                   <h3 class="panel-title bold">
                   <?php echo $current_page; ?> <span class="badge">Archived</span> 
-                  <a href="<?php echo site_url("employees_deductions/view/{$employee->name_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-folder-open"></span></a>
+                  <a href="<?php echo site_url("employees_deductions/view/{$employee->name_id}"); ?><?php echo ($this->input->get('filter')) ? "?filter=" . $this->input->get('filter') : ""; ?>" class="body_wrapper"><span class="glyphicon glyphicon-folder-open"></span></a>
 
-                  <a href="<?php echo site_url("employees_deductions/trash/{$employee->name_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-trash"></span></a>
+                  <a href="<?php echo site_url("employees_deductions/trash/{$employee->name_id}"); ?><?php echo ($this->input->get('filter')) ? "?filter=" . $this->input->get('filter') : ""; ?>" class="body_wrapper"><span class="glyphicon glyphicon-trash"></span></a>
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
