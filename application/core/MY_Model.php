@@ -1,5 +1,13 @@
 <?php
-
+/*
+| -------------------------------------------------------------------
+| MY_Model
+| -------------------------------------------------------------------
+| This file is the parent class of Model Classes
+|
+| version 4.0.1
+|
+*/
 class MY_Model extends CI_Model
 {
 
