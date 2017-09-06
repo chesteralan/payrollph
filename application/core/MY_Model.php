@@ -5,7 +5,7 @@
 | -------------------------------------------------------------------
 | This file is the parent class of Model Classes
 |
-| version 4.0.1
+| version 4.3
 |
 */
 class MY_Model extends CI_Model
@@ -1155,7 +1155,11 @@ class MY_Model extends CI_Model
     * @access public
     */
     
-    public function set_group_by($fields) {
+    public function set_group_by($fields,$reset=FALSE) {
+        if( $reset ) {
+            unset($this->_group_by);
+            $this->_group_by = array();
+        }
         if( is_array( $fields ) ) { 
             $this->_group_by = array_merge( $this->_group_by, $fields );
         } else {
@@ -1238,7 +1242,11 @@ class MY_Model extends CI_Model
     * @access public
     */
         
-    public function set_select($select, $priority=NULL) {
+    public function set_select($select, $priority=NULL, $reset=FALSE) {
+        if($reset) {
+            unset( $this->_select );
+            $this->_select = array();
+        }
         if( is_array ( $select ) ) {
             $this->_select = array_merge( $this->_select, $select );
         } else {
@@ -1258,7 +1266,11 @@ class MY_Model extends CI_Model
     * @access public
     */
             
-    public function set_exclude($exclude) {
+    public function set_exclude($exclude, $reset=FALSE) {
+        if($reset) {
+            unset( $this->_exclude );
+            $this->_exclude = array();
+        }
         if( is_array ( $exclude ) ) {
             $this->_exclude = array_merge( $this->_exclude, $exclude );
         } else {
@@ -1361,14 +1373,29 @@ class MY_Model extends CI_Model
     }
 
     public function get_compiled_select() {
-        if( $this->_select ) {
-                $this->_db->select( implode(',' , $this->_select) );
+        
+        if( $this->_distinct ) {
+            $this->_db->distinct();
         }
         
-            $this->setup_join();
-            $this->setup_conditions();
-            $this->setup_group_by();
+        if( $this->_select ) {
+                $this->_db->select( implode(',' , $this->_select ) );
+        }
         
+        $this->setup_join();
+        $this->setup_conditions();
+        $this->setup_group_by();
+        
+        if( $this->_order ) {
+            foreach( $this->_order as $field=>$orientation ) {
+                $this->_db->order_by( $field, $orientation );
+            }
+        }
+        
+        if( $this->_limit > 0 ) {
+            $this->_db->limit( $this->_limit,$this->_start);
+        }
+
         return $this->_db->get_compiled_select( $this->_table_name . " " . $this->_short_name );
     }
 }
