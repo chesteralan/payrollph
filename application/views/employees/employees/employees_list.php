@@ -101,7 +101,7 @@
 
 
 <div class="btn-group">
-                  <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Employee" data-url="<?php echo site_url("employees/config/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">Config</button>
+                  <a class="btn btn-info btn-xs body_wrapper" href="<?php echo site_url("employee/view/{$employee->name_id}"); ?>">Profile</a>
   <button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <span class="caret"></span>
     <span class="sr-only">Toggle Dropdown</span>
