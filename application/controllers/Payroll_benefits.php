@@ -32,6 +32,25 @@ class Payroll_benefits extends MY_Controller {
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
+		if( $column_id ) {
+			$exclude = array($id);
+			if($this->input->get('compare')) {
+				$exclude[] = $this->input->get('compare');
+			}
+			$payrolls = new $this->Payroll_model;
+			$payrolls->setCompanyId($this->session->userdata('current_company_id'),true);
+			$payrolls->set_where_not_in('id', $exclude);
+			$payrolls->set_order('year', 'DESC');
+			$payrolls->set_order('month', 'DESC');
+			$this->template_data->set('other_payrolls', $payrolls->populate());
+		}
+
+		if($this->input->get('compare')) {
+			$compare_payroll = new $this->Payroll_model;
+			$compare_payroll->setId($this->input->get('compare'),true);
+			$this->template_data->set('compare_payroll', $compare_payroll->get());
+		}
+
 		$benefits_columns = new $this->Payroll_benefits_model('pb');
 		$benefits_columns->setPayrollId($id,true);
 		$benefits_columns->set_select('bl.*');
@@ -85,6 +104,11 @@ class Payroll_benefits extends MY_Controller {
 			foreach($columns as $column) {
 				$employees->set_select(sprintf('(SELECT SUM(peb.employee_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s) as ee_share_%s', $id, $column->id, $column->id));
 				$employees->set_select(sprintf('(SELECT SUM(peb.employer_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s) as er_share_%s', $id, $column->id, $column->id));
+				
+				if( ($column_id) && ($this->input->get('compare'))) {
+					$employees->set_select(sprintf('(SELECT SUM(peb.employee_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s) as ee_compare_%s', $this->input->get('compare'), $column->id, $column->id));
+					$employees->set_select(sprintf('(SELECT SUM(peb.employer_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s) as er_compare_%s', $this->input->get('compare'), $column->id, $column->id));
+				}
 			}
 
 			$employees->setActive('1', true);

@@ -10,13 +10,26 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
+                  
 <?php if( !$column_id ) { ?>
 <?php if(!$payroll->lock) { ?>
 <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Benefits" data-url="<?php echo site_url("payroll/benefits/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
 <?php } ?>
+<?php } else { ?>
+  <?php if( $other_payrolls ) { ?>
+    <div class="btn-group btn-group-xs pull-right">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <?php echo ( isset($compare_payroll) ) ? $compare_payroll->name : "Compare"; ?> <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-right">
+      <?php foreach($other_payrolls as $op) { ?>
+        <li><a href="<?php echo site_url(uri_string()) . "?" . querystring_add( 'compare', $op->id); ?>"><?php echo $op->name; ?></a></li>
+      <?php } ?>
+      </ul>
+    </div>
+  <?php } ?>
 <?php } ?>
-                  </h3>
+                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong></h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 
@@ -30,6 +43,10 @@ $total_benefits = 0;
 if( $benefits_columns ) foreach( $benefits_columns as $column ) { 
   $total[$column->id]['ee'] = 0;
   $total[$column->id]['er'] = 0;
+}
+if( isset($compare_payroll) ) {
+  $total['compare']['ee'] = 0;
+  $total['compare']['er'] = 0;
 }
 ?>
 
@@ -62,6 +79,9 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
   <a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}/{$column->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
 </th>
+<?php if( isset($compare_payroll) ) { ?>
+  <th width="15%" class="text-right"><?php echo $compare_payroll->name; ?>-EE</th>
+<?php } ?>
                 <th width="10%" class="text-right"><?php echo $column->name; ?>-ER
 <?php if( intval($column_id) > 0 ) { ?>
 <a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-remove"></a>
@@ -69,6 +89,9 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
   <a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}/{$column->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
 </th>
+<?php if( isset($compare_payroll) ) { ?>
+  <th width="15%" class="text-right"><?php echo $compare_payroll->name; ?>-ER</th>
+<?php } ?>
 <?php } ?>
 
 <?php if( !$column_id ) { ?>
@@ -102,6 +125,12 @@ $total_benefit = 0;
 </a>
 <?php } ?>
                     </td>
+<?php if( isset($compare_payroll) ) { ?>
+<td class="text-right"><?php 
+                    $ee2 = 'ee_compare_' . $column->id;
+                    $total['compare']['ee'] += $employee->$ee2;
+                    echo number_format($employee->$ee2,2); ?></td>
+<?php } ?>
                 <td class="text-right">
 <?php if(!$payroll->lock) { ?>
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo ($column->notes!='') ? $column->notes : $column->name; ?> (ER)" data-url="<?php echo site_url("payroll_benefits/entries/{$payroll->id}/{$employee->name_id}/{$column->id}/er/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
@@ -114,6 +143,12 @@ $total_benefit = 0;
 </a>
 <?php } ?>
                     </td>
+<?php if( isset($compare_payroll) ) { ?>
+<td class="text-right"><?php 
+                    $er2 = 'er_compare_' . $column->id;
+                    $total['compare']['er'] += $employee->$er2;
+                    echo number_format($employee->$er2,2); ?></td>
+<?php } ?> 
 <?php } ?>
 
 <?php if( !$column_id ) { ?>
@@ -139,6 +174,9 @@ $total_benefit = 0;
   <a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}/{$column->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
                 </th>
+<?php if( isset($compare_payroll) ) { ?>
+  <th width="15%" class="text-right"><?php echo $compare_payroll->name; ?>-EE</th>
+<?php } ?>
                 <th width="10%" class="text-right"><?php echo $column->name; ?>-ER 
 <?php if( intval($column_id) > 0 ) { ?>
 <a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-remove"></a>
@@ -146,6 +184,9 @@ $total_benefit = 0;
   <a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}/{$column->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
                 </th>
+<?php if( isset($compare_payroll) ) { ?>
+  <th width="15%" class="text-right"><?php echo $compare_payroll->name; ?>-ER</th>
+<?php } ?>
 <?php } ?>
 
 <?php if( !$column_id ) { ?>
@@ -158,7 +199,13 @@ $total_benefit = 0;
             <td></td>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
                 <td width="10%" class="text-right"><a href="<?php echo site_url("payroll_benefits/item_schedule/{$payroll->id}/{$column->id}"); ?>" class="body_wrapper"><strong><?php echo number_format($total[$column->id]['ee'],2);?></strong></a></td>
+<?php if( isset($compare_payroll) ) { ?>
+<td class="text-right"><strong><?php echo number_format($total['compare']['ee'],2);?></strong></td>
+<?php } ?>
                 <td width="10%" class="text-right"><a href="<?php echo site_url("payroll_benefits/item_schedule/{$payroll->id}/{$column->id}"); ?>" class="body_wrapper"><strong><?php echo number_format($total[$column->id]['er'],2);?></strong></a></td>
+<?php if( isset($compare_payroll) ) { ?>
+<td class="text-right"><strong><?php echo number_format($total['compare']['er'],2);?></strong></td>
+<?php } ?>
 <?php } ?>
 <?php if( !$column_id ) { ?>
 <td class="text-right"><?php echo number_format($total_benefits,2); ?></td>

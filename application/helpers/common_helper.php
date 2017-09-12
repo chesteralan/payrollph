@@ -6,3 +6,25 @@ if( ! function_exists('is_view_exists') ) {
     	 return file_exists(VIEWPATH . $view_file . '.php');
 	}
 }
+
+if( ! function_exists('querystring_append') ) {
+	function querystring_add($key,$value) {
+    	 $q = array();
+    	 $CI = get_instance();
+    	 foreach($CI->input->get() as $k=>$v) {
+    	 	if( is_array( $v ) ) {
+    	 		foreach($v as $c=>$v2) {
+    	 			$q[$k.$c] = urlencode($k . "[]") . "=" . $v2;
+    	 		}
+    	 	} else {
+    	 		if( $key==$k) {
+    	 			$q[$k] = $k . "=" . $value;
+    	 		} else {
+    	 			$q[$k] = $k . "=" . $v;
+    	 		}
+    	 	}
+    	 }
+    	 $q[$key] = $key . "=" . $value;
+    	 return implode("&amp;", $q);
+	}
+}

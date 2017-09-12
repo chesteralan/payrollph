@@ -14,6 +14,19 @@
 <?php if(!$payroll->lock) { ?>
                 <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Deductions" data-url="<?php echo site_url("payroll/deductions/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
 <?php } ?>
+<?php } else { ?>
+  <?php if( $other_payrolls ) { ?>
+    <div class="btn-group btn-group-xs pull-right">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <?php echo ( isset($compare_payroll) ) ? $compare_payroll->name : "Compare"; ?> <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-right">
+      <?php foreach($other_payrolls as $op) { ?>
+        <li><a href="<?php echo site_url(uri_string()) . "?" . querystring_add( 'compare', $op->id); ?>"><?php echo $op->name; ?></a></li>
+      <?php } ?>
+      </ul>
+    </div>
+  <?php } ?>
 <?php } ?>
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong></h3>
                 </div>
@@ -28,6 +41,9 @@ $total = array();
 foreach( $deductions_columns as $column ) { 
   $total[$column->id] = 0;
 }
+if( isset($compare_payroll) ) {
+  $total['compare'] = 0;
+}
 ?>
 
 <?php foreach($payroll_groups as $payroll_group) { ?>
@@ -38,9 +54,9 @@ foreach( $deductions_columns as $column ) {
                 <th>
 <?php if( !$this->session->userdata('current_employee') ) { ?>
 <?php if( intval($group_id) > 0 ) { ?>
-<a href="<?php echo site_url("payroll_deductions/view/{$payroll->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></a>
+<a href="<?php echo site_url("payroll_deductions/view/{$payroll->id}/0/{$column_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></a>
 <?php } else { ?>
-  <a href="<?php echo site_url("payroll_deductions/view/{$payroll->id}/{$payroll_group->group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></a>
+  <a href="<?php echo site_url("payroll_deductions/view/{$payroll->id}/{$payroll_group->group_id}/{$column_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></a>
 <?php } ?>
 <?php } ?>
 
@@ -60,6 +76,9 @@ foreach( $deductions_columns as $column ) {
   <a href="<?php echo site_url("payroll_deductions/view/{$payroll->id}/{$group_id}/{$column->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
                 </th>
+<?php } ?>
+<?php if( isset($compare_payroll) ) { ?>
+  <th width="20%" class="text-right"><?php echo $compare_payroll->name; ?></th>
 <?php } ?>
 <?php if( !$column_id ) { ?>
                 <th width="7%" class="text-right">Total</th>
@@ -95,7 +114,12 @@ foreach( $deductions_columns as $column ) {
 
                     </td>
                 <?php } ?>
-                
+<?php if( isset($compare_payroll) ) { ?>
+  <td class="text-right"><?php 
+                    $var2 = 'compare_' . $column->id;
+                    $total['compare'] += $employee->$var2;
+                    echo number_format($employee->$var2,2); ?></td>
+<?php } ?>
 <?php if( !$column_id ) { ?>
                 <td class="text-right"><?php echo number_format($total_deductions,2); ?></td>
 <?php } ?>
@@ -120,7 +144,9 @@ foreach( $deductions_columns as $column ) {
 <?php } ?>
                 </th>
 <?php } ?>
-
+<?php if( isset($compare_payroll) ) { ?>
+  <th width="20%" class="text-right"><?php echo $compare_payroll->name; ?></th>
+<?php } ?>
 <?php if( !$column_id ) { ?>
   <th width="7%" class="text-right">TOTAL</th>
 <?php } ?>  
@@ -140,7 +166,9 @@ $total_deductions += $total[$column->id];
                   </a>
                 </td>
 <?php } ?>
-
+<?php if( isset($compare_payroll) ) { ?>
+  <td class="text-right"><strong><?php echo number_format($total['compare'],2);?></strong></td>
+<?php } ?>
 <?php if( !$column_id ) { ?>
                 <td class="text-right"><strong><?php echo number_format($total_deductions,2); ?></strong></td>
 <?php } ?>
