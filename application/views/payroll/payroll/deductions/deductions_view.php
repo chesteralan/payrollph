@@ -79,6 +79,7 @@ if( isset($compare_payroll) ) {
 <?php } ?>
 <?php if( isset($compare_payroll) ) { ?>
   <th width="20%" class="text-right"><?php echo $compare_payroll->name; ?></th>
+  <th width="20%" class="text-right">Difference</th>
 <?php } ?>
 <?php if( !$column_id ) { ?>
                 <th width="7%" class="text-right">Total</th>
@@ -119,6 +120,7 @@ if( isset($compare_payroll) ) {
                     $var2 = 'compare_' . $column->id;
                     $total['compare'] += $employee->$var2;
                     echo number_format($employee->$var2,2); ?></td>
+<td class="text-right"><strong><?php echo number_format(($employee->$var - $employee->$var2),2); ?></strong></td>
 <?php } ?>
 <?php if( !$column_id ) { ?>
                 <td class="text-right"><?php echo number_format($total_deductions,2); ?></td>
@@ -146,6 +148,7 @@ if( isset($compare_payroll) ) {
 <?php } ?>
 <?php if( isset($compare_payroll) ) { ?>
   <th width="20%" class="text-right"><?php echo $compare_payroll->name; ?></th>
+  <th width="20%" class="text-right">Difference</th>
 <?php } ?>
 <?php if( !$column_id ) { ?>
   <th width="7%" class="text-right">TOTAL</th>
@@ -168,6 +171,7 @@ $total_deductions += $total[$column->id];
 <?php } ?>
 <?php if( isset($compare_payroll) ) { ?>
   <td class="text-right"><strong><?php echo number_format($total['compare'],2);?></strong></td>
+  <td class="text-right"><strong><?php echo number_format(($total[$column->id] - $total['compare']),2);?></strong></td>
 <?php } ?>
 <?php if( !$column_id ) { ?>
                 <td class="text-right"><strong><?php echo number_format($total_deductions,2); ?></strong></td>
