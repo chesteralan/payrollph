@@ -2,6 +2,8 @@
 <?php
 
 function personal_info($employee) { 
+  $birthday = date("m/d/Y", strtotime($employee->birthday));
+  $gender = ucfirst($employee->gender);
 return <<<HTML
 <div class="row">
   <div class="col-md-4">
@@ -28,19 +30,19 @@ return <<<HTML
   <div class="col-md-4">
     <div class="form-group">
       <label>Birthday</label>
-      <div class="form-control"></div>
+      <div class="form-control">{$birthday}</div>
     </div>
   </div>
   <div class="col-md-4">
     <div class="form-group">
       <label>Birthplace</label>
-      <div class="form-control"></div>
+      <div class="form-control">{$employee->birthplace}</div>
     </div>
   </div>
   <div class="col-md-4">
     <div class="form-group">
       <label>Gender</label>
-      <div class="form-control"></div>
+      <div class="form-control">{$gender}</div>
     </div>
   </div>
 </div>
@@ -49,12 +51,39 @@ return <<<HTML
   <div class="col-md-4">
     <div class="form-group">
       <label>Civil Status</label>
-      <div class="form-control"></div>
+      <div class="form-control">{$employee->civil_status}</div>
     </div>
   </div>
 </div>
 HTML;
- } ?>
+ } 
+
+function address_contacts($employee) { 
+return <<<HTML
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Phone Number</label>
+      <div class="form-control">{$employee->phone_number}</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Cellphone Number</label>
+      <div class="form-control">{$employee->cell_number}</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Address</label>
+      <div class="form-control">{$employee->address}</div>
+    </div>
+  </div>
+</div>
+HTML;
+}
+
+ ?>
 <?php $this->load->view('header'); ?>
 <?php if( ! $inner_page ): ?>
 <?php $this->load->view('employees/employees/employees_view_navbar'); ?>
@@ -69,28 +98,28 @@ HTML;
 <?php foreach(array(
   array(
     'title'=>'Personal Information',
-    'config_url' => site_url("employee/edit_personal/{$employee->name_id}/ajax") . "?next=" . uri_string(),
+    'config_url' => site_url("employees/edit_personal/{$employee->name_id}/ajax") . "?next=" . uri_string(),
     'panel_body' => personal_info($employee),
     'open' => true,
     ),
   array(
     'title'=>'Address &amp; Contact Numbers',
-    'config_url' => site_url("employee/edit_contacts/{$employee->name_id}/ajax") . "?next=" . uri_string(),
-    'panel_body' => '',
+    'config_url' => site_url("employees/edit_address/{$employee->name_id}/ajax") . "?next=" . uri_string(),
+    'panel_body' => address_contacts($employee),
   ),
   array(
     'title'=>'Social Media Accounts',
-    'config_url' => site_url("employee/edit_socialmedia/{$employee->name_id}/ajax") . "?next=" . uri_string(),
+    'config_url' => site_url("employees/edit_socialmedia/{$employee->name_id}/ajax") . "?next=" . uri_string(),
     'panel_body' => '',
   ),
   array(
     'title'=>'Identification Numbers',
-    'config_url' => site_url("employee/edit_idnumbers/{$employee->name_id}/ajax") . "?next=" . uri_string(),
+    'config_url' => site_url("employees/edit_idnumbers/{$employee->name_id}/ajax") . "?next=" . uri_string(),
     'panel_body' => '',
   ),
   array(
     'title'=>'Emergency Contacts',
-    'config_url' => site_url("employee/edit_emergency/{$employee->name_id}/ajax") . "?next=" . uri_string(),
+    'config_url' => site_url("employees/edit_emergency/{$employee->name_id}/ajax") . "?next=" . uri_string(),
     'panel_body' => '',
   ),
 ) as $i=>$content) { ?>

@@ -78,7 +78,6 @@ $column_width = ceil(71 / $pc_count);
 
 $d1000 = 0;
 $d500 = 0;
-$d200 = 0;
 $d100 = 0;
 $d50 = 0;
 $d20 = 0;
@@ -105,7 +104,6 @@ if( $payroll_group->page != $current_page ) {
 
 <th class="text-right">1000.00</th>
 <th class="text-right">500.00</th>
-<th class="text-right">200.00</th>
 <th class="text-right">100.00</th>
 <th class="text-right">50.00</th>
 <th class="text-right">20.00</th>
@@ -232,8 +230,6 @@ $group_net_pay += $net_pay;
     $less = ($one_thousand * 1000);
   $five_hundred = denomination($net_pay, 500, $less);
     $less += ($five_hundred * 500);
-  $two_hundred = denomination($net_pay, 200, $less);
-    $less += ($two_hundred * 200);
   $one_hundred = denomination($net_pay, 100, $less);
     $less += ($one_hundred * 100);
   $fifty = denomination($net_pay, 50, $less);
@@ -256,7 +252,6 @@ $group_net_pay += $net_pay;
 
   $d1000 += $one_thousand;
 $d500 += $five_hundred;
-$d200 += $two_hundred;
 $d100 += $one_hundred;
 $d50 += $fifty;
 $d20 += $twenty;
@@ -271,7 +266,6 @@ $d001 += $cent1;
 ?>
 <td class="text-right"><?php echo $one_thousand; ?></td>
 <td class="text-right"><?php echo $five_hundred; ?></td>
-<td class="text-right"><?php echo $two_hundred; ?></td>
 <td class="text-right"><?php echo $one_hundred; ?></td>
 <td class="text-right"><?php echo $fifty; ?></td>
 <td class="text-right"><?php echo $twenty; ?></td>
@@ -301,7 +295,6 @@ Summary
                 </th>
   <th class="text-right">1000.00</th>
 <th class="text-right">500.00</th>
-<th class="text-right">200.00</th>
 <th class="text-right">100.00</th>
 <th class="text-right">50.00</th>
 <th class="text-right">20.00</th>
@@ -320,7 +313,6 @@ Summary
 <td class="text-right" width="5%"><?php echo number_format($total_net_pay,2); ?></td>
 <td class="text-right"><?php echo $d1000; ?></td>
 <td class="text-right"><?php echo $d500; ?></td>
-<td class="text-right"><?php echo $d200; ?></td>
 <td class="text-right"><?php echo $d100; ?></td>
 <td class="text-right"><?php echo $d50; ?></td>
 <td class="text-right"><?php echo $d20; ?></td>
@@ -337,7 +329,6 @@ Summary
 <td class="text-right" width="5%"></td>
 <td class="text-right"><?php echo number_format((1000 * $d1000),2); ?></td>
 <td class="text-right"><?php echo number_format((500 * $d500),2); ?></td>
-<td class="text-right"><?php echo number_format((200 * $d200),2); ?></td>
 <td class="text-right"><?php echo number_format((100 * $d100),2); ?></td>
 <td class="text-right"><?php echo number_format((50 * $d50),2); ?></td>
 <td class="text-right"><?php echo number_format((20 * $d20),2); ?></td>

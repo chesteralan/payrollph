@@ -68,15 +68,17 @@ CREATE TABLE `employees` (
   `group_id` int(20) DEFAULT NULL,
   `lastname` varchar(100) NOT NULL,
   `firstname` varchar(100) NOT NULL,
-  `middlename` varchar(100) NOT NULL,
+  `middlename` varchar(100) DEFAULT NULL,
   `position_id` int(20) DEFAULT NULL,
   `area_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
   `notes` text,
-  `phone_number` varchar(100) DEFAULT NULL,
-  `address` text,
   `trash` int(1) NOT NULL DEFAULT '0',
+  `birthday` date DEFAULT NULL,
+  `birthplace` varchar(50) DEFAULT NULL,
+  `gender` varchar(50) DEFAULT NULL,
+  `civil_status` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`name_id`),
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),
@@ -132,6 +134,16 @@ CREATE TABLE `employees_benefits_templates` (
   `eb_id` int(20) NOT NULL,
   `template_id` int(20) NOT NULL,
   KEY `eb_id` (`eb_id`,`template_id`)
+);
+
+-- Table structure for table `employees_contacts` 
+
+CREATE TABLE `employees_contacts` (
+  `name_id` int(20) NOT NULL,
+  `phone_number` varchar(50) DEFAULT NULL,
+  `cell_number` varchar(50) DEFAULT NULL,
+  `address` varchar(200) DEFAULT NULL,
+  UNIQUE KEY `name_id` (`name_id`)
 );
 
 -- Table structure for table `employees_deductions` 

@@ -239,11 +239,15 @@ class Employees extends MY_Controller {
 			if( $this->input->post() ) {
 				$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
 				$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
-				$this->form_validation->set_rules('middlename', 'Middle Name', 'trim|required');
+				$this->form_validation->set_rules('middlename', 'Middle Name', 'trim');
 				if( $this->form_validation->run() ) {
 					$employee->setLastname($this->input->post('lastname'),false,true);
 					$employee->setFirstname($this->input->post('firstname'),false,true);
 					$employee->setMiddlename($this->input->post('middlename'),false,true);
+					$employee->setBirthday( date("Y-m-d", strtotime($this->input->post('birthday'))),false,true);
+					$employee->setBirthplace($this->input->post('birthplace'),false,true);
+					$employee->setGender($this->input->post('gender'),false,true);
+					$employee->setCivilStatus($this->input->post('civil_status'),false,true);
 					$employee->update();
 				}
 				$this->postNext();
@@ -329,21 +333,28 @@ class Employees extends MY_Controller {
 
 		$this->_isAuth('employees', 'employees', 'edit');
 
-		$employee = new $this->Employees_model;
+		$employee = new $this->Employees_contacts_model;
 		$employee->setNameId($id,true);
 
-		if( $employee->nonEmpty() ) {
-			if( $this->input->post() ) {
-				$this->form_validation->set_rules('phone_number', 'Phone Number', 'trim|required');
-				$this->form_validation->set_rules('address', 'Address', 'trim|required');
-				if( $this->form_validation->run() ) {
-					$employee->setPhoneNumber($this->input->post('phone_number'),false,true);
-					$employee->setAddress($this->input->post('address'),false,true);
+		
+		if( $this->input->post() ) {
+			$this->form_validation->set_rules('phone_number', 'Phone Number', 'trim');
+			$this->form_validation->set_rules('cell_number', 'Cellphone Number', 'trim');
+			$this->form_validation->set_rules('address', 'Address', 'trim');
+			if( $this->form_validation->run() ) {
+				$employee->setPhoneNumber($this->input->post('phone_number'),false,true);
+				$employee->setCellNumber($this->input->post('cell_number'),false,true);
+				$employee->setAddress($this->input->post('address'),false,true);
+				if($employee->nonEmpty()) {
 					$employee->update();
+				} else {
+					$employee->setNameId($id,true,true);
+					$employee->insert();
 				}
-				$this->postNext();
 			}
+			$this->postNext();
 		}
+		
 
 		$this->template_data->set('employee', $employee->get());
 

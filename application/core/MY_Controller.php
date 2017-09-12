@@ -154,6 +154,7 @@ class MY_Controller extends CI_Controller {
             $this->load->model('Employees_areas_model');
             $this->load->model('Employees_benefits_model');
             $this->load->model('Employees_benefits_templates_model');
+            $this->load->model('Employees_contacts_model');
             $this->load->model('Employees_deductions_model');
             $this->load->model('Employees_deductions_templates_model');
             $this->load->model('Employees_earnings_model');

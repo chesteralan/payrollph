@@ -11,15 +11,17 @@ CREATE TABLE `employees` (
   `group_id` int(20) DEFAULT NULL,
   `lastname` varchar(100) NOT NULL,
   `firstname` varchar(100) NOT NULL,
-  `middlename` varchar(100) NOT NULL,
+  `middlename` varchar(100) DEFAULT NULL,
   `position_id` int(20) DEFAULT NULL,
   `area_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
   `notes` text,
-  `phone_number` varchar(100) DEFAULT NULL,
-  `address` text,
   `trash` int(1) NOT NULL DEFAULT '0',
+  `birthday` date DEFAULT NULL,
+  `birthplace` varchar(50) DEFAULT NULL,
+  `gender` varchar(50) DEFAULT NULL,
+  `civil_status` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`name_id`),
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),
@@ -33,15 +35,17 @@ CREATE TABLE `employees` (
  ALTER TABLE  `employees` ADD  `group_id` int(20) NULL   ;
  ALTER TABLE  `employees` ADD  `lastname` varchar(100) NOT NULL   ;
  ALTER TABLE  `employees` ADD  `firstname` varchar(100) NOT NULL   ;
- ALTER TABLE  `employees` ADD  `middlename` varchar(100) NOT NULL   ;
+ ALTER TABLE  `employees` ADD  `middlename` varchar(100) NULL   ;
  ALTER TABLE  `employees` ADD  `position_id` int(20) NULL   ;
  ALTER TABLE  `employees` ADD  `area_id` int(20) NULL   ;
  ALTER TABLE  `employees` ADD  `hired` date NULL   ;
  ALTER TABLE  `employees` ADD  `status` varchar(100) NULL   ;
  ALTER TABLE  `employees` ADD  `notes` text NULL   ;
- ALTER TABLE  `employees` ADD  `phone_number` varchar(100) NULL   ;
- ALTER TABLE  `employees` ADD  `address` text NULL   ;
  ALTER TABLE  `employees` ADD  `trash` int(1) NOT NULL   DEFAULT '0';
+ ALTER TABLE  `employees` ADD  `birthday` date NULL   ;
+ ALTER TABLE  `employees` ADD  `birthplace` varchar(50) NULL   ;
+ ALTER TABLE  `employees` ADD  `gender` varchar(50) NULL   ;
+ ALTER TABLE  `employees` ADD  `civil_status` varchar(50) NULL   ;
 
 
  * @package			        Model
@@ -66,9 +70,11 @@ class Employees_model extends MY_Model {
 	protected $hired;
 	protected $status;
 	protected $notes;
-	protected $phone_number;
-	protected $address;
 	protected $trash;
+	protected $birthday;
+	protected $birthplace;
+	protected $gender;
+	protected $civil_status;
 
 	// --------------------------------------------------------------------
 
@@ -82,8 +88,8 @@ class Employees_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees';
 		$this->_short_name = 'employees';
-		$this->_fields = array("name_id","company_id","group_id","lastname","firstname","middlename","position_id","area_id","hired","status","notes","phone_number","address","trash");
-		$this->_required = array("company_id","lastname","firstname","middlename","trash");
+		$this->_fields = array("name_id","company_id","group_id","lastname","firstname","middlename","position_id","area_id","hired","status","notes","trash","birthday","birthplace","gender","civil_status");
+		$this->_required = array("company_id","lastname","firstname","trash");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -343,52 +349,6 @@ class Employees_model extends MY_Model {
 // ------------------------------ End Field: notes --------------------------------------
 
 
-// ---------------------------- Start Field: phone_number -------------------------------------- 
-
-	/** 
-	* Sets a value to `phone_number` variable
-	* @access public
-	*/
-
-		public function setPhoneNumber($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('phone_number', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
-	
-	/** 
-	* Get the value of `phone_number` variable
-	* @access public
-	*/
-
-		public function getPhoneNumber() {
-			return $this->phone_number;
-		}
-	
-// ------------------------------ End Field: phone_number --------------------------------------
-
-
-// ---------------------------- Start Field: address -------------------------------------- 
-
-	/** 
-	* Sets a value to `address` variable
-	* @access public
-	*/
-
-		public function setAddress($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
-	
-	/** 
-	* Get the value of `address` variable
-	* @access public
-	*/
-
-		public function getAddress() {
-			return $this->address;
-		}
-	
-// ------------------------------ End Field: address --------------------------------------
-
-
 // ---------------------------- Start Field: trash -------------------------------------- 
 
 	/** 
@@ -410,6 +370,98 @@ class Employees_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: trash --------------------------------------
+
+
+// ---------------------------- Start Field: birthday -------------------------------------- 
+
+	/** 
+	* Sets a value to `birthday` variable
+	* @access public
+	*/
+
+		public function setBirthday($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('birthday', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `birthday` variable
+	* @access public
+	*/
+
+		public function getBirthday() {
+			return $this->birthday;
+		}
+	
+// ------------------------------ End Field: birthday --------------------------------------
+
+
+// ---------------------------- Start Field: birthplace -------------------------------------- 
+
+	/** 
+	* Sets a value to `birthplace` variable
+	* @access public
+	*/
+
+		public function setBirthplace($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('birthplace', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `birthplace` variable
+	* @access public
+	*/
+
+		public function getBirthplace() {
+			return $this->birthplace;
+		}
+	
+// ------------------------------ End Field: birthplace --------------------------------------
+
+
+// ---------------------------- Start Field: gender -------------------------------------- 
+
+	/** 
+	* Sets a value to `gender` variable
+	* @access public
+	*/
+
+		public function setGender($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('gender', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `gender` variable
+	* @access public
+	*/
+
+		public function getGender() {
+			return $this->gender;
+		}
+	
+// ------------------------------ End Field: gender --------------------------------------
+
+
+// ---------------------------- Start Field: civil_status -------------------------------------- 
+
+	/** 
+	* Sets a value to `civil_status` variable
+	* @access public
+	*/
+
+		public function setCivilStatus($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('civil_status', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `civil_status` variable
+	* @access public
+	*/
+
+		public function getCivilStatus() {
+			return $this->civil_status;
+		}
+	
+// ------------------------------ End Field: civil_status --------------------------------------
 
 
 

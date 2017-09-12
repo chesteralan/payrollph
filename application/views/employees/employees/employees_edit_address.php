@@ -23,12 +23,17 @@
 
           <div class="form-group">
             <label>Phone Number</label>
-            <input name="phone_number" type="text" class="form-control" value="<?php echo $employee->phone_number; ?>">
+            <input name="phone_number" type="text" class="form-control" value="<?php echo ($employee) ? $employee->phone_number : ""; ?>">
+          </div>
+
+          <div class="form-group">
+            <label>Cell Number</label>
+            <input name="cell_number" type="text" class="form-control" value="<?php echo ($employee) ? $employee->cell_number : ""; ?>">
           </div>
 
           <div class="form-group">
             <label>Address</label>
-            <textarea name="address" class="form-control" rows="5"><?php echo $employee->address; ?></textarea>
+            <textarea name="address" class="form-control" rows="5"><?php echo ($employee) ? $employee->address : ""; ?></textarea>
           </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>

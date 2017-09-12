@@ -12,7 +12,7 @@
       </button>
       <div class="navbar-brand">
 
-      <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?></div>
+      <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo ($employee->middlename) ? strtoupper(substr($employee->middlename,0,1))."." : ""; ?></div>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

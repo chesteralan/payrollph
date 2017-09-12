@@ -36,6 +36,49 @@
             <input name="middlename" type="text" class="form-control" value="<?php echo $employee->middlename; ?>">
           </div>
 
+<div class="row">
+  <div class="col-md-6">
+
+          <div class="form-group">
+            <label>Birthday</label>
+            <input name="birthday" type="text" class="form-control datepicker" value="<?php echo date("m/d/Y", strtotime($employee->birthday)); ?>">
+          </div>
+
+  </div>
+  <div class="col-md-6">
+    
+          <div class="form-group">
+            <label>Birthplace</label>
+            <input name="birthplace" type="text" class="form-control" value="<?php echo $employee->birthplace; ?>">
+          </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+
+          <div class="form-group">
+            <label>Gender</label>
+            <select name="gender" class="form-control">
+                <option value="male" <?php echo ($employee->gender=='male') ? "SELECTED" : ""; ?>>Male</option>
+                <option value="female" <?php echo ($employee->gender=='female') ? "SELECTED" : ""; ?>>Female</option>
+            </select>
+          </div>
+
+  </div>
+  <div class="col-md-6">
+    
+          <div class="form-group">
+            <label>Civil Status</label>
+            <select name="civil_status" class="form-control">
+                <option value="single" <?php echo ($employee->civil_status=='single') ? "SELECTED" : ""; ?>>Single</option>
+                <option value="married" <?php echo ($employee->civil_status=='married') ? "SELECTED" : ""; ?>>Married</option>
+                <option value="widower" <?php echo ($employee->civil_status=='widower') ? "SELECTED" : ""; ?>>Widow / Widower</option>
+            </select>
+          </div>
+  </div>
+</div>
+
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
         </div>

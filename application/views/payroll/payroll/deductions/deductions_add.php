@@ -28,6 +28,7 @@
           </div>
   </div>
   <div class="col-md-6">
+  <?php if( $employees_deductions ) { ?>
           <div class="form-group">
             <label>Connect to</label>
             <select name="entry_id" class="form-control">
@@ -37,6 +38,7 @@
                 <?php } ?>
             </select>
           </div>
+  <?php } ?>
   </div>
 </div> 
 

@@ -40,6 +40,8 @@ class Payroll_benefits extends MY_Controller {
 			$payrolls = new $this->Payroll_model;
 			$payrolls->setCompanyId($this->session->userdata('current_company_id'),true);
 			$payrolls->set_where_not_in('id', $exclude);
+			$payrolls->set_where('((SELECT COUNT(*) FROM payroll_inclusive_dates WHERE payroll_id=payroll.id) > 0)');
+			$payrolls->set_where('((SELECT COUNT(*) FROM payroll_employees WHERE payroll_id=payroll.id) > 0)');
 			$payrolls->set_order('year', 'DESC');
 			$payrolls->set_order('month', 'DESC');
 			$this->template_data->set('other_payrolls', $payrolls->populate());

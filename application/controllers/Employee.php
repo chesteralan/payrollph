@@ -17,9 +17,13 @@ class Employee extends MY_Controller {
 
 	public function view($id) {
 
-		$employee = new $this->Employees_model;
+		$employee = new $this->Employees_model("e");
 		$employee->setNameId($id,true);
-
+		$employee->set_join("employees_contacts ec", "e.name_id=ec.name_id");
+		$employee->set_select("e.*");
+		$employee->set_select("ec.phone_number");
+		$employee->set_select("ec.cell_number");
+		$employee->set_select("ec.address");
 		$this->template_data->set('employee', $employee->get());
 		$this->load->view('employees/employee/employee_view', $this->template_data->get_data());
 	}
