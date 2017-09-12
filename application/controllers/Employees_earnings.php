@@ -10,14 +10,6 @@ class Employees_earnings extends MY_Controller {
 		$this->template_data->set('navbar_search', true);
 
 		$this->_isAuth('employees', 'employees', 'edit');
-
-		$this->load->model('Employees_model');
-		$this->load->model('Employees_earnings_model');
-		$this->load->model('Employees_earnings_templates_model');
-		$this->load->model('Earnings_list_model');
-		$this->load->model('Payroll_employees_earnings_model');
-		$this->load->model('Payroll_templates_model');
-
 	}
 
 	public function index() {

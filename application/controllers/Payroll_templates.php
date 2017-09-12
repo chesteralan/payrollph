@@ -13,21 +13,6 @@ class Payroll_templates extends MY_Controller {
 
 		$this->_isAuth('payroll', 'templates', 'view');
 
-		$this->load->model('Payroll_templates_model');
-		$this->load->model('Payroll_templates_groups_model');
-		$this->load->model('Payroll_templates_employees_model');
-		$this->load->model('Payroll_templates_benefits_model');
-		$this->load->model('Payroll_templates_earnings_model');
-		$this->load->model('Payroll_templates_deductions_model');
-		$this->load->model('Payroll_templates_columns_model');
-		$this->load->model('Employees_groups_model');
-		$this->load->model('Employees_model');
-		$this->load->model('Benefits_list_model');
-		$this->load->model('Earnings_list_model');
-		$this->load->model('Deductions_list_model');
-		$this->load->model('Names_list_model');
-		$this->load->model('Terms_list_model');
-
 	}
 
 	public function index($start=0) {

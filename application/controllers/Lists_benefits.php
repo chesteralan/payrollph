@@ -11,10 +11,6 @@ class Lists_benefits extends MY_Controller {
 
 		$this->_isAuth('lists', 'benefits', 'view');
 
-		$this->load->model('Benefits_list_model');
-		$this->load->model('Employees_benefits_model');
-		$this->load->model('Payroll_templates_model');
-
 	}
 
 	public function index($start=0) {

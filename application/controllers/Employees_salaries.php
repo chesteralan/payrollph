@@ -11,9 +11,6 @@ class Employees_salaries extends MY_Controller {
 
 		$this->_isAuth('employees', 'employees', 'edit');
 
-		$this->load->model('Employees_model');
-		$this->load->model('Employees_salaries_model');
-
 	}
 
 	public function index() {

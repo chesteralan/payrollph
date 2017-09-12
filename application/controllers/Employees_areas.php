@@ -11,8 +11,6 @@ class Employees_areas extends MY_Controller {
 
 		$this->_isAuth('employees', 'areas', 'view');
 
-		$this->load->model('Employees_areas_model');
-
 	}
 
 	public function index($start=0) {

@@ -11,13 +11,6 @@ class Employees_benefits extends MY_Controller {
 
 		$this->_isAuth('employees', 'employees', 'edit');
 
-		$this->load->model('Employees_model');
-		$this->load->model('Employees_benefits_model');
-		$this->load->model('Employees_benefits_templates_model');
-		$this->load->model('Benefits_list_model');
-		$this->load->model('Payroll_employees_benefits_model');
-		$this->load->model('Payroll_templates_model');
-
 	}
 
 	public function index() {

@@ -11,8 +11,6 @@ class Lists_names extends MY_Controller {
 
 		$this->_isAuth('lists', 'names', 'view');
 
-		$this->load->model('Names_list_model');
-
 	}
 
 	private function _searchRedirect() {

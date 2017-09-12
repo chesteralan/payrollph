@@ -11,12 +11,6 @@ class Lists_deductions extends MY_Controller {
 
 		$this->_isAuth('lists', 'deductions', 'view');
 
-		$this->load->model('Employees_model');
-		$this->load->model('Deductions_list_model');
-		$this->load->model('Employees_deductions_model');
-		$this->load->model('Payroll_templates_model');
-		$this->load->model('Payroll_employees_deductions_model');
-
 	}
 
 	public function index($start=0) {

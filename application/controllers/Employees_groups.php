@@ -11,8 +11,6 @@ class Employees_groups extends MY_Controller {
 
 		$this->_isAuth('employees', 'groups', 'view');
 
-		$this->load->model('Employees_groups_model');
-
 	}
 
 	public function index($start=0) {

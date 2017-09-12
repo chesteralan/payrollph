@@ -15,7 +15,9 @@
 				<a href="http://www.trokis.com/" target="footer_credits">Trokis Philippines</a> 
 				&copy; <?php echo date('Y'); ?> 
 				<br>Developed by: 
-				<a href="http://www.chesteralan.com/" target="footer_credits">Chester Alan Tagudin</a> 
+				<a href="http://www.chesteralan.com/" target="footer_credits">Chester Alan Tagudin</a>
+        <br>
+        <strong>M:</strong> <?php echo $this->benchmark->memory_usage();?> <strong>T:</strong> <?php echo $this->benchmark->elapsed_time();?>
 				</p>
 			</small></center>
 		</div>

@@ -10,10 +10,6 @@ class System_users extends MY_Controller {
 
 		$this->_isAuth('system', 'users', 'view');
 		
-		$this->load->model('User_accounts_model');
-		$this->load->model('User_accounts_restrictions_model');
-		$this->load->model('User_accounts_companies_model');
-		$this->load->model('Companies_list_model');
 	}
 
 	public function index($start=0) {

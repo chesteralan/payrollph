@@ -11,11 +11,6 @@ class Employees_dtr extends MY_Controller {
 
 		$this->_isAuth('employees', 'positions', 'view');
 
-		$this->load->model('Employees_positions_model');
-		$this->load->model('Employees_absences_model');
-		$this->load->model('Employees_model');
-		$this->load->model('Benefits_list_model');
-
 	}
 
 	public function add_leave($name_id, $date, $output='') {

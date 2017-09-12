@@ -11,8 +11,10 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
+<?php if( !$column_id ) { ?>
 <?php if(!$payroll->lock) { ?>
 <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Earnings" data-url="<?php echo site_url("payroll/earnings/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
+<?php } ?>
 <?php } ?>
                   </h3>
                 </div>
@@ -37,9 +39,9 @@ foreach( $earnings_columns as $column ) {
                 <th>
 <?php if( !$this->session->userdata('current_employee') ) { ?>
 <?php if( intval($group_id) > 0 ) { ?>
-<a href="<?php echo site_url("payroll_earnings/view/{$payroll->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></a>
+<a href="<?php echo site_url("payroll_earnings/view/{$payroll->id}/0/{$column_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></a>
 <?php } else { ?>
-  <a href="<?php echo site_url("payroll_earnings/view/{$payroll->id}/{$payroll_group->group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></a>
+  <a href="<?php echo site_url("payroll_earnings/view/{$payroll->id}/{$payroll_group->group_id}/{$column_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></a>
 <?php } ?>
 <?php } ?>
 
@@ -51,9 +53,17 @@ foreach( $earnings_columns as $column ) {
 <?php } ?>
                 </th>
 <?php if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
-                <th width="10%" class="text-right"><?php echo $column->name; ?></th>
+                <th width="10%" class="text-right"><?php echo $column->name; ?> 
+<?php if( intval($column_id) > 0 ) { ?>
+<a href="<?php echo site_url("payroll_earnings/view/{$payroll->id}/{$group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-remove"></a>
+<?php } else { ?>
+  <a href="<?php echo site_url("payroll_earnings/view/{$payroll->id}/{$group_id}/{$column->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
+                </th>
+<?php } ?>
+<?php if( !$column_id ) { ?>
                 <th width="10%" class="text-right">Total</th>
+<?php } ?>
               </tr>
             </thead>
             <tbody>
@@ -86,7 +96,9 @@ $total_earnings = 0;
 
                     </td>
                 <?php } ?>
+<?php if( !$column_id ) { ?>
                 <td class="text-right"><?php echo number_format($total_earnings,2); ?></td>
+<?php } ?>
               </tr>
 <?php } ?>
 
@@ -100,9 +112,17 @@ $total_earnings = 0;
               <tr class="warning">
                 <th>TOTAL</th>
 <?php if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
-                <th width="10%" class="text-right"><?php echo $column->name; ?></th>
+                <th width="10%" class="text-right"><?php echo $column->name; ?> 
+<?php if( intval($column_id) > 0 ) { ?>
+<a href="<?php echo site_url("payroll_earnings/view/{$payroll->id}/{$group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-remove"></a>
+<?php } else { ?>
+  <a href="<?php echo site_url("payroll_earnings/view/{$payroll->id}/{$group_id}/{$column->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
+                </th>
+<?php } ?>
+<?php if( !$column_id ) { ?>
   <th width="10%" class="text-right">TOTAL</th>
+<?php } ?>
               </tr>
             </thead>
             <tbody>
@@ -119,7 +139,9 @@ $total_earnings += $total[$column->id];
                   </a>
                 </td>
 <?php } ?>
+<?php if( !$column_id ) { ?>
                 <td class="text-right"><strong><?php echo number_format($total_earnings,2); ?></strong></td>
+<?php } ?>
   </tr>
             </tbody>
             </table>

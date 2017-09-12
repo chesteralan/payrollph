@@ -13,15 +13,6 @@ class Employees extends MY_Controller {
 		
 		$this->_isAuth('employees', 'employees', 'view');
 
-		$this->load->model('Names_list_model');
-		$this->load->model('Employees_model');
-		$this->load->model('Employees_groups_model');
-		$this->load->model('Employees_positions_model');
-		$this->load->model('Employees_areas_model');
-		$this->load->model('Terms_list_model');
-		$this->load->model('Companies_list_model');
-		$this->load->model('Benefits_list_model');
-		$this->load->model('Employees_leave_benefits_model');
 	}
 
 	public function index($start=0) {

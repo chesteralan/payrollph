@@ -11,17 +11,6 @@ class Employees_deductions extends MY_Controller {
 
 		$this->_isAuth('employees', 'employees', 'edit');
 
-		$this->load->model('Employees_model');
-		$this->load->model('Employees_deductions_model');
-		$this->load->model('Employees_deductions_templates_model');
-		
-		$this->load->model('Deductions_list_model');
-
-		$this->load->model('Payroll_employees_deductions_model');
-		$this->load->model('Payroll_templates_model');
-
-		$this->load->model('Companies_list_model');
-
 	}
 
 	public function index() {

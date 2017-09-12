@@ -11,27 +11,6 @@ class Payroll_earnings extends MY_Controller {
 
 		$this->_isAuth('payroll', 'payroll', 'view');
 
-		$this->load->model('Payroll_model');
-		$this->load->model('Payroll_templates_model');
-		$this->load->model('Payroll_inclusive_dates_model');
-		$this->load->model('Payroll_groups_model');
-		$this->load->model('Payroll_earnings_model');
-
-		$this->load->model('Payroll_employees_model');
-		$this->load->model('Payroll_employees_earnings_model');
-
-		$this->load->model('Employees_model');
-		$this->load->model('Employees_salaries_model');
-		$this->load->model('Employees_earnings_model');
-		$this->load->model('Earnings_list_model');
-		$this->load->model('Terms_list_model');
-
-		$this->load->model('Payroll_templates_groups_model');
-		$this->load->model('Payroll_templates_employees_model');
-		$this->load->model('Payroll_templates_earnings_model');
-
-		$this->load->model('Companies_list_model');
-
 	}
 
 	public function index() {
@@ -39,9 +18,10 @@ class Payroll_earnings extends MY_Controller {
 	}
 	
 
-	public function view($id,$group_id=0,$output='') {
+	public function view($id,$group_id=0,$column_id=0,$output='') {
 
 		$this->template_data->set('group_id', $group_id);
+		$this->template_data->set('column_id', $column_id);
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
@@ -57,6 +37,9 @@ class Payroll_earnings extends MY_Controller {
 		$earnings_columns->set_select('el.*');
 		$earnings_columns->set_join('earnings_list el', 'el.id=pe.earning_id');
 		$earnings_columns->set_order('pe.order', 'DESC');
+		if( $column_id ) {
+			$earnings_columns->set_where('el.id', $column_id);
+		}
 		$columns = $earnings_columns->populate();
 		$this->template_data->set('earnings_columns', $columns);
 

@@ -11,28 +11,6 @@ class Payroll_benefits extends MY_Controller {
 
 		$this->_isAuth('payroll', 'payroll', 'view');
 
-		$this->load->model('Payroll_model');
-		$this->load->model('Payroll_templates_model');
-		$this->load->model('Payroll_inclusive_dates_model');
-		$this->load->model('Payroll_groups_model');
-		$this->load->model('Payroll_earnings_model');
-		$this->load->model('Payroll_benefits_model');
-		$this->load->model('Payroll_benefits_model');
-
-		$this->load->model('Payroll_employees_model');
-		$this->load->model('Payroll_employees_benefits_model');
-
-		$this->load->model('Payroll_templates_groups_model');
-		$this->load->model('Payroll_templates_benefits_model');
-		$this->load->model('Payroll_templates_earnings_model');
-		$this->load->model('Payroll_templates_benefits_model');
-		$this->load->model('Payroll_templates_employees_model');
-
-		$this->load->model('Employees_model');
-		$this->load->model('Benefits_list_model');
-		$this->load->model('Terms_list_model');
-		$this->load->model('Companies_list_model');
-
 	}
 
 	public function index() {
@@ -40,9 +18,10 @@ class Payroll_benefits extends MY_Controller {
 	}
 	
 	
-	public function view($id,$group_id=0, $output='') {
+	public function view($id,$group_id=0,$column_id=0,$output='') {
 
 		$this->template_data->set('group_id', $group_id);
+		$this->template_data->set('column_id', $column_id);
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
@@ -58,6 +37,9 @@ class Payroll_benefits extends MY_Controller {
 		$benefits_columns->set_select('bl.*');
 		$benefits_columns->set_join('benefits_list bl', 'bl.id=pb.benefit_id');
 		$benefits_columns->set_order('pb.order', 'DESC');
+		if( $column_id ) {
+			$benefits_columns->set_where('bl.id', $column_id);
+		}
 		$columns = $benefits_columns->populate();
 		$this->template_data->set('benefits_columns', $columns);
 

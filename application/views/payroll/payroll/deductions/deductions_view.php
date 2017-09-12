@@ -10,8 +10,10 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
+<?php if( !$column_id ) { ?>
 <?php if(!$payroll->lock) { ?>
                 <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Deductions" data-url="<?php echo site_url("payroll/deductions/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
+<?php } ?>
 <?php } ?>
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong></h3>
                 </div>
@@ -51,9 +53,17 @@ foreach( $deductions_columns as $column ) {
                 </th>
 <?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { 
   ?>
-                <th width="7%" class="text-right"><?php echo $column->name; ?></th>
+                <th width="7%" class="text-right"><?php echo $column->name; ?> 
+<?php if( intval($column_id) > 0 ) { ?>
+<a href="<?php echo site_url("payroll_deductions/view/{$payroll->id}/{$group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-remove"></a>
+<?php } else { ?>
+  <a href="<?php echo site_url("payroll_deductions/view/{$payroll->id}/{$group_id}/{$column->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
+                </th>
+<?php } ?>
+<?php if( !$column_id ) { ?>
                 <th width="7%" class="text-right">Total</th>
+<?php } ?>
               </tr>
             </thead>
             <tbody>
@@ -85,7 +95,10 @@ foreach( $deductions_columns as $column ) {
 
                     </td>
                 <?php } ?>
+                
+<?php if( !$column_id ) { ?>
                 <td class="text-right"><?php echo number_format($total_deductions,2); ?></td>
+<?php } ?>
               </tr>
 <?php } ?>
 
@@ -99,9 +112,18 @@ foreach( $deductions_columns as $column ) {
               <tr class="warning">
                 <th>TOTAL</th>
 <?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { ?>
-                <th width="7%" class="text-right"><?php echo $column->name; ?></th>
+                <th width="7%" class="text-right"><?php echo $column->name; ?> 
+<?php if( intval($column_id) > 0 ) { ?>
+<a href="<?php echo site_url("payroll_deductions/view/{$payroll->id}/{$group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-remove"></a>
+<?php } else { ?>
+  <a href="<?php echo site_url("payroll_deductions/view/{$payroll->id}/{$group_id}/{$column->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
+                </th>
+<?php } ?>
+
+<?php if( !$column_id ) { ?>
   <th width="7%" class="text-right">TOTAL</th>
+<?php } ?>  
               </tr>
             </thead>
             <tbody>
@@ -118,7 +140,10 @@ $total_deductions += $total[$column->id];
                   </a>
                 </td>
 <?php } ?>
+
+<?php if( !$column_id ) { ?>
                 <td class="text-right"><strong><?php echo number_format($total_deductions,2); ?></strong></td>
+<?php } ?>
   </tr>
             </tbody>
             </table>

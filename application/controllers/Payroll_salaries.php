@@ -11,28 +11,6 @@ class Payroll_salaries extends MY_Controller {
 
 		$this->_isAuth('payroll', 'payroll', 'view');
 
-		$this->load->model('Payroll_model');
-		$this->load->model('Payroll_templates_model');
-		$this->load->model('Payroll_inclusive_dates_model');
-		$this->load->model('Payroll_groups_model');
-		$this->load->model('Payroll_earnings_model');
-		$this->load->model('Payroll_deductions_model');
-		$this->load->model('Payroll_benefits_model');
-
-		$this->load->model('Payroll_employees_model');
-		$this->load->model('Payroll_employees_salaries_model');
-
-		$this->load->model('Payroll_templates_model');
-		$this->load->model('Payroll_templates_groups_model');
-		$this->load->model('Payroll_templates_benefits_model');
-		$this->load->model('Payroll_templates_earnings_model');
-		$this->load->model('Payroll_templates_deductions_model');
-		$this->load->model('Payroll_templates_employees_model');
-
-		$this->load->model('Employees_model');
-		$this->load->model('Employees_salaries_model');
-		$this->load->model('Terms_list_model');
-
 	}
 
 	public function index() {

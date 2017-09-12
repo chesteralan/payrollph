@@ -11,10 +11,6 @@ class Lists_earnings extends MY_Controller {
 
 		$this->_isAuth('lists', 'earnings', 'view');
 
-		$this->load->model('Earnings_list_model');
-		$this->load->model('Employees_earnings_model');
-		$this->load->model('Payroll_templates_model');
-
 	}
 
 	public function index($start=0) {

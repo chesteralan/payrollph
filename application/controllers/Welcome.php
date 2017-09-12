@@ -5,10 +5,6 @@ class Welcome extends MY_Controller {
 	
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('User_accounts_model');
-		$this->load->model('User_accounts_companies_model');
-		$this->load->model('Employees_model');
-		$this->load->model('Companies_list_model');
 	}
 
 	public function index() {

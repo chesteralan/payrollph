@@ -11,8 +11,10 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
+<?php if( !$column_id ) { ?>
 <?php if(!$payroll->lock) { ?>
 <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Benefits" data-url="<?php echo site_url("payroll/benefits/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
+<?php } ?>
 <?php } ?>
                   </h3>
                 </div>
@@ -53,10 +55,25 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
 <?php } ?>
                 </th>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
-                <th width="10%" class="text-right"><?php echo $column->name; ?>-EE</th>
-                <th width="10%" class="text-right"><?php echo $column->name; ?>-ER</th>
+                <th width="10%" class="text-right"><?php echo $column->name; ?>-EE
+<?php if( intval($column_id) > 0 ) { ?>
+<a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-remove"></a>
+<?php } else { ?>
+  <a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}/{$column->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
+</th>
+                <th width="10%" class="text-right"><?php echo $column->name; ?>-ER
+<?php if( intval($column_id) > 0 ) { ?>
+<a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-remove"></a>
+<?php } else { ?>
+  <a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}/{$column->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
+<?php } ?>
+</th>
+<?php } ?>
+
+<?php if( !$column_id ) { ?>
 <th width="10%" class="text-right">TOTAL EE</th>
+<?php } ?>
               </tr>
             </thead>
             <tbody>
@@ -98,7 +115,10 @@ $total_benefit = 0;
 <?php } ?>
                     </td>
 <?php } ?>
+
+<?php if( !$column_id ) { ?>
 <td class="text-right"><?php echo number_format($total_benefit,2); ?></td>
+<?php } ?>
               </tr>
 <?php } ?>
 
@@ -112,10 +132,25 @@ $total_benefit = 0;
               <tr class="warning">
                 <th>TOTAL</th>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
-                <th width="10%" class="text-right"><?php echo $column->name; ?>-EE</th>
-                <th width="10%" class="text-right"><?php echo $column->name; ?>-ER</th>
+                <th width="10%" class="text-right"><?php echo $column->name; ?>-EE 
+<?php if( intval($column_id) > 0 ) { ?>
+<a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-remove"></a>
+<?php } else { ?>
+  <a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}/{$column->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
+                </th>
+                <th width="10%" class="text-right"><?php echo $column->name; ?>-ER 
+<?php if( intval($column_id) > 0 ) { ?>
+<a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-remove"></a>
+<?php } else { ?>
+  <a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}/{$column->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
+<?php } ?>
+                </th>
+<?php } ?>
+
+<?php if( !$column_id ) { ?>
                 <th width="10%" class="text-right">TOTAL EE</th>
+<?php } ?>
               </tr>
             </thead>
             <tbody>
@@ -125,7 +160,9 @@ $total_benefit = 0;
                 <td width="10%" class="text-right"><a href="<?php echo site_url("payroll_benefits/item_schedule/{$payroll->id}/{$column->id}"); ?>" class="body_wrapper"><strong><?php echo number_format($total[$column->id]['ee'],2);?></strong></a></td>
                 <td width="10%" class="text-right"><a href="<?php echo site_url("payroll_benefits/item_schedule/{$payroll->id}/{$column->id}"); ?>" class="body_wrapper"><strong><?php echo number_format($total[$column->id]['er'],2);?></strong></a></td>
 <?php } ?>
+<?php if( !$column_id ) { ?>
 <td class="text-right"><?php echo number_format($total_benefits,2); ?></td>
+<?php } ?>
   </tr>
             </tbody>
             </table>

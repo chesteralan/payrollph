@@ -11,8 +11,6 @@ class Employees_positions extends MY_Controller {
 
 		$this->_isAuth('employees', 'positions', 'view');
 
-		$this->load->model('Employees_positions_model');
-
 	}
 
 	public function index($start=0) {

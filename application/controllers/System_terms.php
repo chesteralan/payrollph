@@ -11,8 +11,6 @@ class System_terms extends MY_Controller {
 
 		$this->_isAuth('system', 'terms', 'view');
 
-		$this->load->model('Terms_list_model');
-
 	}
 
 	public function index($start=0) {

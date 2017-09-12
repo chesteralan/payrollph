@@ -15,40 +15,6 @@ class Payroll extends MY_Controller {
 
 		$this->_isAuth('payroll', 'payroll', 'view');
 
-
-		$this->load->model('Payroll_model');
-		$this->load->model('Payroll_templates_model');
-		$this->load->model('Payroll_inclusive_dates_model');
-		$this->load->model('Payroll_groups_model');
-		$this->load->model('Payroll_earnings_model');
-		$this->load->model('Payroll_deductions_model');
-		$this->load->model('Payroll_benefits_model');
-
-		$this->load->model('Payroll_employees_model');
-		$this->load->model('Payroll_employees_salaries_model');
-		$this->load->model('Payroll_employees_earnings_model');
-		$this->load->model('Payroll_employees_deductions_model');
-		$this->load->model('Payroll_employees_benefits_model');
-
-		$this->load->model('Payroll_templates_groups_model');
-		$this->load->model('Payroll_templates_employees_model');
-		$this->load->model('Payroll_templates_benefits_model');
-		$this->load->model('Payroll_templates_earnings_model');
-		$this->load->model('Payroll_templates_deductions_model');
-		$this->load->model('Payroll_templates_columns_model');
-
-		$this->load->model('Employees_model');
-		$this->load->model('Employees_groups_model');
-		$this->load->model('Employees_salaries_model');
-		$this->load->model('Employees_earnings_model');
-		$this->load->model('Employees_benefits_model');
-		$this->load->model('Employees_deductions_model');
-
-		$this->load->model('Earnings_list_model');
-		$this->load->model('Benefits_list_model');
-		$this->load->model('Deductions_list_model');
-		$this->load->model('Terms_list_model');
-
 	}
 
 	public function index($start=0) {
