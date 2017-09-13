@@ -89,7 +89,7 @@ class Welcome extends MY_Controller {
 				$employees->set_order('middlename', 'ASC');
 				$employees->set_limit(0); 
 
-				$ctrl = 'employees_salaries';
+				$ctrl = 'employee';
 				if( strpos($this->input->get('uri_string'), 'employees_earnings') ) {
 					$ctrl = 'employees_earnings';
 				}
@@ -98,6 +98,9 @@ class Welcome extends MY_Controller {
 				}
 				elseif( strpos($this->input->get('uri_string'), 'employees_deductions') ) {
 					$ctrl = 'employees_deductions';
+				}
+				elseif( strpos($this->input->get('uri_string'), 'employees_salaries') ) {
+					$ctrl = 'employees_salaries';
 				}
 				foreach($employees->populate() as $employee) {
 					$results[] = array(
