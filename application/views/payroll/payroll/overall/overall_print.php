@@ -181,7 +181,7 @@ $group_absences += $absences;
 $group_gross_pay += $gross_pay;
 ?>
               <tr>
-                <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> <!--(<?php echo $employee->position; ?>)-->
+                <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo ($employee->middlename) ? substr($employee->middlename,0,1)."." : ""; ?> <!--(<?php echo $employee->position; ?>)-->
                 </td>
 <?php if( isColumn($this, 'working_days', $print_columns) ) { ?>
                 <td class="text-right">15<?php //echo $inclusive_dates->working_days; ?></td>
