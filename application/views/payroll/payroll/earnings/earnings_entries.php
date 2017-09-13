@@ -21,7 +21,7 @@
 
 <?php endif; ?>
 
-<?php if( isset($output) && ($output=='ajax') && (!$payroll->lock) ) : ?>
+<?php if( isset($output) && ($output=='ajax') && (!$payroll->lock) && (!$this->input->get('lock')) ) : ?>
 
 <p><a href="<?php echo site_url("payroll_earnings/add/{$payroll_id}/{$name_id}/{$earning_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Payroll Entry">Add Payroll Entry</a> <em><small> - This will add an item to this current payroll only.</small></em>
 </p>
@@ -35,7 +35,7 @@
 <?php 
 
 foreach($earnings as $earning) { ?>
-<?php if($payroll->lock) { ?>
+<?php if(($payroll->lock)||($this->input->get('lock'))) { ?>
   <div class="list-group-item">
 <?php } else { ?>
    <a data-target="#ajaxModal" data-title="Edit Entry" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll_earnings/edit/{$earning->pee_id}/{$output}") . "?next=" . $this->input->get('next'); ?>">
@@ -45,7 +45,7 @@ foreach($earnings as $earning) { ?>
     <h4 class="list-group-item-heading"><?php echo $earning->name; ?></h4>
     <p class="list-group-item-text"><?php if($earning->entry_id) { ?>Entry ID # <?php echo $earning->entry_id; ?> &middot; <?php } ?><?php echo ($earning->enotes!='') ? $earning->enotes : ''; ?></p>
 
-<?php if($payroll->lock) { ?>
+<?php if(($payroll->lock)||($this->input->get('lock'))) { ?>
   </div>
 <?php } else { ?>
    </a>

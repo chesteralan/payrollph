@@ -116,10 +116,15 @@ if( isset($compare_payroll) ) {
                     </td>
                 <?php } ?>
 <?php if( isset($compare_payroll) ) { ?>
-  <td class="text-right"><?php 
+  <td class="text-right">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> - <?php echo ($column->notes!='') ? $column->notes : $column->name; ?>" data-url="<?php echo site_url("payroll_deductions/entries/{$compare_payroll->id}/{$employee->name_id}/{$column->id}/ajax") . "?lock=1"; ?>" data-hide_footer="1">
+  <?php 
                     $var2 = 'compare_' . $column->id;
                     $total['compare'] += $employee->$var2;
-                    echo number_format($employee->$var2,2); ?></td>
+                    echo number_format($employee->$var2,2); ?>
+</a>
+                    </td>
+
 <td class="text-right"><strong><?php echo number_format(($employee->$var - $employee->$var2),2); ?></strong></td>
 <?php } ?>
 <?php if( !$column_id ) { ?>

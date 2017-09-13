@@ -21,7 +21,7 @@
 
 <?php endif; ?>
 
-<?php if( isset($output) && ($output=='ajax') ) : ?>
+<?php if( isset($output) && ($output=='ajax') && (!$payroll->lock) && (!$this->input->get('lock')) ) : ?>
 
 <p>
 <a href="<?php echo site_url("payroll_benefits/add/{$payroll_id}/{$name_id}/{$benefit_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Payroll Entry">Add Payroll Entry</a><em><small> - This will add an item to this current payroll only.</small></em>
@@ -40,12 +40,19 @@
 <?php 
 
 foreach($benefits as $benefit) {   ?>
-
+<?php if(($payroll->lock)||($this->input->get('lock'))) { ?>
+  <div class="list-group-item">
+<?php } else { ?>
   <a data-target="#ajaxModal" data-title="Edit Entry" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll_benefits/edit/{$benefit->peb_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+<?php } ?>
   <span class="badge pull-right"><?php echo number_format($benefit->peb_amount,2); ?></span>
     <h4 class="list-group-item-heading"><?php echo $benefit->name; ?></h4>
     <p class="list-group-item-text">Entry ID # <?php echo $benefit->entry_id; ?><?php echo ($benefit->dnotes!="") ? ' - '.$benefit->dnotes : ''; ?></p>
-  </a>
+<?php if(($payroll->lock)||($this->input->get('lock'))) { ?>
+  </div>
+<?php } else { ?>
+   </a>
+<?php } ?>
 
 <?php } ?>
 
