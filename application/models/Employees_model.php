@@ -11,7 +11,7 @@ CREATE TABLE `employees` (
   `group_id` int(20) DEFAULT NULL,
   `lastname` varchar(100) NOT NULL,
   `firstname` varchar(100) NOT NULL,
-  `middlename` varchar(100) DEFAULT NULL,
+  `middlename` varchar(100) NOT NULL,
   `position_id` int(20) DEFAULT NULL,
   `area_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE `employees` (
  ALTER TABLE  `employees` ADD  `group_id` int(20) NULL   ;
  ALTER TABLE  `employees` ADD  `lastname` varchar(100) NOT NULL   ;
  ALTER TABLE  `employees` ADD  `firstname` varchar(100) NOT NULL   ;
- ALTER TABLE  `employees` ADD  `middlename` varchar(100) NULL   ;
+ ALTER TABLE  `employees` ADD  `middlename` varchar(100) NOT NULL   ;
  ALTER TABLE  `employees` ADD  `position_id` int(20) NULL   ;
  ALTER TABLE  `employees` ADD  `area_id` int(20) NULL   ;
  ALTER TABLE  `employees` ADD  `hired` date NULL   ;
@@ -89,7 +89,7 @@ class Employees_model extends MY_Model {
 		$this->_table_name = 'employees';
 		$this->_short_name = 'employees';
 		$this->_fields = array("name_id","company_id","group_id","lastname","firstname","middlename","position_id","area_id","hired","status","notes","trash","birthday","birthplace","gender","civil_status");
-		$this->_required = array("company_id","lastname","firstname","trash");
+		$this->_required = array("company_id","lastname","firstname","middlename","trash");
 		parent::__construct($short_name, $db_config);
 	}
 

@@ -12,7 +12,7 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Add Company</h3>
+          <h3 class="panel-title">Edit Print CSS</h3>
         </div>
         <form method="post">
         <div class="panel-body">
@@ -20,24 +20,10 @@
 <?php echo (validation_errors()) ? '<div class="alert alert-danger">' . validation_errors() . '</div>' : ''; ?>
 
 <?php endif; ?>
-          <div class="form-group">
-            <label>Company Name</label>
-            <input name="name" type="text" class="form-control" value="<?php echo $this->input->post('name'); ?>" REQUIRED>
-          </div>
 
           <div class="form-group">
-            <label>Company Address</label>
-            <input name="address" type="text" class="form-control" value="<?php echo $this->input->post('address'); ?>">
-          </div>
-
-          <div class="form-group">
-            <label>Company Phone</label>
-            <input name="phone" type="text" class="form-control" value="<?php echo $this->input->post('phone'); ?>">
-          </div>
-
-          <div class="form-group">
-            <label>Notes</label>
-            <textarea name="notes" class="form-control" rows="10"><?php echo $this->input->post('notes'); ?></textarea>
+            <label>CSS</label>
+            <textarea name="print_css" class="form-control" rows="15"><?php echo ( $css ) ? $css->value : ""; ?></textarea>
           </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>

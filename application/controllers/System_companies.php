@@ -114,4 +114,30 @@ class System_companies extends MY_Controller {
 
 		$this->getNext("system_companies");
 	}
+
+	public function print_css($id,$output='') {
+
+		$this->_isAuth('system', 'companies', 'edit');
+
+		$companies = new $this->Companies_options_model;
+		$companies->setCompanyId($id,true);
+		$companies->setKey('print_css',true);
+
+			if( $this->input->post('print_css') ) { 
+					if($companies->nonEmpty()) {
+						$companies->setValue($this->input->post('print_css'),false,true);
+						$companies->update();
+					} else {
+						$companies->setValue($this->input->post('print_css'));
+						$companies->insert();
+					}
+				$this->postNext();
+			}
+
+		$companies->set_select("value");
+		$this->template_data->set('css', $companies->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('system/companies/companies_print_css', $this->template_data->get_data());
+	}
 }

@@ -147,6 +147,7 @@ class MY_Controller extends CI_Controller {
             $this->load->model('Account_sessions_model');
             $this->load->model('Benefits_list_model');
             $this->load->model('Companies_list_model');
+            $this->load->model('Companies_options_model');
             $this->load->model('Deductions_list_model');
             $this->load->model('Earnings_list_model');
             $this->load->model('Employees_absences_model');

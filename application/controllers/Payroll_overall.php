@@ -27,6 +27,11 @@ class Payroll_overall extends MY_Controller {
 		$company->setId($this->session->userdata('current_company_id'),true);
 		$this->template_data->set('company', $company->get());
 
+		$company_options = new $this->Companies_options_model;
+		$company_options->setCompanyId($this->session->userdata('current_company_id'),true);
+		$company_options->setKey('print_css',true);
+		$this->template_data->set('print_css', $company_options->get());
+
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
 		$payroll_data = $payroll->get();

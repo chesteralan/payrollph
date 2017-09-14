@@ -36,6 +36,15 @@ CREATE TABLE `companies_list` (
   PRIMARY KEY (`id`)
 );
 
+-- Table structure for table `companies_options` 
+
+CREATE TABLE `companies_options` (
+  `company_id` int(20) NOT NULL,
+  `key` varchar(50) NOT NULL,
+  `value` text NOT NULL,
+  KEY `company_id` (`company_id`)
+);
+
 -- Table structure for table `deductions_list` 
 
 CREATE TABLE `deductions_list` (
@@ -68,7 +77,7 @@ CREATE TABLE `employees` (
   `group_id` int(20) DEFAULT NULL,
   `lastname` varchar(100) NOT NULL,
   `firstname` varchar(100) NOT NULL,
-  `middlename` varchar(100) DEFAULT NULL,
+  `middlename` varchar(100) NOT NULL,
   `position_id` int(20) DEFAULT NULL,
   `area_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,

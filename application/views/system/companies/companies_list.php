@@ -25,7 +25,7 @@
                 <th>Address</th>
                 <th>Phone</th>
                 <?php if( hasAccess('system', 'companies', 'edit') ) { ?>
-                  <th width="125px">Action</th>
+                  <th width="200px">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -38,7 +38,9 @@
                 <td><?php echo $company->phone; ?></td>
               <?php if( hasAccess('system', 'companies', 'edit') ) { ?>
                 <td>
-                <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Group" data-url="<?php echo site_url("system_companies/edit/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
+                <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Company" data-url="<?php echo site_url("system_companies/edit/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
+
+                <button type="button" class="btn btn-primary btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Print CSS" data-url="<?php echo site_url("system_companies/print_css/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Print CSS</button>
 
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("system_companies/delete/{$company->id}"); ?>" data-target="#employee-group-<?php echo $company->id; ?>">Delete</button>
                 </td>

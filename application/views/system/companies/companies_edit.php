@@ -12,7 +12,7 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Edit Term</h3>
+          <h3 class="panel-title">Edit Company</h3>
         </div>
         <form method="post">
         <div class="panel-body">
