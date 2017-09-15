@@ -117,4 +117,86 @@ class Welcome extends MY_Controller {
         ->set_output(json_encode( $results ));
 	}
 
+	public function change_password($output='')
+	{
+
+		$this->template_data->set('page_title', 'Change Password');
+
+		if( count($this->input->post()) > 0 ) {
+			$this->form_validation->set_rules('current_password', 'Current Password', 'trim|required');
+			$this->form_validation->set_rules('new_password', 'New Password', 'trim|required');
+			$this->form_validation->set_rules('repeat_password', 'Repeat Password', 'trim|required|matches[new_password]');
+			if( $this->form_validation->run() != FALSE) {
+				$account = new $this->User_accounts_model;
+				$account->setId($this->session->user_id,true);
+				$account->setPassword(sha1($this->input->post('new_password'))); 
+				$account->set_where('password LIKE', sha1($this->input->post('current_password')));
+				if( $account->nonEmpty() ) {
+					$account->set_exclude( array('id', 'username', 'name') );
+					$account->update();
+					//redirect(site_url('account/change_password') . "?success=true");
+				} else {
+					//redirect(site_url('account/change_password') . "?error=true");
+				}
+			}
+			$this->postNext(NULL, $output);
+		}
+
+		$this->template_data->set( 'output', $output );
+		$this->load->view('account/change_password', $this->template_data->get_data());
+	}
+
+	public function settings($output='')
+	{
+
+		$this->template_data->set('page_title', 'Account Settings');
+
+		$user_account = new $this->User_accounts_model;
+		$user_account->setId($this->session->user_id,true,false);
+
+		if( $this->input->post() ) {
+
+			if( $this->input->post('full_name') ) {
+				$user_account->setName($this->input->post('full_name'),false,true);
+				$user_account->update();
+				$this->session->set_userdata( 'name', $this->input->post('full_name') );
+			}
+
+			if( $this->input->post('setting') ) {
+				if( $this->input->post('setting') ) foreach($this->input->post('setting') as $key=>$value) {
+					$option = new $this->User_accounts_options_model;
+					$option->setUid($this->session->user_id,true,false);
+					$option->setKey($key,true,false);
+					$option->setDepartment('my',true,false);
+					$option->setSection('settings',true,false);
+					$option->setValue($value);
+					if( $option->nonEmpty() ) {
+						$option->update();
+					} else {
+						$option->insert();
+					}
+
+					if( $key == 'theme') {
+						$user_settings = $this->session->user_settings;
+						$user_settings['theme'] = $value;
+						$this->session->set_userdata( 'user_settings', $user_settings );
+					}
+				}
+				$this->postNext(NULL, $output);
+			}
+		}
+
+		$this->template_data->set( 'user_account', $user_account->get() );
+
+		$options = new $this->User_accounts_options_model;
+		$options->setUid($this->session->user_id,true,false);
+		$options->setDepartment('my',true,false);
+		$options->setSection('settings',true,false);
+		$options->setKey('theme',true,false);
+		$this->template_data->set( 'user_theme', $options->get() );
+
+		$this->template_data->set( 'output', $output );
+		$this->load->view('account/settings', $this->template_data->get_data());
+	}
+
 }

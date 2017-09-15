@@ -14,7 +14,7 @@ if( is_view_exists("account/login_override") ) {
     <meta name="author" content="">
 
     <title><?php echo (isset($page_title)) ? $page_title : APP_NAME; ?></title>
-    <link href="<?php echo base_url('assets/themes/yeti/bootstrap.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/themes/'.$bootstrap_theme.'/bootstrap.min.css'); ?>" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -55,9 +55,11 @@ if( is_view_exists("account/login_override") ) {
 
 <div class="row">
     <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+<form method="post">
         <div class="panel panel-primary">
-          <div class="panel-heading">Login</div>
-          <form method="post">
+          <div class="panel-heading">
+            <h3 class="panel-title text-center" style="font-size: 20px;margin: 20px auto">PAYROLL PH</h3>
+          </div>
           <div class="panel-body" id="divBody">
               <div class="form-group">
                 <label>Username</label>
@@ -71,8 +73,8 @@ if( is_view_exists("account/login_override") ) {
                 <input type="submit" class="btn btn-success btn-block" value="Login">
               </div>
           </div>
-          </form>
         </div>
+</form>
     </div>
 </div>
     

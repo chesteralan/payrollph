@@ -23,8 +23,8 @@ class Login_Controller extends CI_Controller {
             }
 
             // default,cerulean,cosmo,cyborg,darkly,flatly,journal,lumen,paper,readable,sandstone,simplex,slate,spacelab,superhero,united,yeti
-            $bootstrap_theme = ( isset($this->session->user_settings['theme']) && $this->session->user_settings['theme'] ) ? $this->session->user_settings['theme'] : 'yeti';
-            $bootstrap_theme = ($this->session->userdata( 'current_company_theme' )) ? $this->session->userdata( 'current_company_theme' ) : $bootstrap_theme;
+            $themes = array('default','cerulean','cosmo','cyborg','darkly','flatly','journal','lumen','paper','readable','sandstone','simplex','slate','spacelab','superhero','united','yeti');
+            $bootstrap_theme = $themes[array_rand($themes)];
             
             $this->template_data->set('bootstrap_theme', $bootstrap_theme);
 
@@ -61,8 +61,9 @@ class MY_Controller extends CI_Controller {
                 }
 
                 // default,cerulean,cosmo,cyborg,darkly,flatly,journal,lumen,paper,readable,sandstone,simplex,slate,spacelab,superhero,united,yeti
-                $bootstrap_theme = ( isset($this->session->user_settings['theme']) && $this->session->user_settings['theme'] ) ? $this->session->user_settings['theme'] : 'yeti';
-                $bootstrap_theme = ($this->session->userdata( 'current_company_theme' )) ? $this->session->userdata( 'current_company_theme' ) : $bootstrap_theme;
+                $bootstrap_theme = ($this->session->userdata( 'current_company_theme' )) ? $this->session->userdata( 'current_company_theme' ) : 'yeti';
+                $bootstrap_theme = ( isset($this->session->user_settings['theme']) && ($this->session->user_settings['theme'] != '_company_theme_') ) ? $this->session->user_settings['theme'] : $bootstrap_theme;
+                
                 $this->template_data->set('bootstrap_theme', $bootstrap_theme);
 
                 $this->_load_models();

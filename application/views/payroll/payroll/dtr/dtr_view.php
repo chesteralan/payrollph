@@ -58,10 +58,17 @@ $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
               ?>
               <tr>
-                <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> (<?php echo $employee->position; ?>)
-                
+                <td>
+
 <?php if( !$this->session->userdata('current_employee') ) { ?>
                 <a href="<?php echo site_url("payroll_dtr/select_employee/{$employee->name_id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-filter"></span></a>
+<?php } ?>
+
+                <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> (<?php echo $employee->position; ?>)
+                
+
+<?php if(!$payroll->lock) { ?>
+                <a class="ajax-modal pull-right" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Employee Salary" data-url="<?php echo site_url("employees_salaries/ajax/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
 <?php } ?>
                 </td>
                 <td class="text-right"><?php echo $inclusive_dates->working_days; ?></td>
