@@ -71,9 +71,10 @@
           <div class="form-group">
             <label>Civil Status</label>
             <select name="civil_status" class="form-control">
-                <option value="single" <?php echo ($employee->civil_status=='single') ? "SELECTED" : ""; ?>>Single</option>
-                <option value="married" <?php echo ($employee->civil_status=='married') ? "SELECTED" : ""; ?>>Married</option>
-                <option value="widower" <?php echo ($employee->civil_status=='widower') ? "SELECTED" : ""; ?>>Widow / Widower</option>
+<?php $civil_status = $this->config->item('civil_status'); ?>
+<?php foreach($civil_status as $key=>$status) { ?>
+                <option value="<?php echo $key; ?>" <?php echo ($employee->civil_status==$key) ? "SELECTED" : ""; ?>><?php echo $status; ?></option>
+<?php } ?>
             </select>
           </div>
   </div>
