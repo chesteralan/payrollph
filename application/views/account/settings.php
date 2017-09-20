@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
-<?php if( isset($output) && ($output!='ajax') ) : ?>
+<?php if( isset($output) && ($output!='ajax') ) :  ?>
 
 <?php $this->load->view('header'); ?>
 
@@ -21,8 +21,8 @@
                 <label>Theme</label>
                 <select name="setting[theme]" class="form-control" title="- - Select Class - -">
                 <?php 
-                foreach(array('default','cerulean','cosmo','cyborg','darkly','flatly','journal','lumen','paper','readable','sandstone','simplex','slate','spacelab','superhero','united','yeti') as $theme) { ?>
-                  <option <?php echo ($bootstrap_theme==$theme) ? 'SELECTED' : ''; ?>><?php echo $theme; ?></option>
+                foreach(array('_company_theme_','default','cerulean','cosmo','cyborg','darkly','flatly','journal','lumen','paper','readable','sandstone','simplex','slate','spacelab','superhero','united','yeti') as $theme) { ?>
+                  <option <?php echo (($user_theme) && ($user_theme->value==$theme)) ? 'SELECTED' : ''; ?>><?php echo $theme; ?></option>
                 <?php } ?>
                 </select>
               </div>

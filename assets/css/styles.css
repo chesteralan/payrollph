@@ -414,7 +414,7 @@ body.theme-readable {
 	padding-top: 85px;
 }
 body.theme-readable .stickynav1.navbar-fixed-top {
-	top: 67px;
+	top: 66px;
 	z-index: 999;
 }
 
@@ -422,7 +422,7 @@ body.theme-darkly {
 	padding-top: 80px;
 }
 body.theme-darkly .stickynav1.navbar-fixed-top {
-	top: 61px;
+	top: 60px;
 	z-index: 999;
 }
 
@@ -430,7 +430,7 @@ body.theme-flatly {
 	padding-top: 80px;
 }
 body.theme-flatly .stickynav1.navbar-fixed-top {
-	top: 61px;
+	top: 60px;
 	z-index: 999;
 }
 
@@ -451,7 +451,7 @@ body.theme-paper {
 	padding-top: 80px;
 }
 body.theme-paper .stickynav1.navbar-fixed-top {
-	top: 65px;
+	top: 64px;
 	z-index: 999;
 }
 
@@ -484,5 +484,5 @@ body.theme-yeti {
 }
 body.theme-yeti .stickynav1.navbar-fixed-top {
 	top: 45px;
-	z-index: 999;
+	z-index: 1001;
 }

@@ -34,7 +34,7 @@ class Lists_names extends MY_Controller {
 		}
 
 		$names->set_select("names_list.*");
-		$names->set_select("(SELECT COUNT(*) FROM infos WHERE name_id=names_list.id) as is_employed");
+		$names->set_select("(SELECT COUNT(*) FROM employees WHERE name_id=names_list.id) as is_employed");
 
 		$names->set_order('names_list.full_name', 'ASC');
 		$names->set_start($start);
@@ -197,27 +197,26 @@ class Lists_names extends MY_Controller {
 		$info = new $this->Names_info_model;
 		$info->setNameId($id,true);
 
-		if( $info->nonEmpty() ) {
-			if( $this->input->post() ) {
-				$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
-				$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
-				$this->form_validation->set_rules('middlename', 'Middle Name', 'trim');
-				if( $this->form_validation->run() ) {
-					$info->setLastname($this->input->post('lastname'),false,true);
-					$info->setFirstname($this->input->post('firstname'),false,true);
-					$info->setMiddlename($this->input->post('middlename'),false,true);
-					$info->setBirthday( date("Y-m-d", strtotime($this->input->post('birthday'))),false,true);
-					$info->setBirthplace($this->input->post('birthplace'),false,true);
-					$info->setGender($this->input->post('gender'),false,true);
-					$info->setCivilStatus($this->input->post('civil_status'),false,true);
-					if( $info->nonEmpty() ) {
-						$info->update();
-					} else {
-						$info->insert();
-					}
+		if( $this->input->post() ) {
+			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
+			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
+			$this->form_validation->set_rules('middlename', 'Middle Name', 'trim');
+			if( $this->form_validation->run() ) {
+				$info->setLastname($this->input->post('lastname'),false,true);
+				$info->setFirstname($this->input->post('firstname'),false,true);
+				$info->setMiddlename($this->input->post('middlename'),false,true);
+				$info->setBirthday( date("Y-m-d", strtotime($this->input->post('birthday'))),false,true);
+				$info->setBirthplace($this->input->post('birthplace'),false,true);
+				$info->setGender($this->input->post('gender'),false,true);
+				$info->setCivilStatus($this->input->post('civil_status'),false,true);
+				if( $info->nonEmpty() ) {
+					$info->update();
+				} else {
+					$info->setNameId($id,true,true);
+					$info->insert();
 				}
-				$this->postNext();
 			}
+			$this->postNext();
 		}
 
 		$this->template_data->set('info', $info->get());

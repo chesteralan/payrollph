@@ -60,8 +60,8 @@
           <div class="form-group">
             <label>Gender</label>
             <select name="gender" class="form-control">
-                <option value="male" <?php echo ($info->gender=='male') ? "SELECTED" : ""; ?>>Male</option>
-                <option value="female" <?php echo ($info->gender=='female') ? "SELECTED" : ""; ?>>Female</option>
+                <option value="male" <?php echo (($info) && ($info->gender=='male')) ? "SELECTED" : ""; ?>>Male</option>
+                <option value="female" <?php echo (($info) && ($info->gender=='female')) ? "SELECTED" : ""; ?>>Female</option>
             </select>
           </div>
 
@@ -71,9 +71,10 @@
           <div class="form-group">
             <label>Civil Status</label>
             <select name="civil_status" class="form-control">
-                <option value="single" <?php echo ($info->civil_status=='single') ? "SELECTED" : ""; ?>>Single</option>
-                <option value="married" <?php echo ($info->civil_status=='married') ? "SELECTED" : ""; ?>>Married</option>
-                <option value="widower" <?php echo ($info->civil_status=='widower') ? "SELECTED" : ""; ?>>Widow / Widower</option>
+<?php $civil_status = $this->config->item('civil_status'); ?>
+<?php foreach($civil_status as $key=>$status) { ?>
+                <option value="<?php echo $key; ?>" <?php echo (($info) && ($info->civil_status==$key)) ? "SELECTED" : ""; ?>><?php echo $status; ?></option>
+<?php } ?>
             </select>
           </div>
   </div>

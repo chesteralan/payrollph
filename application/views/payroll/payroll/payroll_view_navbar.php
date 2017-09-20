@@ -56,7 +56,7 @@ $current_employee = $this->session->userdata('current_employee');
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-      <li><a class="body_wrapper" href="<?php echo site_url('payroll'); ?>"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
+
 <?php 
 
 $group_id = (isset($group_id)) ? $group_id : 0;

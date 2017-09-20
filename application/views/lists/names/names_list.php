@@ -44,7 +44,7 @@
 	    					<th>Address</th>
 	    					<th>Contact Number</th>
 	    					<?php if( hasAccess('lists', 'names', 'edit') ) { ?>
-	    					<th width="155px">Action</th>
+	    					<th width="175px">Action</th>
 	    					<?php } ?>
 	    				</tr>
 	    			</thead>

@@ -2,8 +2,11 @@
 <?php
 
 function personal_info($name) { 
+  $CI = get_instance();
   $birthday = date("m/d/Y", strtotime($name->birthday));
   $gender = ucfirst($name->gender);
+  $civil_status = $CI->config->item('civil_status');
+  $name_civil_stats = (isset($civil_status[$name->civil_status])) ? $civil_status[$name->civil_status] : '';
 return <<<HTML
 <div class="row">
   <div class="col-md-4">
@@ -51,7 +54,7 @@ return <<<HTML
   <div class="col-md-4">
     <div class="form-group">
       <label>Civil Status</label>
-      <div class="form-control">{$name->civil_status}</div>
+      <div class="form-control">{$name_civil_stats}</div>
     </div>
   </div>
 </div>
