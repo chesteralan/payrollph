@@ -7,7 +7,7 @@ if( ! function_exists('is_view_exists') ) {
 	}
 }
 
-if( ! function_exists('querystring_append') ) {
+if( ! function_exists('querystring_add') ) {
 	function querystring_add($key,$value) {
     	 $q = array();
     	 $CI = get_instance();

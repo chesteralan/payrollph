@@ -44,7 +44,7 @@
 	    					<th>Address</th>
 	    					<th>Contact Number</th>
 	    					<?php if( hasAccess('lists', 'names', 'edit') ) { ?>
-	    					<th width="125px">Action</th>
+	    					<th width="155px">Action</th>
 	    					<?php } ?>
 	    				</tr>
 	    			</thead>
@@ -64,6 +64,8 @@
 	    					<td><?php echo $name->contact_number; ?></td>
 	    					<?php if( hasAccess('lists', 'names', 'edit') ) { ?>
 	    					<td>
+
+<a class="btn btn-info btn-xs body_wrapper1" href="<?php echo site_url("lists_names/profile/{$name->id}"); ?>">Profile</a>
 
 	    					<button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Name" data-url="<?php echo site_url("lists_names/edit/{$name->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 	    					

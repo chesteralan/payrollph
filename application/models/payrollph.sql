@@ -265,6 +265,31 @@ CREATE TABLE `employees_salaries` (
   KEY `company_id` (`company_id`)
 );
 
+-- Table structure for table `names_contacts` 
+
+CREATE TABLE `names_contacts` (
+  `name_id` int(20) NOT NULL,
+  `key` varchar(100) NOT NULL,
+  `value` text,
+  PRIMARY KEY (`name_id`),
+  KEY `name_id` (`name_id`)
+);
+
+-- Table structure for table `names_info` 
+
+CREATE TABLE `names_info` (
+  `name_id` int(20) NOT NULL,
+  `lastname` varchar(100) NOT NULL,
+  `firstname` varchar(100) NOT NULL,
+  `middlename` varchar(100) NOT NULL,
+  `birthday` date DEFAULT NULL,
+  `birthplace` varchar(50) DEFAULT NULL,
+  `gender` varchar(50) DEFAULT NULL,
+  `civil_status` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`name_id`),
+  KEY `name_id` (`name_id`)
+);
+
 -- Table structure for table `names_list` 
 
 CREATE TABLE `names_list` (

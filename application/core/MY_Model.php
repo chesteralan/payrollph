@@ -5,7 +5,7 @@
 | -------------------------------------------------------------------
 | This file is the parent class of Model Classes
 |
-| version 4.3
+| version 4.4
 |
 */
 class MY_Model extends CI_Model
@@ -43,8 +43,8 @@ class MY_Model extends CI_Model
     protected $_inserted_id = NULL;
 
     public function __construct($short_name=NULL, $db_config='default') {
-        parent::__construct();
-        $this->_db = $this->db;
+        parent::__construct(); 
+        $this->_db = $this->db; 
         $this->_short_name = ($short_name!=NULL && (trim($short_name)!='')) ? $short_name : $this->_short_name;
         if( $db_config ) {
             $this->_db = $this->load->database( $db_config, TRUE, TRUE );
@@ -93,7 +93,7 @@ class MY_Model extends CI_Model
                 $this->_db->cache_on();
             }
             
-            $query = $this->_db->get($this->_table_name . ' ' . $this->_short_name, 1);
+            $query = $this->_db->get($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name, 1);
             
             if( $this->_cache_on ) {
                 $this->_db->cache_off();
@@ -136,7 +136,7 @@ class MY_Model extends CI_Model
     public function delete() {
         if ( $this->has_conditions() ) {
                 $this->setup_conditions();
-                return $this->_db->delete($this->_table_name);
+                return $this->_db->delete($this->_db->database . '.' . $this->_table_name);
         }
     }
 
@@ -181,7 +181,7 @@ class MY_Model extends CI_Model
         if ( ( $this->get_data() ) && ( $this->has_conditions() ) ) {
                                 $this->_set_db_data(); 
                 $this->setup_conditions();
-                return $this->_db->update( $this->_table_name . ' ' . $this->_short_name );
+                return $this->_db->update($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name );
         }
     }
 
@@ -198,7 +198,7 @@ class MY_Model extends CI_Model
     public function insert() {
         if( $this->get_data() ) {
             $this->_set_db_data(); 
-            if( $this->_db->insert( $this->_table_name ) === TRUE ) {
+            if( $this->_db->insert( $this->_db->database . '.' . $this->_table_name ) === TRUE ) {
                 $this->id = $this->_db->insert_id();
                 $this->_inserted_id = $this->_db->insert_id();
                 return TRUE;
@@ -238,7 +238,7 @@ class MY_Model extends CI_Model
     public function replace() {
         if( $this->get_data() ) {
             $this->_set_db_data(); 
-            if( $this->_db->replace( $this->_table_name ) === TRUE ) {
+            if( $this->_db->replace( $this->_db->database . '.' . $this->_table_name ) === TRUE ) {
                 $this->id = $this->_db->insert_id();
                 return TRUE;
             } else {
@@ -277,7 +277,7 @@ class MY_Model extends CI_Model
             $this->_db->cache_on();
         }
         
-        $query = $this->_db->get($this->_table_name . ' ' . $this->_short_name);
+        $query = $this->_db->get($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name);
         
         if( $this->_cache_on ) {
             $this->_db->cache_off();
@@ -332,7 +332,7 @@ class MY_Model extends CI_Model
             $this->_db->cache_on();
         }
         
-        $query = $this->_db->get($this->_table_name . ' ' . $this->_short_name);
+        $query = $this->_db->get($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name);
         
         if( $this->_cache_on ) {
             $this->_db->cache_off();
@@ -377,7 +377,7 @@ class MY_Model extends CI_Model
                 $this->_db->cache_on();
             }
             
-            $query = $this->_db->get($this->_table_name . ' ' . $this->_short_name);
+            $query = $this->_db->get($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name);
             
             if( $this->_cache_on ) {
                 $this->_db->cache_off();
@@ -427,7 +427,7 @@ class MY_Model extends CI_Model
                 $this->_db->cache_on();
             }
             
-            $query = $this->_db->get($this->_table_name . ' ' . $this->_short_name);
+            $query = $this->_db->get($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name);
             
             if( $this->_cache_on ) {
                 $this->_db->cache_off();
@@ -736,7 +736,11 @@ class MY_Model extends CI_Model
     */
     
 
-    public function set_join($table, $connection, $option='left') {
+    public function set_join($table, $connection, $option=NULL, $database=NULL) {
+        
+        $table = ( $database ) ? $database . "." . $table : $table;
+        $option = ( $option ) ? $option : 'left';
+        
         $this->_join[] = array('table'=>$table, 'connection'=>$connection, 'option'=>$option );
     }
 
@@ -761,7 +765,7 @@ class MY_Model extends CI_Model
     public function set_filter($field, $value, $table=NULL, $priority=NULL, $underCondition='where') {
         $key = array();
         if( $table == NULL ) { 
-            $table = $this->_table_name; 
+            $table = $this->_db->database . '.' . $this->_table_name; 
         } 
         if( $table != '' ) {
             $key[] = $table;
@@ -1299,7 +1303,7 @@ class MY_Model extends CI_Model
     */
 
     public function count_all() {
-        return  $this->_db->count_all($this->_table_name . ' ' . $this->_short_name);
+        return  $this->_db->count_all($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name);
     }
 
     // --------------------------------------------------------------------
@@ -1311,7 +1315,7 @@ class MY_Model extends CI_Model
 
     public function count_all_results() {
                 $numrows = 0;
-                $this->_db->from($this->_table_name . ' ' . $this->_short_name);
+                $this->_db->from($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name);
         $this->setup_conditions();
         $this->setup_join();
         if( $this->setup_group_by() ) {
@@ -1347,7 +1351,7 @@ class MY_Model extends CI_Model
                 $this->setup_conditions();
                 $this->setup_group_by();
         }
-        return  $this->_db->get($this->_table_name . ' ' . $this->_short_name, 1);
+        return  $this->_db->get($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name, 1);
     }   
     // --------------------------------------------------------------------
 
@@ -1396,6 +1400,6 @@ class MY_Model extends CI_Model
             $this->_db->limit( $this->_limit,$this->_start);
         }
 
-        return $this->_db->get_compiled_select( $this->_table_name . " " . $this->_short_name );
+        return $this->_db->get_compiled_select( $this->_db->database . '.' . $this->_table_name . " " . $this->_short_name );
     }
 }
