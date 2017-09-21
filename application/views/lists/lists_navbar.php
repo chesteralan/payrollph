@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <div class="navbar-brand"><?php echo (isset($name) && ($name)) ? "PROFILE : ".$name->full_name : 'Lists'; ?></div>
+      <div class="navbar-brand"><?php echo (isset($name) && ($name)) ? $name->full_name : 'Lists'; ?></div>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
