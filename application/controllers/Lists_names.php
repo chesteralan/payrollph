@@ -150,40 +150,37 @@ class Lists_names extends MY_Controller {
 		$name->set_join("names_info ni", "ni.name_id=nl.id");
 		$name->set_select("ni.*");
 
-			$contact = new $this->Names_contacts_model('nc');
-			$contact->set_select('nc.value');
-			$contact->setKey('phone_number', true);
-			$contact->set_limit(1);
-			$contact->set_where("nc.name_id=nl.id");
-			$name->set_select("(".$contact->get_compiled_select().") as phone_number");
+		foreach(array('address', 'email', 'phone_number', 'cell_smart', 'cell_globe', 'cell_sun') as $k) {
+			$data = new $this->Names_meta_model('d');
+			$data->setMetaKey($k,true);
+			$data->set_select('d.meta_value');
+			$data->set_where('d.name_id=nl.id');
+			$name->set_select('('.$data->get_compiled_select().') as ' . $k);
+		}
 
-			$contact = new $this->Names_contacts_model('nc');
-			$contact->set_select('nc.value');
-			$contact->setKey('cell_smart', true);
-			$contact->set_limit(1);
-			$contact->set_where("nc.name_id=nl.id");
-			$name->set_select("(".$contact->get_compiled_select().") as cell_smart");
+		foreach(array('facebook_id','twitter_id','instagram_id','skype_id','yahoo_id','google_id') as $k) {
+			$data = new $this->Names_meta_model('d');
+			$data->setMetaKey($k,true);
+			$data->set_select('d.meta_value');
+			$data->set_where('d.name_id=nl.id');
+			$name->set_select('('.$data->get_compiled_select().') as ' . $k);
+		}
 
-			$contact = new $this->Names_contacts_model('nc');
-			$contact->set_select('nc.value');
-			$contact->setKey('cell_globe', true);
-			$contact->set_limit(1);
-			$contact->set_where("nc.name_id=nl.id");
-			$name->set_select("(".$contact->get_compiled_select().") as cell_globe");
+		foreach(array('tin','sss','hdmf','phic','drivers_license','voters_number') as $k) {
+			$data = new $this->Names_meta_model('d');
+			$data->setMetaKey($k,true);
+			$data->set_select('d.meta_value');
+			$data->set_where('d.name_id=nl.id');
+			$name->set_select('('.$data->get_compiled_select().') as ' . $k);
+		}
 
-			$contact = new $this->Names_contacts_model('nc');
-			$contact->set_select('nc.value');
-			$contact->setKey('cell_sun', true);
-			$contact->set_limit(1);
-			$contact->set_where("nc.name_id=nl.id");
-			$name->set_select("(".$contact->get_compiled_select().") as cell_sun");
-
-			$contact = new $this->Names_contacts_model('nc');
-			$contact->set_select('nc.value');
-			$contact->setKey('address', true);
-			$contact->set_limit(1);
-			$contact->set_where("nc.name_id=nl.id");
-			$name->set_select("(".$contact->get_compiled_select().") as address");
+		foreach(array('emergency_name','emergency_address', 'emergency_relationship', 'emergency_contact') as $k) {
+			$data = new $this->Names_meta_model('d');
+			$data->setMetaKey($k,true);
+			$data->set_select('d.meta_value');
+			$data->set_where('d.name_id=nl.id');
+			$name->set_select('('.$data->get_compiled_select().') as ' . $k);
+		}
 
 		$this->template_data->set('name', $name->get());
 
@@ -216,7 +213,7 @@ class Lists_names extends MY_Controller {
 					$info->insert();
 				}
 			}
-			$this->postNext();
+			$this->postNext("active=personal");
 		}
 
 		$this->template_data->set('info', $info->get());
@@ -225,4 +222,179 @@ class Lists_names extends MY_Controller {
 		$this->load->view('lists/names/names_update_personal', $this->template_data->get_data());
 	}
 
+	public function update_contacts($id,$output='') {
+
+		$this->_isAuth('lists', 'names', 'edit');
+
+		if( $this->input->post('data') ) {
+			foreach($this->input->post('data') as $key=>$value) {
+				
+				$meta = new $this->Names_meta_model;
+				$meta->setNameId($id,true);
+				$meta->setMetaKey($key,true);
+				if( !empty( $value ) ) {
+					if( $meta->nonEmpty() ) {
+						$meta->setMetaValue($value,false,true);
+						$meta->update();
+					} else {
+						$meta->setMetaValue($value);
+						$meta->insert();
+					}
+				} else {
+					$meta->delete();
+				}
+			}
+			$this->postNext("active=contacts");
+		}
+
+		$meta = new $this->Names_meta_model('nc');
+		$meta->setNameId($id,true);
+		$meta->setMetaKey('address',true);
+		$meta->set_select('nc.meta_value as address');
+
+		foreach(array('email', 'phone_number', 'cell_smart', 'cell_globe', 'cell_sun') as $k) {
+			$data = new $this->Names_meta_model('d');
+			$data->setMetaKey($k,true);
+			$data->set_select('d.meta_value');
+			$data->set_where('d.name_id=nc.name_id');
+			$meta->set_select('('.$data->get_compiled_select().') as ' . $k);
+		}
+
+		$this->template_data->set('meta', $meta->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('lists/names/names_update_contacts', $this->template_data->get_data());
+	}
+
+	public function update_social_media($id,$output='') {
+
+		$this->_isAuth('lists', 'names', 'edit');
+
+		if( $this->input->post('data') ) {
+			foreach($this->input->post('data') as $key=>$value) {
+				
+				$meta = new $this->Names_meta_model;
+				$meta->setNameId($id,true);
+				$meta->setMetaKey($key,true);
+				if( !empty( $value ) ) {
+					if( $meta->nonEmpty() ) {
+						$meta->setMetaValue($value,false,true);
+						$meta->update();
+					} else {
+						$meta->setMetaValue($value);
+						$meta->insert();
+					}
+				} else {
+					$meta->delete();
+				}
+			}
+			$this->postNext("active=social_media");
+		}
+
+		$meta = new $this->Names_meta_model('nc');
+		$meta->setNameId($id,true);
+		$meta->setMetaKey('facebook_id',true);
+		$meta->set_select('nc.meta_value as facebook_id');
+
+		foreach(array('twitter_id','instagram_id','skype_id','yahoo_id','google_id') as $k) {
+			$data = new $this->Names_meta_model('d');
+			$data->setMetaKey($k,true);
+			$data->set_select('d.meta_value');
+			$data->set_where('d.name_id=nc.name_id');
+			$meta->set_select('('.$data->get_compiled_select().') as ' . $k);
+		}
+
+		$this->template_data->set('meta', $meta->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('lists/names/names_update_social_media', $this->template_data->get_data());
+	}
+
+	public function update_ids($id,$output='') {
+
+		$this->_isAuth('lists', 'names', 'edit');
+
+		if( $this->input->post('data') ) {
+			foreach($this->input->post('data') as $key=>$value) {
+				
+				$meta = new $this->Names_meta_model;
+				$meta->setNameId($id,true);
+				$meta->setMetaKey($key,true);
+				if( !empty( $value ) ) {
+					if( $meta->nonEmpty() ) {
+						$meta->setMetaValue($value,false,true);
+						$meta->update();
+					} else {
+						$meta->setMetaValue($value);
+						$meta->insert();
+					}
+				} else {
+					$meta->delete();
+				}
+			}
+			$this->postNext("active=ids");
+		}
+
+		$meta = new $this->Names_meta_model('nc');
+		$meta->setNameId($id,true);
+		$meta->setMetaKey('tin',true);
+		$meta->set_select('nc.meta_value as tin');
+
+		foreach(array('sss','hdmf','phic','drivers_license','voters_number') as $k) {
+			$data = new $this->Names_meta_model('d');
+			$data->setMetaKey($k,true);
+			$data->set_select('d.meta_value');
+			$data->set_where('d.name_id=nc.name_id');
+			$meta->set_select('('.$data->get_compiled_select().') as ' . $k);
+		}
+
+		$this->template_data->set('meta', $meta->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('lists/names/names_update_ids', $this->template_data->get_data());
+	}
+
+	public function update_emergency($id,$output='') {
+
+		$this->_isAuth('lists', 'names', 'edit');
+
+		if( $this->input->post('data') ) {
+			foreach($this->input->post('data') as $key=>$value) {
+				
+				$meta = new $this->Names_meta_model;
+				$meta->setNameId($id,true);
+				$meta->setMetaKey($key,true);
+				if( !empty( $value ) ) {
+					if( $meta->nonEmpty() ) {
+						$meta->setMetaValue($value,false,true);
+						$meta->update();
+					} else {
+						$meta->setMetaValue($value);
+						$meta->insert();
+					}
+				} else {
+					$meta->delete();
+				}
+			}
+			$this->postNext("active=emergency");
+		}
+
+		$meta = new $this->Names_meta_model('nc');
+		$meta->setNameId($id,true);
+		$meta->setMetaKey('emergency_name',true);
+		$meta->set_select('nc.meta_value as emergency_name');
+
+		foreach(array('emergency_address', 'emergency_relationship', 'emergency_contact') as $k) {
+			$data = new $this->Names_meta_model('d');
+			$data->setMetaKey($k,true);
+			$data->set_select('d.meta_value');
+			$data->set_where('d.name_id=nc.name_id');
+			$meta->set_select('('.$data->get_compiled_select().') as ' . $k);
+		}
+
+		$this->template_data->set('meta', $meta->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('lists/names/names_update_emergency', $this->template_data->get_data());
+	}
 }

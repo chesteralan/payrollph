@@ -10,10 +10,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <div class="navbar-brand">Lists</div>
+      <div class="navbar-brand"><?php echo (isset($name) && ($name)) ? "PROFILE : ".$name->full_name : 'Lists'; ?></div>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<?php if(isset($name) && ($name)) { ?>
+      <ul class="nav navbar-nav">
+        <li><a href="#ajaxModal"><span class="glyphicon glyphicon-print"></span></a></li>
+      </ul>
+<?php } ?>
 <?php if(isset($navbar_search) && ($navbar_search==true)) { ?>
       <form class="navbar-form navbar-left" role="search" method="get">
         <div class="input-group">

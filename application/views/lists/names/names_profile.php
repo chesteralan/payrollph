@@ -66,8 +66,12 @@ return <<<HTML
 <div class="row">
   <div class="col-md-12">
     <div class="form-group">
-      <label>Address</label>
+      <label>Postal Address</label>
       <div class="form-control">{$name->address}</div>
+    </div>
+    <div class="form-group">
+      <label>Email Address</label>
+      <div class="form-control">{$name->email}</div>
     </div>
   </div>
 </div>
@@ -100,7 +104,135 @@ return <<<HTML
 HTML;
 }
 
- ?>
+function social_media($name) { 
+return <<<HTML
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Facebook ID</label>
+      <div class="form-control">{$name->facebook_id}</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Twitter ID</label>
+      <div class="form-control">{$name->twitter_id}</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Instagram ID</label>
+      <div class="form-control">{$name->instagram_id}</div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Skype ID</label>
+      <div class="form-control">{$name->skype_id}</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Yahoo ID</label>
+      <div class="form-control">{$name->yahoo_id}</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Google ID</label>
+      <div class="form-control">{$name->google_id}</div>
+    </div>
+  </div>
+</div>
+
+HTML;
+}
+
+function ids($name) { 
+return <<<HTML
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Tax Identification Number (TIN)</label>
+      <div class="form-control">{$name->tin}</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>SSS Number</label>
+      <div class="form-control">{$name->sss}</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Pag-ibig (HDMF)</label>
+      <div class="form-control">{$name->hdmf}</div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>PhilHealth</label>
+      <div class="form-control">{$name->phic}</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Driver's License</label>
+      <div class="form-control">{$name->drivers_license}</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Voter's Number</label>
+      <div class="form-control">{$name->voters_number}</div>
+    </div>
+  </div>
+</div>
+
+HTML;
+}
+
+function emergency($name) { 
+return <<<HTML
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group">
+      <label>Name</label>
+      <div class="form-control">{$name->emergency_name}</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label>Address</label>
+      <div class="form-control">{$name->emergency_address}</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label>Contact Number</label>
+      <div class="form-control">{$name->emergency_contact}</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label>Relationship</label>
+      <div class="form-control">{$name->emergency_relationship}</div>
+    </div>
+  </div>
+</div>
+
+HTML;
+}
+
+
+
+?>
 <?php $this->load->view('header'); ?>
 <?php if( ! $inner_page ): ?>
 <?php $this->load->view('lists/lists_navbar'); ?>
@@ -117,27 +249,31 @@ HTML;
     'title'=>'Personal Information',
     'config_url' => site_url("lists_names/update_personal/{$name->id}/ajax") . "?next=" . uri_string(),
     'panel_body' => personal_info($name),
-    'open' => true,
+    'open' => (($this->input->get('active')==='personal')||(!$this->input->get('active'))),
     ),
   array(
     'title'=>'Address &amp; Contact Numbers',
-    'config_url' => site_url("lists_names/update_address/{$name->id}/ajax") . "?next=" . uri_string(),
+    'config_url' => site_url("lists_names/update_contacts/{$name->id}/ajax") . "?next=" . uri_string(),
     'panel_body' => address_contacts($name),
+    'open' => ($this->input->get('active')==='contacts'),
   ),
   array(
     'title'=>'Social Media Accounts',
-    'config_url' => site_url("lists_names/update_socialmedia/{$name->id}/ajax") . "?next=" . uri_string(),
-    'panel_body' => '',
+    'config_url' => site_url("lists_names/update_social_media/{$name->id}/ajax") . "?next=" . uri_string(),
+    'panel_body' => social_media($name),
+    'open' => ($this->input->get('active')==='social_media'),
   ),
   array(
     'title'=>'Identification Numbers',
     'config_url' => site_url("lists_names/update_ids/{$name->id}/ajax") . "?next=" . uri_string(),
-    'panel_body' => '',
+    'panel_body' => ids($name),
+    'open' => ($this->input->get('active')==='ids'),
   ),
   array(
     'title'=>'Emergency Contacts',
     'config_url' => site_url("lists_names/update_emergency/{$name->id}/ajax") . "?next=" . uri_string(),
-    'panel_body' => '',
+    'panel_body' => emergency($name),
+    'open' => ($this->input->get('active')==='emergency'),
   ),
 ) as $i=>$content) { ?>
 <div class="panel panel-default">
@@ -149,7 +285,7 @@ HTML;
 </a>
                   </h3>
                 </div>
-                <div id="collapse<?php echo $i; ?>" class="panel-collapse collapse <?php echo (isset($content['open'])) ? "in" : ""; ?>" role="tabpanel" aria-labelledby="heading<?php echo $i; ?>">
+                <div id="collapse<?php echo $i; ?>" class="panel-collapse collapse <?php echo (isset($content['open'])&&($content['open'])) ? "in" : ""; ?>" role="tabpanel" aria-labelledby="heading<?php echo $i; ?>">
                 <div class="panel-body">
                     <?php echo $content['panel_body']; ?>
                 </div>

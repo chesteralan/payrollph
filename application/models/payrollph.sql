@@ -265,16 +265,6 @@ CREATE TABLE `employees_salaries` (
   KEY `company_id` (`company_id`)
 );
 
--- Table structure for table `names_contacts` 
-
-CREATE TABLE `names_contacts` (
-  `name_id` int(20) NOT NULL,
-  `key` varchar(100) NOT NULL,
-  `value` text,
-  PRIMARY KEY (`name_id`),
-  KEY `name_id` (`name_id`)
-);
-
 -- Table structure for table `names_info` 
 
 CREATE TABLE `names_info` (
@@ -300,6 +290,17 @@ CREATE TABLE `names_list` (
   `trash` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `full_name` (`full_name`)
+);
+
+-- Table structure for table `names_meta` 
+
+CREATE TABLE `names_meta` (
+  `meta_id` int(20) NOT NULL AUTO_INCREMENT,
+  `name_id` int(20) NOT NULL,
+  `meta_key` varchar(100) NOT NULL,
+  `meta_value` text,
+  PRIMARY KEY (`meta_id`),
+  KEY `name_id` (`name_id`)
 );
 
 -- Table structure for table `payroll` 
