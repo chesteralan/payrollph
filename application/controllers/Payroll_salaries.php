@@ -66,8 +66,9 @@ class Payroll_salaries extends MY_Controller {
 				$employees->setNameId($this->session->userdata('current_employee')->name_id,true);
 			}
 			$employees->setPayrollId($id,true);
-			$employees->set_select('e.*');
+			$employees->set_select('ni.*');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
+			$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
 			$employees->set_where('e.group_id', $group->group_id);
 
 			if( $this->session->userdata('employees_status') ) {
@@ -200,7 +201,8 @@ class Payroll_salaries extends MY_Controller {
 		foreach($payroll_group_data as $key=>$group) {
 			$employees = new $this->Payroll_templates_employees_model('pe');
 			$employees->setTemplateId($template_id,true);
-			$employees->set_select('e.*');
+			$employees->set_select('ni.*');
+			$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 			$employees->set_where('e.group_id', $group->group_id);
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');			
