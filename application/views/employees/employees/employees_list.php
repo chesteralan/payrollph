@@ -107,12 +107,19 @@
     <span class="sr-only">Toggle Dropdown</span>
   </button>
   <ul class="dropdown-menu dropdown-menu-right">
-    <li><a data-title="Personal Information" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("employees/edit_personal/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Personal Information</a></li>
- <li><a data-title="Address and Contact" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("employees/edit_address/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Address and Contact</a></li>
+    <li><a data-title="Personal Information" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("lists_names/update_personal/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Personal Information</a></li>
+
+ <li><a data-title="Address and Contact" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("lists_names/update_contacts/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Address and Contacts</a></li>
+
+ <li><a data-title="Social Media Accounts" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("lists_names/update_social_media/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Social Media Accounts</a></li>
+
+ <li><a data-title="Identification Numbers" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("lists_names/update_ids/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Identification Numbers</a></li>
+
+  <li><a data-title="Emergency Contacts" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("lists_names/update_emergency/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Emergency Contacts</a></li>
+
+   <li role="separator" class="divider"></li>
 
    <li><a data-title="Employment Information" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("employees/edit_employment/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Employment Information</a></li>
-    
-    <li role="separator" class="divider"></li>
 
     <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_salaries/view/{$employee->name_id}"); ?>">
 Basic Salary</a></li>

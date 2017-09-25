@@ -17,20 +17,26 @@ class Employees extends MY_Controller {
 
 	public function index($start=0) {
 
-		$employees = new $this->Employees_model;
+		$employees = new $this->Employees_model('e');
 		if( $this->input->get('q') ) {
-			$employees->set_where('(lastname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
-			$employees->set_where_or('firstname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
-			$employees->set_where_or('middlename LIKE "%' . $this->input->get('q') . '%")', NULL, 99);
+			$employees->set_where('(ni.lastname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+			$employees->set_where_or('ni.firstname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+			$employees->set_where_or('ni.middlename LIKE "%' . $this->input->get('q') . '%")', NULL, 99);
 		}
 		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 		$employees->setTrash(0,true);
-		$employees->set_select('*');
-		$employees->set_select('(SELECT name FROM employees_groups WHERE id=employees.group_id) as group_name');
-		$employees->set_select('(SELECT name FROM employees_positions WHERE id=employees.position_id) as position_name');
-		$employees->set_select('(SELECT name FROM employees_areas WHERE id=employees.area_id) as area_name');
-		$employees->set_select('(SELECT name FROM terms_list WHERE id=employees.status) as status_name');
-		$employees->set_order('lastname', 'ASC');
+		$employees->set_select('e.*');
+		$employees->set_select('(SELECT name FROM employees_groups WHERE id=e.group_id) as group_name');
+		$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position_name');
+		$employees->set_select('(SELECT name FROM employees_areas WHERE id=e.area_id) as area_name');
+		$employees->set_select('(SELECT name FROM terms_list WHERE id=e.status) as status_name');
+
+		$employees->set_join('names_info ni','ni.name_id=e.name_id');
+		$employees->set_select('ni.lastname as lastname');
+		$employees->set_select('ni.firstname as firstname');
+		$employees->set_select('ni.middlename as middlename');
+
+		$employees->set_order('ni.lastname', 'ASC');
 		$employees->set_start($start);
 
 		$this->template_data->set('employees', $employees->populate());
@@ -52,20 +58,27 @@ class Employees extends MY_Controller {
 		$groups->setId($id,true);
 		$this->template_data->set('group', $groups->get());
 
-		$employees = new $this->Employees_model;
+		$employees = new $this->Employees_model('e');
 		if( $this->input->get('q') ) {
-			$employees->set_where('(lastname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
-			$employees->set_where_or('firstname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
-			$employees->set_where_or('middlename LIKE "%' . $this->input->get('q') . '%")', NULL, 99);
+			$employees->set_where('(ni.lastname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+			$employees->set_where_or('ni.firstname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+			$employees->set_where_or('ni.middlename LIKE "%' . $this->input->get('q') . '%")', NULL, 99);
 		}
 		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 		$employees->setGroupId($id,true);
-		$employees->set_select('*');
-		$employees->set_select('(SELECT name FROM employees_groups WHERE id=employees.group_id) as group_name');
-		$employees->set_select('(SELECT name FROM employees_positions WHERE id=employees.position_id) as position_name');
-		$employees->set_select('(SELECT name FROM employees_areas WHERE id=employees.area_id) as area_name');
-		$employees->set_select('(SELECT name FROM terms_list WHERE id=employees.status) as status_name');
-		$employees->set_order('lastname', 'ASC');
+		$employees->set_select('e.*');
+		$employees->set_select('(SELECT name FROM employees_groups WHERE id=e.group_id) as group_name');
+		$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position_name');
+		$employees->set_select('(SELECT name FROM employees_areas WHERE id=e.area_id) as area_name');
+		$employees->set_select('(SELECT name FROM terms_list WHERE id=e.status) as status_name');
+		
+		$employees->set_join('names_info ni','ni.name_id=e.name_id');
+		$employees->set_select('ni.lastname as lastname');
+		$employees->set_select('ni.firstname as firstname');
+		$employees->set_select('ni.middlename as middlename');
+
+		$employees->set_order('ni.lastname', 'ASC');
+
 		$employees->set_start($start);
 		$this->template_data->set('employees', $employees->populate());
 
@@ -86,20 +99,24 @@ class Employees extends MY_Controller {
 		$position->setId($id,true);
 		$this->template_data->set('position', $position->get());
 
-		$employees = new $this->Employees_model;
+		$employees = new $this->Employees_model('e');
 		if( $this->input->get('q') ) {
-			$employees->set_where('(lastname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
-			$employees->set_where_or('firstname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
-			$employees->set_where_or('middlename LIKE "%' . $this->input->get('q') . '%")', NULL, 99);
+			$employees->set_where('(ni.lastname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+			$employees->set_where_or('ni.firstname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+			$employees->set_where_or('ni.middlename LIKE "%' . $this->input->get('q') . '%")', NULL, 99);
 		}
 		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 		$employees->setPositionId($id,true);
-		$employees->set_select('*');
-		$employees->set_select('(SELECT name FROM employees_groups WHERE id=employees.group_id) as group_name');
-		$employees->set_select('(SELECT name FROM employees_positions WHERE id=employees.position_id) as position_name');
-		$employees->set_select('(SELECT name FROM employees_areas WHERE id=employees.area_id) as area_name');
-		$employees->set_select('(SELECT name FROM terms_list WHERE id=employees.status) as status_name');
-		$employees->set_order('lastname', 'ASC');
+		$employees->set_select('e.*');
+		$employees->set_select('(SELECT name FROM employees_groups WHERE id=e.group_id) as group_name');
+		$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position_name');
+		$employees->set_select('(SELECT name FROM employees_areas WHERE id=e.area_id) as area_name');
+		$employees->set_select('(SELECT name FROM terms_list WHERE id=e.status) as status_name');
+		$employees->set_join('names_info ni','ni.name_id=e.name_id');
+		$employees->set_select('ni.lastname as lastname');
+		$employees->set_select('ni.firstname as firstname');
+		$employees->set_select('ni.middlename as middlename');
+		$employees->set_order('ni.lastname', 'ASC');
 		$employees->set_start($start);
 		$this->template_data->set('employees', $employees->populate());
 
@@ -120,7 +137,7 @@ class Employees extends MY_Controller {
 		$area->setId($id,true);
 		$this->template_data->set('area', $area->get());
 
-		$employees = new $this->Employees_model;
+		$employees = new $this->Employees_model('e');
 		if( $this->input->get('q') ) {
 			$employees->set_where('(lastname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
 			$employees->set_where_or('firstname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
@@ -128,12 +145,16 @@ class Employees extends MY_Controller {
 		}
 		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 		$employees->setAreaId($id,true);
-		$employees->set_select('*');
-		$employees->set_select('(SELECT name FROM employees_groups WHERE id=employees.group_id) as group_name');
-		$employees->set_select('(SELECT name FROM employees_positions WHERE id=employees.position_id) as position_name');
-		$employees->set_select('(SELECT name FROM employees_areas WHERE id=employees.area_id) as area_name');
-		$employees->set_select('(SELECT name FROM terms_list WHERE id=employees.status) as status_name');
-		$employees->set_order('lastname', 'ASC');
+		$employees->set_select('e.*');
+		$employees->set_select('(SELECT name FROM employees_groups WHERE id=e.group_id) as group_name');
+		$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position_name');
+		$employees->set_select('(SELECT name FROM employees_areas WHERE id=e.area_id) as area_name');
+		$employees->set_select('(SELECT name FROM terms_list WHERE id=e.status) as status_name');
+		$employees->set_join('names_info ni','ni.name_id=e.name_id');
+		$employees->set_select('ni.lastname as lastname');
+		$employees->set_select('ni.firstname as firstname');
+		$employees->set_select('ni.middlename as middlename');
+		$employees->set_order('ni.lastname', 'ASC');
 		$employees->set_start($start);
 		$this->template_data->set('employees', $employees->populate());
 
