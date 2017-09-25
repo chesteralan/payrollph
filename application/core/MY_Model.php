@@ -5,7 +5,7 @@
 | -------------------------------------------------------------------
 | This file is the parent class of Model Classes
 |
-| version 4.4
+| version 4.5
 |
 */
 class MY_Model extends CI_Model
@@ -282,18 +282,15 @@ class MY_Model extends CI_Model
         if( $this->_cache_on ) {
             $this->_db->cache_off();
         }
-        
-        $result = $query->result();
-        
-        if( isset($result[0]) ) {
-            
-            $this->_results = $result[0];
-            
-            return $this->_results;
-            
+        if($query->num_rows() > 0) {
+            $result = $query->result();
+            if( isset($result[0]) ) {
+                $this->_results = $result[0];                
+                return $this->_results;
+            }
+        } else {
+            return false;
         }
-        
-        return false;
     }
     // --------------------------------------------------------------------
 
