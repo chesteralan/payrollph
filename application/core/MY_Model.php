@@ -282,7 +282,7 @@ class MY_Model extends CI_Model
         if( $this->_cache_on ) {
             $this->_db->cache_off();
         }
-        if($query->num_rows() > 0) {
+        if(($query) && ($query->num_rows() > 0)) {
             $result = $query->result();
             if( isset($result[0]) ) {
                 $this->_results = $result[0];                
