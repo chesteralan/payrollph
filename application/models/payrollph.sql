@@ -88,6 +88,7 @@ CREATE TABLE `employees` (
   `birthplace` varchar(50) DEFAULT NULL,
   `gender` varchar(50) DEFAULT NULL,
   `civil_status` varchar(50) DEFAULT NULL,
+  `employee_id` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`name_id`),
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),

@@ -9,13 +9,13 @@
     </div>
      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-<?php if( $companies ) { ?>
+<?php if( (isset($companies)) && ( $this->config->item('multi_company') ) ) { ?>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Companies <span class="caret"></span></a>
           <ul class="dropdown-menu">
           	<?php foreach($companies as $company) { ?>
-            	<li><a href="<?php echo site_url("welcome/change_company/{$company->id}"); ?>"><?php echo $company->name; ?></a></li>
+            	<li><a href="<?php echo site_url("welcome/select_company/{$company->id}"); ?>"><?php echo $company->name; ?></a></li>
             <?php } ?>
           </ul>
         </li>

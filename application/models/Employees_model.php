@@ -22,6 +22,7 @@ CREATE TABLE `employees` (
   `birthplace` varchar(50) DEFAULT NULL,
   `gender` varchar(50) DEFAULT NULL,
   `civil_status` varchar(50) DEFAULT NULL,
+  `employee_id` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`name_id`),
   KEY `name_id` (`name_id`),
   KEY `group_id` (`group_id`),
@@ -46,6 +47,7 @@ CREATE TABLE `employees` (
  ALTER TABLE  `employees` ADD  `birthplace` varchar(50) NULL   ;
  ALTER TABLE  `employees` ADD  `gender` varchar(50) NULL   ;
  ALTER TABLE  `employees` ADD  `civil_status` varchar(50) NULL   ;
+ ALTER TABLE  `employees` ADD  `employee_id` varchar(20) NULL   ;
 
 
  * @package			        Model
@@ -75,6 +77,7 @@ class Employees_model extends MY_Model {
 	protected $birthplace;
 	protected $gender;
 	protected $civil_status;
+	protected $employee_id;
 
 	// --------------------------------------------------------------------
 
@@ -88,7 +91,7 @@ class Employees_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees';
 		$this->_short_name = 'employees';
-		$this->_fields = array("name_id","company_id","group_id","lastname","firstname","middlename","position_id","area_id","hired","status","notes","trash","birthday","birthplace","gender","civil_status");
+		$this->_fields = array("name_id","company_id","group_id","lastname","firstname","middlename","position_id","area_id","hired","status","notes","trash","birthday","birthplace","gender","civil_status","employee_id");
 		$this->_required = array("company_id","lastname","firstname","trash");
 		parent::__construct($short_name, $db_config);
 	}
@@ -462,6 +465,29 @@ class Employees_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: civil_status --------------------------------------
+
+
+// ---------------------------- Start Field: employee_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `employee_id` variable
+	* @access public
+	*/
+
+		public function setEmployeeId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('employee_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `employee_id` variable
+	* @access public
+	*/
+
+		public function getEmployeeId() {
+			return $this->employee_id;
+		}
+	
+// ------------------------------ End Field: employee_id --------------------------------------
 
 
 

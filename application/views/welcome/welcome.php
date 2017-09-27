@@ -10,14 +10,15 @@
 <?php if( $this->session->userdata( 'current_company' ) ) { ?>
 
 <div class="row">
-<?php if( isset( $this->session->menu_module['payroll'] ) ) { ?>
     		<div class="col-md-6">
+
     			<div class="panel panel-default">
     				<div class="panel-heading">
-    					<h3 class="panel-title bold">Payroll</h3>
+    					<h3 class="panel-title bold">Shortcuts</h3>
     				</div>
     				<div class="panel-body">
-    					<div class="list-group list-group-icons">
+<div class="list-group list-group-icons">
+<?php if( isset( $this->session->menu_module['payroll'] ) ) { ?>
     					<?php if( in_array('payroll', $this->session->menu_module['payroll'] ) ) { ?>
 						  <a href="<?php echo site_url('payroll'); ?>" class="list-group-item body_wrapper">
 						    <span class="fa fa-list-alt" aria-hidden="true"></span>
@@ -30,25 +31,15 @@
 						    Templates
 						  </a>
 						<?php } ?>
-						</div>
-					</div>
-    			</div>
-    		</div>
+						
 <?php } ?>
 <?php if( isset( $this->session->menu_module['employees'] ) ) { ?>
-    		<div class="col-md-6">
-    			<div class="panel panel-default">
-    				<div class="panel-heading">
-    					<h3 class="panel-title bold">Employees</h3>
-    				</div>
-    				<div class="panel-body">
-    					<div class="list-group list-group-icons">
-    					<?php if( in_array('employees', $this->session->menu_module['employees'] ) ) { ?>
-						  <a href="<?php echo site_url('employees'); ?>" class="list-group-item body_wrapper">
-						    <span class="fa fa-user" aria-hidden="true"></span>
-						    Employees
-						  </a>
-						<?php } ?>
+<?php if( in_array('employees', $this->session->menu_module['employees'] ) ) { ?>
+                          <a href="<?php echo site_url('employees'); ?>" class="list-group-item body_wrapper">
+                            <span class="fa fa-user" aria-hidden="true"></span>
+                            Employees
+                          </a>
+                        <?php } ?>
                         <?php if( in_array('groups', $this->session->menu_module['employees'] ) ) { ?>
                           <a href="<?php echo site_url('employees_groups'); ?>" class="list-group-item body_wrapper">
                             <span class="fa fa-users" aria-hidden="true"></span>
@@ -69,45 +60,27 @@
                             Area
                           </a>
                         <?php } ?>
-
-						</div>
-					</div>
-    			</div>
-    		</div>
 <?php } ?>
-</div>
-
-<?php } ?>
-
-<?php /*
-    <div class="row">
-
 <?php if( isset( $this->session->menu_module['lists'] ) ) { 
 
 if(
-	( in_array('names', $this->session->menu_module['lists'] ) ) 
+    ( in_array('names', $this->session->menu_module['lists'] ) ) 
     || (  in_array('benefits', $this->session->menu_module['lists'] ) ) 
     || (  in_array('earnings', $this->session->menu_module['lists'] ) ) 
-	|| (  in_array('deductions', $this->session->menu_module['lists'] ) ) 
+    || (  in_array('deductions', $this->session->menu_module['lists'] ) ) 
 ) {
-	?>
-    		<div class="col-md-6">
-    			<div class="panel panel-default">
-    				<div class="panel-heading">
-    					<h3 class="panel-title bold">Lists</h3>
-    				</div>
-    				<div class="panel-body">
-    					<div class="list-group list-group-icons">
-						<?php if( in_array('names', $this->session->menu_module['lists'] ) ) { ?>
-						  <a href="<?php echo site_url('lists_names'); ?>" class="list-group-item body_wrapper">
-						    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Names
-						  </a>
-						<?php } ?>
-						<?php if( in_array('benefits', $this->session->menu_module['lists'] ) ) { ?>
-						  <a href="<?php echo site_url('lists_earnings'); ?>" class="list-group-item body_wrapper">
-						    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Earnings
-						  </a>
-						<?php } ?>
+    ?>
+
+<?php if( in_array('names', $this->session->menu_module['lists'] ) ) { ?>
+                          <a href="<?php echo site_url('lists_names'); ?>" class="list-group-item body_wrapper">
+                            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Names
+                          </a>
+                        <?php } ?>
+                        <?php if( in_array('benefits', $this->session->menu_module['lists'] ) ) { ?>
+                          <a href="<?php echo site_url('lists_earnings'); ?>" class="list-group-item body_wrapper">
+                            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Earnings
+                          </a>
+                        <?php } ?>
                         <?php if( in_array('earnings', $this->session->menu_module['lists'] ) ) { ?>
                           <a href="<?php echo site_url('lists_benefits'); ?>" class="list-group-item body_wrapper">
                             <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Benefits
@@ -118,10 +91,7 @@ if(
                             <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Deductions
                           </a>
                         <?php } ?>
-						</div>
-					</div>
-    			</div>
-    		</div>
+
 <?php } ?>
 <?php } ?>
 
@@ -132,16 +102,9 @@ if(
     || (  in_array('backup', $this->session->menu_module['system'] ) ) 
 ) {
     ?>
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title bold">System</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="list-group list-group-icons">
+
                         <?php if( in_array('users', $this->session->menu_module['system'] ) ) { ?>
                           <a href="<?php echo site_url('system_users'); ?>" class="list-group-item body_wrapper">
-                            <span class="badge"><?php echo $stats->users_count; ?></span>
                             <span class="dashicons dashicons-admin-network" aria-hidden="true"></span> Users
                           </a>
                         <?php } ?>
@@ -150,13 +113,42 @@ if(
                             <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span> Backup
                           </a>
                         <?php } ?>
-                        </div>
+
+<?php } ?>
+<?php } ?>
+
+</div>
+					</div>
+    			</div>
+
+    		</div>
+
+
+    		<div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a href="<?php echo site_url("lists_names/birthdays/" . $this->session->userdata( 'current_company_id' ) ); ?>" class="pull-right btn btn-success btn-xs">Show All</a>
+                        <h3 class="panel-title">Birthdays of the Month: <strong><?php echo date('F'); ?></strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        <?php if( $birthdays ) { ?>
+                        <ul class="list-group">
+                          <?php foreach( $birthdays as $celeb ) { ?>
+                          <li class="list-group-item">
+                            <span class="badge"><?php echo date('F d, Y', strtotime($celeb->birthday)); ?></span>
+                            <?php echo $celeb->firstname; ?> <?php echo $celeb->middlename; ?> <?php echo $celeb->lastname; ?> (<?php echo $celeb->age; ?> years old)
+                          </li>
+                          <?php } ?>
+                        </ul>
+                        <?php } ?>
                     </div>
                 </div>
-            </div>
+    		</div>
+
+</div>
+
 <?php } ?>
-<?php } ?>
-*/ ?>
+
     </div>    	
     </div>
 

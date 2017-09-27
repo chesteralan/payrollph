@@ -13,9 +13,9 @@ class Lists_names extends MY_Controller {
 
 	}
 
-	private function _searchRedirect() {
+	private function _searchRedirect($uri='lists_names') {
 		if( $this->input->get('q') ) {
-			redirect(site_url("lists_names?q=" . $this->input->get('q') ));
+			redirect(site_url($uri."?q=" . $this->input->get('q') ));
 		}
 	}
 
@@ -54,6 +54,55 @@ class Lists_names extends MY_Controller {
 		)));
 
 		$this->load->view('lists/names/names_list', $this->template_data->get_data());
+	}
+
+	public function birthdays($company_id, $start=0) {
+		
+		$this->template_data->set('company_id', $company_id);
+
+		if( $start > 0 ) {
+			$this->_searchRedirect("lists_names/birthdays/" . $company_id);
+		}
+
+		$names = new $this->Names_list_model('nl');
+		$names->setTrash(0, true);
+
+		if( $this->input->get('q') ) {
+			$names->set_where('nl.full_name LIKE "%' . $this->input->get('q') . '%"');
+			$names->set_where_or('nl.address LIKE "%' . $this->input->get('q') . '%"');
+		}
+
+		$names->set_select("nl.*");
+		$names->set_select("ni.*");
+		$names->set_select("(SELECT COUNT(*) FROM employees e WHERE e.name_id=nl.id) as is_employed");
+
+		$names->set_join("names_info ni", 'ni.name_id=nl.id');
+		$names->set_join("employees e", 'e.name_id=nl.id');
+		$names->set_select("(TIMESTAMPDIFF(YEAR, ni.birthday, CURDATE())) as age");
+
+		$names->set_order('(MONTH(ni.birthday))', 'ASC');
+		$names->set_order('(DAY(ni.birthday))', 'ASC');
+		$names->set_where('e.company_id=' . $company_id);
+
+		if( $this->input->get('month') ) {
+			$names->set_where('((MONTH(ni.birthday))=' . $this->input->get('month') .')');
+			$names->set_limit(0);
+		} else {
+			$names->set_start($start);
+		}
+		$names->set_start($start);
+		$names->setTrash('0',true);
+
+		$this->template_data->set('names', $names->populate());
+
+		$this->template_data->set('pagination', bootstrap_pagination(array(
+			'base_url' => base_url($this->config->item('index_page') . '/lists_names/birthdays/' . $company_id),
+			'total_rows' => $names->count_all_results(),
+			'per_page' => $names->get_limit(),
+			'ajax'=>true,
+		)));
+
+		$this->load->view('lists/names/names_birthdays', $this->template_data->get_data());
 	}
 
 	public function add($output='') {
@@ -155,6 +204,8 @@ class Lists_names extends MY_Controller {
 		$name->set_select("ni.*");
 		$name->set_select("(SELECT COUNT(*) FROM employees e WHERE e.name_id=nl.id) as is_employed");
 		$name->set_select("(SELECT e.company_id FROM employees e WHERE e.name_id=nl.id) as company_id");
+		$name->set_select("(SELECT name FROM companies_list c WHERE c.id=(SELECT e.company_id FROM employees e WHERE e.name_id=nl.id)) as company");
+		$name->set_select("(TIMESTAMPDIFF(YEAR, ni.birthday, CURDATE())) as age");
 
 		foreach(array('address', 'email', 'phone_number', 'cell_smart', 'cell_globe', 'cell_sun') as $k) {
 			$data = new $this->Names_meta_model('d');
@@ -188,7 +239,19 @@ class Lists_names extends MY_Controller {
 			$name->set_select('('.$data->get_compiled_select().') as ' . $k);
 		}
 
-		$this->template_data->set('name', $name->get());
+		$name_data = $name->get();	
+		$this->template_data->set('name', $name_data);
+
+		if( $name_data->is_employed ) {
+			$employee = new $this->Employees_model('e');
+			$employee->setNameId($id,true);
+			$employee->set_select('*');
+			$employee->set_select('(SELECT name FROM employees_groups WHERE id=e.group_id) as group_name');
+			$employee->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position_name');
+			$employee->set_select('(SELECT name FROM employees_areas WHERE id=e.area_id) as area_name');
+			$employee->set_select('(SELECT name FROM terms_list WHERE id=e.status) as status_name');
+			$this->template_data->set('employee', $employee->get());
+		}
 
 		$this->load->view('lists/names/names_profile', $this->template_data->get_data());
 	}

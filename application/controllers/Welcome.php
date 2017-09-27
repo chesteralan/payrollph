@@ -12,13 +12,24 @@ class Welcome extends MY_Controller {
 		//$stats = new $this->User_accounts_model('ua');
 		//$stats->set_select('(SELECT count(*) FROM user_accounts) as users_count');
 		//$this->template_data->set('stats', $stats->get());
+		
+		if( $this->config->item('multi_company') ) {
+			$companies = new $this->User_accounts_companies_model('uc');
+			$companies->setUid($this->session->userdata('user_id'),true);
+			$companies->set_join('companies_list cl', 'uc.company_id=cl.id');
+			$companies->set_select('cl.*');
+			$companies->set_where('cl.id !=' . $this->session->userdata( 'current_company_id') );
+			$this->template_data->set('companies', $companies->populate());
+		}
 
-		$companies = new $this->User_accounts_companies_model('uc');
-		$companies->setUid($this->session->userdata('user_id'),true);
-		$companies->set_join('companies_list cl', 'uc.company_id=cl.id');
-		$companies->set_select('cl.*');
-		$companies->set_where('cl.id !=' . $this->session->userdata( 'current_company_id') );
-		$this->template_data->set('companies', $companies->populate());
+		$birthdays = new $this->Names_info_model('ni');
+		$birthdays->set_where('(MONTH(ni.birthday)=MONTH(CURDATE()))');
+		$birthdays->set_where('e.company_id', $this->session->userdata( 'current_company_id'));
+		$birthdays->set_join('employees e', 'e.name_id=ni.name_id');
+		$birthdays->set_order('(DAY(ni.birthday))', 'ASC');
+		$birthdays->set_select("ni.*");
+		$birthdays->set_select("(TIMESTAMPDIFF(YEAR, ni.birthday, CURDATE())) as age");
+		$this->template_data->set('birthdays', $birthdays->populate());
 
 		$this->load->view('welcome/welcome', $this->template_data->get_data());
 	}

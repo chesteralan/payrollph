@@ -44,8 +44,8 @@ return <<<HTML
   </div>
   <div class="col-md-4">
     <div class="form-group">
-      <label>Gender</label>
-      <div class="form-control">{$gender}</div>
+      <label>Age</label>
+      <div class="form-control">{$name->age} years old</div>
     </div>
   </div>
 </div>
@@ -55,6 +55,12 @@ return <<<HTML
     <div class="form-group">
       <label>Civil Status</label>
       <div class="form-control">{$name_civil_stats}</div>
+    </div>
+  </div>
+    <div class="col-md-4">
+    <div class="form-group">
+      <label>Gender</label>
+      <div class="form-control">{$gender}</div>
     </div>
   </div>
 </div>
@@ -230,6 +236,59 @@ return <<<HTML
 HTML;
 }
 
+function employment($employee) { 
+  $date_hired = date('F d, Y', strtotime($employee->hired));
+return <<<HTML
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group">
+      <label>Employee ID</label>
+      <div class="form-control">{$employee->employee_id}</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label>Date Hired</label>
+      <div class="form-control">{$date_hired}</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label>Dated Regularized</label>
+      <div class="form-control">{$employee->area_name}</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label>Status</label>
+      <div class="form-control">{$employee->status_name}</div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group">
+      <label>Group</label>
+      <div class="form-control">{$employee->group_name}</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label>Position</label>
+      <div class="form-control">{$employee->position_name}</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label>Area</label>
+      <div class="form-control">{$employee->area_name}</div>
+    </div>
+  </div>
+
+</div>
+HTML;
+}
 
 
 ?>
@@ -249,41 +308,55 @@ HTML;
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-<?php foreach(array(
-  array(
+<?php 
+
+$modules = array();
+
+
+$modules[] = array(
     'title'=>'Personal Information',
     'config_url' => site_url("lists_names/update_personal/{$name->id}/ajax") . "?next=" . uri_string(),
     'panel_body' => personal_info($name),
     'open' => (($this->input->get('active')==='personal')||(!$this->input->get('active'))),
-    ),
-  array(
+    );
+
+if( ($name->is_employed) && ($name->company_id==$this->session->userdata('current_company_id')) ) { 
+  $modules[] = array(
+    'title'=>'Employment Information: <span class="badge">' . $name->company . '</span>',
+    'config_url' => site_url("employees/edit_employment/{$name->id}/ajax") . "?next=" . uri_string(),
+    'panel_body' => employment($employee),
+    'open' => ($this->input->get('active')==='employment'),
+    );
+}
+
+$modules[] = array(
     'title'=>'Address &amp; Contact Numbers',
     'config_url' => site_url("lists_names/update_contacts/{$name->id}/ajax") . "?next=" . uri_string(),
     'panel_body' => address_contacts($name),
     'open' => ($this->input->get('active')==='contacts'),
-  ),
-  array(
+  );
+$modules[] = array(
     'title'=>'Social Media Accounts',
     'config_url' => site_url("lists_names/update_social_media/{$name->id}/ajax") . "?next=" . uri_string(),
     'panel_body' => social_media($name),
     'open' => ($this->input->get('active')==='social_media'),
-  ),
-  array(
+  );
+$modules[] = array(
     'title'=>'Identification Numbers',
     'config_url' => site_url("lists_names/update_ids/{$name->id}/ajax") . "?next=" . uri_string(),
     'panel_body' => ids($name),
     'open' => ($this->input->get('active')==='ids'),
-  ),
-  array(
+  );
+$modules[] = array(
     'title'=>'Emergency Contacts',
     'config_url' => site_url("lists_names/update_emergency/{$name->id}/ajax") . "?next=" . uri_string(),
     'panel_body' => emergency($name),
     'open' => ($this->input->get('active')==='emergency'),
-  ),
-) as $i=>$content) { ?>
+  );
+foreach($modules as $i=>$content) { ?>
 <div class="panel panel-default">
                 <div class="panel-heading">
-                <a class="ajax-modal pull-right" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $content['title']; ?>" data-url="<?php echo $content['config_url']; ?>"><span class="glyphicon glyphicon-cog"></span></a>
+                <a class="ajax-modal pull-right" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo strip_tags($content['title']); ?>" data-url="<?php echo $content['config_url']; ?>"><span class="glyphicon glyphicon-cog"></span></a>
                   <h3 class="panel-title bold">
 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $i; ?>" aria-expanded="true" aria-controls="collapse<?php echo $i; ?>">
                   <?php echo $content['title']; ?>

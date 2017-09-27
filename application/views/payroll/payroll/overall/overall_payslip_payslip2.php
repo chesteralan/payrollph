@@ -2,7 +2,7 @@
 
 <?php for($i=0; $i<2; $i++) { ?>
 
-<div class="payslip_box payslip2 full-border odd <?php echo ($i == 1) ? 'second-half' : 'first-half'; ?>">
+<div class="payslip_box payslip2 odd <?php echo ($i == 1) ? 'second-half' : 'first-half'; ?>">
 
 <table width="100%" cellpadding="0" cellspacing="0" class="bordered">
   <tr>
