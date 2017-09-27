@@ -9,7 +9,7 @@ CREATE TABLE `names_info` (
   `name_id` int(20) NOT NULL,
   `lastname` varchar(100) NOT NULL,
   `firstname` varchar(100) NOT NULL,
-  `middlename` varchar(100) NOT NULL,
+  `middlename` varchar(100) DEFAULT NULL,
   `birthday` date DEFAULT NULL,
   `birthplace` varchar(50) DEFAULT NULL,
   `gender` varchar(50) DEFAULT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE `names_info` (
  ALTER TABLE  `names_info` ADD  `name_id` int(20) NOT NULL   PRIMARY KEY;
  ALTER TABLE  `names_info` ADD  `lastname` varchar(100) NOT NULL   ;
  ALTER TABLE  `names_info` ADD  `firstname` varchar(100) NOT NULL   ;
- ALTER TABLE  `names_info` ADD  `middlename` varchar(100) NOT NULL   ;
+ ALTER TABLE  `names_info` ADD  `middlename` varchar(100) NULL   ;
  ALTER TABLE  `names_info` ADD  `birthday` date NULL   ;
  ALTER TABLE  `names_info` ADD  `birthplace` varchar(50) NULL   ;
  ALTER TABLE  `names_info` ADD  `gender` varchar(50) NULL   ;
@@ -61,7 +61,7 @@ class Names_info_model extends MY_Model {
 		$this->_table_name = 'names_info';
 		$this->_short_name = 'names_info';
 		$this->_fields = array("name_id","lastname","firstname","middlename","birthday","birthplace","gender","civil_status");
-		$this->_required = array("lastname","firstname","middlename");
+		$this->_required = array("lastname","firstname");
 		parent::__construct($short_name, $db_config);
 	}
 

@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <?php $this->load->view('header'); ?>
 <?php if( ! $inner_page ): ?>
+
 <?php $this->load->view('lists/lists_navbar'); ?>
 
 <div class="container">
@@ -41,8 +42,8 @@
 	    			<thead>
 	    				<tr>
 	    					<th>Full Name</th>
-	    					<th>Address</th>
-	    					<th>Contact Number</th>
+	    					<th class="text-center">Company</th>
+	    					<th width="10%" class="text-center">Age</th>
 	    					<?php if( hasAccess('lists', 'names', 'edit') ) { ?>
 	    					<th width="175px">Action</th>
 	    					<?php } ?>
@@ -60,8 +61,8 @@
 	</a>
 <?php } ?>
 	    					</td>
-	    					<td><?php echo $name->address; ?></td>
-	    					<td><?php echo $name->contact_number; ?></td>
+	    					<td  class="text-center"><?php echo $name->company; ?></td>
+	    					<td  class="text-center"><?php echo $name->age; ?></td>
 	    					<?php if( hasAccess('lists', 'names', 'edit') ) { ?>
 	    					<td>
 

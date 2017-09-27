@@ -123,16 +123,16 @@ class System_companies extends MY_Controller {
 		$companies->setCompanyId($id,true);
 		$companies->setKey('print_css',true);
 
-			if( $this->input->post('print_css') ) { 
-					if($companies->nonEmpty()) {
-						$companies->setValue($this->input->post('print_css'),false,true);
-						$companies->update();
-					} else {
-						$companies->setValue($this->input->post('print_css'));
-						$companies->insert();
-					}
-				$this->postNext();
+		if( $this->input->post('print_css') ) { 
+			if( $companies->nonEmpty() ) {
+				$companies->setValue($this->input->post('print_css'),false,true);
+				$companies->update();
+			} else {
+				$companies->setValue($this->input->post('print_css'));
+				$companies->insert();
 			}
+			$this->postNext();
+		}
 
 		$companies->set_select("value");
 		$this->template_data->set('css', $companies->get());

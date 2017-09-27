@@ -235,7 +235,12 @@ HTML;
 ?>
 <?php $this->load->view('header'); ?>
 <?php if( ! $inner_page ): ?>
+
+<?php if( ($name->is_employed) && ($name->company_id==$this->session->userdata('current_company_id')) ) { ?>
+<?php $this->load->view('lists/names/employed_navbar'); ?>
+<?php } else { ?>
 <?php $this->load->view('lists/lists_navbar'); ?>
+<?php } ?>
 
 <div class="container">
     <div class="row">

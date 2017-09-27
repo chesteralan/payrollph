@@ -28,6 +28,7 @@
 
 <?php 
 
+$url['employees_profile'] = array('uri' => 'lists_names/profile/' . $employee->name_id, 'title'=>'Profile', 'access'=>hasAccess('lists', 'names', 'view'));
 $url['employees_salaries'] = array('uri' => 'employees_salaries/view/' . $employee->name_id, 'title'=>'Basic Salary', 'access'=>hasAccess('employees', 'employees', 'view'));
 $url['employees_earnings'] = array('uri' => 'employees_earnings/view/' . $employee->name_id, 'title'=>'Earnings', 'access'=>hasAccess('employees', 'employees', 'view'));
 $url['employees_benefits'] = array('uri' => 'employees_benefits/view/' . $employee->name_id, 'title'=>'Benefits', 'access'=>hasAccess('employees', 'employees', 'view'));

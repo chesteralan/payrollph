@@ -77,7 +77,7 @@ CREATE TABLE `employees` (
   `group_id` int(20) DEFAULT NULL,
   `lastname` varchar(100) NOT NULL,
   `firstname` varchar(100) NOT NULL,
-  `middlename` varchar(100) NOT NULL,
+  `middlename` varchar(100) DEFAULT NULL,
   `position_id` int(20) DEFAULT NULL,
   `area_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,
@@ -271,7 +271,7 @@ CREATE TABLE `names_info` (
   `name_id` int(20) NOT NULL,
   `lastname` varchar(100) NOT NULL,
   `firstname` varchar(100) NOT NULL,
-  `middlename` varchar(100) NOT NULL,
+  `middlename` varchar(100) DEFAULT NULL,
   `birthday` date DEFAULT NULL,
   `birthplace` varchar(50) DEFAULT NULL,
   `gender` varchar(50) DEFAULT NULL,
@@ -297,7 +297,7 @@ CREATE TABLE `names_list` (
 CREATE TABLE `names_meta` (
   `meta_id` int(20) NOT NULL AUTO_INCREMENT,
   `name_id` int(20) NOT NULL,
-  `meta_key` varchar(100) NOT NULL,
+  `meta_key` varchar(200) NOT NULL,
   `meta_value` text,
   PRIMARY KEY (`meta_id`),
   KEY `name_id` (`name_id`)

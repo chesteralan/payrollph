@@ -100,6 +100,7 @@ class Payroll_overall extends MY_Controller {
 			$employees = new $this->Payroll_employees_model('pe');
 			$employees->setPayrollId($id,true);
 			$employees->set_select('ni.*');
+			$employees->set_select('e.name_id');
 			$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
 			$employees->set_select('pe.template as payslip_template');
 			$employees->set_select('pe.print_group');

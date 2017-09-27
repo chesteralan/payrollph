@@ -25,18 +25,22 @@ class Lists_names extends MY_Controller {
 			$this->_searchRedirect();
 		}
 
-		$names = new $this->Names_list_model;
+		$names = new $this->Names_list_model('nl');
 		$names->setTrash(0, true);
 
 		if( $this->input->get('q') ) {
-			$names->set_where('full_name LIKE "%' . $this->input->get('q') . '%"');
-			$names->set_where_or('address LIKE "%' . $this->input->get('q') . '%"');
+			$names->set_where('nl.full_name LIKE "%' . $this->input->get('q') . '%"');
+			$names->set_where_or('nl.address LIKE "%' . $this->input->get('q') . '%"');
 		}
 
-		$names->set_select("names_list.*");
-		$names->set_select("(SELECT COUNT(*) FROM employees WHERE name_id=names_list.id) as is_employed");
+		$names->set_select("nl.*");
+		$names->set_select("(SELECT COUNT(*) FROM employees e WHERE e.name_id=nl.id) as is_employed");
+		$names->set_select("(SELECT name FROM companies_list c WHERE c.id=(SELECT e.company_id FROM employees e WHERE e.name_id=nl.id)) as company");
 
-		$names->set_order('names_list.full_name', 'ASC');
+		$names->set_join("names_info ni", 'ni.name_id=nl.id');
+		$names->set_select("(TIMESTAMPDIFF(YEAR, ni.birthday, CURDATE())) as age");
+
+		$names->set_order('nl.full_name', 'ASC');
 		$names->set_start($start);
 		$names->setTrash('0',true);
 
@@ -149,6 +153,8 @@ class Lists_names extends MY_Controller {
 		
 		$name->set_join("names_info ni", "ni.name_id=nl.id");
 		$name->set_select("ni.*");
+		$name->set_select("(SELECT COUNT(*) FROM employees e WHERE e.name_id=nl.id) as is_employed");
+		$name->set_select("(SELECT e.company_id FROM employees e WHERE e.name_id=nl.id) as company_id");
 
 		foreach(array('address', 'email', 'phone_number', 'cell_smart', 'cell_globe', 'cell_sun') as $k) {
 			$data = new $this->Names_meta_model('d');

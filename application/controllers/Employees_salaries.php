@@ -19,8 +19,11 @@ class Employees_salaries extends MY_Controller {
 
 	public function view($id, $start=0) {
 
-		$employee = new $this->Employees_model;
+		$employee = new $this->Employees_model('e');
 		$employee->setNameId($id,true);
+		$employee->set_select('ni.*');
+		$employee->set_select('e.name_id');
+		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
 		$this->template_data->set('employee', $employee->get());
 
 		$salaries = new $this->Employees_salaries_model;

@@ -21,23 +21,39 @@
 <?php endif; ?>
           
 <div class="list-group">
-  <a data-target="#ajaxModal" data-title="Personal Information" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit_personal/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+  <a data-target="#ajaxModal" data-title="Personal Information" class="list-group-item ajax-modal-inner" href="<?php echo site_url("lists_names/update_personal/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Personal Information</h4>
     <p class="list-group-item-text">Employee's Personal Information</p>
   </a>
 
- <a data-target="#ajaxModal" data-title="Address and Contact"  class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit_address/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+ <a data-target="#ajaxModal" data-title="Address and Contact"  class="list-group-item ajax-modal-inner" href="<?php echo site_url("lists_names/update_contacts/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Address and Contact</h4>
     <p class="list-group-item-text">Employee's Addresses and Contact Numbers</p>
   </a>
+
+ <a data-target="#ajaxModal" data-title="Social Media Accounts"  class="list-group-item ajax-modal-inner" href="<?php echo site_url("lists_names/update_social_media/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+    <h4 class="list-group-item-heading">Social Media Accounts</h4>
+    <p class="list-group-item-text">Online social media accounts ex. Facebook &amp; Twitter</p>
+  </a>
+
+<a data-target="#ajaxModal" data-title="Identification Numbers"  class="list-group-item ajax-modal-inner" href="<?php echo site_url("lists_names/update_ids/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+    <h4 class="list-group-item-heading">Identification Numbers</h4>
+    <p class="list-group-item-text">Government issued id ex. TIN, SSS, Voter's, Driver's License</p>
+  </a>
+
+  <a data-target="#ajaxModal" data-title="Emergency Contacts"  class="list-group-item ajax-modal-inner" href="<?php echo site_url("lists_names/update_emergency/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+    <h4 class="list-group-item-heading">Emergency Contacts</h4>
+    <p class="list-group-item-text">To whom are we going to contact in case of emergencies</p>
+  </a>
+
+  
+</div>
+<div class="list-group">
 
    <a data-target="#ajaxModal" data-title="Employment Information"  class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit_employment/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Employment Information</h4>
     <p class="list-group-item-text">Employee's Employment Records</p>
   </a>
-  
-</div>
-<div class="list-group">
 
   <a class="list-group-item body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_salaries/view/{$employee->name_id}"); ?>">
     <h4 class="list-group-item-heading">Basic Salary</h4>

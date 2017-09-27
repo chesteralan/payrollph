@@ -8,7 +8,7 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  <h3 class="panel-title bold"><?php echo $current_page; ?> Summary: <?php echo $deduction->name; ?> <small><?php echo $deduction->notes; ?></h3>
+                  <h3 class="panel-title bold"><?php echo $current_page; ?> Summary: <?php echo $deduction->name; ?> <small><?php echo $deduction->notes; ?></small></h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 <?php endif; ?>

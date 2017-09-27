@@ -8,7 +8,7 @@
 CREATE TABLE `names_meta` (
   `meta_id` int(20) NOT NULL AUTO_INCREMENT,
   `name_id` int(20) NOT NULL,
-  `meta_key` varchar(100) NOT NULL,
+  `meta_key` varchar(200) NOT NULL,
   `meta_value` text,
   PRIMARY KEY (`meta_id`),
   KEY `name_id` (`name_id`)
@@ -16,7 +16,7 @@ CREATE TABLE `names_meta` (
 
  ALTER TABLE  `names_meta` ADD  `meta_id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
  ALTER TABLE  `names_meta` ADD  `name_id` int(20) NOT NULL   ;
- ALTER TABLE  `names_meta` ADD  `meta_key` varchar(100) NOT NULL   ;
+ ALTER TABLE  `names_meta` ADD  `meta_key` varchar(200) NOT NULL   ;
  ALTER TABLE  `names_meta` ADD  `meta_value` text NULL   ;
 
 

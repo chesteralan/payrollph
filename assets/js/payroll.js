@@ -607,6 +607,7 @@ $('.ajax-modal-inner').each(function(){
         method : 'GET',
         dataType : 'html'
       }).success(function(html){
+        console.log( html );
         $('#ajaxModal .loader').slideUp('slow', function(){
           $('#ajaxModal .output').css('display', 'none').html( html ).slideDown('slow', function(){
             loadLib();
@@ -660,6 +661,7 @@ var loadAjaxModal = function() {
         method : 'GET',
         dataType : 'html'
       }).success(function(html){
+        console.log( html );
         $('#ajaxModal .loader').slideUp('slow', function(){
           $('#ajaxModal .output').css('display', 'none').html( html ).slideDown('slow', function(){
             loadLib();
