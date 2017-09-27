@@ -11,6 +11,7 @@ CREATE TABLE `terms_list` (
   `notes` text,
   `type` varchar(50) DEFAULT NULL,
   `trash` int(1) DEFAULT '0',
+  `priority` int(3) DEFAULT '0',
   PRIMARY KEY (`id`)
 );
 
@@ -19,6 +20,7 @@ CREATE TABLE `terms_list` (
  ALTER TABLE  `terms_list` ADD  `notes` text NULL   ;
  ALTER TABLE  `terms_list` ADD  `type` varchar(50) NULL   ;
  ALTER TABLE  `terms_list` ADD  `trash` int(1) NULL   DEFAULT '0';
+ ALTER TABLE  `terms_list` ADD  `priority` int(3) NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -37,6 +39,7 @@ class Terms_list_model extends MY_Model {
 	protected $notes;
 	protected $type;
 	protected $trash;
+	protected $priority;
 
 	// --------------------------------------------------------------------
 
@@ -50,7 +53,7 @@ class Terms_list_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'terms_list';
 		$this->_short_name = 'terms_list';
-		$this->_fields = array("id","name","notes","type","trash");
+		$this->_fields = array("id","name","notes","type","trash","priority");
 		$this->_required = array("name");
 		parent::__construct($short_name, $db_config);
 	}
@@ -171,6 +174,29 @@ class Terms_list_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: trash --------------------------------------
+
+
+// ---------------------------- Start Field: priority -------------------------------------- 
+
+	/** 
+	* Sets a value to `priority` variable
+	* @access public
+	*/
+
+		public function setPriority($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('priority', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `priority` variable
+	* @access public
+	*/
+
+		public function getPriority() {
+			return $this->priority;
+		}
+	
+// ------------------------------ End Field: priority --------------------------------------
 
 
 

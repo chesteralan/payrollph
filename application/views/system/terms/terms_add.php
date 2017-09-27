@@ -25,6 +25,8 @@
             <input name="term_name" type="text" class="form-control" value="<?php echo $this->input->post('term_name'); ?>" REQUIRED>
           </div>
 
+<div class="row">
+  <div class="col-md-6">
           <div class="form-group">
             <label>Term Type</label>
             <select class="form-control" title="Select a Type" name="term_type" REQUIRED>
@@ -33,6 +35,19 @@
                 <?php } ?>
             </select>
           </div>
+  </div>
+  <div class="col-md-6">
+          <div class="form-group">
+            <label>Priority</label>
+            <select class="form-control" title="Select a Priority" name="priority">
+                <option value="0" selected="selected">0</option>
+                <?php for($i=1;$i<=99;$i++) { ?>
+                  <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                <?php } ?>
+            </select>
+          </div>
+  </div>
+</div>
 
           <div class="form-group">
             <label>Notes</label>

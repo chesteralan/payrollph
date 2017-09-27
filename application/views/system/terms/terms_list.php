@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); 
+ $term_types = unserialize( TERM_TYPES );
+?>
 <?php $this->load->view('header'); ?>
 <?php if( ! $inner_page ): ?>
 
@@ -12,7 +14,7 @@
 <?php if( hasAccess('system', 'terms', 'add') ) { ?>
   <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Term" data-url="<?php echo site_url("system_terms/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Add Term</button>
 <?php } ?>
-                  <h3 class="panel-title bold"><?php echo $current_page; ?></h3>
+                  <h3 class="panel-title bold"><?php echo $current_page; ?> <?php if(isset($filter)) { ?><a class="badge" href="<?php echo site_url("system_terms"); ?>"><?php echo $term_types[$filter]; ?><span class="glyphicon glyphicon-remove"></span></a><?php } ?></h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 <?php endif; ?>
@@ -23,6 +25,7 @@
               <tr>
                 <th>Term Name</th>
                 <th>Type</th>
+                <th class="text-center">Priority</th>
                 <?php if( hasAccess('system', 'terms', 'edit') ) { ?>
                   <th width="125px">Action</th>
                 <?php } ?>
@@ -33,10 +36,8 @@
             <?php foreach($terms as $term) { ?>
               <tr id="employee-group-<?php echo $term->id; ?>">
                 <td><?php echo $term->name; ?></td>
-                <td><?php 
-                $term_types = unserialize( TERM_TYPES );
-                echo $term_types[$term->type]; 
-                ?></td>
+                <td><a href="<?php echo site_url("system_terms/filter/{$term->type}"); ?>"><?php echo $term_types[$term->type]; ?></a></td>
+                <td class="text-center"><?php echo $term->priority; ?></td>
               <?php if( hasAccess('system', 'terms', 'edit') ) { ?>
                 <td>
                 <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Group" data-url="<?php echo site_url("system_terms/edit/{$term->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>

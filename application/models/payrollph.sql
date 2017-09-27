@@ -521,6 +521,7 @@ CREATE TABLE `terms_list` (
   `notes` text,
   `type` varchar(50) DEFAULT NULL,
   `trash` int(1) DEFAULT '0',
+  `priority` int(3) DEFAULT '0',
   PRIMARY KEY (`id`)
 );
 

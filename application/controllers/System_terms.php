@@ -32,6 +32,28 @@ class System_terms extends MY_Controller {
 		$this->load->view('system/terms/terms_list', $this->template_data->get_data());
 	}
 
+	public function filter($type,$start=0) {
+		
+		$this->template_data->set('filter', $type);
+
+		$terms = new $this->Terms_list_model;
+		$terms->setType($type,true);
+		$terms->set_select("*");
+		$terms->set_order('name', 'ASC');
+		$terms->set_start($start);
+		$terms->setTrash('0',true);
+		$this->template_data->set('terms', $terms->populate());
+
+		$this->template_data->set('pagination', bootstrap_pagination(array(
+			'base_url' => base_url($this->config->item('index_page') . '/system_terms/filter/' . $type),
+			'total_rows' => $terms->count_all_results(),
+			'per_page' => $terms->get_limit(),
+			'ajax'=>true,
+		)));
+		
+		$this->load->view('system/terms/terms_list', $this->template_data->get_data());
+	}
+
 	public function add($output='') {
 
 		$this->_isAuth('system', 'terms', 'add');
@@ -45,6 +67,7 @@ class System_terms extends MY_Controller {
 				$terms->setName($this->input->post('term_name'));
 				$terms->setType($this->input->post('term_type'));
 				$terms->setNotes($this->input->post('notes'));
+				$terms->setPriority($this->input->post('priority'));
 				if( $terms->insert() ) {
 					redirect("system_terms");
 				}
@@ -71,6 +94,7 @@ class System_terms extends MY_Controller {
 					$terms->setName($this->input->post('term_name'), false, true);
 					$terms->setType($this->input->post('term_type'), false, true);
 					$terms->setNotes($this->input->post('notes'), false, true);
+					$terms->setPriority($this->input->post('priority'), false, true);
 					$terms->update();
 				}
 				$this->postNext();

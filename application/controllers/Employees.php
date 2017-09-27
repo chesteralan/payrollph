@@ -340,6 +340,7 @@ class Employees extends MY_Controller {
 
 		$terms = new $this->Terms_list_model;
 		$terms->set_select("*");
+		$terms->set_order('priority', 'ASC');
 		$terms->set_order('name', 'ASC');
 		$terms->set_start(0);
 		$terms->setTrash('0',true);

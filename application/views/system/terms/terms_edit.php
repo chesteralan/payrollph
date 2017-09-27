@@ -25,14 +25,28 @@
             <input name="term_name" type="text" class="form-control" value="<?php echo $term->name; ?>" REQUIRED>
           </div>
 
+<div class="row">
+  <div class="col-md-6">
           <div class="form-group">
             <label>Term Type</label>
-            <select class="form-control" title="Select a Type" name="term_type">
+            <select class="form-control" title="Select a Type" name="term_type" REQUIRED>
                 <?php foreach( unserialize( TERM_TYPES ) as $key=>$type) { ?>
-                  <option value="<?php echo $key; ?>" <?php echo ($term->type==$key) ? 'SELECTED' : ''; ?> REQUIRED><?php echo $type; ?></option>
+                  <option value="<?php echo $key; ?>" <?php echo ($term->type==$key) ? 'SELECTED' : ''; ?>><?php echo $type; ?></option>
                 <?php } ?>
             </select>
           </div>
+  </div>
+  <div class="col-md-6">
+          <div class="form-group">
+            <label>Priority</label>
+            <select class="form-control" title="Select a Priority" name="priority">
+                <?php for($i=0;$i<=99;$i++) { ?>
+                  <option value="<?php echo $i; ?>" <?php echo ($term->priority==$i) ? 'SELECTED' : ''; ?>><?php echo $i; ?></option>
+                <?php } ?>
+            </select>
+          </div>
+  </div>
+</div>
 
           <div class="form-group">
             <label>Notes</label>

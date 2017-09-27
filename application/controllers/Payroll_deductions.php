@@ -66,6 +66,7 @@ class Payroll_deductions extends MY_Controller {
 
 		$print_groups = new $this->Terms_list_model;
 		$print_groups->set_select("*");
+		$print_groups->set_order('priority', 'ASC');
 		$print_groups->set_order('name', 'ASC');
 		$print_groups->set_start(0);
 		$print_groups->setTrash('0',true);
@@ -206,6 +207,7 @@ class Payroll_deductions extends MY_Controller {
 
 		$print_groups = new $this->Terms_list_model;
 		$print_groups->set_select("*");
+		$print_groups->set_order('priority', 'ASC');
 		$print_groups->set_order('name', 'ASC');
 		$print_groups->set_start(0);
 		$print_groups->setTrash('0',true);
