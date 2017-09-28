@@ -183,7 +183,7 @@ class Employees extends MY_Controller {
 			if( $this->input->post() ) {
 				$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
 				$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
-				$this->form_validation->set_rules('middlename', 'Middle Name', 'trim|required');
+				$this->form_validation->set_rules('middlename', 'Middle Name', 'trim');
 				if( $this->form_validation->run() ) {
 					$employee = new $this->Employees_model;
 					$employee->setNameId($id);
@@ -195,10 +195,23 @@ class Employees extends MY_Controller {
 					$employee->setAreaId($this->input->post('area_id'));
 					$employee->setCompanyId($this->session->userdata('current_company_id'));
 					$employee->insert();
+
+					$info = new $this->Names_info_model;
+					$info->setNameId($id,true);
+					$info->setLastname($this->input->post('lastname'),false,true);
+					$info->setFirstname($this->input->post('firstname'),false,true);
+					$info->setMiddlename($this->input->post('middlename'),false,true);
+					if( $info->nonEmpty() ) {
+						$info->update();
+					} else {
+						$info->setNameId($id,true,true);
+						$info->insert();
+					}
 				}
 				$this->postNext();
 			}
 		}
+
 
 		$groups = new $this->Employees_groups_model;
 		$groups->setCompanyId($this->session->userdata('current_company_id'),true);

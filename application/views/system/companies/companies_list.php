@@ -25,7 +25,7 @@
                 <th>Address</th>
                 <th>Phone</th>
                 <?php if( hasAccess('system', 'companies', 'edit') ) { ?>
-                  <th width="200px">Action</th>
+                  <th width="150px">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -38,9 +38,17 @@
                 <td><?php echo $company->phone; ?></td>
               <?php if( hasAccess('system', 'companies', 'edit') ) { ?>
                 <td>
-                <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Company" data-url="<?php echo site_url("system_companies/edit/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
-
-                <button type="button" class="btn btn-primary btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Print CSS" data-url="<?php echo site_url("system_companies/print_css/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Print CSS</button>
+<div class="btn-group">
+  <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Company" data-url="<?php echo site_url("system_companies/edit/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
+  <button type="button" class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-right">
+    <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Print Group" data-url="<?php echo site_url("system_companies/print_group/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Print Group</a></li>
+    <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Print CSS" data-url="<?php echo site_url("system_companies/print_css/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Print CSS</a></li>
+  </ul>
+</div>
 
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("system_companies/delete/{$company->id}"); ?>" data-target="#employee-group-<?php echo $company->id; ?>">Delete</button>
                 </td>

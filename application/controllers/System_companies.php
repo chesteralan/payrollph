@@ -119,25 +119,52 @@ class System_companies extends MY_Controller {
 
 		$this->_isAuth('system', 'companies', 'edit');
 
-		$companies = new $this->Companies_options_model;
-		$companies->setCompanyId($id,true);
-		$companies->setKey('print_css',true);
+		$options = new $this->Companies_options_model;
+		$options->setCompanyId($id,true);
+		$options->setKey('print_css',true);
 
 		if( $this->input->post('print_css') ) { 
-			if( $companies->nonEmpty() ) {
-				$companies->setValue($this->input->post('print_css'),false,true);
-				$companies->update();
+			if( $options->nonEmpty() ) {
+				$options->setValue( serialize($this->input->post('print_css')), false,true);
+				$options->update();
 			} else {
-				$companies->setValue($this->input->post('print_css'));
-				$companies->insert();
+				$options->setValue( serialize($this->input->post('print_css')) );
+				$options->insert();
 			}
 			$this->postNext();
 		}
 
-		$companies->set_select("value");
-		$this->template_data->set('css', $companies->get());
+		$options->set_select("value");
+		$this->template_data->set('css', $options->get());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('system/companies/companies_print_css', $this->template_data->get_data());
 	}
+
+	public function print_group($id,$output='') {
+
+		$this->_isAuth('system', 'companies', 'edit');
+
+		$options = new $this->Companies_options_model;
+		$options->setCompanyId($id,true);
+		$options->setKey('print_group',true);
+
+		if( $this->input->post('print_css') ) { 
+			if( $options->nonEmpty() ) {
+				$options->setValue( serialize($this->input->post('print_group')), false,true);
+				$options->update();
+			} else {
+				$options->setValue( serialize($this->input->post('print_group')) );
+				$options->insert();
+			}
+			$this->postNext();
+		}
+
+		$options->set_select("value");
+		$this->template_data->set('print_group', $options->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('system/companies/companies_print_group', $this->template_data->get_data());
+	}
+
 }
