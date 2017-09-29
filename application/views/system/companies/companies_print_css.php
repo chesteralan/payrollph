@@ -23,7 +23,7 @@
 
           <div class="form-group">
             <label>CSS</label>
-            <textarea name="print_css" class="form-control" rows="15"><?php echo ( $css ) ? $css->value : ""; ?></textarea>
+            <textarea name="print_css" class="form-control" rows="15"><?php echo ( $css ) ? unserialize($css->value) : ""; ?></textarea>
           </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>

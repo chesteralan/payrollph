@@ -115,53 +115,55 @@ class System_companies extends MY_Controller {
 		$this->getNext("system_companies");
 	}
 
+	private function _save_option($id, $name) {
+
+		$options = new $this->Companies_options_model;
+		$options->setCompanyId($id,true);
+		$options->setKey($name,true);
+
+		if( $this->input->post($name) ) {
+			if( $options->nonEmpty() ) {
+				$options->setValue( serialize($this->input->post($name)), false,true);
+				$options->update();
+			} else {
+				$options->setValue( serialize($this->input->post($name)) );
+				$options->insert();
+			}
+		}
+
+		$options->set_select("value");
+		return $options->get();
+
+	}
+
 	public function print_css($id,$output='') {
 
 		$this->_isAuth('system', 'companies', 'edit');
 
-		$options = new $this->Companies_options_model;
-		$options->setCompanyId($id,true);
-		$options->setKey('print_css',true);
-
-		if( $this->input->post('print_css') ) { 
-			if( $options->nonEmpty() ) {
-				$options->setValue( serialize($this->input->post('print_css')), false,true);
-				$options->update();
-			} else {
-				$options->setValue( serialize($this->input->post('print_css')) );
-				$options->insert();
-			}
-			$this->postNext();
-		}
-
-		$options->set_select("value");
-		$this->template_data->set('css', $options->get());
+		$this->template_data->set('css', $this->_save_option($id, 'print_css'));
+		$this->postNext();
 
 		$this->template_data->set('output', $output);
 		$this->load->view('system/companies/companies_print_css', $this->template_data->get_data());
+
 	}
 
 	public function print_group($id,$output='') {
 
 		$this->_isAuth('system', 'companies', 'edit');
 
-		$options = new $this->Companies_options_model;
-		$options->setCompanyId($id,true);
-		$options->setKey('print_group',true);
-
-		if( $this->input->post('print_css') ) { 
-			if( $options->nonEmpty() ) {
-				$options->setValue( serialize($this->input->post('print_group')), false,true);
-				$options->update();
-			} else {
-				$options->setValue( serialize($this->input->post('print_group')) );
-				$options->insert();
-			}
-			$this->postNext();
-		}
-
-		$options->set_select("value");
-		$this->template_data->set('print_group', $options->get());
+		$this->template_data->set('option', $this->_save_option($id, 'print_group'));
+		$this->template_data->set('sort', $this->_save_option($id, 'print_group_sort'));
+		$this->postNext();
+		
+		$print_groups = new $this->Terms_list_model;
+		$print_groups->set_select("*");
+		$print_groups->set_order('priority', 'ASC');
+		$print_groups->set_order('name', 'ASC');
+		$print_groups->set_limit(0);
+		$print_groups->setTrash('0',true);
+		$print_groups->setType('print_group',true);
+		$this->template_data->set('print_groups', $print_groups->populate());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('system/companies/companies_print_group', $this->template_data->get_data());

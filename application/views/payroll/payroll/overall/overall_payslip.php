@@ -12,13 +12,14 @@
 
     <title><?php echo (isset($page_title)) ? $page_title : APP_NAME; ?></title>
     <link href="<?php echo base_url('assets/css/print.css'); ?>" rel="stylesheet">
-    <?php if( $print_css ) { ?>
-    <style>
-      <!--
-        <?php echo $print_css->value; ?>
-      -->
-    </style>
-    <?php } ?>
+<?php if( $print_css ) { ?>
+<style>
+<!--
+<?php echo unserialize($print_css->value); ?>
+
+-->
+</style>
+<?php } ?>
   </head>
   <body id="payslip" class="<?php echo (isset($paper_size)) ? $paper_size : ''; ?>">
 

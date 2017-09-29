@@ -26,13 +26,14 @@ function isColumn($ths, $column_id,$print_columns) {
 
     <title><?php echo (isset($page_title)) ? $page_title : APP_NAME; ?></title>
     <link href="<?php echo base_url('assets/css/print.css'); ?>" rel="stylesheet">
-    <?php if( $print_css ) { ?>
-    <style>
-      <!--
-        <?php echo $print_css->value; ?>
-      -->
-    </style>
-    <?php } ?>
+<?php if( $print_css ) { ?>
+<style>
+<!--
+<?php echo unserialize($print_css->value); ?>
+
+-->
+</style>
+<?php } ?>
   </head>
   <body id="payroll_print">
 
@@ -40,7 +41,19 @@ function isColumn($ths, $column_id,$print_columns) {
   <a href="<?php echo site_url("payroll_dtr/view/{$payroll->id}"); ?>">Back</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/payslip"); ?>">Payslip</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/{$output}/{$current_page}"); ?>">All</a>
-  <?php foreach($print_groups as $pg) { ?>
+  <?php 
+  $pg_option = unserialize( $print_group_option->value );
+  $pg_sort = array();
+  foreach($pg_option as $pgok => $pgov) {
+      $pg_sort[$pgov] = $pgok;
+  }
+
+  $pgs = array();
+  foreach($print_groups as $pg) {
+      $pgs[$pg_sort[$pg->id]] = $pg;
+  }
+  ksort($pgs);
+  foreach($pgs as $pg) { ?>
     &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$pg->id}/{$output}/{$current_page}"); ?>"><?php echo $pg->name; ?></a>
   <?php } ?>
    &middot; <a href="<?php echo site_url("payroll_overall/summary/{$payroll->id}"); ?>">Summary</a>

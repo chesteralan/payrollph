@@ -206,13 +206,20 @@ class Payroll extends MY_Controller {
 		$payroll->setId($id,true);
 		$this->template_data->set('payroll', $payroll->get());
 
+		$options = new $this->Companies_options_model;
+		$options->setCompanyId($this->session->userdata('current_company_id'),true);
+		$options->setKey('print_group',true);
+		$options_data = $options->get();
+		$this->template_data->set('print_group_option', $options_data);
+
 		$print_groups = new $this->Terms_list_model;
+		$print_groups->setTrash('0',true);
+		$print_groups->setType('print_group',true);
 		$print_groups->set_select("*");
 		$print_groups->set_order('priority', 'ASC');
 		$print_groups->set_order('name', 'ASC');
-		$print_groups->set_start(0);
-		$print_groups->setTrash('0',true);
-		$print_groups->setType('print_group',true);
+		$print_groups->set_limit(0);
+		$print_groups->set_where_in('id', unserialize($options_data->value));
 		$this->template_data->set('print_groups', $print_groups->populate());
 
 		$this->template_data->set('output', $output);
@@ -714,7 +721,7 @@ class Payroll extends MY_Controller {
 		$print_groups->set_select("*");
 		$print_groups->set_order('priority', 'ASC');
 		$print_groups->set_order('name', 'ASC');
-		$print_groups->set_start(0);
+		$print_groups->set_limit(0);
 		$print_groups->setTrash('0',true);
 		$print_groups->setType('print_group',true);
 		$this->template_data->set('print_groups', $print_groups->populate());

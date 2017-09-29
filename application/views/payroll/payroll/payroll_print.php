@@ -31,7 +31,20 @@
 
     <h4 class="list-group-item-heading">All Employees</h4>
   </li>
-  <?php foreach($print_groups as $group) { ?>
+  <?php 
+$pg_option = unserialize( $print_group_option->value );
+  $pg_sort = array();
+  foreach($pg_option as $pgok => $pgov) {
+      $pg_sort[$pgov] = $pgok;
+  }
+
+  $pgs = array();
+  foreach($print_groups as $pg) {
+      $pgs[$pg_sort[$pg->id]] = $pg;
+  }
+  ksort($pgs);
+  foreach($pgs as $group) { 
+?>
   <li class="list-group-item">
 
       <a class="pull-right" href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$group->id}/denomination"); ?>" style="margin-left:10px"><span class="fa fa-money"></span></a>
