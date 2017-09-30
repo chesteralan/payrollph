@@ -34,7 +34,7 @@ class Payroll_dtr extends MY_Controller {
 		$print_groups->set_select("*");
 		$print_groups->set_order('priority', 'ASC');
 		$print_groups->set_order('name', 'ASC');
-		$print_groups->set_start(0);
+		$print_groups->set_limit(0);
 		$print_groups->setTrash('0',true);
 		$print_groups->setType('print_group',true);
 		$this->template_data->set('print_groups', $print_groups->populate());
@@ -139,7 +139,7 @@ public function leave_benefits($id,$group_id=0,$output='') {
 		$print_groups->set_select("*");
 		$print_groups->set_order('priority', 'ASC');
 		$print_groups->set_order('name', 'ASC');
-		$print_groups->set_start(0);
+		$print_groups->set_limit(0);
 		$print_groups->setTrash('0',true);
 		$print_groups->setType('print_group',true);
 		$this->template_data->set('print_groups', $print_groups->populate());
