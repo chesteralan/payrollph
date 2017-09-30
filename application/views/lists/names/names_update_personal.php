@@ -21,20 +21,51 @@
 
 <?php endif; ?>
 
+
+<div class="row">
+  <div class="col-md-6">
+
           <div class="form-group">
             <label>Last Name</label>
             <input name="lastname" type="text" class="form-control" value="<?php echo ($info) ? $info->lastname : ''; ?>">
           </div>
 
+  </div>
+  <div class="col-md-6">
+    
           <div class="form-group">
             <label>First Name</label>
             <input name="firstname" type="text" class="form-control" value="<?php echo ($info) ? $info->firstname : ''; ?>">
           </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6">
 
           <div class="form-group">
             <label>Middle Name</label>
             <input name="middlename" type="text" class="form-control" value="<?php echo ($info) ? $info->middlename : ''; ?>">
           </div>
+
+  </div>
+  <div class="col-md-3">
+
+          <div class="form-group">
+            <label>Prefix</label>
+            <input name="prefix" type="text" class="form-control" value="<?php echo ($info) ? $info->prefix : ''; ?>">
+          </div>
+
+  </div>
+  <div class="col-md-3">
+    
+          <div class="form-group">
+            <label>Suffix</label>
+            <input name="suffix" type="text" class="form-control" value="<?php echo ($info) ? $info->suffix : ''; ?>">
+          </div>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-md-6">

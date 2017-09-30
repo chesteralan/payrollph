@@ -275,6 +275,8 @@ class Lists_names extends MY_Controller {
 				$info->setBirthplace($this->input->post('birthplace'),false,true);
 				$info->setGender($this->input->post('gender'),false,true);
 				$info->setCivilStatus($this->input->post('civil_status'),false,true);
+				$info->setPrefix($this->input->post('prefix'),false,true);
+				$info->setSuffix($this->input->post('suffix'),false,true);
 				if( $info->nonEmpty() ) {
 					$info->update();
 				} else {

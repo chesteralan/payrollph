@@ -14,6 +14,8 @@ CREATE TABLE `names_info` (
   `birthplace` varchar(50) DEFAULT NULL,
   `gender` varchar(50) DEFAULT NULL,
   `civil_status` varchar(50) DEFAULT NULL,
+  `prefix` varchar(50) DEFAULT NULL,
+  `suffix` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`name_id`),
   KEY `name_id` (`name_id`)
 );
@@ -26,6 +28,8 @@ CREATE TABLE `names_info` (
  ALTER TABLE  `names_info` ADD  `birthplace` varchar(50) NULL   ;
  ALTER TABLE  `names_info` ADD  `gender` varchar(50) NULL   ;
  ALTER TABLE  `names_info` ADD  `civil_status` varchar(50) NULL   ;
+ ALTER TABLE  `names_info` ADD  `prefix` varchar(50) NULL   ;
+ ALTER TABLE  `names_info` ADD  `suffix` varchar(50) NULL   ;
 
 
  * @package			        Model
@@ -47,6 +51,8 @@ class Names_info_model extends MY_Model {
 	protected $birthplace;
 	protected $gender;
 	protected $civil_status;
+	protected $prefix;
+	protected $suffix;
 
 	// --------------------------------------------------------------------
 
@@ -60,7 +66,7 @@ class Names_info_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'names_info';
 		$this->_short_name = 'names_info';
-		$this->_fields = array("name_id","lastname","firstname","middlename","birthday","birthplace","gender","civil_status");
+		$this->_fields = array("name_id","lastname","firstname","middlename","birthday","birthplace","gender","civil_status","prefix","suffix");
 		$this->_required = array("lastname","firstname");
 		parent::__construct($short_name, $db_config);
 	}
@@ -250,6 +256,52 @@ class Names_info_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: civil_status --------------------------------------
+
+
+// ---------------------------- Start Field: prefix -------------------------------------- 
+
+	/** 
+	* Sets a value to `prefix` variable
+	* @access public
+	*/
+
+		public function setPrefix($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('prefix', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `prefix` variable
+	* @access public
+	*/
+
+		public function getPrefix() {
+			return $this->prefix;
+		}
+	
+// ------------------------------ End Field: prefix --------------------------------------
+
+
+// ---------------------------- Start Field: suffix -------------------------------------- 
+
+	/** 
+	* Sets a value to `suffix` variable
+	* @access public
+	*/
+
+		public function setSuffix($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('suffix', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `suffix` variable
+	* @access public
+	*/
+
+		public function getSuffix() {
+			return $this->suffix;
+		}
+	
+// ------------------------------ End Field: suffix --------------------------------------
 
 
 
