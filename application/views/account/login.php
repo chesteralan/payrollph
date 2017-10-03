@@ -13,6 +13,8 @@ if( is_view_exists("account/login_override") ) {
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <meta name="page_name" content="login_page">
+
     <title><?php echo (isset($page_title)) ? $page_title : APP_NAME; ?></title>
     <link href="<?php echo base_url('assets/themes/'.$bootstrap_theme.'/bootstrap.min.css'); ?>" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

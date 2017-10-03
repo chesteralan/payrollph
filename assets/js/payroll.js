@@ -222,16 +222,20 @@ var navbar_search_employee = function() {
                   uri_string : window.uri_string,
                 },
                 success: function( data ) {
-                    divBody.slideUp( function(){
-                      $(this).html( data );
-                      $(this).slideDown(function(){
-                        loadingDiv.remove();
-                        window.history.replaceState('Object', $(document).prop('title'), ui.item.redirect);
-                        window['uri_string'] = ui.item.redirect;
-                        $('.autocomplete-search_employee').val('');
-                        init_coop();
-                      });
-                    });
+                	if( data.search('login_page') >= 0 ) {
+                		window.location.href = window.base_url;
+                	} else {
+	                    divBody.slideUp( function(){
+	                      $(this).html( data );
+	                      $(this).slideDown(function(){
+	                        loadingDiv.remove();
+	                        window.history.replaceState('Object', $(document).prop('title'), ui.item.redirect);
+	                        window['uri_string'] = ui.item.redirect;
+	                        $('.autocomplete-search_employee').val('');
+	                        init_coop();
+	                      });
+	                    });
+	                }
                 }
               }); // $.ajax()
           
@@ -457,16 +461,20 @@ var bodyWrapper = function() {
                   output: 'body_wrapper',
                 },
                 success: function( data ) {
-                    divBody.slideUp( function(){
-                      $(this).html( data );
-                      $(this).slideDown(function(){
-                        loadingDiv.remove();
-                        window.history.replaceState('Object', $(document).prop('title'), ajax_url);
-                        window['uri_string'] = ajax_url;
-                        $('.autocomplete-member_change').attr('data-current_sub_uri', ajax_url);
-                        init_coop();
-                      });
-                    });
+                	if( data.search('login_page') >= 0 ) {
+                		window.location.href = window.base_url;
+                	} else {
+	                    divBody.slideUp( function(){
+	                      $(this).html( data );
+	                      $(this).slideDown(function(){
+	                        loadingDiv.remove();
+	                        window.history.replaceState('Object', $(document).prop('title'), ajax_url);
+	                        window['uri_string'] = ajax_url;
+	                        $('.autocomplete-member_change').attr('data-current_sub_uri', ajax_url);
+	                        init_coop();
+	                      });
+	                    });
+               	 	}
                 }
               }).done(function(){
                 NProgress.done();  
@@ -607,12 +615,15 @@ $('.ajax-modal-inner').each(function(){
         method : 'GET',
         dataType : 'html'
       }).success(function(html){
-        console.log( html );
-        $('#ajaxModal .loader').slideUp('slow', function(){
-          $('#ajaxModal .output').css('display', 'none').html( html ).slideDown('slow', function(){
-            loadLib();
-          });
-        });
+      	if( html.search('login_page') >= 0 ) {
+    		window.location.href = window.base_url;
+    	} else {
+	        $('#ajaxModal .loader').slideUp('slow', function(){
+	          $('#ajaxModal .output').css('display', 'none').html( html ).slideDown('slow', function(){
+	            loadLib();
+	          });
+	        });
+        }
       });
 
   });
@@ -623,6 +634,14 @@ $('.ajax-modal-inner').each(function(){
 var ajaxModalUrl = null;
 var setupAjaxModal = function(){
     $('.ajax-modal').click(function(){
+
+    var modal_size = $(this).attr('data-modal_size');
+    if( modal_size == 'large' ) {
+    	$('#ajaxModal .modal-dialog').css('width', '90%');
+    } else {
+    	$('#ajaxModal .modal-dialog').css('width', '600px');
+    }
+    
     $('#ajaxModal .modal-title').text( $(this).attr('data-title') );
     var button_title = $(this).attr('data-button_title');
     if( button_title !== undefined ) {
@@ -661,12 +680,15 @@ var loadAjaxModal = function() {
         method : 'GET',
         dataType : 'html'
       }).success(function(html){
-        console.log( html );
-        $('#ajaxModal .loader').slideUp('slow', function(){
-          $('#ajaxModal .output').css('display', 'none').html( html ).slideDown('slow', function(){
-            loadLib();
-          });
-        });
+      	if( html.search('login_page') >= 0 ) {
+    		window.location.href = window.base_url;
+    	} else {
+	        $('#ajaxModal .loader').slideUp('slow', function(){
+	          $('#ajaxModal .output').css('display', 'none').html( html ).slideDown('slow', function(){
+	            loadLib();
+	          });
+	        });
+	    }
   });
 
   }).on('hidden.bs.modal', function (e) {
@@ -867,17 +889,21 @@ var lending_schedule_details = function() {
                   output: 'inner_page',
                 },
                 success: function( data ) {
-                    divBody.slideUp( function(){
-                      $(this).html( data );
-                      panelHeight();
-                      $(this).slideDown(function(){
-                        loadingDiv.remove();
-                        window.history.replaceState('Object', $(document).prop('title'), ajax_url);
-                        window['uri_string'] = ajax_url;
-                        $('.autocomplete-member_change').attr('data-current_sub_uri', ajax_url);
-                        init_coop();
-                      });
-                    });
+                	if( data.search('login_page') >= 0 ) {
+                		window.location.href = window.base_url;
+                	} else {
+	                    divBody.slideUp( function(){
+	                      $(this).html( data );
+	                      panelHeight();
+	                      $(this).slideDown(function(){
+	                        loadingDiv.remove();
+	                        window.history.replaceState('Object', $(document).prop('title'), ajax_url);
+	                        window['uri_string'] = ajax_url;
+	                        $('.autocomplete-member_change').attr('data-current_sub_uri', ajax_url);
+	                        init_coop();
+	                      });
+	                    });
+                	}
                 }
               }); // $.ajax()
               NProgress.done();

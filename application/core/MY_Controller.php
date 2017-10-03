@@ -16,9 +16,15 @@ class Login_Controller extends CI_Controller {
             if( $this->input->post('output') == 'inner_page') {
                 $this->template_data->set('inner_page', true);
             }
+            if( $this->input->get('output') == 'inner_page') {
+                $this->template_data->set('inner_page', true);
+            }
 
             $this->template_data->set('body_wrapper', false);
             if( $this->input->post('output') == 'body_wrapper') {
+                $this->template_data->set('body_wrapper', true);
+            }
+            if( $this->input->get('output') == 'body_wrapper') {
                 $this->template_data->set('body_wrapper', true);
             }
 
