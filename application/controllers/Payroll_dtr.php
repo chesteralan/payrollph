@@ -17,6 +17,38 @@ class Payroll_dtr extends MY_Controller {
 		redirect("payroll");
 	}
 	
+	private function _next($id, $url='payroll_dtr/view/') {
+		$payroll = new $this->Payroll_model('p');
+		$payroll->setActive(1, true);
+		$payroll->setCompanyId($this->session->userdata('current_company_id'),true);
+			$where = new $this->Payroll_model('w');
+			$where->set_select('MIN(w.id)');
+			$where->set_where("w.id > " . $id);
+			$where->setCompanyId($this->session->userdata('current_company_id'),true);
+			$where->set_limit(1);
+		$payroll->set_limit(1);
+		$payroll->set_select("p.id");
+		$payroll->set_select("CONCAT('{$url}',p.id) as url");
+		$payroll->set_where('id = ('. $where->get_compiled_select() . ')');
+		return $payroll->get();
+	}
+
+	private function _previous($id, $url='payroll_dtr/view/') {
+		$payroll = new $this->Payroll_model('p');
+		$payroll->setActive(1, true);
+		$payroll->setCompanyId($this->session->userdata('current_company_id'),true);
+			$where = new $this->Payroll_model('w');
+			$where->set_select('MAX(w.id)');
+			$where->set_where("w.id < " . $id);
+			$where->setCompanyId($this->session->userdata('current_company_id'),true);
+			$where->set_limit(1);
+		$payroll->set_limit(1);
+		$payroll->set_select("p.id");
+		$payroll->set_select("CONCAT('{$url}',p.id) as url");
+		$payroll->set_where('id = ('. $where->get_compiled_select() . ')');
+		return $payroll->get();
+	}
+
 	public function view($id,$group_id=0,$output='') {
 
 		$this->template_data->set('group_id', $group_id);
@@ -96,6 +128,7 @@ class Payroll_dtr extends MY_Controller {
 			$employees_data = $employees->populate(); 
 			$payroll_group_data[$key]->employees = $employees_data;
 		}
+
 		$this->template_data->set('payroll_groups', $payroll_group_data);
 
 		$employees_status = new $this->Payroll_employees_model('pe');
@@ -108,6 +141,9 @@ class Payroll_dtr extends MY_Controller {
 		$employees_status->set_where('e.status IS NOT NULL');
 		$employees_status->set_order('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status)', 'ASC');
 		$this->template_data->set('employees_status', $employees_status->populate());
+
+		$this->template_data->set('next_item', $this->_next($id));
+		$this->template_data->set('previous_item', $this->_previous($id));
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/dtr/dtr_view', $this->template_data->get_data());

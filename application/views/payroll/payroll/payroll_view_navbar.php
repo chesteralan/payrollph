@@ -53,6 +53,17 @@ $current_employee = $this->session->userdata('current_employee');
 <?php } ?>
 <?php } ?>
 
+<?php if(isset($previous_item) && ($previous_item)) { ?>
+<li>
+    <a href="<?php echo site_url($previous_item->url); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></span></a>
+</li>
+<?php } ?>
+<?php if(isset($next_item) && ($next_item)) { ?>
+<li>
+    <a href="<?php echo site_url($next_item->url); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-right"></span></a>
+</li>
+<?php } ?>
+
       </ul>
 
       <ul class="nav navbar-nav navbar-right">

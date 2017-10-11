@@ -4,7 +4,7 @@
 
 <?php $this->load->view('header'); ?>
 
-<?php $this->load->view('system/system_navbar'); ?>
+<?php $this->load->view('lists/lists_navbar');  ?>
 
 <div class="container">
 <div class="row">

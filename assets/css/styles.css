@@ -372,7 +372,7 @@ td.calendar-day .date_checkbox {
   position: relative;
 }
 .nprogress-custom-parent #nprogress .spinner, .nprogress-custom-parent #nprogress .bar {
-  position: absolute;
+  	position: absolute;
 }
 @-webkit-keyframes nprogress-spinner {
   0% {
@@ -392,7 +392,6 @@ td.calendar-day .date_checkbox {
 }
 
 /* *********  end nprogress  **************************** */
-
 .stickynav1.navbar-fixed-top {
 	top: 50px;
 	z-index: 999;
@@ -485,4 +484,28 @@ body.theme-yeti {
 body.theme-yeti .stickynav1.navbar-fixed-top {
 	top: 45px;
 	z-index: 1001;
+}
+
+.item_nav {
+	position: absolute;
+	border:1px solid #000;
+	top:50%;
+	background-color: #CCC;
+	border-radius: 5px;
+	font-size: 20px;
+}
+.item_nav a {	
+	padding:10px;
+}
+.item_nav.next {
+	top:45%;
+}
+.item_nav.next:hover {
+
+}
+.item_nav.previous {
+	left:-25px;
+}
+.item_nav.previous:hover {
+
 }

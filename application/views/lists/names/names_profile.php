@@ -372,10 +372,14 @@ foreach($modules as $i=>$content) { ?>
 <?php } ?>
 
 </div>
+
 <?php if( ! $inner_page ): ?>
 
             </div>
     </div>
 </div>
 <?php endif; ?>
+
+
+
 <?php $this->load->view('footer'); ?>

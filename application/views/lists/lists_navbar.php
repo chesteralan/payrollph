@@ -14,11 +14,22 @@
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-<?php if(isset($name) && ($name)) { ?>
       <ul class="nav navbar-nav">
-        <li><a href="#ajaxModal"><span class="glyphicon glyphicon-print"></span></a></li>
-      </ul>
+        <?php if(isset($name) && ($name)) { ?>
+          <li><a href="#ajaxModal"><span class="glyphicon glyphicon-print"></span></a></li>
+        <?php } ?>
+<?php if(isset($previous_item) && ($previous_item)) { ?>
+<li>
+    <a href="<?php echo site_url($previous_item->url); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></span></a>
+</li>
 <?php } ?>
+<?php if(isset($next_item) && ($next_item)) { ?>
+<li>
+    <a href="<?php echo site_url($next_item->url); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-right"></span></a>
+</li>
+<?php } ?>
+      </ul>
+
 <?php if(isset($navbar_search) && ($navbar_search==true)) { ?>
       <form class="navbar-form navbar-left" role="search" method="get">
         <div class="input-group">
