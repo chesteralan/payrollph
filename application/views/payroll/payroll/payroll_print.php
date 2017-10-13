@@ -32,7 +32,9 @@
     <h4 class="list-group-item-heading">All Employees</h4>
   </li>
   <?php 
-$pg_option = unserialize( $print_group_option->value );
+$pg_option = (isset($print_group_option) && ($print_group_option)) ? unserialize( $print_group_option->value ) : false;
+if( $pg_option ) {
+
   $pg_sort = array();
   foreach($pg_option as $pgok => $pgov) {
       $pg_sort[$pgov] = $pgok;
@@ -56,6 +58,7 @@ $pg_option = unserialize( $print_group_option->value );
 
     <h4 class="list-group-item-heading"><?php echo $group->name; ?></h4>
   </li>
+  <?php } ?>
   <?php } ?>
 </ul>
 

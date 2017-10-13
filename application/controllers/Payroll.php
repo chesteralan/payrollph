@@ -212,15 +212,17 @@ class Payroll extends MY_Controller {
 		$options_data = $options->get();
 		$this->template_data->set('print_group_option', $options_data);
 
-		$print_groups = new $this->Terms_list_model;
-		$print_groups->setTrash('0',true);
-		$print_groups->setType('print_group',true);
-		$print_groups->set_select("*");
-		$print_groups->set_order('priority', 'ASC');
-		$print_groups->set_order('name', 'ASC');
-		$print_groups->set_limit(0);
-		$print_groups->set_where_in('id', unserialize($options_data->value));
-		$this->template_data->set('print_groups', $print_groups->populate());
+		if( $options_data ) {
+			$print_groups = new $this->Terms_list_model;
+			$print_groups->setTrash('0',true);
+			$print_groups->setType('print_group',true);
+			$print_groups->set_select("*");
+			$print_groups->set_order('priority', 'ASC');
+			$print_groups->set_order('name', 'ASC');
+			$print_groups->set_limit(0);
+			$print_groups->set_where_in('id', unserialize($options_data->value));
+			$this->template_data->set('print_groups', $print_groups->populate());
+		}
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/payroll_print', $this->template_data->get_data());

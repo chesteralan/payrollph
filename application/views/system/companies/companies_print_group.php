@@ -21,24 +21,29 @@
 
 <?php endif; ?>
 
-<?php if( $print_groups ) { 
-  $selected = unserialize($option->value); 
-  $sort = unserialize($sort->value); 
-  $si = 0;
-  foreach($sort as $sk=>$sv) {
-      $sort[$sk] = $si++;
-  }  
+<?php if( (isset($print_groups)) && ($print_groups) ) {
 
-  $pgs = array();
-  foreach($print_groups as $pg) {
-    $pgs[$sort[$pg->id]] = $pg;
+  $selected = ($option) ? unserialize($option->value) : array(); 
+  $sort = ($sort) ? unserialize($sort->value) : false;
+
+  if( $sort ) {
+    $si = 0;
+    foreach($sort as $sk=>$sv) {
+        $sort[$sk] = $si++;
+    }  
+
+    $pgs = array();
+    foreach($print_groups as $pg) {
+      $pgs[$sort[$pg->id]] = $pg;
+    }
+    ksort($pgs);
+    $print_groups = $pgs;
   }
-  ksort($pgs);
 ?>
 <div class="list-group sortable">
     <?php 
 $i = 0;
-    foreach($pgs as $pg) { ?>
+    foreach($print_groups as $pg) { ?>
     <div class="list-group-item">
 <input type="hidden" name="print_group_sort[<?php echo $pg->id; ?>]" value="1">
       <label><input type="checkbox" name="print_group[]" value="<?php echo $pg->id; ?>"<?php echo (in_array($pg->id, $selected)) ? ' CHECKED' : ''; ?>> <?php echo $pg->name; ?></label></div>

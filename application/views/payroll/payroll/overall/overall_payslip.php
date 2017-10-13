@@ -26,12 +26,12 @@
 <div class="print-topnav hide-print text-center allcaps">
   <a href="<?php echo site_url("payroll_dtr/view/{$payroll->id}"); ?>">Back</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}"); ?>">Print</a>
-  <?php foreach($print_groups as $pg) { ?>
+  <?php if( (isset($print_groups)) && ($print_groups)) foreach($print_groups as $pg) { ?>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$pg->id}/payslip"); ?>"><?php echo $pg->name; ?></a>
   <?php } ?>
 </div>
 
-<?php if( $payroll_groups ) { 
+<?php if( (isset($payroll_groups)) && ($payroll_groups ) ) { 
 
 $box_count = 0;
   ?>
