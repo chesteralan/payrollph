@@ -337,8 +337,10 @@ class MY_Model extends CI_Model
         if( $this->_cache_on ) {
             $this->_db->cache_off();
         }
-            
-        $this->_results = $query->result();
+        
+        if( ($query) && (isset($query->result())) ) {
+            $this->_results = $query->result();
+        }
         
         return $this->_results;
     }
