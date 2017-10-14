@@ -32,7 +32,7 @@ CREATE TABLE `payroll_employees_deductions` (
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG)
+ * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
  */
  
 class Payroll_employees_deductions_model extends MY_Model {

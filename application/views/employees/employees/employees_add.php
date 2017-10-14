@@ -15,29 +15,16 @@
           <h3 class="panel-title">Add Employee</h3>
         </div>
         <form method="post">
+          
         <div class="panel-body">
   <?php echo (validation_errors()) ? '<div class="alert alert-danger">' . validation_errors() . '</div>' : ''; ?>
 <?php endif; ?>
-          
+          <input type="hidden" name="action" value="add">
           <div class="form-group">
             <span><strong>Full Name:</strong> <?php echo $name->full_name; ?></span>
           </div>
 
-          <div class="form-group">
-            <label>Last Name</label>
-            <input name="lastname" type="text" class="form-control" value="<?php echo $this->input->post('lastname'); ?>">
-          </div>
-
-          <div class="form-group">
-            <label>First Name</label>
-            <input name="firstname" type="text" class="form-control" value="<?php echo $this->input->post('firstname'); ?>">
-          </div>
-
-          <div class="form-group">
-            <label>Middle Name</label>
-            <input name="middlename" type="text" class="form-control" value="<?php echo $this->input->post('middlename'); ?>">
-          </div>
-
+<?php if ( $groups ) { ?>
           <div class="form-group">
             <label>Group</label>
             <select class="form-control" title="Select a Group" name="group_id">
@@ -46,7 +33,8 @@
               <?php } ?>
             </select>
           </div>
-
+<?php } ?>
+<?php if( $positions ) { ?>
           <div class="form-group">
             <label>Position</label>
             <select class="form-control" title="Select a Position" name="position_id">
@@ -55,7 +43,8 @@
               <?php } ?>
             </select>
           </div>
-
+<?php } ?>
+<?php if( $areas ) { ?>
           <div class="form-group">
             <label>Area</label>
             <select class="form-control" title="Select an Area" name="area_id">
@@ -64,6 +53,7 @@
               <?php } ?>
             </select>
           </div>
+<?php } ?>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>

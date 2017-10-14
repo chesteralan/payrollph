@@ -25,7 +25,7 @@ CREATE TABLE `account_sessions` (
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG)
+ * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
  */
  
 class Account_sessions_model extends MY_Model {

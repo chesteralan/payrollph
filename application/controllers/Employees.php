@@ -177,37 +177,19 @@ class Employees extends MY_Controller {
 		$names = new $this->Names_list_model;
 		$names->setId($id, true);
 		$names->setTrash(0,true);
+		$names->set_join('names_info', 'names_info.name_id=names_list.id');
 		$this->template_data->set('name', $names->get());
 
 		if( $names->nonEmpty() ) {
-			if( $this->input->post() ) {
-				$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
-				$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
-				$this->form_validation->set_rules('middlename', 'Middle Name', 'trim');
-				if( $this->form_validation->run() ) {
-					$employee = new $this->Employees_model;
-					$employee->setNameId($id);
-					$employee->setLastname($this->input->post('lastname'));
-					$employee->setFirstname($this->input->post('firstname'));
-					$employee->setMiddlename($this->input->post('middlename'));
-					$employee->setGroupId($this->input->post('group_id'));
-					$employee->setPositionId($this->input->post('position_id'));
-					$employee->setAreaId($this->input->post('area_id'));
-					$employee->setCompanyId($this->session->userdata('current_company_id'));
-					$employee->insert();
-
-					$info = new $this->Names_info_model;
-					$info->setNameId($id,true);
-					$info->setLastname($this->input->post('lastname'),false,true);
-					$info->setFirstname($this->input->post('firstname'),false,true);
-					$info->setMiddlename($this->input->post('middlename'),false,true);
-					if( $info->nonEmpty() ) {
-						$info->update();
-					} else {
-						$info->setNameId($id,true,true);
-						$info->insert();
-					}
-				}
+			if( $this->input->post('action') == 'add' ) {
+				$employee = new $this->Employees_model;
+				$employee->setNameId($id);
+				$employee->setGroupId($this->input->post('group_id'));
+				$employee->setPositionId($this->input->post('position_id'));
+				$employee->setAreaId($this->input->post('area_id'));
+				$employee->setCompanyId($this->session->userdata('current_company_id'));
+				$employee->setTrash(0);
+				$employee->insert();
 				$this->postNext();
 			}
 		}
@@ -244,7 +226,8 @@ class Employees extends MY_Controller {
 		$names->set_limit(5);
 		$names->setTrash(0,true);
 		$names->set_order('names_list.full_name', 'ASC');
-		$names->set_where('(SELECT COUNT(*) FROM `employees` WHERE name_id=names_list.id) = 0');
+		$names->set_where('((SELECT COUNT(*) FROM `employees` WHERE name_id=names_list.id) = 0)');
+		$names->set_where('((SELECT COUNT(*) FROM `names_info` WHERE name_id=names_list.id) = 1)');
 		$this->template_data->set('names', $names->populate());
 		
 		$this->template_data->set('pagination', bootstrap_pagination(array(

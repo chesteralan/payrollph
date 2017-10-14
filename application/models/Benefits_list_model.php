@@ -33,7 +33,7 @@ CREATE TABLE `benefits_list` (
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG)
+ * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
  */
  
 class Benefits_list_model extends MY_Model {

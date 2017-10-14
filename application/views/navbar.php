@@ -28,46 +28,12 @@ if( $this->session->userdata( 'current_company' ) ) {
       'title' => 'Payroll',
       'uri' => 'payroll',
       'permission' => 'payroll',
-      'sub_menus' => array(
-          'payroll_payroll' => array(
-            'title' => 'Payroll',
-            'uri' => 'payroll',
-            'permission' => 'payroll',
-          ),
-          'payroll_templates' => array(
-            'title' => 'Templates',
-            'uri' => 'payroll_templates',
-            'permission' => 'templates',
-          ),
-        )
     );
 
     $main_menu['employees'] = array(
       'title' => 'Employees',
       'uri' => 'employees',
       'permission' => 'employees',
-      'sub_menus' => array(
-          'employees_employees' => array(
-            'title' => 'Employees',
-            'uri' => 'employees',
-            'permission' => 'employees',
-          ),
-          'employees_groups' => array(
-            'title' => 'Groups',
-            'uri' => 'employees_groups',
-            'permission' => 'groups',
-          ),
-          'employees_positions' => array(
-            'title' => 'Positions',
-            'uri' => 'employees_positions',
-            'permission' => 'positions',
-          ),
-          'employees_areas' => array(
-            'title' => 'Areas',
-            'uri' => 'employees_areas',
-            'permission' => 'areas',
-          ),
-        )
     );
 
 }
@@ -80,23 +46,60 @@ if( $this->session->userdata( 'current_company' ) ) {
           'lists_names' => array(
             'title' => 'Names',
             'uri' => 'lists_names',
-            'permission' => 'names',
+            'permission' => array('lists','names'),
           ),
+
+          'sep1' => array(
+            'header' => true,
+            'title' => 'Employees',
+            'separator'=>true,
+          ),
+
+          'employees_groups' => array(
+            'title' => 'Groups',
+            'uri' => 'employees_groups',
+            'permission' => array('employees','groups'),
+          ),
+          'employees_positions' => array(
+            'title' => 'Positions',
+            'uri' => 'employees_positions',
+            'permission' => array('employees','positions'),
+          ),
+
+          'employees_areas' => array(
+            'title' => 'Areas',
+            'uri' => 'employees_areas',
+            'permission' => array('employees','areas'),
+          ),
+
+          'sep2' => array(
+            'header' => true,
+            'title' => 'Payroll',
+            'separator'=>true,
+          ),
+
+          'payroll_templates' => array(
+            'title' => 'Templates',
+            'uri' => 'payroll_templates',
+            'permission' => array('payroll','templates'),
+          ),
+
           'lists_earnings' => array(
             'title' => 'Earnings',
             'uri' => 'lists_earnings',
-            'permission' => 'earnings',
+            'permission' => array('lists','earnings'),
           ),
           'lists_benefits' => array(
             'title' => 'Benefits',
             'uri' => 'lists_benefits',
-            'permission' => 'benefits',
+            'permission' => array('lists','benefits'),
           ),
           'lists_deductions' => array(
             'title' => 'Deductions',
             'uri' => 'lists_deductions',
-            'permission' => 'deductions',
+            'permission' => array('lists','deductions'),
           ),
+
         )
     );
 
@@ -104,24 +107,24 @@ if( $this->config->item('multi_company') ) {
     $system_submenus['system_companies'] = array(
             'title' => 'Companies',
             'uri' => 'system_companies',
-            'permission' => 'companies',
+            'permission' => array('system', 'companies'),
           );
 }
     $system_submenus['system_terms'] = array(
             'title' => 'Terminologies',
             'uri' => 'system_terms',
-            'permission' => 'terms',
+            'permission' => array('system', 'terms'),
           );
 
     $system_submenus['system_users'] = array(
             'title' => 'User Accounts',
             'uri' => 'system_users',
-            'permission' => 'users',
+            'permission' => array('system', 'users'),
           );
     $system_submenus['system_backup'] = array(
             'title' => 'Database Backup',
             'uri' => 'system_backup',
-            'permission' => 'backup',
+            'permission' => array('system', 'backup'),
         );
 
     $main_menu['system'] = array(
@@ -141,16 +144,10 @@ foreach($main_menu as $main=>$menu):
   }
 ?>
           <li class="dropdown">
+            <?php if( isset( $menu['sub_menus'] ) ) { ?>
               <a href="#<?php echo $menu['uri']; ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $menu['title']; ?> <span class="caret hidden-xs"></span></a>
                   <ul class="dropdown-menu">
-                  <?php foreach($menu['sub_menus'] as $sub=>$sub_menu): 
-                    if( ! isset( $sub_menu['permission'] ) ) {
-                      continue;
-                    }
-                    if( ($sub_menu['permission']) && (! in_array($sub_menu['permission'], $this->session->menu_module[$menu['permission']] ) ) ) {
-                      continue;
-                    }
-                  ?>
+                  <?php foreach($menu['sub_menus'] as $sub=>$sub_menu): ?>
                     <?php if( isset($sub_menu['header']) && ($sub_menu['header']) ) { ?>
                         <?php if( isset($sub_menu['separator']) && ($sub_menu['separator']) ) { ?>
                           <li role="separator" class="divider"></li>
@@ -158,11 +155,24 @@ foreach($main_menu as $main=>$menu):
                         <?php if( isset($sub_menu['title']) && ($sub_menu['title'] != '') ) { ?>
                           <span class="dropdown-header"><?php echo $sub_menu['title']; ?></span>
                         <?php } ?>
-                    <?php } else { ?>
-                    <li><a class="body_wrapper" href="<?php echo site_url($sub_menu['uri']); ?>"><?php echo $sub_menu['title']; ?></a></li>
+                    <?php } else { 
+
+                    if( ! isset( $sub_menu['permission'] ) ) {
+                      continue;
+                    }
+
+                    if( ($sub_menu['permission']) && (! in_array($sub_menu['permission'][1], $this->session->menu_module[$sub_menu['permission'][0]] ) ) ) {
+                      continue;
+                    }
+
+                      ?>
+                      <li><a class="body_wrapper" href="<?php echo site_url($sub_menu['uri']); ?>"><?php echo $sub_menu['title']; ?></a></li>
                     <?php } ?>
                   <?php endforeach; ?>
                   </ul>
+            <?php } else { ?>
+            <a class="body_wrapper" href="<?php echo site_url($menu['uri']); ?>"><?php echo $menu['title']; ?></a>
+            <?php } ?>
           </li>
 <?php endforeach; ?>
 
