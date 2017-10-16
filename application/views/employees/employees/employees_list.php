@@ -55,6 +55,7 @@
                 <?php if( !isset($group) ) { ?>
                   <th>Group</th>
                 <?php } ?>
+<?php /*
                 <?php if( !isset($position) ) { ?>
                   <th>Position</th>
                 <?php } ?>
@@ -62,6 +63,7 @@
                   <th>Area</th>
                 <?php } ?>
                 <th>Status</th>
+*/ ?>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                   <th width="165px">Action</th>
                 <?php } ?>
@@ -81,6 +83,7 @@
                   </a>
                 </td>
                 <?php } ?>
+<?php /*
                 <?php if( !isset($position) ) { ?>
                 <td>
                 <a class="body_wrapper" href="<?php echo site_url("employees/position/{$employee->position_id}"); ?>">
@@ -96,6 +99,7 @@
                 </td>
                 <?php } ?>
                 <td><?php echo $employee->status_name; ?></td>
+*/ ?>
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
 

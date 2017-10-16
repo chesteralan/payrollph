@@ -94,9 +94,9 @@ if( isset($compare_payroll) ) {
               <tr>
                 <td>
 <?php if( !$this->session->userdata('current_employee') ) { ?>
-                <a href="<?php echo site_url("payroll_dtr/select_employee/{$employee->name_id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-filter"></span></a>
+                <a href="<?php echo site_url("payroll/select_employee/{$employee->name_id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
-                <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> (<?php echo $employee->position; ?>)
+                <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> <!--(<?php echo $employee->position; ?>)-->
 <?php if(!$payroll->lock) { ?>
               <a href="<?php echo site_url("employees_earnings/view/{$employee->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper pull-right"><span class="glyphicon glyphicon-cog"></span></a>
 <?php }  ?>

@@ -241,6 +241,10 @@ class Payroll_templates extends MY_Controller {
 		$employees->set_select('pte.template');
 		$employees->set_select('pte.print_group');
 		$employees->set_select('pte.template_id');
+		$employees->set_join('names_info ni', 'ni.name_id=e.name_id');
+		$employees->set_select('ni.lastname');
+		$employees->set_select('ni.firstname');
+		$employees->set_select('ni.middlename');
 		$employees->set_group_by('e.name_id');
 		//$employees->set_where('pte.template_id', $id);
 		$employees->set_order('pte.order','ASC');

@@ -45,6 +45,7 @@
     <span class="sr-only">Toggle Dropdown</span>
   </button>
   <ul class="dropdown-menu dropdown-menu-right">
+    <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Print Group" data-url="<?php echo site_url("system_companies/column_group/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Column Group</a></li>
     <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Print Group" data-url="<?php echo site_url("system_companies/print_group/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Print Group</a></li>
     <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Print CSS" data-url="<?php echo site_url("system_companies/print_css/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Print CSS</a></li>
   </ul>

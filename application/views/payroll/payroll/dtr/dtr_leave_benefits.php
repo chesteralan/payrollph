@@ -52,7 +52,7 @@
               <tr>
                 <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> (<?php echo $employee->position; ?>)
 <?php if( !$this->session->userdata('current_employee') ) { ?>
-                <a href="<?php echo site_url("payroll_dtr/select_employee/{$employee->name_id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-filter"></span></a>
+                <a href="<?php echo site_url("payroll/select_employee/{$employee->name_id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
                 </td>
 <?php foreach($leave_benefits as $leave) { ?>

@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <?php 
 $not_available = array();
-foreach ($not_available_days as $nad) {
+if( $not_available_days ) foreach ($not_available_days as $nad) {
   $not_available[] = $nad->inclusive_date;
 }
 
@@ -39,9 +39,12 @@ function draw_calendar($month,$year,$inclusive_dates,$not_available_days){
 
   /* keep going with days.... */
   for($list_day = 1; $list_day <= $days_in_month; $list_day++):
-    $calendar.= '<td class="calendar-day text-right">';
 
-      $list_date = date('Y-m-d', strtotime($year.'-'.$month.'-'.$list_day));
+    $list_date = date('Y-m-d', strtotime($year.'-'.$month.'-'.$list_day));
+
+    $calendar.= '<td class="calendar-day text-right ';
+    $calendar.= (in_array($list_date, $not_available_days)) ? 'disabled':'';
+    $calendar.= '">';
 
       $working_day = true;
       switch ($running_day) {
@@ -73,7 +76,7 @@ function draw_calendar($month,$year,$inclusive_dates,$not_available_days){
         $calendar.= '<input type="hidden" name="inclusive_date[]" value="'.$list_date.'">';
         $calendar.= '<input type="checkbox" name="selected[]" value="'.$list_date.'"';
         $calendar.= (in_array($list_date, $inc_dates)) ? ' CHECKED':'';
-        $calendar.= (in_array($list_date, $not_available_days)) ? ' CHECKED DISABLED':'';
+        $calendar.= (in_array($list_date, $not_available_days)) ? ' CHECKED DISABLED':' class="calendar"';
         $calendar.= '>';
         $calendar.= '</label>';
       }
@@ -149,6 +152,13 @@ $next = ($this->input->get('next')) ? $this->input->get('next') : 'payroll';
 <?php 
 echo draw_calendar($current_month,$current_year, $inclusive_dates,$not_available);
 ?>
+<p/>
+<div class="text-center">
+<div class="btn-group">
+  <button type="button" class="btn btn-default btn-xs checkbox_checkall" data-class="calendar"><span class="glyphicon glyphicon-check"></span> Select All</button>
+  <button type="button" class="btn btn-default btn-xs checkbox_checknone" data-class="calendar"><span class="glyphicon glyphicon-unchecked"></span> Select None</button>
+</div>
+</div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>

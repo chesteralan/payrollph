@@ -305,6 +305,9 @@ td.calendar-day .date_checkbox {
     height: 100%;
     text-align: left;
 }
+td.calendar-day.disabled {
+	background-color: #F3DCDC!important;
+}
 .panel-footer .table {
 	margin-bottom: 0!important;
 }

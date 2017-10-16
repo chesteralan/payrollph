@@ -193,18 +193,8 @@ foreach($main_menu as $main=>$menu):
 <?php if( $this->session->userdata('current_payroll') ) { 
 $current_payroll = $this->session->userdata('current_payroll');
   ?>
-          <li class="active hidden-xs hidden-sm dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong><?php echo $current_payroll->name; ?></strong> <span class="caret hidden-xs"></span></a>
-
-            <ul class="dropdown-menu">
-            <li><a class="body_wrapper" href="<?php echo site_url('payroll_dtr/view/' . $current_payroll->id); ?>">Daily Time Record</a></li>
-            <li><a class="body_wrapper" href="<?php echo site_url('payroll_salaries/view/' . $current_payroll->id); ?>">Basic Salary</a></li>
-            <li><a class="body_wrapper" href="<?php echo site_url('payroll_earnings/view/' . $current_payroll->id); ?>">Earnings</a></li>
-            <li><a class="body_wrapper" href="<?php echo site_url('payroll_benefits/view/' . $current_payroll->id); ?>">Benefits</a></li>
-            <li><a class="body_wrapper" href="<?php echo site_url('payroll_deductions/view/' . $current_payroll->id); ?>">Deductions</a></li>
-            <li><a class="body_wrapper" href="<?php echo site_url('payroll_summary/view/' . $current_payroll->id); ?>">Summary</a></li>
-          </ul>
-
+          <li class="active hidden-xs hidden-sm">
+              <a href="<?php echo site_url('payroll/select_payroll/' . $current_payroll->id); ?>"><strong><?php echo $current_payroll->name; ?></strong></a>
           </li>
 <?php } ?>
 

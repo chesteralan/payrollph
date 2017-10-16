@@ -315,7 +315,8 @@ class Payroll extends MY_Controller {
 
 		 $days_present = ($payroll_data->inclusive_dates->working_days);
 
-		 foreach( $ee_earnings->populate() as $earning2 ) {
+		 $ee_ernings_data = $ee_earnings->populate();
+		 if( $ee_ernings_data ) foreach( $ee_ernings_data as $earning2 ) {
 		 	
 		 	$pee_earning = new $this->Payroll_employees_earnings_model;
 		 	$pee_earning->setPayrollId($payroll_data->id,true);
@@ -361,7 +362,9 @@ class Payroll extends MY_Controller {
 			 $ee_benefits->setPrimary(1,true);
 			 $ee_benefits->set_where('(start_date <= "' . date('Y-m-d', strtotime($payroll_data->inclusive_dates->end_date)) . '")');
 			 $ee_benefits->set_where("((SELECT COUNT(*) FROM `employees_benefits_templates` WHERE eb_id=employees_benefits.id AND template_id={$payroll_data->template_id}) > 0)");
-			 foreach( $ee_benefits->populate() as $benefit2 ) {
+
+			 $ee_benefits_data = $ee_benefits->populate();
+			 if( $ee_benefits_data ) foreach( $ee_benefits_data as $benefit2 ) {
 			 	$peb_benefit = new $this->Payroll_employees_benefits_model;
 			 	$peb_benefit->setPayrollId($payroll_data->id,true);
 			 	$peb_benefit->setNameId($benefit2->name_id,true);
@@ -392,7 +395,8 @@ class Payroll extends MY_Controller {
 			 
 			 $days_present = ($payroll_data->inclusive_dates->working_days);
 
-			 foreach( $ee_deductions->populate() as $deduction2 ) {
+			 $ee_deductions_data = $ee_deductions->populate();
+			 if( $ee_deductions_data ) foreach( $ee_deductions_data as $deduction2 ) {
 
 			 	$ped_deduction = new $this->Payroll_employees_deductions_model;
 			 	$ped_deduction->setPayrollId($payroll_data->id,true);
@@ -712,6 +716,10 @@ class Payroll extends MY_Controller {
 		$employees->set_select('pe.template');
 		$employees->set_select('pe.print_group');
 		$employees->set_select('pe.order'); 
+		$employees->set_join('names_info ni', 'ni.name_id=e.name_id');
+		$employees->set_select('ni.lastname');
+		$employees->set_select('ni.firstname');
+		$employees->set_select('ni.middlename');
 		$employees->set_order('pe.order', 'ASC');
 		if( $this->input->get('action') == 'sort') {
 			$employees->set_where('pe.active', 1);
@@ -900,10 +908,42 @@ class Payroll extends MY_Controller {
 		if( $payroll->nonEmpty() ) {
 			$this->session->set_userdata('current_payroll', $payroll->getResults() );
 			$this->session->set_userdata('employees_status', false);
-			redirect("payroll_dtr/view/{$payroll_id}");
+			$this->session->set_userdata('current_employee', false );
+
+			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_dtr') ) {
+				redirect("payroll_dtr/view/{$payroll_id}");
+			}
+			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_salaries') ) {
+				redirect("payroll_salaries/view/{$payroll_id}");
+			}
+			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_earnings') ) {
+				redirect("payroll_earnings/view/{$payroll_id}");
+			}
+			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_benefits')) {
+				redirect("payroll_benefits/view/{$payroll_id}");
+			}
+			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_deductions')) {
+				redirect("payroll_deductions/view/{$payroll_id}");
+			}
+			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_summary')) {
+				redirect("payroll_summary/view/{$payroll_id}");
+			}
 		}
-		redirect("welcome");
-		
+
+		redirect(site_url("welcome") . "?error_code=106");
+	}
+
+	public function select_employee($name_id) {
+		$employee = new $this->Employees_model('e');
+		$employee->setNameId($name_id,true);
+		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
+		$this->session->set_userdata('current_employee', $employee->get() );
+		redirect( site_url( $this->input->get('next') ) . "?error_code=101" );
+	}
+
+	public function clear_current_employee() {
+		$this->session->unset_userdata('current_employee');
+		redirect( site_url( $this->input->get('next') ) . "?error_code=102" );
 	}
 
 }

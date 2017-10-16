@@ -23,6 +23,7 @@ class Lists_names extends MY_Controller {
 		$names = new $this->Names_list_model('nl');
 		$names->setTrash(0, true);
 			$where = new $this->Names_list_model('w');
+			$where->setTrash(0, true);
 			$where->set_select('MIN(w.id)');
 			$where->set_where("w.id > " . $id);
 			$where->set_limit(1);
@@ -37,6 +38,7 @@ class Lists_names extends MY_Controller {
 		$names = new $this->Names_list_model('nl');
 		$names->setTrash(0, true);
 			$where = new $this->Names_list_model('w');
+			$where->setTrash(0, true);
 			$where->set_select('MAX(w.id)');
 			$where->set_where("w.id < " . $id);
 			$where->set_limit(1);
@@ -54,7 +56,12 @@ class Lists_names extends MY_Controller {
 		}
 
 		$names = new $this->Names_list_model('nl');
-		$names->setTrash(0, true);
+
+		if( $this->input->get('filter') == 'trash' ) {
+			$names->setTrash(1, true);
+		} else {
+			$names->setTrash(0, true);
+		}
 
 		if( $this->input->get('q') ) {
 			$names->set_where('nl.full_name LIKE "%' . $this->input->get('q') . '%"');
@@ -70,9 +77,9 @@ class Lists_names extends MY_Controller {
 
 		$names->set_order('nl.full_name', 'ASC');
 		$names->set_start($start);
-		$names->setTrash('0',true);
 
 		$this->template_data->set('names', $names->populate());
+		$this->template_data->set('names_count', $names->count_all_results());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'base_url' => base_url($this->config->item('index_page') . '/lists_names/index/'),
@@ -162,10 +169,24 @@ class Lists_names extends MY_Controller {
 	public function delete($id) {
 		
 		$this->_isAuth('lists', 'names', 'delete');
+		$this->_isAuth('lists', 'names', 'edit');
 
 		$name = new $this->Names_list_model;
 		$name->setId($id, true,false);
 		$name->setTrash('1',false,true);
+		$name->update();
+
+		redirect( "lists_names" );
+	}
+
+	public function restore($id) {
+		
+		$this->_isAuth('lists', 'names', 'delete');
+		$this->_isAuth('lists', 'names', 'edit');
+
+		$name = new $this->Names_list_model;
+		$name->setId($id, true,false);
+		$name->setTrash('0',false,true);
 		$name->update();
 
 		redirect( "lists_names" );

@@ -33,10 +33,10 @@
 <?php if( $this->session->userdata('current_employee') ) { 
 $current_employee = $this->session->userdata('current_employee');
   ?>
-  <li class="active hidden-xs hidden-sm dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong><?php echo $current_employee->lastname; ?>, <?php echo $current_employee->firstname; ?> <?php echo substr($current_employee->middlename,0,1)."."; ?></strong> <span class="caret hidden-xs"></span></a>
+  <li class="active hidden-xs hidden-sm">
+    <a href="<?php echo site_url('payroll/clear_current_employee') . "?next=" . urlencode(uri_string()); ?>"><strong><?php echo $current_employee->lastname; ?>, <?php echo $current_employee->firstname; ?> <?php echo substr($current_employee->middlename,0,1)."."; ?></strong> <span class="glyphicon glyphicon-remove"></span></a>
      <ul class="dropdown-menu">
-            <li><a href="<?php echo site_url('payroll_dtr/clear_current_employee') . "?next=" . urlencode(uri_string()); ?>">Cancel</a></li>
+            <li>Cancel</a></li>
         </ul>
   </li>
 <?php } else { ?>
@@ -67,29 +67,76 @@ $current_employee = $this->session->userdata('current_employee');
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-
 <?php 
-
 $group_id = (isset($group_id)) ? $group_id : 0;
+$column_groups = array(
+  array(  'key'=>'column_group_dtr',
+          'name' => 'Daily Time Record',
+          'checked' => (($column_group_dtr)?$column_group_dtr:0),
+          'uri' => "payroll_dtr/view/{$payroll->id}/{$group_id}",
+          'url_key'=> 'payroll_dtr',
+          'access'=>hasAccess('payroll', 'payroll', 'view'),
+        ),
+  array(  'key'=>'column_group_salaries',
+          'name' => 'Basic Salary',
+          'checked' => (($column_group_salaries)?$column_group_salaries:0),
+          'uri' => "payroll_salaries/view/{$payroll->id}/{$group_id}",
+          'url_key'=> 'payroll_salaries',
+          'access'=>hasAccess('payroll', 'payroll', 'view'),
+        ),
+  array(  'key'=>'column_group_earnings',
+          'name' => 'Earnings',
+          'checked' => (($column_group_earnings)?$column_group_earnings:0),
+          'uri' => "payroll_earnings/view/{$payroll->id}/{$group_id}",
+          'url_key'=> 'payroll_earnings',
+          'access'=>hasAccess('payroll', 'payroll', 'view'),
+        ),
+  array(  'key'=>'column_group_benefits',
+          'name' => 'Benefits',
+          'checked' => (($column_group_benefits)?$column_group_benefits:0),
+          'uri' => "payroll_benefits/view/{$payroll->id}/{$group_id}",
+          'url_key'=> 'payroll_benefits',
+          'access'=>hasAccess('payroll', 'payroll', 'view'),
+        ),
+  array(  'key'=>'column_group_deductions',
+          'name' => 'Deductions',
+          'checked' => (($column_group_deductions)?$column_group_deductions:0),
+          'uri' => "payroll_deductions/view/{$payroll->id}/{$group_id}",
+          'url_key'=> 'payroll_deductions',
+          'access'=>hasAccess('payroll', 'payroll', 'view'),
+        ),
+  array(  'key'=>'column_group_summary',
+          'name' => 'Summary',
+          'checked' => (($column_group_summary)?$column_group_summary:0),
+          'uri' => "payroll_summary/view/{$payroll->id}/{$group_id}",
+          'url_key'=> 'payroll_summary',
+          'access'=>hasAccess('payroll', 'payroll', 'view'),
+        ),
+);
 
-$url['payroll_dtr'] = array('uri' => "payroll_dtr/view/{$payroll->id}/{$group_id}", 'title'=>'Daily Time Record', 'access'=>hasAccess('payroll', 'payroll', 'view'));
-$url['payroll_salaries'] = array('uri' => "payroll_salaries/view/{$payroll->id}/{$group_id}", 'title'=>'Basic Salary', 'access'=>hasAccess('payroll', 'payroll', 'view'));
-if( (isset($payroll->earnings_columns)) && ( $payroll->earnings_columns > 0 ) ) {
-  $url['payroll_earnings'] = array('uri' => "payroll_earnings/view/{$payroll->id}/{$group_id}", 'title'=>'Earnings', 'access'=>hasAccess('payroll', 'payroll', 'view'));
-}
-if( (isset($payroll->benefits_columns)) && ( $payroll->benefits_columns > 0 ) ) {
-  $url['payroll_benefits'] = array('uri' => "payroll_benefits/view/{$payroll->id}/{$group_id}", 'title'=>'Benefits', 'access'=>hasAccess('payroll', 'payroll', 'view'));
-}
-if( (isset($payroll->deductions_columns)) && ( $payroll->deductions_columns > 0 ) ) {
-  $url['payroll_deductions'] = array('uri' => "payroll_deductions/view/{$payroll->id}/{$group_id}", 'title'=>'Deductions', 'access'=>hasAccess('payroll', 'payroll', 'view'));
-}
-$url['payroll_summary'] = array('uri' => "payroll_summary/view/{$payroll->id}/{$group_id}", 'title'=>'Summary', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+$cg_sort = ($column_group_sort) ? $column_group_sort : false;
 
-foreach($url as $k=>$v) {
-  if( $v['access'] ) {
+  if( $cg_sort ) {
+    $cg_sort2 = array();
+    $si = 0;
+    foreach($cg_sort as $sk=>$sv) {
+        $cg_sort2[$sv] = $si++;
+    }  
+
+    $pgs = array();
+    foreach($column_groups as $cg) {
+      $cg_key = $cg['key'];
+      $pgs[$cg_sort2[$cg_key]] = $cg;
+    }
+    ksort($pgs);
+    $column_groups = $pgs;
+  }
+ foreach($column_groups as $cg) { 
+  if( $cg['checked'] == 0 ) continue;
+  if( !$cg['access'] ) continue;
 ?>
-  <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($v['uri']); ?>"><?php echo $v['title']; ?></a></li>
-<?php } } ?>
+<li class="<?php echo ($cg['url_key']==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($cg['uri']); ?>"><?php echo $cg['name']; ?></a></li>
+<?php } ?>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

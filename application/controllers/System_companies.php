@@ -121,13 +121,19 @@ class System_companies extends MY_Controller {
 		$options->setCompanyId($id,true);
 		$options->setKey($name,true);
 
-		if( $this->input->post($name) ) {
-			if( $options->nonEmpty() ) {
-				$options->setValue( serialize($this->input->post($name)), false,true);
-				$options->update();
+		if( $this->input->post() ) {
+			if( $this->input->post($name) ) {
+				if( $options->nonEmpty() ) {
+					$options->setValue( serialize($this->input->post($name)), false,true);
+					$options->update();
+				} else {
+					$options->setValue( serialize($this->input->post($name)) );
+					$options->insert();
+				}
 			} else {
-				$options->setValue( serialize($this->input->post($name)) );
-				$options->insert();
+				if( $options->nonEmpty() ) {
+					$options->delete();
+				}
 			}
 		}
 
@@ -167,6 +173,23 @@ class System_companies extends MY_Controller {
 
 		$this->template_data->set('output', $output);
 		$this->load->view('system/companies/companies_print_group', $this->template_data->get_data());
+	}
+
+	public function column_group($id,$output='') {
+
+		$this->_isAuth('system', 'companies', 'edit');
+
+		$this->template_data->set('column_group_dtr', $this->_save_option($id, 'column_group_dtr'));
+		$this->template_data->set('column_group_salaries', $this->_save_option($id, 'column_group_salaries'));
+		$this->template_data->set('column_group_earnings', $this->_save_option($id, 'column_group_earnings'));
+		$this->template_data->set('column_group_benefits', $this->_save_option($id, 'column_group_benefits'));
+		$this->template_data->set('column_group_deductions', $this->_save_option($id, 'column_group_deductions'));
+		$this->template_data->set('column_group_summary', $this->_save_option($id, 'column_group_summary'));
+		$this->template_data->set('sort', $this->_save_option($id, 'column_group_sort'));
+		$this->postNext();
+		
+		$this->template_data->set('output', $output);
+		$this->load->view('system/companies/companies_column_group', $this->template_data->get_data());
 	}
 
 }

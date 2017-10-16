@@ -11,6 +11,10 @@ class Payroll_benefits extends MY_Controller {
 
 		$this->_isAuth('payroll', 'payroll', 'view');
 
+		if( !get_company_option($this->session->userdata('current_company_id'), 'column_group_benefits') ) {
+			redirect("welcome");
+		}
+
 	}
 
 	public function index() {
@@ -22,6 +26,7 @@ class Payroll_benefits extends MY_Controller {
 		$payroll->setActive(1, true);
 		$payroll->setCompanyId($this->session->userdata('current_company_id'),true);
 			$where = new $this->Payroll_model('w');
+			$where->setActive(1, true);
 			$where->set_select('MIN(w.id)');
 			$where->set_where("w.id > " . $id);
 			$where->setCompanyId($this->session->userdata('current_company_id'),true);
@@ -38,6 +43,7 @@ class Payroll_benefits extends MY_Controller {
 		$payroll->setActive(1, true);
 		$payroll->setCompanyId($this->session->userdata('current_company_id'),true);
 			$where = new $this->Payroll_model('w');
+			$where->setActive(1, true);
 			$where->set_select('MAX(w.id)');
 			$where->set_where("w.id < " . $id);
 			$where->setCompanyId($this->session->userdata('current_company_id'),true);
@@ -49,8 +55,19 @@ class Payroll_benefits extends MY_Controller {
 		return $payroll->get();
 	}
 
+	private function _column_groups() {
+		$this->template_data->set('column_group_dtr', get_company_option($this->session->userdata('current_company_id'), 'column_group_dtr'));
+		$this->template_data->set('column_group_salaries', get_company_option($this->session->userdata('current_company_id'), 'column_group_salaries'));
+		$this->template_data->set('column_group_earnings', get_company_option($this->session->userdata('current_company_id'), 'column_group_earnings'));
+		$this->template_data->set('column_group_benefits', get_company_option($this->session->userdata('current_company_id'), 'column_group_benefits'));
+		$this->template_data->set('column_group_deductions', get_company_option($this->session->userdata('current_company_id'), 'column_group_deductions'));
+		$this->template_data->set('column_group_summary', get_company_option($this->session->userdata('current_company_id'), 'column_group_summary'));
+		$this->template_data->set('column_group_sort', get_company_option($this->session->userdata('current_company_id'), 'column_group_sort'));
+	}
+
 	public function view($id,$group_id=0,$column_id=0,$output='') {
 
+		$this->_column_groups();
 		$this->template_data->set('group_id', $group_id);
 		$this->template_data->set('column_id', $column_id);
 
@@ -171,6 +188,8 @@ class Payroll_benefits extends MY_Controller {
 		$employees_status->set_limit(0);
 		$employees_status->set_group_by('e.status');
 		$employees_status->set_where('e.status IS NOT NULL');
+		$employees_status->set_where('e.status <> 0');
+		$employees_status->set_where('e.status <> ""');
 		$employees_status->set_order('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status)', 'ASC');
 		$this->template_data->set('employees_status', $employees_status->populate());
 

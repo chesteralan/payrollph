@@ -53,6 +53,17 @@ var init_datepicker = function() {
   });
 };
 
+var init_calendar_check = function() {
+  $('.checkbox_checkall').click(function(){
+    var classname = $(this).attr('data-class');
+    $('input.'+classname+'[type="checkbox"]').prop('checked', true);
+  });
+  $('.checkbox_checknone').click(function(){
+    var classname = $(this).attr('data-class');
+    $('input.'+classname+'[type="checkbox"]').prop('checked', false);
+  });
+}
+
 var select_all_print_column = function() {
   $('.select_all_print_column').click(function(){
       var id = $(this).attr('data-id');
@@ -489,6 +500,7 @@ var loadLib = function() {
     bodyWrapper();
     init_sortable();
     select_all_print_column();
+    init_calendar_check();
 
 $('#ajaxModal .datepicker').datepicker();
         $('#ajaxModal select').selectpicker({
@@ -922,6 +934,7 @@ var lending_schedule_details = function() {
       confirmButton();
       confirmRemove();
       init_datepicker();
+      init_calendar_check();
       init_payment_buttons();
       panelHeight();
       navbar_search_employee();
