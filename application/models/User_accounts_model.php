@@ -22,7 +22,7 @@ CREATE TABLE `user_accounts` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -150,6 +150,46 @@ class User_accounts_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'id' => (object) array(
+										'Field'=>'id',
+										'Type'=>'int(10)',
+										'Null'=>'NO',
+										'Key'=>'PRI',
+										'Default'=>'',
+										'Extra'=>'auto_increment'
+									),
+
+			'username' => (object) array(
+										'Field'=>'username',
+										'Type'=>'varchar(200)',
+										'Null'=>'NO',
+										'Key'=>'UNI',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'password' => (object) array(
+										'Field'=>'password',
+										'Type'=>'varchar(200)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'name' => (object) array(
+										'Field'=>'name',
+										'Type'=>'varchar(200)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

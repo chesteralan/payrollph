@@ -23,7 +23,7 @@ CREATE TABLE `employees_areas` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -175,6 +175,55 @@ class Employees_areas_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'id' => (object) array(
+										'Field'=>'id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'PRI',
+										'Default'=>'',
+										'Extra'=>'auto_increment'
+									),
+
+			'company_id' => (object) array(
+										'Field'=>'company_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'name' => (object) array(
+										'Field'=>'name',
+										'Type'=>'varchar(200)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'notes' => (object) array(
+										'Field'=>'notes',
+										'Type'=>'text',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'trash' => (object) array(
+										'Field'=>'trash',
+										'Type'=>'int(1)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

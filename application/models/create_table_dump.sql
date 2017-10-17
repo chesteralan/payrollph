@@ -13,6 +13,7 @@ CREATE TABLE `account_sessions` (
 CREATE TABLE `benefits_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
+  `abbr` varchar(100) DEFAULT NULL,
   `notes` text,
   `leave` int(1) DEFAULT '0',
   `ee_account_title` varchar(200) DEFAULT NULL,
@@ -50,6 +51,7 @@ CREATE TABLE `companies_options` (
 CREATE TABLE `deductions_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
+  `abbr` varchar(100) DEFAULT NULL,
   `notes` text,
   `account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
@@ -62,6 +64,7 @@ CREATE TABLE `deductions_list` (
 CREATE TABLE `earnings_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
+  `abbr` varchar(100) DEFAULT NULL,
   `notes` text,
   `account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',

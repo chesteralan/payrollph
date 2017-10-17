@@ -36,7 +36,7 @@ CREATE TABLE `employees_earnings` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -332,6 +332,109 @@ class Employees_earnings_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'id' => (object) array(
+										'Field'=>'id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'PRI',
+										'Default'=>'',
+										'Extra'=>'auto_increment'
+									),
+
+			'company_id' => (object) array(
+										'Field'=>'company_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'name_id' => (object) array(
+										'Field'=>'name_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'earning_id' => (object) array(
+										'Field'=>'earning_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'amount' => (object) array(
+										'Field'=>'amount',
+										'Type'=>'decimal(30,5)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'max_amount' => (object) array(
+										'Field'=>'max_amount',
+										'Type'=>'decimal(30,5)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'0.00000',
+										'Extra'=>''
+									),
+
+			'start_date' => (object) array(
+										'Field'=>'start_date',
+										'Type'=>'date',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'computed' => (object) array(
+										'Field'=>'computed',
+										'Type'=>'varchar(10)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'active' => (object) array(
+										'Field'=>'active',
+										'Type'=>'int(1)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									),
+
+			'trash' => (object) array(
+										'Field'=>'trash',
+										'Type'=>'int(1)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									),
+
+			'notes' => (object) array(
+										'Field'=>'notes',
+										'Type'=>'text',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

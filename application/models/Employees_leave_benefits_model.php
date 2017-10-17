@@ -24,7 +24,7 @@ CREATE TABLE `employees_leave_benefits` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -176,6 +176,55 @@ class Employees_leave_benefits_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'id' => (object) array(
+										'Field'=>'id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'PRI',
+										'Default'=>'',
+										'Extra'=>'auto_increment'
+									),
+
+			'company_id' => (object) array(
+										'Field'=>'company_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'name_id' => (object) array(
+										'Field'=>'name_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'benefit_id' => (object) array(
+										'Field'=>'benefit_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'days' => (object) array(
+										'Field'=>'days',
+										'Type'=>'int(2)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

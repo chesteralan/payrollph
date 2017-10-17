@@ -28,7 +28,7 @@ CREATE TABLE `companies_list` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -252,6 +252,82 @@ class Companies_list_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'id' => (object) array(
+										'Field'=>'id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'PRI',
+										'Default'=>'',
+										'Extra'=>'auto_increment'
+									),
+
+			'theme' => (object) array(
+										'Field'=>'theme',
+										'Type'=>'varchar(50)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'name' => (object) array(
+										'Field'=>'name',
+										'Type'=>'varchar(200)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'address' => (object) array(
+										'Field'=>'address',
+										'Type'=>'varchar(200)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'phone' => (object) array(
+										'Field'=>'phone',
+										'Type'=>'varchar(200)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'notes' => (object) array(
+										'Field'=>'notes',
+										'Type'=>'text',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'default' => (object) array(
+										'Field'=>'default',
+										'Type'=>'int(1)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									),
+
+			'trash' => (object) array(
+										'Field'=>'trash',
+										'Type'=>'int(1)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

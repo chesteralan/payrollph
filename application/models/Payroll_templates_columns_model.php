@@ -18,7 +18,7 @@ CREATE TABLE `payroll_templates_columns` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -122,6 +122,37 @@ class Payroll_templates_columns_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'template_id' => (object) array(
+										'Field'=>'template_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'term_id' => (object) array(
+										'Field'=>'term_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'column_id' => (object) array(
+										'Field'=>'column_id',
+										'Type'=>'varchar(200)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

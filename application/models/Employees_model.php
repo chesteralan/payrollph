@@ -37,7 +37,7 @@ CREATE TABLE `employees` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -309,6 +309,100 @@ class Employees_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'name_id' => (object) array(
+										'Field'=>'name_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'PRI',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'company_id' => (object) array(
+										'Field'=>'company_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'group_id' => (object) array(
+										'Field'=>'group_id',
+										'Type'=>'int(20)',
+										'Null'=>'YES',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'position_id' => (object) array(
+										'Field'=>'position_id',
+										'Type'=>'int(20)',
+										'Null'=>'YES',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'area_id' => (object) array(
+										'Field'=>'area_id',
+										'Type'=>'int(20)',
+										'Null'=>'YES',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'hired' => (object) array(
+										'Field'=>'hired',
+										'Type'=>'date',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'status' => (object) array(
+										'Field'=>'status',
+										'Type'=>'varchar(100)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'notes' => (object) array(
+										'Field'=>'notes',
+										'Type'=>'text',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'trash' => (object) array(
+										'Field'=>'trash',
+										'Type'=>'int(1)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									),
+
+			'employee_id' => (object) array(
+										'Field'=>'employee_id',
+										'Type'=>'varchar(20)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

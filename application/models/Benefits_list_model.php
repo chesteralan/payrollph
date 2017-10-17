@@ -8,6 +8,7 @@
 CREATE TABLE `benefits_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
+  `abbr` varchar(100) DEFAULT NULL,
   `notes` text,
   `leave` int(1) DEFAULT '0',
   `ee_account_title` varchar(200) DEFAULT NULL,
@@ -19,6 +20,7 @@ CREATE TABLE `benefits_list` (
 
  ALTER TABLE  `benefits_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
  ALTER TABLE  `benefits_list` ADD  `name` varchar(200) NOT NULL   ;
+ ALTER TABLE  `benefits_list` ADD  `abbr` varchar(100) NULL   ;
  ALTER TABLE  `benefits_list` ADD  `notes` text NULL   ;
  ALTER TABLE  `benefits_list` ADD  `leave` int(1) NULL   DEFAULT '0';
  ALTER TABLE  `benefits_list` ADD  `ee_account_title` varchar(200) NULL   ;
@@ -28,7 +30,7 @@ CREATE TABLE `benefits_list` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -40,6 +42,7 @@ class Benefits_list_model extends MY_Model {
 
 	protected $id;
 	protected $name;
+	protected $abbr;
 	protected $notes;
 	protected $leave;
 	protected $ee_account_title;
@@ -59,7 +62,7 @@ class Benefits_list_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'benefits_list';
 		$this->_short_name = 'benefits_list';
-		$this->_fields = array("id","name","notes","leave","ee_account_title","er_account_title","active","trash");
+		$this->_fields = array("id","name","abbr","notes","leave","ee_account_title","er_account_title","active","trash");
 		$this->_required = array("name","active");
 		parent::__construct($short_name, $db_config);
 	}
@@ -111,6 +114,29 @@ class Benefits_list_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: name --------------------------------------
+
+
+// ---------------------------- Start Field: abbr -------------------------------------- 
+
+	/** 
+	* Sets a value to `abbr` variable
+	* @access public
+	*/
+
+		public function setAbbr($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('abbr', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `abbr` variable
+	* @access public
+	*/
+
+		public function getAbbr() {
+			return $this->abbr;
+		}
+	
+// ------------------------------ End Field: abbr --------------------------------------
 
 
 // ---------------------------- Start Field: notes -------------------------------------- 
@@ -252,6 +278,91 @@ class Benefits_list_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'id' => (object) array(
+										'Field'=>'id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'PRI',
+										'Default'=>'',
+										'Extra'=>'auto_increment'
+									),
+
+			'name' => (object) array(
+										'Field'=>'name',
+										'Type'=>'varchar(200)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'abbr' => (object) array(
+										'Field'=>'abbr',
+										'Type'=>'varchar(100)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'notes' => (object) array(
+										'Field'=>'notes',
+										'Type'=>'text',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'leave' => (object) array(
+										'Field'=>'leave',
+										'Type'=>'int(1)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									),
+
+			'ee_account_title' => (object) array(
+										'Field'=>'ee_account_title',
+										'Type'=>'varchar(200)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'er_account_title' => (object) array(
+										'Field'=>'er_account_title',
+										'Type'=>'varchar(200)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'active' => (object) array(
+										'Field'=>'active',
+										'Type'=>'int(1)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'1',
+										'Extra'=>''
+									),
+
+			'trash' => (object) array(
+										'Field'=>'trash',
+										'Type'=>'int(1)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

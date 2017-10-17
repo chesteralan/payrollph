@@ -31,7 +31,7 @@ CREATE TABLE `payroll_employees_benefits` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -255,6 +255,82 @@ class Payroll_employees_benefits_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'id' => (object) array(
+										'Field'=>'id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'PRI',
+										'Default'=>'',
+										'Extra'=>'auto_increment'
+									),
+
+			'payroll_id' => (object) array(
+										'Field'=>'payroll_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'name_id' => (object) array(
+										'Field'=>'name_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'benefit_id' => (object) array(
+										'Field'=>'benefit_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'entry_id' => (object) array(
+										'Field'=>'entry_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'employee_share' => (object) array(
+										'Field'=>'employee_share',
+										'Type'=>'decimal(30,5)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'0.00000',
+										'Extra'=>''
+									),
+
+			'employer_share' => (object) array(
+										'Field'=>'employer_share',
+										'Type'=>'decimal(30,5)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'0.00000',
+										'Extra'=>''
+									),
+
+			'notes' => (object) array(
+										'Field'=>'notes',
+										'Type'=>'text',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

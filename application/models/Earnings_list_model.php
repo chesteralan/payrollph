@@ -8,6 +8,7 @@
 CREATE TABLE `earnings_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
+  `abbr` varchar(100) DEFAULT NULL,
   `notes` text,
   `account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
@@ -17,6 +18,7 @@ CREATE TABLE `earnings_list` (
 
  ALTER TABLE  `earnings_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
  ALTER TABLE  `earnings_list` ADD  `name` varchar(200) NOT NULL   ;
+ ALTER TABLE  `earnings_list` ADD  `abbr` varchar(100) NULL   ;
  ALTER TABLE  `earnings_list` ADD  `notes` text NULL   ;
  ALTER TABLE  `earnings_list` ADD  `account_title` varchar(200) NULL   ;
  ALTER TABLE  `earnings_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';
@@ -24,7 +26,7 @@ CREATE TABLE `earnings_list` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -36,6 +38,7 @@ class Earnings_list_model extends MY_Model {
 
 	protected $id;
 	protected $name;
+	protected $abbr;
 	protected $notes;
 	protected $account_title;
 	protected $active;
@@ -53,7 +56,7 @@ class Earnings_list_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'earnings_list';
 		$this->_short_name = 'earnings_list';
-		$this->_fields = array("id","name","notes","account_title","active","trash");
+		$this->_fields = array("id","name","abbr","notes","account_title","active","trash");
 		$this->_required = array("name","active");
 		parent::__construct($short_name, $db_config);
 	}
@@ -105,6 +108,29 @@ class Earnings_list_model extends MY_Model {
 		}
 	
 // ------------------------------ End Field: name --------------------------------------
+
+
+// ---------------------------- Start Field: abbr -------------------------------------- 
+
+	/** 
+	* Sets a value to `abbr` variable
+	* @access public
+	*/
+
+		public function setAbbr($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+			return $this->_set_field('abbr', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+		}
+	
+	/** 
+	* Get the value of `abbr` variable
+	* @access public
+	*/
+
+		public function getAbbr() {
+			return $this->abbr;
+		}
+	
+// ------------------------------ End Field: abbr --------------------------------------
 
 
 // ---------------------------- Start Field: notes -------------------------------------- 
@@ -200,6 +226,73 @@ class Earnings_list_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'id' => (object) array(
+										'Field'=>'id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'PRI',
+										'Default'=>'',
+										'Extra'=>'auto_increment'
+									),
+
+			'name' => (object) array(
+										'Field'=>'name',
+										'Type'=>'varchar(200)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'abbr' => (object) array(
+										'Field'=>'abbr',
+										'Type'=>'varchar(100)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'notes' => (object) array(
+										'Field'=>'notes',
+										'Type'=>'text',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'account_title' => (object) array(
+										'Field'=>'account_title',
+										'Type'=>'varchar(200)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'active' => (object) array(
+										'Field'=>'active',
+										'Type'=>'int(1)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'1',
+										'Extra'=>''
+									),
+
+			'trash' => (object) array(
+										'Field'=>'trash',
+										'Type'=>'int(1)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

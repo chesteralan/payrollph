@@ -36,7 +36,7 @@ CREATE TABLE `employees_salaries` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -332,6 +332,109 @@ class Employees_salaries_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'id' => (object) array(
+										'Field'=>'id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'PRI',
+										'Default'=>'',
+										'Extra'=>'auto_increment'
+									),
+
+			'company_id' => (object) array(
+										'Field'=>'company_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'name_id' => (object) array(
+										'Field'=>'name_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'amount' => (object) array(
+										'Field'=>'amount',
+										'Type'=>'decimal(30,5)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'0.00000',
+										'Extra'=>''
+									),
+
+			'rate_per' => (object) array(
+										'Field'=>'rate_per',
+										'Type'=>'varchar(10)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'month',
+										'Extra'=>''
+									),
+
+			'days' => (object) array(
+										'Field'=>'days',
+										'Type'=>'int(10)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'26',
+										'Extra'=>''
+									),
+
+			'hours' => (object) array(
+										'Field'=>'hours',
+										'Type'=>'int(10)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'8',
+										'Extra'=>''
+									),
+
+			'cola' => (object) array(
+										'Field'=>'cola',
+										'Type'=>'decimal(10,5)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'0.00000',
+										'Extra'=>''
+									),
+
+			'notes' => (object) array(
+										'Field'=>'notes',
+										'Type'=>'text',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'primary' => (object) array(
+										'Field'=>'primary',
+										'Type'=>'int(1)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									),
+
+			'trash' => (object) array(
+										'Field'=>'trash',
+										'Type'=>'int(1)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

@@ -22,7 +22,7 @@ CREATE TABLE `user_accounts_options` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -174,6 +174,55 @@ class User_accounts_options_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'uid' => (object) array(
+										'Field'=>'uid',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'department' => (object) array(
+										'Field'=>'department',
+										'Type'=>'varchar(200)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'section' => (object) array(
+										'Field'=>'section',
+										'Type'=>'varchar(200)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'key' => (object) array(
+										'Field'=>'key',
+										'Type'=>'varchar(200)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'value' => (object) array(
+										'Field'=>'value',
+										'Type'=>'text',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

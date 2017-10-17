@@ -1,13 +1,18 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------
-| MY_Model
+| MY_Model Class
 | -------------------------------------------------------------------
 | This file is the parent class of Model Classes
 |
-| version 4.6
-|
-*/
+ * @package                 MY_Model
+ * @version_number          4.7
+ * @project                 Trokis Philippines
+ * @project_link            http://www.trokis.com
+ * @author                  Chester Alan Tagudin
+ * @author_link             http://www.chesteralan.com
+ * @generator               CodeIgniter Model Generator (CMG) v3.2.10
+ */
 class MY_Model extends CI_Model
 {
 
@@ -83,32 +88,30 @@ class MY_Model extends CI_Model
     */
 
     public function nonEmpty() {
-        if ( $this->has_conditions() ) {
             
-            $this->setup_join();
-            $this->setup_conditions();
-            $this->setup_group_by();
-            
-            if( $this->_cache_on ) {
-                $this->_db->cache_on();
-            }
-            
-            $query = $this->_db->get($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name, 1);
-            
-            if( $this->_cache_on ) {
-                $this->_db->cache_off();
-            }
-            
-            if(($query) && ($query->num_rows() > 0)) {
-                $result = $query->result();
-                if ( isset( $result[0] ) === true ) {
-                    $this->_results = $result[0];
-                    return true;
-                } else {
-                    return false;
-                }
-            }
+        $this->setup_join();
+        $this->setup_conditions();
+        $this->setup_group_by();
+        
+        if( $this->_cache_on ) {
+            $this->_db->cache_on();
         }
+        
+        $query = $this->_db->get($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name, 1);
+        
+        if( $this->_cache_on ) {
+            $this->_db->cache_off();
+        }
+        
+        if(($query) && ($query->num_rows() > 0)) {
+            $result = $query->result();
+            if ( isset( $result[0] ) === true ) {
+                $this->_results = $result[0];
+                return true;
+            }                 
+        }
+        
+        return false;
     }
 
 
@@ -338,7 +341,7 @@ class MY_Model extends CI_Model
             $this->_db->cache_off();
         }
         
-        if(($query) && ($query->num_rows() > 0)) {
+        if( $query ) {
             $this->_results = $query->result();
         }
         
@@ -386,10 +389,12 @@ class MY_Model extends CI_Model
             }
             
             $results=array();
-            if( $query->result() ) {
-                foreach( $query->result() as $qr ) {
-                    $children = $this->recursive($match, $qr->$child, $child, ($level-1), $conn ) ;
-                    $results[] = (object) array_merge( (array) $qr, array($conn=>$children) );
+            if( $query ) {
+                if( $query->result() ) {
+                    foreach( $query->result() as $qr ) {
+                        $children = $this->recursive($match, $qr->$child, $child, ($level-1), $conn ) ;
+                        $results[] = (object) array_merge( (array) $qr, array($conn=>$children) );
+                    }
                 }
             }
         return $results;
@@ -435,10 +440,12 @@ class MY_Model extends CI_Model
                 $this->_db->cache_off();
             }
             
-            if( $query->result() ) {
-                foreach( $query->result() as $qr ) {
-                    $container[] = $qr->$get_field;
-                    $container = $this->recursive_one($match, $qr->$primary_field, $get_field, $container, $primary_field, ($level-1) ) ;                   
+            if( $query ) {
+                if( $query->result() ) {
+                    foreach( $query->result() as $qr ) {
+                        $container[] = $qr->$get_field;
+                        $container = $this->recursive_one($match, $qr->$primary_field, $get_field, $container, $primary_field, ($level-1) ) ;                   
+                    }
                 }
             }
         return $container;
@@ -1316,16 +1323,18 @@ class MY_Model extends CI_Model
     */
 
     public function count_all_results() {
-                $numrows = 0;
-                $this->_db->from($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name);
+        $numrows = 0;
+        $this->_db->from($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name);
         $this->setup_conditions();
         $this->setup_join();
         if( $this->setup_group_by() ) {
             $this->_db->select($this->_short_name . ".*");
             $sql_select = $this->_db->get_compiled_select();
             $query = $this->_db->query("SELECT COUNT(*) as numrows FROM ({$sql_select}) as numrows_table;");
-            $result = $query->result();
-            $numrows = $result[0]->numrows;
+            if( $query ) {
+                $result = $query->result();
+                $numrows = $result[0]->numrows;
+            }
         } else {
             $numrows = $this->_db->count_all_results();
         }
@@ -1404,4 +1413,34 @@ class MY_Model extends CI_Model
 
         return $this->_db->get_compiled_select( $this->_db->database . '.' . $this->_table_name . " " . $this->_short_name );
     }
+
+    public function get_compiled_insert() {
+        
+        $this->_set_db_data(); 
+        $this->setup_conditions();
+        return $this->_db->get_compiled_insert( $this->_db->database . '.' . $this->_table_name );
+    }
+
+    public function get_compiled_update() {
+        
+        $this->_set_db_data(); 
+        $this->setup_conditions();
+        return $this->_db->get_compiled_update( $this->_db->database . '.' . $this->_table_name );
+    }
+
+    public function get_compiled_delete() {
+        
+        $this->_set_db_data(); 
+        $this->setup_conditions();
+        return $this->_db->get_compiled_delete( $this->_db->database . '.' . $this->_table_name );
+    }
+
+    public function get_table_name() {
+        return $this->_table_name;
+    }    
+
+    public function get_table_fields() {
+        return $this->_fields;
+    }
+    
 }

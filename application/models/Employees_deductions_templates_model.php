@@ -16,7 +16,7 @@ CREATE TABLE `employees_deductions_templates` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -96,6 +96,28 @@ class Employees_deductions_templates_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'ed_id' => (object) array(
+										'Field'=>'ed_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'template_id' => (object) array(
+										'Field'=>'template_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

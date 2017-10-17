@@ -34,7 +34,7 @@ CREATE TABLE `payroll_employees_salaries` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -306,6 +306,100 @@ class Payroll_employees_salaries_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'id' => (object) array(
+										'Field'=>'id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'PRI',
+										'Default'=>'',
+										'Extra'=>'auto_increment'
+									),
+
+			'payroll_id' => (object) array(
+										'Field'=>'payroll_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'name_id' => (object) array(
+										'Field'=>'name_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'salary_id' => (object) array(
+										'Field'=>'salary_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'amount' => (object) array(
+										'Field'=>'amount',
+										'Type'=>'decimal(30,5)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'0.00000',
+										'Extra'=>''
+									),
+
+			'notes' => (object) array(
+										'Field'=>'notes',
+										'Type'=>'text',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'rate_per' => (object) array(
+										'Field'=>'rate_per',
+										'Type'=>'varchar(10)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'month',
+										'Extra'=>''
+									),
+
+			'days' => (object) array(
+										'Field'=>'days',
+										'Type'=>'int(10)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'26',
+										'Extra'=>''
+									),
+
+			'hours' => (object) array(
+										'Field'=>'hours',
+										'Type'=>'int(10)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'8',
+										'Extra'=>''
+									),
+
+			'cola' => (object) array(
+										'Field'=>'cola',
+										'Type'=>'decimal(10,5)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'0.00000',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

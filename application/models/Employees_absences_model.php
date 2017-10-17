@@ -22,7 +22,7 @@ CREATE TABLE `employees_absences` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -174,6 +174,55 @@ class Employees_absences_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'name_id' => (object) array(
+										'Field'=>'name_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'date_absent' => (object) array(
+										'Field'=>'date_absent',
+										'Type'=>'date',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'hours' => (object) array(
+										'Field'=>'hours',
+										'Type'=>'int(2)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'8',
+										'Extra'=>''
+									),
+
+			'leave_type' => (object) array(
+										'Field'=>'leave_type',
+										'Type'=>'int(20)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'notes' => (object) array(
+										'Field'=>'notes',
+										'Type'=>'text',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

@@ -27,7 +27,7 @@
 </div>
 <?php } ?>
           <h3 class="panel-title">Backups 
-<a href="<?php echo site_url("system_database/verify"); ?>"><span class="fa fa-database"></span></a>
+<a href="<?php echo site_url("system_database/verify"); ?>" class="body_wrapper"><span class="fa fa-database"></span></a>
           </h3>
 
         </div>
@@ -49,8 +49,8 @@
 							<td><?php echo filesize("backups/" . $file); ?></td>
 							<td class="text-right">
 								<a href="<?php echo site_url('system_backup/download/' . $file ); ?>" class="btn btn-success btn-xs">Download</a>
-								<?php if( hasAccess('system', 'backup', 'delete') ) { ?>
-								<a href="<?php echo site_url('system_backup/delete/' . $file ); ?>" class="btn btn-danger btn-xs confirm_remove" data-target="#file_<?php echo url_title($file, "_", true); ?>">Delete</a>
+								<?php if( hasAccess('system', 'database', 'delete') ) { ?>
+								<a href="<?php echo site_url('system_database/delete/' . $file ); ?>" class="btn btn-danger btn-xs confirm_remove" data-target="#file_<?php echo url_title($file, "_", true); ?>">Delete</a>
 								<?php } ?>
 							</td>
 						</tr>

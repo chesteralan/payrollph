@@ -20,7 +20,7 @@ CREATE TABLE `account_sessions` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -148,6 +148,46 @@ class Account_sessions_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'id' => (object) array(
+										'Field'=>'id',
+										'Type'=>'varchar(40)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'ip_address' => (object) array(
+										'Field'=>'ip_address',
+										'Type'=>'varchar(45)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'timestamp' => (object) array(
+										'Field'=>'timestamp',
+										'Type'=>'int(10) unsigned',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'0',
+										'Extra'=>''
+									),
+
+			'data' => (object) array(
+										'Field'=>'data',
+										'Type'=>'blob',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

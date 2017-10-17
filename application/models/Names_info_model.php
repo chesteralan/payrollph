@@ -33,7 +33,7 @@ CREATE TABLE `names_info` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -305,6 +305,100 @@ class Names_info_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'name_id' => (object) array(
+										'Field'=>'name_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'PRI',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'lastname' => (object) array(
+										'Field'=>'lastname',
+										'Type'=>'varchar(100)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'firstname' => (object) array(
+										'Field'=>'firstname',
+										'Type'=>'varchar(100)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'middlename' => (object) array(
+										'Field'=>'middlename',
+										'Type'=>'varchar(100)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'birthday' => (object) array(
+										'Field'=>'birthday',
+										'Type'=>'date',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'birthplace' => (object) array(
+										'Field'=>'birthplace',
+										'Type'=>'varchar(50)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'gender' => (object) array(
+										'Field'=>'gender',
+										'Type'=>'varchar(50)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'civil_status' => (object) array(
+										'Field'=>'civil_status',
+										'Type'=>'varchar(50)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'prefix' => (object) array(
+										'Field'=>'prefix',
+										'Type'=>'varchar(50)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'suffix' => (object) array(
+										'Field'=>'suffix',
+										'Type'=>'varchar(50)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

@@ -58,8 +58,11 @@ class Employees_benefits extends MY_Controller {
 
 	public function add($id, $output='') {
 
-		$employee = new $this->Employees_model;
+		$employee = new $this->Employees_model('e');
 		$employee->setNameId($id,true);
+		$employee->set_select('ni.*');
+		$employee->set_select('e.name_id');
+		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
 		$this->template_data->set('employee', $employee->get());
 
 		if( $this->input->post() ) {
@@ -130,8 +133,11 @@ class Employees_benefits extends MY_Controller {
 		$benefits->setId($id,true);
 		$benefits_data = $benefits->get();
 
-		$employee = new $this->Employees_model;
+		$employee = new $this->Employees_model('e');
 		$employee->setNameId($benefits_data->name_id,true);
+		$employee->set_select('ni.*');
+		$employee->set_select('e.name_id');
+		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
 		$this->template_data->set('employee', $employee->get());
 
 		if( $benefits->nonEmpty() ) {
@@ -224,8 +230,11 @@ class Employees_benefits extends MY_Controller {
 		$entry = $d_entry->get();
 		$this->template_data->set('entry', $entry);
 
-		$employee = new $this->Employees_model;
+		$employee = new $this->Employees_model('e');
 		$employee->setNameId($entry->name_id,true);
+		$employee->set_select('ni.*');
+		$employee->set_select('e.name_id');
+		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
 		$this->template_data->set('employee', $employee->get());
 
 		$benefits = new $this->Benefits_list_model;

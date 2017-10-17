@@ -862,12 +862,12 @@ var lending_schedule_details = function() {
     var panel_height =  panel.height();
     var current_height = parseInt(panel.css('height'));
     if( (current_height > panel_height) && (current_height > inner_height) ) {
-      panel.css( 'height', current_height);
+      //panel.css( 'height', current_height);
     } else {
       if( panel_height > inner_height ) {
-        panel.css( 'height', panel_height);
+        //panel.css( 'height', panel_height);
       } else {
-        panel.css( 'height', inner_height);
+        //panel.css( 'height', inner_height);
       }
     }
   } 

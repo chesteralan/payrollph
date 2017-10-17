@@ -23,7 +23,7 @@ CREATE TABLE `names_list` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -175,6 +175,55 @@ class Names_list_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'id' => (object) array(
+										'Field'=>'id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'PRI',
+										'Default'=>'',
+										'Extra'=>'auto_increment'
+									),
+
+			'full_name' => (object) array(
+										'Field'=>'full_name',
+										'Type'=>'varchar(200)',
+										'Null'=>'NO',
+										'Key'=>'UNI',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'address' => (object) array(
+										'Field'=>'address',
+										'Type'=>'varchar(200)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'contact_number' => (object) array(
+										'Field'=>'contact_number',
+										'Type'=>'varchar(200)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'trash' => (object) array(
+										'Field'=>'trash',
+										'Type'=>'int(1)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

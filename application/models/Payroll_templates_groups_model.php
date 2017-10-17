@@ -20,7 +20,7 @@ CREATE TABLE `payroll_templates_groups` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -148,6 +148,46 @@ class Payroll_templates_groups_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'template_id' => (object) array(
+										'Field'=>'template_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'group_id' => (object) array(
+										'Field'=>'group_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'order' => (object) array(
+										'Field'=>'order',
+										'Type'=>'int(2)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									),
+
+			'page' => (object) array(
+										'Field'=>'page',
+										'Type'=>'int(2)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'1',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

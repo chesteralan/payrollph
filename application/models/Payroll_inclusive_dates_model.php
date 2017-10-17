@@ -16,7 +16,7 @@ CREATE TABLE `payroll_inclusive_dates` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -96,6 +96,28 @@ class Payroll_inclusive_dates_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'payroll_id' => (object) array(
+										'Field'=>'payroll_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'inclusive_date' => (object) array(
+										'Field'=>'inclusive_date',
+										'Type'=>'date',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

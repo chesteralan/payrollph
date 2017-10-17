@@ -20,7 +20,7 @@ CREATE TABLE `employees_contacts` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -148,6 +148,46 @@ class Employees_contacts_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'name_id' => (object) array(
+										'Field'=>'name_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'PRI',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'phone_number' => (object) array(
+										'Field'=>'phone_number',
+										'Type'=>'varchar(50)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'cell_number' => (object) array(
+										'Field'=>'cell_number',
+										'Type'=>'varchar(50)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'address' => (object) array(
+										'Field'=>'address',
+										'Type'=>'varchar(200)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

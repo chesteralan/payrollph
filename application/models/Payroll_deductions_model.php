@@ -18,7 +18,7 @@ CREATE TABLE `payroll_deductions` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -122,6 +122,37 @@ class Payroll_deductions_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'payroll_id' => (object) array(
+										'Field'=>'payroll_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'deduction_id' => (object) array(
+										'Field'=>'deduction_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'order' => (object) array(
+										'Field'=>'order',
+										'Type'=>'int(2)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

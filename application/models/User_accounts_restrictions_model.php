@@ -26,7 +26,7 @@ CREATE TABLE `user_accounts_restrictions` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -226,6 +226,73 @@ class User_accounts_restrictions_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'uid' => (object) array(
+										'Field'=>'uid',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'department' => (object) array(
+										'Field'=>'department',
+										'Type'=>'varchar(50)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'section' => (object) array(
+										'Field'=>'section',
+										'Type'=>'varchar(50)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'view' => (object) array(
+										'Field'=>'view',
+										'Type'=>'int(1)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									),
+
+			'add' => (object) array(
+										'Field'=>'add',
+										'Type'=>'int(1)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									),
+
+			'edit' => (object) array(
+										'Field'=>'edit',
+										'Type'=>'int(1)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									),
+
+			'delete' => (object) array(
+										'Field'=>'delete',
+										'Type'=>'int(1)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

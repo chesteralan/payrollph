@@ -24,7 +24,7 @@ CREATE TABLE `payroll_templates_employees` (
 
 
  * @package			        Model
- * @version_number	        4.0.0
+ * @version_number	        5.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -200,6 +200,64 @@ class Payroll_templates_employees_model extends MY_Model {
 
 
 
+	
+	public function get_table_options() {
+		return array(
+			'template_id' => (object) array(
+										'Field'=>'template_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'MUL',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'name_id' => (object) array(
+										'Field'=>'name_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'order' => (object) array(
+										'Field'=>'order',
+										'Type'=>'int(2)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									),
+
+			'template' => (object) array(
+										'Field'=>'template',
+										'Type'=>'varchar(20)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'payslip',
+										'Extra'=>''
+									),
+
+			'print_group' => (object) array(
+										'Field'=>'print_group',
+										'Type'=>'int(20)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'active' => (object) array(
+										'Field'=>'active',
+										'Type'=>'int(1)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'1',
+										'Extra'=>''
+									)
+		);
+	}
 
 }
 

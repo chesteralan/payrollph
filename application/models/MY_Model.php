@@ -6,7 +6,7 @@
 | This file is the parent class of Model Classes
 |
  * @package                 MY_Model
- * @version_number          4.6.0
+ * @version_number          4.7
  * @project                 Trokis Philippines
  * @project_link            http://www.trokis.com
  * @author                  Chester Alan Tagudin
@@ -1433,6 +1433,14 @@ class MY_Model extends CI_Model
         $this->_set_db_data(); 
         $this->setup_conditions();
         return $this->_db->get_compiled_delete( $this->_db->database . '.' . $this->_table_name );
+    }
+
+    public function get_table_name() {
+        return $this->_table_name;
+    }    
+
+    public function get_table_fields() {
+        return $this->_fields;
     }
     
 }

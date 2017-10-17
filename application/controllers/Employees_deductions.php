@@ -71,8 +71,11 @@ class Employees_deductions extends MY_Controller {
 
 	public function archived($id, $start=0) {
 
-		$employee = new $this->Employees_model;
+		$employee = new $this->Employees_model('e');
 		$employee->setNameId($id,true);
+		$employee->set_select('ni.*');
+		$employee->set_select('e.name_id');
+		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
 		$this->template_data->set('employee', $employee->get());
 
 		$templates = new $this->Payroll_templates_model;
@@ -117,8 +120,11 @@ class Employees_deductions extends MY_Controller {
 
 	public function trash($id, $start=0) {
 
-		$employee = new $this->Employees_model;
+		$employee = new $this->Employees_model('e');
 		$employee->setNameId($id,true);
+		$employee->set_select('ni.*');
+		$employee->set_select('e.name_id');
+		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
 		$this->template_data->set('employee', $employee->get());
 
 		$templates = new $this->Payroll_templates_model;
@@ -166,8 +172,11 @@ class Employees_deductions extends MY_Controller {
 
 	public function add($id, $output='') {
 
-		$employee = new $this->Employees_model;
+		$employee = new $this->Employees_model('e');
 		$employee->setNameId($id,true);
+		$employee->set_select('ni.*');
+		$employee->set_select('e.name_id');
+		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
 		$this->template_data->set('employee', $employee->get());
 
 		if( $this->input->post() ) {
@@ -228,8 +237,11 @@ class Employees_deductions extends MY_Controller {
 		$deductions->setId($id,true);
 		$deductions_data = $deductions->get();
 
-		$employee = new $this->Employees_model;
+		$employee = new $this->Employees_model('e');
 		$employee->setNameId($deductions_data->name_id,true);
+		$employee->set_select('ni.*');
+		$employee->set_select('e.name_id');
+		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
 		$this->template_data->set('employee', $employee->get());
 
 		if( $deductions->nonEmpty() ) {
@@ -335,8 +347,11 @@ class Employees_deductions extends MY_Controller {
 		$entry = $d_entry->get();
 		$this->template_data->set('entry', $entry);
 
-		$employee = new $this->Employees_model;
+		$employee = new $this->Employees_model('e');
 		$employee->setNameId($entry->name_id,true);
+		$employee->set_select('ni.*');
+		$employee->set_select('e.name_id');
+		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
 		$this->template_data->set('employee', $employee->get());
 
 		$deductions = new $this->Deductions_list_model;
@@ -376,8 +391,11 @@ class Employees_deductions extends MY_Controller {
 	public function summary($deduction_id, $name_id, $output='') {
 
 
-		$employee = new $this->Employees_model;
+		$employee = new $this->Employees_model('e');
 		$employee->setNameId($name_id,true);
+		$employee->set_select('ni.*');
+		$employee->set_select('e.name_id');
+		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
 		$this->template_data->set('employee', $employee->get());
 
 		$deductions = new $this->Deductions_list_model;
@@ -400,8 +418,10 @@ class Employees_deductions extends MY_Controller {
 		$payroll_deductions->setNameId($name_id,true);
 		$payroll_deductions->setDeductionId($deduction_id,true);
 		$payroll_deductions->set_select("SUM(ped.amount) as total_amount");
+		$payroll_deductions->set_where("((SELECT SUM(amount) FROM payroll_employees_deductions ped2 WHERE ped2.entry_id=ped.entry_id) < ed.max_amount)");
 		$payroll_deductions->set_where("ped.entry_id != 0");
 
+		$payroll_deductions->set_join('employees_deductions ed', 'ed.id=ped.entry_id');
 		$this->template_data->set('payroll_deductions', $payroll_deductions->get());
 
 		$this->template_data->set('output', $output);
@@ -411,8 +431,11 @@ class Employees_deductions extends MY_Controller {
 	public function analyze($name_id, $deduction_id=NULL, $output='') {
 
 
-		$employee = new $this->Employees_model;
+		$employee = new $this->Employees_model('e');
 		$employee->setNameId($name_id,true);
+		$employee->set_select('ni.*');
+		$employee->set_select('e.name_id');
+		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
 		$this->template_data->set('employee', $employee->get());
 
 		if( $deduction_id ) {
@@ -489,8 +512,11 @@ class Employees_deductions extends MY_Controller {
 		$company->setId($this->session->userdata('current_company_id'),true);
 		$this->template_data->set('company', $company->get());
 
-		$employee = new $this->Employees_model;
+		$employee = new $this->Employees_model('e');
 		$employee->setNameId($name_id,true);
+		$employee->set_select('ni.*');
+		$employee->set_select('e.name_id');
+		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
 		$this->template_data->set('employee', $employee->get());
 
 		if( $deduction_id ) {
