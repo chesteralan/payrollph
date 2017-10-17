@@ -26,7 +26,9 @@
   </ul>
 </div>
 <?php } ?>
-          <h3 class="panel-title">Backups</h3>
+          <h3 class="panel-title">Backups 
+<a href="<?php echo site_url("system_database/verify"); ?>"><span class="fa fa-database"></span></a>
+          </h3>
 
         </div>
         <div class="panel-body" id="ajaxBodyInnerPage">

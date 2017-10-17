@@ -1,14 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class System_backup extends MY_Controller {
+class System_database extends MY_Controller {
 	
 	public function __construct() {
 		parent::__construct();
-		$this->template_data->set('current_page', 'Backup');
-		$this->template_data->set('current_uri', 'system_backup');
+		$this->template_data->set('current_page', 'Database');
+		$this->template_data->set('current_uri', 'system_database');
 
-		$this->_isAuth('system', 'backup', 'view');
+		$this->_isAuth('system', 'database', 'view');
 
 	}
 
@@ -19,7 +19,7 @@ class System_backup extends MY_Controller {
 		arsort($files);
 		$this->template_data->set('backup_files', $files);
 
-		$this->load->view('system/backup', $this->template_data->get_data());
+		$this->load->view('system/database/backup', $this->template_data->get_data());
 	}
 
 	public function download($file)
@@ -36,12 +36,12 @@ class System_backup extends MY_Controller {
 		    readfile($file_dir);
 		    exit;
 		}
-		redirect("system_backup");
+		redirect("system_database");
 	}
 
 	public function delete($file)
 	{
-		$this->_isAuth('system', 'backup', 'delete');
+		$this->_isAuth('system', 'database', 'delete');
 		$file_dir = "backups/" . $file;
 		if (file_exists($file_dir)) {
 			unlink($file_dir);

@@ -109,8 +109,8 @@ if(
                           </a>
                         <?php } ?>
                         <?php if( in_array('backup', $this->session->menu_module['system'] ) ) { ?>
-                          <a href="<?php echo site_url('system_backup'); ?>" class="list-group-item body_wrapper">
-                            <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span> Backup
+                          <a href="<?php echo site_url('system_database'); ?>" class="list-group-item body_wrapper">
+                            <span class="fa fa-database" aria-hidden="true"></span> Database
                           </a>
                         <?php } ?>
 

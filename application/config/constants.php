@@ -121,7 +121,7 @@ $dept = array(
 				'companies' => 'Companies',
 				'terms' => 'Terminologies',
 				'users' => 'User Accounts',
-				'backup' => 'Database Backup',
+				'database' => 'Database',
 			),
 	),
 

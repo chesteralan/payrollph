@@ -121,10 +121,10 @@ if( $this->config->item('multi_company') ) {
             'uri' => 'system_users',
             'permission' => array('system', 'users'),
           );
-    $system_submenus['system_backup'] = array(
-            'title' => 'Database Backup',
-            'uri' => 'system_backup',
-            'permission' => array('system', 'backup'),
+    $system_submenus['system_database'] = array(
+            'title' => 'Database',
+            'uri' => 'system_database',
+            'permission' => array('system', 'database'),
         );
 
     $main_menu['system'] = array(

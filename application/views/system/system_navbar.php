@@ -21,7 +21,7 @@ if( $this->config->item('multi_company') ) {
 }
 $url['system_terms'] = array('uri' => 'system_terms', 'title'=>'Terminologies', 'access'=>hasAccess('system', 'terms', 'view'));
 $url['system_users'] = array('uri' => 'system_users', 'title'=>'User Accounts', 'access'=>hasAccess('system', 'users', 'view'));
-$url['system_backup'] = array('uri' => 'system_backup', 'title'=>'Database Backup', 'access'=>hasAccess('system', 'backup', 'view'));
+$url['system_database'] = array('uri' => 'system_database', 'title'=>'Database', 'access'=>hasAccess('system', 'database', 'view'));
 foreach($url as $k=>$v) {
   if( $v['access'] ) {
 ?>

@@ -277,6 +277,6 @@ if( isset($_GET['type']) ) {
     }
 }
 
-$backup_url = $config['base_url'] . (($config['index_page']!='') ? $config['index_page'] . "/" : '') . "system_backup";
+$backup_url = $config['base_url'] . (($config['index_page']!='') ? $config['index_page'] . "/" : '') . "system_database";
 header('location: ' . $backup_url);
 exit;
