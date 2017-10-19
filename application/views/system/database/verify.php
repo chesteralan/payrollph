@@ -14,11 +14,13 @@
         <div class="panel-body" id="ajaxBodyInnerPage">
 <?php
 	function differ1($table_options, $table_columns) {
-		foreach($table_columns as $tc) {
-			if( isset($table_options[$tc->Field]) ) {
-				foreach($tc as $k=>$v) {
-					if( $v != $table_options[$tc->Field]->$k ) {
-						return true;
+		if($table_columns) {
+			foreach($table_columns as $tc) {
+				if( isset($table_options[$tc->Field]) ) {
+					foreach($tc as $k=>$v) {
+						if( $v != $table_options[$tc->Field]->$k ) {
+							return true;
+						}
 					}
 				}
 			}
@@ -45,8 +47,7 @@
     </div>
     <div id="<?php echo $model->table_name; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
-      	
-		      		<?php foreach($model->table_columns as $tc) { ?>
+		      		<?php if( $model->table_columns ) foreach($model->table_columns as $tc) { ?>
 						<table class="table table-striped table-hover">
 				      		<tbody>
 				      		<?php 
