@@ -126,7 +126,7 @@ class Lists_deductions extends MY_Controller {
 		$items->setActive(1,true);
 		$items->setTrash(0,true);
 		$items->set_where('(start_date <="' . date('Y-m-d') .'")');
-		$items->set_join('employees e', 'e.name_id=ed.name_id');
+		$items->set_join('names_info e', 'e.name_id=ed.name_id');
 		$items->set_select("e.*");
 		$items->set_select("ed.*");
 		$items->set_start($start);
@@ -172,11 +172,13 @@ class Lists_deductions extends MY_Controller {
 		$employees = new $this->Payroll_employees_deductions_model('ped');
 		$employees->setDeductionId($id,true);
 		$employees->set_join('employees e', 'e.name_id=ped.name_id');
+		$employees->set_join('names_info ni', 'ni.name_id=ped.name_id');
 		$employees->set_select("e.*");
+		$employees->set_select("ni.*");
 		$employees->set_where("e.company_id=" . $this->session->userdata('current_company_id'));
 		$employees->set_join('employees_deductions ed', 'ed.id=ped.entry_id');
 		$employees->set_where('(ed.start_date <="' . date('Y-m-d') .'")');
-		$employees->set_order('e.lastname', 'ASC');
+		$employees->set_order('ni.lastname', 'ASC');
 		$employees->set_group_by('e.name_id');
 		$employees->set_limit(0);
 		$this->template_data->set('employees', $employees->populate());
@@ -263,7 +265,9 @@ class Lists_deductions extends MY_Controller {
 		$items->set_select("ped.*");
 		$items->setDeductionId($id,true);
 		$items->set_join('employees e', 'e.name_id=ped.name_id');
+		$items->set_join('names_info ni', 'ni.name_id=ped.name_id');
 		$items->set_select("e.*");
+		$items->set_select("ni.*");
 		$items->set_join('employees_deductions ed', 'ed.id=ped.entry_id');
 		$items->set_select("ed.max_amount");
 		$items->set_where('(ed.start_date <="' . date('Y-m-d') .'")');
@@ -288,11 +292,13 @@ class Lists_deductions extends MY_Controller {
 		$employees = new $this->Payroll_employees_deductions_model('ped');
 		$employees->setDeductionId($id,true);
 		$employees->set_join('employees e', 'e.name_id=ped.name_id');
+		$employees->set_join('names_info ni', 'ni.name_id=ped.name_id');
 		$employees->set_select("e.*");
+		$employees->set_select("ni.*");
 		$employees->set_where("e.company_id=" . $this->session->userdata('current_company_id'));
 		$employees->set_join('employees_deductions ed', 'ed.id=ped.entry_id');
 		$employees->set_where('(ed.start_date <="' . date('Y-m-d') .'")');
-		$employees->set_order('e.lastname', 'ASC');
+		$employees->set_order('ni.lastname', 'ASC');
 		$employees->set_group_by('e.name_id');
 		$employees->set_limit(0);
 		$this->template_data->set('employees', $employees->populate());

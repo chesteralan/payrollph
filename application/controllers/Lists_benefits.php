@@ -124,7 +124,9 @@ class Lists_benefits extends MY_Controller {
 		$items->setTrash(0,true);
 		$items->set_where('(start_date <="' . date('Y-m-d') .'")');
 		$items->set_join('employees e', 'e.name_id=eb.name_id');
+		$items->set_join('names_info ni', 'ni.name_id=eb.name_id');
 		$items->set_select("e.*");
+		$items->set_select("ni.*");
 		$items->set_select("eb.*");
 		$items->set_start($start);
 

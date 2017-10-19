@@ -1,4 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
 <?php $this->load->view('header'); ?>
 <?php if( ! $inner_page ): ?>
 
@@ -39,6 +40,7 @@
 </div>
 	    	</div>
 	    	<div class="panel-body" id="ajaxBodyInnerPage">
+
 <?php endif; ?>
 <?php if( $names ) { ?>
 	    		<table class="table table-default hidden-xs table-hover">

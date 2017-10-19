@@ -121,7 +121,7 @@ class Lists_earnings extends MY_Controller {
 		$items->setActive(1,true);
 		$items->setTrash(0,true);
 		$items->set_where('(start_date <="' . date('Y-m-d') .'")');
-		$items->set_join('employees e', 'e.name_id=ee.name_id');
+		$items->set_join('names_info e', 'e.name_id=ee.name_id');
 		$items->set_select("e.*");
 		$items->set_select("ee.*");
 		$items->set_start($start);

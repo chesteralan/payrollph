@@ -292,6 +292,7 @@ HTML;
 
 
 ?>
+<?php if( isset($output) && ($output!='ajax') ) : ?>
 <?php $this->load->view('header'); ?>
 <?php if( ! $inner_page ): ?>
 
@@ -304,6 +305,7 @@ HTML;
 <div class="container">
     <div class="row">
             <div class="col-md-12">
+<?php endif; ?>
 <?php endif; ?>
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -353,10 +355,13 @@ $modules[] = array(
     'panel_body' => emergency($name),
     'open' => ($this->input->get('active')==='emergency'),
   );
-foreach($modules as $i=>$content) { ?>
+foreach($modules as $i=>$content) {  ?>
 <div class="panel panel-default">
                 <div class="panel-heading">
+<?php if ( isset($output) && ($output!='ajax') ) {  ?>
                 <a class="ajax-modal pull-right" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo strip_tags($content['title']); ?>" data-url="<?php echo $content['config_url']; ?>"><span class="glyphicon glyphicon-cog"></span></a>
+<?php } ?>
+
                   <h3 class="panel-title bold">
 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $i; ?>" aria-expanded="true" aria-controls="collapse<?php echo $i; ?>">
                   <?php echo $content['title']; ?>
@@ -373,6 +378,7 @@ foreach($modules as $i=>$content) { ?>
 
 </div>
 
+<?php if( isset($output) && ($output!='ajax') ) : ?>
 <?php if( ! $inner_page ): ?>
 
             </div>
@@ -382,4 +388,6 @@ foreach($modules as $i=>$content) { ?>
 
 
 
+
 <?php $this->load->view('footer'); ?>
+<?php endif; ?>
