@@ -102,12 +102,13 @@ class System_database extends MY_Controller {
 		$models_obj = array();
 		foreach($models as $i=>$model) {
 			$obj = new $this->$model;
+			$table_columns = $this->db->query('SHOW COLUMNS FROM '. $obj->get_table_name());
 			$models_obj[$i] = (object) array(
 				'model_name' => $model,
 				'table_name'=> $obj->get_table_name(),
 				'fields' => $obj->get_table_fields(),
 				'table_options' => $obj->get_table_options(),
-				'table_columns' => $this->db->query('SHOW COLUMNS FROM '. $obj->get_table_name())->result(),
+				'table_columns' => ((isset($table_columns)) && ($table_columns)) ? $table_columns->result() : false,
 			);
 		}
 

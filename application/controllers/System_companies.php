@@ -127,7 +127,7 @@ class System_companies extends MY_Controller {
 					$options->setValue( serialize($this->input->post($name)), false,true);
 					$options->update();
 				} else {
-					$options->setValue( serialize($this->input->post($name)) );
+					$options->setValue( serialize( $this->input->post($name) ) );
 					$options->insert();
 				}
 			} else {
