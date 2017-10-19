@@ -15,10 +15,10 @@ CREATE TABLE `user_accounts` (
   KEY `id` (`id`)
 );
 
- ALTER TABLE  `user_accounts` ADD  `id` int(10) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
- ALTER TABLE  `user_accounts` ADD  `username` varchar(200) NOT NULL   UNIQUE KEY;
- ALTER TABLE  `user_accounts` ADD  `password` varchar(200) NOT NULL   ;
- ALTER TABLE  `user_accounts` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `user_accounts` ADD  `id` int(10) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `user_accounts` ADD  `username` varchar(200) NOT NULL   UNIQUE KEY;
+ALTER TABLE  `user_accounts` ADD  `password` varchar(200) NOT NULL   ;
+ALTER TABLE  `user_accounts` ADD  `name` varchar(200) NOT NULL   ;
 
 
  * @package			        Model
@@ -64,18 +64,18 @@ class User_accounts_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
 	* @access public
 	*/
 
-		public function getId() {
-			return $this->id;
-		}
+	public function getId() {
+		return $this->id;
+	}
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -87,18 +87,18 @@ class User_accounts_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setUsername($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('username', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setUsername($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('username', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `username` variable
 	* @access public
 	*/
 
-		public function getUsername() {
-			return $this->username;
-		}
+	public function getUsername() {
+		return $this->username;
+	}
 	
 // ------------------------------ End Field: username --------------------------------------
 
@@ -110,18 +110,18 @@ class User_accounts_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setPassword($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('password', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setPassword($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('password', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `password` variable
 	* @access public
 	*/
 
-		public function getPassword() {
-			return $this->password;
-		}
+	public function getPassword() {
+		return $this->password;
+	}
 	
 // ------------------------------ End Field: password --------------------------------------
 
@@ -133,18 +133,18 @@ class User_accounts_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name` variable
 	* @access public
 	*/
 
-		public function getName() {
-			return $this->name;
-		}
+	public function getName() {
+		return $this->name;
+	}
 	
 // ------------------------------ End Field: name --------------------------------------
 
@@ -189,6 +189,19 @@ class User_accounts_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'id' => "ALTER TABLE  `user_accounts` ADD  `id` int(10) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'username' => "ALTER TABLE  `user_accounts` ADD  `username` varchar(200) NOT NULL   UNIQUE KEY;",
+			'password' => "ALTER TABLE  `user_accounts` ADD  `password` varchar(200) NOT NULL   ;",
+			'name' => "ALTER TABLE  `user_accounts` ADD  `name` varchar(200) NOT NULL   ;",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

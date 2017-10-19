@@ -17,14 +17,14 @@ CREATE TABLE `companies_list` (
   PRIMARY KEY (`id`)
 );
 
- ALTER TABLE  `companies_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
- ALTER TABLE  `companies_list` ADD  `theme` varchar(50) NULL   ;
- ALTER TABLE  `companies_list` ADD  `name` varchar(200) NOT NULL   ;
- ALTER TABLE  `companies_list` ADD  `address` varchar(200) NULL   ;
- ALTER TABLE  `companies_list` ADD  `phone` varchar(200) NULL   ;
- ALTER TABLE  `companies_list` ADD  `notes` text NULL   ;
- ALTER TABLE  `companies_list` ADD  `default` int(1) NULL   DEFAULT '0';
- ALTER TABLE  `companies_list` ADD  `trash` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `companies_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `companies_list` ADD  `theme` varchar(50) NULL   ;
+ALTER TABLE  `companies_list` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `companies_list` ADD  `address` varchar(200) NULL   ;
+ALTER TABLE  `companies_list` ADD  `phone` varchar(200) NULL   ;
+ALTER TABLE  `companies_list` ADD  `notes` text NULL   ;
+ALTER TABLE  `companies_list` ADD  `default` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `companies_list` ADD  `trash` int(1) NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -74,18 +74,18 @@ class Companies_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
 	* @access public
 	*/
 
-		public function getId() {
-			return $this->id;
-		}
+	public function getId() {
+		return $this->id;
+	}
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -97,18 +97,18 @@ class Companies_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setTheme($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('theme', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setTheme($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('theme', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `theme` variable
 	* @access public
 	*/
 
-		public function getTheme() {
-			return $this->theme;
-		}
+	public function getTheme() {
+		return $this->theme;
+	}
 	
 // ------------------------------ End Field: theme --------------------------------------
 
@@ -120,18 +120,18 @@ class Companies_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name` variable
 	* @access public
 	*/
 
-		public function getName() {
-			return $this->name;
-		}
+	public function getName() {
+		return $this->name;
+	}
 	
 // ------------------------------ End Field: name --------------------------------------
 
@@ -143,18 +143,18 @@ class Companies_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setAddress($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setAddress($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `address` variable
 	* @access public
 	*/
 
-		public function getAddress() {
-			return $this->address;
-		}
+	public function getAddress() {
+		return $this->address;
+	}
 	
 // ------------------------------ End Field: address --------------------------------------
 
@@ -166,18 +166,18 @@ class Companies_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setPhone($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('phone', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setPhone($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('phone', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `phone` variable
 	* @access public
 	*/
 
-		public function getPhone() {
-			return $this->phone;
-		}
+	public function getPhone() {
+		return $this->phone;
+	}
 	
 // ------------------------------ End Field: phone --------------------------------------
 
@@ -189,18 +189,18 @@ class Companies_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `notes` variable
 	* @access public
 	*/
 
-		public function getNotes() {
-			return $this->notes;
-		}
+	public function getNotes() {
+		return $this->notes;
+	}
 	
 // ------------------------------ End Field: notes --------------------------------------
 
@@ -212,18 +212,18 @@ class Companies_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setDefault($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('default', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setDefault($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('default', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `default` variable
 	* @access public
 	*/
 
-		public function getDefault() {
-			return $this->default;
-		}
+	public function getDefault() {
+		return $this->default;
+	}
 	
 // ------------------------------ End Field: default --------------------------------------
 
@@ -235,18 +235,18 @@ class Companies_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `trash` variable
 	* @access public
 	*/
 
-		public function getTrash() {
-			return $this->trash;
-		}
+	public function getTrash() {
+		return $this->trash;
+	}
 	
 // ------------------------------ End Field: trash --------------------------------------
 
@@ -327,6 +327,23 @@ class Companies_list_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'id' => "ALTER TABLE  `companies_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'theme' => "ALTER TABLE  `companies_list` ADD  `theme` varchar(50) NULL   ;",
+			'name' => "ALTER TABLE  `companies_list` ADD  `name` varchar(200) NOT NULL   ;",
+			'address' => "ALTER TABLE  `companies_list` ADD  `address` varchar(200) NULL   ;",
+			'phone' => "ALTER TABLE  `companies_list` ADD  `phone` varchar(200) NULL   ;",
+			'notes' => "ALTER TABLE  `companies_list` ADD  `notes` text NULL   ;",
+			'default' => "ALTER TABLE  `companies_list` ADD  `default` int(1) NULL   DEFAULT '0';",
+			'trash' => "ALTER TABLE  `companies_list` ADD  `trash` int(1) NULL   DEFAULT '0';",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

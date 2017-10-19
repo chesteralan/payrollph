@@ -15,11 +15,11 @@ CREATE TABLE `names_list` (
   UNIQUE KEY `full_name` (`full_name`)
 );
 
- ALTER TABLE  `names_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
- ALTER TABLE  `names_list` ADD  `full_name` varchar(200) NOT NULL   UNIQUE KEY;
- ALTER TABLE  `names_list` ADD  `address` varchar(200) NULL   ;
- ALTER TABLE  `names_list` ADD  `contact_number` varchar(200) NULL   ;
- ALTER TABLE  `names_list` ADD  `trash` int(1) NOT NULL   DEFAULT '0';
+ALTER TABLE  `names_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `names_list` ADD  `full_name` varchar(200) NOT NULL   UNIQUE KEY;
+ALTER TABLE  `names_list` ADD  `address` varchar(200) NULL   ;
+ALTER TABLE  `names_list` ADD  `contact_number` varchar(200) NULL   ;
+ALTER TABLE  `names_list` ADD  `trash` int(1) NOT NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -66,18 +66,18 @@ class Names_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
 	* @access public
 	*/
 
-		public function getId() {
-			return $this->id;
-		}
+	public function getId() {
+		return $this->id;
+	}
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -89,18 +89,18 @@ class Names_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setFullName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('full_name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setFullName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('full_name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `full_name` variable
 	* @access public
 	*/
 
-		public function getFullName() {
-			return $this->full_name;
-		}
+	public function getFullName() {
+		return $this->full_name;
+	}
 	
 // ------------------------------ End Field: full_name --------------------------------------
 
@@ -112,18 +112,18 @@ class Names_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setAddress($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setAddress($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `address` variable
 	* @access public
 	*/
 
-		public function getAddress() {
-			return $this->address;
-		}
+	public function getAddress() {
+		return $this->address;
+	}
 	
 // ------------------------------ End Field: address --------------------------------------
 
@@ -135,18 +135,18 @@ class Names_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setContactNumber($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('contact_number', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setContactNumber($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('contact_number', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `contact_number` variable
 	* @access public
 	*/
 
-		public function getContactNumber() {
-			return $this->contact_number;
-		}
+	public function getContactNumber() {
+		return $this->contact_number;
+	}
 	
 // ------------------------------ End Field: contact_number --------------------------------------
 
@@ -158,18 +158,18 @@ class Names_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `trash` variable
 	* @access public
 	*/
 
-		public function getTrash() {
-			return $this->trash;
-		}
+	public function getTrash() {
+		return $this->trash;
+	}
 	
 // ------------------------------ End Field: trash --------------------------------------
 
@@ -223,6 +223,20 @@ class Names_list_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'id' => "ALTER TABLE  `names_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'full_name' => "ALTER TABLE  `names_list` ADD  `full_name` varchar(200) NOT NULL   UNIQUE KEY;",
+			'address' => "ALTER TABLE  `names_list` ADD  `address` varchar(200) NULL   ;",
+			'contact_number' => "ALTER TABLE  `names_list` ADD  `contact_number` varchar(200) NULL   ;",
+			'trash' => "ALTER TABLE  `names_list` ADD  `trash` int(1) NOT NULL   DEFAULT '0';",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

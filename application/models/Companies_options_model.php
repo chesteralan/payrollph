@@ -12,9 +12,9 @@ CREATE TABLE `companies_options` (
   KEY `company_id` (`company_id`)
 );
 
- ALTER TABLE  `companies_options` ADD  `company_id` int(20) NOT NULL   ;
- ALTER TABLE  `companies_options` ADD  `key` varchar(50) NOT NULL   ;
- ALTER TABLE  `companies_options` ADD  `value` text NOT NULL   ;
+ALTER TABLE  `companies_options` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `companies_options` ADD  `key` varchar(50) NOT NULL   ;
+ALTER TABLE  `companies_options` ADD  `value` text NOT NULL   ;
 
 
  * @package			        Model
@@ -59,18 +59,18 @@ class Companies_options_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `company_id` variable
 	* @access public
 	*/
 
-		public function getCompanyId() {
-			return $this->company_id;
-		}
+	public function getCompanyId() {
+		return $this->company_id;
+	}
 	
 // ------------------------------ End Field: company_id --------------------------------------
 
@@ -82,18 +82,18 @@ class Companies_options_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setKey($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('key', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setKey($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('key', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `key` variable
 	* @access public
 	*/
 
-		public function getKey() {
-			return $this->key;
-		}
+	public function getKey() {
+		return $this->key;
+	}
 	
 // ------------------------------ End Field: key --------------------------------------
 
@@ -105,18 +105,18 @@ class Companies_options_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setValue($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('value', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setValue($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('value', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `value` variable
 	* @access public
 	*/
 
-		public function getValue() {
-			return $this->value;
-		}
+	public function getValue() {
+		return $this->value;
+	}
 	
 // ------------------------------ End Field: value --------------------------------------
 
@@ -152,6 +152,18 @@ class Companies_options_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'company_id' => "ALTER TABLE  `companies_options` ADD  `company_id` int(20) NOT NULL   ;",
+			'key' => "ALTER TABLE  `companies_options` ADD  `key` varchar(50) NOT NULL   ;",
+			'value' => "ALTER TABLE  `companies_options` ADD  `value` text NOT NULL   ;",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

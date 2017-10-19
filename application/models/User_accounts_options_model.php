@@ -14,11 +14,11 @@ CREATE TABLE `user_accounts_options` (
   KEY `uid` (`uid`)
 );
 
- ALTER TABLE  `user_accounts_options` ADD  `uid` int(20) NOT NULL   ;
- ALTER TABLE  `user_accounts_options` ADD  `department` varchar(200) NOT NULL   ;
- ALTER TABLE  `user_accounts_options` ADD  `section` varchar(200) NOT NULL   ;
- ALTER TABLE  `user_accounts_options` ADD  `key` varchar(200) NOT NULL   ;
- ALTER TABLE  `user_accounts_options` ADD  `value` text NOT NULL   ;
+ALTER TABLE  `user_accounts_options` ADD  `uid` int(20) NOT NULL   ;
+ALTER TABLE  `user_accounts_options` ADD  `department` varchar(200) NOT NULL   ;
+ALTER TABLE  `user_accounts_options` ADD  `section` varchar(200) NOT NULL   ;
+ALTER TABLE  `user_accounts_options` ADD  `key` varchar(200) NOT NULL   ;
+ALTER TABLE  `user_accounts_options` ADD  `value` text NOT NULL   ;
 
 
  * @package			        Model
@@ -65,18 +65,18 @@ class User_accounts_options_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setUid($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('uid', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setUid($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('uid', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `uid` variable
 	* @access public
 	*/
 
-		public function getUid() {
-			return $this->uid;
-		}
+	public function getUid() {
+		return $this->uid;
+	}
 	
 // ------------------------------ End Field: uid --------------------------------------
 
@@ -88,18 +88,18 @@ class User_accounts_options_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setDepartment($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('department', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setDepartment($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('department', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `department` variable
 	* @access public
 	*/
 
-		public function getDepartment() {
-			return $this->department;
-		}
+	public function getDepartment() {
+		return $this->department;
+	}
 	
 // ------------------------------ End Field: department --------------------------------------
 
@@ -111,18 +111,18 @@ class User_accounts_options_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setSection($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('section', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setSection($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('section', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `section` variable
 	* @access public
 	*/
 
-		public function getSection() {
-			return $this->section;
-		}
+	public function getSection() {
+		return $this->section;
+	}
 	
 // ------------------------------ End Field: section --------------------------------------
 
@@ -134,18 +134,18 @@ class User_accounts_options_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setKey($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('key', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setKey($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('key', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `key` variable
 	* @access public
 	*/
 
-		public function getKey() {
-			return $this->key;
-		}
+	public function getKey() {
+		return $this->key;
+	}
 	
 // ------------------------------ End Field: key --------------------------------------
 
@@ -157,18 +157,18 @@ class User_accounts_options_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setValue($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('value', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setValue($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('value', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `value` variable
 	* @access public
 	*/
 
-		public function getValue() {
-			return $this->value;
-		}
+	public function getValue() {
+		return $this->value;
+	}
 	
 // ------------------------------ End Field: value --------------------------------------
 
@@ -222,6 +222,20 @@ class User_accounts_options_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'uid' => "ALTER TABLE  `user_accounts_options` ADD  `uid` int(20) NOT NULL   ;",
+			'department' => "ALTER TABLE  `user_accounts_options` ADD  `department` varchar(200) NOT NULL   ;",
+			'section' => "ALTER TABLE  `user_accounts_options` ADD  `section` varchar(200) NOT NULL   ;",
+			'key' => "ALTER TABLE  `user_accounts_options` ADD  `key` varchar(200) NOT NULL   ;",
+			'value' => "ALTER TABLE  `user_accounts_options` ADD  `value` text NOT NULL   ;",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

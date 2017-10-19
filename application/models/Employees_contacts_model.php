@@ -13,10 +13,10 @@ CREATE TABLE `employees_contacts` (
   UNIQUE KEY `name_id` (`name_id`)
 );
 
- ALTER TABLE  `employees_contacts` ADD  `name_id` int(20) NOT NULL   PRIMARY KEY;
- ALTER TABLE  `employees_contacts` ADD  `phone_number` varchar(50) NULL   ;
- ALTER TABLE  `employees_contacts` ADD  `cell_number` varchar(50) NULL   ;
- ALTER TABLE  `employees_contacts` ADD  `address` varchar(200) NULL   ;
+ALTER TABLE  `employees_contacts` ADD  `name_id` int(20) NOT NULL   PRIMARY KEY;
+ALTER TABLE  `employees_contacts` ADD  `phone_number` varchar(50) NULL   ;
+ALTER TABLE  `employees_contacts` ADD  `cell_number` varchar(50) NULL   ;
+ALTER TABLE  `employees_contacts` ADD  `address` varchar(200) NULL   ;
 
 
  * @package			        Model
@@ -62,18 +62,18 @@ class Employees_contacts_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name_id` variable
 	* @access public
 	*/
 
-		public function getNameId() {
-			return $this->name_id;
-		}
+	public function getNameId() {
+		return $this->name_id;
+	}
 	
 // ------------------------------ End Field: name_id --------------------------------------
 
@@ -85,18 +85,18 @@ class Employees_contacts_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setPhoneNumber($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('phone_number', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setPhoneNumber($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('phone_number', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `phone_number` variable
 	* @access public
 	*/
 
-		public function getPhoneNumber() {
-			return $this->phone_number;
-		}
+	public function getPhoneNumber() {
+		return $this->phone_number;
+	}
 	
 // ------------------------------ End Field: phone_number --------------------------------------
 
@@ -108,18 +108,18 @@ class Employees_contacts_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setCellNumber($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('cell_number', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setCellNumber($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('cell_number', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `cell_number` variable
 	* @access public
 	*/
 
-		public function getCellNumber() {
-			return $this->cell_number;
-		}
+	public function getCellNumber() {
+		return $this->cell_number;
+	}
 	
 // ------------------------------ End Field: cell_number --------------------------------------
 
@@ -131,18 +131,18 @@ class Employees_contacts_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setAddress($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setAddress($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `address` variable
 	* @access public
 	*/
 
-		public function getAddress() {
-			return $this->address;
-		}
+	public function getAddress() {
+		return $this->address;
+	}
 	
 // ------------------------------ End Field: address --------------------------------------
 
@@ -187,6 +187,19 @@ class Employees_contacts_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'name_id' => "ALTER TABLE  `employees_contacts` ADD  `name_id` int(20) NOT NULL   PRIMARY KEY;",
+			'phone_number' => "ALTER TABLE  `employees_contacts` ADD  `phone_number` varchar(50) NULL   ;",
+			'cell_number' => "ALTER TABLE  `employees_contacts` ADD  `cell_number` varchar(50) NULL   ;",
+			'address' => "ALTER TABLE  `employees_contacts` ADD  `address` varchar(200) NULL   ;",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

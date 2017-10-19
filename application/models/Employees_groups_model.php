@@ -15,11 +15,11 @@ CREATE TABLE `employees_groups` (
   KEY `company_id` (`company_id`)
 );
 
- ALTER TABLE  `employees_groups` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
- ALTER TABLE  `employees_groups` ADD  `company_id` int(20) NOT NULL   ;
- ALTER TABLE  `employees_groups` ADD  `name` varchar(200) NOT NULL   ;
- ALTER TABLE  `employees_groups` ADD  `notes` text NULL   ;
- ALTER TABLE  `employees_groups` ADD  `trash` int(1) NOT NULL   DEFAULT '0';
+ALTER TABLE  `employees_groups` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `employees_groups` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_groups` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `employees_groups` ADD  `notes` text NULL   ;
+ALTER TABLE  `employees_groups` ADD  `trash` int(1) NOT NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -66,18 +66,18 @@ class Employees_groups_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
 	* @access public
 	*/
 
-		public function getId() {
-			return $this->id;
-		}
+	public function getId() {
+		return $this->id;
+	}
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -89,18 +89,18 @@ class Employees_groups_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `company_id` variable
 	* @access public
 	*/
 
-		public function getCompanyId() {
-			return $this->company_id;
-		}
+	public function getCompanyId() {
+		return $this->company_id;
+	}
 	
 // ------------------------------ End Field: company_id --------------------------------------
 
@@ -112,18 +112,18 @@ class Employees_groups_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name` variable
 	* @access public
 	*/
 
-		public function getName() {
-			return $this->name;
-		}
+	public function getName() {
+		return $this->name;
+	}
 	
 // ------------------------------ End Field: name --------------------------------------
 
@@ -135,18 +135,18 @@ class Employees_groups_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `notes` variable
 	* @access public
 	*/
 
-		public function getNotes() {
-			return $this->notes;
-		}
+	public function getNotes() {
+		return $this->notes;
+	}
 	
 // ------------------------------ End Field: notes --------------------------------------
 
@@ -158,18 +158,18 @@ class Employees_groups_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `trash` variable
 	* @access public
 	*/
 
-		public function getTrash() {
-			return $this->trash;
-		}
+	public function getTrash() {
+		return $this->trash;
+	}
 	
 // ------------------------------ End Field: trash --------------------------------------
 
@@ -223,6 +223,20 @@ class Employees_groups_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'id' => "ALTER TABLE  `employees_groups` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'company_id' => "ALTER TABLE  `employees_groups` ADD  `company_id` int(20) NOT NULL   ;",
+			'name' => "ALTER TABLE  `employees_groups` ADD  `name` varchar(200) NOT NULL   ;",
+			'notes' => "ALTER TABLE  `employees_groups` ADD  `notes` text NULL   ;",
+			'trash' => "ALTER TABLE  `employees_groups` ADD  `trash` int(1) NOT NULL   DEFAULT '0';",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

@@ -12,9 +12,9 @@ CREATE TABLE `payroll_templates_deductions` (
   KEY `deduction_id` (`template_id`,`deduction_id`)
 );
 
- ALTER TABLE  `payroll_templates_deductions` ADD  `template_id` int(20) NOT NULL   ;
- ALTER TABLE  `payroll_templates_deductions` ADD  `deduction_id` int(20) NOT NULL   ;
- ALTER TABLE  `payroll_templates_deductions` ADD  `order` int(2) NOT NULL   DEFAULT '0';
+ALTER TABLE  `payroll_templates_deductions` ADD  `template_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_templates_deductions` ADD  `deduction_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_templates_deductions` ADD  `order` int(2) NOT NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -59,18 +59,18 @@ class Payroll_templates_deductions_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `template_id` variable
 	* @access public
 	*/
 
-		public function getTemplateId() {
-			return $this->template_id;
-		}
+	public function getTemplateId() {
+		return $this->template_id;
+	}
 	
 // ------------------------------ End Field: template_id --------------------------------------
 
@@ -82,18 +82,18 @@ class Payroll_templates_deductions_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setDeductionId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('deduction_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setDeductionId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('deduction_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `deduction_id` variable
 	* @access public
 	*/
 
-		public function getDeductionId() {
-			return $this->deduction_id;
-		}
+	public function getDeductionId() {
+		return $this->deduction_id;
+	}
 	
 // ------------------------------ End Field: deduction_id --------------------------------------
 
@@ -105,18 +105,18 @@ class Payroll_templates_deductions_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setOrder($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('order', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setOrder($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('order', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `order` variable
 	* @access public
 	*/
 
-		public function getOrder() {
-			return $this->order;
-		}
+	public function getOrder() {
+		return $this->order;
+	}
 	
 // ------------------------------ End Field: order --------------------------------------
 
@@ -152,6 +152,18 @@ class Payroll_templates_deductions_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'template_id' => "ALTER TABLE  `payroll_templates_deductions` ADD  `template_id` int(20) NOT NULL   ;",
+			'deduction_id' => "ALTER TABLE  `payroll_templates_deductions` ADD  `deduction_id` int(20) NOT NULL   ;",
+			'order' => "ALTER TABLE  `payroll_templates_deductions` ADD  `order` int(2) NOT NULL   DEFAULT '0';",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

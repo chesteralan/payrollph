@@ -16,11 +16,11 @@ CREATE TABLE `employees_leave_benefits` (
   KEY `company_id` (`company_id`)
 );
 
- ALTER TABLE  `employees_leave_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
- ALTER TABLE  `employees_leave_benefits` ADD  `company_id` int(20) NOT NULL   ;
- ALTER TABLE  `employees_leave_benefits` ADD  `name_id` int(20) NOT NULL   ;
- ALTER TABLE  `employees_leave_benefits` ADD  `benefit_id` int(20) NOT NULL   ;
- ALTER TABLE  `employees_leave_benefits` ADD  `days` int(2) NULL   DEFAULT '0';
+ALTER TABLE  `employees_leave_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `employees_leave_benefits` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_leave_benefits` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_leave_benefits` ADD  `benefit_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_leave_benefits` ADD  `days` int(2) NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -67,18 +67,18 @@ class Employees_leave_benefits_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
 	* @access public
 	*/
 
-		public function getId() {
-			return $this->id;
-		}
+	public function getId() {
+		return $this->id;
+	}
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -90,18 +90,18 @@ class Employees_leave_benefits_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `company_id` variable
 	* @access public
 	*/
 
-		public function getCompanyId() {
-			return $this->company_id;
-		}
+	public function getCompanyId() {
+		return $this->company_id;
+	}
 	
 // ------------------------------ End Field: company_id --------------------------------------
 
@@ -113,18 +113,18 @@ class Employees_leave_benefits_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name_id` variable
 	* @access public
 	*/
 
-		public function getNameId() {
-			return $this->name_id;
-		}
+	public function getNameId() {
+		return $this->name_id;
+	}
 	
 // ------------------------------ End Field: name_id --------------------------------------
 
@@ -136,18 +136,18 @@ class Employees_leave_benefits_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setBenefitId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('benefit_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setBenefitId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('benefit_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `benefit_id` variable
 	* @access public
 	*/
 
-		public function getBenefitId() {
-			return $this->benefit_id;
-		}
+	public function getBenefitId() {
+		return $this->benefit_id;
+	}
 	
 // ------------------------------ End Field: benefit_id --------------------------------------
 
@@ -159,18 +159,18 @@ class Employees_leave_benefits_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setDays($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('days', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setDays($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('days', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `days` variable
 	* @access public
 	*/
 
-		public function getDays() {
-			return $this->days;
-		}
+	public function getDays() {
+		return $this->days;
+	}
 	
 // ------------------------------ End Field: days --------------------------------------
 
@@ -224,6 +224,20 @@ class Employees_leave_benefits_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'id' => "ALTER TABLE  `employees_leave_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'company_id' => "ALTER TABLE  `employees_leave_benefits` ADD  `company_id` int(20) NOT NULL   ;",
+			'name_id' => "ALTER TABLE  `employees_leave_benefits` ADD  `name_id` int(20) NOT NULL   ;",
+			'benefit_id' => "ALTER TABLE  `employees_leave_benefits` ADD  `benefit_id` int(20) NOT NULL   ;",
+			'days' => "ALTER TABLE  `employees_leave_benefits` ADD  `days` int(2) NULL   DEFAULT '0';",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

@@ -21,16 +21,16 @@ CREATE TABLE `payroll_employees_salaries` (
   KEY `payroll_id` (`payroll_id`)
 );
 
- ALTER TABLE  `payroll_employees_salaries` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
- ALTER TABLE  `payroll_employees_salaries` ADD  `payroll_id` int(20) NOT NULL   ;
- ALTER TABLE  `payroll_employees_salaries` ADD  `name_id` int(20) NOT NULL   ;
- ALTER TABLE  `payroll_employees_salaries` ADD  `salary_id` int(20) NOT NULL   ;
- ALTER TABLE  `payroll_employees_salaries` ADD  `amount` decimal(30,5) NULL   DEFAULT '0.00000';
- ALTER TABLE  `payroll_employees_salaries` ADD  `notes` text NULL   ;
- ALTER TABLE  `payroll_employees_salaries` ADD  `rate_per` varchar(10) NULL   DEFAULT 'month';
- ALTER TABLE  `payroll_employees_salaries` ADD  `days` int(10) NULL   DEFAULT '26';
- ALTER TABLE  `payroll_employees_salaries` ADD  `hours` int(10) NULL   DEFAULT '8';
- ALTER TABLE  `payroll_employees_salaries` ADD  `cola` decimal(10,5) NULL   DEFAULT '0.00000';
+ALTER TABLE  `payroll_employees_salaries` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `payroll_employees_salaries` ADD  `payroll_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_employees_salaries` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_employees_salaries` ADD  `salary_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_employees_salaries` ADD  `amount` decimal(30,5) NULL   DEFAULT '0.00000';
+ALTER TABLE  `payroll_employees_salaries` ADD  `notes` text NULL   ;
+ALTER TABLE  `payroll_employees_salaries` ADD  `rate_per` varchar(10) NULL   DEFAULT 'month';
+ALTER TABLE  `payroll_employees_salaries` ADD  `days` int(10) NULL   DEFAULT '26';
+ALTER TABLE  `payroll_employees_salaries` ADD  `hours` int(10) NULL   DEFAULT '8';
+ALTER TABLE  `payroll_employees_salaries` ADD  `cola` decimal(10,5) NULL   DEFAULT '0.00000';
 
 
  * @package			        Model
@@ -82,18 +82,18 @@ class Payroll_employees_salaries_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
 	* @access public
 	*/
 
-		public function getId() {
-			return $this->id;
-		}
+	public function getId() {
+		return $this->id;
+	}
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -105,18 +105,18 @@ class Payroll_employees_salaries_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('payroll_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('payroll_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `payroll_id` variable
 	* @access public
 	*/
 
-		public function getPayrollId() {
-			return $this->payroll_id;
-		}
+	public function getPayrollId() {
+		return $this->payroll_id;
+	}
 	
 // ------------------------------ End Field: payroll_id --------------------------------------
 
@@ -128,18 +128,18 @@ class Payroll_employees_salaries_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name_id` variable
 	* @access public
 	*/
 
-		public function getNameId() {
-			return $this->name_id;
-		}
+	public function getNameId() {
+		return $this->name_id;
+	}
 	
 // ------------------------------ End Field: name_id --------------------------------------
 
@@ -151,18 +151,18 @@ class Payroll_employees_salaries_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setSalaryId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('salary_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setSalaryId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('salary_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `salary_id` variable
 	* @access public
 	*/
 
-		public function getSalaryId() {
-			return $this->salary_id;
-		}
+	public function getSalaryId() {
+		return $this->salary_id;
+	}
 	
 // ------------------------------ End Field: salary_id --------------------------------------
 
@@ -174,18 +174,18 @@ class Payroll_employees_salaries_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setAmount($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('amount', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setAmount($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('amount', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `amount` variable
 	* @access public
 	*/
 
-		public function getAmount() {
-			return $this->amount;
-		}
+	public function getAmount() {
+		return $this->amount;
+	}
 	
 // ------------------------------ End Field: amount --------------------------------------
 
@@ -197,18 +197,18 @@ class Payroll_employees_salaries_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `notes` variable
 	* @access public
 	*/
 
-		public function getNotes() {
-			return $this->notes;
-		}
+	public function getNotes() {
+		return $this->notes;
+	}
 	
 // ------------------------------ End Field: notes --------------------------------------
 
@@ -220,18 +220,18 @@ class Payroll_employees_salaries_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setRatePer($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('rate_per', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setRatePer($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('rate_per', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `rate_per` variable
 	* @access public
 	*/
 
-		public function getRatePer() {
-			return $this->rate_per;
-		}
+	public function getRatePer() {
+		return $this->rate_per;
+	}
 	
 // ------------------------------ End Field: rate_per --------------------------------------
 
@@ -243,18 +243,18 @@ class Payroll_employees_salaries_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setDays($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('days', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setDays($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('days', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `days` variable
 	* @access public
 	*/
 
-		public function getDays() {
-			return $this->days;
-		}
+	public function getDays() {
+		return $this->days;
+	}
 	
 // ------------------------------ End Field: days --------------------------------------
 
@@ -266,18 +266,18 @@ class Payroll_employees_salaries_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setHours($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('hours', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setHours($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('hours', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `hours` variable
 	* @access public
 	*/
 
-		public function getHours() {
-			return $this->hours;
-		}
+	public function getHours() {
+		return $this->hours;
+	}
 	
 // ------------------------------ End Field: hours --------------------------------------
 
@@ -289,18 +289,18 @@ class Payroll_employees_salaries_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setCola($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('cola', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setCola($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('cola', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `cola` variable
 	* @access public
 	*/
 
-		public function getCola() {
-			return $this->cola;
-		}
+	public function getCola() {
+		return $this->cola;
+	}
 	
 // ------------------------------ End Field: cola --------------------------------------
 
@@ -399,6 +399,25 @@ class Payroll_employees_salaries_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'id' => "ALTER TABLE  `payroll_employees_salaries` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'payroll_id' => "ALTER TABLE  `payroll_employees_salaries` ADD  `payroll_id` int(20) NOT NULL   ;",
+			'name_id' => "ALTER TABLE  `payroll_employees_salaries` ADD  `name_id` int(20) NOT NULL   ;",
+			'salary_id' => "ALTER TABLE  `payroll_employees_salaries` ADD  `salary_id` int(20) NOT NULL   ;",
+			'amount' => "ALTER TABLE  `payroll_employees_salaries` ADD  `amount` decimal(30,5) NULL   DEFAULT '0.00000';",
+			'notes' => "ALTER TABLE  `payroll_employees_salaries` ADD  `notes` text NULL   ;",
+			'rate_per' => "ALTER TABLE  `payroll_employees_salaries` ADD  `rate_per` varchar(10) NULL   DEFAULT 'month';",
+			'days' => "ALTER TABLE  `payroll_employees_salaries` ADD  `days` int(10) NULL   DEFAULT '26';",
+			'hours' => "ALTER TABLE  `payroll_employees_salaries` ADD  `hours` int(10) NULL   DEFAULT '8';",
+			'cola' => "ALTER TABLE  `payroll_employees_salaries` ADD  `cola` decimal(10,5) NULL   DEFAULT '0.00000';",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

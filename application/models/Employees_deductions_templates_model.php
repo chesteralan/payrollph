@@ -11,8 +11,8 @@ CREATE TABLE `employees_deductions_templates` (
   KEY `ed_id` (`ed_id`,`template_id`)
 );
 
- ALTER TABLE  `employees_deductions_templates` ADD  `ed_id` int(20) NOT NULL   ;
- ALTER TABLE  `employees_deductions_templates` ADD  `template_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_deductions_templates` ADD  `ed_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_deductions_templates` ADD  `template_id` int(20) NOT NULL   ;
 
 
  * @package			        Model
@@ -56,18 +56,18 @@ class Employees_deductions_templates_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setEdId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('ed_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setEdId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('ed_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `ed_id` variable
 	* @access public
 	*/
 
-		public function getEdId() {
-			return $this->ed_id;
-		}
+	public function getEdId() {
+		return $this->ed_id;
+	}
 	
 // ------------------------------ End Field: ed_id --------------------------------------
 
@@ -79,18 +79,18 @@ class Employees_deductions_templates_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `template_id` variable
 	* @access public
 	*/
 
-		public function getTemplateId() {
-			return $this->template_id;
-		}
+	public function getTemplateId() {
+		return $this->template_id;
+	}
 	
 // ------------------------------ End Field: template_id --------------------------------------
 
@@ -117,6 +117,17 @@ class Employees_deductions_templates_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'ed_id' => "ALTER TABLE  `employees_deductions_templates` ADD  `ed_id` int(20) NOT NULL   ;",
+			'template_id' => "ALTER TABLE  `employees_deductions_templates` ADD  `template_id` int(20) NOT NULL   ;",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

@@ -12,9 +12,9 @@ CREATE TABLE `payroll_earnings` (
   KEY `earning_id` (`payroll_id`,`earning_id`)
 );
 
- ALTER TABLE  `payroll_earnings` ADD  `payroll_id` int(20) NOT NULL   ;
- ALTER TABLE  `payroll_earnings` ADD  `earning_id` int(20) NOT NULL   ;
- ALTER TABLE  `payroll_earnings` ADD  `order` int(2) NOT NULL   DEFAULT '0';
+ALTER TABLE  `payroll_earnings` ADD  `payroll_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_earnings` ADD  `earning_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_earnings` ADD  `order` int(2) NOT NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -59,18 +59,18 @@ class Payroll_earnings_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('payroll_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('payroll_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `payroll_id` variable
 	* @access public
 	*/
 
-		public function getPayrollId() {
-			return $this->payroll_id;
-		}
+	public function getPayrollId() {
+		return $this->payroll_id;
+	}
 	
 // ------------------------------ End Field: payroll_id --------------------------------------
 
@@ -82,18 +82,18 @@ class Payroll_earnings_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setEarningId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('earning_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setEarningId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('earning_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `earning_id` variable
 	* @access public
 	*/
 
-		public function getEarningId() {
-			return $this->earning_id;
-		}
+	public function getEarningId() {
+		return $this->earning_id;
+	}
 	
 // ------------------------------ End Field: earning_id --------------------------------------
 
@@ -105,18 +105,18 @@ class Payroll_earnings_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setOrder($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('order', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setOrder($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('order', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `order` variable
 	* @access public
 	*/
 
-		public function getOrder() {
-			return $this->order;
-		}
+	public function getOrder() {
+		return $this->order;
+	}
 	
 // ------------------------------ End Field: order --------------------------------------
 
@@ -152,6 +152,18 @@ class Payroll_earnings_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'payroll_id' => "ALTER TABLE  `payroll_earnings` ADD  `payroll_id` int(20) NOT NULL   ;",
+			'earning_id' => "ALTER TABLE  `payroll_earnings` ADD  `earning_id` int(20) NOT NULL   ;",
+			'order' => "ALTER TABLE  `payroll_earnings` ADD  `order` int(2) NOT NULL   DEFAULT '0';",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

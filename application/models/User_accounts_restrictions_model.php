@@ -16,13 +16,13 @@ CREATE TABLE `user_accounts_restrictions` (
   KEY `uid` (`uid`)
 );
 
- ALTER TABLE  `user_accounts_restrictions` ADD  `uid` int(20) NOT NULL   ;
- ALTER TABLE  `user_accounts_restrictions` ADD  `department` varchar(50) NOT NULL   ;
- ALTER TABLE  `user_accounts_restrictions` ADD  `section` varchar(50) NOT NULL   ;
- ALTER TABLE  `user_accounts_restrictions` ADD  `view` int(1) NOT NULL   DEFAULT '0';
- ALTER TABLE  `user_accounts_restrictions` ADD  `add` int(1) NOT NULL   DEFAULT '0';
- ALTER TABLE  `user_accounts_restrictions` ADD  `edit` int(1) NOT NULL   DEFAULT '0';
- ALTER TABLE  `user_accounts_restrictions` ADD  `delete` int(1) NOT NULL   DEFAULT '0';
+ALTER TABLE  `user_accounts_restrictions` ADD  `uid` int(20) NOT NULL   ;
+ALTER TABLE  `user_accounts_restrictions` ADD  `department` varchar(50) NOT NULL   ;
+ALTER TABLE  `user_accounts_restrictions` ADD  `section` varchar(50) NOT NULL   ;
+ALTER TABLE  `user_accounts_restrictions` ADD  `view` int(1) NOT NULL   DEFAULT '0';
+ALTER TABLE  `user_accounts_restrictions` ADD  `add` int(1) NOT NULL   DEFAULT '0';
+ALTER TABLE  `user_accounts_restrictions` ADD  `edit` int(1) NOT NULL   DEFAULT '0';
+ALTER TABLE  `user_accounts_restrictions` ADD  `delete` int(1) NOT NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -71,18 +71,18 @@ class User_accounts_restrictions_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setUid($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('uid', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setUid($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('uid', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `uid` variable
 	* @access public
 	*/
 
-		public function getUid() {
-			return $this->uid;
-		}
+	public function getUid() {
+		return $this->uid;
+	}
 	
 // ------------------------------ End Field: uid --------------------------------------
 
@@ -94,18 +94,18 @@ class User_accounts_restrictions_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setDepartment($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('department', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setDepartment($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('department', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `department` variable
 	* @access public
 	*/
 
-		public function getDepartment() {
-			return $this->department;
-		}
+	public function getDepartment() {
+		return $this->department;
+	}
 	
 // ------------------------------ End Field: department --------------------------------------
 
@@ -117,18 +117,18 @@ class User_accounts_restrictions_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setSection($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('section', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setSection($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('section', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `section` variable
 	* @access public
 	*/
 
-		public function getSection() {
-			return $this->section;
-		}
+	public function getSection() {
+		return $this->section;
+	}
 	
 // ------------------------------ End Field: section --------------------------------------
 
@@ -140,18 +140,18 @@ class User_accounts_restrictions_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setView($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('view', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setView($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('view', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `view` variable
 	* @access public
 	*/
 
-		public function getView() {
-			return $this->view;
-		}
+	public function getView() {
+		return $this->view;
+	}
 	
 // ------------------------------ End Field: view --------------------------------------
 
@@ -163,18 +163,18 @@ class User_accounts_restrictions_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setAdd($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('add', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setAdd($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('add', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `add` variable
 	* @access public
 	*/
 
-		public function getAdd() {
-			return $this->add;
-		}
+	public function getAdd() {
+		return $this->add;
+	}
 	
 // ------------------------------ End Field: add --------------------------------------
 
@@ -186,18 +186,18 @@ class User_accounts_restrictions_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setEdit($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('edit', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setEdit($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('edit', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `edit` variable
 	* @access public
 	*/
 
-		public function getEdit() {
-			return $this->edit;
-		}
+	public function getEdit() {
+		return $this->edit;
+	}
 	
 // ------------------------------ End Field: edit --------------------------------------
 
@@ -209,18 +209,18 @@ class User_accounts_restrictions_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setDelete($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('delete', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setDelete($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('delete', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `delete` variable
 	* @access public
 	*/
 
-		public function getDelete() {
-			return $this->delete;
-		}
+	public function getDelete() {
+		return $this->delete;
+	}
 	
 // ------------------------------ End Field: delete --------------------------------------
 
@@ -292,6 +292,22 @@ class User_accounts_restrictions_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'uid' => "ALTER TABLE  `user_accounts_restrictions` ADD  `uid` int(20) NOT NULL   ;",
+			'department' => "ALTER TABLE  `user_accounts_restrictions` ADD  `department` varchar(50) NOT NULL   ;",
+			'section' => "ALTER TABLE  `user_accounts_restrictions` ADD  `section` varchar(50) NOT NULL   ;",
+			'view' => "ALTER TABLE  `user_accounts_restrictions` ADD  `view` int(1) NOT NULL   DEFAULT '0';",
+			'add' => "ALTER TABLE  `user_accounts_restrictions` ADD  `add` int(1) NOT NULL   DEFAULT '0';",
+			'edit' => "ALTER TABLE  `user_accounts_restrictions` ADD  `edit` int(1) NOT NULL   DEFAULT '0';",
+			'delete' => "ALTER TABLE  `user_accounts_restrictions` ADD  `delete` int(1) NOT NULL   DEFAULT '0';",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

@@ -22,17 +22,17 @@ CREATE TABLE `employees_earnings` (
   KEY `company_id` (`company_id`)
 );
 
- ALTER TABLE  `employees_earnings` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
- ALTER TABLE  `employees_earnings` ADD  `company_id` int(20) NOT NULL   ;
- ALTER TABLE  `employees_earnings` ADD  `name_id` int(20) NOT NULL   ;
- ALTER TABLE  `employees_earnings` ADD  `earning_id` int(20) NOT NULL   ;
- ALTER TABLE  `employees_earnings` ADD  `amount` decimal(30,5) NOT NULL   ;
- ALTER TABLE  `employees_earnings` ADD  `max_amount` decimal(30,5) NULL   DEFAULT '0.00000';
- ALTER TABLE  `employees_earnings` ADD  `start_date` date NULL   ;
- ALTER TABLE  `employees_earnings` ADD  `computed` varchar(10) NULL   ;
- ALTER TABLE  `employees_earnings` ADD  `active` int(1) NULL   DEFAULT '0';
- ALTER TABLE  `employees_earnings` ADD  `trash` int(1) NULL   DEFAULT '0';
- ALTER TABLE  `employees_earnings` ADD  `notes` text NULL   ;
+ALTER TABLE  `employees_earnings` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `employees_earnings` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_earnings` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_earnings` ADD  `earning_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_earnings` ADD  `amount` decimal(30,5) NOT NULL   ;
+ALTER TABLE  `employees_earnings` ADD  `max_amount` decimal(30,5) NULL   DEFAULT '0.00000';
+ALTER TABLE  `employees_earnings` ADD  `start_date` date NULL   ;
+ALTER TABLE  `employees_earnings` ADD  `computed` varchar(10) NULL   ;
+ALTER TABLE  `employees_earnings` ADD  `active` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `employees_earnings` ADD  `trash` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `employees_earnings` ADD  `notes` text NULL   ;
 
 
  * @package			        Model
@@ -85,18 +85,18 @@ class Employees_earnings_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
 	* @access public
 	*/
 
-		public function getId() {
-			return $this->id;
-		}
+	public function getId() {
+		return $this->id;
+	}
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -108,18 +108,18 @@ class Employees_earnings_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `company_id` variable
 	* @access public
 	*/
 
-		public function getCompanyId() {
-			return $this->company_id;
-		}
+	public function getCompanyId() {
+		return $this->company_id;
+	}
 	
 // ------------------------------ End Field: company_id --------------------------------------
 
@@ -131,18 +131,18 @@ class Employees_earnings_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name_id` variable
 	* @access public
 	*/
 
-		public function getNameId() {
-			return $this->name_id;
-		}
+	public function getNameId() {
+		return $this->name_id;
+	}
 	
 // ------------------------------ End Field: name_id --------------------------------------
 
@@ -154,18 +154,18 @@ class Employees_earnings_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setEarningId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('earning_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setEarningId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('earning_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `earning_id` variable
 	* @access public
 	*/
 
-		public function getEarningId() {
-			return $this->earning_id;
-		}
+	public function getEarningId() {
+		return $this->earning_id;
+	}
 	
 // ------------------------------ End Field: earning_id --------------------------------------
 
@@ -177,18 +177,18 @@ class Employees_earnings_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setAmount($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('amount', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setAmount($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('amount', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `amount` variable
 	* @access public
 	*/
 
-		public function getAmount() {
-			return $this->amount;
-		}
+	public function getAmount() {
+		return $this->amount;
+	}
 	
 // ------------------------------ End Field: amount --------------------------------------
 
@@ -200,18 +200,18 @@ class Employees_earnings_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setMaxAmount($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('max_amount', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setMaxAmount($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('max_amount', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `max_amount` variable
 	* @access public
 	*/
 
-		public function getMaxAmount() {
-			return $this->max_amount;
-		}
+	public function getMaxAmount() {
+		return $this->max_amount;
+	}
 	
 // ------------------------------ End Field: max_amount --------------------------------------
 
@@ -223,18 +223,18 @@ class Employees_earnings_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setStartDate($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('start_date', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setStartDate($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('start_date', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `start_date` variable
 	* @access public
 	*/
 
-		public function getStartDate() {
-			return $this->start_date;
-		}
+	public function getStartDate() {
+		return $this->start_date;
+	}
 	
 // ------------------------------ End Field: start_date --------------------------------------
 
@@ -246,18 +246,18 @@ class Employees_earnings_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setComputed($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('computed', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setComputed($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('computed', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `computed` variable
 	* @access public
 	*/
 
-		public function getComputed() {
-			return $this->computed;
-		}
+	public function getComputed() {
+		return $this->computed;
+	}
 	
 // ------------------------------ End Field: computed --------------------------------------
 
@@ -269,18 +269,18 @@ class Employees_earnings_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `active` variable
 	* @access public
 	*/
 
-		public function getActive() {
-			return $this->active;
-		}
+	public function getActive() {
+		return $this->active;
+	}
 	
 // ------------------------------ End Field: active --------------------------------------
 
@@ -292,18 +292,18 @@ class Employees_earnings_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `trash` variable
 	* @access public
 	*/
 
-		public function getTrash() {
-			return $this->trash;
-		}
+	public function getTrash() {
+		return $this->trash;
+	}
 	
 // ------------------------------ End Field: trash --------------------------------------
 
@@ -315,18 +315,18 @@ class Employees_earnings_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `notes` variable
 	* @access public
 	*/
 
-		public function getNotes() {
-			return $this->notes;
-		}
+	public function getNotes() {
+		return $this->notes;
+	}
 	
 // ------------------------------ End Field: notes --------------------------------------
 
@@ -434,6 +434,26 @@ class Employees_earnings_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'id' => "ALTER TABLE  `employees_earnings` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'company_id' => "ALTER TABLE  `employees_earnings` ADD  `company_id` int(20) NOT NULL   ;",
+			'name_id' => "ALTER TABLE  `employees_earnings` ADD  `name_id` int(20) NOT NULL   ;",
+			'earning_id' => "ALTER TABLE  `employees_earnings` ADD  `earning_id` int(20) NOT NULL   ;",
+			'amount' => "ALTER TABLE  `employees_earnings` ADD  `amount` decimal(30,5) NOT NULL   ;",
+			'max_amount' => "ALTER TABLE  `employees_earnings` ADD  `max_amount` decimal(30,5) NULL   DEFAULT '0.00000';",
+			'start_date' => "ALTER TABLE  `employees_earnings` ADD  `start_date` date NULL   ;",
+			'computed' => "ALTER TABLE  `employees_earnings` ADD  `computed` varchar(10) NULL   ;",
+			'active' => "ALTER TABLE  `employees_earnings` ADD  `active` int(1) NULL   DEFAULT '0';",
+			'trash' => "ALTER TABLE  `employees_earnings` ADD  `trash` int(1) NULL   DEFAULT '0';",
+			'notes' => "ALTER TABLE  `employees_earnings` ADD  `notes` text NULL   ;",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

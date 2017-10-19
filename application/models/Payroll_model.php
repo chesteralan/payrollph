@@ -19,14 +19,14 @@ CREATE TABLE `payroll` (
   KEY `company_id` (`company_id`)
 );
 
- ALTER TABLE  `payroll` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
- ALTER TABLE  `payroll` ADD  `company_id` int(20) NOT NULL   ;
- ALTER TABLE  `payroll` ADD  `name` varchar(200) NOT NULL   ;
- ALTER TABLE  `payroll` ADD  `template_id` int(20) NOT NULL   ;
- ALTER TABLE  `payroll` ADD  `month` int(2) NOT NULL   ;
- ALTER TABLE  `payroll` ADD  `year` int(4) NOT NULL   ;
- ALTER TABLE  `payroll` ADD  `active` int(1) NOT NULL   DEFAULT '1';
- ALTER TABLE  `payroll` ADD  `lock` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `payroll` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `payroll` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `payroll` ADD  `template_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll` ADD  `month` int(2) NOT NULL   ;
+ALTER TABLE  `payroll` ADD  `year` int(4) NOT NULL   ;
+ALTER TABLE  `payroll` ADD  `active` int(1) NOT NULL   DEFAULT '1';
+ALTER TABLE  `payroll` ADD  `lock` int(1) NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -76,18 +76,18 @@ class Payroll_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
 	* @access public
 	*/
 
-		public function getId() {
-			return $this->id;
-		}
+	public function getId() {
+		return $this->id;
+	}
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -99,18 +99,18 @@ class Payroll_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `company_id` variable
 	* @access public
 	*/
 
-		public function getCompanyId() {
-			return $this->company_id;
-		}
+	public function getCompanyId() {
+		return $this->company_id;
+	}
 	
 // ------------------------------ End Field: company_id --------------------------------------
 
@@ -122,18 +122,18 @@ class Payroll_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name` variable
 	* @access public
 	*/
 
-		public function getName() {
-			return $this->name;
-		}
+	public function getName() {
+		return $this->name;
+	}
 	
 // ------------------------------ End Field: name --------------------------------------
 
@@ -145,18 +145,18 @@ class Payroll_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `template_id` variable
 	* @access public
 	*/
 
-		public function getTemplateId() {
-			return $this->template_id;
-		}
+	public function getTemplateId() {
+		return $this->template_id;
+	}
 	
 // ------------------------------ End Field: template_id --------------------------------------
 
@@ -168,18 +168,18 @@ class Payroll_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setMonth($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('month', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setMonth($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('month', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `month` variable
 	* @access public
 	*/
 
-		public function getMonth() {
-			return $this->month;
-		}
+	public function getMonth() {
+		return $this->month;
+	}
 	
 // ------------------------------ End Field: month --------------------------------------
 
@@ -191,18 +191,18 @@ class Payroll_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setYear($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('year', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setYear($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('year', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `year` variable
 	* @access public
 	*/
 
-		public function getYear() {
-			return $this->year;
-		}
+	public function getYear() {
+		return $this->year;
+	}
 	
 // ------------------------------ End Field: year --------------------------------------
 
@@ -214,18 +214,18 @@ class Payroll_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `active` variable
 	* @access public
 	*/
 
-		public function getActive() {
-			return $this->active;
-		}
+	public function getActive() {
+		return $this->active;
+	}
 	
 // ------------------------------ End Field: active --------------------------------------
 
@@ -237,18 +237,18 @@ class Payroll_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setLock($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('lock', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setLock($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('lock', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `lock` variable
 	* @access public
 	*/
 
-		public function getLock() {
-			return $this->lock;
-		}
+	public function getLock() {
+		return $this->lock;
+	}
 	
 // ------------------------------ End Field: lock --------------------------------------
 
@@ -329,6 +329,23 @@ class Payroll_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'id' => "ALTER TABLE  `payroll` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'company_id' => "ALTER TABLE  `payroll` ADD  `company_id` int(20) NOT NULL   ;",
+			'name' => "ALTER TABLE  `payroll` ADD  `name` varchar(200) NOT NULL   ;",
+			'template_id' => "ALTER TABLE  `payroll` ADD  `template_id` int(20) NOT NULL   ;",
+			'month' => "ALTER TABLE  `payroll` ADD  `month` int(2) NOT NULL   ;",
+			'year' => "ALTER TABLE  `payroll` ADD  `year` int(4) NOT NULL   ;",
+			'active' => "ALTER TABLE  `payroll` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
+			'lock' => "ALTER TABLE  `payroll` ADD  `lock` int(1) NULL   DEFAULT '0';",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

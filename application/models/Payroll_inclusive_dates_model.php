@@ -11,8 +11,8 @@ CREATE TABLE `payroll_inclusive_dates` (
   KEY `payroll_id` (`payroll_id`)
 );
 
- ALTER TABLE  `payroll_inclusive_dates` ADD  `payroll_id` int(20) NOT NULL   ;
- ALTER TABLE  `payroll_inclusive_dates` ADD  `inclusive_date` date NOT NULL   ;
+ALTER TABLE  `payroll_inclusive_dates` ADD  `payroll_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_inclusive_dates` ADD  `inclusive_date` date NOT NULL   ;
 
 
  * @package			        Model
@@ -56,18 +56,18 @@ class Payroll_inclusive_dates_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('payroll_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('payroll_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `payroll_id` variable
 	* @access public
 	*/
 
-		public function getPayrollId() {
-			return $this->payroll_id;
-		}
+	public function getPayrollId() {
+		return $this->payroll_id;
+	}
 	
 // ------------------------------ End Field: payroll_id --------------------------------------
 
@@ -79,18 +79,18 @@ class Payroll_inclusive_dates_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setInclusiveDate($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('inclusive_date', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setInclusiveDate($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('inclusive_date', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `inclusive_date` variable
 	* @access public
 	*/
 
-		public function getInclusiveDate() {
-			return $this->inclusive_date;
-		}
+	public function getInclusiveDate() {
+		return $this->inclusive_date;
+	}
 	
 // ------------------------------ End Field: inclusive_date --------------------------------------
 
@@ -117,6 +117,17 @@ class Payroll_inclusive_dates_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'payroll_id' => "ALTER TABLE  `payroll_inclusive_dates` ADD  `payroll_id` int(20) NOT NULL   ;",
+			'inclusive_date' => "ALTER TABLE  `payroll_inclusive_dates` ADD  `inclusive_date` date NOT NULL   ;",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

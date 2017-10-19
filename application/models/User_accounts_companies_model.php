@@ -11,8 +11,8 @@ CREATE TABLE `user_accounts_companies` (
   KEY `uid` (`uid`,`company_id`)
 );
 
- ALTER TABLE  `user_accounts_companies` ADD  `uid` int(20) NOT NULL   ;
- ALTER TABLE  `user_accounts_companies` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `user_accounts_companies` ADD  `uid` int(20) NOT NULL   ;
+ALTER TABLE  `user_accounts_companies` ADD  `company_id` int(20) NOT NULL   ;
 
 
  * @package			        Model
@@ -56,18 +56,18 @@ class User_accounts_companies_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setUid($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('uid', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setUid($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('uid', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `uid` variable
 	* @access public
 	*/
 
-		public function getUid() {
-			return $this->uid;
-		}
+	public function getUid() {
+		return $this->uid;
+	}
 	
 // ------------------------------ End Field: uid --------------------------------------
 
@@ -79,18 +79,18 @@ class User_accounts_companies_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `company_id` variable
 	* @access public
 	*/
 
-		public function getCompanyId() {
-			return $this->company_id;
-		}
+	public function getCompanyId() {
+		return $this->company_id;
+	}
 	
 // ------------------------------ End Field: company_id --------------------------------------
 
@@ -117,6 +117,17 @@ class User_accounts_companies_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'uid' => "ALTER TABLE  `user_accounts_companies` ADD  `uid` int(20) NOT NULL   ;",
+			'company_id' => "ALTER TABLE  `user_accounts_companies` ADD  `company_id` int(20) NOT NULL   ;",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

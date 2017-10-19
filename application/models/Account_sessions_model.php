@@ -13,10 +13,10 @@ CREATE TABLE `account_sessions` (
   KEY `account_sessions_timestamp` (`timestamp`)
 );
 
- ALTER TABLE  `account_sessions` ADD  `id` varchar(40) NOT NULL   ;
- ALTER TABLE  `account_sessions` ADD  `ip_address` varchar(45) NOT NULL   ;
- ALTER TABLE  `account_sessions` ADD  `timestamp` int(10) unsigned NOT NULL   DEFAULT '0';
- ALTER TABLE  `account_sessions` ADD  `data` blob NOT NULL   ;
+ALTER TABLE  `account_sessions` ADD  `id` varchar(40) NOT NULL   ;
+ALTER TABLE  `account_sessions` ADD  `ip_address` varchar(45) NOT NULL   ;
+ALTER TABLE  `account_sessions` ADD  `timestamp` int(10) unsigned NOT NULL   DEFAULT '0';
+ALTER TABLE  `account_sessions` ADD  `data` blob NOT NULL   ;
 
 
  * @package			        Model
@@ -62,18 +62,18 @@ class Account_sessions_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
 	* @access public
 	*/
 
-		public function getId() {
-			return $this->id;
-		}
+	public function getId() {
+		return $this->id;
+	}
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -85,18 +85,18 @@ class Account_sessions_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setIpAddress($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('ip_address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setIpAddress($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('ip_address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `ip_address` variable
 	* @access public
 	*/
 
-		public function getIpAddress() {
-			return $this->ip_address;
-		}
+	public function getIpAddress() {
+		return $this->ip_address;
+	}
 	
 // ------------------------------ End Field: ip_address --------------------------------------
 
@@ -108,18 +108,18 @@ class Account_sessions_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setTimestamp($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('timestamp', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setTimestamp($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('timestamp', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `timestamp` variable
 	* @access public
 	*/
 
-		public function getTimestamp() {
-			return $this->timestamp;
-		}
+	public function getTimestamp() {
+		return $this->timestamp;
+	}
 	
 // ------------------------------ End Field: timestamp --------------------------------------
 
@@ -131,18 +131,18 @@ class Account_sessions_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setData($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('data', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setData($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('data', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `data` variable
 	* @access public
 	*/
 
-		public function getData() {
-			return $this->data;
-		}
+	public function getData() {
+		return $this->data;
+	}
 	
 // ------------------------------ End Field: data --------------------------------------
 
@@ -187,6 +187,19 @@ class Account_sessions_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'id' => "ALTER TABLE  `account_sessions` ADD  `id` varchar(40) NOT NULL   ;",
+			'ip_address' => "ALTER TABLE  `account_sessions` ADD  `ip_address` varchar(45) NOT NULL   ;",
+			'timestamp' => "ALTER TABLE  `account_sessions` ADD  `timestamp` int(10) unsigned NOT NULL   DEFAULT '0';",
+			'data' => "ALTER TABLE  `account_sessions` ADD  `data` blob NOT NULL   ;",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

@@ -15,12 +15,12 @@ CREATE TABLE `terms_list` (
   PRIMARY KEY (`id`)
 );
 
- ALTER TABLE  `terms_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
- ALTER TABLE  `terms_list` ADD  `name` varchar(200) NOT NULL   ;
- ALTER TABLE  `terms_list` ADD  `notes` text NULL   ;
- ALTER TABLE  `terms_list` ADD  `type` varchar(50) NULL   ;
- ALTER TABLE  `terms_list` ADD  `trash` int(1) NULL   DEFAULT '0';
- ALTER TABLE  `terms_list` ADD  `priority` int(3) NULL   DEFAULT '0';
+ALTER TABLE  `terms_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `terms_list` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `terms_list` ADD  `notes` text NULL   ;
+ALTER TABLE  `terms_list` ADD  `type` varchar(50) NULL   ;
+ALTER TABLE  `terms_list` ADD  `trash` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `terms_list` ADD  `priority` int(3) NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -68,18 +68,18 @@ class Terms_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
 	* @access public
 	*/
 
-		public function getId() {
-			return $this->id;
-		}
+	public function getId() {
+		return $this->id;
+	}
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -91,18 +91,18 @@ class Terms_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name` variable
 	* @access public
 	*/
 
-		public function getName() {
-			return $this->name;
-		}
+	public function getName() {
+		return $this->name;
+	}
 	
 // ------------------------------ End Field: name --------------------------------------
 
@@ -114,18 +114,18 @@ class Terms_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `notes` variable
 	* @access public
 	*/
 
-		public function getNotes() {
-			return $this->notes;
-		}
+	public function getNotes() {
+		return $this->notes;
+	}
 	
 // ------------------------------ End Field: notes --------------------------------------
 
@@ -137,18 +137,18 @@ class Terms_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setType($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('type', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setType($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('type', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `type` variable
 	* @access public
 	*/
 
-		public function getType() {
-			return $this->type;
-		}
+	public function getType() {
+		return $this->type;
+	}
 	
 // ------------------------------ End Field: type --------------------------------------
 
@@ -160,18 +160,18 @@ class Terms_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `trash` variable
 	* @access public
 	*/
 
-		public function getTrash() {
-			return $this->trash;
-		}
+	public function getTrash() {
+		return $this->trash;
+	}
 	
 // ------------------------------ End Field: trash --------------------------------------
 
@@ -183,18 +183,18 @@ class Terms_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setPriority($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('priority', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setPriority($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('priority', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `priority` variable
 	* @access public
 	*/
 
-		public function getPriority() {
-			return $this->priority;
-		}
+	public function getPriority() {
+		return $this->priority;
+	}
 	
 // ------------------------------ End Field: priority --------------------------------------
 
@@ -257,6 +257,21 @@ class Terms_list_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'id' => "ALTER TABLE  `terms_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'name' => "ALTER TABLE  `terms_list` ADD  `name` varchar(200) NOT NULL   ;",
+			'notes' => "ALTER TABLE  `terms_list` ADD  `notes` text NULL   ;",
+			'type' => "ALTER TABLE  `terms_list` ADD  `type` varchar(50) NULL   ;",
+			'trash' => "ALTER TABLE  `terms_list` ADD  `trash` int(1) NULL   DEFAULT '0';",
+			'priority' => "ALTER TABLE  `terms_list` ADD  `priority` int(3) NULL   DEFAULT '0';",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

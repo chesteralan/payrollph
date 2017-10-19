@@ -13,10 +13,10 @@ CREATE TABLE `payroll_groups` (
   KEY `group_id` (`payroll_id`,`group_id`)
 );
 
- ALTER TABLE  `payroll_groups` ADD  `payroll_id` int(20) NOT NULL   ;
- ALTER TABLE  `payroll_groups` ADD  `group_id` int(20) NOT NULL   ;
- ALTER TABLE  `payroll_groups` ADD  `order` int(2) NOT NULL   DEFAULT '0';
- ALTER TABLE  `payroll_groups` ADD  `page` int(2) NULL   DEFAULT '1';
+ALTER TABLE  `payroll_groups` ADD  `payroll_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_groups` ADD  `group_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_groups` ADD  `order` int(2) NOT NULL   DEFAULT '0';
+ALTER TABLE  `payroll_groups` ADD  `page` int(2) NULL   DEFAULT '1';
 
 
  * @package			        Model
@@ -62,18 +62,18 @@ class Payroll_groups_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('payroll_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('payroll_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `payroll_id` variable
 	* @access public
 	*/
 
-		public function getPayrollId() {
-			return $this->payroll_id;
-		}
+	public function getPayrollId() {
+		return $this->payroll_id;
+	}
 	
 // ------------------------------ End Field: payroll_id --------------------------------------
 
@@ -85,18 +85,18 @@ class Payroll_groups_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setGroupId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('group_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setGroupId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('group_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `group_id` variable
 	* @access public
 	*/
 
-		public function getGroupId() {
-			return $this->group_id;
-		}
+	public function getGroupId() {
+		return $this->group_id;
+	}
 	
 // ------------------------------ End Field: group_id --------------------------------------
 
@@ -108,18 +108,18 @@ class Payroll_groups_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setOrder($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('order', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setOrder($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('order', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `order` variable
 	* @access public
 	*/
 
-		public function getOrder() {
-			return $this->order;
-		}
+	public function getOrder() {
+		return $this->order;
+	}
 	
 // ------------------------------ End Field: order --------------------------------------
 
@@ -131,18 +131,18 @@ class Payroll_groups_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setPage($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('page', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setPage($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('page', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `page` variable
 	* @access public
 	*/
 
-		public function getPage() {
-			return $this->page;
-		}
+	public function getPage() {
+		return $this->page;
+	}
 	
 // ------------------------------ End Field: page --------------------------------------
 
@@ -187,6 +187,19 @@ class Payroll_groups_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'payroll_id' => "ALTER TABLE  `payroll_groups` ADD  `payroll_id` int(20) NOT NULL   ;",
+			'group_id' => "ALTER TABLE  `payroll_groups` ADD  `group_id` int(20) NOT NULL   ;",
+			'order' => "ALTER TABLE  `payroll_groups` ADD  `order` int(2) NOT NULL   DEFAULT '0';",
+			'page' => "ALTER TABLE  `payroll_groups` ADD  `page` int(2) NULL   DEFAULT '1';",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

@@ -14,11 +14,11 @@ CREATE TABLE `employees_absences` (
   KEY `name_id` (`name_id`,`date_absent`)
 );
 
- ALTER TABLE  `employees_absences` ADD  `name_id` int(20) NOT NULL   ;
- ALTER TABLE  `employees_absences` ADD  `date_absent` date NOT NULL   ;
- ALTER TABLE  `employees_absences` ADD  `hours` int(2) NULL   DEFAULT '8';
- ALTER TABLE  `employees_absences` ADD  `leave_type` int(20) NULL   ;
- ALTER TABLE  `employees_absences` ADD  `notes` text NULL   ;
+ALTER TABLE  `employees_absences` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_absences` ADD  `date_absent` date NOT NULL   ;
+ALTER TABLE  `employees_absences` ADD  `hours` int(2) NULL   DEFAULT '8';
+ALTER TABLE  `employees_absences` ADD  `leave_type` int(20) NULL   ;
+ALTER TABLE  `employees_absences` ADD  `notes` text NULL   ;
 
 
  * @package			        Model
@@ -65,18 +65,18 @@ class Employees_absences_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name_id` variable
 	* @access public
 	*/
 
-		public function getNameId() {
-			return $this->name_id;
-		}
+	public function getNameId() {
+		return $this->name_id;
+	}
 	
 // ------------------------------ End Field: name_id --------------------------------------
 
@@ -88,18 +88,18 @@ class Employees_absences_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setDateAbsent($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('date_absent', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setDateAbsent($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('date_absent', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `date_absent` variable
 	* @access public
 	*/
 
-		public function getDateAbsent() {
-			return $this->date_absent;
-		}
+	public function getDateAbsent() {
+		return $this->date_absent;
+	}
 	
 // ------------------------------ End Field: date_absent --------------------------------------
 
@@ -111,18 +111,18 @@ class Employees_absences_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setHours($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('hours', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setHours($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('hours', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `hours` variable
 	* @access public
 	*/
 
-		public function getHours() {
-			return $this->hours;
-		}
+	public function getHours() {
+		return $this->hours;
+	}
 	
 // ------------------------------ End Field: hours --------------------------------------
 
@@ -134,18 +134,18 @@ class Employees_absences_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setLeaveType($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('leave_type', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setLeaveType($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('leave_type', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `leave_type` variable
 	* @access public
 	*/
 
-		public function getLeaveType() {
-			return $this->leave_type;
-		}
+	public function getLeaveType() {
+		return $this->leave_type;
+	}
 	
 // ------------------------------ End Field: leave_type --------------------------------------
 
@@ -157,18 +157,18 @@ class Employees_absences_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `notes` variable
 	* @access public
 	*/
 
-		public function getNotes() {
-			return $this->notes;
-		}
+	public function getNotes() {
+		return $this->notes;
+	}
 	
 // ------------------------------ End Field: notes --------------------------------------
 
@@ -222,6 +222,20 @@ class Employees_absences_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'name_id' => "ALTER TABLE  `employees_absences` ADD  `name_id` int(20) NOT NULL   ;",
+			'date_absent' => "ALTER TABLE  `employees_absences` ADD  `date_absent` date NOT NULL   ;",
+			'hours' => "ALTER TABLE  `employees_absences` ADD  `hours` int(2) NULL   DEFAULT '8';",
+			'leave_type' => "ALTER TABLE  `employees_absences` ADD  `leave_type` int(20) NULL   ;",
+			'notes' => "ALTER TABLE  `employees_absences` ADD  `notes` text NULL   ;",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

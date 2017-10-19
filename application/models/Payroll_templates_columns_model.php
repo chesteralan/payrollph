@@ -12,9 +12,9 @@ CREATE TABLE `payroll_templates_columns` (
   KEY `term_id` (`term_id`,`template_id`)
 );
 
- ALTER TABLE  `payroll_templates_columns` ADD  `template_id` int(20) NOT NULL   ;
- ALTER TABLE  `payroll_templates_columns` ADD  `term_id` int(20) NOT NULL   ;
- ALTER TABLE  `payroll_templates_columns` ADD  `column_id` varchar(200) NOT NULL   ;
+ALTER TABLE  `payroll_templates_columns` ADD  `template_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_templates_columns` ADD  `term_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_templates_columns` ADD  `column_id` varchar(200) NOT NULL   ;
 
 
  * @package			        Model
@@ -59,18 +59,18 @@ class Payroll_templates_columns_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `template_id` variable
 	* @access public
 	*/
 
-		public function getTemplateId() {
-			return $this->template_id;
-		}
+	public function getTemplateId() {
+		return $this->template_id;
+	}
 	
 // ------------------------------ End Field: template_id --------------------------------------
 
@@ -82,18 +82,18 @@ class Payroll_templates_columns_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setTermId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('term_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setTermId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('term_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `term_id` variable
 	* @access public
 	*/
 
-		public function getTermId() {
-			return $this->term_id;
-		}
+	public function getTermId() {
+		return $this->term_id;
+	}
 	
 // ------------------------------ End Field: term_id --------------------------------------
 
@@ -105,18 +105,18 @@ class Payroll_templates_columns_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setColumnId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('column_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setColumnId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('column_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `column_id` variable
 	* @access public
 	*/
 
-		public function getColumnId() {
-			return $this->column_id;
-		}
+	public function getColumnId() {
+		return $this->column_id;
+	}
 	
 // ------------------------------ End Field: column_id --------------------------------------
 
@@ -152,6 +152,18 @@ class Payroll_templates_columns_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'template_id' => "ALTER TABLE  `payroll_templates_columns` ADD  `template_id` int(20) NOT NULL   ;",
+			'term_id' => "ALTER TABLE  `payroll_templates_columns` ADD  `term_id` int(20) NOT NULL   ;",
+			'column_id' => "ALTER TABLE  `payroll_templates_columns` ADD  `column_id` varchar(200) NOT NULL   ;",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

@@ -16,13 +16,13 @@ CREATE TABLE `earnings_list` (
   PRIMARY KEY (`id`)
 );
 
- ALTER TABLE  `earnings_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
- ALTER TABLE  `earnings_list` ADD  `name` varchar(200) NOT NULL   ;
- ALTER TABLE  `earnings_list` ADD  `abbr` varchar(100) NULL   ;
- ALTER TABLE  `earnings_list` ADD  `notes` text NULL   ;
- ALTER TABLE  `earnings_list` ADD  `account_title` varchar(200) NULL   ;
- ALTER TABLE  `earnings_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';
- ALTER TABLE  `earnings_list` ADD  `trash` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `earnings_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `earnings_list` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `earnings_list` ADD  `abbr` varchar(100) NULL   ;
+ALTER TABLE  `earnings_list` ADD  `notes` text NULL   ;
+ALTER TABLE  `earnings_list` ADD  `account_title` varchar(200) NULL   ;
+ALTER TABLE  `earnings_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';
+ALTER TABLE  `earnings_list` ADD  `trash` int(1) NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -71,18 +71,18 @@ class Earnings_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
 	* @access public
 	*/
 
-		public function getId() {
-			return $this->id;
-		}
+	public function getId() {
+		return $this->id;
+	}
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -94,18 +94,18 @@ class Earnings_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name` variable
 	* @access public
 	*/
 
-		public function getName() {
-			return $this->name;
-		}
+	public function getName() {
+		return $this->name;
+	}
 	
 // ------------------------------ End Field: name --------------------------------------
 
@@ -117,18 +117,18 @@ class Earnings_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setAbbr($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('abbr', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setAbbr($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('abbr', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `abbr` variable
 	* @access public
 	*/
 
-		public function getAbbr() {
-			return $this->abbr;
-		}
+	public function getAbbr() {
+		return $this->abbr;
+	}
 	
 // ------------------------------ End Field: abbr --------------------------------------
 
@@ -140,18 +140,18 @@ class Earnings_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `notes` variable
 	* @access public
 	*/
 
-		public function getNotes() {
-			return $this->notes;
-		}
+	public function getNotes() {
+		return $this->notes;
+	}
 	
 // ------------------------------ End Field: notes --------------------------------------
 
@@ -163,18 +163,18 @@ class Earnings_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setAccountTitle($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('account_title', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setAccountTitle($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('account_title', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `account_title` variable
 	* @access public
 	*/
 
-		public function getAccountTitle() {
-			return $this->account_title;
-		}
+	public function getAccountTitle() {
+		return $this->account_title;
+	}
 	
 // ------------------------------ End Field: account_title --------------------------------------
 
@@ -186,18 +186,18 @@ class Earnings_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `active` variable
 	* @access public
 	*/
 
-		public function getActive() {
-			return $this->active;
-		}
+	public function getActive() {
+		return $this->active;
+	}
 	
 // ------------------------------ End Field: active --------------------------------------
 
@@ -209,18 +209,18 @@ class Earnings_list_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `trash` variable
 	* @access public
 	*/
 
-		public function getTrash() {
-			return $this->trash;
-		}
+	public function getTrash() {
+		return $this->trash;
+	}
 	
 // ------------------------------ End Field: trash --------------------------------------
 
@@ -292,6 +292,22 @@ class Earnings_list_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'id' => "ALTER TABLE  `earnings_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'name' => "ALTER TABLE  `earnings_list` ADD  `name` varchar(200) NOT NULL   ;",
+			'abbr' => "ALTER TABLE  `earnings_list` ADD  `abbr` varchar(100) NULL   ;",
+			'notes' => "ALTER TABLE  `earnings_list` ADD  `notes` text NULL   ;",
+			'account_title' => "ALTER TABLE  `earnings_list` ADD  `account_title` varchar(200) NULL   ;",
+			'active' => "ALTER TABLE  `earnings_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
+			'trash' => "ALTER TABLE  `earnings_list` ADD  `trash` int(1) NULL   DEFAULT '0';",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

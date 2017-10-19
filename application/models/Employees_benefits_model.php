@@ -21,16 +21,16 @@ CREATE TABLE `employees_benefits` (
   KEY `company_id` (`company_id`)
 );
 
- ALTER TABLE  `employees_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
- ALTER TABLE  `employees_benefits` ADD  `company_id` int(20) NOT NULL   ;
- ALTER TABLE  `employees_benefits` ADD  `name_id` int(20) NOT NULL   ;
- ALTER TABLE  `employees_benefits` ADD  `benefit_id` int(20) NOT NULL   ;
- ALTER TABLE  `employees_benefits` ADD  `employee_share` decimal(30,5) NOT NULL   ;
- ALTER TABLE  `employees_benefits` ADD  `employer_share` decimal(30,5) NOT NULL   ;
- ALTER TABLE  `employees_benefits` ADD  `start_date` date NULL   ;
- ALTER TABLE  `employees_benefits` ADD  `primary` int(1) NULL   DEFAULT '0';
- ALTER TABLE  `employees_benefits` ADD  `trash` int(1) NULL   DEFAULT '1';
- ALTER TABLE  `employees_benefits` ADD  `notes` text NULL   ;
+ALTER TABLE  `employees_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `employees_benefits` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_benefits` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_benefits` ADD  `benefit_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_benefits` ADD  `employee_share` decimal(30,5) NOT NULL   ;
+ALTER TABLE  `employees_benefits` ADD  `employer_share` decimal(30,5) NOT NULL   ;
+ALTER TABLE  `employees_benefits` ADD  `start_date` date NULL   ;
+ALTER TABLE  `employees_benefits` ADD  `primary` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `employees_benefits` ADD  `trash` int(1) NULL   DEFAULT '1';
+ALTER TABLE  `employees_benefits` ADD  `notes` text NULL   ;
 
 
  * @package			        Model
@@ -82,18 +82,18 @@ class Employees_benefits_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
 	* @access public
 	*/
 
-		public function getId() {
-			return $this->id;
-		}
+	public function getId() {
+		return $this->id;
+	}
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -105,18 +105,18 @@ class Employees_benefits_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `company_id` variable
 	* @access public
 	*/
 
-		public function getCompanyId() {
-			return $this->company_id;
-		}
+	public function getCompanyId() {
+		return $this->company_id;
+	}
 	
 // ------------------------------ End Field: company_id --------------------------------------
 
@@ -128,18 +128,18 @@ class Employees_benefits_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name_id` variable
 	* @access public
 	*/
 
-		public function getNameId() {
-			return $this->name_id;
-		}
+	public function getNameId() {
+		return $this->name_id;
+	}
 	
 // ------------------------------ End Field: name_id --------------------------------------
 
@@ -151,18 +151,18 @@ class Employees_benefits_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setBenefitId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('benefit_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setBenefitId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('benefit_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `benefit_id` variable
 	* @access public
 	*/
 
-		public function getBenefitId() {
-			return $this->benefit_id;
-		}
+	public function getBenefitId() {
+		return $this->benefit_id;
+	}
 	
 // ------------------------------ End Field: benefit_id --------------------------------------
 
@@ -174,18 +174,18 @@ class Employees_benefits_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setEmployeeShare($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('employee_share', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setEmployeeShare($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('employee_share', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `employee_share` variable
 	* @access public
 	*/
 
-		public function getEmployeeShare() {
-			return $this->employee_share;
-		}
+	public function getEmployeeShare() {
+		return $this->employee_share;
+	}
 	
 // ------------------------------ End Field: employee_share --------------------------------------
 
@@ -197,18 +197,18 @@ class Employees_benefits_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setEmployerShare($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('employer_share', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setEmployerShare($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('employer_share', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `employer_share` variable
 	* @access public
 	*/
 
-		public function getEmployerShare() {
-			return $this->employer_share;
-		}
+	public function getEmployerShare() {
+		return $this->employer_share;
+	}
 	
 // ------------------------------ End Field: employer_share --------------------------------------
 
@@ -220,18 +220,18 @@ class Employees_benefits_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setStartDate($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('start_date', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setStartDate($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('start_date', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `start_date` variable
 	* @access public
 	*/
 
-		public function getStartDate() {
-			return $this->start_date;
-		}
+	public function getStartDate() {
+		return $this->start_date;
+	}
 	
 // ------------------------------ End Field: start_date --------------------------------------
 
@@ -243,18 +243,18 @@ class Employees_benefits_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setPrimary($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('primary', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setPrimary($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('primary', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `primary` variable
 	* @access public
 	*/
 
-		public function getPrimary() {
-			return $this->primary;
-		}
+	public function getPrimary() {
+		return $this->primary;
+	}
 	
 // ------------------------------ End Field: primary --------------------------------------
 
@@ -266,18 +266,18 @@ class Employees_benefits_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `trash` variable
 	* @access public
 	*/
 
-		public function getTrash() {
-			return $this->trash;
-		}
+	public function getTrash() {
+		return $this->trash;
+	}
 	
 // ------------------------------ End Field: trash --------------------------------------
 
@@ -289,18 +289,18 @@ class Employees_benefits_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `notes` variable
 	* @access public
 	*/
 
-		public function getNotes() {
-			return $this->notes;
-		}
+	public function getNotes() {
+		return $this->notes;
+	}
 	
 // ------------------------------ End Field: notes --------------------------------------
 
@@ -399,6 +399,25 @@ class Employees_benefits_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'id' => "ALTER TABLE  `employees_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'company_id' => "ALTER TABLE  `employees_benefits` ADD  `company_id` int(20) NOT NULL   ;",
+			'name_id' => "ALTER TABLE  `employees_benefits` ADD  `name_id` int(20) NOT NULL   ;",
+			'benefit_id' => "ALTER TABLE  `employees_benefits` ADD  `benefit_id` int(20) NOT NULL   ;",
+			'employee_share' => "ALTER TABLE  `employees_benefits` ADD  `employee_share` decimal(30,5) NOT NULL   ;",
+			'employer_share' => "ALTER TABLE  `employees_benefits` ADD  `employer_share` decimal(30,5) NOT NULL   ;",
+			'start_date' => "ALTER TABLE  `employees_benefits` ADD  `start_date` date NULL   ;",
+			'primary' => "ALTER TABLE  `employees_benefits` ADD  `primary` int(1) NULL   DEFAULT '0';",
+			'trash' => "ALTER TABLE  `employees_benefits` ADD  `trash` int(1) NULL   DEFAULT '1';",
+			'notes' => "ALTER TABLE  `employees_benefits` ADD  `notes` text NULL   ;",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }

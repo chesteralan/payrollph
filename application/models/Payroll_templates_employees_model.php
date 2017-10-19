@@ -15,12 +15,12 @@ CREATE TABLE `payroll_templates_employees` (
   KEY `name_id` (`template_id`,`name_id`)
 );
 
- ALTER TABLE  `payroll_templates_employees` ADD  `template_id` int(20) NOT NULL   ;
- ALTER TABLE  `payroll_templates_employees` ADD  `name_id` int(20) NOT NULL   ;
- ALTER TABLE  `payroll_templates_employees` ADD  `order` int(2) NOT NULL   DEFAULT '0';
- ALTER TABLE  `payroll_templates_employees` ADD  `template` varchar(20) NULL   DEFAULT 'payslip';
- ALTER TABLE  `payroll_templates_employees` ADD  `print_group` int(20) NULL   ;
- ALTER TABLE  `payroll_templates_employees` ADD  `active` int(1) NULL   DEFAULT '1';
+ALTER TABLE  `payroll_templates_employees` ADD  `template_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_templates_employees` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_templates_employees` ADD  `order` int(2) NOT NULL   DEFAULT '0';
+ALTER TABLE  `payroll_templates_employees` ADD  `template` varchar(20) NULL   DEFAULT 'payslip';
+ALTER TABLE  `payroll_templates_employees` ADD  `print_group` int(20) NULL   ;
+ALTER TABLE  `payroll_templates_employees` ADD  `active` int(1) NULL   DEFAULT '1';
 
 
  * @package			        Model
@@ -68,18 +68,18 @@ class Payroll_templates_employees_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `template_id` variable
 	* @access public
 	*/
 
-		public function getTemplateId() {
-			return $this->template_id;
-		}
+	public function getTemplateId() {
+		return $this->template_id;
+	}
 	
 // ------------------------------ End Field: template_id --------------------------------------
 
@@ -91,18 +91,18 @@ class Payroll_templates_employees_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name_id` variable
 	* @access public
 	*/
 
-		public function getNameId() {
-			return $this->name_id;
-		}
+	public function getNameId() {
+		return $this->name_id;
+	}
 	
 // ------------------------------ End Field: name_id --------------------------------------
 
@@ -114,18 +114,18 @@ class Payroll_templates_employees_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setOrder($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('order', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setOrder($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('order', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `order` variable
 	* @access public
 	*/
 
-		public function getOrder() {
-			return $this->order;
-		}
+	public function getOrder() {
+		return $this->order;
+	}
 	
 // ------------------------------ End Field: order --------------------------------------
 
@@ -137,18 +137,18 @@ class Payroll_templates_employees_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setTemplate($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('template', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setTemplate($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('template', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `template` variable
 	* @access public
 	*/
 
-		public function getTemplate() {
-			return $this->template;
-		}
+	public function getTemplate() {
+		return $this->template;
+	}
 	
 // ------------------------------ End Field: template --------------------------------------
 
@@ -160,18 +160,18 @@ class Payroll_templates_employees_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setPrintGroup($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('print_group', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setPrintGroup($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('print_group', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `print_group` variable
 	* @access public
 	*/
 
-		public function getPrintGroup() {
-			return $this->print_group;
-		}
+	public function getPrintGroup() {
+		return $this->print_group;
+	}
 	
 // ------------------------------ End Field: print_group --------------------------------------
 
@@ -183,18 +183,18 @@ class Payroll_templates_employees_model extends MY_Model {
 	* @access public
 	*/
 
-		public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-			return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-		}
+	public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `active` variable
 	* @access public
 	*/
 
-		public function getActive() {
-			return $this->active;
-		}
+	public function getActive() {
+		return $this->active;
+	}
 	
 // ------------------------------ End Field: active --------------------------------------
 
@@ -257,6 +257,21 @@ class Payroll_templates_employees_model extends MY_Model {
 										'Extra'=>''
 									)
 		);
+	}
+
+	public function add_table_column($field_name) {
+		$column = array(
+			'template_id' => "ALTER TABLE  `payroll_templates_employees` ADD  `template_id` int(20) NOT NULL   ;",
+			'name_id' => "ALTER TABLE  `payroll_templates_employees` ADD  `name_id` int(20) NOT NULL   ;",
+			'order' => "ALTER TABLE  `payroll_templates_employees` ADD  `order` int(2) NOT NULL   DEFAULT '0';",
+			'template' => "ALTER TABLE  `payroll_templates_employees` ADD  `template` varchar(20) NULL   DEFAULT 'payslip';",
+			'print_group' => "ALTER TABLE  `payroll_templates_employees` ADD  `print_group` int(20) NULL   ;",
+			'active' => "ALTER TABLE  `payroll_templates_employees` ADD  `active` int(1) NULL   DEFAULT '1';",
+		);
+
+		if( isset( $column[$field_name] ) ) {
+			$this->db->query( $column[$field_name] );
+		}
 	}
 
 }
