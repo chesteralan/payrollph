@@ -42,23 +42,28 @@ function isColumn($ths, $column_id,$print_columns) {
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/payslip"); ?>">Payslip</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/{$output}/{$current_page}"); ?>">All</a>
   <?php 
+  if( ( isset($print_group_option) ) && ( $print_group_option ) )  {
   $pg_option = unserialize( $print_group_option->value );
   $pg_sort = array();
-  foreach($pg_option as $pgok => $pgov) {
+  if($pg_option) foreach($pg_option as $pgok => $pgov) {
       $pg_sort[$pgov] = $pgok;
   }
 
   $pgs = array();
-  foreach($print_groups as $pg) {
+   if($print_groups) foreach($print_groups as $pg) {
       $pgs[$pg_sort[$pg->id]] = $pg;
   }
   ksort($pgs);
   foreach($pgs as $pg) { ?>
     &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$pg->id}/{$output}/{$current_page}"); ?>"><?php echo $pg->name; ?></a>
   <?php } ?>
+  <?php } ?>
+  <?php if( $print_group ) { ?>
    &middot; <a href="<?php echo site_url("payroll_overall/summary/{$payroll->id}"); ?>">Summary</a>
+  <?php } ?>
 </div>
 <?php if(!$print_group) { ?>
+<?php if($template->pages > 1) { ?>
 <div class="print-topnav topnav2 hide-print text-center allcaps">
 
     <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/{$output}/1"); ?>">Page 1</a>
@@ -67,6 +72,7 @@ function isColumn($ths, $column_id,$print_columns) {
 <?php } ?>
 
 </div>
+<?php } ?>
 <?php } ?>
 
 <h2 class="pull-right">PAYROLL ID: <?php echo $payroll->id; ?></h2>

@@ -48,7 +48,7 @@ foreach($print_groups as $pg1) {
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/payslip"); ?>">Payslip</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/{$output}/{$current_page}"); ?>">All</a>
   <?php 
-
+  if( ( isset($print_group_option) ) && ( $print_group_option ) )  {
   $pg_option = unserialize( $print_group_option->value );
   $pg_sort = array();
   foreach($pg_option as $pgok => $pgov) {
@@ -64,6 +64,7 @@ foreach($print_groups as $pg1) {
 $print_group_total[$pg->id] = 0;
     ?>
     &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$pg->id}/{$output}/{$current_page}"); ?>"><?php echo $pg->name; ?></a>
+  <?php } ?>
   <?php } ?>
 </div>
 
