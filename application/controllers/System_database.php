@@ -100,8 +100,15 @@ class System_database extends MY_Controller {
 		$models[] = 'User_accounts_restrictions_model';
 
 		$models_obj = array();
+		$missing_tables = array();
 		foreach($models as $i=>$model) {
+			
 			$obj = new $this->$model;
+			if( !in_array($obj->get_table_name(), $this->db->list_tables())) {
+				$missing_tables[] = $obj->get_table_name();
+				continue;
+			}
+
 			$table_columns = $this->db->query('SHOW COLUMNS FROM '. $obj->get_table_name());
 			$models_obj[$i] = (object) array(
 				'model_name' => $model,
@@ -113,6 +120,7 @@ class System_database extends MY_Controller {
 		}
 
 		$this->template_data->set('models', $models_obj);
+		$this->template_data->set('missing_tables', $missing_tables);
 
 		$this->load->view('system/database/verify', $this->template_data->get_data());
 
@@ -221,6 +229,11 @@ class System_database extends MY_Controller {
 			$table->add_table_column($field_name);
 		}
 
+		redirect( site_url("system_database/verify") . "?table=" . $table_name );
+	}
+
+	public function add_table($table_name) {
+		$this->db->query("CREATE TABLE `{$table_name}` (`temporary_column_remove_this` int(1) NULL);");
 		redirect( site_url("system_database/verify") . "?table=" . $table_name );
 	}
 

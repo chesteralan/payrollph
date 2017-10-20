@@ -57,12 +57,15 @@
 		return $error;
 	} 
 ?>
-<?php if( $models ) { ?>
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+<?php if( $models ) { 
 
-<?php 
+$model_n = 0;
 $is_all_verified = true;
+if( count($missing_tables) > 0 ) {
+	$is_all_verified = false;
+}
 foreach($models as $model) { 
+
 $differ = differ1($model->table_options, $model->table_columns);
 if( !$differ ) {
 	if( $this->input->get('show') != 'all' ) {
@@ -71,7 +74,12 @@ if( !$differ ) {
 } else {
 	$is_all_verified = false;
 }
-	?>
+
+$model_n++;
+?>
+<?php if( (!$is_all_verified) && ($model_n==1) ) { ?>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+<?php } ?>
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
@@ -88,7 +96,9 @@ if( !$differ ) {
     <div id="<?php echo $model->table_name; ?>" class="panel-collapse collapse <?php echo ($model->table_name==$this->input->get('table')) ? 'in' : ''; ?>" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
 		      		<?php $current_columns = array(); ?>
-		      		<?php if( $model->table_columns ) foreach($model->table_columns as $tc) { ?>
+		      		<?php if( $model->table_columns ) foreach($model->table_columns as $tc) { 
+
+		      			?>
 				      		<?php 
 $echo_table = true;
 				      		foreach($tc as $k=>$v) { 
@@ -144,7 +154,7 @@ $echo_table = false;
 				      				<td class="text-right" width="30%"><?php echo $v; ?></td>
 				      				<td class="text-right" width="30%">
 <?php if( $uri ) { ?>
-<a href="<?php echo site_url($uri); ?>">
+<a class="confirm" href="<?php echo site_url($uri); ?>">
 <?php } ?>
 				      				<?php echo $tov; ?>
 <?php if( $uri ) { ?>
@@ -189,13 +199,27 @@ if( $not_in_current_columns > 0 ) {
     </div>
   </div>
 <?php } ?>
+
+
+<?php if( $missing_tables ) foreach($missing_tables as $missing_table) { ?>
+	  <div class="panel panel-danger">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a class="pull-right confirm" href="<?php echo site_url("system_database/add_table/{$missing_table}"); ?>"><span class="glyphicon glyphicon-plus"></span></a>
+        <?php echo $missing_table; ?>
+      </h4>
+    </div>
+   </div>
+<?php } ?>
+<?php if( !$is_all_verified)  { ?>
+</div>
+<?php } ?>
 <?php if( ( $is_all_verified ) && ( $this->input->get('show') != 'all' )) { ?>
 <div class="well text-center">
 	All is good...
 </div>
 <?php } ?>
 
-</div>
 <?php } else { ?>
 <p class="text-center">No Models Found!</p>
 <?php } ?>
