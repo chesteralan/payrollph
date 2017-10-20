@@ -40,6 +40,7 @@ class Employees extends MY_Controller {
 		$employees->set_start($start);
 
 		$this->template_data->set('employees', $employees->populate());
+		$this->template_data->set('employees_count', $employees->count_all_results());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'uri_segment' => 3,
@@ -81,6 +82,7 @@ class Employees extends MY_Controller {
 
 		$employees->set_start($start);
 		$this->template_data->set('employees', $employees->populate());
+		$this->template_data->set('employees_count', $employees->count_all_results());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'uri_segment' => 4,
@@ -119,6 +121,7 @@ class Employees extends MY_Controller {
 		$employees->set_order('ni.lastname', 'ASC');
 		$employees->set_start($start);
 		$this->template_data->set('employees', $employees->populate());
+		$this->template_data->set('employees_count', $employees->count_all_results());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'uri_segment' => 4,
@@ -157,6 +160,7 @@ class Employees extends MY_Controller {
 		$employees->set_order('ni.lastname', 'ASC');
 		$employees->set_start($start);
 		$this->template_data->set('employees', $employees->populate());
+		$this->template_data->set('employees_count', $employees->count_all_results());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'uri_segment' => 4,
