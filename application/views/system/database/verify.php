@@ -77,7 +77,7 @@ if( !$differ ) {
 
 $model_n++;
 ?>
-<?php if( (!$is_all_verified) && ($model_n==1) ) { ?>
+<?php if($model_n==1) { ?>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 <?php } ?>
   <div class="panel panel-default">
@@ -201,18 +201,21 @@ if( $not_in_current_columns > 0 ) {
 <?php } ?>
 
 
-<?php if( $missing_tables ) foreach($missing_tables as $missing_table) { ?>
+<?php if( $missing_tables ) foreach($missing_tables as $table=>$fields) { ?>
 	  <div class="panel panel-danger">
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
-        <a class="pull-right confirm" href="<?php echo site_url("system_database/add_table/{$missing_table}"); ?>"><span class="glyphicon glyphicon-plus"></span></a>
-        <?php echo $missing_table; ?>
+        <a class="pull-right confirm" href="<?php echo site_url("system_database/add_table/{$table}" ); ?>"><span class="glyphicon glyphicon-plus"></span></a>
+        <?php echo $table; ?>
       </h4>
     </div>
    </div>
-<?php } ?>
-<?php if( !$is_all_verified)  { ?>
+
+<?php if($model_n==1) { ?>
 </div>
+<?php } ?>
+
+
 <?php } ?>
 <?php if( ( $is_all_verified ) && ( $this->input->get('show') != 'all' )) { ?>
 <div class="well text-center">
