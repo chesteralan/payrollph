@@ -302,7 +302,7 @@ class Employees extends MY_Controller {
 					$employee->setNotes($this->input->post('notes'),false,true);
 					$employee->update();
 				}
-				$this->postNext();
+				$this->postNext("active=employment");
 			}
 		}
 		$employee_data = $employee->get();
