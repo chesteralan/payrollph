@@ -244,7 +244,9 @@ class Payroll_summary extends MY_Controller {
 			$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 			$employees->set_where('e.group_id', $group->group_id);
-
+			if( $this->session->userdata('current_employee') ) {
+				$employees->setNameId($this->session->userdata('current_employee')->name_id,true);
+			}
 			if( $this->session->userdata('employees_status') ) {
 				$employees->set_where('e.status', $this->session->userdata('employees_status')->id);
 			}

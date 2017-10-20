@@ -42,21 +42,31 @@ $total_deductions = 0;
 <?php } ?>
 <?php } ?>
                 <?php echo $payroll_group->name; ?>
-
-<a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Sort <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll_templates/employees/{$template->id}/{$payroll_group->id}/ajax") . "?action=sort&next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-sort"></span></a>
+<?php if( !$this->session->userdata('current_employee') ) { ?>
+ <a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Sort <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll_templates/employees/{$template->id}/{$payroll_group->id}/ajax") . "?action=sort&next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-sort"></span></a>
+<?php } ?>
 
                 </th>
-
+<?php if( $column_group_salaries ) { ?>
                 <th width="10%" class="text-right">Gross Salary</th>
+<?php } ?>
+<?php if( $column_group_earnings ) { ?>
 <?php if( (isset($earnings_columns)) && ( $earnings_columns > 0 ) ) { ?>
                 <th width="10%" class="text-right">Earnings</th>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_salaries||$column_group_earnings ) { ?>
                 <th width="10%" class="text-right">Gross Pay</th>
+<?php } ?>
+<?php if( $column_group_benefits ) { ?>
 <?php if( (isset($benefits_columns)) && ( $benefits_columns > 0 ) ) { ?>
                 <th width="10%" class="text-right">Benefits</th>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_deductions ) { ?>
 <?php if( (isset($deductions_columns)) && ( $deductions_columns > 0 ) ) { ?>
                 <th width="10%" class="text-right">Deductions</th>
+<?php } ?>
 <?php } ?>
                 <th width="10%" class="text-right">Net Pay</th>
               </tr>
@@ -100,25 +110,36 @@ $total_gross_pay += $employee_gross_pay;
               ?>
               <tr>
                 <td>
+
 <?php if( !$this->session->userdata('current_employee') ) { ?>
                 <a href="<?php echo site_url("payroll/select_employee/{$employee->name_id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
-                <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> <!--(<?php echo $employee->position; ?>)-->
+
+                <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> 
                 
 <a class="ajax-modal" href="#ajaxModal" data-modal_size="large" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo site_url("lists_names/profile/{$employee->name_id}/ajax") . "?output=inner_page"; ?>"><span class="glyphicon glyphicon-eye-open"></span></a>
 
                 </td>
-
+<?php if( $column_group_salaries ) { ?>
                 <td class="text-right"><?php echo number_format($employee_gross_pay,2); ?></td>
+<?php } ?>
+<?php if( $column_group_earnings ) { ?>
 <?php if( (isset($earnings_columns)) && ( $earnings_columns > 0 ) ) { ?>
                 <td class="text-right"><?php echo number_format($employee->gross_earnings,2); ?></td>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_salaries||$column_group_earnings ) { ?>
                 <td class="text-right bold"><?php echo number_format(($employee_gross_pay+$employee->gross_earnings),2); ?></td>
+<?php } ?>
+<?php if( $column_group_benefits ) { ?>
 <?php if( (isset($benefits_columns)) && ( $benefits_columns > 0 ) ) { ?>
                 <td class="text-right"><?php echo number_format($employee->gross_benefits,2); ?></td>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_deductions ) { ?>
 <?php if( (isset($deductions_columns)) && ( $deductions_columns > 0 ) ) { ?>
                 <td class="text-right"><?php echo number_format($employee->gross_deductions,2); ?></td>
+<?php } ?>
 <?php } ?>
                 <td class="text-right bold"><?php echo number_format((($employee_gross_pay+$employee->gross_earnings)-($employee->gross_benefits+$employee->gross_deductions)),2); ?></td>
               </tr>
@@ -133,17 +154,26 @@ $total_gross_pay += $employee_gross_pay;
             <thead>
               <tr class="warning">
                 <th>TOTAL</th>
-
+<?php if( $column_group_salaries ) { ?>
                                 <th width="10%" class="text-right">Gross Salary</th>
+<?php } ?>
+<?php if( $column_group_earnings ) { ?>
 <?php if( (isset($earnings_columns)) && ( $earnings_columns > 0 ) ) { ?>
                 <th width="10%" class="text-right">Earnings</th>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_salaries||$column_group_earnings ) { ?>
                 <th width="10%" class="text-right">Gross Pay</th>
+<?php } ?>
+<?php if( $column_group_benefits ) { ?>
 <?php if( (isset($benefits_columns)) && ( $benefits_columns > 0 ) ) { ?>
                 <th width="10%" class="text-right">Benefits</th>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_deductions ) { ?>
 <?php if( (isset($deductions_columns)) && ( $deductions_columns > 0 ) ) { ?>
                 <th width="10%" class="text-right">Deductions</th>
+<?php } ?>
 <?php } ?>
                 <th width="10%" class="text-right">Net Pay</th>
               </tr>
@@ -152,16 +182,26 @@ $total_gross_pay += $employee_gross_pay;
             <tbody>
             <tr class="success">
                 <td></td>
+<?php if( $column_group_salaries ) { ?>
                 <td class="text-right"><strong><?php echo number_format($total_gross_salary,2); ?></strong></td>
+<?php } ?>
+<?php if( $column_group_earnings ) { ?>
 <?php if( (isset($earnings_columns)) && ( $earnings_columns > 0 ) ) { ?>
                 <td class="text-right"><strong><?php echo number_format($total_earnings,2); ?></strong></td>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_salaries||$column_group_earnings ) { ?>
                 <td class="text-right"><strong><?php echo number_format(($total_gross_salary+$total_earnings),2); ?></strong></td>
+<?php } ?>
+<?php if( $column_group_benefits ) { ?>
 <?php if( (isset($benefits_columns)) && ( $benefits_columns > 0 ) ) { ?>
                 <td class="text-right"><strong><?php echo number_format($total_benefits,2); ?></strong></td>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_deductions ) { ?>
 <?php if( (isset($deductions_columns)) && ( $deductions_columns > 0 ) ) { ?>
                 <td class="text-right"><strong><?php echo number_format($total_deductions,2); ?></strong></td>
+<?php } ?>
 <?php } ?>
                 <td class="text-right"><strong><?php echo number_format(($total_gross_salary+$total_earnings)-($total_benefits+$total_deductions),2); ?></strong></td>
   </tr>

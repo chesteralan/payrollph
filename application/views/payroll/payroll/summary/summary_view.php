@@ -48,17 +48,26 @@ $total_deductions = 0;
 <?php } ?>
 <?php } ?>
                 </th>
-
+<?php if( $column_group_salaries ) { ?>
                 <th width="10%" class="text-right">Gross Salary</th>
+<?php } ?>
+<?php if( $column_group_earnings ) { ?>
 <?php if( (isset($payroll->earnings_columns)) && ( $payroll->earnings_columns > 0 ) ) { ?>
                 <th width="10%" class="text-right">Earnings</th>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_salaries||$column_group_earnings ) { ?>
                 <th width="10%" class="text-right">Gross Pay</th>
+<?php } ?>
+<?php if( $column_group_benefits ) { ?>
 <?php if( (isset($payroll->benefits_columns)) && ( $payroll->benefits_columns > 0 ) ) { ?>
                 <th width="10%" class="text-right">Benefits</th>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_deductions ) { ?>
 <?php if( (isset($payroll->deductions_columns)) && ( $payroll->deductions_columns > 0 ) ) { ?>
                 <th width="10%" class="text-right">Deductions</th>
+<?php } ?>
 <?php } ?>
                 <th width="10%" class="text-right">Net Pay</th>
               </tr>
@@ -118,17 +127,26 @@ $total_deductions += $employee->gross_deductions;
 
                 </td>
 
-
+<?php if( $column_group_salaries ) { ?>
                 <td class="text-right"><?php echo number_format($employee_gross_pay,2); ?></td>
+<?php } ?>
+<?php if( $column_group_earnings ) { ?>
 <?php if( (isset($payroll->earnings_columns)) && ( $payroll->earnings_columns > 0 ) ) { ?>
                 <td class="text-right"><?php echo number_format($employee->gross_earnings,2); ?></td>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_salaries||$column_group_earnings ) { ?>
                 <td class="text-right bold"><?php echo number_format(($employee_gross_pay+$employee->gross_earnings),2); ?></td>
+<?php } ?>
+<?php if( $column_group_benefits ) { ?>
 <?php if( (isset($payroll->benefits_columns)) && ( $payroll->benefits_columns > 0 ) ) { ?>
                 <td class="text-right"><?php echo number_format($employee->gross_benefits,2); ?></td>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_deductions ) { ?>
 <?php if( (isset($payroll->deductions_columns)) && ( $payroll->deductions_columns > 0 ) ) { ?>
                 <td class="text-right"><?php echo number_format($employee->gross_deductions,2); ?></td>
+<?php } ?>
 <?php } ?>
                 <td class="text-right bold"><?php echo number_format((($employee_gross_pay+$employee->gross_earnings)-($employee->gross_benefits+$employee->gross_deductions)),2); ?></td>
               </tr>
@@ -143,17 +161,26 @@ $total_deductions += $employee->gross_deductions;
             <thead>
               <tr class="warning">
                 <th>TOTAL</th>
-
+<?php if( $column_group_salaries ) { ?>
                                 <th width="10%" class="text-right">Gross Salary</th>
+<?php } ?>
+<?php if( $column_group_earnings ) { ?>
 <?php if( (isset($payroll->earnings_columns)) && ( $payroll->earnings_columns > 0 ) ) { ?>
                 <th width="10%" class="text-right">Earnings</th>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_salaries||$column_group_earnings ) { ?>
                 <th width="10%" class="text-right">Gross Pay</th>
+<?php } ?>
+<?php if( $column_group_benefits ) { ?>
 <?php if( (isset($payroll->benefits_columns)) && ( $payroll->benefits_columns > 0 ) ) { ?>
                 <th width="10%" class="text-right">Benefits</th>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_deductions ) { ?>
 <?php if( (isset($payroll->deductions_columns)) && ( $payroll->deductions_columns > 0 ) ) { ?>
                 <th width="10%" class="text-right">Deductions</th>
+<?php } ?>
 <?php } ?>
                 <th width="10%" class="text-right">Net Pay</th>
               </tr>
@@ -162,16 +189,27 @@ $total_deductions += $employee->gross_deductions;
             <tbody>
             <tr class="success">
                 <td></td>
+<?php if( $column_group_salaries ) { ?>
                 <td class="text-right"><strong><?php echo number_format($total_gross_salary,2); ?></strong></td>
+<?php } ?>
+<?php if( $column_group_earnings ) { ?>
 <?php if( (isset($payroll->earnings_columns)) && ( $payroll->earnings_columns > 0 ) ) { ?>
                 <td class="text-right"><strong><?php echo number_format($total_earnings,2); ?></strong></td>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_salaries||$column_group_earnings ) { ?>
                 <td class="text-right"><strong><?php echo number_format(($total_gross_salary+$total_earnings),2); ?></strong></td>
+<?php } ?>
+                
+<?php if( $column_group_benefits ) { ?>
 <?php if( (isset($payroll->benefits_columns)) && ( $payroll->benefits_columns > 0 ) ) { ?>
                 <td class="text-right"><strong><?php echo number_format($total_benefits,2); ?></strong></td>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_deductions ) { ?>
 <?php if( (isset($payroll->deductions_columns)) && ( $payroll->deductions_columns > 0 ) ) { ?>
                 <td class="text-right"><strong><?php echo number_format($total_deductions,2); ?></strong></td>
+<?php } ?>
 <?php } ?>
                 <td class="text-right"><strong><?php echo number_format(($total_gross_salary+$total_earnings)-($total_benefits+$total_deductions),2); ?></strong></td>
   </tr>

@@ -464,7 +464,9 @@ class Payroll_benefits extends MY_Controller {
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 			$employees->set_where('e.group_id', $group->group_id);
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
-			
+			if( $this->session->userdata('current_employee') ) {
+				$employees->setNameId($this->session->userdata('current_employee')->name_id,true);
+			}
 			foreach($columns as $column) {
 				$employees->set_select(sprintf('(SELECT SUM(peb.employee_share) FROM employees_benefits peb WHERE ((SELECT COUNT(*) FROM employees_benefits_templates WHERE template_id=%s AND eb_id=peb.id) >= 1) AND peb.name_id=pe.name_id AND peb.benefit_id=%s) as ee_share_%s', $template_id, $column->id, $column->id, $column->id));
 				$employees->set_select(sprintf('(SELECT SUM(peb.employer_share) FROM employees_benefits peb WHERE ((SELECT COUNT(*) FROM employees_benefits_templates WHERE template_id=%s AND eb_id=peb.id) >= 1) AND peb.name_id=pe.name_id AND peb.benefit_id=%s) as er_share_%s', $template_id, $column->id, $column->id, $column->id));

@@ -34,14 +34,17 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
             <thead>
               <tr class="warning">
                 <th>
+<?php if( !$this->session->userdata('current_employee') ) { ?>
 <?php if( intval($group_id) > 0 ) { ?>
 <a href="<?php echo site_url("payroll_benefits/view/{$template->id}"); ?>" class="glyphicon glyphicon-arrow-left body_wrapper"></a>
 <?php } else { ?>
   <a href="<?php echo site_url("payroll_benefits/view/{$template->id}/{$payroll_group->group_id}"); ?>" class="glyphicon glyphicon-filter body_wrapper"></a>
 <?php } ?>
+<?php } ?>
                 <?php echo $payroll_group->name; ?> 
-
+<?php if( !$this->session->userdata('current_employee') ) { ?>
 <a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Sort <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll_templates/employees/{$template->id}/{$payroll_group->id}/ajax") . "?action=sort&next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-sort"></span></a>
+<?php } ?>
 
                 </th>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
@@ -55,7 +58,11 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
               foreach($payroll_group->employees as $employee) {
               ?>
               <tr>
-                <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> 
+                <td>
+<?php if( !$this->session->userdata('current_employee') ) { ?>
+                <a href="<?php echo site_url("payroll/select_employee/{$employee->name_id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-filter"></span></a>
+<?php } ?>
+                  <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> 
 <a href="<?php echo site_url("employees_benefits/view/{$employee->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper pull-right"><span class="glyphicon glyphicon-cog"></span></a>
 
 <a class="ajax-modal" href="#ajaxModal" data-modal_size="large" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo site_url("lists_names/profile/{$employee->name_id}/ajax") . "?output=inner_page"; ?>"><span class="glyphicon glyphicon-eye-open"></span></a>
@@ -86,6 +93,7 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
           </table>
     <?php } ?>
 
+<?php if( !$this->session->userdata('current_employee') ) { ?>
           <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
               <tr class="warning">
@@ -106,7 +114,7 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
   </tr>
             </tbody>
             </table>
-
+<?php } ?>
 <?php } else { ?>
 
   <div class="text-center">No Group and/or Benefit Assigned!</div>

@@ -24,6 +24,16 @@
           </ul>
         </li>
         <li><a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Payroll" data-url="<?php echo site_url("payroll_templates/config/{$template->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1"><span class="glyphicon glyphicon-cog"></span></a></li>
+<?php if( $this->session->userdata('current_employee') ) { 
+$current_employee = $this->session->userdata('current_employee');
+  ?>
+  <li class="active hidden-xs hidden-sm">
+    <a href="<?php echo site_url('payroll/clear_current_employee') . "?next=" . urlencode(uri_string()); ?>"><strong><?php echo $current_employee->lastname; ?>, <?php echo $current_employee->firstname; ?> <?php echo substr($current_employee->middlename,0,1)."."; ?></strong> <span class="glyphicon glyphicon-remove"></span></a>
+     <ul class="dropdown-menu">
+            <li>Cancel</a></li>
+        </ul>
+  </li>
+<?php } ?>
       </ul>
      <ul class="nav navbar-nav navbar-right">
 <?php 
