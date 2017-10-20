@@ -494,6 +494,29 @@ class Payroll_templates extends MY_Controller {
 		$this->load->view('payroll/templates/templates_print_columns', $this->template_data->get_data());
 	}
 
+	public function select_preview($template_id) {
+		$template = new $this->Payroll_templates_model;
+		$template->setId($template_id,true);
+		if( $template->nonEmpty() ) {
+			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_salaries') ) {
+				redirect("payroll_salaries/preview/{$template_id}");
+			}
+			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_earnings') ) {
+				redirect("payroll_earnings/preview/{$template_id}");
+			}
+			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_benefits')) {
+				redirect("payroll_benefits/preview/{$template_id}");
+			}
+			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_deductions')) {
+				redirect("payroll_deductions/preview/{$template_id}");
+			}
+			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_summary')) {
+				redirect("payroll_summary/preview/{$template_id}");
+			}
+		}
+		redirect(site_url("welcome") . "?error_code=106");
+	}
+
 	public function ajax($action='') {
 		$results = array();
 		switch($action) {

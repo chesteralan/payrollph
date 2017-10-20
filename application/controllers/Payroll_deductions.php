@@ -489,6 +489,7 @@ if( $this->input->get('equalizer') == '1' ) {
 
 	public function preview($template_id,$group_id=0) {
 		
+		$this->_column_groups();
 		$this->template_data->set('group_id', $group_id);
 
 		$templates = new $this->Payroll_templates_model;

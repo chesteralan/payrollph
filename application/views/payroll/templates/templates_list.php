@@ -65,7 +65,7 @@
 </div>
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("payroll_templates/delete/{$template->id}"); ?>" data-target="#template-<?php echo $template->id; ?>">Delete</a>
 
-                <a class="btn btn-warning btn-xs body_wrapper" href="<?php echo site_url("payroll_salaries/preview/{$template->id}"); ?>" data-target="#template-<?php echo $template->id; ?>">Preview</a>
+                <a class="btn btn-warning btn-xs" href="<?php echo site_url("payroll_templates/select_preview/{$template->id}"); ?>">Preview</a>
                 </td>
               <?php } ?>
               </tr>

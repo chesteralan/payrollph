@@ -180,4 +180,114 @@ class Payroll_summary extends MY_Controller {
 		$this->load->view('payroll/payroll/summary/summary_view', $this->template_data->get_data());
 	}
 
+	public function preview($template_id,$group_id=0) {
+		
+		$this->_column_groups();
+		$this->template_data->set('group_id', $group_id);
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$templates->set_select('*');
+		$templates->set_limit(0);
+		$this->template_data->set('templates', $templates->populate());
+
+		$template = new $this->Payroll_templates_model;
+		$template->setId($template_id,true);
+		$template->set_select("*");
+		$template->set_select("(SELECT COUNT(*) FROM `payroll_templates_earnings` pe WHERE pe.template_id=payroll_templates.id) as earnings_columns");
+		$template->set_select("(SELECT COUNT(*) FROM `payroll_templates_benefits` pb WHERE pb.template_id=payroll_templates.id) as benefits_columns");
+		$template->set_select("(SELECT COUNT(*) FROM `payroll_templates_deductions` pd WHERE pd.template_id=payroll_templates.id) as deductions_columns");
+		$this->template_data->set('template', $template->get());
+
+
+		$earnings_columns = new $this->Payroll_templates_earnings_model('pe');
+		$earnings_columns->setTemplateId($template_id,true);
+		$earnings_columns->set_select('el.*');
+		$earnings_columns->set_join('earnings_list el', 'el.id=pe.earning_id');
+		$earnings_columns->set_order('pe.order', 'DESC');
+		$columns = $earnings_columns->populate();
+		$this->template_data->set('earnings_columns', $columns);
+
+		$benefits_columns = new $this->Payroll_templates_benefits_model('pb');
+		$benefits_columns->setTemplateId($template_id,true);
+		$benefits_columns->set_select('bl.*');
+		$benefits_columns->set_join('benefits_list bl', 'bl.id=pb.benefit_id');
+		$benefits_columns->set_order('pb.order', 'DESC');
+		$columns = $benefits_columns->populate();
+		$this->template_data->set('benefits_columns', $columns);
+
+		$deductions_columns = new $this->Payroll_templates_deductions_model('pd');
+		$deductions_columns->setTemplateId($template_id,true);
+		$deductions_columns->set_select('dl.*');
+		$deductions_columns->set_join('deductions_list dl', 'dl.id=pd.deduction_id');
+		$deductions_columns->set_order('pd.order', 'DESC');
+		$columns = $deductions_columns->populate();
+		$this->template_data->set('deductions_columns', $columns);
+		
+		$payroll_group = new $this->Payroll_templates_groups_model('pg');
+		$payroll_group->setTemplateId($template_id,true);
+		if( intval($group_id) > 0 ) {
+			$payroll_group->setGroupId(intval($group_id),true);
+		}
+		$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');
+		$payroll_group->set_limit(0);
+		$payroll_group->set_order('pg.order', 'DESC');
+		$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
+		$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
+		$payroll_group_data =  $payroll_group->populate();
+		foreach($payroll_group_data as $key=>$group) {
+			$employees = new $this->Payroll_templates_employees_model('pe');
+			$employees->setTemplateId($template_id,true);
+			$employees->set_select('ni.*');
+			$employees->set_select('e.name_id');
+			$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
+			$employees->set_join('employees e', 'e.name_id=pe.name_id');
+			$employees->set_where('e.group_id', $group->group_id);
+
+			if( $this->session->userdata('employees_status') ) {
+				$employees->set_where('e.status', $this->session->userdata('employees_status')->id);
+			}
+
+			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
+			
+			// gross benefits
+			$employees->set_select(sprintf('(SELECT SUM(peb.employee_share) FROM employees_benefits peb WHERE ((SELECT COUNT(*) FROM employees_benefits_templates WHERE template_id=%s AND eb_id=peb.id) >= 1) AND peb.name_id=pe.name_id) as gross_benefits', $template_id));
+			
+			// gross earnings
+			$employees->set_select(sprintf('(SELECT SUM(amount) FROM employees_earnings ee WHERE ((SELECT COUNT(*) FROM employees_earnings_templates WHERE template_id=%s AND ee_id=ee.id) >= 1) AND ee.name_id=pe.name_id AND ee.trash=0) as gross_earnings', $template_id));
+
+			// gross deductions
+			$employees->set_select(sprintf('(SELECT SUM(ped.amount) FROM employees_deductions ped WHERE ((SELECT COUNT(*) FROM employees_deductions_templates WHERE template_id=%s AND ed_id=ped.id) >= 1) AND ped.name_id=pe.name_id) as gross_deductions', $template_id));
+
+			$employees->setActive('1', true);
+			$employees->set_order('pe.order', 'ASC');
+			$employees->set_limit(0);
+			$employees_data = $employees->populate();
+			foreach( $employees_data as $eKey => $employee) {
+				$salary = new $this->Employees_salaries_model('es');
+				$salary->setNameId($employee->name_id,true);
+				$employees_data[$eKey]->salary = $salary->get();
+			} 
+
+			$payroll_group_data[$key]->employees = $employees_data;
+		}
+		$this->template_data->set('payroll_groups', $payroll_group_data);
+		
+		$employees_status = new $this->Payroll_templates_employees_model('pe');
+		$employees_status->setTemplateId($template_id,true);
+		$employees_status->set_select('e.status');
+		$employees_status->set_select('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status) as status_name');
+		$employees_status->set_join('employees e', 'e.name_id=pe.name_id');
+		$employees_status->set_limit(0);
+		$employees_status->set_group_by('e.status');
+		$employees_status->set_where('e.status IS NOT NULL');
+		$employees_status->set_where('e.status <> 0');
+		$employees_status->set_where('e.status <> ""');
+		$employees_status->set_order('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status)', 'ASC');
+		$this->template_data->set('employees_status', $employees_status->populate());
+		
+		$this->load->view('payroll/payroll/summary/summary_preview', $this->template_data->get_data());
+	}
+
 }

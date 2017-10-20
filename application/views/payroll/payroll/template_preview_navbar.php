@@ -25,28 +25,70 @@
         </li>
         <li><a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Payroll" data-url="<?php echo site_url("payroll_templates/config/{$template->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1"><span class="glyphicon glyphicon-cog"></span></a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-      <li><a class="body_wrapper" href="<?php echo site_url('payroll_templates'); ?>"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
+     <ul class="nav navbar-nav navbar-right">
 <?php 
-
 $group_id = (isset($group_id)) ? $group_id : 0;
+$column_groups = array(
+  array(  'key'=>'column_group_salaries',
+          'name' => 'Basic Salary',
+          'checked' => (($column_group_salaries)?$column_group_salaries:0),
+          'uri' => "payroll_salaries/preview/{$template->id}/{$group_id}",
+          'url_key'=> 'payroll_salaries',
+          'access'=>hasAccess('payroll', 'payroll', 'view'),
+        ),
+  array(  'key'=>'column_group_earnings',
+          'name' => 'Earnings',
+          'checked' => (($column_group_earnings)?$column_group_earnings:0),
+          'uri' => "payroll_earnings/preview/{$template->id}/{$group_id}",
+          'url_key'=> 'payroll_earnings',
+          'access'=>hasAccess('payroll', 'payroll', 'view'),
+        ),
+  array(  'key'=>'column_group_benefits',
+          'name' => 'Benefits',
+          'checked' => (($column_group_benefits)?$column_group_benefits:0),
+          'uri' => "payroll_benefits/preview/{$template->id}/{$group_id}",
+          'url_key'=> 'payroll_benefits',
+          'access'=>hasAccess('payroll', 'payroll', 'view'),
+        ),
+  array(  'key'=>'column_group_deductions',
+          'name' => 'Deductions',
+          'checked' => (($column_group_deductions)?$column_group_deductions:0),
+          'uri' => "payroll_deductions/preview/{$template->id}/{$group_id}",
+          'url_key'=> 'payroll_deductions',
+          'access'=>hasAccess('payroll', 'payroll', 'view'),
+        ),
+  array(  'key'=>'column_group_summary',
+          'name' => 'Summary',
+          'checked' => (($column_group_summary)?$column_group_summary:0),
+          'uri' => "payroll_summary/preview/{$template->id}/{$group_id}",
+          'url_key'=> 'payroll_summary',
+          'access'=>hasAccess('payroll', 'payroll', 'view'),
+        ),
+);
 
-$url['payroll_salaries'] = array('uri' => "payroll_salaries/preview/{$template->id}/{$group_id}", 'title'=>'Basic Salary', 'access'=>hasAccess('payroll', 'payroll', 'view'));
-if( (isset($template->earnings_columns)) && ( $template->earnings_columns > 0 ) ) {
-  $url['payroll_earnings'] = array('uri' => "payroll_earnings/preview/{$template->id}/{$group_id}", 'title'=>'Earnings', 'access'=>hasAccess('payroll', 'payroll', 'view'));
-}
-if( (isset($template->benefits_columns)) && ( $template->benefits_columns > 0 ) ) {
-  $url['payroll_benefits'] = array('uri' => "payroll_benefits/preview/{$template->id}/{$group_id}", 'title'=>'Benefits', 'access'=>hasAccess('payroll', 'payroll', 'view'));
-}
-if( (isset($template->deductions_columns)) && ( $template->deductions_columns > 0 ) ) {
-  $url['payroll_deductions'] = array('uri' => "payroll_deductions/preview/{$template->id}/{$group_id}", 'title'=>'Deductions', 'access'=>hasAccess('payroll', 'payroll', 'view'));
-}
+$cg_sort = ($column_group_sort) ? $column_group_sort : false;
 
-foreach($url as $k=>$v) {
-  if( $v['access'] ) {
+  if( $cg_sort ) {
+    $cg_sort2 = array();
+    $si = 0;
+    foreach($cg_sort as $sk=>$sv) {
+        $cg_sort2[$sv] = $si++;
+    }  
+
+    $pgs = array();
+    foreach($column_groups as $cg) {
+      $cg_key = $cg['key'];
+      $pgs[$cg_sort2[$cg_key]] = $cg;
+    }
+    ksort($pgs);
+    $column_groups = $pgs;
+  }
+ foreach($column_groups as $cg) { 
+  if( $cg['checked'] == 0 ) continue;
+  if( !$cg['access'] ) continue;
 ?>
-  <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($v['uri']); ?>"><?php echo $v['title']; ?></a></li>
-<?php } } ?>
+<li class="<?php echo ($cg['url_key']==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($cg['uri']); ?>"><?php echo $cg['name']; ?></a></li>
+<?php } ?>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
