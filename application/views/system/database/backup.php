@@ -48,7 +48,7 @@
 							<td><?php echo $file; ?></td>
 							<td><?php echo filesize("backups/" . $file); ?></td>
 							<td class="text-right">
-								<a href="<?php echo site_url('system_backup/download/' . $file ); ?>" class="btn btn-success btn-xs">Download</a>
+								<a href="<?php echo site_url('system_database/download/' . $file ); ?>" class="btn btn-success btn-xs">Download</a>
 								<?php if( hasAccess('system', 'database', 'delete') ) { ?>
 								<a href="<?php echo site_url('system_database/delete/' . $file ); ?>" class="btn btn-danger btn-xs confirm_remove" data-target="#file_<?php echo url_title($file, "_", true); ?>">Delete</a>
 								<?php } ?>

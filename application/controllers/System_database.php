@@ -221,7 +221,7 @@ class System_database extends MY_Controller {
 			$table->add_table_column($field_name);
 		}
 
-		redirect( "system_database/verify" );
+		redirect( site_url("system_database/verify") . "?table=" . $table_name );
 	}
 
 }
