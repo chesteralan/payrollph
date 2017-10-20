@@ -38,7 +38,7 @@ function isColumn($ths, $column_id,$print_columns) {
   <body id="payroll_print">
 
 <div class="print-topnav hide-print text-center allcaps">
-  <a href="<?php echo site_url("payroll_dtr/view/{$payroll->id}"); ?>">Back</a>
+  <a href="<?php echo site_url("payroll/select_payroll/{$payroll->id}"); ?>">Back</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/payslip"); ?>">Payslip</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/{$output}/{$current_page}"); ?>">All</a>
   <?php 
@@ -101,17 +101,13 @@ $column_width = ceil(71 / $pc_count);
             <thead>
               <tr class="warning highlight allcaps">
                 <th class="text-left allcaps" width="<?php echo ($pc_count==1) ? '64' : '15'; ?>%"><?php echo $payroll_group->name; ?></th>
+<?php if( $column_group_salaries ) { ?>
 <?php if( isColumn($this, 'working_days', $print_columns) ) { ?>
                 <th width="<?php echo $column_width; ?>%" class="text-right">Working Days</th>
 <?php } ?>
 <?php if( isColumn($this, 'absences', $print_columns) ) { ?>
                 <th width="<?php echo $column_width; ?>%" class="text-right">Absences</th>
 <?php } ?>
-<?php /*
-<?php if( isColumn($this, 'days_present', $print_columns) ) { ?>
-                <th width="<?php echo $column_width; ?>%" class="text-right">Days Present</th>
-<?php } ?>
-*/ ?>
 <?php if( isColumn($this, 'rate_per_day', $print_columns) ) { ?>
                 <th width="<?php echo $column_width; ?>%" class="text-right">Rate per day</th>
 <?php } ?>
@@ -127,24 +123,35 @@ $column_width = ceil(71 / $pc_count);
 <?php if( isColumn($this, 'gross_pay', $print_columns) ) { ?>
                 <th width="<?php echo $column_width; ?>%" class="text-right">Gross Pay</th>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_earnings ) { ?>
 <?php if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
 <?php if( isColumn($this, 'earning_'.$column->id, $print_columns) ) { ?>
                 <th width="<?php echo $column_width; ?>%" class="text-right"><?php echo $column->name; ?></th>
 <?php } ?>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_salaries || $column_group_earnings) { ?>
                 <th width="<?php echo ($pc_count==1) ? '12' : '7'; ?>%" class="text-right allcaps">Total Earnings</th>
+<?php } ?>
+<?php if( $column_group_benefits ) { ?>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
 <?php if( isColumn($this, 'benefit_'.$column->id, $print_columns) ) { ?>
                 <th width="<?php echo $column_width; ?>%" class="text-right"><?php echo $column->name; ?>-EE</th>
                 <th width="<?php echo $column_width; ?>%" class="text-right"><?php echo $column->name; ?>-ER</th>
 <?php } ?>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_deductions ) { ?>
 <?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { ?>
 <?php if( isColumn($this, 'deduction_'.$column->id, $print_columns) ) { ?>
                 <th width="<?php echo $column_width; ?>%" class="text-right"><?php echo $column->name; ?></th>
 <?php } ?>
 <?php } ?>
+<?php } ?>
+ <?php if( $column_group_benefits||$column_group_deductions ) { ?>
                 <th width="<?php echo ($pc_count==1) ? '12' : '7'; ?>%" class="text-right allcaps">Total Deductions</th>
+<?php } ?>
                 <th width="<?php echo ($pc_count==1) ? '12' : '5'; ?>%" class="text-right allcaps">Net Pay</th>
               </tr>
             </thead>
@@ -208,18 +215,13 @@ $group_gross_pay += $gross_pay;
               <tr>
                 <td><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo ($employee->middlename) ? substr($employee->middlename,0,1)."." : ""; ?> <!--(<?php echo $employee->position; ?>)-->
                 </td>
+<?php if( $column_group_salaries ) { ?>
 <?php if( isColumn($this, 'working_days', $print_columns) ) { ?>
                 <td class="text-right">15<?php //echo $inclusive_dates->working_days; ?></td>
 <?php } ?>
 <?php if( isColumn($this, 'absences', $print_columns) ) { ?>
                 <td class="text-right"><?php echo $days_absent; ?></td>
 <?php } ?>
-<?php /*
-<?php 
-if( isColumn($this, 'days_present', $print_columns) ) { ?>
-                <td class="text-right"><?php echo $present_days; ?></td>
-<?php } ?>
-*/ ?>
 <?php if( isColumn($this, 'rate_per_day', $print_columns) ) { ?>
                 <td class="text-right"><?php echo number_format($daily_rate,2); ?></td>
 <?php } ?>
@@ -239,14 +241,13 @@ if( isColumn($this, 'absences_amount', $print_columns) ) { ?>
 if( isColumn($this, 'gross_pay', $print_columns) ) { ?>
                 <td class="text-right"><?php echo number_format($gross_pay,2); ?></td>
 <?php } ?>
-
-<?php 
-
-if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
+<?php } ?>
+<?php if( $column_group_earnings ) { ?>
+<?php if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
       <?php 
       $var = 'earnings_' . $column->id;
       if( !isset($group_earnings[$var]) ) {
-      		$group_earnings[$var] = 0;
+          $group_earnings[$var] = 0;
       }
       $group_earnings[$var] += $employee->$var;
       $total_earnings += $employee->$var;
@@ -254,11 +255,15 @@ if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
                     <td class="text-right"><?php echo number_format($employee->$var,2); ?></td>
                 <?php } ?>
     <?php } ?>
+<?php } ?>
+<?php if( $column_group_salaries || $column_group_earnings) { ?>
       <td class="text-right bold"><?php 
 $total_gross_earnings = ($total_earnings + $gross_pay);
 $group_total_earnings += $total_gross_earnings;
       echo number_format($total_gross_earnings,2); ?></td>
+<?php } ?>
 
+<?php if( $column_group_benefits ) { ?>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { 
   $ee = 'ee_share_' . $column->id;
   if( !isset($group_benefits[$ee]) ) {
@@ -279,7 +284,8 @@ $group_total_earnings += $total_gross_earnings;
                 <td class="text-right"><?php echo number_format($employee->$er,2); ?></td>
 <?php } ?>
 <?php } ?>
-
+<?php } ?>
+<?php if( $column_group_deductions ) { ?>
 <?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { 
   $var = 'deductions_' . $column->id;
   if( !isset($group_deductions[$var]) ) {
@@ -292,13 +298,17 @@ $group_total_earnings += $total_gross_earnings;
                     <td class="text-right"><?php echo number_format($employee->$var,2); ?></td>
                 <?php } ?>
  <?php } ?>
+ <?php } ?>
  <?php 
 $net_pay = (($total_earnings + $gross_pay) - $total_deductions); 
 $total_net_pay += $net_pay;
 $group_net_pay += $net_pay;
 $group_total_deductions += $total_deductions;
 ?>
+ <?php if( $column_group_benefits||$column_group_deductions ) { ?>
                 <td class="text-right bold"><?php echo number_format($total_deductions,2); ?></td>
+<?php } ?>
+                
                 <td class="text-right bold bigger"><?php echo number_format($net_pay,2); ?></td>
 
               </tr>
@@ -309,18 +319,13 @@ $group_total_deductions += $total_deductions;
                 <td class="allcaps">
                 Group Total
                 </td>
+<?php if( $column_group_salaries ) { ?>
 <?php if( isColumn($this, 'working_days', $print_columns) ) { ?>
                 <td class="text-right"></td>
 <?php } ?>
 <?php if( isColumn($this, 'absences', $print_columns) ) { ?>
                 <td class="text-right"></td>
 <?php } ?>
-<?php /*
-<?php 
-if( isColumn($this, 'days_present', $print_columns) ) { ?>
-                <td class="text-right"></td>
-<?php } ?>
-*/ ?>
 <?php if( isColumn($this, 'rate_per_day', $print_columns) ) { ?>
                 <td class="text-right"></td>
 <?php } ?>
@@ -340,18 +345,21 @@ if( isColumn($this, 'absences_amount', $print_columns) ) { ?>
 if( isColumn($this, 'gross_pay', $print_columns) ) { ?>
                 <td class="text-right"><?php echo number_format($group_gross_pay,2); ?></td>
 <?php } ?>
+<?php } ?>
 
-<?php 
-
-if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
+<?php if( $column_group_earnings ) { ?>
+<?php if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
   <?php if( isColumn($this, 'earning_' . $column->id, $print_columns) ) {
 $var = 'earnings_' . $column->id;
    ?>
                       <td class="text-right"><?php echo number_format($group_earnings[$var],2); ?></td>
   <?php } ?>
 <?php } ?>
+<?php } ?>
+<?php if( $column_group_salaries || $column_group_earnings) { ?>
       <td class="text-right bold"><?php echo number_format($group_total_earnings,2); ?></td>
-
+<?php } ?>
+<?php if( $column_group_benefits ) { ?>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
   <?php  if( isColumn($this, 'benefit_' . $column->id, $print_columns) ) { 
 $ee = 'ee_share_' . $column->id;
@@ -361,7 +369,8 @@ $er = 'er_share_' . $column->id;
                   <td class="text-right"><?php echo number_format($group_benefits[$er],2); ?></td>
   <?php } ?>
 <?php } ?>
-
+<?php } ?>
+<?php if( $column_group_deductions ) { ?>
 <?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { 
   if( isColumn($this, 'deduction_' . $column->id, $print_columns) ) {
   	$var = 'deductions_' . $column->id;
@@ -369,7 +378,10 @@ $er = 'er_share_' . $column->id;
                     <td class="text-right"><?php echo number_format($group_deductions[$var],2); ?></td>
                 <?php } ?>
  <?php } ?>
+ <?php } ?>
+ <?php if( $column_group_benefits||$column_group_deductions ) { ?>
                 <td class="text-right bold"><?php echo number_format($group_total_deductions,2); ?></td>
+<?php } ?>                
                 <td class="text-right bold bigger"><?php echo number_format($group_net_pay,2); ?></td>
 
               </tr>

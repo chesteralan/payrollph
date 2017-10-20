@@ -44,7 +44,7 @@ foreach($print_groups as $pg1) {
   <body id="payroll_print">
 
 <div class="print-topnav hide-print text-center allcaps">
-  <a href="<?php echo site_url("payroll_dtr/view/{$payroll->id}"); ?>">Back</a>
+  <a href="<?php echo site_url("payroll/select_payroll/{$payroll->id}"); ?>">Back</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/payslip"); ?>">Payslip</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/{$output}/{$current_page}"); ?>">All</a>
   <?php 
