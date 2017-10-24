@@ -335,7 +335,7 @@ class Payroll extends MY_Controller {
 		 		break;
 		 		case 'month':
 		 		default:
-		 			$pee_earning->setNotes($days_present . " days");
+		 			$pee_earning->setNotes(number_format($earning2->amount,2) . " X 1 Month");
 		 			$eamount = $earning2->amount;
 		 		break;
 		 	}
@@ -345,12 +345,14 @@ class Payroll extends MY_Controller {
 		 			$end_date = new DateTime($payroll_data->inclusive_dates->end_date);
 					$hired = new DateTime($employee->hired);
 					$diff = $hired->diff($end_date);
+					$pee_earning->setNotes($pee_earning->getNotes() . " X Employment: " . $diff->y . " years");
 					$eamount = $eamount * $diff->y;
 		 		break;
 		 		case 'birthday':
 		 			$birth_date = new DateTime($employee->birthday);
 					$hired = new DateTime($employee->hired);
 					$diff = $hired->diff($birth_date);
+					$pee_earning->setNotes($pee_earning->getNotes() . " X Birthday: " . $diff->y . " years");
 					$eamount = $eamount * $diff->y;
 		 		break;
 		 	}

@@ -24,7 +24,7 @@
 
 <?php if( $earnings ) { ?>
 
-<center><a class="btn btn-success btn-xs ajax-modal-inner" href="<?php echo site_url("employees_earnings/edit/{$entry->id}/{$output}") . '?next=' . uri_string(); ?>">Edit Item</a></center>
+<center><a class="btn btn-success btn-xs ajax-modal-inner" href="<?php echo site_url("employees_earnings/edit/{$entry->id}/{$output}") . '?next=' . ( ($this->input->get('next')) ? $this->input->get('next') : uri_string() ); ?>">Edit Item</a></center>
 
           <table class="table table-default">
             <thead>
@@ -46,9 +46,7 @@ $total = 0;
                 <td><?php echo number_format($earning->pee_amount,2);  $total += $earning->pee_amount; ?></td>
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
-
-                <a class="btn btn-warning btn-xs body_wrapper" data-dismiss="modal" href="<?php echo site_url("payroll_earnings/view/{$earning->payroll_id}") . '?next=' . uri_string(); ?>">Payroll</a>
-
+                <a class="btn btn-warning btn-xs body_wrapper" data-dismiss="modal" href="<?php echo site_url("payroll_earnings/view/{$earning->payroll_id}") . '?next=' . ( ($this->input->get('next')) ? $this->input->get('next') : uri_string() ); ?>">Payroll</a>
                 </td>
               <?php } ?>
               </tr>
