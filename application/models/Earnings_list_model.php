@@ -8,21 +8,21 @@
 CREATE TABLE `earnings_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
-  `abbr` varchar(100) DEFAULT NULL,
   `notes` text,
   `account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   `trash` int(1) DEFAULT '0',
+  `abbr` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
 ALTER TABLE  `earnings_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `earnings_list` ADD  `name` varchar(200) NOT NULL   ;
-ALTER TABLE  `earnings_list` ADD  `abbr` varchar(100) NULL   ;
 ALTER TABLE  `earnings_list` ADD  `notes` text NULL   ;
 ALTER TABLE  `earnings_list` ADD  `account_title` varchar(200) NULL   ;
 ALTER TABLE  `earnings_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';
 ALTER TABLE  `earnings_list` ADD  `trash` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `earnings_list` ADD  `abbr` varchar(100) NULL   ;
 
 
  * @package			        Model
@@ -38,11 +38,11 @@ class Earnings_list_model extends MY_Model {
 
 	protected $id;
 	protected $name;
-	protected $abbr;
 	protected $notes;
 	protected $account_title;
 	protected $active;
 	protected $trash;
+	protected $abbr;
 
 	// --------------------------------------------------------------------
 
@@ -56,7 +56,7 @@ class Earnings_list_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'earnings_list';
 		$this->_short_name = 'earnings_list';
-		$this->_fields = array("id","name","abbr","notes","account_title","active","trash");
+		$this->_fields = array("id","name","notes","account_title","active","trash","abbr");
 		$this->_required = array("name","active");
 		parent::__construct($short_name, $db_config);
 	}
@@ -108,29 +108,6 @@ class Earnings_list_model extends MY_Model {
 	}
 	
 // ------------------------------ End Field: name --------------------------------------
-
-
-// ---------------------------- Start Field: abbr -------------------------------------- 
-
-	/** 
-	* Sets a value to `abbr` variable
-	* @access public
-	*/
-
-	public function setAbbr($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-		return $this->_set_field('abbr', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-	}
-	
-	/** 
-	* Get the value of `abbr` variable
-	* @access public
-	*/
-
-	public function getAbbr() {
-		return $this->abbr;
-	}
-	
-// ------------------------------ End Field: abbr --------------------------------------
 
 
 // ---------------------------- Start Field: notes -------------------------------------- 
@@ -225,6 +202,29 @@ class Earnings_list_model extends MY_Model {
 // ------------------------------ End Field: trash --------------------------------------
 
 
+// ---------------------------- Start Field: abbr -------------------------------------- 
+
+	/** 
+	* Sets a value to `abbr` variable
+	* @access public
+	*/
+
+	public function setAbbr($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('abbr', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `abbr` variable
+	* @access public
+	*/
+
+	public function getAbbr() {
+		return $this->abbr;
+	}
+	
+// ------------------------------ End Field: abbr --------------------------------------
+
+
 
 	
 	public function get_table_options() {
@@ -242,15 +242,6 @@ class Earnings_list_model extends MY_Model {
 										'Field'=>'name',
 										'Type'=>'varchar(200)',
 										'Null'=>'NO',
-										'Key'=>'',
-										'Default'=>'',
-										'Extra'=>''
-									),
-
-			'abbr' => (object) array(
-										'Field'=>'abbr',
-										'Type'=>'varchar(100)',
-										'Null'=>'YES',
 										'Key'=>'',
 										'Default'=>'',
 										'Extra'=>''
@@ -290,6 +281,15 @@ class Earnings_list_model extends MY_Model {
 										'Key'=>'',
 										'Default'=>'0',
 										'Extra'=>''
+									),
+
+			'abbr' => (object) array(
+										'Field'=>'abbr',
+										'Type'=>'varchar(100)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
 									)
 		);
 	}
@@ -298,11 +298,11 @@ class Earnings_list_model extends MY_Model {
 		$column = array(
 			'id' => "ALTER TABLE  `earnings_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
 			'name' => "ALTER TABLE  `earnings_list` ADD  `name` varchar(200) NOT NULL   ;",
-			'abbr' => "ALTER TABLE  `earnings_list` ADD  `abbr` varchar(100) NULL   ;",
 			'notes' => "ALTER TABLE  `earnings_list` ADD  `notes` text NULL   ;",
 			'account_title' => "ALTER TABLE  `earnings_list` ADD  `account_title` varchar(200) NULL   ;",
 			'active' => "ALTER TABLE  `earnings_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
 			'trash' => "ALTER TABLE  `earnings_list` ADD  `trash` int(1) NULL   DEFAULT '0';",
+			'abbr' => "ALTER TABLE  `earnings_list` ADD  `abbr` varchar(100) NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

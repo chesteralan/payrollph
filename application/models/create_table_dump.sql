@@ -13,13 +13,13 @@ CREATE TABLE `account_sessions` (
 CREATE TABLE `benefits_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
-  `abbr` varchar(100) DEFAULT NULL,
   `notes` text,
   `leave` int(1) DEFAULT '0',
   `ee_account_title` varchar(200) DEFAULT NULL,
   `er_account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   `trash` int(1) DEFAULT '0',
+  `abbr` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -51,11 +51,11 @@ CREATE TABLE `companies_options` (
 CREATE TABLE `deductions_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
-  `abbr` varchar(100) DEFAULT NULL,
   `notes` text,
   `account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   `trash` int(1) DEFAULT '0',
+  `abbr` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -64,11 +64,11 @@ CREATE TABLE `deductions_list` (
 CREATE TABLE `earnings_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
-  `abbr` varchar(100) DEFAULT NULL,
   `notes` text,
   `account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   `trash` int(1) DEFAULT '0',
+  `abbr` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -109,9 +109,9 @@ CREATE TABLE `employees_absences` (
 CREATE TABLE `employees_areas` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `company_id` int(20) NOT NULL,
-  `name` varchar(200) NOT NULL,
-  `notes` text,
   `trash` int(1) NOT NULL DEFAULT '0',
+  `notes` text,
+  `name` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`)
 );
@@ -190,6 +190,7 @@ CREATE TABLE `employees_earnings` (
   `max_amount` decimal(30,5) DEFAULT '0.00000',
   `start_date` date DEFAULT NULL,
   `computed` varchar(10) DEFAULT NULL,
+  `multiplier` varchar(50) DEFAULT NULL,
   `active` int(1) DEFAULT '0',
   `trash` int(1) DEFAULT '0',
   `notes` text,

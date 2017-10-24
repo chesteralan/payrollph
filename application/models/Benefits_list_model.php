@@ -8,25 +8,25 @@
 CREATE TABLE `benefits_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
-  `abbr` varchar(100) DEFAULT NULL,
   `notes` text,
   `leave` int(1) DEFAULT '0',
   `ee_account_title` varchar(200) DEFAULT NULL,
   `er_account_title` varchar(200) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   `trash` int(1) DEFAULT '0',
+  `abbr` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
 ALTER TABLE  `benefits_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `benefits_list` ADD  `name` varchar(200) NOT NULL   ;
-ALTER TABLE  `benefits_list` ADD  `abbr` varchar(100) NULL   ;
 ALTER TABLE  `benefits_list` ADD  `notes` text NULL   ;
 ALTER TABLE  `benefits_list` ADD  `leave` int(1) NULL   DEFAULT '0';
 ALTER TABLE  `benefits_list` ADD  `ee_account_title` varchar(200) NULL   ;
 ALTER TABLE  `benefits_list` ADD  `er_account_title` varchar(200) NULL   ;
 ALTER TABLE  `benefits_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';
 ALTER TABLE  `benefits_list` ADD  `trash` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `benefits_list` ADD  `abbr` varchar(100) NULL   ;
 
 
  * @package			        Model
@@ -42,13 +42,13 @@ class Benefits_list_model extends MY_Model {
 
 	protected $id;
 	protected $name;
-	protected $abbr;
 	protected $notes;
 	protected $leave;
 	protected $ee_account_title;
 	protected $er_account_title;
 	protected $active;
 	protected $trash;
+	protected $abbr;
 
 	// --------------------------------------------------------------------
 
@@ -62,7 +62,7 @@ class Benefits_list_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'benefits_list';
 		$this->_short_name = 'benefits_list';
-		$this->_fields = array("id","name","abbr","notes","leave","ee_account_title","er_account_title","active","trash");
+		$this->_fields = array("id","name","notes","leave","ee_account_title","er_account_title","active","trash","abbr");
 		$this->_required = array("name","active");
 		parent::__construct($short_name, $db_config);
 	}
@@ -114,29 +114,6 @@ class Benefits_list_model extends MY_Model {
 	}
 	
 // ------------------------------ End Field: name --------------------------------------
-
-
-// ---------------------------- Start Field: abbr -------------------------------------- 
-
-	/** 
-	* Sets a value to `abbr` variable
-	* @access public
-	*/
-
-	public function setAbbr($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-		return $this->_set_field('abbr', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-	}
-	
-	/** 
-	* Get the value of `abbr` variable
-	* @access public
-	*/
-
-	public function getAbbr() {
-		return $this->abbr;
-	}
-	
-// ------------------------------ End Field: abbr --------------------------------------
 
 
 // ---------------------------- Start Field: notes -------------------------------------- 
@@ -277,6 +254,29 @@ class Benefits_list_model extends MY_Model {
 // ------------------------------ End Field: trash --------------------------------------
 
 
+// ---------------------------- Start Field: abbr -------------------------------------- 
+
+	/** 
+	* Sets a value to `abbr` variable
+	* @access public
+	*/
+
+	public function setAbbr($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('abbr', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `abbr` variable
+	* @access public
+	*/
+
+	public function getAbbr() {
+		return $this->abbr;
+	}
+	
+// ------------------------------ End Field: abbr --------------------------------------
+
+
 
 	
 	public function get_table_options() {
@@ -294,15 +294,6 @@ class Benefits_list_model extends MY_Model {
 										'Field'=>'name',
 										'Type'=>'varchar(200)',
 										'Null'=>'NO',
-										'Key'=>'',
-										'Default'=>'',
-										'Extra'=>''
-									),
-
-			'abbr' => (object) array(
-										'Field'=>'abbr',
-										'Type'=>'varchar(100)',
-										'Null'=>'YES',
 										'Key'=>'',
 										'Default'=>'',
 										'Extra'=>''
@@ -360,6 +351,15 @@ class Benefits_list_model extends MY_Model {
 										'Key'=>'',
 										'Default'=>'0',
 										'Extra'=>''
+									),
+
+			'abbr' => (object) array(
+										'Field'=>'abbr',
+										'Type'=>'varchar(100)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
 									)
 		);
 	}
@@ -368,13 +368,13 @@ class Benefits_list_model extends MY_Model {
 		$column = array(
 			'id' => "ALTER TABLE  `benefits_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
 			'name' => "ALTER TABLE  `benefits_list` ADD  `name` varchar(200) NOT NULL   ;",
-			'abbr' => "ALTER TABLE  `benefits_list` ADD  `abbr` varchar(100) NULL   ;",
 			'notes' => "ALTER TABLE  `benefits_list` ADD  `notes` text NULL   ;",
 			'leave' => "ALTER TABLE  `benefits_list` ADD  `leave` int(1) NULL   DEFAULT '0';",
 			'ee_account_title' => "ALTER TABLE  `benefits_list` ADD  `ee_account_title` varchar(200) NULL   ;",
 			'er_account_title' => "ALTER TABLE  `benefits_list` ADD  `er_account_title` varchar(200) NULL   ;",
 			'active' => "ALTER TABLE  `benefits_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
 			'trash' => "ALTER TABLE  `benefits_list` ADD  `trash` int(1) NULL   DEFAULT '0';",
+			'abbr' => "ALTER TABLE  `benefits_list` ADD  `abbr` varchar(100) NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

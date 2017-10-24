@@ -6,7 +6,7 @@
 | This file is the parent class of Model Classes
 |
  * @package                 MY_Model
- * @version_number          4.7
+ * @version_number          4.8
  * @project                 Trokis Philippines
  * @project_link            http://www.trokis.com
  * @author                  Chester Alan Tagudin
@@ -747,7 +747,7 @@ class MY_Model extends CI_Model
 
     public function set_join($table, $connection, $option=NULL, $database=NULL) {
         
-        $table = ( $database ) ? $database . "." . $table : $table;
+        $table = ( $database ) ? $database . "." . $table : $this->_db->database . "." . $table;
         $option = ( $option ) ? $option : 'left';
         
         $this->_join[] = array('table'=>$table, 'connection'=>$connection, 'option'=>$option );

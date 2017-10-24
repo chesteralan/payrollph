@@ -8,18 +8,18 @@
 CREATE TABLE `employees_areas` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `company_id` int(20) NOT NULL,
-  `name` varchar(200) NOT NULL,
-  `notes` text,
   `trash` int(1) NOT NULL DEFAULT '0',
+  `notes` text,
+  `name` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`)
 );
 
 ALTER TABLE  `employees_areas` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `employees_areas` ADD  `company_id` int(20) NOT NULL   ;
-ALTER TABLE  `employees_areas` ADD  `name` varchar(200) NOT NULL   ;
-ALTER TABLE  `employees_areas` ADD  `notes` text NULL   ;
 ALTER TABLE  `employees_areas` ADD  `trash` int(1) NOT NULL   DEFAULT '0';
+ALTER TABLE  `employees_areas` ADD  `notes` text NULL   ;
+ALTER TABLE  `employees_areas` ADD  `name` varchar(200) NOT NULL   ;
 
 
  * @package			        Model
@@ -35,9 +35,9 @@ class Employees_areas_model extends MY_Model {
 
 	protected $id;
 	protected $company_id;
-	protected $name;
-	protected $notes;
 	protected $trash;
+	protected $notes;
+	protected $name;
 
 	// --------------------------------------------------------------------
 
@@ -51,8 +51,8 @@ class Employees_areas_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees_areas';
 		$this->_short_name = 'employees_areas';
-		$this->_fields = array("id","company_id","name","notes","trash");
-		$this->_required = array("company_id","name","trash");
+		$this->_fields = array("id","company_id","trash","notes","name");
+		$this->_required = array("company_id","trash","name");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -105,27 +105,27 @@ class Employees_areas_model extends MY_Model {
 // ------------------------------ End Field: company_id --------------------------------------
 
 
-// ---------------------------- Start Field: name -------------------------------------- 
+// ---------------------------- Start Field: trash -------------------------------------- 
 
 	/** 
-	* Sets a value to `name` variable
+	* Sets a value to `trash` variable
 	* @access public
 	*/
 
-	public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
 	
 	/** 
-	* Get the value of `name` variable
+	* Get the value of `trash` variable
 	* @access public
 	*/
 
-	public function getName() {
-		return $this->name;
+	public function getTrash() {
+		return $this->trash;
 	}
 	
-// ------------------------------ End Field: name --------------------------------------
+// ------------------------------ End Field: trash --------------------------------------
 
 
 // ---------------------------- Start Field: notes -------------------------------------- 
@@ -151,27 +151,27 @@ class Employees_areas_model extends MY_Model {
 // ------------------------------ End Field: notes --------------------------------------
 
 
-// ---------------------------- Start Field: trash -------------------------------------- 
+// ---------------------------- Start Field: name -------------------------------------- 
 
 	/** 
-	* Sets a value to `trash` variable
+	* Sets a value to `name` variable
 	* @access public
 	*/
 
-	public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
 	
 	/** 
-	* Get the value of `trash` variable
+	* Get the value of `name` variable
 	* @access public
 	*/
 
-	public function getTrash() {
-		return $this->trash;
+	public function getName() {
+		return $this->name;
 	}
 	
-// ------------------------------ End Field: trash --------------------------------------
+// ------------------------------ End Field: name --------------------------------------
 
 
 
@@ -196,12 +196,12 @@ class Employees_areas_model extends MY_Model {
 										'Extra'=>''
 									),
 
-			'name' => (object) array(
-										'Field'=>'name',
-										'Type'=>'varchar(200)',
+			'trash' => (object) array(
+										'Field'=>'trash',
+										'Type'=>'int(1)',
 										'Null'=>'NO',
 										'Key'=>'',
-										'Default'=>'',
+										'Default'=>'0',
 										'Extra'=>''
 									),
 
@@ -214,12 +214,12 @@ class Employees_areas_model extends MY_Model {
 										'Extra'=>''
 									),
 
-			'trash' => (object) array(
-										'Field'=>'trash',
-										'Type'=>'int(1)',
+			'name' => (object) array(
+										'Field'=>'name',
+										'Type'=>'varchar(200)',
 										'Null'=>'NO',
 										'Key'=>'',
-										'Default'=>'0',
+										'Default'=>'',
 										'Extra'=>''
 									)
 		);
@@ -229,9 +229,9 @@ class Employees_areas_model extends MY_Model {
 		$column = array(
 			'id' => "ALTER TABLE  `employees_areas` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
 			'company_id' => "ALTER TABLE  `employees_areas` ADD  `company_id` int(20) NOT NULL   ;",
-			'name' => "ALTER TABLE  `employees_areas` ADD  `name` varchar(200) NOT NULL   ;",
-			'notes' => "ALTER TABLE  `employees_areas` ADD  `notes` text NULL   ;",
 			'trash' => "ALTER TABLE  `employees_areas` ADD  `trash` int(1) NOT NULL   DEFAULT '0';",
+			'notes' => "ALTER TABLE  `employees_areas` ADD  `notes` text NULL   ;",
+			'name' => "ALTER TABLE  `employees_areas` ADD  `name` varchar(200) NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

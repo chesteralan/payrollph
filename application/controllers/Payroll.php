@@ -340,12 +340,27 @@ class Payroll extends MY_Controller {
 		 		break;
 		 	}
 
+		 	switch( $earning2->multiplier ) { 
+		 		case 'employment':
+		 			$end_date = new DateTime($payroll_data->inclusive_dates->end_date);
+					$hired = new DateTime($employee->hired);
+					$diff = $hired->diff($end_date);
+					$eamount = $eamount * $diff->y;
+		 		break;
+		 		case 'birthday':
+		 			$birth_date = new DateTime($employee->birthday);
+					$hired = new DateTime($employee->hired);
+					$diff = $hired->diff($birth_date);
+					$eamount = $eamount * $diff->y;
+		 		break;
+		 	}
+
 		 	if( floatval( $earning2->max_amount ) > 0 ) {
 		 		$ebalance = $earning2->max_amount - $earning2->earned;
 		 		$eamount = ( $ebalance >= $eamount) ? $eamount : $ebalance;
 		 	}
 
-		 	$pee_earning->setAmount($eamount);
+		 	$pee_earning->setAmount( $eamount );
 		 	if( ($pee_earning->nonEmpty() === false) && (floatval($eamount) > 0) ) {
 				$pee_earning->insert();
 			}
@@ -571,6 +586,7 @@ class Payroll extends MY_Controller {
 				$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 				$employees->set_select('e.*');
 				$employees->set_select('(SELECT ep.name FROM employees_positions ep WHERE ep.id=e.position_id) as position_name');
+				$employees->set_select('(SELECT ni.birthday FROM names_info ni WHERE ni.name_id=e.name_id) as birthday');
 				$employees->set_limit(0);
 				$employees->set_where('e.group_id', $group->group_id);
 				$employees->set_where('pte.active', 1);

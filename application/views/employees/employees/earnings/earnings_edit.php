@@ -69,6 +69,18 @@
             </div>
         </div>
         <div class="col-md-6">
+                    <div class="form-group">
+              <label>Multiplier</label>
+              <select class="form-control" title="Multiplier" name="multiplier" required>
+<?php  $selected = ($earning->multiplier) ? $earning->multiplier : ''; ?>
+                  <option value="" <?php echo ($selected=='') ? "SELECTED" : ""; ?>>- - None - -</option>
+              <?php 
+              foreach(array('employment'=>'Employment (in years)', 'birthday'=>'Birthday (in years)') as $key=>$value) { ?>
+                  <option value="<?php echo $key; ?>"<?php echo ($key==$selected) ? ' SELECTED' : ''; ?>><?php echo $value; ?></option>
+              <?php } ?>
+              </select>
+            </div>
+         
         </div>
       </div>
 
