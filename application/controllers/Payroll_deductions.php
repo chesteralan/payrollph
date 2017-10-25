@@ -358,6 +358,8 @@ class Payroll_deductions extends MY_Controller {
 			$deductions->delete();
 		}
 
+		$this->_column_groups();
+
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
 		$payroll->set_select("*");
@@ -379,12 +381,12 @@ class Payroll_deductions extends MY_Controller {
 		$deductions->setPayrollId($id,true);
 		$deductions->setDeductionId($deduction_id,true);
 		$deductions->set_select("ped.*");
-		$deductions->set_select("e.*");
-		$deductions->set_join("employees e", 'e.name_id=ped.name_id');
+		$deductions->set_select("ni.*");
+		$deductions->set_join("names_info ni", 'ni.name_id=ped.name_id');
 
-		$deductions->set_order('e.lastname', 'ASC');
-		$deductions->set_order('e.firstname', 'ASC');
-		$deductions->set_order('e.middlename', 'ASC');
+		$deductions->set_order('ni.lastname', 'ASC');
+		$deductions->set_order('ni.firstname', 'ASC');
+		$deductions->set_order('ni.middlename', 'ASC');
 
 		$deductions->set_join("payroll_employees pe", 'pe.name_id=ped.name_id');
 		$deductions->set_where('pe.active', 1);

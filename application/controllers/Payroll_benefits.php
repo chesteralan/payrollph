@@ -328,6 +328,8 @@ class Payroll_benefits extends MY_Controller {
 
 	public function item_schedule($id,$benefit_id,$output='') {
 
+		$this->_column_groups();
+
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
 		$payroll->set_select("*");
@@ -350,7 +352,7 @@ class Payroll_benefits extends MY_Controller {
 		$benefits->setBenefitId($benefit_id,true);
 		$benefits->set_select("peb.*");
 		$benefits->set_select("e.*");
-		$benefits->set_join("employees e", 'e.name_id=peb.name_id');
+		$benefits->set_join("names_info e", 'e.name_id=peb.name_id');
 
 		$benefits->set_order('e.lastname', 'ASC');
 		$benefits->set_order('e.firstname', 'ASC');

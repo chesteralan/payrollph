@@ -343,6 +343,8 @@ class Payroll_earnings extends MY_Controller {
 
 	public function item_schedule($id,$earning_id,$output='') {
 
+		$this->_column_groups();
+
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
 		$payroll->set_select("*");
@@ -372,7 +374,7 @@ class Payroll_earnings extends MY_Controller {
 		$earnings->set_select("(SELECT SUM(pee2.amount) FROM payroll_employees_earnings pee2 WHERE pee.name_id=pee2.name_id AND pee.earning_id=pee2.earning_id AND pee2.entry_id=pee.entry_id AND pee2.id!=pee.id) as amount_paid");
 
 		$earnings->set_select("e.*");
-		$earnings->set_join("employees e", 'e.name_id=pee.name_id');
+		$earnings->set_join("names_info e", 'e.name_id=pee.name_id');
 
 		$earnings->set_order('e.lastname', 'ASC');
 		$earnings->set_order('e.firstname', 'ASC');
