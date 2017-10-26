@@ -190,10 +190,10 @@ CREATE TABLE `employees_earnings` (
   `max_amount` decimal(30,5) DEFAULT '0.00000',
   `start_date` date DEFAULT NULL,
   `computed` varchar(10) DEFAULT NULL,
-  `multiplier` varchar(50) DEFAULT NULL,
   `active` int(1) DEFAULT '0',
   `trash` int(1) DEFAULT '0',
   `notes` text,
+  `multiplier` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`earning_id`),
   KEY `company_id` (`company_id`)

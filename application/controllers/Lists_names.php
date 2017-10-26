@@ -103,7 +103,7 @@ class Lists_names extends MY_Controller {
 			$this->form_validation->set_rules('contact_number', 'Contact Number', 'trim');
 			if( $this->form_validation->run() ) {
 				$name = new $this->Names_list_model;
-				$name->setFullName($this->input->post('full_name'));
+				$name->setFullName($this->input->post('full_name'),true);
 				$name->setAddress($this->input->post('address'));
 				$name->setContactNumber($this->input->post('contact_number'));
 				$name->setTrash('0');
@@ -112,7 +112,9 @@ class Lists_names extends MY_Controller {
 					$name_id = $name->get_inserted_id();
 				}
 			}
+
 			if( $this->input->get('next') ) {
+					
 					$url = $this->input->get('next');
 					if( $name_id ) {
 						$url = str_replace('$new_id', $name_id, $url);
@@ -123,11 +125,15 @@ class Lists_names extends MY_Controller {
                     } else {
                     	$url = site_url($url) . "?error_code=341";
                     }
+
                     redirect( $url );
+
             } else {
+
             	if( $name_id ) {
             		redirect( "lists_names/edit/" . $name_id );
             	}
+            	
             }
 		}
 		$this->load->view('lists/names/names_add', $this->template_data->get_data());

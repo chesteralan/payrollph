@@ -14,10 +14,10 @@ CREATE TABLE `employees_earnings` (
   `max_amount` decimal(30,5) DEFAULT '0.00000',
   `start_date` date DEFAULT NULL,
   `computed` varchar(10) DEFAULT NULL,
-  `multiplier` varchar(50) DEFAULT NULL,
   `active` int(1) DEFAULT '0',
   `trash` int(1) DEFAULT '0',
   `notes` text,
+  `multiplier` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`earning_id`),
   KEY `company_id` (`company_id`)
@@ -31,10 +31,10 @@ ALTER TABLE  `employees_earnings` ADD  `amount` decimal(30,5) NOT NULL   ;
 ALTER TABLE  `employees_earnings` ADD  `max_amount` decimal(30,5) NULL   DEFAULT '0.00000';
 ALTER TABLE  `employees_earnings` ADD  `start_date` date NULL   ;
 ALTER TABLE  `employees_earnings` ADD  `computed` varchar(10) NULL   ;
-ALTER TABLE  `employees_earnings` ADD  `multiplier` varchar(50) NULL   ;
 ALTER TABLE  `employees_earnings` ADD  `active` int(1) NULL   DEFAULT '0';
 ALTER TABLE  `employees_earnings` ADD  `trash` int(1) NULL   DEFAULT '0';
 ALTER TABLE  `employees_earnings` ADD  `notes` text NULL   ;
+ALTER TABLE  `employees_earnings` ADD  `multiplier` varchar(50) NULL   ;
 
 
  * @package			        Model
@@ -56,10 +56,10 @@ class Employees_earnings_model extends MY_Model {
 	protected $max_amount;
 	protected $start_date;
 	protected $computed;
-	protected $multiplier;
 	protected $active;
 	protected $trash;
 	protected $notes;
+	protected $multiplier;
 
 	// --------------------------------------------------------------------
 
@@ -73,7 +73,7 @@ class Employees_earnings_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees_earnings';
 		$this->_short_name = 'employees_earnings';
-		$this->_fields = array("id","company_id","name_id","earning_id","amount","max_amount","start_date","computed","multiplier","active","trash","notes");
+		$this->_fields = array("id","company_id","name_id","earning_id","amount","max_amount","start_date","computed","active","trash","notes","multiplier");
 		$this->_required = array("company_id","name_id","earning_id","amount");
 		parent::__construct($short_name, $db_config);
 	}
@@ -265,29 +265,6 @@ class Employees_earnings_model extends MY_Model {
 // ------------------------------ End Field: computed --------------------------------------
 
 
-// ---------------------------- Start Field: multiplier -------------------------------------- 
-
-	/** 
-	* Sets a value to `multiplier` variable
-	* @access public
-	*/
-
-	public function setMultiplier($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-		return $this->_set_field('multiplier', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-	}
-	
-	/** 
-	* Get the value of `multiplier` variable
-	* @access public
-	*/
-
-	public function getMultiplier() {
-		return $this->multiplier;
-	}
-	
-// ------------------------------ End Field: multiplier --------------------------------------
-
-
 // ---------------------------- Start Field: active -------------------------------------- 
 
 	/** 
@@ -355,6 +332,29 @@ class Employees_earnings_model extends MY_Model {
 	}
 	
 // ------------------------------ End Field: notes --------------------------------------
+
+
+// ---------------------------- Start Field: multiplier -------------------------------------- 
+
+	/** 
+	* Sets a value to `multiplier` variable
+	* @access public
+	*/
+
+	public function setMultiplier($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('multiplier', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `multiplier` variable
+	* @access public
+	*/
+
+	public function getMultiplier() {
+		return $this->multiplier;
+	}
+	
+// ------------------------------ End Field: multiplier --------------------------------------
 
 
 
@@ -433,15 +433,6 @@ class Employees_earnings_model extends MY_Model {
 										'Extra'=>''
 									),
 
-			'multiplier' => (object) array(
-										'Field'=>'multiplier',
-										'Type'=>'varchar(50)',
-										'Null'=>'YES',
-										'Key'=>'',
-										'Default'=>'',
-										'Extra'=>''
-									),
-
 			'active' => (object) array(
 										'Field'=>'active',
 										'Type'=>'int(1)',
@@ -467,6 +458,15 @@ class Employees_earnings_model extends MY_Model {
 										'Key'=>'',
 										'Default'=>'',
 										'Extra'=>''
+									),
+
+			'multiplier' => (object) array(
+										'Field'=>'multiplier',
+										'Type'=>'varchar(50)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
 									)
 		);
 	}
@@ -481,10 +481,10 @@ class Employees_earnings_model extends MY_Model {
 			'max_amount' => "ALTER TABLE  `employees_earnings` ADD  `max_amount` decimal(30,5) NULL   DEFAULT '0.00000';",
 			'start_date' => "ALTER TABLE  `employees_earnings` ADD  `start_date` date NULL   ;",
 			'computed' => "ALTER TABLE  `employees_earnings` ADD  `computed` varchar(10) NULL   ;",
-			'multiplier' => "ALTER TABLE  `employees_earnings` ADD  `multiplier` varchar(50) NULL   ;",
 			'active' => "ALTER TABLE  `employees_earnings` ADD  `active` int(1) NULL   DEFAULT '0';",
 			'trash' => "ALTER TABLE  `employees_earnings` ADD  `trash` int(1) NULL   DEFAULT '0';",
 			'notes' => "ALTER TABLE  `employees_earnings` ADD  `notes` text NULL   ;",
+			'multiplier' => "ALTER TABLE  `employees_earnings` ADD  `multiplier` varchar(50) NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {
