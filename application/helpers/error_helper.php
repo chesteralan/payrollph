@@ -13,10 +13,14 @@ if( ! function_exists('showError') ) {
                 'type' => 'success',
                 'msg' =>'<strong>Employee Filter!</strong> Removed Successfully!',
                 ),
-              '106' => array(
+            '106' => array(
                 'type' => 'danger',
                 'msg' =>'<strong>No Column Group Selected!</strong> Please contact admin to add column group!',
-                ),
+            ),
+            '106' => array(
+                'type' => 'danger',
+                'msg' =>'<strong>No Column Group Selected!</strong> Please contact admin to add column group!',
+            ),
                 
         );
 

@@ -106,9 +106,10 @@ class Lists_names extends MY_Controller {
 				$name->setFullName($this->input->post('full_name'));
 				$name->setAddress($this->input->post('address'));
 				$name->setContactNumber($this->input->post('contact_number'));
+				$name->setTrash('0');
 				if( ! $name->nonEmpty() ) {
 					$name->insert();
-					$name_id = $name->getId();
+					$name_id = $name->get_inserted_id();
 				}
 			}
 			if( $this->input->get('next') ) {
