@@ -45,6 +45,7 @@
 $i = 0;
     foreach($print_groups as $pg) { ?>
     <div class="list-group-item">
+      <span class="glyphicon glyphicon-sort pull-right"></span>
 <input type="hidden" name="print_group_sort[<?php echo $pg->id; ?>]" value="1">
       <label><input type="checkbox" name="print_group[]" value="<?php echo $pg->id; ?>"<?php echo (in_array($pg->id, $selected)) ? ' CHECKED' : ''; ?>> <?php echo $pg->name; ?></label></div>
     <?php } ?>
