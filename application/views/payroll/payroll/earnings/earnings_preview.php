@@ -72,14 +72,16 @@ foreach( $earnings_columns as $column ) {
 </td>
                 <?php 
 $total_earnings = 0;
+
                 if( $earnings_columns ) foreach( $earnings_columns as $column ) { 
 
                     $var2 = 'earnings_' . $column->id . '_data';
                     $earnings_data = $employee->$var2;
                     $column_name = $column->name;
 
+                     $ee_amount = 0;
                     if( $earnings_data ) {
-                    $ee_amount = 0;
+                   
                     foreach($earnings_data as $earning2) {
                         switch( $earning2->computed ) {
                           case 'hour':
@@ -123,6 +125,7 @@ $total_earnings = 0;
                  ?>
                     <td class="text-right"><a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $column_name; ?> - <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo $entries_url; ?>" class="ajax-modal">
                     <?php echo number_format($ee_amount,2); ?></a>
+
                     </td>
                 <?php } ?>
                 <td class="text-right"><?php echo number_format($total_earnings,2); ?></td>
