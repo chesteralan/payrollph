@@ -73,7 +73,7 @@ foreach( $earnings_columns as $column ) {
                 <?php 
 $total_earnings = 0;
                 if( $earnings_columns ) foreach( $earnings_columns as $column ) {  ?>
-                    <td class="text-right">
+                    <td class="text-right"><a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $column->name; ?> - <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo site_url("payroll_earnings/preview_entries/{$template->id}/{$employee->name_id}/{$column->id}/ajax") . "?next=" . uri_string(); ?>" class="ajax-modal">
                     <?php 
 
                     $var2 = 'earnings_' . $column->id . '_data';
@@ -116,7 +116,7 @@ $total_earnings = 0;
                     $total[$column->id] += $ee_amount;
                     echo number_format($ee_amount,2); 
 
-                    ?>
+                    ?></a>
                     </td>
                 <?php } ?>
                 <td class="text-right"><?php echo number_format($total_earnings,2); ?></td>

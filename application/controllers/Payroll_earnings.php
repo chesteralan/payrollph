@@ -530,4 +530,51 @@ class Payroll_earnings extends MY_Controller {
 		$this->load->view('payroll/payroll/earnings/earnings_preview', $this->template_data->get_data());
 	}
 
+	public function preview_entries($template_id,$name_id,$earning_id,$output='') {
+
+		$this->template_data->set('template_id', $template_id);
+		$this->template_data->set('name_id', $name_id);
+		$this->template_data->set('earning_id', $earning_id);
+
+		$this->_column_groups();
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$templates->set_select('*');
+		$templates->set_limit(0);
+		$this->template_data->set('templates', $templates->populate());
+
+		$template = new $this->Payroll_templates_model;
+		$template->setId($template_id,true);
+		$template->set_select("*");
+		$this->template_data->set('template', $template->get());
+
+		$earning_data = new $this->Earnings_list_model;
+		$earning_data->setId($earning_id,true);
+		$this->template_data->set('earning_data', $earning_data->get());
+
+		$earnings = new $this->Employees_earnings_model('pee');
+		$earnings->setNameId($name_id,true);
+		$earnings->setEarningId($earning_id,true);
+		$earnings->set_select('*');
+		$earnings->set_select('pee.notes as enotes');
+		$earnings->set_select('pee.amount as pee_amount');
+		$earnings->set_select('pee.id as pee_id');
+		$earnings->set_join('earnings_list el', 'pee.earning_id=el.id');
+		$this->template_data->set('earnings', $earnings->populate());
+
+		$employees = new $this->Employees_model('pe');
+		$employees->setNameId($name_id,true);
+		$employees->set_select('ni.*');
+		$employees->set_select('e.hired');
+		$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
+		$employees->set_join('employees e', 'e.name_id=pe.name_id');
+		$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
+		$this->template_data->set('employee', $employees->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/earnings/earnings_preview_entries', $this->template_data->get_data());
+	}
+
 }

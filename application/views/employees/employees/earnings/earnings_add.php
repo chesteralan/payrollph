@@ -26,8 +26,10 @@
           <div class="form-group">
             <label>Earning Type</label>
             <select class="form-control" title="Select an Earning" name="earning_id" required>
-            <?php foreach($earnings as $earning) { ?>
-                <option value="<?php echo $earning->id; ?>"><?php echo $earning->name; ?> - <?php echo $earning->notes; ?></option>
+            <?php 
+            $selected = $this->input->get('earning_id');
+            foreach($earnings as $earning) { ?>
+                <option value="<?php echo $earning->id; ?>"<?php echo ($earning->id==$selected) ? ' SELECTED' : ''; ?>><?php echo $earning->name; ?> - <?php echo $earning->notes; ?></option>
             <?php } ?>
             </select>
           </div>
