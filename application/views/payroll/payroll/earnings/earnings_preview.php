@@ -72,13 +72,13 @@ foreach( $earnings_columns as $column ) {
 </td>
                 <?php 
 $total_earnings = 0;
-                if( $earnings_columns ) foreach( $earnings_columns as $column ) {  ?>
-                    <td class="text-right"><a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $column->name; ?> - <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo site_url("payroll_earnings/preview_entries/{$template->id}/{$employee->name_id}/{$column->id}/ajax") . "?next=" . uri_string(); ?>" class="ajax-modal">
-                    <?php 
+                if( $earnings_columns ) foreach( $earnings_columns as $column ) { 
 
                     $var2 = 'earnings_' . $column->id . '_data';
                     $earnings_data = $employee->$var2;
-                    
+                    $column_name = $column->name;
+
+                    if( $earnings_data ) {
                     $ee_amount = 0;
                     foreach($earnings_data as $earning2) {
                         switch( $earning2->computed ) {
@@ -114,9 +114,15 @@ $total_earnings = 0;
 
                     $total_earnings += $ee_amount;
                     $total[$column->id] += $ee_amount;
-                    echo number_format($ee_amount,2); 
 
-                    ?></a>
+                    $entries_url = site_url("payroll_earnings/preview_entries/{$template->id}/{$employee->name_id}/{$column->id}/ajax") . "?next=" . uri_string();
+                  } else {
+                    $column_name = "Add " . $column->name;
+                    $entries_url = site_url("employees_earnings/add/{$employee->name_id}/ajax") . "?template_id={$template->id}&earning_id={$column->id}&next=" . uri_string();
+                  }
+                 ?>
+                    <td class="text-right"><a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $column_name; ?> - <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo $entries_url; ?>" class="ajax-modal">
+                    <?php echo number_format($ee_amount,2); ?></a>
                     </td>
                 <?php } ?>
                 <td class="text-right"><?php echo number_format($total_earnings,2); ?></td>
