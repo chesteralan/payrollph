@@ -72,13 +72,50 @@ foreach( $earnings_columns as $column ) {
 </td>
                 <?php 
 $total_earnings = 0;
-                if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
+                if( $earnings_columns ) foreach( $earnings_columns as $column ) {  ?>
                     <td class="text-right">
                     <?php 
-                    $var = 'earnings_' . $column->id;
-                    $total_earnings += $employee->$var;
-                    $total[$column->id] += $employee->$var;
-                    echo number_format($employee->$var,2); 
+
+                    $var2 = 'earnings_' . $column->id . '_data';
+                    $earnings_data = $employee->$var2;
+                    
+                    $ee_amount = 0;
+                    foreach($earnings_data as $earning2) {
+                        switch( $earning2->computed ) {
+                          case 'hour':
+                            $eamount = $earning2->amount * $days_present;
+                          break;
+                          case 'day':
+                            $eamount = $earning2->amount * $days_present;
+                          break;
+                          case 'month':
+                          default:
+                            $eamount = $earning2->amount;
+                          break;
+                        }
+
+                        switch( $earning2->multiplier ) { 
+                          case 'employment':
+                            $end_date = new DateTime(date('Y-m-d'));
+                            $hired = new DateTime($employee->hired);
+                            $diff = $hired->diff($end_date);
+                            $eamount = $eamount * $diff->y;
+                          break;
+                          case 'birthday':
+                            $end_date = new DateTime(date('Y-m-d'));
+                            $birth_date = new DateTime($employee->birthday);
+                            $diff = $birth_date->diff($end_date);
+                            $eamount = $eamount * $diff->y;
+                          break;
+                        }
+
+                        $ee_amount += $eamount;
+                    }
+
+                    $total_earnings += $ee_amount;
+                    $total[$column->id] += $ee_amount;
+                    echo number_format($ee_amount,2); 
+
                     ?>
                     </td>
                 <?php } ?>

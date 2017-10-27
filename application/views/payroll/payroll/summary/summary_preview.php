@@ -74,7 +74,8 @@ $total_deductions = 0;
             <tbody>
             
 <?php 
-              foreach($payroll_group->employees as $employee) {
+              foreach($payroll_group->employees as $employee) { 
+
 $working_hours = 8;
 $days_absent = 0;
 $monthly_rate = 0;
@@ -125,11 +126,49 @@ $total_gross_pay += $employee_gross_pay;
 <?php } ?>
 <?php if( $column_group_earnings ) { ?>
 <?php if( (isset($earnings_columns)) && ( $earnings_columns > 0 ) ) { ?>
-                <td class="text-right"><?php echo number_format($employee->gross_earnings,2); ?></td>
+                <td class="text-right"><?php
+
+                    $ee_amount = 0;
+                    foreach($employee->earnings_data as $earning2) {
+                        switch( $earning2->computed ) {
+                          case 'hour':
+                            $eamount = $earning2->amount * $days_present;
+                          break;
+                          case 'day':
+                            $eamount = $earning2->amount * $days_present;
+                          break;
+                          case 'month':
+                          default:
+                            $eamount = $earning2->amount;
+                          break;
+                        }
+
+                        switch( $earning2->multiplier ) { 
+                          case 'employment':
+                            $end_date = new DateTime(date('Y-m-d'));
+                            $hired = new DateTime($employee->hired);
+                            $diff = $hired->diff($end_date);
+                            $eamount = $eamount * $diff->y;
+                          break;
+                          case 'birthday':
+                            $end_date = new DateTime(date('Y-m-d'));
+                            $birth_date = new DateTime($employee->birthday);
+                            $diff = $birth_date->diff($end_date);
+                            $eamount = $eamount * $diff->y;
+                          break;
+                        }
+
+                        $ee_amount += $eamount;
+                    }
+                    $total_earnings += $ee_amount;
+                    echo number_format($ee_amount,2); 
+
+                //echo number_format($employee->gross_earnings,2);
+                ?></td>
 <?php } ?>
 <?php } ?>
 <?php if( $column_group_salaries||$column_group_earnings ) { ?>
-                <td class="text-right bold"><?php echo number_format(($employee_gross_pay+$employee->gross_earnings),2); ?></td>
+                <td class="text-right bold"><?php echo number_format(($employee_gross_pay+$ee_amount),2); ?></td>
 <?php } ?>
 <?php if( $column_group_benefits ) { ?>
 <?php if( (isset($benefits_columns)) && ( $benefits_columns > 0 ) ) { ?>
@@ -141,7 +180,7 @@ $total_gross_pay += $employee_gross_pay;
                 <td class="text-right"><?php echo number_format($employee->gross_deductions,2); ?></td>
 <?php } ?>
 <?php } ?>
-                <td class="text-right bold"><?php echo number_format((($employee_gross_pay+$employee->gross_earnings)-($employee->gross_benefits+$employee->gross_deductions)),2); ?></td>
+                <td class="text-right bold"><?php echo number_format((($employee_gross_pay+$ee_amount)-($employee->gross_benefits+$employee->gross_deductions)),2); ?></td>
               </tr>
 <?php } ?>
 

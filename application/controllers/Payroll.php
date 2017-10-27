@@ -349,9 +349,9 @@ class Payroll extends MY_Controller {
 					$eamount = $eamount * $diff->y;
 		 		break;
 		 		case 'birthday':
+		 			$end_date = new DateTime($payroll_data->inclusive_dates->end_date);
 		 			$birth_date = new DateTime($employee->birthday);
-					$hired = new DateTime($employee->hired);
-					$diff = $hired->diff($birth_date);
+					$diff = $birth_date->diff($end_date);
 					$pee_earning->setNotes($pee_earning->getNotes() . " X Birthday: " . $diff->y . " years");
 					$eamount = $eamount * $diff->y;
 		 		break;
@@ -363,11 +363,13 @@ class Payroll extends MY_Controller {
 		 	}
 
 		 	$pee_earning->setAmount( $eamount );
+		 	
 		 	if( ($pee_earning->nonEmpty() === false) && (floatval($eamount) > 0) ) {
 				$pee_earning->insert();
-			}
+			} 
 
 		 }
+		 
 	}
 
 	private function _generate_benefits($payroll_data,$benefit_id,$employee) {

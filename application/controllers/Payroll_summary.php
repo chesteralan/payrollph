@@ -241,6 +241,7 @@ class Payroll_summary extends MY_Controller {
 			$employees->setTemplateId($template_id,true);
 			$employees->set_select('ni.*');
 			$employees->set_select('e.name_id');
+			$employees->set_select('e.hired');
 			$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 			$employees->set_where('e.group_id', $group->group_id);
@@ -270,6 +271,14 @@ class Payroll_summary extends MY_Controller {
 				$salary = new $this->Employees_salaries_model('es');
 				$salary->setNameId($employee->name_id,true);
 				$employees_data[$eKey]->salary = $salary->get();
+
+				$employee_earnings = new $this->Employees_earnings_model('ee');
+				$employee_earnings->setCompanyId($this->session->userdata('current_company_id'),true);
+				$employee_earnings->setNameId($employee->name_id,true);
+				$employee_earnings->setStartDate(date('Y-m-d'),true,false,'<=');
+				$employee_earnings->set_where('((SELECT COUNT(*) FROM employees_earnings_templates eet WHERE eet.template_id='.$template_id.' AND eet.ee_id=ee.id)>0)');
+				$employee_earnings->set_limit(0);
+				$employees_data[$eKey]->earnings_data = $employee_earnings->populate();
 			} 
 
 			$payroll_group_data[$key]->employees = $employees_data;
