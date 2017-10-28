@@ -55,7 +55,8 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
             </thead>
             <tbody>
 <?php if($payroll_group->employees) { 
-              foreach($payroll_group->employees as $employee) {
+              foreach($payroll_group->employees as $employee) { 
+
               ?>
               <tr>
                 <td>
@@ -69,22 +70,48 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
 
                 </td>
 
-<?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
+<?php 
+$total_benefits_ee = 0;
+$total_benefits_er = 0;
+if( $benefits_columns ) foreach( $benefits_columns as $column ) { 
+
+                    $var2 = 'benefits_' . $column->id . '_data';
+                    $benefits_data = $employee->$var2;
+                    $column_name = $column->name;
+
+                     $ee_amount = 0;
+                     $er_amount = 0;
+                    if( $benefits_data ) {
+                   
+                    foreach($benefits_data as $benefit2) {
+                        $ee_amount += $benefit2->employee_share;
+                        $er_amount += $benefit2->employer_share;
+                    }
+
+                    $total_benefits_ee += $ee_amount;
+                    $total_benefits_er += $er_amount;
+                    $total[$column->id]['ee'] += $ee_amount;
+                    $total[$column->id]['er'] += $er_amount;
+
+                    $entries_url = site_url("payroll_benefits/preview_entries/{$template->id}/{$employee->name_id}/{$column->id}/ee/ajax") . "?next=" . uri_string();
+
+                  } else {
+                    $column_name = "Add " . $column->name;
+                    $entries_url = site_url("employees_benefits/add/{$employee->name_id}/ajax") . "?template_id={$template->id}&benefit_id={$column->id}&next=" . uri_string();
+                  }
+  ?>
                 <td class="text-right">
-
+<a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $column_name; ?> - <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo $entries_url; ?>" class="ajax-modal">
                 <?php 
-                    $ee = 'ee_share_' . $column->id;
-                    $total[$column->id]['ee'] += $employee->$ee;
-                    echo number_format($employee->$ee,2); ?>
-
+                    echo number_format($ee_amount,2); ?>
+</a>
                     </td>
                 <td class="text-right">
                 <?php 
-                    $er = 'er_share_' . $column->id;
-                    $total[$column->id]['er'] += $employee->$er;
-                    echo number_format($employee->$er,2); ?>
+                    echo number_format($er_amount,2); ?>
                     </td>
 <?php } ?>
+
               </tr>
 <?php         } 
       } ?>

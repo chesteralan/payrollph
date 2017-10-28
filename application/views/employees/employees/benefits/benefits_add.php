@@ -23,6 +23,7 @@
             <label>Benefit</label>
 <?php if( $this->input->get('benefit_id') ) { ?>
 <div class="form-control">
+  <input type="hidden" name="benefit_id" value="<?php echo $this->input->get('benefit_id'); ?>">
   <?php foreach($benefits as $benefit) { 
     echo ($benefit->id==$this->input->get('benefit_id')) ? $benefit->name . ' - ' . $benefit->notes : '';
   } ?>

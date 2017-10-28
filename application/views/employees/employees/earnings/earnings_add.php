@@ -25,6 +25,14 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>Earning Type</label>
+<?php if( $this->input->get('earning_id') ) { ?>
+<div class="form-control">
+  <input type="hidden" name="earning_id" value="<?php echo $this->input->get('earning_id'); ?>">
+  <?php foreach($earnings as $earning) {
+    echo ($earning->id==$this->input->get('earning_id')) ? $earning->name . ' - ' . $earning->notes : '';
+  } ?>
+</div>
+<?php } else { ?>
             <select class="form-control" title="Select an Earning" name="earning_id" required>
             <?php 
             $selected = $this->input->get('earning_id');
@@ -32,6 +40,7 @@
                 <option value="<?php echo $earning->id; ?>"<?php echo ($earning->id==$selected) ? ' SELECTED' : ''; ?>><?php echo $earning->name; ?> - <?php echo $earning->notes; ?></option>
             <?php } ?>
             </select>
+<?php } ?>
           </div>
         </div>
         <div class="col-md-6">

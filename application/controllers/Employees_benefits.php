@@ -264,7 +264,7 @@ class Employees_benefits extends MY_Controller {
 		)));
 
 		$this->template_data->set('output', $output);
-		$this->load->view('employees/employees/benefits/benefits_entries', $this->template_data->get_data());
+		$this->load->view('employees/employees/benefits/benefits_preview_entries', $this->template_data->get_data());
 	}
 
 }

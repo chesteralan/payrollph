@@ -471,16 +471,20 @@ class Payroll_earnings extends MY_Controller {
 
 		$payroll_group = new $this->Payroll_templates_groups_model('pg');
 		$payroll_group->setTemplateId($template_id,true);
+
 		if( intval($group_id) > 0 ) {
 			$payroll_group->setGroupId(intval($group_id),true);
 		}
+
 		$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');
 		$payroll_group->set_limit(0);
 		$payroll_group->set_order('pg.order', 'DESC');
 		$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
 		$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
 		$payroll_group_data =  $payroll_group->populate();
+
 		foreach($payroll_group_data as $key=>$group) {
+
 			$employees = new $this->Payroll_templates_employees_model('pe');
 			$employees->setTemplateId($template_id,true);
 			$employees->set_select('ni.*');
@@ -489,9 +493,11 @@ class Payroll_earnings extends MY_Controller {
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 			$employees->set_where('e.group_id', $group->group_id);
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
+
 			if( $this->session->userdata('current_employee') ) {
 				$employees->setNameId($this->session->userdata('current_employee')->name_id,true);
 			}
+
 			foreach($columns as $column) {
 				$employees->set_select(sprintf('(SELECT SUM(amount) FROM employees_earnings ee WHERE ((SELECT COUNT(*) FROM employees_earnings_templates WHERE template_id=%s AND ee_id=ee.id) >= 1) AND ee.name_id=pe.name_id AND ee.earning_id=%s AND ee.trash=0) as earnings_%s', $template_id, $column->id, $column->id, $column->id));
 			}
@@ -504,12 +510,15 @@ class Payroll_earnings extends MY_Controller {
 			foreach( $employees_data as $edi=>$edata ) {
 				
 				foreach($columns as $column) {
+
 					$var = 'earnings_'.$column->id.'_data';
 
 					$employee_earnings = new $this->Employees_earnings_model('ee');
 					$employee_earnings->setCompanyId($this->session->userdata('current_company_id'),true);
 					$employee_earnings->setNameId($edata->name_id,true);
 					$employee_earnings->setEarningId($column->id,true);
+					$employee_earnings->setTrash(0,true);
+					$employee_earnings->setActive(1,true);
 					$employee_earnings->setStartDate(date('Y-m-d'),true,false,'<=');
 					$employee_earnings->set_where("((SELECT COUNT(*) FROM employees_earnings_templates eet WHERE eet.template_id=".$template_id." AND eet.ee_id=ee.id) > 0)");
 					$employee_earnings->set_limit(0);
@@ -557,11 +566,14 @@ class Payroll_earnings extends MY_Controller {
 		$earnings = new $this->Employees_earnings_model('pee');
 		$earnings->setNameId($name_id,true);
 		$earnings->setEarningId($earning_id,true);
+		$earnings->setTrash(0,true);
+		$earnings->setActive(1,true);
 		$earnings->set_select('*');
 		$earnings->set_select('pee.notes as enotes');
 		$earnings->set_select('pee.amount as pee_amount');
 		$earnings->set_select('pee.id as pee_id');
 		$earnings->set_join('earnings_list el', 'pee.earning_id=el.id');
+		$earnings->set_where("((SELECT COUNT(*) FROM employees_earnings_templates eet WHERE eet.template_id=".$template_id." AND eet.ee_id=pee.id) > 0)");
 		$this->template_data->set('earnings', $earnings->populate());
 
 		$employees = new $this->Employees_model('pe');

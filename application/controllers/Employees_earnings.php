@@ -65,6 +65,7 @@ class Employees_earnings extends MY_Controller {
 		$this->template_data->set('employee', $employee->get());
 
 		if( $this->input->post() ) {
+			
 			$this->form_validation->set_rules('earning_id', 'Earning', 'trim|required');
 			$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
 			$this->form_validation->set_rules('start_date', 'Start Date', 'trim|required');
