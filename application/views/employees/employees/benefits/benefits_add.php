@@ -30,8 +30,10 @@
 </div>
 <?php } else { ?>
             <select class="form-control" title="Select a Benefit" name="benefit_id" required>
-            <?php foreach($benefits as $benefit) { ?>
-                <option value="<?php echo $benefit->id; ?>"><?php echo $benefit->name; ?><?php echo ($benefit->notes) ? ' - ' . $benefit->notes : ''; ?></option>
+            <?php 
+            $selected = $this->input->get('benefit_id');
+            foreach($benefits as $benefit) { ?>
+                <option value="<?php echo $benefit->id; ?>"<?php echo ($benefit->id==$selected) ? ' SELECTED' : ''; ?>><?php echo $benefit->name; ?><?php echo ($benefit->notes) ? ' - ' . $benefit->notes : ''; ?></option>
             <?php } ?>
             </select>
 <?php } ?>

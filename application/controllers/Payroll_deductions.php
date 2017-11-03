@@ -557,5 +557,24 @@ if( $this->input->get('equalizer') == '1' ) {
 		$this->load->view('payroll/payroll/deductions/deductions_preview', $this->template_data->get_data());
 	}
 
+	public function preview_entries($template_id,$name_id,$deduction_id,$output='') {
+
+		$this->template_data->set('template_id', $template_id);
+		$this->template_data->set('name_id', $name_id);
+		$this->template_data->set('deduction_id', $deduction_id);
+
+		$deduction_data = new $this->Deductions_list_model;
+		$deduction_data->setId($deduction_id,true);
+		$this->template_data->set('deduction_data', $deduction_data->get());
+
+		$deductions = new $this->Employees_deductions_model('ped');
+		$deductions->setNameId($name_id,true);
+		$deductions->setDeductionId($deduction_id,true);
+		$deductions->set_select('*');
+		$this->template_data->set('deductions', $deductions->populate());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/deductions/deductions_preview_entries', $this->template_data->get_data());
+	}
 
 }

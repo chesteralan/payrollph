@@ -75,17 +75,24 @@ foreach( $deductions_columns as $column ) {
                 $total_deductions = 0;
                 if( $deductions_columns ) foreach( $deductions_columns as $column ) { ?>
                     <td class="text-right">
-
                     <?php 
+
                     $var = 'deductions_' . $column->id;
                     $total_deductions += $employee->$var;
                     $total[$column->id] += $employee->$var;
 
-                    echo number_format($employee->$var,2); ?>
+  $entries_url = site_url("payroll_deductions/preview_entries/{$template->id}/{$employee->name_id}/{$column->id}/ajax") . "?next=" . uri_string();
+  //$entries_url = site_url("employees_deductions/add/{$employee->name_id}/ajax") . "?template_id={$template->id}&benefit_id={$column->id}&next=" . uri_string();
 
+                    ?>
+<a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $column->name; ?> - <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo $entries_url; ?>" class="ajax-modal">
+                    <?php echo number_format($employee->$var,2); ?>
+</a>
                     </td>
                 <?php } ?>
-                <td class="text-right"><?php echo number_format($total_deductions,2); ?></td>
+                <td class="text-right">
+                  <?php echo number_format($total_deductions,2); ?>
+                  </td>
               </tr>
 <?php         } 
 
