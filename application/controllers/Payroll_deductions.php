@@ -540,7 +540,16 @@ if( $this->input->get('equalizer') == '1' ) {
 				$employees->setNameId($this->session->userdata('current_employee')->name_id,true);
 			}
 			foreach($columns as $column) {
-				$employees->set_select(sprintf('(SELECT SUM(amount) FROM employees_deductions ped WHERE ((SELECT COUNT(*) FROM employees_deductions_templates WHERE template_id=%s AND ed_id=ped.id) >= 1) AND ped.name_id=pe.name_id AND ped.deduction_id=%s AND ped.active=1 AND ped.trash=0) as deductions_%s', $template_id, $column->id, $column->id, $column->id));
+				$ed = new $this->Employees_deductions_model('ed');
+				$ed->set_select('SUM(ed.amount)');
+				$ed->set_where('ed.name_id=pe.name_id');
+				$ed->set_where('ed.deduction_id', $column->id);
+				$ed->set_where('ed.active=1');
+				$ed->set_where('ed.trash=0');
+				$ed->set_where('((SELECT COUNT(*) FROM employees_deductions_templates edt WHERE edt.template_id='.$template_id.' AND edt.ed_id=ed.id) > 0)');
+				//$ed->set_where('((SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE edt.template_id='.$template_id.' AND edt.ed_id=ed.id) > 0)');
+				//$employees->set_select(sprintf('(SELECT SUM(ed.amount) FROM employees_deductions ed WHERE  AND ed.name_id=pe.name_id AND ed.deduction_id=%s AND ed.active=1 AND ed.trash=0) as deductions_%s', $template_id, $column->id, $column->id, $column->id));
+				$employees->set_select('('.$ed->get_compiled_select().') as deductions_' . $column->id);
 			}
 
 			$employees->setActive('1', true);
