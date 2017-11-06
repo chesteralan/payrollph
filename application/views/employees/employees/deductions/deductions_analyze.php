@@ -47,10 +47,10 @@ $total_amount = 0;
 foreach($deductions as $ed) { ?>
                   <th width="10%" class="text-right">
 <?php echo $ed->deduction_name; ?><br>
-                  <u><?php 
+                  <u><a href="#ajaxModal" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Deduction" data-url="<?php echo site_url("employees_deductions/edit/{$ed->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>"><?php 
                   $total_max_amount += $ed->max_amount;
                   echo number_format($ed->max_amount,2);
-                  ?></u><br>
+                  ?></a></u><br>
 <?php echo number_format($ed->amount,2); $total_amount+=$ed->amount; ?>
                   </th>
                 <?php } ?>
@@ -67,7 +67,7 @@ $payroll_total = array();
 foreach( $payrolls as $payroll) { 
 ?>
             <tr>
-              <td><?php echo $payroll->payroll_name; ?></td>
+              <td><a title="Deductions Analysis" href="<?php echo site_url('payroll/select_payroll/' . $payroll->id); ?>"><?php echo $payroll->payroll_name; ?></a></td>
               <?php 
 $ed_total = 0;
               foreach($deductions as $ed) { 
@@ -76,18 +76,25 @@ $ed_total = 0;
                 }
                 ?>
                 <td class="text-right">
-                  <?php 
+                    <?php 
                   $ped_total = 0;
+                  $have_entries = false;
                   foreach($payroll_deductions as $ped) { 
-                    if( ($ped->payroll_id == $payroll->id) && ($ped->entry_id == $ed->id) ) {
+                    if( ($ped->payroll_id == $payroll->id) && ($ped->entry_id == $ed->id) ) { 
                       $ped_total+=$ped->ped_amount;
                       $ed_total+=$ped->ped_amount;
+                      $have_entries = true;
                       $payroll_total[$ed->id]+=$ped->ped_amount;
                     } 
                   } 
-
-                  echo number_format($ped_total,2);
                   ?>
+                  <?php if( $have_entries ) { ?>
+                  <a href="#ajaxModal" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Deduction" data-url="<?php echo site_url("payroll_deductions/entries/{$payroll->id}/{$ed->name_id}/{$ed->deduction_id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>">
+                  <?php } ?>
+                  <?php echo number_format($ped_total,2); ?>
+                  <?php if( $have_entries ) { ?>
+                  </a>
+                  <?php } ?>
                 </td>
               <?php } ?>
               <?php if( count( $deductions ) > 1 ) { ?>

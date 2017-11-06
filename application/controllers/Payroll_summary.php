@@ -255,13 +255,13 @@ class Payroll_summary extends MY_Controller {
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
 			
 			// gross benefits
-			$employees->set_select(sprintf('(SELECT SUM(peb.employee_share) FROM employees_benefits peb WHERE ((SELECT COUNT(*) FROM employees_benefits_templates WHERE template_id=%s AND eb_id=peb.id) >= 1) AND peb.name_id=pe.name_id) as gross_benefits', $template_id));
+			$employees->set_select(sprintf('(SELECT SUM(peb.employee_share) FROM employees_benefits peb WHERE ((SELECT COUNT(*) FROM employees_benefits_templates WHERE template_id=%s AND eb_id=peb.id) >= 1) AND peb.name_id=pe.name_id AND peb.trash=0) as gross_benefits', $template_id));
 			
 			// gross earnings
-			$employees->set_select(sprintf('(SELECT SUM(amount) FROM employees_earnings ee WHERE ((SELECT COUNT(*) FROM employees_earnings_templates WHERE template_id=%s AND ee_id=ee.id) >= 1) AND ee.name_id=pe.name_id AND ee.trash=0) as gross_earnings', $template_id));
+			$employees->set_select(sprintf('(SELECT SUM(amount) FROM employees_earnings ee WHERE ((SELECT COUNT(*) FROM employees_earnings_templates WHERE template_id=%s AND ee_id=ee.id) >= 1) AND ee.name_id=pe.name_id AND ee.active=1 AND ee.trash=0) as gross_earnings', $template_id));
 
 			// gross deductions
-			$employees->set_select(sprintf('(SELECT SUM(ped.amount) FROM employees_deductions ped WHERE ((SELECT COUNT(*) FROM employees_deductions_templates WHERE template_id=%s AND ed_id=ped.id) >= 1) AND ped.name_id=pe.name_id) as gross_deductions', $template_id));
+			$employees->set_select(sprintf('(SELECT SUM(ped.amount) FROM employees_deductions ped WHERE ((SELECT COUNT(*) FROM employees_deductions_templates WHERE template_id=%s AND ed_id=ped.id) >= 1) AND ped.name_id=pe.name_id AND ped.active=1 AND ped.trash=0) as gross_deductions', $template_id));
 
 			$employees->setActive('1', true);
 			$employees->set_order('pe.order', 'ASC');

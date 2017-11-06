@@ -540,7 +540,7 @@ if( $this->input->get('equalizer') == '1' ) {
 				$employees->setNameId($this->session->userdata('current_employee')->name_id,true);
 			}
 			foreach($columns as $column) {
-				$employees->set_select(sprintf('(SELECT SUM(amount) FROM employees_deductions ped WHERE ((SELECT COUNT(*) FROM employees_deductions_templates WHERE template_id=%s AND ed_id=ped.id) >= 1) AND ped.name_id=pe.name_id AND ped.deduction_id=%s) as deductions_%s', $template_id, $column->id, $column->id, $column->id));
+				$employees->set_select(sprintf('(SELECT SUM(amount) FROM employees_deductions ped WHERE ((SELECT COUNT(*) FROM employees_deductions_templates WHERE template_id=%s AND ed_id=ped.id) >= 1) AND ped.name_id=pe.name_id AND ped.deduction_id=%s AND ped.active=1 AND ped.trash=0) as deductions_%s', $template_id, $column->id, $column->id, $column->id));
 			}
 
 			$employees->setActive('1', true);
@@ -563,6 +563,18 @@ if( $this->input->get('equalizer') == '1' ) {
 		$this->template_data->set('name_id', $name_id);
 		$this->template_data->set('deduction_id', $deduction_id);
 
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$templates->set_select('*');
+		$templates->set_limit(0);
+		$this->template_data->set('templates', $templates->populate());
+
+		$template = new $this->Payroll_templates_model;
+		$template->setId($template_id,true);
+		$template->set_select("*");
+		$this->template_data->set('template', $template->get());
+
 		$deduction_data = new $this->Deductions_list_model;
 		$deduction_data->setId($deduction_id,true);
 		$this->template_data->set('deduction_data', $deduction_data->get());
@@ -570,9 +582,25 @@ if( $this->input->get('equalizer') == '1' ) {
 		$deductions = new $this->Employees_deductions_model('ped');
 		$deductions->setNameId($name_id,true);
 		$deductions->setDeductionId($deduction_id,true);
+		$deductions->setTrash(0,true);
+		$deductions->setActive(1,true);
 		$deductions->set_select('*');
+		$deductions->set_select('ped.notes as enotes');
+		$deductions->set_select('ped.amount as ped_amount');
+		$deductions->set_select('ped.id as ped_id');
+		$deductions->set_join('deductions_list dl', 'ped.deduction_id=dl.id');
+		$deductions->set_where("((SELECT COUNT(*) FROM employees_deductions_templates edt WHERE edt.template_id=".$template_id." AND edt.ed_id=ped.id) > 0)");
 		$this->template_data->set('deductions', $deductions->populate());
 
+		$employees = new $this->Employees_model('pe');
+		$employees->setNameId($name_id,true);
+		$employees->set_select('ni.*');
+		$employees->set_select('e.hired');
+		$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
+		$employees->set_join('employees e', 'e.name_id=pe.name_id');
+		$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
+		$this->template_data->set('employee', $employees->get());
+		
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/deductions/deductions_preview_entries', $this->template_data->get_data());
 	}
