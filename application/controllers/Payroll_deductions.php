@@ -547,15 +547,14 @@ if( $this->input->get('equalizer') == '1' ) {
 				$ed->set_where('ed.active=1');
 				$ed->set_where('ed.trash=0');
 				$ed->set_where('((SELECT COUNT(*) FROM employees_deductions_templates edt WHERE edt.template_id='.$template_id.' AND edt.ed_id=ed.id) > 0)');
-				//$ed->set_where('((SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE edt.template_id='.$template_id.' AND edt.ed_id=ed.id) > 0)');
-				//$employees->set_select(sprintf('(SELECT SUM(ed.amount) FROM employees_deductions ed WHERE  AND ed.name_id=pe.name_id AND ed.deduction_id=%s AND ed.active=1 AND ed.trash=0) as deductions_%s', $template_id, $column->id, $column->id, $column->id));
+				$ed->set_where('((ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) > 0)');
 				$employees->set_select('('.$ed->get_compiled_select().') as deductions_' . $column->id);
 			}
 
 			$employees->setActive('1', true);
 			$employees->set_order('pe.order', 'ASC');
 			$employees->set_limit(0);
-			$employees_data = $employees->populate();
+			$employees_data = $employees->populate(); 
 			$payroll_group_data[$key]->employees = $employees_data;
 		}
 
@@ -599,6 +598,7 @@ if( $this->input->get('equalizer') == '1' ) {
 		$deductions->set_select('ped.id as ped_id');
 		$deductions->set_join('deductions_list dl', 'ped.deduction_id=dl.id');
 		$deductions->set_where("((SELECT COUNT(*) FROM employees_deductions_templates edt WHERE edt.template_id=".$template_id." AND edt.ed_id=ped.id) > 0)");
+		$deductions->set_where('((ped.max_amount - (SELECT SUM(ped2.amount) FROM payroll_employees_deductions ped2 WHERE ped2.entry_id=ped.id)) > 0)');
 		$this->template_data->set('deductions', $deductions->populate());
 
 		$employees = new $this->Employees_model('pe');

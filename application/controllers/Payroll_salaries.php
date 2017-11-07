@@ -257,6 +257,9 @@ class Payroll_salaries extends MY_Controller {
 
 		foreach($payroll_group_data as $key=>$group) {
 			$employees = new $this->Payroll_templates_employees_model('pe');
+			if( $this->session->userdata('current_employee') ) {
+				$employees->setNameId($this->session->userdata('current_employee')->name_id,true);
+			}
 			$employees->setTemplateId($template_id,true);
 			$employees->set_select('ni.*');
 			$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');

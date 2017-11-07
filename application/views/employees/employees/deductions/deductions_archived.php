@@ -27,6 +27,7 @@
  <a class="body_wrapper" href="<?php echo site_url("employees_deductions/archived/{$employee->name_id}"); ?>"><span class="glyphicon glyphicon-remove"></span></a>
 <?php } ?>
                 </th>
+                <th>Date</th>
                 <th>Max Amount</th>
                 <th>Amount</th>
                 <th>Balance</th>
@@ -47,6 +48,7 @@
  <a class="body_wrapper" href="<?php echo site_url("employees_deductions/archived/{$deduction->name_id}") . "?filter=" . $deduction->deduction_id; ?>"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
  </td>
+                <td><?php echo date("F d, Y", strtotime($deduction->start_date)); ?></td>
                 <td><?php echo number_format($deduction->max_amount,2); ?></td>
                 <td><?php echo number_format($deduction->amount,2); ?></td>
                 <td><?php echo number_format($deduction->balance,2); ?></td>

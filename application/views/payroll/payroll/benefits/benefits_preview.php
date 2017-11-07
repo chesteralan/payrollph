@@ -29,7 +29,7 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
 ?>
 
 <?php foreach($payroll_groups as $payroll_group) { ?>
- 
+   <?php if($payroll_group->employees) { ?>
           <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
               <tr class="warning">
@@ -118,6 +118,7 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
             </tbody>
           </table>
     <?php } ?>
+<?php } ?>
 
 <?php if( !$this->session->userdata('current_employee') ) { ?>
           <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">

@@ -30,6 +30,7 @@
  <a class="body_wrapper" href="<?php echo site_url("employees_deductions/view/{$employee->name_id}"); ?>"><span class="glyphicon glyphicon-remove"></span></a>
 <?php } ?>
  </th>
+                <th>Date</th>
                 <th>Max Amount</th>
                 <th>Amount</th>
                 <th>Balance</th>
@@ -56,6 +57,7 @@ $total_balance = 0;
 
  <a class="body_wrapper" href="<?php echo site_url("employees_deductions/analyze/{$deduction->name_id}/{$deduction->deduction_id}"); ?>"><span class="glyphicon glyphicon-signal"></span></a>
                 </td>
+                <td><?php echo date("F d, Y", strtotime($deduction->start_date)); ?></td>
                 <td><?php echo number_format($deduction->max_amount,2); $total_max_amount+=$deduction->max_amount; ?></td>
                 <td><?php echo number_format($deduction->amount,2); $total_amount+=$deduction->amount; ?></td>
                 <td><?php if ($deduction->balance) { 
