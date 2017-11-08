@@ -576,6 +576,14 @@ $('.ajax-modal-inner').each(function(){
   $(this).attr('data-url', href);
   $(this).prop('href', 'javascript:void(0);');
   $(this).click(function(){
+
+    var modal_size = $(this).attr('data-modal_size');
+    if( modal_size == 'large' ) {
+      $('#ajaxModal .modal-dialog').css('width', '90%');
+    } else {
+      $('#ajaxModal .modal-dialog').css('width', '600px');
+    }
+
     ajaxModalUrl = $(this).attr('data-url');
     var ajaxForm = $('#ajaxModalForm');
     if( typeof ajaxForm[0] != 'undefined' ) {
@@ -592,7 +600,8 @@ $('.ajax-modal-inner').each(function(){
         modal_backlink.push({
           url : $(this).attr('data-url'),
           title : $(this).attr('data-title'), 
-          hide_footer : $(this).attr('data-hide_footer')
+          hide_footer : $(this).attr('data-hide_footer'),
+          modal_size : $(this).attr('data-modal_size'),
         });
     }
     back_level_n = (modal_backlink.length-2);
@@ -608,6 +617,7 @@ $('.ajax-modal-inner').each(function(){
       back_link.css('font-size', 'large');
       back_link.attr('data-url', modal_backlink[back_level_n].url);
       back_link.attr('data-title', modal_backlink[back_level_n].title);
+      back_link.attr('data-modal_size', modal_backlink[back_level_n].modal_size);
       back_link.attr('title', modal_backlink[back_level_n].title);
       back_link.attr('data-hide_footer', modal_backlink[back_level_n].hide_footer);
       back_link.attr('data-back_level', 1);

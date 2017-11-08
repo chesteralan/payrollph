@@ -265,7 +265,11 @@ class Lists_names extends MY_Controller {
 		$this->template_data->set('next_item', $this->_next($id, 'lists_names/profile/'));
 		$this->template_data->set('previous_item', $this->_previous($id, 'lists_names/profile/'));
 
-		$this->load->view('lists/names/names_profile', $this->template_data->get_data());
+		if( $output == 'ajax' ) {
+			$this->load->view('lists/names/names_profile_ajax', $this->template_data->get_data());
+		} else {
+			$this->load->view('lists/names/names_profile', $this->template_data->get_data());
+		}
 	}
 
 	public function update_personal($id,$output='') {
