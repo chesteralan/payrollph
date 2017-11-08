@@ -172,15 +172,56 @@ $total_gross_pay += $employee_gross_pay;
 <?php } ?>
 <?php if( $column_group_benefits ) { ?>
 <?php if( (isset($benefits_columns)) && ( $benefits_columns > 0 ) ) { ?>
-                <td class="text-right"><?php echo number_format($employee->gross_benefits,2); ?></td>
+                <td class="text-right"><?php 
+                $total_benefits += $employee->gross_benefits;
+                echo number_format($employee->gross_benefits,2); 
+                ?></td>
 <?php } ?>
 <?php } ?>
 <?php if( $column_group_deductions ) { ?>
 <?php if( (isset($deductions_columns)) && ( $deductions_columns > 0 ) ) { ?>
-                <td class="text-right"><?php echo number_format($employee->gross_deductions,2); ?></td>
+                <td class="text-right"><?php 
+                $ed_amount = 0;
+
+                    foreach($employee->deductions_data as $deductions2) {
+                        switch( $deductions2->computed ) {
+                          case 'hour':
+                            $eamount = $deductions2->amount * $days_present;
+                          break;
+                          case 'day':
+                            $eamount = $deductions2->amount * $days_present;
+                          break;
+                          case 'month':
+                          default:
+                            $eamount = $deductions2->amount;
+                          break;
+                        }
+/*
+                        switch( $earning2->multiplier ) { 
+                          case 'employment':
+                            $end_date = new DateTime(date('Y-m-d'));
+                            $hired = new DateTime($employee->hired);
+                            $diff = $hired->diff($end_date);
+                            $eamount = $eamount * $diff->y;
+                          break;
+                          case 'birthday':
+                            $end_date = new DateTime(date('Y-m-d'));
+                            $birth_date = new DateTime($employee->birthday);
+                            $diff = $birth_date->diff($end_date);
+                            $eamount = $eamount * $diff->y;
+                          break;
+                        }
+*/
+                        $ed_amount += $eamount;
+                    }
+                    $total_deductions += $ed_amount;
+                    echo number_format($ed_amount,2); 
+
+                //echo number_format($employee->gross_deductions,2); 
+                ?></td>
 <?php } ?>
 <?php } ?>
-                <td class="text-right bold"><?php echo number_format((($employee_gross_pay+$ee_amount)-($employee->gross_benefits+$employee->gross_deductions)),2); ?></td>
+                <td class="text-right bold"><?php echo number_format((($employee_gross_pay+$ee_amount)-($employee->gross_benefits+$ed_amount)),2); ?></td>
               </tr>
 <?php } ?>
 
@@ -242,7 +283,8 @@ $total_gross_pay += $employee_gross_pay;
                 <td class="text-right"><strong><?php echo number_format($total_deductions,2); ?></strong></td>
 <?php } ?>
 <?php } ?>
-                <td class="text-right"><strong><?php echo number_format(($total_gross_salary+$total_earnings)-($total_benefits+$total_deductions),2); ?></strong></td>
+                <td class="text-right"><strong><?php 
+                echo number_format(($total_gross_salary+$total_earnings)-($total_benefits+$total_deductions),2); ?></strong></td>
   </tr>
             </tbody>
             </table>

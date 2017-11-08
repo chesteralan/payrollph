@@ -279,6 +279,8 @@ class Payroll_summary extends MY_Controller {
 				$employee_earnings->setStartDate(date('Y-m-d'),true,false,'<=');
 				$employee_earnings->set_where('((SELECT COUNT(*) FROM employees_earnings_templates eet WHERE eet.template_id='.$template_id.' AND eet.ee_id=ee.id)>0)');
 				$employee_earnings->set_limit(0);
+				$employee_earnings->setTrash(0,true);
+				$employee_earnings->setActive(1,true);
 				$employees_data[$eKey]->earnings_data = $employee_earnings->populate();
 
 				$employee_deductions = new $this->Employees_deductions_model('ed');
