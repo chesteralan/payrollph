@@ -497,11 +497,11 @@ class Payroll_earnings extends MY_Controller {
 			if( $this->session->userdata('current_employee') ) {
 				$employees->setNameId($this->session->userdata('current_employee')->name_id,true);
 			}
-
+/*
 			foreach($columns as $column) {
 				$employees->set_select(sprintf('(SELECT SUM(amount) FROM employees_earnings ee WHERE ((SELECT COUNT(*) FROM employees_earnings_templates WHERE template_id=%s AND ee_id=ee.id) >= 1) AND ee.name_id=pe.name_id AND ee.earning_id=%s AND ee.trash=0) as earnings_%s', $template_id, $column->id, $column->id, $column->id));
 			}
-
+*/
 			$employees->setActive('1', true);
 			$employees->set_order('pe.order', 'ASC');
 			$employees->set_limit(0);
@@ -521,6 +521,8 @@ class Payroll_earnings extends MY_Controller {
 					$employee_earnings->setActive(1,true);
 					$employee_earnings->setStartDate(date('Y-m-d'),true,false,'<=');
 					$employee_earnings->set_where("((SELECT COUNT(*) FROM employees_earnings_templates eet WHERE eet.template_id=".$template_id." AND eet.ee_id=ee.id) > 0)");
+					$employee_earnings->set_where('(((ee.max_amount - (SELECT SUM(ee2.amount) FROM payroll_employees_earnings ee2 WHERE ee2.entry_id=ee.id)) > 0)');
+					$employee_earnings->set_where_or('(ee.max_amount = 0))');
 					$employee_earnings->set_limit(0);
 					$edata->$var = $employee_earnings->populate();
 				}
@@ -574,6 +576,8 @@ class Payroll_earnings extends MY_Controller {
 		$earnings->set_select('pee.id as pee_id');
 		$earnings->set_join('earnings_list el', 'pee.earning_id=el.id');
 		$earnings->set_where("((SELECT COUNT(*) FROM employees_earnings_templates eet WHERE eet.template_id=".$template_id." AND eet.ee_id=pee.id) > 0)");
+		$earnings->set_where('(((pee.max_amount - (SELECT SUM(pee2.amount) FROM payroll_employees_earnings pee2 WHERE pee2.entry_id=pee.id)) > 0)');
+		$earnings->set_where_or('(pee.max_amount = 0))');
 		$this->template_data->set('earnings', $earnings->populate());
 
 		$employees = new $this->Employees_model('pe');

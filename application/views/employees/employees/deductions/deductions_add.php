@@ -24,11 +24,20 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>Deduction Type</label>
+<?php if( $this->input->get('deduction_id') ) { ?>
+<div class="form-control">
+  <input type="hidden" name="deduction_id" value="<?php echo $this->input->get('deduction_id'); ?>">
+  <?php foreach($deductions as $deduct) {
+    echo ($deduct->id==$this->input->get('deduction_id')) ? $deduct->name . ' - ' . $deduct->notes : '';
+  } ?>
+</div>
+<?php } else { ?>
             <select class="form-control" title="Select an Deduction" name="deduction_id" required>
             <?php foreach($deductions as $deduct) { ?>
                 <option value="<?php echo $deduct->id; ?>"><?php echo $deduct->name; ?> - <?php echo $deduct->notes; ?></option>
             <?php } ?>
             </select>
+<?php } ?>
           </div>
         </div>
         <div class="col-md-6">

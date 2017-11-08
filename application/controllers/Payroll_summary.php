@@ -268,6 +268,7 @@ class Payroll_summary extends MY_Controller {
 			$employees->set_limit(0);
 			$employees_data = $employees->populate();
 			foreach( $employees_data as $eKey => $employee) {
+				
 				$salary = new $this->Employees_salaries_model('es');
 				$salary->setNameId($employee->name_id,true);
 				$employees_data[$eKey]->salary = $salary->get();
@@ -279,6 +280,16 @@ class Payroll_summary extends MY_Controller {
 				$employee_earnings->set_where('((SELECT COUNT(*) FROM employees_earnings_templates eet WHERE eet.template_id='.$template_id.' AND eet.ee_id=ee.id)>0)');
 				$employee_earnings->set_limit(0);
 				$employees_data[$eKey]->earnings_data = $employee_earnings->populate();
+
+				$employee_deductions = new $this->Employees_deductions_model('ed');
+				$employee_deductions->setCompanyId($this->session->userdata('current_company_id'),true);
+				$employee_deductions->setNameId($employee->name_id,true);
+				$employee_deductions->setTrash(0,true);
+				$employee_deductions->setActive(1,true);
+				$employee_deductions->setStartDate(date('Y-m-d'),true,false,'<=');
+				$employee_deductions->set_where("((SELECT COUNT(*) FROM employees_deductions_templates eet WHERE eet.template_id=".$template_id." AND eet.ed_id=ed.id) > 0)");
+				$employee_deductions->set_limit(0);
+				$employees_data[$eKey]->deductions_data = $employee_deductions->populate();
 			} 
 
 			$payroll_group_data[$key]->employees = $employees_data;

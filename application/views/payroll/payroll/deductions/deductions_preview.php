@@ -71,12 +71,12 @@ foreach( $deductions_columns as $column ) {
 <a class="ajax-modal" href="#ajaxModal" data-modal_size="large" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo site_url("lists_names/profile/{$employee->name_id}/ajax") . "?output=inner_page"; ?>"><span class="glyphicon glyphicon-eye-open"></span></a>
 
                 </td>
-                <?php 
+<?php /*
                 $total_deductions = 0;
                 if( $deductions_columns ) foreach( $deductions_columns as $column ) { ?>
                     <td class="text-right">
                     <?php 
-
+print_r($employee);
                     $var = 'deductions_' . $column->id;
                     $total_deductions += $employee->$var;
                     $total[$column->id] += $employee->$var;
@@ -87,7 +87,68 @@ foreach( $deductions_columns as $column ) {
                     ?>
 <a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $column->name; ?> - <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo $entries_url; ?>" class="ajax-modal" data-hide_footer="1">
                     <?php echo number_format($employee->$var,2); ?>
-</a>
+</a></td>
+
+<?php } */ ?>
+
+                <?php 
+$total_deductions = 0;
+
+                if( $deductions_columns ) foreach( $deductions_columns as $column ) { 
+
+                    $var2 = 'deductions_' . $column->id . '_data';
+                    $deductions_data = $employee->$var2;
+                    $column_name = $column->name;
+                    $hide_footer = 0;
+                    $ee_amount = 0;
+
+                    if( $deductions_data ) {
+                   
+                    foreach($deductions_data as $deductions2) {
+                        switch( $deductions2->computed ) {
+                          case 'hour':
+                            $eamount = $deductions2->amount * $days_present;
+                          break;
+                          case 'day':
+                            $eamount = $deductions2->amount * $days_present;
+                          break;
+                          case 'month':
+                          default:
+                            $eamount = $deductions2->amount;
+                          break;
+                        }
+/*
+                        switch( $deductions2->multiplier ) { 
+                          case 'employment':
+                            $end_date = new DateTime(date('Y-m-d'));
+                            $hired = new DateTime($employee->hired);
+                            $diff = $hired->diff($end_date);
+                            $eamount = $eamount * $diff->y;
+                          break;
+                          case 'birthday':
+                            $end_date = new DateTime(date('Y-m-d'));
+                            $birth_date = new DateTime($employee->birthday);
+                            $diff = $birth_date->diff($end_date);
+                            $eamount = $eamount * $diff->y;
+                          break;
+                        }
+*/
+                        $ee_amount += $eamount;
+                    }
+
+                    $total_deductions += $ee_amount;
+                    $total[$column->id] += $ee_amount;
+
+                    $entries_url = site_url("payroll_deductions/preview_entries/{$template->id}/{$employee->name_id}/{$column->id}/ajax") . "?next=" . uri_string();
+                    $hide_footer = 1;
+                  } else {
+                    $column_name = "Add " . $column->name;
+                    $entries_url = site_url("employees_deductions/add/{$employee->name_id}/ajax") . "?template_id={$template->id}&deduction_id={$column->id}&next=" . uri_string();
+                  }
+                 ?>
+                    <td class="text-right"><a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $column_name; ?> - <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo $entries_url; ?>" class="ajax-modal" <?php echo ($hide_footer) ? 'data-hide_footer="1"' : ''; ?>>
+                    <?php echo number_format($ee_amount,2); ?></a>
+
                     </td>
                 <?php } ?>
                 <td class="text-right">

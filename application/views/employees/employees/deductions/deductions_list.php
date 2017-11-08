@@ -90,6 +90,7 @@ $total_balance = 0;
 <?php if( $this->input->get('filter') ) { ?>
   <tr class="warning">
       <td><strong>TOTAL</strong></td>
+      <td></td>
       <td><strong><?php echo number_format($total_max_amount,2); ?></strong></td>
       <td><strong><?php echo number_format($total_amount,2); ?></strong></td>
       <td><strong><?php echo number_format($total_balance,2); ?></strong></td>

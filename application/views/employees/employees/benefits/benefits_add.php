@@ -43,13 +43,13 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>Employee Share</label>
-            <input name="ee_share" type="text" class="form-control text-center" value="" required>
+            <input name="ee_share" type="text" class="form-control text-center" value="0.00" required>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label>Employer Share</label>
-            <input name="er_share" type="text" class="form-control text-center" value="" required>
+            <input name="er_share" type="text" class="form-control text-center" value="0.00" required>
           </div>
         </div>
       </div>
