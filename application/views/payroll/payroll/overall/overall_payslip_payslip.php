@@ -14,7 +14,7 @@
 
 </div>
 
-<h2 class="text-center allcaps employee-name underlined"><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?></h2>
+<h2 class="text-center allcaps employee-name underlined"><?php echo $employee->lastname; ?>, <?php echo $employee->prefix; ?> <?php echo $employee->firstname; ?> <?php echo $employee->suffix; ?> <?php echo substr($employee->middlename,0,1)."."; ?></h2>
 
 <div class="inner_body">
 <?php 

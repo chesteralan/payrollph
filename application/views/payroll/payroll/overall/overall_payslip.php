@@ -44,7 +44,7 @@
     &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$pg->id}/payslip"); ?>"><?php echo $pg->name; ?></a>
   <?php } ?>
   <?php } ?>
-  <?php if( $print_group_option ) { ?>
+  <?php if( (isset($print_group_option)) && ($print_group_option) ) { ?>
    &middot; <a href="<?php echo site_url("payroll_overall/summary/{$payroll->id}"); ?>">Summary</a>
   <?php } ?>
 </div>

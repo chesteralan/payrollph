@@ -333,33 +333,35 @@ if( ($name->is_employed) && ($name->company_id==$this->session->userdata('curren
 
 $modules[] = array(
     'title'=>'Address &amp; Contact Numbers',
-    'config_url' => site_url("lists_names/update_contacts/{$name->id}/ajax") . "?next=" . uri_string(),
+    'config_url' => site_url("lists_names/update_contacts/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
     'panel_body' => address_contacts($name),
     'open' => ($this->input->get('active')==='contacts'),
   );
 $modules[] = array(
     'title'=>'Social Media Accounts',
-    'config_url' => site_url("lists_names/update_social_media/{$name->id}/ajax") . "?next=" . uri_string(),
+    'config_url' => site_url("lists_names/update_social_media/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
     'panel_body' => social_media($name),
     'open' => ($this->input->get('active')==='social_media'),
   );
 $modules[] = array(
     'title'=>'Identification Numbers',
-    'config_url' => site_url("lists_names/update_ids/{$name->id}/ajax") . "?next=" . uri_string(),
+    'config_url' => site_url("lists_names/update_ids/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
     'panel_body' => ids($name),
     'open' => ($this->input->get('active')==='ids'),
   );
 $modules[] = array(
     'title'=>'Emergency Contacts',
-    'config_url' => site_url("lists_names/update_emergency/{$name->id}/ajax") . "?next=" . uri_string(),
+    'config_url' => site_url("lists_names/update_emergency/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
     'panel_body' => emergency($name),
     'open' => ($this->input->get('active')==='emergency'),
   );
 foreach($modules as $i=>$content) {  ?>
 <div class="panel panel-default">
                 <div class="panel-heading">
-<?php if ( isset($output) && ($output!='ajax') ) {  ?>
-                <a class="ajax-modal pull-right" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo strip_tags($content['title']); ?>" data-url="<?php echo $content['config_url']; ?>"><span class="glyphicon glyphicon-cog"></span></a>
+<?php if ( isset($output) && ($output=='ajax') ) {  ?>
+                <a class="ajax-modal-inner pull-right" data-title="<?php echo strip_tags($content['title']); ?>" href="<?php echo $content['config_url']; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
+<?php } else { ?>
+                <a class="ajax-modal pull-right" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo strip_tags($content['title']); ?>" data-url="<?php echo $content['config_url']; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
 <?php } ?>
 
                   <h3 class="panel-title bold">
