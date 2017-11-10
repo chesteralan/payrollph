@@ -254,6 +254,14 @@ class Employees_benefits extends MY_Controller {
 		$employees_benefits->set_join("benefits_list dl", 'dl.id=peb.benefit_id');
 		$employees_benefits->set_join("payroll p", 'p.id=peb.payroll_id');
 		$employees_benefits->set_limit(0);
+
+			$pe = new $this->Payroll_employees_model('pe');
+			$pe->set_select('pe.active');
+			$pe->set_where('peb.payroll_id=pe.payroll_id');
+			$pe->set_where('pe.name_id=peb.name_id');
+			$pe->set_limit(1);
+		$employees_benefits->set_where("((".$pe->get_compiled_select().")=1)");
+		
 		$this->template_data->set('benefits', $employees_benefits->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(

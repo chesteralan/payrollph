@@ -237,6 +237,14 @@ class Employees_earnings extends MY_Controller {
 		$employees_earnings->set_join("earnings_list dl", 'dl.id=pee.earning_id');
 		$employees_earnings->set_join("payroll p", 'p.id=pee.payroll_id');
 		$employees_earnings->set_limit(0);
+
+			$pe = new $this->Payroll_employees_model('pe');
+			$pe->set_select('pe.active');
+			$pe->set_where('pee.payroll_id=pe.payroll_id');
+			$pe->set_where('pe.name_id=pee.name_id');
+			$pe->set_limit(1);
+		$employees_earnings->set_where("((".$pe->get_compiled_select().")=1)");
+
 		$this->template_data->set('earnings', $employees_earnings->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(

@@ -267,6 +267,7 @@ class Payroll_earnings extends MY_Controller {
 		//$employees_earnings->set_where_or("((ee.max_amount - (SELECT SUM(pee.amount) FROM payroll_employees_earnings pee WHERE pee.entry_id=ee.id)) > 0))");
 		$this->template_data->set('employees_earnings', $employees_earnings->populate());
 
+		$this->_column_groups();
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/earnings/earnings_add', $this->template_data->get_data());
 	}
@@ -323,6 +324,7 @@ class Payroll_earnings extends MY_Controller {
 		//$employees_earnings->set_where_or("((ee.max_amount - (SELECT SUM(pee.amount) FROM payroll_employees_earnings pee WHERE pee.entry_id=ee.id)) > 0))");
 		$this->template_data->set('employees_earnings', $employees_earnings->populate());
 
+		$this->_column_groups();
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/earnings/earnings_edit', $this->template_data->get_data());
 	}

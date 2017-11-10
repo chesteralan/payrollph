@@ -273,6 +273,7 @@ class Payroll_benefits extends MY_Controller {
 		$benefit_data->setId($benefit_id,true);
 		$this->template_data->set('benefit_data', $benefit_data->get());
 
+		$this->_column_groups();
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/benefits/benefits_add', $this->template_data->get_data());
 	}
@@ -312,6 +313,7 @@ class Payroll_benefits extends MY_Controller {
 		$benefit_list->setId($benefit_data->benefit_id,true);
 		$this->template_data->set('benefit_data', $benefit_list->get());
 
+		$this->_column_groups();
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/benefits/benefits_edit', $this->template_data->get_data());
 	}

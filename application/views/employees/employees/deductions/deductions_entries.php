@@ -18,6 +18,8 @@
 <?php } ?>
                   <h3 class="panel-title bold">
                   <?php echo $deduction->name; ?> - <?php echo $deduction->notes; ?> <?php echo ($entry->notes) ? "(".$entry->notes.")" : ""; ?>
+
+                  <span class="small"><a href="<?php echo site_url(uri_string()) . "?show_all=1"; ?>" class="body_wrapper">Show All</a></span>
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
@@ -48,13 +50,13 @@
             <?php 
 $total = 0;
             foreach($deductions as $deduction) { ?>
-              <tr id="deduction-<?php echo $deduction->id; ?>">
+              <tr id="deduction-<?php echo $deduction->id; ?>" class="<?php echo ($deduction->employee_active==0) ? 'danger' : ''; ?>">
                 <td><?php echo $deduction->payroll_name; ?></td>
                 <td class="text-right">
 <?php if($output=='ajax') { ?>
 <a class="ajax-modal-inner" href="<?php echo site_url("payroll_deductions/edit/{$deduction->ped_id}/{$output}") . '?next=' . (($this->input->get('next'))?$this->input->get('next'):"employees_deductions/view/{$employee->name_id}"); ?>">
 <?php } else { ?>
-   <a class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Item" data-url="<?php echo site_url("payroll_deductions/edit/{$deduction->ped_id}/ajax")  . '?next=' . uri_string(); ?>">
+   <a href="#ajaxModal" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Item" data-url="<?php echo site_url("payroll_deductions/edit/{$deduction->ped_id}/ajax")  . '?next=' . uri_string(); ?>">
 <?php } ?>
 <?php echo number_format($deduction->ped_amount,2); $total += $deduction->ped_amount; ?>
 </a>

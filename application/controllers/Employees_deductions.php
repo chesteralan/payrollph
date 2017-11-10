@@ -50,7 +50,13 @@ class Employees_deductions extends MY_Controller {
 			$deductions->set_select("(SELECT COUNT(*) FROM employees_deductions_templates edt WHERE edt.ed_id=ed.id AND edt.template_id={$temp->id}) as temp_{$temp->id}");
 		}
 
-		$deductions->set_select("(IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) as balance");
+			$pe = new $this->Payroll_employees_model('pe');
+			$pe->set_select('pe.active');
+			$pe->set_where('ped.payroll_id=pe.payroll_id');
+			$pe->set_where('pe.name_id=ped.name_id');
+			$pe->set_limit(1);
+
+		$deductions->set_select("(IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id AND ((".$pe->get_compiled_select().")=1) )), NULL)) as balance");
 		
 		$deductions->set_where("(((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) IS NULL)");
 		$deductions->set_where_or("((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) > 0))");
@@ -101,7 +107,13 @@ class Employees_deductions extends MY_Controller {
 			$deductions->set_select("(SELECT COUNT(*) FROM employees_deductions_templates edt WHERE edt.ed_id=ed.id AND edt.template_id={$temp->id}) as temp_{$temp->id}");
 		}
 
-		$deductions->set_select("(IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) as balance");
+			$pe = new $this->Payroll_employees_model('pe');
+			$pe->set_select('pe.active');
+			$pe->set_where('ped.payroll_id=pe.payroll_id');
+			$pe->set_where('pe.name_id=ped.name_id');
+			$pe->set_limit(1);
+
+		$deductions->set_select("(IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id AND ((".$pe->get_compiled_select().")=1) )), NULL)) as balance");
 
 		$deductions->set_where("((ed.active=0)");
 		$deductions->set_where_or("((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) = 0))");
@@ -370,6 +382,16 @@ class Employees_deductions extends MY_Controller {
 		$employees_deductions->set_join("deductions_list dl", 'dl.id=ped.deduction_id');
 		$employees_deductions->set_join("payroll p", 'p.id=ped.payroll_id');
 		$employees_deductions->set_limit(0);
+			$pe = new $this->Payroll_employees_model('pe');
+			$pe->set_select('pe.active');
+			$pe->set_where('ped.payroll_id=pe.payroll_id');
+			$pe->set_where('pe.name_id=ped.name_id');
+			$pe->set_limit(1);
+		$employees_deductions->set_select("(".$pe->get_compiled_select().") as employee_active");
+
+		if( !$this->input->get('show_all') ) {
+			$employees_deductions->set_where("((".$pe->get_compiled_select().")=1)");
+		}
 		
 		if( $this->input->get('exempt') ) {
 			$employees_deductions->set_where('ped.id !=' . $this->input->get('exempt'));
@@ -422,14 +444,21 @@ class Employees_deductions extends MY_Controller {
 		$payroll_deductions->set_where("ped.entry_id != 0");
 
 		$payroll_deductions->set_join('employees_deductions ed', 'ed.id=ped.entry_id');
+
+			$pe = new $this->Payroll_employees_model('pe');
+			$pe->set_select('pe.active');
+			$pe->set_where('ped.payroll_id=pe.payroll_id');
+			$pe->set_where('pe.name_id=ped.name_id');
+			$pe->set_limit(1);
+		$payroll_deductions->set_where("((".$pe->get_compiled_select().")=1)");
+
 		$this->template_data->set('payroll_deductions', $payroll_deductions->get());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('employees/employees/deductions/deductions_summary', $this->template_data->get_data());
 	}
 
-	public function analyze($name_id, $deduction_id=NULL, $output='') {
-
+	private function _analyze($name_id, $deduction_id=NULL) {
 
 		$employee = new $this->Employees_model('e');
 		$employee->setNameId($name_id,true);
@@ -478,11 +507,24 @@ class Employees_deductions extends MY_Controller {
 		$payrolls->set_join("payroll p", 'p.id=ped.payroll_id');
 		$payrolls->set_limit(0);
 
+			$pe = new $this->Payroll_employees_model('pe');
+			$pe->set_select('pe.active');
+			$pe->set_where('ped.payroll_id=pe.payroll_id');
+			$pe->set_where('pe.name_id=ped.name_id'); 
+			$pe->set_limit(1); 
+		$payrolls->set_select("(".$pe->get_compiled_select().") as employee_active");
+
+		if( !$this->input->get('show_all') ) {
+			$payrolls->set_where("((".$pe->get_compiled_select().")=1)");
+		}
+		
+
 		$payrolls->set_where("ped.entry_id != 0");
 		$payrolls->set_where("(((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) IS NULL)");
 		$payrolls->set_where_or("((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) > 0))");
 		$payrolls->set_group_by('p.id');
-		$payrolls_data = $payrolls->populate();
+
+		$payrolls_data = $payrolls->populate(); 
 		$this->template_data->set('payrolls', $payrolls_data);
 
 		$payroll_deductions = new $this->Payroll_employees_deductions_model('ped');
@@ -500,7 +542,24 @@ class Employees_deductions extends MY_Controller {
 		$payroll_deductions->set_where("(((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) IS NULL)");
 		$payroll_deductions->set_where_or("((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) > 0))");
 
+			$pe = new $this->Payroll_employees_model('pe');
+			$pe->set_select('pe.active');
+			$pe->set_where('ped.payroll_id=pe.payroll_id');
+			$pe->set_where('pe.name_id=ped.name_id');
+			$pe->set_limit(1);
+		$payroll_deductions->set_select("(".$pe->get_compiled_select().") as employee_active");
+
+		if( !$this->input->get('show_all') ) {
+			$payroll_deductions->set_where("((".$pe->get_compiled_select().")=1)");
+		}
+		
 		$this->template_data->set('payroll_deductions', $payroll_deductions->populate());
+
+	}
+
+	public function analyze($name_id, $deduction_id=NULL, $output='') {
+
+		$this->_analyze($name_id,$deduction_id);
 
 		$this->template_data->set('output', $output);
 		$this->load->view('employees/employees/deductions/deductions_analyze', $this->template_data->get_data());
@@ -512,76 +571,7 @@ class Employees_deductions extends MY_Controller {
 		$company->setId($this->session->userdata('current_company_id'),true);
 		$this->template_data->set('company', $company->get());
 
-		$employee = new $this->Employees_model('e');
-		$employee->setNameId($name_id,true);
-		$employee->set_select('ni.*');
-		$employee->set_select('e.name_id');
-		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
-		$this->template_data->set('employee', $employee->get());
-
-		if( $deduction_id ) {
-			$deductions = new $this->Deductions_list_model;
-			$deductions->setId($deduction_id,true);
-			$deduction_data = $deductions->get();
-			$this->template_data->set('deduction', $deduction_data);
-		}
-
-		$deductions = new $this->Employees_deductions_model('ed');
-		$deductions->setCompanyId($this->session->userdata('current_company_id'),true);
-		$deductions->setNameId($name_id,true);
-		$deductions->set_select("ed.*");
-		$deductions->set_select("(SELECT name FROM deductions_list WHERE id=ed.deduction_id) as deduction_name");
-		$deductions->set_select("(SELECT notes FROM deductions_list WHERE id=ed.deduction_id) as deduction_notes");
-		$deductions->setTrash('0',true);
-		$deductions->setActive('1', true);
-		
-		if( $deduction_id ) {
-			$deductions->setDeductionId($deduction_id, true);
-		}
-
-		$deductions->set_select("(IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) as balance");
-		
-		$deductions->set_where("(((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) IS NULL)");
-		$deductions->set_where_or("((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) > 0))");
-
-		$this->template_data->set('deductions', $deductions->populate());
-
-		$payrolls = new $this->Payroll_employees_deductions_model('ped');
-		$payrolls->setNameId($name_id,true);
-		if( $deduction_id ) {
-			$payrolls->setDeductionId($deduction_id,true);
-		}
-		$payrolls->set_select("*");
-		$payrolls->set_select("p.name as payroll_name");
-		$payrolls->set_select("ped.id as ped_id");
-		$payrolls->set_select("ped.amount as ped_amount");
-		$payrolls->set_join("employees_deductions ed", 'ed.id=ped.entry_id');
-		$payrolls->set_join("payroll p", 'p.id=ped.payroll_id');
-		$payrolls->set_limit(0);
-
-		$payrolls->set_where("ped.entry_id != 0");
-		$payrolls->set_where("(((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) IS NULL)");
-		$payrolls->set_where_or("((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) > 0))");
-		$payrolls->set_group_by('p.id');
-		$payrolls_data = $payrolls->populate();
-		$this->template_data->set('payrolls', $payrolls_data);
-
-		$payroll_deductions = new $this->Payroll_employees_deductions_model('ped');
-		$payroll_deductions->setNameId($name_id,true);
-		if( $deduction_id ) {
-			$payroll_deductions->setDeductionId($deduction_id,true);
-		}
-		$payroll_deductions->set_select("*");
-		$payroll_deductions->set_select("ped.id as ped_id");
-		$payroll_deductions->set_select("ped.amount as ped_amount");
-		$payroll_deductions->set_join("employees_deductions ed", 'ed.id=ped.entry_id');
-		$payroll_deductions->set_limit(0);
-
-		$payroll_deductions->set_where("ped.entry_id != 0");
-		$payroll_deductions->set_where("(((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) IS NULL)");
-		$payroll_deductions->set_where_or("((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) > 0))");
-
-		$this->template_data->set('payroll_deductions', $payroll_deductions->populate());
+		$this->_analyze($name_id,$deduction_id);
 
 		$this->template_data->set('output', $output);
 		$this->load->view('employees/employees/deductions/deductions_print_analysis', $this->template_data->get_data());

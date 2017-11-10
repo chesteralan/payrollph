@@ -30,14 +30,14 @@
                   <th class="text-center"><?php echo $temp->name; ?></th>
                 <?php } ?>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
-                  <th width="125px" class="action_column">Action</th>
+                  <th width="175px" class="action_column">Action</th>
                 <?php } ?>
               </tr>
             </thead>
             <tbody>
 
             <?php foreach($benefits as $benefit) { ?>
-              <tr id="salary-<?php echo $benefit->id; ?>" class="<?php echo ($benefit->primary==1) ? 'success' : ''; ?>">
+              <tr id="entries-<?php echo $benefit->id; ?>" class="<?php echo ($benefit->primary==1) ? 'success' : ''; ?>">
                 <td><?php echo $benefit->benefit_name; ?></td>
                 <td><?php echo number_format($benefit->employee_share,2); ?></td>
                 <td><?php echo number_format($benefit->employer_share,2); ?></td>
@@ -51,9 +51,12 @@
                 
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
+
+                <a class="btn btn-warning btn-xs body_wrapper" href="<?php echo site_url("employees_benefits/entries/{$benefit->id}"); ?>" data-target="#entries-<?php echo $benefit->id; ?>">Entries</a>
+
                 <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Benefit" data-url="<?php echo site_url("employees_benefits/edit/{$benefit->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>">Edit</button>
 
-                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees_benefits/delete/{$benefit->id}"); ?>" data-target="#salary-<?php echo $benefit->id; ?>">Delete</a>
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees_benefits/delete/{$benefit->id}"); ?>" data-target="#entries-<?php echo $benefit->id; ?>">Delete</a>
 
                 </td>
               <?php } ?>
