@@ -188,8 +188,8 @@ if( $employee->salary ) {
   switch( $salary->rate_per ) {
     case 'month':
       $monthly_rate = $salary->amount;
-      $daily_rate = ( $salary->amount / $salary->days );
-      $hourly_rate = ( $salary->amount / $salary->days / $salary->hours );
+      $daily_rate = ( ($salary->amount * $salary->months) / $salary->annual_days );
+      $hourly_rate = ( (($salary->amount * $salary->months) / $salary->annual_days) / $salary->hours );
     break;
     case 'day':
       $monthly_rate = ( $salary->amount * $salary->days );

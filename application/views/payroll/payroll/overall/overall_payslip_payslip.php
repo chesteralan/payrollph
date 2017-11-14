@@ -35,8 +35,8 @@ if( $employee->salary ) {
   switch( $salary->rate_per ) {
     case 'month':
       $monthly_rate = $salary->amount;
-      $daily_rate = ( $salary->amount / $salary->days );
-      $hourly_rate = ( $salary->amount / $salary->days / $salary->hours );
+      $daily_rate = ( ($salary->amount * $salary->months) / $salary->annual_days );
+      $hourly_rate = ( (($salary->amount * $salary->months) / $salary->annual_days) / $salary->hours );
     break;
     case 'day':
       $monthly_rate = ( $salary->amount * $salary->days );
@@ -57,7 +57,7 @@ $absences = ($daily_rate * $days_absent);
 $basic_salary = ($monthly_rate / 2);
 $net_salary = ($daily_rate * $present_days);
 $gross_pay = ($basic_salary + $cola);
-$net_pay = ($net_salary + $cola);
+$net_pay = ( ($gross_pay + $cola) - ($daily_rate * $days_absent) );
 
 if( floatval( $gross_pay ) ) {
 ?>
