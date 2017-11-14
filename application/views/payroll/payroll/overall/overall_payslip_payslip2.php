@@ -15,7 +15,7 @@
     </td>
     <td valign="top" align="right" width="35%">
 <h2 class="">PAYSLIP</h2>
-<span><?php echo $payroll->name; ?></span>
+<span><?php echo $payroll->name; ?><br>Payroll # <?php echo $payroll->id; ?></span>
 <?php /*
 <span><?php echo date('F d, Y', strtotime($inclusive_dates->start_date)); ?> - <?php echo date('F d, Y', strtotime($inclusive_dates->end_date)); ?><br>Payroll # <?php echo $payroll->id; ?>
 </span>
