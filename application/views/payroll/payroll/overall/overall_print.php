@@ -24,7 +24,7 @@ function isColumn($ths, $column_id,$print_columns) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?php echo (isset($page_title)) ? $page_title : APP_NAME; ?></title>
+    <title><?php echo (isset($page_title)) ? $page_title : APP_NAME;  ?></title>
     <link href="<?php echo base_url('assets/css/print.css'); ?>" rel="stylesheet">
 <?php if( $print_css ) { ?>
 <style>
@@ -85,7 +85,8 @@ function isColumn($ths, $column_id,$print_columns) {
 
 <div class="full-border padding3">
   <h3>PAYROLL SUMMARY</h3>
-  For the period covered <?php echo date('F d, Y', strtotime($inclusive_dates->start_date)); ?> - <?php echo date('F d, Y', strtotime($inclusive_dates->end_date)); ?>
+  For the period covered <?php echo $payroll->name; ?>
+  <?php //echo date('F d, Y', strtotime($inclusive_dates->start_date)); ?><?php //echo date('F d, Y', strtotime($inclusive_dates->end_date)); ?>
 </div>
 
 
