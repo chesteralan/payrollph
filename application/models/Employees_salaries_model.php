@@ -12,6 +12,8 @@ CREATE TABLE `employees_salaries` (
   `amount` decimal(30,5) NOT NULL DEFAULT '0.00000',
   `rate_per` varchar(10) NOT NULL DEFAULT 'month',
   `days` int(10) NOT NULL DEFAULT '26',
+  `annual_days` int(3) DEFAULT '312',
+  `months` int(2) DEFAULT '12',
   `hours` int(10) NOT NULL DEFAULT '8',
   `cola` decimal(10,5) NOT NULL DEFAULT '0.00000',
   `notes` text,
@@ -28,6 +30,8 @@ ALTER TABLE  `employees_salaries` ADD  `name_id` int(20) NOT NULL   ;
 ALTER TABLE  `employees_salaries` ADD  `amount` decimal(30,5) NOT NULL   DEFAULT '0.00000';
 ALTER TABLE  `employees_salaries` ADD  `rate_per` varchar(10) NOT NULL   DEFAULT 'month';
 ALTER TABLE  `employees_salaries` ADD  `days` int(10) NOT NULL   DEFAULT '26';
+ALTER TABLE  `employees_salaries` ADD  `annual_days` int(3) NULL   DEFAULT '312';
+ALTER TABLE  `employees_salaries` ADD  `months` int(2) NULL   DEFAULT '12';
 ALTER TABLE  `employees_salaries` ADD  `hours` int(10) NOT NULL   DEFAULT '8';
 ALTER TABLE  `employees_salaries` ADD  `cola` decimal(10,5) NOT NULL   DEFAULT '0.00000';
 ALTER TABLE  `employees_salaries` ADD  `notes` text NULL   ;
@@ -52,6 +56,8 @@ class Employees_salaries_model extends MY_Model {
 	protected $amount;
 	protected $rate_per;
 	protected $days;
+	protected $annual_days;
+	protected $months;
 	protected $hours;
 	protected $cola;
 	protected $notes;
@@ -70,7 +76,7 @@ class Employees_salaries_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees_salaries';
 		$this->_short_name = 'employees_salaries';
-		$this->_fields = array("id","company_id","name_id","amount","rate_per","days","hours","cola","notes","primary","trash");
+		$this->_fields = array("id","company_id","name_id","amount","rate_per","days","annual_days","months","hours","cola","notes","primary","trash");
 		$this->_required = array("company_id","name_id","amount","rate_per","days","hours","cola");
 		parent::__construct($short_name, $db_config);
 	}
@@ -214,6 +220,52 @@ class Employees_salaries_model extends MY_Model {
 	}
 	
 // ------------------------------ End Field: days --------------------------------------
+
+
+// ---------------------------- Start Field: annual_days -------------------------------------- 
+
+	/** 
+	* Sets a value to `annual_days` variable
+	* @access public
+	*/
+
+	public function setAnnualDays($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('annual_days', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `annual_days` variable
+	* @access public
+	*/
+
+	public function getAnnualDays() {
+		return $this->annual_days;
+	}
+	
+// ------------------------------ End Field: annual_days --------------------------------------
+
+
+// ---------------------------- Start Field: months -------------------------------------- 
+
+	/** 
+	* Sets a value to `months` variable
+	* @access public
+	*/
+
+	public function setMonths($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('months', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `months` variable
+	* @access public
+	*/
+
+	public function getMonths() {
+		return $this->months;
+	}
+	
+// ------------------------------ End Field: months --------------------------------------
 
 
 // ---------------------------- Start Field: hours -------------------------------------- 
@@ -389,6 +441,24 @@ class Employees_salaries_model extends MY_Model {
 										'Extra'=>''
 									),
 
+			'annual_days' => (object) array(
+										'Field'=>'annual_days',
+										'Type'=>'int(3)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'312',
+										'Extra'=>''
+									),
+
+			'months' => (object) array(
+										'Field'=>'months',
+										'Type'=>'int(2)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'12',
+										'Extra'=>''
+									),
+
 			'hours' => (object) array(
 										'Field'=>'hours',
 										'Type'=>'int(10)',
@@ -444,6 +514,8 @@ class Employees_salaries_model extends MY_Model {
 			'amount' => "ALTER TABLE  `employees_salaries` ADD  `amount` decimal(30,5) NOT NULL   DEFAULT '0.00000';",
 			'rate_per' => "ALTER TABLE  `employees_salaries` ADD  `rate_per` varchar(10) NOT NULL   DEFAULT 'month';",
 			'days' => "ALTER TABLE  `employees_salaries` ADD  `days` int(10) NOT NULL   DEFAULT '26';",
+			'annual_days' => "ALTER TABLE  `employees_salaries` ADD  `annual_days` int(3) NULL   DEFAULT '312';",
+			'months' => "ALTER TABLE  `employees_salaries` ADD  `months` int(2) NULL   DEFAULT '12';",
 			'hours' => "ALTER TABLE  `employees_salaries` ADD  `hours` int(10) NOT NULL   DEFAULT '8';",
 			'cola' => "ALTER TABLE  `employees_salaries` ADD  `cola` decimal(10,5) NOT NULL   DEFAULT '0.00000';",
 			'notes' => "ALTER TABLE  `employees_salaries` ADD  `notes` text NULL   ;",

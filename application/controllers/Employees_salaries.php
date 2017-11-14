@@ -90,6 +90,8 @@ class Employees_salaries extends MY_Controller {
 				$salaries->setCompanyId($this->session->userdata('current_company_id'));
 				$salaries->setAmount( str_replace(",", "", $this->input->post('amount')) );
 				$salaries->setRatePer($this->input->post('rate_per'));
+				$salaries->setAnnualDays($this->input->post('annual_work_days'));
+				$salaries->setMonths($this->input->post('num_of_months'));
 				$salaries->setDays($this->input->post('num_of_days'));
 				$salaries->setHours($this->input->post('num_of_hours'));
 				$salaries->setCola($this->input->post('cola'));
@@ -139,6 +141,8 @@ class Employees_salaries extends MY_Controller {
 
 					$salaries->setAmount( str_replace(",", "", $this->input->post('amount')),false,true);
 					$salaries->setRatePer($this->input->post('rate_per'),false,true);
+					$salaries->setAnnualDays($this->input->post('annual_work_days'),false,true);
+					$salaries->setMonths($this->input->post('num_of_months'),false,true);
 					$salaries->setDays($this->input->post('num_of_days'),false,true);
 					$salaries->setHours($this->input->post('num_of_hours'),false,true);
 					$salaries->setCola($this->input->post('cola'),false,true);

@@ -468,6 +468,8 @@ class Payroll extends MY_Controller {
 					$payroll_salary->setSalaryId($salary_data->id);
 					$payroll_salary->setAmount($salary_data->amount);
 					$payroll_salary->setRatePer($salary_data->rate_per);
+					$payroll_salary->setAnnualDays($salary_data->annual_days);
+					$payroll_salary->setMonths($salary_data->months);
 					$payroll_salary->setDays($salary_data->days);
 					$payroll_salary->setHours($salary_data->hours);
 					$payroll_salary->setCola($salary_data->cola);

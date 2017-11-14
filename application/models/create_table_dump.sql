@@ -253,6 +253,8 @@ CREATE TABLE `employees_salaries` (
   `amount` decimal(30,5) NOT NULL DEFAULT '0.00000',
   `rate_per` varchar(10) NOT NULL DEFAULT 'month',
   `days` int(10) NOT NULL DEFAULT '26',
+  `annual_days` int(3) DEFAULT '312',
+  `months` int(2) DEFAULT '12',
   `hours` int(10) NOT NULL DEFAULT '8',
   `cola` decimal(10,5) NOT NULL DEFAULT '0.00000',
   `notes` text,
@@ -417,6 +419,8 @@ CREATE TABLE `payroll_employees_salaries` (
   `days` int(10) DEFAULT '26',
   `hours` int(10) DEFAULT '8',
   `cola` decimal(10,5) DEFAULT '0.00000',
+  `annual_days` int(3) DEFAULT '312',
+  `months` int(2) DEFAULT '12',
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`),
   KEY `payroll_id` (`payroll_id`)

@@ -58,6 +58,21 @@
 <div class="row">
     <div class="col-md-6">
           <div class="form-group">
+            <label>Number of Months in a Year</label>
+            <input name="num_of_months" type="text" class="form-control text-center" value="12">
+          </div>
+    </div>
+    <div class="col-md-6">
+          <div class="form-group">
+            <label>Annual Working Days</label>
+            <input name="annual_work_days" type="text" class="form-control text-center" value="312">
+          </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+          <div class="form-group">
             <label>COLA</label>
             <input name="cola" type="text" class="form-control text-center" value="0">
           </div>

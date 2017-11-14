@@ -191,6 +191,8 @@ class Payroll_salaries extends MY_Controller {
 
 					$salary->setAmount( str_replace(",", "", $this->input->post('amount')),false,true);
 					$salary->setRatePer($this->input->post('rate_per'),false,true);
+					$salary->setAnnualDays($this->input->post('annual_work_days'),false,true);
+					$salary->setMonths($this->input->post('num_of_months'),false,true);
 					$salary->setDays($this->input->post('num_of_days'),false,true);
 					$salary->setHours($this->input->post('num_of_hours'),false,true);
 					$salary->setCola($this->input->post('cola'),false,true);

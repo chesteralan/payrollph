@@ -16,6 +16,8 @@ CREATE TABLE `payroll_employees_salaries` (
   `days` int(10) DEFAULT '26',
   `hours` int(10) DEFAULT '8',
   `cola` decimal(10,5) DEFAULT '0.00000',
+  `annual_days` int(3) DEFAULT '312',
+  `months` int(2) DEFAULT '12',
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`),
   KEY `payroll_id` (`payroll_id`)
@@ -31,6 +33,8 @@ ALTER TABLE  `payroll_employees_salaries` ADD  `rate_per` varchar(10) NULL   DEF
 ALTER TABLE  `payroll_employees_salaries` ADD  `days` int(10) NULL   DEFAULT '26';
 ALTER TABLE  `payroll_employees_salaries` ADD  `hours` int(10) NULL   DEFAULT '8';
 ALTER TABLE  `payroll_employees_salaries` ADD  `cola` decimal(10,5) NULL   DEFAULT '0.00000';
+ALTER TABLE  `payroll_employees_salaries` ADD  `annual_days` int(3) NULL   DEFAULT '312';
+ALTER TABLE  `payroll_employees_salaries` ADD  `months` int(2) NULL   DEFAULT '12';
 
 
  * @package			        Model
@@ -54,6 +58,8 @@ class Payroll_employees_salaries_model extends MY_Model {
 	protected $days;
 	protected $hours;
 	protected $cola;
+	protected $annual_days;
+	protected $months;
 
 	// --------------------------------------------------------------------
 
@@ -67,7 +73,7 @@ class Payroll_employees_salaries_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_employees_salaries';
 		$this->_short_name = 'payroll_employees_salaries';
-		$this->_fields = array("id","payroll_id","name_id","salary_id","amount","notes","rate_per","days","hours","cola");
+		$this->_fields = array("id","payroll_id","name_id","salary_id","amount","notes","rate_per","days","hours","cola","annual_days","months");
 		$this->_required = array("payroll_id","name_id","salary_id");
 		parent::__construct($short_name, $db_config);
 	}
@@ -305,6 +311,52 @@ class Payroll_employees_salaries_model extends MY_Model {
 // ------------------------------ End Field: cola --------------------------------------
 
 
+// ---------------------------- Start Field: annual_days -------------------------------------- 
+
+	/** 
+	* Sets a value to `annual_days` variable
+	* @access public
+	*/
+
+	public function setAnnualDays($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('annual_days', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `annual_days` variable
+	* @access public
+	*/
+
+	public function getAnnualDays() {
+		return $this->annual_days;
+	}
+	
+// ------------------------------ End Field: annual_days --------------------------------------
+
+
+// ---------------------------- Start Field: months -------------------------------------- 
+
+	/** 
+	* Sets a value to `months` variable
+	* @access public
+	*/
+
+	public function setMonths($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('months', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `months` variable
+	* @access public
+	*/
+
+	public function getMonths() {
+		return $this->months;
+	}
+	
+// ------------------------------ End Field: months --------------------------------------
+
+
 
 	
 	public function get_table_options() {
@@ -397,6 +449,24 @@ class Payroll_employees_salaries_model extends MY_Model {
 										'Key'=>'',
 										'Default'=>'0.00000',
 										'Extra'=>''
+									),
+
+			'annual_days' => (object) array(
+										'Field'=>'annual_days',
+										'Type'=>'int(3)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'312',
+										'Extra'=>''
+									),
+
+			'months' => (object) array(
+										'Field'=>'months',
+										'Type'=>'int(2)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'12',
+										'Extra'=>''
 									)
 		);
 	}
@@ -413,6 +483,8 @@ class Payroll_employees_salaries_model extends MY_Model {
 			'days' => "ALTER TABLE  `payroll_employees_salaries` ADD  `days` int(10) NULL   DEFAULT '26';",
 			'hours' => "ALTER TABLE  `payroll_employees_salaries` ADD  `hours` int(10) NULL   DEFAULT '8';",
 			'cola' => "ALTER TABLE  `payroll_employees_salaries` ADD  `cola` decimal(10,5) NULL   DEFAULT '0.00000';",
+			'annual_days' => "ALTER TABLE  `payroll_employees_salaries` ADD  `annual_days` int(3) NULL   DEFAULT '312';",
+			'months' => "ALTER TABLE  `payroll_employees_salaries` ADD  `months` int(2) NULL   DEFAULT '12';",
 		);
 
 		if( isset( $column[$field_name] ) ) {
