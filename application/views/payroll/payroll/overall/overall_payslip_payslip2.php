@@ -78,8 +78,8 @@ $absences = ($daily_rate * $days_absent);
 //$basic_salary = ($daily_rate * $inclusive_dates->working_days);
 $basic_salary = ($monthly_rate / 2);
 $net_salary = ($daily_rate * $present_days);
-$gross_pay = ($basic_salary + $cola);
-$net_pay = ( ($gross_pay + $cola) - ($daily_rate * $days_absent) );
+$gross_pay = (($basic_salary + $cola) - $absences); 
+$net_pay = ( ($gross_pay) - ($daily_rate * $days_absent) );
 
 // if( floatval( $gross_pay ) ) {
 ?>
