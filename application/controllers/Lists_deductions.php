@@ -271,7 +271,7 @@ class Lists_deductions extends MY_Controller {
 		$items->set_select("ni.*");
 		$items->set_join('employees_deductions ed', 'ed.id=ped.entry_id');
 		$items->set_select("ed.max_amount");
-		$items->set_where('(ed.start_date <="' . date('Y-m-d') .'")');
+		//$items->set_where('(ed.start_date <="' . date('Y-m-d') .'")');
 		$items->set_where("e.company_id=" . $this->session->userdata('current_company_id'));
 		$items->set_join('payroll p', 'p.id=ped.payroll_id');
 		$items->set_select("p.name as payroll_name");
@@ -280,6 +280,23 @@ class Lists_deductions extends MY_Controller {
 		if( $name_id ) {
 			$items->set_where('(ped.name_id =' . $name_id .')');
 		}
+
+		if( $this->input->get('group_by') == 'payroll' ) { 
+			$items->set_group_by('ped.payroll_id');
+			$items->set_limit(0);
+			$items->set_start(0);
+			$items->set_select("SUM(ed.max_amount) as max_amount");
+			$items->set_select("SUM(ped.amount) as amount");
+		}
+
+		if( $this->input->get('group_by') == 'employee' ) { 
+			$items->set_group_by('ped.name_id');
+			$items->set_limit(0);
+			$items->set_start(0);
+			$items->set_select("SUM(ed.max_amount) as max_amount");
+			$items->set_select("SUM(ped.amount) as amount");
+		}
+
 		$this->template_data->set('items', $items->populate());
 		
 		$this->template_data->set('pagination', bootstrap_pagination(array(

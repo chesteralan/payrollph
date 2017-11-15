@@ -20,7 +20,19 @@
   <?php } ?>
   </ul>
 </div>
-                  <h3 class="panel-title bold"><?php echo $current_page; ?>: <?php echo $deduction->name; ?> <small><?php echo $deduction->notes; ?></small></h3>
+                  <h3 class="panel-title bold"><?php echo $current_page; ?>: <?php echo $deduction->name; ?> <small><?php echo $deduction->notes; ?></small>
+
+<?php if( isset($employee) && ($employee) ) { ?>
+<span class="badge"><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <a href="<?php echo site_url( "lists_deductions/entries/{$deduction->id}/0" ); ?>"><span class="glyphicon glyphicon-remove"></span></a></span>
+<?php } ?>
+
+<?php if( $this->input->get('group_by') == 'employee' ) { ?>
+<span class="badge">Group by Employee <a href="<?php echo site_url( uri_string() ); ?>"><span class="glyphicon glyphicon-remove"></span></a></span>
+<?php } ?>
+<?php if( $this->input->get('group_by') == 'payroll' ) { ?>
+<span class="badge">Group by Payroll <a href="<?php echo site_url( uri_string() ); ?>"><span class="glyphicon glyphicon-remove"></span></a></span>
+<?php } ?>
+                  </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 <?php endif; ?>
@@ -29,11 +41,29 @@
           <table class="table table-default table-hover">
             <thead>
               <tr>
-                <th>Employee Name</th>
-                <th>Payroll</th>
+<?php if( $this->input->get('group_by') != 'payroll' ) { ?>
+                <th>Employee Name
+<?php if( !isset($employee) ) { ?>
+<?php if( $this->input->get('group_by') != 'employee' ) { ?>
+<a href="<?php echo site_url( uri_string() ); ?>?group_by=employee" title="Group by Employee"><span class="glyphicon glyphicon-resize-small"></span></a>
+<?php } ?>
+<?php } ?>
+                </th>
+<?php } ?>
+<?php if( $this->input->get('group_by') != 'employee' ) { ?>
+                <th>Payroll 
+<?php if( $this->input->get('group_by') != 'payroll' ) { ?>
+<a href="<?php echo site_url( uri_string() ); ?>?group_by=payroll" title="Group by Payroll"><span class="glyphicon glyphicon-resize-small"></span></a>
+<?php } ?>
+
+                </th>
+<?php } ?>
                 <th class="text-right">Whole Amount</th>
                 <th class="text-right">Amount</th>
+<?php if( !$this->input->get('group_by') ) { ?>
                 <th width="130px" class="text-right">Action</th>
+<?php } ?>
+
               </tr>
             </thead>
             <tbody>
@@ -44,18 +74,23 @@ $amount_paid_total = 0;
 $balance_total = 0;
        foreach($items as $item) { ?>
               <tr id="employee-group-<?php echo $item->id; ?>">
+<?php if( $this->input->get('group_by') != 'payroll' ) { ?>
                 <td>
                 <a class="body_wrapper" href="<?php echo site_url("employees_deductions/view/{$item->name_id}"); ?>"><?php echo $item->lastname; ?>, <?php echo $item->firstname; ?></a>
 </td>
-
-<td><a class="body_wrapper" href="<?php echo site_url("payroll_dtr/view/{$item->payroll_id}/0"); ?>"><?php echo $item->payroll_name; ?></a></td>
+<?php } ?>
+<?php if( $this->input->get('group_by') != 'employee' ) { ?>
+<td><a class="body_wrapper" href="<?php echo site_url("payroll_deductions/view/{$item->payroll_id}/0"); ?>"><?php echo $item->payroll_name; ?></a></td>
+<?php } ?>
 <td class="text-right"><?php echo number_format($item->max_amount,2); ?></td>
                 <td class="text-right"><?php echo number_format($item->amount,2); $amount_total+=$item->amount; ?></td>
 
+<?php if( !$this->input->get('group_by') ) { ?>
                 <td class="text-right">
                   <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Deduction" data-url="<?php echo site_url("payroll_deductions/edit/{$item->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 
                 </td>
+<?php } ?>
 
               </tr>
             <?php } ?>
