@@ -78,8 +78,10 @@ $absences = ($daily_rate * $days_absent);
 //$basic_salary = ($daily_rate * $inclusive_dates->working_days);
 $basic_salary = ($monthly_rate / 2);
 $net_salary = ($daily_rate * $present_days);
-$gross_pay = (($basic_salary + $cola) - $absences); 
-$net_pay = ( ($gross_pay) - ($daily_rate * $days_absent) );
+$basic_pay = ($basic_salary + $cola); 
+$net_basic_pay = ($basic_pay - $absences); 
+$net_pay = $net_basic_pay;
+
 
 // if( floatval( $gross_pay ) ) {
 ?>
@@ -102,7 +104,7 @@ $net_pay = ( ($gross_pay) - ($daily_rate * $days_absent) );
 </tr>
 <tr>
   <td class="text-left  bold allcaps">Basic Salary</td>
-  <td class="text-right bold"><?php  echo number_format($gross_pay,2); ?></td>
+  <td class="text-right bold"><?php  echo number_format($basic_pay,2); ?></td>
 </tr>
  <tr>
  <td class="text-left tab1"><strong>Less:</strong> Absences (<?php  echo $days_absent; ?>)</td>
@@ -110,7 +112,7 @@ $net_pay = ( ($gross_pay) - ($daily_rate * $days_absent) );
                 </tr>
 <tr>
   <td class="text-left  bold allcaps">Net Basic Salary</td>
-  <td class="text-right bold"><?php  echo number_format($net_pay,2); ?></td>
+  <td class="text-right bold"><?php  echo number_format($net_basic_pay,2); ?></td>
 </tr>
 </table>
 <?php //} ?>

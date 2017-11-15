@@ -197,6 +197,7 @@ class Lists_deductions extends MY_Controller {
 		$employees_deductions->setCompanyId($this->session->userdata('current_company_id'),true);
 		$employees_deductions->setDeductionId($id,true);
 		$employees_deductions->set_join("employees e", 'e.name_id=ed.name_id');
+		$employees_deductions->set_join("names_info ni", 'ni.name_id=ed.name_id');
 
 		$employees_deductions->set_where("(((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) IS NULL)");
 		$employees_deductions->set_where_or("((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) > 0))");
@@ -204,7 +205,7 @@ class Lists_deductions extends MY_Controller {
 		$employees_deductions->setActive(1,true);
 		$employees_deductions->setTrash(0,true);
 		$employees_deductions->set_limit(0);
-		$employees_deductions->set_order('e.lastname', 'ASC');
+		$employees_deductions->set_order('ni.lastname', 'ASC');
 		$employees_deductions->set_group_by('e.name_id');
 
 		$employees_deductions->set_select("*");
@@ -250,7 +251,7 @@ class Lists_deductions extends MY_Controller {
 	public function entries($id, $name_id=0, $start=0) {
 		
 		if( $name_id ) {
-			$employee = new $this->Employees_model;
+			$employee = new $this->Names_info_model;
 			$employee->setNameId($name_id,true);
 			$employee->set_select("*");
 			$this->template_data->set('employee', $employee->get());
