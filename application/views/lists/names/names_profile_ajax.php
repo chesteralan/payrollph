@@ -292,7 +292,7 @@ $modules = array();
 
 $modules[] = array(
     'title'=>'Personal Information',
-    'config_url' => site_url("lists_names/update_personal/{$name->id}/ajax") . "?next=" . uri_string(),
+    'config_url' => site_url("lists_names/update_personal/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
     'panel_body' => personal_info($name),
     'open' => (($this->input->get('active')==='personal')||(!$this->input->get('active'))),
     );
@@ -300,7 +300,7 @@ $modules[] = array(
 if( ($name->is_employed) && ($name->company_id==$this->session->userdata('current_company_id')) ) { 
   $modules[] = array(
     'title'=>'Employment Information: <span class="badge">' . $name->company . '</span>',
-    'config_url' => site_url("employees/edit_employment/{$name->id}/ajax") . "?next=" . uri_string(),
+    'config_url' => site_url("employees/edit_employment/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
     'panel_body' => employment($employee),
     'open' => ($this->input->get('active')==='employment'),
     );

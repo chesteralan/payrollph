@@ -31,6 +31,16 @@ class Welcome extends MY_Controller {
 		$birthdays->set_select("(TIMESTAMPDIFF(YEAR, ni.birthday, CURDATE())) as age");
 		$this->template_data->set('birthdays', $birthdays->populate());
 
+		$services = new $this->Names_info_model('ni');
+		$services->set_where('(MONTH(e.hired)=MONTH(CURDATE()))');
+		$services->set_where('e.company_id', $this->session->userdata( 'current_company_id'));
+		$services->set_join('employees e', 'e.name_id=ni.name_id');
+		$services->set_order('(DAY(e.hired))', 'ASC');
+		$services->set_select("ni.*");
+		$services->set_select("e.hired");
+		$services->set_select("(TIMESTAMPDIFF(YEAR, e.hired, CURDATE())) as age");
+		$this->template_data->set('services', $services->populate());
+
 		$this->load->view('welcome/welcome', $this->template_data->get_data());
 	}
 

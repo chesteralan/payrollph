@@ -304,6 +304,7 @@ class Employees extends MY_Controller {
 					$employee->setHired( date('Y-m-d', strtotime($this->input->post('date_hired'))),false,true);
 					$employee->setStatus($this->input->post('status'),false,true);
 					$employee->setNotes($this->input->post('notes'),false,true);
+					$employee->setEmployeeId($this->input->post('employee_id'),false,true);
 					$employee->update();
 				}
 				$this->postNext("active=employment");

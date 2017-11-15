@@ -104,6 +104,7 @@ class Payroll_overall extends MY_Controller {
 			$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
 			$employees->set_select('pe.template as payslip_template');
 			$employees->set_select('pe.print_group');
+			$employees->set_select('e.employee_id');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 			$employees->set_where('e.group_id', $group->group_id);
 

@@ -30,7 +30,7 @@
 Employee Name: <strong class="allcaps employee-name underlined bold"><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?></strong>
     </td>
     <td valign="top" align="right" width="50%">
-Employee No:
+Employee No: <?php echo $employee->employee_id; ?>
     </td>
   </tr>
 </table>

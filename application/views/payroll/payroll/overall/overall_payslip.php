@@ -62,7 +62,7 @@ $box_count = 0;
 <?php foreach($payroll_groups as $payroll_group) { ?>
 <?php if($payroll_group->employees) { 
         foreach($payroll_group->employees as $employee) { ?>
-            <option value="<?php echo site_url(uri_string()); ?>?filter=<?php echo $employee->name_id; ?>"><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?></option>
+            <option value="<?php echo site_url(uri_string()); ?>?filter=<?php echo $employee->name_id; ?>" <?php echo ($employee->name_id==$this->input->get('filter')) ? 'selected' : ''; ?>><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?></option>
       <?php } ?>
 <?php } ?>
 <?php } ?>

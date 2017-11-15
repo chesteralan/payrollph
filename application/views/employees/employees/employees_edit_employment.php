@@ -62,6 +62,8 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col-md-6">
 <?php if( $employment_status ) { ?>
           <div class="form-group">
             <label>Status</label>
@@ -72,6 +74,14 @@
             </select>
           </div>
 <?php } ?>
+          </div>
+  <div class="col-md-6">
+          <div class="form-group">
+            <label>Employee ID</label>
+            <input name="employee_id" type="text" class="form-control" value="<?php echo $employee->employee_id; ?>">
+          </div>
+  </div>
+</div>
           <div class="form-group">
             <label>Notes</label>
             <textarea name="notes" class="form-control"><?php echo $employee->notes; ?></textarea>
