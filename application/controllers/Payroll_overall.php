@@ -106,6 +106,11 @@ class Payroll_overall extends MY_Controller {
 			$employees->set_select('pe.print_group');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 			$employees->set_where('e.group_id', $group->group_id);
+
+			if( $this->input->get('filter') ) {
+				//$employees->set_where('e.name_id', $this->input->get('filter'));
+			}
+
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
 
 			$employees->set_select("(SELECT COUNT(*) FROM employees_absences ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences");

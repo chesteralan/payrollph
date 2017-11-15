@@ -49,13 +49,35 @@
   <?php } ?>
 </div>
 
+
+
 <?php if( (isset($payroll_groups)) && ($payroll_groups ) ) { 
 
 $box_count = 0;
   ?>
+
+<div class="print-topnav topnav2 hide-print text-center allcaps">
+  Filter by Employee: <select name="" style="margin-top: 2px;" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+    <option value="" disabled="disabled" selected="selected">Select Employee...</option>
+<?php foreach($payroll_groups as $payroll_group) { ?>
+<?php if($payroll_group->employees) { 
+        foreach($payroll_group->employees as $employee) { ?>
+            <option value="<?php echo site_url(uri_string()); ?>?filter=<?php echo $employee->name_id; ?>"><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?></option>
+      <?php } ?>
+<?php } ?>
+<?php } ?>
+  </select>
+</div>
+
 <?php foreach($payroll_groups as $payroll_group) { ?>
 <?php if($payroll_group->employees) { 
         foreach($payroll_group->employees as $employee) { 
+
+      if( $this->input->get('filter') ) {
+        if( $employee->name_id != $this->input->get('filter') ) {
+            continue;
+        }
+      }
             $box_count++;
             $template_data = array(
                 'box_count' => $box_count,
