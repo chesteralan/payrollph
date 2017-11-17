@@ -44,6 +44,43 @@ var current_uri = '';
         }
     });
 
+    $('.accordion-sort-asc').click(function() {
+        var elm = $(this).attr('data-sortable'); 
+        var mylist = $('.' + elm); 
+        var listitems = mylist.children('.panel.panel-default').get(); 
+        var label_arr = [];
+        var listitems_arr = {};
+        
+        for(i in listitems) {
+          var label = $(listitems[i]).find('.panel-title').text();
+          label_arr.push(label.trim());
+          listitems_arr[label.trim()] = listitems[i];
+        }
+        label_arr.sort();
+        for(n in label_arr) {
+            mylist.append( listitems_arr[label_arr[n]] );
+        }
+    });
+
+    $('.accordion-sort-desc').click(function() {
+        var elm = $(this).attr('data-sortable'); 
+        var mylist = $('.' + elm); 
+        var listitems = mylist.children('.panel.panel-default').get(); 
+        var label_arr = [];
+        var listitems_arr = {};
+        
+        for(i in listitems) {
+          var label = $(listitems[i]).find('.panel-title').text();
+          label_arr.push(label.trim());
+          listitems_arr[label.trim()] = listitems[i];
+        }
+        label_arr.sort();
+        label_arr.reverse();
+        for(n in label_arr) {
+            mylist.append( listitems_arr[label_arr[n]] );
+        }
+    });
+
  };
 
 var init_datepicker = function() {
