@@ -12,6 +12,7 @@ CREATE TABLE `payroll_templates` (
   `pages` int(2) DEFAULT '1',
   `checked_by` int(20) DEFAULT NULL,
   `approved_by` int(20) DEFAULT NULL,
+  `print_format` varchar(50) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `checked_by` (`checked_by`,`approved_by`),
@@ -24,6 +25,7 @@ ALTER TABLE  `payroll_templates` ADD  `name` varchar(200) NOT NULL   ;
 ALTER TABLE  `payroll_templates` ADD  `pages` int(2) NULL   DEFAULT '1';
 ALTER TABLE  `payroll_templates` ADD  `checked_by` int(20) NULL   ;
 ALTER TABLE  `payroll_templates` ADD  `approved_by` int(20) NULL   ;
+ALTER TABLE  `payroll_templates` ADD  `print_format` varchar(50) NULL   ;
 ALTER TABLE  `payroll_templates` ADD  `active` int(1) NOT NULL   DEFAULT '1';
 
 
@@ -44,6 +46,7 @@ class Payroll_templates_model extends MY_Model {
 	protected $pages;
 	protected $checked_by;
 	protected $approved_by;
+	protected $print_format;
 	protected $active;
 
 	// --------------------------------------------------------------------
@@ -58,7 +61,7 @@ class Payroll_templates_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_templates';
 		$this->_short_name = 'payroll_templates';
-		$this->_fields = array("id","company_id","name","pages","checked_by","approved_by","active");
+		$this->_fields = array("id","company_id","name","pages","checked_by","approved_by","print_format","active");
 		$this->_required = array("company_id","name","active");
 		parent::__construct($short_name, $db_config);
 	}
@@ -204,6 +207,29 @@ class Payroll_templates_model extends MY_Model {
 // ------------------------------ End Field: approved_by --------------------------------------
 
 
+// ---------------------------- Start Field: print_format -------------------------------------- 
+
+	/** 
+	* Sets a value to `print_format` variable
+	* @access public
+	*/
+
+	public function setPrintFormat($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('print_format', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `print_format` variable
+	* @access public
+	*/
+
+	public function getPrintFormat() {
+		return $this->print_format;
+	}
+	
+// ------------------------------ End Field: print_format --------------------------------------
+
+
 // ---------------------------- Start Field: active -------------------------------------- 
 
 	/** 
@@ -285,6 +311,15 @@ class Payroll_templates_model extends MY_Model {
 										'Extra'=>''
 									),
 
+			'print_format' => (object) array(
+										'Field'=>'print_format',
+										'Type'=>'varchar(50)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
 			'active' => (object) array(
 										'Field'=>'active',
 										'Type'=>'int(1)',
@@ -304,6 +339,7 @@ class Payroll_templates_model extends MY_Model {
 			'pages' => "ALTER TABLE  `payroll_templates` ADD  `pages` int(2) NULL   DEFAULT '1';",
 			'checked_by' => "ALTER TABLE  `payroll_templates` ADD  `checked_by` int(20) NULL   ;",
 			'approved_by' => "ALTER TABLE  `payroll_templates` ADD  `approved_by` int(20) NULL   ;",
+			'print_format' => "ALTER TABLE  `payroll_templates` ADD  `print_format` varchar(50) NULL   ;",
 			'active' => "ALTER TABLE  `payroll_templates` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
 		);
 

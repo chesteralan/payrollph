@@ -83,19 +83,25 @@ $box_count = 0;
                 'box_count' => $box_count,
                 'employee' => $employee,
             );
-    if( $employee->payslip_template == 'payslip') {
 
-        $this->load->view('payroll/payroll/overall/overall_payslip_payslip', $template_data);
+        switch ( $employee->payslip_template ) {
+          case 'payslip':
+            $this->load->view('payroll/payroll/overall/overall_payslip_payslip', $template_data);
+            break;
+          case 'payslip2':
+            $this->load->view('payroll/payroll/overall/overall_payslip_payslip2', $template_data);
+            break;
+          case 'cash_voucher':
+            $this->load->view('payroll/payroll/overall/overall_payslip_voucher', $template_data);
+            break;
+          case 'clergy_allowance':
+            $this->load->view('payroll/payroll/overall/overall_payslip_clergy_allowance', $template_data);
+            break;
+          default:
+            $this->load->view('payroll/payroll/overall/overall_payslip_payslip', $template_data);
+            break;
+        }
 
-    } elseif( $employee->payslip_template == 'payslip2') {
-
-        $this->load->view('payroll/payroll/overall/overall_payslip_payslip2', $template_data); 
-
-    } elseif( $employee->payslip_template == 'cash_voucher') {
-
-        $this->load->view('payroll/payroll/overall/overall_payslip_voucher', $template_data); 
-
-    }
 } ?>
 <?php } ?>
 <?php } ?>

@@ -79,6 +79,7 @@ class Payroll_templates extends MY_Controller {
 					$template->setPages($this->input->post('pages'),false,true);
 					$template->setCheckedBy($this->input->post('checked_by'),false,true);
 					$template->setApprovedBy($this->input->post('approved_by'),false,true);
+					$template->setPrintFormat($this->input->post('print_format'),false,true);
 					$template->update();
 				}
 				$this->postNext();

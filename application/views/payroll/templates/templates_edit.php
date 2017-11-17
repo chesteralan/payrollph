@@ -56,6 +56,21 @@
           </div>
         </div>
 
+      <div class="row">
+          <div class="col-md-6">
+              <div class="form-group">
+                <label>Print Format</label>
+                <select name="print_format" class="form-control">
+                    <option value="">Default</option>
+                    <option value="clergy_allowance" <?php echo ($template->print_format=='clergy_allowance') ? 'SELECTED' : ''; ?>>Clergy Allowance</option>
+                </select>
+              </div>
+          </div>
+          <div class="col-md-6">
+
+          </div>
+        </div>
+
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
         </div>

@@ -453,6 +453,7 @@ CREATE TABLE `payroll_templates` (
   `pages` int(2) DEFAULT '1',
   `checked_by` int(20) DEFAULT NULL,
   `approved_by` int(20) DEFAULT NULL,
+  `print_format` varchar(50) DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `checked_by` (`checked_by`,`approved_by`),

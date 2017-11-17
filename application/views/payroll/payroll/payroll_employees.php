@@ -47,6 +47,7 @@
           <option value="payslip" <?php echo ($employee->template=='payslip') ? 'SELECTED' : ''; ?>>Payslip (1/4)</option>
           <option value="payslip2" <?php echo ($employee->template=='payslip2') ? 'SELECTED' : ''; ?>>Payslip (1/2)</option>
           <option value="cash_voucher" <?php echo ($employee->template=='cash_voucher') ? 'SELECTED' : ''; ?>>Cash Voucher</option>
+          <option value="clergy_allowance" <?php echo ($employee->template=='clergy_allowance') ? 'SELECTED' : ''; ?>>Clergy Allowance</option>
       </select>
   </div>
   <div class="col-md-6 col-sm-6 col-xs-6">
