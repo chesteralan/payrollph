@@ -1,5 +1,8 @@
 
 <div class="page">
+
+<?php for($i=0; $i<2; $i++) { ?>
+
 <div class="payslip_box full-border odd <?php echo (($box_count % 2) == 0) ? 'second-half' : 'first-half'; ?>">
   <div class="header-title">
 <h2 class="text-center allcaps"><?php echo ($company->name) ? $company->name : ''; ?></h2>
@@ -52,12 +55,22 @@ if( $employee->salary ) {
   $cola = ($salary->cola * $present_days);
 }
 
+/*
 $absences = ($daily_rate * $days_absent);
 //$basic_salary = ($daily_rate * $inclusive_dates->working_days);
 $basic_salary = ($monthly_rate / 2);
 $net_salary = ($daily_rate * $present_days);
 $gross_pay = ($basic_salary + $cola);
 $net_pay = ( ($gross_pay + $cola) - ($daily_rate * $days_absent) );
+*/
+
+$absences = ($daily_rate * $days_absent);
+//$basic_salary = ($daily_rate * $inclusive_dates->working_days);
+$basic_salary = ($monthly_rate / 2);
+$net_salary = ($daily_rate * $present_days);
+$gross_pay = ($basic_salary + $cola); 
+$net_basic_pay = ($gross_pay - $absences); 
+$net_pay = $net_basic_pay;
 
 if( floatval( $gross_pay ) ) {
 ?>
@@ -93,15 +106,24 @@ if( $earnings_columns ) { ?>
  <tr>
    <td colspan="2" class="allcaps bold">Other Earnings</td>
  </tr>
-<?php 
+<?php
+$earnings_count = 0; 
 foreach( $earnings_columns as $column ) {
+    $var = 'earnings_' . $column->id;
+    if( is_null( $employee->$var ) ) {
+       continue;
+    }
+    $earnings_count++;
+  $total_earnings += $employee->$var;
 ?>
 <tr>
 <td class="text-left tab1"><?php echo $column->notes; ?></td>
-                    <td class="text-right"><?php 
-                    $var = 'earnings_' . $column->id;
-                    $total_earnings += $employee->$var;
-                    echo number_format($employee->$var,2); ?></td>
+                    <td class="text-right"><?php echo number_format($employee->$var,2); ?></td>
+</tr>
+<?php } ?>
+<?php if( $earnings_count == 0 ) { ?>
+<tr>
+<td class="text-center tab1" colspan="2"><small>- - No Other Earnings - -</small></td>
 </tr>
 <?php } ?>
 <tr>
@@ -114,6 +136,7 @@ foreach( $earnings_columns as $column ) {
 </table>
 <?php } ?>
 <?php 
+$deductions_count = 0;
  $total_deductions = 0;
 if( $benefits_columns || $deductions_columns ) { 
   ?>
@@ -121,33 +144,48 @@ if( $benefits_columns || $deductions_columns ) {
    <tr>
    <td colspan="2" class="allcaps bold">Deductions</td>
  </tr>
+
 <?php if( $benefits_columns ) { ?>
-<?php foreach( $benefits_columns as $column ) { ?>
+<?php foreach( $benefits_columns as $column ) { 
+        $ee = 'ee_share_' . $column->id;
+          if( is_null( $employee->$ee ) ) {
+             continue;
+          }
+          $deductions_count++;
+        $total_deductions += $employee->$ee;
+  ?>
 <tr>
 <td class="text-left tab1"><?php echo $column->notes; ?></td>
-                <td class="text-right"><?php 
-                    $ee = 'ee_share_' . $column->id;
-                    $total_deductions += $employee->$ee;
-                    echo number_format($employee->$ee,2); ?></td>
+                <td class="text-right"><?php echo number_format($employee->$ee,2); ?></td>
 </tr>
 <?php } ?>
 <?php } ?>
 <?php if( $deductions_columns ) { ?>
 <?php 
-   foreach( $deductions_columns as $column ) { ?>
+   foreach( $deductions_columns as $column ) { 
+          $var = 'deductions_' . $column->id;
+            if( is_null( $employee->$var ) ) {
+               continue;
+            }
+            $deductions_count++;
+          $total_deductions += $employee->$var;
+    ?>
 <tr>
 <td class="text-left tab1"><?php echo $column->notes; ?></td>
-                    <td class="text-right"><?php 
-                    $var = 'deductions_' . $column->id;
-                    $total_deductions += $employee->$var;
-                    echo number_format($employee->$var,2); ?></td>
+                    <td class="text-right"><?php echo number_format($employee->$var,2); ?></td>
 </tr>
 <?php } ?>
 <?php } ?>
+<?php if( $deductions_count == 0 ) { ?>
+<tr>
+<td class="text-center tab1" colspan="2"><small>- - No Deductions - -</small></td>
+</tr>
+<?php } else { ?>
 <tr>
 <td class="text-left allcaps bold">Total Deductions</td>
                 <td class="text-right bold"><?php echo number_format($total_deductions,2); ?></td>
 </tr>
+<?php } ?>
 </table>
  <?php } ?>
 
@@ -178,6 +216,9 @@ if( $benefits_columns || $deductions_columns ) {
 
 </div>
 
+<?php } ?>
+
+<?php /* 
 <div class="payslip_box full-border even <?php echo (($box_count % 2) == 0) ? 'second-half' : 'first-half'; ?>">
   <div class="header-title">
 <h2 class="text-center allcaps"><?php echo ($company->name) ? $company->name : ''; ?></h2>
@@ -225,12 +266,14 @@ if( $employee->salary ) {
   }
   $cola = ($salary->cola * $present_days);
 }
+
 $absences = ($daily_rate * $days_absent);
 //$basic_salary = ($daily_rate * $inclusive_dates->working_days);
 $basic_salary = ($monthly_rate / 2);
 $net_salary = ($daily_rate * $present_days);
-$gross_pay = ($basic_salary + $cola);
-$net_pay = ($net_salary + $cola);
+$gross_pay = ($basic_salary + $cola); 
+$net_basic_pay = ($gross_pay - $absences); 
+$net_pay = $net_basic_pay;
 
 if( floatval( $gross_pay ) ) {
 ?>
@@ -269,13 +312,15 @@ if( $earnings_columns ) { ?>
  </tr>
 <?php 
 foreach( $earnings_columns as $column ) {
+    $var = 'earnings_' . $column->id;
+    if( is_null( $employee->$var ) ) {
+       continue;
+    }
+  $total_earnings += $employee->$var;
 ?>
 <tr>
 <td class="text-left tab1"><?php echo $column->notes; ?></td>
-                    <td class="text-right"><?php 
-                    $var = 'earnings_' . $column->id;
-                    $total_earnings += $employee->$var;
-                    echo number_format($employee->$var,2); ?></td>
+                    <td class="text-right"><?php echo number_format($employee->$var,2); ?></td>
 </tr>
 <?php } ?>
 <tr>
@@ -297,25 +342,31 @@ if( $benefits_columns || $deductions_columns ) {
  </tr>
 
 <?php if( $benefits_columns ) { ?>
-<?php foreach( $benefits_columns as $column ) { ?>
+<?php foreach( $benefits_columns as $column ) { 
+        $ee = 'ee_share_' . $column->id;
+          if( is_null( $employee->$ee ) ) {
+             continue;
+          }
+        $total_deductions += $employee->$ee;
+  ?>
 <tr>
 <td class="text-left tab1"><?php echo $column->notes; ?></td>
-                <td class="text-right"><?php 
-                    $ee = 'ee_share_' . $column->id;
-                    $total_deductions += $employee->$ee;
-                    echo number_format($employee->$ee,2); ?></td>
+                <td class="text-right"><?php echo number_format($employee->$ee,2); ?></td>
 </tr>
 <?php } ?>
 <?php } ?>
 <?php if( $deductions_columns ) { ?>
 <?php 
-   foreach( $deductions_columns as $column ) { ?>
+   foreach( $deductions_columns as $column ) { 
+          $var = 'deductions_' . $column->id;
+            if( is_null( $employee->$var ) ) {
+               continue;
+            }
+          $total_deductions += $employee->$var;
+    ?>
 <tr>
 <td class="text-left tab1"><?php echo $column->notes; ?></td>
-                    <td class="text-right"><?php 
-                    $var = 'deductions_' . $column->id;
-                    $total_deductions += $employee->$var;
-                    echo number_format($employee->$var,2); ?></td>
+                    <td class="text-right"><?php echo number_format($employee->$var,2); ?></td>
 </tr>
 <?php } ?>
 <?php } ?>
@@ -353,3 +404,5 @@ if( $benefits_columns || $deductions_columns ) {
 
 </div>
 </div>
+
+*/ ?>
