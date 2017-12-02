@@ -257,7 +257,7 @@ body#payslip table.bordered td {
 }
 .print-topnav {
   position: fixed;
-  width: 650px;
+  width: 750px;
   top: 0;
   left: 50%;
   margin-top: 0; /* Negative half of height. */

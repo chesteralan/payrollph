@@ -217,6 +217,12 @@ class Payroll_overall extends MY_Controller {
 				case 'denomination':
 					$this->load->view('payroll/payroll/overall/overall_denomination', $this->template_data->get_data());
 				break;
+				case 'xls':
+					$company = $this->template_data->get('company');
+					$this->output->set_content_type('application/vnd-ms-excel');
+					$this->output->set_header('Content-Disposition: attachment; filename='.url_title($company->name)."-".$id.'.xml');
+					$this->load->view('payroll/payroll/overall/overall_xls', $this->template_data->get_data());
+				break;
 				default:
 					$this->load->view('payroll/payroll/overall/overall_print', $this->template_data->get_data());
 				break;

@@ -14,12 +14,14 @@
 <div class="row">
 <div class="col-md-9">
 
-	    		<h3 class="panel-title"><a href="<?php echo site_url("lists_names"); ?>?filter=trash"><span class="glyphicon glyphicon-trash"></span></a>
+	    		<h3 class="panel-title">
  <strong><?php echo $current_page; ?></strong>
                     <?php if( $this->input->get('q') ) { ?>
                     <span class="badge"><?php echo $this->input->get('q'); ?> <a href="<?php echo site_url(uri_string()); ?>"><span class="glyphicon glyphicon-remove"></span></a></span>
                     <?php } ?>
-                    <br><em>(<?php echo $names_count; ?> name<?php echo ($names_count>1)?"s":""; ?> found)</em>
+<a href="<?php echo site_url("lists_names"); ?>?filter=trash"><span class="glyphicon glyphicon-trash"></span></a>
+<a href="<?php echo site_url("lists_names/report"); ?>" class=""><span class="glyphicon glyphicon-print"></span></a>
+                    <br><small><em>(<?php echo $names_count; ?> name<?php echo ($names_count>1)?"s":""; ?> found)</em></small>
 	    		</h3>
 </div>
 <div class="col-md-3">

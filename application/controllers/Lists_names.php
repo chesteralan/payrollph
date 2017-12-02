@@ -534,4 +534,37 @@ class Lists_names extends MY_Controller {
 		$this->load->view('lists/names/names_birthdays', $this->template_data->get_data());
 	}
 
+	public function report($company_id=0) {
+/*
+		$companies = new $this->Companies_list_model;
+		$companies->set_select("*");
+		$companies->set_order('name', 'ASC');
+		$companies->set_limit(0);
+		$companies->setTrash('0',true);
+		$this->template_data->set('companies', $companies->populate());
+*/
+		$names = new $this->Names_list_model('nl');
+		$names->setTrash(0, true);
+		$names->set_select("nl.*");
+		$names->set_select("ni.*");
+		$names->set_select("ni.name_id as ni_name_id");
+		$names->set_select("(SELECT e.company_id FROM employees e WHERE e.name_id=nl.id) as company_id");
+		$names->set_select("(SELECT name FROM companies_list c WHERE c.id=(SELECT e.company_id FROM employees e WHERE e.name_id=nl.id)) as company");
+		$names->set_join("names_info ni", 'ni.name_id=nl.id');
+		$names->set_select("(TIMESTAMPDIFF(YEAR, ni.birthday, CURDATE())) as age");
+		$names->set_order('nl.full_name', 'ASC');
+		$names->set_limit(0);
+
+		// meta
+		$names->set_select("(SELECT m.meta_value FROM names_meta m WHERE m.name_id=nl.id AND m.meta_key='address') as meta_address");
+		$names->set_select("(SELECT m.meta_value FROM names_meta m WHERE m.name_id=nl.id AND m.meta_key='phone_number') as meta_phone_number");
+		$names->set_select("(SELECT m.meta_value FROM names_meta m WHERE m.name_id=nl.id AND m.meta_key='cell_smart') as meta_cell_smart");
+		$names->set_select("(SELECT m.meta_value FROM names_meta m WHERE m.name_id=nl.id AND m.meta_key='cell_globe') as meta_cell_globe");
+		$names->set_select("(SELECT m.meta_value FROM names_meta m WHERE m.name_id=nl.id AND m.meta_key='cell_sun') as meta_cell_sun");
+
+		$this->template_data->set('names', $names->populate());
+
+		$this->load->view('lists/names/names_report', $this->template_data->get_data());
+	}
+
 }

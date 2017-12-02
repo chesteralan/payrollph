@@ -62,6 +62,9 @@ function isColumn($ths, $column_id,$print_columns) {
   <?php if( (isset($print_group_option)) && ($print_group_option) ) { ?>
    &middot; <a href="<?php echo site_url("payroll_overall/summary/{$payroll->id}"); ?>">Summary</a>
   <?php } ?>
+
+  &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/xls/{$current_page}"); ?>">Export</a>
+
 </div>
 <?php if(!$print_group) { ?>
 <?php if($template->pages > 1) { ?>
