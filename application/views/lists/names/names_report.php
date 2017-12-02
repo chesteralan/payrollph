@@ -40,6 +40,7 @@
                 <th class="text-left allcaps">Smart</th>
                 <th class="text-left allcaps">Globe</th>
                 <th class="text-left allcaps">Sun</th>
+                <th class="text-left allcaps">Company</th>
               </tr>
             </thead>
             <tbody>
@@ -57,6 +58,7 @@ if( $name->ni_name_id=='' ) {
                 <td><?php echo $name->meta_cell_smart; ?></td>
                 <td><?php echo $name->meta_cell_globe; ?></td>
                 <td><?php echo $name->meta_cell_sun; ?></td>
+                <td><?php echo $name->company; ?></td>
               </tr>
 <?php } ?>
             </tbody>
