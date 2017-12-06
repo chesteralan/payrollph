@@ -75,28 +75,9 @@
 <?php if( $name->trash == 0) { ?>
 
 							
-<div class="btn-group">
+
   <a class="btn btn-info btn-xs body_wrapper" href="<?php echo site_url("lists_names/profile/{$name->id}"); ?>">Profile</a>
-  <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
-  <ul class="dropdown-menu">
-<?php 
-$column_groups = array(
-  array('url'=>site_url('payroll_dtr/by_name/' . $name->id),'name' => 'Daily Time Record'),
-  array('url'=>site_url('payroll_salaries/by_name/' . $name->id), 'name' => 'Basic Salary'),
-  array('url'=>site_url('payroll_earnings/by_name/' . $name->id), 'name' => 'Earnings'),
-  array('url'=>site_url('payroll_benefits/by_name/' . $name->id), 'name' => 'Benefits'),
-  array('url'=>site_url('payroll_deductions/by_name/' . $name->id), 'name' => 'Deductions'),
-  array('url'=>site_url('payroll_summary/by_name/' . $name->id), 'name' => 'Summary'),
-);
-foreach($column_groups as $col) {
-?>
-    <li><a href="<?php echo $col['url']; ?>"><?php echo $col['name']; ?></a></li>
-<?php } ?>
-  </ul>
-</div>
+ 
 
 	    					<button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Name" data-url="<?php echo site_url("lists_names/edit/{$name->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 

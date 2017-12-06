@@ -300,10 +300,53 @@ class Payroll_salaries extends MY_Controller {
 		$name->set_select("ni.*");
 		$name->set_select("(SELECT COUNT(*) FROM employees e WHERE e.name_id=nl.id AND e.trash=0) as is_employed");
 		$name->set_select("(SELECT e.company_id FROM employees e WHERE e.name_id=nl.id) as company_id");
-		//$name->set_select("(SELECT name FROM companies_list c WHERE c.id=(SELECT e.company_id FROM employees e WHERE e.name_id=nl.id)) as company");
 
 		$name_data = $name->get();	
 		$this->template_data->set('name', $name_data);
+
+		$payrolls = new $this->Payroll_employees_salaries_model('pes');
+		$payrolls->set_start($start);
+		$payrolls->setNameId($name_id,true);
+		$payrolls->set_group_by('pes.payroll_id');
+		$payrolls->set_join('payroll p', 'pes.payroll_id=p.id');
+		$payrolls->set_select('p.*');
+		$payrolls->set_select('pes.*');
+		$payrolls->set_order('p.id', 'DESC');
+		$payrolls->set_where('p.company_id=' . $this->session->userdata('current_company_id'));
+
+			$absences = new $this->Employees_absences_model('ea');
+			$absences->setNameId($name_id,true);
+			$absences->set_join('payroll_inclusive_dates pid', 'ea.date_absent=pid.inclusive_date');
+			$absences->set_select('SUM(ea.hours)');
+			$absences->set_where('ea.name_id=pes.name_id');
+			$absences->set_where('pid.payroll_id=pes.payroll_id');
+			$payrolls->set_select('('.$absences->get_compiled_select().') as absences_hours');
+
+		$payrolls->set_select('(SELECT COUNT(*) FROM payroll_inclusive_dates WHERE payroll_id=pes.payroll_id) as working_days');
+
+		if( $this->input->get('filter_by_year') ) {
+			$payrolls->set_limit(0);
+			$payrolls->set_start(0);
+			$payrolls->set_where('p.year=' . $this->input->get('filter_by_year'));
+		}
+		$this->template_data->set('payrolls', $payrolls->populate());
+
+		$years = new $this->Payroll_employees_salaries_model('pes');
+		$years->setNameId($name_id,true);
+		$years->set_join('payroll p', 'pes.payroll_id=p.id');
+		$years->set_select('p.year');
+		$years->set_group_by('p.year');
+		$years->set_order('p.year', 'DESC');
+		$this->template_data->set('years', $years->populate());
+
+		$this->template_data->set('pagination', bootstrap_pagination(array(
+			'uri_segment' => 4,
+			'base_url' => base_url($this->config->item('index_page') . "/payroll_salaries/by_name/{$name_id}"),
+			'total_rows' => $payrolls->count_all_results(),
+			'per_page' => $payrolls->get_limit(),
+			'ajax'=>true
+		)));
+
 
 		$this->load->view('payroll/payroll/salaries/salaries_by_name', $this->template_data->get_data());
 	}

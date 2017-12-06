@@ -139,6 +139,22 @@ Basic Salary</a></li>
 
   <li><a data-title="Leave Benefits" data-target="#ajaxModal" href="#ajaxModal" data-toggle="modal" class="ajax-modal" data-url="<?php echo site_url("employees/edit_leave_benefits/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Leave Benefits</a></li>
   
+  <li role="separator" class="divider"></li>
+  
+  <?php 
+$column_groups = array(
+  array('url'=>site_url('payroll_dtr/by_name/' . $employee->name_id),'name' => 'Daily Time Record'),
+  array('url'=>site_url('payroll_salaries/by_name/' . $employee->name_id), 'name' => 'Basic Salary'),
+  array('url'=>site_url('payroll_earnings/by_name/' . $employee->name_id), 'name' => 'Earnings'),
+  array('url'=>site_url('payroll_benefits/by_name/' . $employee->name_id), 'name' => 'Benefits'),
+  array('url'=>site_url('payroll_deductions/by_name/' . $employee->name_id), 'name' => 'Deductions'),
+  array('url'=>site_url('payroll_summary/by_name/' . $employee->name_id), 'name' => 'Summary'),
+);
+foreach($column_groups as $col) {
+?>
+    <li><a href="<?php echo $col['url']; ?>"><?php echo $col['name']; ?></a></li>
+<?php } ?>
+
   </ul>
 </div>
 
