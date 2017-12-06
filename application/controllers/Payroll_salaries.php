@@ -288,4 +288,24 @@ class Payroll_salaries extends MY_Controller {
 		$this->load->view('payroll/payroll/salaries/salaries_preview', $this->template_data->get_data());
 	}
 
+	public function by_name($name_id,$start=0) {
+
+		$this->_column_groups();
+		
+		$name = new $this->Names_list_model('nl');
+		$name->setId($name_id, true);
+		$name->set_select("nl.*");
+		
+		$name->set_join("names_info ni", "ni.name_id=nl.id");
+		$name->set_select("ni.*");
+		$name->set_select("(SELECT COUNT(*) FROM employees e WHERE e.name_id=nl.id AND e.trash=0) as is_employed");
+		$name->set_select("(SELECT e.company_id FROM employees e WHERE e.name_id=nl.id) as company_id");
+		//$name->set_select("(SELECT name FROM companies_list c WHERE c.id=(SELECT e.company_id FROM employees e WHERE e.name_id=nl.id)) as company");
+
+		$name_data = $name->get();	
+		$this->template_data->set('name', $name_data);
+
+		$this->load->view('payroll/payroll/salaries/salaries_by_name', $this->template_data->get_data());
+	}
+
 }
