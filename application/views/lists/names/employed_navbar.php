@@ -11,8 +11,12 @@
         <span class="icon-bar"></span>
       </button>
       <div class="navbar-brand">
-
-      <?php echo $name->lastname; ?>, <?php echo $name->firstname; ?> <?php echo ($name->middlename) ? strtoupper(substr($name->middlename,0,1))."." : ""; ?></div>
+<?php if(( $name->lastname != '' ) && ( $name->firstname != '' )) { ?>
+      <?php echo $name->lastname; ?>, <?php echo $name->firstname; ?> <?php echo ($name->middlename) ? strtoupper(substr($name->middlename,0,1))."." : ""; ?>
+<?php } else { ?>
+    <?php echo $name->full_name; ?>
+<?php } ?>
+      </div>
       
     </div>
 
