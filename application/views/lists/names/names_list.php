@@ -74,7 +74,10 @@
 	    					<td>
 <?php if( $name->trash == 0) { ?>
 
-							<a class="btn btn-info btn-xs body_wrapper" href="<?php echo site_url("lists_names/profile/{$name->id}"); ?>">Profile</a>
+							
+
+  <a class="btn btn-info btn-xs body_wrapper" href="<?php echo site_url("lists_names/profile/{$name->id}"); ?>">Profile</a>
+ 
 
 	    					<button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Name" data-url="<?php echo site_url("lists_names/edit/{$name->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 
