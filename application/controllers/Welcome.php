@@ -98,37 +98,39 @@ class Welcome extends MY_Controller {
 					break;
 				}
 
-				$employees = new $this->Employees_model;
+				$employees = new $this->Employees_model('e');
+				$employees->set_join('names_info ni', 'ni.name_id=e.name_id');
 
 				if( $this->input->get('term') ) {
-					$employees->set_where('lastname LIKE "%' . $this->input->get('term') . '%"');
-					$employees->set_where_or('firstname LIKE "%' . $this->input->get('term') . '%"');
-					$employees->set_where_or('middlename LIKE "%' . $this->input->get('term') . '%"');
+					$employees->set_where('ni.lastname LIKE "%' . $this->input->get('term') . '%"');
+					$employees->set_where_or('ni.firstname LIKE "%' . $this->input->get('term') . '%"');
+					$employees->set_where_or('ni.middlename LIKE "%' . $this->input->get('term') . '%"');
 				}
 
-				$employees->set_order('lastname', 'ASC');
-				$employees->set_order('firstname', 'ASC');
-				$employees->set_order('middlename', 'ASC');
+				$employees->set_order('ni.lastname', 'ASC');
+				$employees->set_order('ni.firstname', 'ASC');
+				$employees->set_order('ni.middlename', 'ASC');
 				$employees->set_limit(0); 
 
-				$ctrl = 'employee';
+				$ctrl = 'lists_names/profile/';
 				if( strpos($this->input->get('uri_string'), 'employees_earnings') ) {
-					$ctrl = 'employees_earnings';
+					$ctrl = 'employees_earnings/view/';
 				}
 				elseif( strpos($this->input->get('uri_string'), 'employees_benefits') ) {
-					$ctrl = 'employees_benefits';
+					$ctrl = 'employees_benefits/view/';
 				}
 				elseif( strpos($this->input->get('uri_string'), 'employees_deductions') ) {
-					$ctrl = 'employees_deductions';
+					$ctrl = 'employees_deductions/view/';
 				}
 				elseif( strpos($this->input->get('uri_string'), 'employees_salaries') ) {
-					$ctrl = 'employees_salaries';
+					$ctrl = 'employees_salaries/view/';
 				}
+				
 				foreach($employees->populate() as $employee) {
 					$results[] = array(
 						'label' => $employee->lastname . ", " . $employee->firstname. " " . substr($employee->middlename,0,1).".",
 						'id' => $employee->name_id,
-						'redirect'=> site_url( $ctrl . '/view/' . $employee->name_id ),
+						'redirect'=> site_url( $ctrl . $employee->name_id ),
 						);
 				}
 			break;
