@@ -53,6 +53,7 @@ foreach($url as $k=>$v) {
 ?>
   <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($v['uri']) . (($this->input->get('next')) ? '?next=' . $this->input->get('next') : ''); ?>"><?php echo $v['title']; ?></a></li>
 <?php } } ?>
+<li class=""><a class="body_wrapper" href="<?php echo site_url("payroll_dtr/by_name/{$name->id}"); ?>"><span class="fa fa-list-alt"></span></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

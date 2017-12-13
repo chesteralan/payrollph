@@ -121,6 +121,25 @@ if(
 					</div>
     			</div>
 
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a href="<?php echo site_url("lists_names/birthdays/" . $this->session->userdata( 'current_company_id' ) ); ?>" class="pull-right btn btn-success btn-xs">Show All</a>
+                        <h3 class="panel-title">Birthdays of the Month: <strong><?php echo date('F'); ?></strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        
+                        <ul class="list-group">
+                          <?php foreach( $birthdays as $celeb ) { ?>
+                          <li class="list-group-item">
+                            <span class="badge"><?php echo date('F d, Y', strtotime($celeb->birthday)); ?></span>
+                            <?php echo $celeb->firstname; ?> <?php echo $celeb->middlename; ?> <?php echo $celeb->lastname; ?> (<?php echo $celeb->age; ?> years old)
+                          </li>
+                          <?php } ?>
+                        </ul>
+                        
+                    </div>
+                </div>
+                
     		</div>
 
     		<div class="col-md-6">

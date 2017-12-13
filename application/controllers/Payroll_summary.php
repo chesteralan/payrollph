@@ -54,6 +54,40 @@ class Payroll_summary extends MY_Controller {
 		return $payroll->get();
 	}
 
+	private function _next_name($id, $url='payroll_dtr/by_name/') {
+		$names = new $this->Employees_model('nl');
+		$names->setCompanyId($this->session->userdata('current_company_id'),true);
+		$names->setTrash(0, true);
+			$where = new $this->Employees_model('w');
+			$where->setCompanyId($this->session->userdata('current_company_id'),true);
+			$where->setTrash(0, true);
+			$where->set_select('MIN(w.name_id)');
+			$where->set_where("w.name_id > " . $id);
+			$where->set_limit(1);
+		$names->set_limit(1);
+		$names->set_select("nl.name_id");
+		$names->set_select("CONCAT('{$url}',nl.name_id) as url");
+		$names->set_where('nl.name_id = ('. $where->get_compiled_select() . ')');
+		return $names->get();
+	}
+
+	private function _previous_name($id, $url='payroll_dtr/by_name/') {
+		$names = new $this->Employees_model('nl');
+		$names->setCompanyId($this->session->userdata('current_company_id'),true);
+		$names->setTrash(0, true);
+			$where = new $this->Employees_model('w');
+			$where->setCompanyId($this->session->userdata('current_company_id'),true);
+			$where->setTrash(0, true);
+			$where->set_select('MAX(w.name_id)');
+			$where->set_where("w.name_id < " . $id);
+			$where->set_limit(1);
+		$names->set_limit(1);
+		$names->set_select("nl.name_id");
+		$names->set_select("CONCAT('{$url}',nl.name_id) as url");
+		$names->set_where('name_id = ('. $where->get_compiled_select() . ')');
+		return $names->get();
+	}
+		
 	private function _column_groups() {
 		$this->template_data->set('column_group_dtr', get_company_option($this->session->userdata('current_company_id'), 'column_group_dtr'));
 		$this->template_data->set('column_group_salaries', get_company_option($this->session->userdata('current_company_id'), 'column_group_salaries'));
@@ -367,12 +401,14 @@ class Payroll_summary extends MY_Controller {
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'uri_segment' => 4,
-			'base_url' => base_url($this->config->item('index_page') . "/payroll_dtr/by_name/{$name_id}"),
+			'base_url' => base_url($this->config->item('index_page') . "/payroll_summary/by_name/{$name_id}"),
 			'total_rows' => $payrolls->count_all_results(),
 			'per_page' => $payrolls->get_limit(),
 			'ajax'=>true
 		)));
 
+		$this->template_data->set('next_name', $this->_next_name($name_id, 'payroll_summary/by_name/'));
+		$this->template_data->set('previous_name', $this->_previous_name($name_id, 'payroll_summary/by_name/'));
 
 		$this->load->view('payroll/payroll/dtr/dtr_by_name', $this->template_data->get_data());
 	}

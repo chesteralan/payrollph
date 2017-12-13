@@ -11,14 +11,19 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
 
-<!-- Single button -->
 <div class="btn-group pull-right">
   <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Filter by Year <span class="caret"></span>
+    <?php echo ($this->input->get('filter_by_year')) ? $this->input->get('filter_by_year') : 'Filter by Year'; ?> <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-   <li><a href="<?php echo site_url(uri_string()) ?>">Show All</a></li>
-<?php foreach($years as $year) {  ?>
+<?php if($this->input->get('filter_by_year')) { ?>
+  <li><a href="<?php echo site_url(uri_string()) ?>">Show All</a></li>
+<?php } ?>
+<?php foreach($years as $year) { 
+  if($this->input->get('filter_by_year')==$year->year) {
+    continue;
+  }
+  ?>
     <li><a href="<?php echo site_url(uri_string()) . "?filter_by_year=" . $year->year; ?>"><?php echo $year->year; ?></a></li>
 <?php } ?>
   </ul>
@@ -30,6 +35,12 @@
 
 <?php endif; ?>
 
+<?php 
+$total_basic = 0;
+$total_cola = 0;
+$total_absenses = 0;
+$total_gross = 0;
+?>
 <?php if( $payrolls ) { ?>
 
  <table class="table table-default table-hover">
@@ -76,6 +87,11 @@ $absences = $days_absent * $daily_rate;
 $basic_salary = ($monthly_rate / 2); 
 $cola = ($cola_rate * $present_days);
 $employee_gross_pay = (($basic_salary + $cola) - $absences);
+
+$total_basic += $basic_salary;
+$total_cola += $cola;
+$total_absenses += $absences;
+$total_gross += $employee_gross_pay;
 ?>
   <tr>
         <td>
@@ -90,6 +106,26 @@ $employee_gross_pay = (($basic_salary + $cola) - $absences);
                 <td class="text-right"><?php echo number_format($employee_gross_pay,2); ?></td>
   </tr>
 <?php } ?>
+<?php if($this->input->get('filter_by_year')) { ?>
+  <tr>
+        <td class="bold">
+TOTAL
+        </td>
+        <td class="text-right bold"></td>
+        <td class="text-right bold"><?php echo number_format($total_basic,2); ?></td>
+        <td class="text-right bold"><?php echo number_format($total_cola,2); ?></td>
+        <td class="text-right bold"><?php echo number_format($total_absenses,2); ?></td>
+        <td class="text-right bold"><?php echo number_format($total_gross,2); ?></td>
+  </tr>
+  <tr>
+        <td class="bold">13th Month Pay</td>
+        <td class="text-right bold"></td>
+        <td class="text-right bold"></td>
+        <td class="text-right bold"></td>
+        <td class="text-right bold"></td>
+        <td class="text-right bold"><?php echo number_format(($total_gross/12),2); ?></td>
+  </tr>
+  <?php } ?>
             </tbody>
             </table>
 

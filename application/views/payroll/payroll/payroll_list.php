@@ -42,10 +42,10 @@
               </tr>
             </thead>
             <tbody>
-            <?php foreach($payrolls as $payroll) { ?>
+            <?php foreach($payrolls as $payroll) {  ?>
               <tr id="Payroll-<?php echo $payroll->id; ?>">
                 <td><?php echo $payroll->id; ?></td>
-                <td><?php echo $payroll->name; ?></td>
+                <td><?php echo $payroll->name; ?> <?php echo ($payroll->lock) ? '<span class="glyphicon glyphicon-lock"></span>' : ''; ?></td>
                 <td><?php echo date('F', strtotime($payroll->month."/1/1970")); ?></td>
                 <td><?php echo $payroll->year; ?></td>
                 <?php if(!isset($template)) { ?>

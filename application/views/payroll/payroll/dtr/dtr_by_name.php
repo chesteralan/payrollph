@@ -11,14 +11,19 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
 
-<!-- Single button -->
 <div class="btn-group pull-right">
   <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Filter by Year <span class="caret"></span>
+    <?php echo ($this->input->get('filter_by_year')) ? $this->input->get('filter_by_year') : 'Filter by Year'; ?> <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
+<?php if($this->input->get('filter_by_year')) { ?>
   <li><a href="<?php echo site_url(uri_string()) ?>">Show All</a></li>
-<?php foreach($years as $year) {  ?>
+<?php } ?>
+<?php foreach($years as $year) { 
+  if($this->input->get('filter_by_year')==$year->year) {
+    continue;
+  }
+  ?>
     <li><a href="<?php echo site_url(uri_string()) . "?filter_by_year=" . $year->year; ?>"><?php echo $year->year; ?></a></li>
 <?php } ?>
   </ul>

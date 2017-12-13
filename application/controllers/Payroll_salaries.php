@@ -54,6 +54,40 @@ class Payroll_salaries extends MY_Controller {
 		return $payroll->get();
 	}
 
+	private function _next_name($id, $url='payroll_dtr/by_name/') {
+		$names = new $this->Employees_model('nl');
+		$names->setCompanyId($this->session->userdata('current_company_id'),true);
+		$names->setTrash(0, true);
+			$where = new $this->Employees_model('w');
+			$where->setCompanyId($this->session->userdata('current_company_id'),true);
+			$where->setTrash(0, true);
+			$where->set_select('MIN(w.name_id)');
+			$where->set_where("w.name_id > " . $id);
+			$where->set_limit(1);
+		$names->set_limit(1);
+		$names->set_select("nl.name_id");
+		$names->set_select("CONCAT('{$url}',nl.name_id) as url");
+		$names->set_where('nl.name_id = ('. $where->get_compiled_select() . ')');
+		return $names->get();
+	}
+
+	private function _previous_name($id, $url='payroll_dtr/by_name/') {
+		$names = new $this->Employees_model('nl');
+		$names->setCompanyId($this->session->userdata('current_company_id'),true);
+		$names->setTrash(0, true);
+			$where = new $this->Employees_model('w');
+			$where->setCompanyId($this->session->userdata('current_company_id'),true);
+			$where->setTrash(0, true);
+			$where->set_select('MAX(w.name_id)');
+			$where->set_where("w.name_id < " . $id);
+			$where->set_limit(1);
+		$names->set_limit(1);
+		$names->set_select("nl.name_id");
+		$names->set_select("CONCAT('{$url}',nl.name_id) as url");
+		$names->set_where('name_id = ('. $where->get_compiled_select() . ')');
+		return $names->get();
+	}
+	
 	private function _column_groups() {
 		$this->template_data->set('column_group_dtr', get_company_option($this->session->userdata('current_company_id'), 'column_group_dtr'));
 		$this->template_data->set('column_group_salaries', get_company_option($this->session->userdata('current_company_id'), 'column_group_salaries'));
@@ -347,6 +381,8 @@ class Payroll_salaries extends MY_Controller {
 			'ajax'=>true
 		)));
 
+		$this->template_data->set('next_name', $this->_next_name($name_id, 'payroll_salaries/by_name/'));
+		$this->template_data->set('previous_name', $this->_previous_name($name_id, 'payroll_salaries/by_name/'));
 
 		$this->load->view('payroll/payroll/salaries/salaries_by_name', $this->template_data->get_data());
 	}

@@ -21,7 +21,22 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
      
+         <ul class="nav navbar-nav">
+        
+        <li><a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Payroll" data-url="<?php echo site_url("employees/config/{$name->id}/ajax") . "?next=" . uri_string(); ?>" style="margin-left:10px" data-hide_footer="1"><span class="glyphicon glyphicon-cog"></span></a></li>
 
+<?php if(isset($previous_name) && ($previous_name)) { ?>
+<li>
+    <a href="<?php echo site_url($previous_name->url); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></span></a>
+</li>
+<?php } ?>
+<?php if(isset($next_name) && ($next_name)) { ?>
+<li>
+    <a href="<?php echo site_url($next_name->url); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-right"></span></a>
+</li>
+<?php } ?>
+        </ul>
+        
       <ul class="nav navbar-nav navbar-right">
 <?php 
 $group_id = (isset($group_id)) ? $group_id : 0;
@@ -93,6 +108,7 @@ $cg_sort = ($column_group_sort) ? $column_group_sort : false;
 ?>
 <li class="<?php echo ($cg['url_key']==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($cg['uri']); ?>"><?php echo $cg['name']; ?></a></li>
 <?php } ?>
+<li class=""><a class="body_wrapper" href="<?php echo site_url("lists_names/profile/{$name->id}"); ?>"><span class="fa fa-user"></span></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
