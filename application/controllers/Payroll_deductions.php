@@ -125,6 +125,7 @@ class Payroll_deductions extends MY_Controller {
 			$payrolls->set_where('((SELECT COUNT(*) FROM payroll_employees WHERE payroll_id=payroll.id) > 0)');
 			$payrolls->set_order('year', 'DESC');
 			$payrolls->set_order('month', 'DESC'); 
+			$payrolls->set_limit(20);
 			$this->template_data->set('other_payrolls', $payrolls->populate());
 		}
 
