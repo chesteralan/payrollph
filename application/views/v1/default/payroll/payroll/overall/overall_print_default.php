@@ -63,7 +63,7 @@ function isColumn($ths, $column_id,$print_columns) {
    &middot; <a href="<?php echo site_url("payroll_overall/summary/{$payroll->id}"); ?>">Summary</a>
   <?php } ?>
 
-&middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/xls/{$current_page}"); ?>">Export</a>
+&middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/xls/{$current_page}"); ?>">Export</a>
 
 </div>
 <?php if(!$print_group) { ?>
@@ -241,8 +241,7 @@ if( isColumn($this, 'cola', $print_columns) ) { ?>
 if( isColumn($this, 'absences_amount', $print_columns) ) { ?>
                 <td class="text-right">(<?php echo number_format($absences,2); ?>)</td>
 <?php } ?>
-<?php 
-if( isColumn($this, 'gross_pay', $print_columns) ) { ?>
+<?php if( isColumn($this, 'gross_pay', $print_columns) ) { ?>
                 <td class="text-right"><?php echo number_format($gross_pay,2); ?></td>
 <?php } ?>
 <?php } ?>
@@ -261,12 +260,11 @@ if( isColumn($this, 'gross_pay', $print_columns) ) { ?>
     <?php } ?>
 <?php } ?>
 <?php if( $column_group_salaries || $column_group_earnings) { ?>
-      <td class="text-right bold"><?php 
+<?php 
 $total_gross_earnings = ($total_earnings + $gross_pay);
-$group_total_earnings += $total_gross_earnings;
-      echo number_format($total_gross_earnings,2); ?></td>
+$group_total_earnings += $total_gross_earnings; ?>
+      <td class="text-right bold"><?php echo number_format($total_gross_earnings,2); ?></td>
 <?php } ?>
-
 <?php if( $column_group_benefits ) { ?>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { 
   $ee = 'ee_share_' . $column->id;

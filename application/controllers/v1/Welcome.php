@@ -41,6 +41,21 @@ class Welcome extends MY_Controller {
 		$services->set_select("(TIMESTAMPDIFF(YEAR, e.hired, CURDATE())) as age");
 		$this->template_data->set('services', $services->populate());
 
+		$payrolls = new $this->Payroll_model;
+		$payrolls->setCompanyId($this->session->userdata('current_company_id'),true);
+		$payrolls->setActive(1,true);
+		$payrolls->set_select('*');
+		$payrolls->set_start(0);
+		$payrolls->set_limit(5);
+		$payrolls->set_order('year', 'DESC');
+		$payrolls->set_order('month', 'DESC');
+		$payrolls->set_order('id', 'DESC');
+
+		$payrolls->set_select('(SELECT name FROM payroll_templates WHERE id=payroll.template_id) as template_name');
+		
+		$payrolls_data = $payrolls->populate(); 
+		$this->template_data->set('payrolls', $payrolls_data);
+
 		$this->load->view('welcome/welcome', $this->template_data->get_data());
 	}
 

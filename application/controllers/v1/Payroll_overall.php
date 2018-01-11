@@ -155,7 +155,7 @@ class Payroll_overall extends MY_Controller {
 			}
 
 			$payroll_group_data[$key]->employees = $employees_data;
-		}
+		} 
 		$this->template_data->set('payroll_groups', $payroll_group_data);
 				
 		$tcol = new $this->Payroll_templates_columns_model;
@@ -204,7 +204,7 @@ class Payroll_overall extends MY_Controller {
 		$this->template_data->set('output', $output);
 		$this->template_data->set('current_page', $current_page);
 
-		$this->_print($id,$print_group, $output, $current_page);
+		$this->_print($id, $print_group, $output, $current_page);
 
 			switch($output) {
 				case 'payslip':
@@ -218,9 +218,21 @@ class Payroll_overall extends MY_Controller {
 					$this->load->view('payroll/payroll/overall/overall_denomination', $this->template_data->get_data());
 				break;
 				case 'xls':
+
 					$company = $this->template_data->get('company');
+					$filename = url_title($company->name)."-".$id.'.xls';
+					
+					if($print_group > 0) {
+						$term = new $this->Terms_list_model('t');
+						$term->setId($print_group,true);
+						$term_data = $term->get();
+						$this->template_data->set('print_group_term', $term_data);
+
+						$filename = url_title($company->name)."-".$id."-".$term_data->name.'.xls';
+					}
+					
 					$this->output->set_content_type('application/vnd-ms-excel');
-					$this->output->set_header('Content-Disposition: attachment; filename='.url_title($company->name)."-".$id.'.xml');
+					$this->output->set_header('Content-Disposition: attachment; filename='.$filename);
 					$this->load->view('payroll/payroll/overall/overall_xls', $this->template_data->get_data());
 				break;
 				default:

@@ -134,7 +134,10 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
-	$view_folder = '';
+	/* Templates Available
+	1. views/v1/default
+	*/
+	$view_folder = 'views/v1/default';
 
 
 /*
@@ -158,7 +161,10 @@ switch (ENVIRONMENT)
  */
 	// The directory name, relative to the "controllers" directory.  Leave blank
 	// if your controller is not in a sub-directory within the "controllers" one
-	// $routing['directory'] = '';
+	
+	// payroll versions
+	// 1. v1
+	$routing['directory'] = 'v1';
 
 	// The controller class file name.  Example:  mycontroller
 	// $routing['controller'] = '';
