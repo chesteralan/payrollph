@@ -804,6 +804,7 @@ class Payroll extends MY_Controller {
 		$benefits->set_select("(SELECT ptb.order FROM payroll_benefits ptb WHERE ptb.payroll_id = {$id} AND ptb.benefit_id = bl.id) as sort");
 		$benefits->set_order("(SELECT ptb.order FROM payroll_benefits ptb WHERE ptb.payroll_id = {$id} AND ptb.benefit_id = bl.id)", 'DESC');
 		$benefits->setLeave(0,true);
+		$benefits->set_limit(0);
 		$this->template_data->set('benefits', $benefits->populate());
 
 		$this->template_data->set('output', $output);
@@ -853,6 +854,7 @@ class Payroll extends MY_Controller {
 		$earnings->set_select("(SELECT pte.earning_id FROM payroll_earnings pte WHERE pte.payroll_id = {$id} AND pte.earning_id = el.id ) as selected");
 		$earnings->set_select("(SELECT pte.order FROM payroll_earnings pte WHERE pte.payroll_id = {$id} AND pte.earning_id = el.id) as sort");
 		$earnings->set_order("(SELECT pte.order FROM payroll_earnings pte WHERE pte.payroll_id = {$id} AND pte.earning_id = el.id)", 'DESC');
+		$earnings->set_limit(0);
 		$this->template_data->set('earnings', $earnings->populate());
 
 		$this->template_data->set('output', $output);
@@ -902,6 +904,7 @@ class Payroll extends MY_Controller {
 		$deductions->set_select("(SELECT ptd.deduction_id FROM payroll_deductions ptd WHERE ptd.payroll_id = {$id} AND ptd.deduction_id = dl.id ) as selected");
 		$deductions->set_select("(SELECT ptd.order FROM payroll_deductions ptd WHERE ptd.payroll_id = {$id} AND ptd.deduction_id = dl.id) as sort");
 		$deductions->set_order("(SELECT ptd.order FROM payroll_deductions ptd WHERE ptd.payroll_id = {$id} AND ptd.deduction_id = dl.id)", 'DESC');
+		$deductions->set_limit(0);
 		$this->template_data->set('deductions', $deductions->populate());
 
 		$this->template_data->set('output', $output);
