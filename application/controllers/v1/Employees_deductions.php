@@ -117,10 +117,11 @@ class Employees_deductions extends MY_Controller {
 
 		$deductions->set_where("((ed.active=0)");
 		$deductions->set_where_or("((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) = 0))");
-
+		//$deductions->set_limit(1);
 		$this->template_data->set('deductions', $deductions->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
+			'uri_segment' => 4,
 			'base_url' => base_url($this->config->item('index_page') . '/employees_deductions/archived/' . $id),
 			'total_rows' => $deductions->count_all_results(),
 			'per_page' => $deductions->get_limit(),
