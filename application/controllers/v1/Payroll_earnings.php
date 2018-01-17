@@ -14,6 +14,8 @@ class Payroll_earnings extends MY_Controller {
 		if( !get_company_option($this->session->userdata('current_company_id'), 'column_group_earnings') ) {
 			redirect("welcome");
 		}
+
+		$this->session->set_userdata('page_session', 'payroll_earnings');
 	}
 
 	public function index() {

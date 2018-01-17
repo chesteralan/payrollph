@@ -194,7 +194,7 @@ foreach($main_menu as $main=>$menu):
 $current_payroll = $this->session->userdata('current_payroll');
   ?>
           <li class="active hidden-xs hidden-sm">
-              <a href="<?php echo site_url('payroll/select_payroll/' . $current_payroll->id); ?>"><strong><?php echo $current_payroll->name; ?></strong></a>
+              <a href="<?php echo site_url( 'payroll/page_session/' . $current_payroll->id); ?>"><strong><?php echo $current_payroll->name; ?></strong></a>
           </li>
 <?php } ?>
 
