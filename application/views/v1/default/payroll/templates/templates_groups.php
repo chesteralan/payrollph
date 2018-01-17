@@ -24,7 +24,7 @@
   <button class="btn btn-default btn-xs sortable-asc" data-sortable="sortable" type="button"><span class="glyphicon glyphicon-sort-by-alphabet"></span></button> 
   <button class="btn btn-default btn-xs sortable-desc" data-sortable="sortable" type="button"><span class="glyphicon glyphicon-sort-by-alphabet-alt"></span></button> 
 </div>
-
+<?php /*
 <ul class="list-group sortable">
   <?php foreach($groups as $group) { ?>
   <li class="list-group-item">
@@ -52,6 +52,33 @@
   </li>
   <?php } ?>
 </ul>
+*/ ?>
+
+<div class="panel-group sortable sortable-employees" id="accordion" role="tablist" aria-multiselectable="true">
+<?php foreach($groups as $group) { ?>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading<?php echo $group->id; ?>">
+      <h4 class="panel-title">
+        <label><input type="checkbox" name="selected[]" value="<?php echo $group->id; ?>" <?php echo ($group->id==$group->selected) ? "CHECKED" : ""; ?>> <?php echo $group->name; ?></label>
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $group->id; ?>" aria-expanded="true" aria-controls="collapseOne">
+          <input type="hidden" name="group[]" value="<?php echo $group->id; ?>">
+          <span class="glyphicon glyphicon-sort pull-right" style="margin-left: 10px;"></span>
+           <?php if($group->id==$group->selected) { ?>
+        </a>
+      </h4>
+    </div>
+    <div id="collapse<?php echo $group->id; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $group->id; ?>">
+      <div class="panel-body">
+<a href="<?php echo site_url("payroll_templates/employees/{$template->id}/{$group->id}/ajax") . '?next=' . (($this->input->get('next'))?$this->input->get('next'):uri_string()); ?>" class="ajax-modal-inner"><span class="glyphicon glyphicon-user"></span></a>
+<?php } ?>
+<?php echo $group->notes; ?>
+
+      </div>
+    </div>
+  </div>
+<?php } ?>
+</div>
+
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>
