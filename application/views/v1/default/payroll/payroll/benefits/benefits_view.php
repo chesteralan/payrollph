@@ -93,8 +93,9 @@ if( isset($compare_payroll) ) {
 <?php if( isset($compare_payroll) ) { ?>
   <th width="15%" class="text-right"><?php echo $compare_payroll->name; ?>-ER</th>
 <?php } ?>
-<?php } ?>
 -->
+<?php } ?>
+
 <?php if( !$column_id ) { ?>
 <th width="10%" class="text-right">TOTAL EE</th>
 <?php } ?>
@@ -165,8 +166,8 @@ $total_benefit = 0;
                     $total['compare']['er'] += $employee->$er2;
                     echo number_format($employee->$er2,2); ?></td>
 <?php } ?> 
-<?php } ?>
 -->
+<?php } ?>
 <?php if( !$column_id ) { ?>
 <td class="text-right"><?php echo number_format($total_benefit,2); ?></td>
 <?php } ?>
@@ -204,8 +205,8 @@ $total_benefit = 0;
 <?php if( isset($compare_payroll) ) { ?>
   <th width="15%" class="text-right"><?php echo $compare_payroll->name; ?>-ER</th>
 <?php } ?>
-<?php } ?>
 -->
+<?php } ?>
 <?php if( !$column_id ) { ?>
                 <th width="10%" class="text-right">TOTAL EE</th>
 <?php } ?>
@@ -224,8 +225,8 @@ $total_benefit = 0;
 <?php if( isset($compare_payroll) ) { ?>
 <td class="text-right"><strong><?php echo number_format($total['compare']['er'],2);?></strong></td>
 <?php } ?>
-<?php } ?>
 -->
+<?php } ?>
 <?php if( !$column_id ) { ?>
 <td class="text-right"><?php echo number_format($total_benefits,2); ?></td>
 <?php } ?>
