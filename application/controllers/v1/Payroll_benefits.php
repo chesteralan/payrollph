@@ -237,6 +237,7 @@ class Payroll_benefits extends MY_Controller {
 
 	public function entries($id,$name_id,$benefit_id,$benefit_type='ee',$output='') {
 
+		$this->_column_groups();
 		$this->template_data->set('payroll_id', $id);
 		$this->template_data->set('name_id', $name_id);
 		$this->template_data->set('benefit_id', $benefit_id);

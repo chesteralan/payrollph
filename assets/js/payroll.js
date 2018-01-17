@@ -90,6 +90,18 @@ var init_datepicker = function() {
   });
 };
 
+var init_tooltip = function() {
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  });
+};
+
+var init_popover = function() {
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  });
+};
+
 var init_calendar_check = function() {
   $('.checkbox_checkall').click(function(){
     var classname = $(this).attr('data-class');
@@ -981,6 +993,8 @@ var lending_schedule_details = function() {
       confirmButton();
       confirmRemove();
       init_datepicker();
+      init_tooltip();
+      init_popover();
       init_calendar_check();
       init_payment_buttons();
       panelHeight();

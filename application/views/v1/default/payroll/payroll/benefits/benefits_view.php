@@ -82,6 +82,7 @@ if( isset($compare_payroll) ) {
 <?php if( isset($compare_payroll) ) { ?>
   <th width="15%" class="text-right"><?php echo $compare_payroll->name; ?>-EE</th>
 <?php } ?>
+<!--
                 <th width="10%" class="text-right"><?php echo $column->name; ?>-ER
 <?php if( intval($column_id) > 0 ) { ?>
 <a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-remove"></a>
@@ -93,7 +94,7 @@ if( isset($compare_payroll) ) {
   <th width="15%" class="text-right"><?php echo $compare_payroll->name; ?>-ER</th>
 <?php } ?>
 <?php } ?>
-
+-->
 <?php if( !$column_id ) { ?>
 <th width="10%" class="text-right">TOTAL EE</th>
 <?php } ?>
@@ -118,16 +119,26 @@ $total_benefit = 0;
 <?php } ?>
                 </td>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
-                <td class="text-right">
-<?php if(!$payroll->lock) { ?>
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo ($column->notes!='') ? $column->notes : $column->name; ?> (EE)" data-url="<?php echo site_url("payroll_benefits/entries/{$payroll->id}/{$employee->name_id}/{$column->id}/ee/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
-<?php } ?>
-                <?php 
+<?php 
                     $ee = 'ee_share_' . $column->id;
                     $total[$column->id]['ee'] += $employee->$ee;
                     $total_benefit += $employee->$ee;
                     $total_benefits += $employee->$ee;
-                    echo number_format($employee->$ee,2); ?>
+                    
+
+                    $er = 'er_share_' . $column->id;
+                    $total[$column->id]['er'] += $employee->$er;
+                    
+
+?>
+
+                <td class="text-right">
+<?php if(!$payroll->lock) { ?>
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo ($column->notes!='') ? $column->notes : $column->name; ?> (EE)" data-url="<?php echo site_url("payroll_benefits/entries/{$payroll->id}/{$employee->name_id}/{$column->id}/ee/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
+<?php } ?>
+<span data-toggle="tooltip" data-placement="left" title="<?php echo $column->name; ?>-ER: <?php echo number_format($employee->$er,2); ?>">
+       <?php echo number_format($employee->$ee,2); ?>
+</span>
 <?php if(!$payroll->lock) { ?>
 </a>
 <?php } ?>
@@ -138,14 +149,12 @@ $total_benefit = 0;
                     $total['compare']['ee'] += $employee->$ee2;
                     echo number_format($employee->$ee2,2); ?></td>
 <?php } ?>
+<!--
                 <td class="text-right">
 <?php if(!$payroll->lock) { ?>
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo ($column->notes!='') ? $column->notes : $column->name; ?> (ER)" data-url="<?php echo site_url("payroll_benefits/entries/{$payroll->id}/{$employee->name_id}/{$column->id}/er/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
 <?php } ?>
-                <?php 
-                    $er = 'er_share_' . $column->id;
-                    $total[$column->id]['er'] += $employee->$er;
-                    echo number_format($employee->$er,2); ?>
+  <?php echo number_format($employee->$er,2); ?>
 <?php if(!$payroll->lock) { ?>
 </a>
 <?php } ?>
@@ -157,7 +166,7 @@ $total_benefit = 0;
                     echo number_format($employee->$er2,2); ?></td>
 <?php } ?> 
 <?php } ?>
-
+-->
 <?php if( !$column_id ) { ?>
 <td class="text-right"><?php echo number_format($total_benefit,2); ?></td>
 <?php } ?>
@@ -184,6 +193,7 @@ $total_benefit = 0;
 <?php if( isset($compare_payroll) ) { ?>
   <th width="15%" class="text-right"><?php echo $compare_payroll->name; ?>-EE</th>
 <?php } ?>
+<!--
                 <th width="10%" class="text-right"><?php echo $column->name; ?>-ER 
 <?php if( intval($column_id) > 0 ) { ?>
 <a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-remove"></a>
@@ -195,7 +205,7 @@ $total_benefit = 0;
   <th width="15%" class="text-right"><?php echo $compare_payroll->name; ?>-ER</th>
 <?php } ?>
 <?php } ?>
-
+-->
 <?php if( !$column_id ) { ?>
                 <th width="10%" class="text-right">TOTAL EE</th>
 <?php } ?>
@@ -209,11 +219,13 @@ $total_benefit = 0;
 <?php if( isset($compare_payroll) ) { ?>
 <td class="text-right"><strong><?php echo number_format($total['compare']['ee'],2);?></strong></td>
 <?php } ?>
+<!--
                 <td width="10%" class="text-right"><a href="<?php echo site_url("payroll_benefits/item_schedule/{$payroll->id}/{$column->id}"); ?>" class="body_wrapper"><strong><?php echo number_format($total[$column->id]['er'],2);?></strong></a></td>
 <?php if( isset($compare_payroll) ) { ?>
 <td class="text-right"><strong><?php echo number_format($total['compare']['er'],2);?></strong></td>
 <?php } ?>
 <?php } ?>
+-->
 <?php if( !$column_id ) { ?>
 <td class="text-right"><?php echo number_format($total_benefits,2); ?></td>
 <?php } ?>
