@@ -21,8 +21,8 @@
 <?php endif; ?>
 
 <div class="btn-group" role="group" aria-label="..." style="margin-bottom: 5px;">
-  <button class="btn btn-default btn-xs sortable-asc" data-sortable="sortable-employees" type="button"><span class="glyphicon glyphicon-sort-by-alphabet"></span></button> 
-  <button class="btn btn-default btn-xs sortable-desc" data-sortable="sortable-employees" type="button"><span class="glyphicon glyphicon-sort-by-alphabet-alt"></span></button> 
+  <button class="btn btn-default btn-xs accordion-sort-asc" data-sortable="sortable-employees" type="button"><span class="glyphicon glyphicon-sort-by-alphabet"></span></button> 
+  <button class="btn btn-default btn-xs accordion-sort-desc" data-sortable="sortable-employees" type="button"><span class="glyphicon glyphicon-sort-by-alphabet-alt"></span></button> 
 </div>
 
 <?php /*
@@ -76,9 +76,9 @@
         </a>
       </h4>
     </div>
+  <?php //if( !$employee->trash ) { ?>
     <div id="collapse<?php echo $employee->name_id; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $employee->name_id; ?>">
       <div class="panel-body">
-
 
 <?php if($this->input->get('action')!='sort') { ?>
 <div class="row">
@@ -106,6 +106,7 @@
 
       </div>
     </div>
+<?php //} ?>
   </div>
 <?php } ?>
 </div>

@@ -54,6 +54,7 @@
 <?php if( (isset($payroll_groups)) && ($payroll_groups ) ) { 
 
 $box_count = 0;
+
   ?>
 
 <div class="print-topnav topnav2 hide-print text-center allcaps">
@@ -61,7 +62,11 @@ $box_count = 0;
     <option value="" disabled="disabled" selected="selected">Select Employee...</option>
 <?php foreach($payroll_groups as $payroll_group) { ?>
 <?php if($payroll_group->employees) { 
-        foreach($payroll_group->employees as $employee) { ?>
+        foreach($payroll_group->employees as $employee) { 
+          if( $employee->payslip_template == 'none' ) {
+              continue;
+          }
+          ?>
             <option value="<?php echo site_url(uri_string()); ?>?filter=<?php echo $employee->name_id; ?>" <?php echo ($employee->name_id==$this->input->get('filter')) ? 'selected' : ''; ?>><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?></option>
       <?php } ?>
 <?php } ?>
@@ -98,7 +103,7 @@ $box_count = 0;
             $this->load->view('payroll/payroll/overall/overall_payslip_clergy_allowance', $template_data);
             break;
           default:
-            $this->load->view('payroll/payroll/overall/overall_payslip_payslip', $template_data);
+            //$this->load->view('payroll/payroll/overall/overall_payslip_payslip', $template_data);
             break;
         }
 

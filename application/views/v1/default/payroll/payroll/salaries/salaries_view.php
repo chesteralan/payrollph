@@ -96,8 +96,8 @@ if( $employee->salary ) {
 $present_days = $inclusive_dates->working_days - $days_absent;
 $absences = $days_absent * $daily_rate;
 $total_absences += $absences;
-//$basic_salary = ($daily_rate * $inclusive_dates->working_days); 
-$basic_salary = ($monthly_rate / 2); 
+$basic_salary = ($daily_rate * $inclusive_dates->working_days); 
+//$basic_salary = ($monthly_rate / 2); 
 $total_basic_salary += $basic_salary;
 $cola = ($cola_rate * $present_days);
 $employee_gross_pay = (($basic_salary + $cola) - $absences);

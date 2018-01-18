@@ -5,8 +5,8 @@
 
 <div class="container hide-print">
 	<div class="row">
-		<div class="col-md-12">
-			<center><small>
+		<div class="col-md-6">
+			<small>
       <p>
 <?php if( $this->config->item('multi_company') ) { ?>
 <strong>
@@ -15,13 +15,18 @@
 <?php } ?>
 				<a href="http://www.trokis.com/" target="footer_credits">Trokis Philippines</a> 
 				&copy; <?php echo date('Y'); ?> 
-				<br>Developed by: 
-				<a href="http://www.chesteralan.com/" target="footer_credits">Chester Alan Tagudin</a>
-        <br>
-        <strong>M:</strong> <?php echo $this->benchmark->memory_usage();?> <strong>T:</strong> <?php echo $this->benchmark->elapsed_time();?>
+				
 				</p>
-			</small></center>
+			</small>
 		</div>
+    <div class="col-md-6 text-right">
+<small>
+Developed by: 
+        <a href="http://www.chesteralan.com/" target="footer_credits">Chester Alan Tagudin</a>
+        <br>
+        <strong>M:</strong> <?php echo $this->benchmark->memory_usage();?> <strong>T:</strong> <?php echo $this->benchmark->elapsed_time();?> <strong>IP:</strong> <?php echo $this->input->ip_address(); ?>
+</small>
+    </div> 
 	</div> 
 </div>
 
