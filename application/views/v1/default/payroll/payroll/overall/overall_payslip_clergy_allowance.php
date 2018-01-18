@@ -32,8 +32,10 @@
 <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 10px;">
   <tr>
     <td valign="top" width="50%">
-Name: <strong class="allcaps employee-name underlined bold"><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?></strong><br>
-Birthday: <strong class="allcaps employee-name underlined bold"><?php echo date('F d, Y', strtotime($employee->birthday)); ?> (<?php echo $birth_date_diff->y; ?> years old)</strong><br>
+Name: <strong class="allcaps employee-name underlined bold"><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?></strong>
+<!--
+<br>
+Birthday: <strong class="allcaps employee-name underlined bold"><?php echo date('F d, Y', strtotime($employee->birthday)); ?> (<?php echo $birth_date_diff->y; ?> years old)</strong><br>-->
     </td>
     <td valign="top" align="right" width="50%">
 <?php if( $employee->employee_id ) { ?>
