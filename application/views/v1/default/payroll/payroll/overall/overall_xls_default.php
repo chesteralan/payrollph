@@ -23,9 +23,9 @@ function isColumn($ths, $column_id,$print_columns) {
  xmlns:html="http://www.w3.org/TR/REC-html40">
  <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
   <Author>chesteralan</Author>
-  <LastAuthor>alchie</LastAuthor>
-  <LastPrinted>2018-01-11T02:35:24Z</LastPrinted>
-  <Created>2017-12-01T07:04:58Z</Created>
+  <LastAuthor>chesteralan</LastAuthor>
+  <LastPrinted><?php echo date("Y-m-d"); ?>T<?php echo date("H:i:s"); ?>Z</LastPrinted>
+  <Created><?php echo date("Y-m-d"); ?>T<?php echo date("H:i:s"); ?>Z</Created>
   <Version>12.00</Version>
  </DocumentProperties>
  <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
@@ -41,7 +41,7 @@ function isColumn($ths, $column_id,$print_columns) {
   <Style ss:ID="Default" ss:Name="Normal">
    <Alignment ss:Vertical="Bottom"/>
    <Borders/>
-   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
    <Interior/>
    <NumberFormat/>
    <Protection/>
@@ -56,20 +56,20 @@ function isColumn($ths, $column_id,$print_columns) {
     <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="2"/>
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
    </Borders>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="12" ss:Color="#000000"
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
     ss:Bold="1"/>
    <Interior ss:Color="#CCCCCC" ss:Pattern="Solid"/>
    <NumberFormat ss:Format="Standard"/>
   </Style>
   <Style ss:ID="s62">
    <Alignment ss:Horizontal="Left" ss:Vertical="Center" ss:WrapText="1"/>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="8" ss:Color="#000000"
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
     ss:Bold="1"/>
    <Interior ss:Color="#CCCCCC" ss:Pattern="Solid"/>
   </Style>
   <Style ss:ID="s63">
    <Alignment ss:Horizontal="Right" ss:Vertical="Center" ss:WrapText="1"/>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="8" ss:Color="#000000"
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
     ss:Bold="1"/>
    <Interior ss:Color="#CCCCCC" ss:Pattern="Solid"/>
   </Style>
@@ -79,7 +79,7 @@ function isColumn($ths, $column_id,$print_columns) {
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"
      ss:Color="#CCCCCC"/>
    </Borders>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="8" ss:Color="#000000"/>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"/>
   </Style>
   <Style ss:ID="s65">
    <Alignment ss:Horizontal="Right" ss:Vertical="Center" ss:WrapText="1"/>
@@ -87,15 +87,23 @@ function isColumn($ths, $column_id,$print_columns) {
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"
      ss:Color="#CCCCCC"/>
    </Borders>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="8" ss:Color="#000000"/>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"/>
   </Style>
-  <Style ss:ID="s66">
+  <Style ss:ID="s651" ss:Parent="s16">
    <Alignment ss:Horizontal="Right" ss:Vertical="Center" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"
      ss:Color="#CCCCCC"/>
    </Borders>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="8" ss:Color="#000000"/>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s66" ss:Parent="s16">
+   <Alignment ss:Horizontal="Right" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"
+     ss:Color="#CCCCCC"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"/>
    <NumberFormat ss:Format="Standard"/>
   </Style>
   <Style ss:ID="s67">
@@ -104,7 +112,7 @@ function isColumn($ths, $column_id,$print_columns) {
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"
      ss:Color="#CCCCCC"/>
    </Borders>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="8" ss:Color="#000000"
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
     ss:Bold="1"/>
    <NumberFormat ss:Format="Standard"/>
   </Style>
@@ -114,7 +122,7 @@ function isColumn($ths, $column_id,$print_columns) {
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"
      ss:Color="#CCCCCC"/>
    </Borders>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="8" ss:Color="#000000"
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
     ss:Bold="1"/>
   </Style>
   <Style ss:ID="s69">
@@ -123,7 +131,7 @@ function isColumn($ths, $column_id,$print_columns) {
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"
      ss:Color="#CCCCCC"/>
    </Borders>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="7" ss:Color="#000000"
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
     ss:Bold="1"/>
    <NumberFormat ss:Format="Standard"/>
   </Style>
@@ -135,7 +143,7 @@ function isColumn($ths, $column_id,$print_columns) {
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"
      ss:Color="#000000"/>
    </Borders>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="8" ss:Color="#000000"
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
     ss:Bold="1"/>
    <Interior ss:Color="#CCCCCC" ss:Pattern="Solid"/>
   </Style>
@@ -147,11 +155,11 @@ function isColumn($ths, $column_id,$print_columns) {
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"
      ss:Color="#000000"/>
    </Borders>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="8" ss:Color="#000000"
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
     ss:Bold="1"/>
    <Interior ss:Color="#CCCCCC" ss:Pattern="Solid"/>
   </Style>
-  <Style ss:ID="s72">
+  <Style ss:ID="s711" ss:Parent="s16">
    <Alignment ss:Horizontal="Right" ss:Vertical="Center" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"
@@ -159,12 +167,24 @@ function isColumn($ths, $column_id,$print_columns) {
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"
      ss:Color="#000000"/>
    </Borders>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="8" ss:Color="#000000"
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#CCCCCC" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s72" ss:Parent="s16">
+   <Alignment ss:Horizontal="Right" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"
+     ss:Color="#CCCCCC"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"
+     ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
     ss:Bold="1"/>
    <Interior ss:Color="#CCCCCC" ss:Pattern="Solid"/>
    <NumberFormat ss:Format="Standard"/>
   </Style>
-  <Style ss:ID="s73">
+  <Style ss:ID="s73" ss:Parent="s16">
    <Alignment ss:Horizontal="Right" ss:Vertical="Center" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"
@@ -172,7 +192,7 @@ function isColumn($ths, $column_id,$print_columns) {
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"
      ss:Color="#000000"/>
    </Borders>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="7" ss:Color="#000000"
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
     ss:Bold="1"/>
    <Interior ss:Color="#CCCCCC" ss:Pattern="Solid"/>
    <NumberFormat ss:Format="Standard"/>
@@ -183,7 +203,7 @@ function isColumn($ths, $column_id,$print_columns) {
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"
      ss:Color="#CCCCCC"/>
    </Borders>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="7" ss:Color="#000000"
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
     ss:Bold="1"/>
   </Style>
   <Style ss:ID="s75">
@@ -192,7 +212,7 @@ function isColumn($ths, $column_id,$print_columns) {
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"
      ss:Color="#000000"/>
    </Borders>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="8" ss:Color="#000000"
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
     ss:Bold="1"/>
    <Interior ss:Color="#CCCCCC" ss:Pattern="Solid"/>
   </Style>
@@ -202,7 +222,7 @@ function isColumn($ths, $column_id,$print_columns) {
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"
      ss:Color="#000000"/>
    </Borders>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="8" ss:Color="#000000"
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
     ss:Bold="1"/>
    <Interior ss:Color="#CCCCCC" ss:Pattern="Solid"/>
   </Style>
@@ -212,7 +232,7 @@ function isColumn($ths, $column_id,$print_columns) {
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"
      ss:Color="#000000"/>
    </Borders>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="8" ss:Color="#000000"
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
     ss:Bold="1"/>
    <Interior ss:Color="#CCCCCC" ss:Pattern="Solid"/>
    <NumberFormat ss:Format="Standard"/>
@@ -223,7 +243,7 @@ function isColumn($ths, $column_id,$print_columns) {
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"
      ss:Color="#000000"/>
    </Borders>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="7" ss:Color="#000000"
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
     ss:Bold="1"/>
    <Interior ss:Color="#CCCCCC" ss:Pattern="Solid"/>
    <NumberFormat ss:Format="Standard"/>
@@ -235,7 +255,17 @@ function isColumn($ths, $column_id,$print_columns) {
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="2"/>
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
    </Borders>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="12" ss:Color="#000000"
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
+    ss:Bold="1"/>
+   <Interior ss:Color="#CCCCCC" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s81" ss:Parent="s16">
+   <Alignment ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="2"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="10" ss:Color="#000000"
     ss:Bold="1"/>
    <Interior ss:Color="#CCCCCC" ss:Pattern="Solid"/>
   </Style>
@@ -245,28 +275,36 @@ $total_net_pay = 0;
 $pc_count = (count($print_columns)) ? count($print_columns) : 1;
 $column_width = ceil(71 / $pc_count);
 
+$total_earnings_cell = 2;
 $columns_count = 1;
 if( $column_group_salaries ) { 
   if( isColumn($this, 'working_days', $print_columns) ) { 
     $columns_count += 1;
+    $total_earnings_cell += 1;
   } 
   if( isColumn($this, 'absences', $print_columns) ) { 
     $columns_count += 1;
+    $total_earnings_cell += 1;
   } 
    if( isColumn($this, 'rate_per_day', $print_columns) ) { 
     $columns_count += 1;
+    $total_earnings_cell += 1;
    } 
    if( isColumn($this, 'basic_salary', $print_columns) ) { 
     $columns_count += 1;
+    $total_earnings_cell += 1;
    }
    if( isColumn($this, 'cola', $print_columns) ) { 
     $columns_count += 1;
+    $total_earnings_cell += 1;
   } 
    if( isColumn($this, 'absences_amount', $print_columns) ) { 
     $columns_count += 1;
+    $total_earnings_cell += 1;
    } 
   if( isColumn($this, 'gross_pay', $print_columns) ) { 
   $columns_count += 1;
+  $total_earnings_cell += 1;
   } 
 } 
 
@@ -274,6 +312,7 @@ if( $column_group_earnings ) {
 if( $earnings_columns ) foreach( $earnings_columns as $column ) {
 if( isColumn($this, 'earning_'.$column->id, $print_columns) ) {
     $columns_count += 1;
+    $total_earnings_cell += 1;
 }
 }
 }
@@ -306,19 +345,26 @@ foreach($payroll_groups as $pg) {
   $rows += count( $pg->employees );
   // group total
   $rows += 1;
+  $rows += 1;
 }
 // grand total
 $rows += 1;
+
+$overall_gross_cell = array();
 ?>
  <Worksheet ss:Name="Sheet1">
+  <Names>
+   <NamedRange ss:Name="Print_Titles" ss:RefersTo="=Sheet1!C1"/>
+  </Names>
   <Table ss:ExpandedColumnCount="<?php echo $columns_count; ?>" ss:ExpandedRowCount="<?php echo $rows; ?>" x:FullColumns="1"
    x:FullRows="1" ss:DefaultRowHeight="15">
    <Column ss:AutoFitWidth="0" ss:Width="176.25"/>
-   <Column ss:Index="<?php echo $columns_count-1; ?>" ss:Width="51" ss:Span="1"/>
+   <Column ss:AutoFitWidth="0" ss:Width="100" ss:Span="<?php echo ($columns_count-2); ?>"/>
 <?php foreach($payroll_groups as $payroll_group) { ?>
   <?php if($payroll_group->employees) { ?>
    <Row ss:AutoFitHeight="0" ss:Height="33.75">
-    <Cell ss:StyleID="s62"><Data ss:Type="String"><?php echo strtoupper($payroll_group->name); ?></Data></Cell>
+    <Cell ss:StyleID="s62"><Data ss:Type="String"><?php echo strtoupper($payroll_group->name); ?></Data><NamedCell
+      ss:Name="Print_Titles"/></Cell>
 <?php if( $column_group_salaries ) { ?>
 <?php if( isColumn($this, 'working_days', $print_columns) ) { ?>
     <Cell ss:StyleID="s63"><Data ss:Type="String">WORKING DAYS</Data></Cell>
@@ -384,6 +430,7 @@ $group_earnings = array();
 $group_benefits = array();
 $group_deductions = array();
 
+$inner_row = 0;
 foreach($payroll_group->employees as $employee) {
 
 $total_deductions = 0;
@@ -426,9 +473,14 @@ $gross_pay = (($basic_salary + $cola) - $absences);
 $group_basic_salary += $basic_salary;
 $group_absences += $absences;
 $group_gross_pay += $gross_pay;
+
+$inner_row++;
+
 ?>
    <Row ss:AutoFitHeight="0" ss:Height="15.75">
-    <Cell ss:StyleID="s64"><Data ss:Type="String"><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo ($employee->middlename) ? substr($employee->middlename,0,1)."." : ""; ?></Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String"><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo ($employee->middlename) ? substr($employee->middlename,0,1)."." : ""; ?></Data><NamedCell
+      ss:Name="Print_Titles"/></Cell>
+<?php $formula1 = ''; ?>
 <?php if( $column_group_salaries ) { ?>
 <?php if( isColumn($this, 'working_days', $print_columns) ) { ?>
     <Cell ss:StyleID="s65"><Data ss:Type="Number">15</Data></Cell>
@@ -437,23 +489,27 @@ $group_gross_pay += $gross_pay;
     <Cell ss:StyleID="s65"><Data ss:Type="Number"><?php echo $days_absent; ?></Data></Cell>
 <?php } ?>
 <?php if( isColumn($this, 'rate_per_day', $print_columns) ) { ?>
-    <Cell ss:StyleID="s65"><Data ss:Type="Number"><?php echo $daily_rate; ?></Data></Cell>
+    <Cell ss:StyleID="s651"><Data ss:Type="Number"><?php echo $daily_rate; ?></Data></Cell>
 <?php } ?>
 <?php if( isColumn($this, 'basic_salary', $print_columns) ) { ?>
-    <Cell ss:StyleID="s66"><Data ss:Type="Number"><?php echo $basic_salary; ?></Data></Cell>
+<?php $formula1 = 'RC[-2]'; ?>
+    <Cell ss:StyleID="s651"><Data ss:Type="Number"><?php echo $basic_salary; ?></Data></Cell>
 <?php } ?>
 <?php if( isColumn($this, 'cola', $print_columns) ) { ?>
-    <Cell ss:StyleID="s65"><Data ss:Type="Number"><?php echo $cola; ?></Data></Cell>
+<?php $formula1 = '(RC[-3]+RC[-2])'; ?>
+    <Cell ss:StyleID="s651"><Data ss:Type="Number"><?php echo $cola; ?></Data></Cell>
 <?php } ?>
 <?php 
 if( isColumn($this, 'absences_amount', $print_columns) ) { ?>
-    <Cell ss:StyleID="s66"><Data ss:Type="Number">-<?php echo $absences; ?></Data></Cell>
+<?php $formula1 .= '-RC[-2]'; ?>
+    <Cell ss:StyleID="s66"><Data ss:Type="Number"><?php echo $absences; ?></Data></Cell>
 <?php } ?>
 <?php if( isColumn($this, 'gross_pay', $print_columns) ) { ?>
-    <Cell ss:StyleID="s65"><Data ss:Type="Number"><?php echo $gross_pay; ?></Data></Cell>
+    <Cell ss:StyleID="s651" ss:Formula="=<?php echo $formula1; ?>"><Data ss:Type="Number"><?php echo $gross_pay; ?></Data></Cell>
 <?php } ?>
 <?php } ?>
 <?php if( $column_group_earnings ) { ?>
+<?php $earnings_cells = 0; ?>
 <?php if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
       <?php 
       $var = 'earnings_' . $column->id;
@@ -463,17 +519,19 @@ if( isColumn($this, 'absences_amount', $print_columns) ) { ?>
       $group_earnings[$var] += $employee->$var;
       $total_earnings += $employee->$var;
       if( isColumn($this, 'earning_' . $column->id, $print_columns) ) { ?>
-    <Cell ss:StyleID="s65"><Data ss:Type="Number"><?php echo $employee->$var; ?></Data></Cell>
-                <?php } ?>
+    <Cell ss:StyleID="s651"><Data ss:Type="Number"><?php echo $employee->$var; ?></Data></Cell>
+      <?php $earnings_cells++; ?>
+      <?php } ?>
     <?php } ?>
 <?php } ?>
 <?php if( $column_group_salaries || $column_group_earnings) { ?>
 <?php 
 $total_gross_earnings = ($total_earnings + $gross_pay);
 $group_total_earnings += $total_gross_earnings; ?>
-    <Cell ss:StyleID="s67"><Data ss:Type="Number"><?php echo $total_gross_earnings; ?></Data></Cell>
+    <Cell ss:StyleID="s67" ss:Formula="=SUM(RC[-<?php echo ($earnings_cells+1); ?>]:RC[-1])"><Data ss:Type="Number"><?php echo $total_gross_earnings; ?></Data></Cell>
 <?php } ?>
 <?php if( $column_group_benefits ) { ?>
+<?php $benefits_cells = 0; ?>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { 
   $ee = 'ee_share_' . $column->id;
   if( !isset($group_benefits[$ee]) ) {
@@ -490,12 +548,14 @@ $group_total_earnings += $total_gross_earnings; ?>
   $total_deductions += $employee->$ee;
   if( isColumn($this, 'benefit_' . $column->id, $print_columns) ) {
 ?>
-    <Cell ss:StyleID="s65"><Data ss:Type="Number"><?php echo $employee->$ee; ?></Data></Cell>
-    <Cell ss:StyleID="s65"><Data ss:Type="Number"><?php echo $employee->$er; ?></Data></Cell>
+    <Cell ss:StyleID="s651"><Data ss:Type="Number"><?php echo $employee->$ee; ?></Data></Cell>
+    <Cell ss:StyleID="s651"><Data ss:Type="Number"><?php echo $employee->$er; ?></Data></Cell>
+<?php $benefits_cells++; ?>
 <?php } ?>
 <?php } ?>
 <?php } ?>
 <?php if( $column_group_deductions ) { ?>
+<?php $deductions_cells = 0; ?>
 <?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { 
   $var = 'deductions_' . $column->id;
   if( !isset($group_deductions[$var]) ) {
@@ -505,7 +565,8 @@ $group_total_earnings += $total_gross_earnings; ?>
   $total_deductions += $employee->$var;
   if( isColumn($this, 'deduction_' . $column->id, $print_columns) ) {
   ?>
-    <Cell ss:StyleID="s65"><Data ss:Type="Number"><?php echo $employee->$var; ?></Data></Cell>
+    <Cell ss:StyleID="s651"><Data ss:Type="Number"><?php echo $employee->$var; ?></Data></Cell>
+                <?php $deductions_cells++; ?>
                 <?php } ?>
  <?php } ?>
  <?php } ?>
@@ -516,11 +577,22 @@ $group_net_pay += $net_pay;
 $group_total_deductions += $total_deductions;
 ?>
  <?php if( $column_group_benefits||$column_group_deductions ) { ?>
-    <Cell ss:StyleID="s65"><Data ss:Type="Number"><?php echo $total_deductions; ?></Data></Cell>
+ <?php 
+$benefits_formula = '';
+if($benefits_cells > 0) { 
+  $benefits_formula1 = array();
+  for($i=0;$i<$benefits_cells;$i++) {
+    $benefits_formula1[] = 'RC[-'.($deductions_cells+(($i+1)*2)).']';
+  }
+  $benefits_formula = "+" . implode("+", $benefits_formula1);
+}
+  ?>
+    <Cell ss:StyleID="s651" ss:Formula="=SUM(RC[-<?php echo $deductions_cells; ?>]:RC[-1])<?php echo $benefits_formula; ?>"><Data ss:Type="Number"><?php echo $total_deductions; ?></Data></Cell>
 <?php } ?>
-    <Cell ss:StyleID="s69"><Data ss:Type="Number"><?php echo $net_pay; ?></Data></Cell>
+    <Cell ss:StyleID="s69" ss:Formula="=RC[-<?php echo ($columns_count-$total_earnings_cell); ?>]-RC[-1]"><Data ss:Type="Number"><?php echo $net_pay; ?></Data></Cell>
    </Row>
 <?php } ?>
+<?php $overall_gross_cell[] = $inner_row; ?>
    <Row ss:AutoFitHeight="0" ss:Height="15.75">
     <Cell ss:StyleID="s70"><Data ss:Type="String">GROUP TOTAL</Data></Cell>
 <?php if( $column_group_salaries ) { ?>
@@ -534,29 +606,29 @@ $group_total_deductions += $total_deductions;
     <Cell ss:StyleID="s71"/>
 <?php } ?>
 <?php if( isColumn($this, 'basic_salary', $print_columns) ) { ?>
-    <Cell ss:StyleID="s71"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s711" ss:Formula="=SUM(R[-<?php echo $inner_row; ?>]C:R[-1]C)"><Data ss:Type="Number">0</Data></Cell>
 <?php } ?>
 <?php if( isColumn($this, 'cola', $print_columns) ) { ?>
-    <Cell ss:StyleID="s71"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s711" ss:Formula="=SUM(R[-<?php echo $inner_row; ?>]C:R[-1]C)"><Data ss:Type="Number">0</Data></Cell>
 <?php } ?>
 <?php if( isColumn($this, 'absences_amount', $print_columns) ) { ?>
-    <Cell ss:StyleID="s71"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="s711" ss:Formula="=SUM(R[-<?php echo $inner_row; ?>]C:R[-1]C)"><Data ss:Type="Number">0</Data></Cell>
 <?php } ?>
 <?php if( isColumn($this, 'gross_pay', $print_columns) ) { ?>
-    <Cell ss:StyleID="s72"><Data ss:Type="Number"><?php echo $group_gross_pay; ?></Data></Cell>
+    <Cell ss:StyleID="s72" ss:Formula="=SUM(R[-<?php echo $inner_row; ?>]C:R[-1]C)"><Data ss:Type="Number"><?php echo $group_gross_pay; ?></Data></Cell>
 <?php } ?>
 <?php } ?>
 <?php if( $column_group_earnings ) { ?>
 <?php if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
-  <?php if( isColumn($this, 'earning_' . $column->id, $print_columns) ) {
-$var = 'earnings_' . $column->id;
-   ?>
-    <Cell ss:StyleID="s71"><Data ss:Type="Number"><?php echo $group_earnings[$var]; ?></Data></Cell>
+<?php if( isColumn($this, 'earning_' . $column->id, $print_columns) ) {
+  $var = 'earnings_' . $column->id;
+?>
+    <Cell ss:StyleID="s711" ss:Formula="=SUM(R[-<?php echo $inner_row; ?>]C:R[-1]C)"><Data ss:Type="Number"><?php echo $group_earnings[$var]; ?></Data></Cell>
   <?php } ?>
 <?php } ?>
 <?php } ?>
 <?php if( $column_group_salaries || $column_group_earnings) { ?>
-    <Cell ss:StyleID="s72"><Data ss:Type="Number"><?php echo $group_total_earnings; ?></Data></Cell>
+    <Cell ss:StyleID="s72" ss:Formula="=SUM(R[-<?php echo $inner_row; ?>]C:R[-1]C)"><Data ss:Type="Number"><?php echo $group_total_earnings; ?></Data></Cell>
 <?php } ?>
 <?php if( $column_group_benefits ) { ?>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
@@ -564,8 +636,8 @@ $var = 'earnings_' . $column->id;
 $ee = 'ee_share_' . $column->id;
 $er = 'er_share_' . $column->id;
     ?>
-    <Cell ss:StyleID="s71"><Data ss:Type="Number"><?php echo $group_benefits[$ee]; ?></Data></Cell>
-    <Cell ss:StyleID="s71"><Data ss:Type="Number"><?php echo $group_benefits[$er]; ?></Data></Cell>
+    <Cell ss:StyleID="s711" ss:Formula="=SUM(R[-<?php echo $inner_row; ?>]C:R[-1]C)"><Data ss:Type="Number"><?php echo $group_benefits[$ee]; ?></Data></Cell>
+    <Cell ss:StyleID="s711" ss:Formula="=SUM(R[-<?php echo $inner_row; ?>]C:R[-1]C)"><Data ss:Type="Number"><?php echo $group_benefits[$er]; ?></Data></Cell>
   <?php } ?>
 <?php } ?>
 <?php } ?>
@@ -574,21 +646,37 @@ $er = 'er_share_' . $column->id;
   if( isColumn($this, 'deduction_' . $column->id, $print_columns) ) {
     $var = 'deductions_' . $column->id;
   ?>
-    <Cell ss:StyleID="s71"><Data ss:Type="Number"><?php echo $group_deductions[$var]; ?></Data></Cell>
+    <Cell ss:StyleID="s711" ss:Formula="=SUM(R[-<?php echo $inner_row; ?>]C:R[-1]C)"><Data ss:Type="Number"><?php echo $group_deductions[$var]; ?></Data></Cell>
                  <?php } ?>
  <?php } ?>
  <?php } ?>
  <?php if( $column_group_benefits||$column_group_deductions ) { ?>
-    <Cell ss:StyleID="s73"><Data ss:Type="Number"><?php echo $group_total_deductions; ?></Data></Cell>
+    <Cell ss:StyleID="s73" ss:Formula="=SUM(R[-<?php echo $inner_row; ?>]C:R[-1]C)"><Data ss:Type="Number"><?php echo $group_total_deductions; ?></Data></Cell>
 <?php } ?>
-    <Cell ss:StyleID="s73"><Data ss:Type="Number"><?php echo $group_net_pay; ?></Data></Cell>
+    <Cell ss:StyleID="s73" ss:Formula="=SUM(R[-<?php echo $inner_row; ?>]C:R[-1]C)"><Data ss:Type="Number"><?php echo $group_net_pay; ?></Data></Cell>
    </Row>
-<?php } ?>   
-<?php } ?>   
+    <Row ss:AutoFitHeight="0" ss:Height="10"/>
+<?php } ?>
+<?php } ?>  
+
+<?php 
+$formula = array();
+$cell = $rows+1;
+foreach($overall_gross_cell as $onc) {
+  $cell = $cell-($onc+3);
+  $formula[] = "R[-".$cell."]C";
+}
+?>
+
    <Row ss:AutoFitHeight="0" ss:Height="22.5">
-    <Cell ss:MergeAcross="<?php echo ($columns_count-4); ?>" ss:StyleID="s80"><Data ss:Type="String">TOTAL NET PAY</Data></Cell>
-    <Cell ss:MergeAcross="2" ss:StyleID="m79168628"><Data ss:Type="Number"><?php echo $total_net_pay; ?></Data></Cell>
+    <Cell ss:StyleID="s80"><Data ss:Type="String">TOTAL NET PAY</Data><NamedCell
+      ss:Name="Print_Titles"/></Cell>
+<?php for( $i=0; $i<($columns_count-2);$i++ ) { ?>
+    <Cell ss:StyleID="s81" ss:Formula="=<?php echo implode("+", $formula); ?>"><Data ss:Type="Number">0</Data></Cell>
+<?php } ?>
+    <Cell ss:StyleID="m79168628" ss:Formula="=<?php echo implode("+", $formula); ?>"><Data ss:Type="Number"><?php echo $total_net_pay; ?></Data></Cell>
    </Row>
+
   </Table>
   <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
    <PageSetup>
@@ -597,13 +685,13 @@ $er = 'er_share_' . $column->id;
      x:Data="&amp;L&amp;&quot;Calibri,Bold&quot;&amp;18<?php echo ($company->name) ? strtoupper($company->name) : ''; ?>&amp;&quot;Calibri,Regular&quot;&amp;11&#10;<?php echo ($company->address) ? $company->address : ''; ?>&#10;<?php echo ($company->phone) ? $company->phone : ''; ?>&amp;R&amp;&quot;Calibri,Bold&quot;&amp;16PAYROLL SUMMARY (#<?php echo $payroll->id; ?>)&amp;&quot;Calibri,Regular&quot;&amp;11&#10;<?php echo $payroll->name; ?>"/>
     <Footer x:Margin="0.3"
      x:Data="&amp;L&amp;&quot;Calibri,Bold&quot;Prepared by:&amp;&quot;Calibri,Regular&quot;&#10;&#10;<?php echo strtoupper($this->session->name); ?>&amp;C&amp;&quot;Calibri,Bold&quot;Checked by:&amp;&quot;Calibri,Regular&quot;&#10;&#10;<?php echo strtoupper($template->checked_by_name); ?>&amp;R&amp;&quot;Calibri,Bold&quot;Approved by:&amp;&quot;Calibri,Regular&quot;&#10;&#10;<?php echo strtoupper($template->approved_by_name); ?>"/>
-    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.89"/>
+    <PageMargins x:Bottom="1" x:Left="0.7" x:Right="0.7" x:Top="1.1"/>
    </PageSetup>
    <Unsynced/>
    <Print>
     <ValidPrinterInfo/>
     <PaperSizeIndex>200</PaperSizeIndex>
-    <Scale>56</Scale>
+    <Scale>78</Scale>
     <HorizontalResolution>-3</HorizontalResolution>
     <VerticalResolution>-3</VerticalResolution>
    </Print>
