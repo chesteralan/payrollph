@@ -13,28 +13,66 @@
 <?php if( hasAccess('payroll', 'payroll', 'add') ) { ?>
   <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Payroll" data-url="<?php echo site_url("payroll/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Add Payroll</button>
 <?php } ?>
-                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
+                 <!-- <h3 class="panel-title"><strong><?php echo $current_page; ?></strong></h3>-->
                     <?php if(isset($template)) { ?>
                       : <?php echo $template->name; ?>
                     <?php } ?>
-                  </h3>
+
+<?php if( count( $payroll_years ) > 0) { ?>
+<div class="btn-group">
+  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <?php echo ($filter_year) ? $filter_year : "Filter by Year"; ?> <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+      <li><a href="<?php echo site_url("payroll/index/0/{$filter_month}/{$filter_template}"); ?>">Show All</a></li>
+    <?php foreach($payroll_years as $year) { ?>
+      <li><a href="<?php echo site_url("payroll/index/{$year->year}/{$filter_month}/{$filter_template}"); ?>"><?php echo $year->year; ?></a></li>
+    <?php } ?>
+  </ul>
+</div>
+<?php } ?>
+<?php if( count( $payroll_months ) > 1) { ?>
+<div class="btn-group">
+  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <?php echo ($filter_month) ? date('F', strtotime($filter_month."/1/1990")) : "Filter by Month"; ?> <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+      <li><a href="<?php echo site_url("payroll/index/{$filter_year}/0/{$filter_template}"); ?>">Show All</a></li>
+    <?php foreach($payroll_months as $month) { ?>
+      <li><a href="<?php echo site_url("payroll/index/{$filter_year}/{$month->month}/{$filter_template}"); ?>"><?php echo date('F', strtotime($month->month."/1/1990")); ?></a></li>
+    <?php } ?>
+  </ul>
+</div>
+<?php } ?>
+<?php if( count( $payroll_templates ) > 1) { ?>
+<div class="btn-group">
+  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <?php echo ($filter_template) ? $current_template->name : "Filter by Template"; ?> <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+      <li><a href="<?php echo site_url("payroll/index/{$filter_year}/{$filter_month}/0"); ?>">Show All</a></li>
+    <?php foreach($payroll_templates as $template) { ?>
+      <li><a href="<?php echo site_url("payroll/index/{$filter_year}/{$filter_month}/{$template->template_id}"); ?>"><?php echo $template->template_name; ?></a></li>
+    <?php } ?>
+  </ul>
+</div>
+<?php } ?>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 
-<?php endif; ?>
+<?php endif;  ?>
 
 <?php if( $payrolls ) { ?>
 
           <table class="table table-default">
             <thead>
               <tr>
-                <th>ID</th>
+                <th width="1%"></th>
+                <th width="1%">ID</th>
                 <th>Payroll Description</th>
                 <th>Month</th>
                 <th>Year</th>
-                <?php if(!isset($template)) { ?>
                 <th>Template</th>
-                <?php } ?>
                 <th>Working Days</th>
                 <?php if( hasAccess('payroll', 'payroll', 'edit') ) { ?>
                   <th width="135px">Action</th>
@@ -44,17 +82,14 @@
             <tbody>
             <?php foreach($payrolls as $payroll) {  ?>
               <tr id="Payroll-<?php echo $payroll->id; ?>">
+                <td><?php echo ($payroll->lock) ? '<span class="glyphicon glyphicon-lock"></span>' : ''; ?></td>
                 <td><?php echo $payroll->id; ?></td>
-                <td><?php echo $payroll->name; ?> <?php echo ($payroll->lock) ? '<span class="glyphicon glyphicon-lock"></span>' : ''; ?></td>
+                <td><?php echo $payroll->name; ?></td>
                 <td><?php echo date('F', strtotime($payroll->month."/1/1970")); ?></td>
                 <td><?php echo $payroll->year; ?></td>
-                <?php if(!isset($template)) { ?>
-                <td>
-                <a class="body_wrapper" href="<?php echo site_url("payroll/template/{$payroll->template_id}"); ?>">
-                <?php echo $payroll->template_name; ?>
-                  </a>
+                <td><a class="body_wrapper" href="<?php echo site_url("payroll/index/{$filter_year}/{$filter_month}/{$payroll->template_id}"); ?>">
+                <?php echo $payroll->template_name; ?></a>
                 </td>
-                <?php } ?>
                 <td><?php echo $payroll->working_days; ?></td>
               <?php if( hasAccess('payroll', 'payroll', 'edit') ) { ?>
                 <td>
@@ -68,7 +103,9 @@
 
 <?php } ?>
 
-                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("payroll/delete/{$payroll->id}"); ?>" data-target="#Payroll-<?php echo $payroll->id; ?>">Delete</a>
+<?php if($payroll->lock==0) { ?>
+                <a class="btn btn-warning btn-xs confirm_remove" href="<?php echo site_url("payroll/archive/{$payroll->id}"); ?>" data-target="#Payroll-<?php echo $payroll->id; ?>">Deactivate</a>
+<?php } ?>
                 
                 </td>
               <?php } ?>

@@ -368,7 +368,7 @@ $config['encryption_key'] = 'n2K3d1C3d1M1b1U4I1C6U4b3C7l7b2M1';
 |
 */
 $config['sess_driver'] = 'database';
-$config['sess_cookie_name'] = 'lending_session';
+$config['sess_cookie_name'] = 'payroll_session';
 $config['sess_expiration'] = 7200;
 $config['sess_save_path'] = 'account_sessions';
 $config['sess_match_ip'] = FALSE;

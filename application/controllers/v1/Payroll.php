@@ -17,7 +17,11 @@ class Payroll extends MY_Controller {
 
 	}
 
-	public function index($start=0) {
+	public function index($filter_year=0, $filter_month=0, $filter_template=0, $start=0) {
+
+		$this->template_data->set('filter_year', $filter_year);
+		$this->template_data->set('filter_month', $filter_month);
+		$this->template_data->set('filter_template', $filter_template);
 
 		$payrolls = new $this->Payroll_model;
 		$payrolls->setCompanyId($this->session->userdata('current_company_id'),true);
@@ -30,13 +34,49 @@ class Payroll extends MY_Controller {
 		$payrolls->set_order('year', 'DESC');
 		$payrolls->set_order('month', 'DESC');
 		$payrolls->set_order('id', 'DESC');
-		
+		if( $filter_month ) {
+			$payrolls->setMonth($filter_month,true);
+		}
+		if( $filter_year ) {
+			$payrolls->setYear($filter_year,true);
+		}
+		if( $filter_template ) {
+			$payrolls->setTemplateId($filter_template,true);
+		}
 		$payrolls_data = $payrolls->populate(); 
 		$this->template_data->set('payrolls', $payrolls_data);
 
+		$payroll_years = new $this->Payroll_model;
+		$payroll_years->setCompanyId($this->session->userdata('current_company_id'),true);
+		$payroll_years->set_select('year');
+		$payroll_years->set_group_by('year');
+		$payroll_years->set_order('year', 'DESC');
+		$this->template_data->set('payroll_years', $payroll_years->populate());
+
+		$payroll_months = new $this->Payroll_model;
+		$payroll_months->setCompanyId($this->session->userdata('current_company_id'),true);
+		$payroll_months->set_select('month');
+		$payroll_months->set_group_by('month');
+		$payroll_months->set_order('month', 'ASC');
+		$this->template_data->set('payroll_months', $payroll_months->populate());
+
+		$payroll_templates = new $this->Payroll_model;
+		$payroll_templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$payroll_templates->set_select('template_id');
+		$payroll_templates->set_select('(SELECT name FROM payroll_templates WHERE id=payroll.template_id) as template_name');
+		$payroll_templates->set_group_by('template_id');
+		$payroll_templates->set_order('template_id', 'ASC'); 
+		$this->template_data->set('payroll_templates', $payroll_templates->populate());
+
+		if( $filter_template ) {
+			$template = new $this->Payroll_templates_model;
+			$template->setId($filter_template,true);
+			$this->template_data->set('current_template', $template->get());
+		}
+
 		$this->template_data->set('pagination', bootstrap_pagination(array(
-			'uri_segment' => 3,
-			'base_url' => base_url($this->config->item('index_page') . "/payroll/index"),
+			'uri_segment' => 6,
+			'base_url' => base_url($this->config->item('index_page') . "/payroll/index/{$filter_year}/{$filter_month}/{$filter_template}"),
 			'total_rows' => $payrolls->count_all_results(),
 			'per_page' => $payrolls->get_limit(),
 			'ajax'=>true
