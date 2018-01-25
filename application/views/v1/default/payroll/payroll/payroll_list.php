@@ -75,7 +75,7 @@
                 <th>Template</th>
                 <th>Working Days</th>
                 <?php if( hasAccess('payroll', 'payroll', 'edit') ) { ?>
-                  <th width="135px">Action</th>
+                  <th width="165px">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -95,11 +95,27 @@
                 <td>
 <?php if(( $payroll->employees_count > 0 ) && ( $payroll->working_days > 0 )) { ?>
 
-      <a class="btn btn-success btn-xs" href="<?php echo site_url("payroll/select_payroll/{$payroll->id}"); ?>">View</a>
+      
+
+<div class="btn-group">
+  <a class="btn btn-success btn-xs" href="<?php echo site_url("payroll/select_payroll/{$payroll->id}"); ?>">View</a>
+  <button type="button" class="btn btn-success btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-right">
+    <li><a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/print"); ?>">Print</a></li>
+    <li><a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/payslip"); ?>">Payslip</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/xls"); ?>">Download</a></li>
+  </ul>
+</div>
 
 <?php } else { ?>
 
                   <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Payroll" data-url="<?php echo site_url("payroll/config/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">Config</button>
+
+
 
 <?php } ?>
 
