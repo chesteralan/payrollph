@@ -51,6 +51,7 @@ class Payroll extends MY_Controller {
 		$payroll_years->set_select('year');
 		$payroll_years->set_group_by('year');
 		$payroll_years->set_order('year', 'DESC');
+		$payroll_years->set_limit(0);
 		$this->template_data->set('payroll_years', $payroll_years->populate());
 
 		$payroll_months = new $this->Payroll_model;
@@ -58,6 +59,7 @@ class Payroll extends MY_Controller {
 		$payroll_months->set_select('month');
 		$payroll_months->set_group_by('month');
 		$payroll_months->set_order('month', 'ASC');
+		$payroll_months->set_limit(0);
 		$this->template_data->set('payroll_months', $payroll_months->populate());
 
 		$payroll_templates = new $this->Payroll_model;
@@ -66,6 +68,7 @@ class Payroll extends MY_Controller {
 		$payroll_templates->set_select('(SELECT name FROM payroll_templates WHERE id=payroll.template_id) as template_name');
 		$payroll_templates->set_group_by('template_id');
 		$payroll_templates->set_order('template_id', 'ASC'); 
+		$payroll_templates->set_limit(0);
 		$this->template_data->set('payroll_templates', $payroll_templates->populate());
 
 		if( $filter_template ) {
