@@ -53,7 +53,7 @@ class MY_Controller extends CI_Controller {
                 }
 
                 $this->template_data->set('session_auth', $this->session->session_auth);
-                $this->template_data->set('page_title', APP_NAME);
+                $this->template_data->set('page_title', $this->session->userdata( 'current_company' ) . " | " . APP_NAME);
                 $this->template_data->set('output', '');
 
                 $this->template_data->set('inner_page', false);

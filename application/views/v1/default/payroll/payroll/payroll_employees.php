@@ -102,6 +102,7 @@
           <option value="none">No Payslip</option>
           <option value="payslip" <?php echo ($employee->template=='payslip') ? 'SELECTED' : ''; ?>>Payslip (1/4)</option>
           <option value="payslip2" <?php echo ($employee->template=='payslip2') ? 'SELECTED' : ''; ?>>Payslip (1/2)</option>
+          <option value="payslip3" <?php echo ($employee->template=='payslip3') ? 'SELECTED' : ''; ?>>Payslip (1/2) v2</option>
           <option value="cash_voucher" <?php echo ($employee->template=='cash_voucher') ? 'SELECTED' : ''; ?>>Cash Voucher</option>
           <option value="clergy_allowance" <?php echo ($employee->template=='clergy_allowance') ? 'SELECTED' : ''; ?>>Clergy Allowance</option>
       </select>

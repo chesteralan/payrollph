@@ -317,6 +317,7 @@ $modules = array();
 
 $modules[] = array(
     'title'=>'Personal Information',
+    'title_ajax'=>'Personal Information',
     'config_url' => site_url("lists_names/update_personal/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
     'panel_body' => personal_info($name),
     'open' => (($this->input->get('active')==='personal')||(!$this->input->get('active'))),
@@ -325,6 +326,7 @@ $modules[] = array(
 if( ($name->is_employed) && ($name->company_id==$this->session->userdata('current_company_id')) ) { 
   $modules[] = array(
     'title'=>'Employment Information: <span class="badge">' . $name->company . '</span>',
+    'title_ajax'=>'Employment Information',
     'config_url' => site_url("employees/edit_employment/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
     'panel_body' => employment($employee),
     'open' => ($this->input->get('active')==='employment'),
@@ -333,24 +335,28 @@ if( ($name->is_employed) && ($name->company_id==$this->session->userdata('curren
 
 $modules[] = array(
     'title'=>'Address &amp; Contact Numbers',
+    'title_ajax'=>'Address &amp; Contact Numbers',
     'config_url' => site_url("lists_names/update_contacts/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
     'panel_body' => address_contacts($name),
     'open' => ($this->input->get('active')==='contacts'),
   );
 $modules[] = array(
     'title'=>'Social Media Accounts',
+    'title_ajax'=>'Social Media Accounts',
     'config_url' => site_url("lists_names/update_social_media/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
     'panel_body' => social_media($name),
     'open' => ($this->input->get('active')==='social_media'),
   );
 $modules[] = array(
     'title'=>'Identification Numbers',
+    'title_ajax'=>'Identification Numbers',
     'config_url' => site_url("lists_names/update_ids/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
     'panel_body' => ids($name),
     'open' => ($this->input->get('active')==='ids'),
   );
 $modules[] = array(
     'title'=>'Emergency Contacts',
+    'title_ajax'=>'Emergency Contacts',
     'config_url' => site_url("lists_names/update_emergency/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
     'panel_body' => emergency($name),
     'open' => ($this->input->get('active')==='emergency'),
@@ -359,9 +365,9 @@ foreach($modules as $i=>$content) {  ?>
 <div class="panel panel-default">
                 <div class="panel-heading">
 <?php if ( isset($output) && ($output=='ajax') ) {  ?>
-                <a class="ajax-modal-inner pull-right" data-title="<?php echo strip_tags($content['title']); ?>" href="<?php echo $content['config_url']; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a class="ajax-modal-inner pull-right" data-title="<?php echo strip_tags($content['title_ajax']); ?>" href="<?php echo $content['config_url']; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
 <?php } else { ?>
-                <a class="ajax-modal pull-right" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo strip_tags($content['title']); ?>" data-url="<?php echo $content['config_url']; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a class="ajax-modal pull-right" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo strip_tags($content['title_ajax']); ?>" data-url="<?php echo $content['config_url']; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
 <?php } ?>
 
                   <h3 class="panel-title bold">

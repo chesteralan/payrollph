@@ -186,7 +186,6 @@ $cola = 0;
 $gross_pay = 0;
 if( $employee->salary ) {
   $salary = $employee->salary;
-  $cola = $salary->cola;
   switch( $salary->rate_per ) {
     case 'month':
       $monthly_rate = $salary->amount;
@@ -204,11 +203,13 @@ if( $employee->salary ) {
       $hourly_rate = $salary->amount;
     break;
   }
+  $cola_rate = (isset($salary)) ? $salary->cola : 0;
 }
 
+
 $present_days = $inclusive_dates->working_days - $days_absent;
-//$basic_salary = ($daily_rate * $inclusive_dates->working_days);
-$basic_salary = ($monthly_rate / 2);
+$basic_salary = ($daily_rate * $inclusive_dates->working_days);
+//$basic_salary = ($monthly_rate / 2);
 $cola = ($cola * $present_days);
 $absences = ($daily_rate * $days_absent);
 $gross_pay = (($basic_salary + $cola) - $absences); 
@@ -221,7 +222,7 @@ $group_gross_pay += $gross_pay;
                 </td>
 <?php if( $column_group_salaries ) { ?>
 <?php if( isColumn($this, 'working_days', $print_columns) ) { ?>
-                <td class="text-right">15<?php //echo $inclusive_dates->working_days; ?></td>
+                <td class="text-right"><?php echo $inclusive_dates->working_days; ?></td>
 <?php } ?>
 <?php if( isColumn($this, 'absences', $print_columns) ) { ?>
                 <td class="text-right"><?php echo $days_absent; ?></td>

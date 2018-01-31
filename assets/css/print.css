@@ -190,9 +190,10 @@ body#payslip .payslip_box.payslip2 {
     width: 690px;
     margin: 0 0 30px 0;
 }
-
 body#payslip .payslip_box.payslip2.second-half {
     margin: 0;
+    padding-top: 50px;
+    border-top:1px dashed #CCC;
 }
 body#payslip .payslip_box .inner_body {
     

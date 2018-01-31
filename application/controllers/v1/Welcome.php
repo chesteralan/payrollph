@@ -126,7 +126,8 @@ class Welcome extends MY_Controller {
 				$employees->set_order('ni.firstname', 'ASC');
 				$employees->set_order('ni.middlename', 'ASC');
 				$employees->set_limit(0); 
-
+				$employees->setCompanyId($this->session->userdata('current_company_id'),true);
+				
 				$ctrl = 'lists_names/profile/';
 				if( strpos($this->input->get('uri_string'), 'employees_earnings') ) {
 					$ctrl = 'employees_earnings/view/';

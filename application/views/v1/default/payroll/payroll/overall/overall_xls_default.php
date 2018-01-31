@@ -448,8 +448,8 @@ if( $employee->salary ) {
   switch( $salary->rate_per ) {
     case 'month':
       $monthly_rate = $salary->amount;
-      $daily_rate = ( ($salary->amount * $salary->months) / $salary->annual_days );
-      $hourly_rate = ( (($salary->amount * $salary->months) / $salary->annual_days) / $salary->hours );
+      $daily_rate = ( $salary->amount / $salary->days );
+      $hourly_rate = ( $salary->amount / $salary->days / $salary->hours );
     break;
     case 'day':
       $monthly_rate = ( $salary->amount * $salary->days );
@@ -465,8 +465,8 @@ if( $employee->salary ) {
 }
 
 $present_days = $inclusive_dates->working_days - $days_absent;
-//$basic_salary = ($daily_rate * $inclusive_dates->working_days);
-$basic_salary = ($monthly_rate / 2);
+$basic_salary = ($daily_rate * $inclusive_dates->working_days);
+//$basic_salary = ($monthly_rate / 2);
 $cola = ($cola * $present_days);
 $absences = ($daily_rate * $days_absent);
 $gross_pay = (($basic_salary + $cola) - $absences); 
@@ -481,28 +481,42 @@ $inner_row++;
     <Cell ss:StyleID="s64"><Data ss:Type="String"><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo ($employee->middlename) ? substr($employee->middlename,0,1)."." : ""; ?></Data><NamedCell
       ss:Name="Print_Titles"/></Cell>
 <?php $formula1 = ''; ?>
-<?php if( $column_group_salaries ) { ?>
+<?php if( $column_group_salaries ) { 
+$working_days_column = 1;
+$days_absent_column = 2;
+$daily_rate_column = 1;
+?>
 <?php if( isColumn($this, 'working_days', $print_columns) ) { ?>
-    <Cell ss:StyleID="s65"><Data ss:Type="Number">15</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="Number"><?php echo $inclusive_dates->working_days; ?></Data></Cell>
 <?php } ?>
-<?php if( isColumn($this, 'absences', $print_columns) ) { ?>
+<?php if( isColumn($this, 'absences', $print_columns) ) { 
+$working_days_column++;
+?>
     <Cell ss:StyleID="s65"><Data ss:Type="Number"><?php echo $days_absent; ?></Data></Cell>
 <?php } ?>
-<?php if( isColumn($this, 'rate_per_day', $print_columns) ) { ?>
+<?php if( isColumn($this, 'rate_per_day', $print_columns) ) {
+$working_days_column++;
+?>
     <Cell ss:StyleID="s651"><Data ss:Type="Number"><?php echo $daily_rate; ?></Data></Cell>
 <?php } ?>
-<?php if( isColumn($this, 'basic_salary', $print_columns) ) { ?>
+<?php if( isColumn($this, 'basic_salary', $print_columns) ) { 
+$days_absent_column++;
+$daily_rate_column++;
+?>
 <?php $formula1 = 'RC[-2]'; ?>
-    <Cell ss:StyleID="s651"><Data ss:Type="Number"><?php echo $basic_salary; ?></Data></Cell>
+    <Cell ss:StyleID="s651" ss:Formula="=RC[-<?php echo $working_days_column; ?>]*RC[-1]"><Data ss:Type="Number"><?php echo $basic_salary; ?></Data></Cell>
 <?php } ?>
-<?php if( isColumn($this, 'cola', $print_columns) ) { ?>
+<?php if( isColumn($this, 'cola', $print_columns) ) { 
+$days_absent_column++;
+$daily_rate_column++;
+?>
 <?php $formula1 = '(RC[-3]+RC[-2])'; ?>
     <Cell ss:StyleID="s651"><Data ss:Type="Number"><?php echo $cola; ?></Data></Cell>
 <?php } ?>
 <?php 
 if( isColumn($this, 'absences_amount', $print_columns) ) { ?>
-<?php $formula1 .= '-RC[-2]'; ?>
-    <Cell ss:StyleID="s66"><Data ss:Type="Number"><?php echo $absences; ?></Data></Cell>
+<?php $formula1 .= '-RC[-1]'; ?>
+    <Cell ss:StyleID="s66" ss:Formula="=RC[-<?php echo $days_absent_column; ?>]*RC[-<?php echo $daily_rate_column; ?>]"><Data ss:Type="Number"><?php echo $absences; ?></Data></Cell>
 <?php } ?>
 <?php if( isColumn($this, 'gross_pay', $print_columns) ) { ?>
     <Cell ss:StyleID="s651" ss:Formula="=<?php echo $formula1; ?>"><Data ss:Type="Number"><?php echo $gross_pay; ?></Data></Cell>

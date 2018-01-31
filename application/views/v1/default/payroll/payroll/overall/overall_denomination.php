@@ -41,7 +41,7 @@ function denomination($amount, $d, $less=0) {
   <a href="<?php echo site_url("payroll/select_payroll/{$payroll->id}"); ?>">Back</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/payslip"); ?>">Payslip</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/{$output}/{$current_page}"); ?>">All</a>
-  <?php foreach($print_groups as $pg) { ?>
+  <?php if(isset($print_groups)) foreach($print_groups as $pg) { ?>
     &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$pg->id}/{$output}/{$current_page}"); ?>"><?php echo $pg->name; ?></a>
   <?php } ?>
   &middot; <a href="<?php echo site_url("payroll_overall/config/{$payroll->id}") . "?next=" . uri_string(); ?>">Config</a>
@@ -103,7 +103,7 @@ if( $payroll_group->page != $current_page ) {
                 <th width="<?php echo ($pc_count==1) ? '12' : '5'; ?>%" class="text-right allcaps">Net Pay</th>
 
 <th class="text-right">1000.00</th>
-<th class="text-right">500.00</th>
+<!--<th class="text-right">500.00</th>-->
 <th class="text-right">100.00</th>
 <th class="text-right">50.00</th>
 <th class="text-right">20.00</th>
@@ -144,12 +144,11 @@ $cola = 0;
 $gross_pay = 0;
 if( $employee->salary ) {
   $salary = $employee->salary;
-  $cola = $salary->cola;
   switch( $salary->rate_per ) {
     case 'month':
       $monthly_rate = $salary->amount;
-      $daily_rate = ( $salary->amount / $salary->days );
-      $hourly_rate = ( $salary->amount / $salary->days / $salary->hours );
+      $daily_rate = ( ($salary->amount * $salary->months) / $salary->annual_days );
+      $hourly_rate = ( (($salary->amount * $salary->months) / $salary->annual_days) / $salary->hours );
     break;
     case 'day':
       $monthly_rate = ( $salary->amount * $salary->days );
@@ -162,11 +161,12 @@ if( $employee->salary ) {
       $hourly_rate = $salary->amount;
     break;
   }
+  $cola_rate = (isset($salary)) ? $salary->cola : 0;
 }
 
 $present_days = $inclusive_dates->working_days - $days_absent;
-//$basic_salary = ($daily_rate * $inclusive_dates->working_days);
-$basic_salary = ($monthly_rate / 2);
+$basic_salary = ($daily_rate * $inclusive_dates->working_days);
+//$basic_salary = ($monthly_rate / 2);
 $cola = ($cola * $present_days);
 $absences = ($daily_rate * $days_absent);
 $gross_pay = (($basic_salary + $cola) - $absences); 
@@ -228,8 +228,8 @@ $group_net_pay += $net_pay;
 <?php 
   $one_thousand = denomination($net_pay, 1000);
     $less = ($one_thousand * 1000);
-  $five_hundred = denomination($net_pay, 500, $less);
-    $less += ($five_hundred * 500);
+ // $five_hundred = denomination($net_pay, 500, $less);
+ //   $less += ($five_hundred * 500);
   $one_hundred = denomination($net_pay, 100, $less);
     $less += ($one_hundred * 100);
   $fifty = denomination($net_pay, 50, $less);
@@ -251,7 +251,7 @@ $group_net_pay += $net_pay;
   $cent1 = denomination($net_pay, 0.01, $less);
 
   $d1000 += $one_thousand;
-$d500 += $five_hundred;
+//$d500 += $five_hundred;
 $d100 += $one_hundred;
 $d50 += $fifty;
 $d20 += $twenty;
@@ -265,7 +265,7 @@ $d001 += $cent1;
 
 ?>
 <td class="text-right"><?php echo $one_thousand; ?></td>
-<td class="text-right"><?php echo $five_hundred; ?></td>
+<!--<td class="text-right"><?php //echo $five_hundred; ?></td> -->
 <td class="text-right"><?php echo $one_hundred; ?></td>
 <td class="text-right"><?php echo $fifty; ?></td>
 <td class="text-right"><?php echo $twenty; ?></td>
@@ -294,7 +294,7 @@ Summary
 
                 </th>
   <th class="text-right">1000.00</th>
-<th class="text-right">500.00</th>
+<!--<th class="text-right">500.00</th>-->
 <th class="text-right">100.00</th>
 <th class="text-right">50.00</th>
 <th class="text-right">20.00</th>
@@ -312,7 +312,7 @@ Summary
 <td class="allcaps text-left" width="15%">Total Denominations</td>
 <td class="text-right" width="5%"><?php echo number_format($total_net_pay,2); ?></td>
 <td class="text-right"><?php echo $d1000; ?></td>
-<td class="text-right"><?php echo $d500; ?></td>
+<!--<td class="text-right"><?php //echo $d500; ?></td>-->
 <td class="text-right"><?php echo $d100; ?></td>
 <td class="text-right"><?php echo $d50; ?></td>
 <td class="text-right"><?php echo $d20; ?></td>
@@ -328,7 +328,7 @@ Summary
 <td class="allcaps text-left" width="15%">Amount</td>
 <td class="text-right" width="5%"></td>
 <td class="text-right"><?php echo number_format((1000 * $d1000),2); ?></td>
-<td class="text-right"><?php echo number_format((500 * $d500),2); ?></td>
+<!-- <td class="text-right"><?php //echo number_format((500 * $d500),2); ?></td> -->
 <td class="text-right"><?php echo number_format((100 * $d100),2); ?></td>
 <td class="text-right"><?php echo number_format((50 * $d50),2); ?></td>
 <td class="text-right"><?php echo number_format((20 * $d20),2); ?></td>
@@ -345,24 +345,6 @@ Summary
 
 </div>
 
-<div class="signatories">
-  <table width="100%"  cellspacing="0" cellpadding="0">
-    <tr>
-      <td width="33.33%"><p>Prepared By:</p>
-       <br>
-<span class="allcaps bold"><?php echo $this->session->name; ?></span>
-      </td>
-      <td width="33.33%" class="text-center"><p>Checked By:</p>
-       <br>
-<span class="allcaps bold"><?php echo $template->checked_by_name; ?></span>
-      </td>
-      <td width="33.33%" class="text-right"><p>Approved By:</p>
-      <br>
-<span class="allcaps bold"><?php echo $template->approved_by_name; ?></span>
-      </td>
-    </tr>
-  </table>
-</div>
 <?php } ?>
 
 

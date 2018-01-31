@@ -96,6 +96,9 @@ $box_count = 0;
           case 'payslip2':
             $this->load->view('payroll/payroll/overall/overall_payslip_payslip2', $template_data);
             break;
+          case 'payslip3':
+            $this->load->view('payroll/payroll/overall/overall_payslip_payslip3', $template_data);
+            break;
           case 'cash_voucher':
             $this->load->view('payroll/payroll/overall/overall_payslip_voucher', $template_data);
             break;
