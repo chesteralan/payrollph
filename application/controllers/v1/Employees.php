@@ -444,31 +444,58 @@ class Employees extends MY_Controller {
 		$this->load->view('employees/employees/employees_edit_leave_benefits', $this->template_data->get_data());
 	}
 
-	public function report($output='') {
+	public function report($output='config') {
+	
+		$this->template_data->set('output', $output);
 
 		$employees = new $this->Employees_model('e');
 		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 		$employees->setTrash(0,true);
-		$employees->set_select('e.*');
-		$employees->set_select('(SELECT name FROM employees_groups WHERE id=e.group_id) as group_name');
-		$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position_name');
-		$employees->set_select('(SELECT name FROM employees_areas WHERE id=e.area_id) as area_name');
-		$employees->set_select('(SELECT name FROM terms_list WHERE id=e.status) as status_name');
-
-		$employees->set_join('names_info ni','ni.name_id=e.name_id');
-		$employees->set_select('ni.lastname as lastname');
-		$employees->set_select('ni.firstname as firstname');
-		$employees->set_select('ni.middlename as middlename');
-
-		$employees->set_order('ni.lastname', 'ASC');
-		$this->template_data->set('employees', $employees->populate());
 		
-		$this->template_data->set('output', $output);
+				$employees->set_join('names_info ni','ni.name_id=e.name_id');
+				$employees->set_select('ni.lastname as lastname');
+				$employees->set_select('ni.firstname as firstname');
+				$employees->set_select('ni.middlename as middlename');
 
-		if( $output=='print' ) {
-			$this->load->view('employees/employees/employees_report_print', $this->template_data->get_data());
-		} else {
-			$this->load->view('employees/employees/employees_report_config', $this->template_data->get_data());
+		switch( $output ) {
+			case 'display':
+
+
+				if($this->input->get('employee')) {
+					$employees->set_select('e.*');
+
+					// personal info
+					$employees->set_select('ni.*');
+					$employees->set_select("(TIMESTAMPDIFF(YEAR, ni.birthday, CURDATE())) as age");
+
+					// employment info
+					$employees->set_select('(SELECT name FROM employees_groups WHERE id=e.group_id) as group_name');
+					$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position_name');
+					$employees->set_select('(SELECT name FROM employees_areas WHERE id=e.area_id) as area_name');
+					$employees->set_select('(SELECT name FROM terms_list WHERE id=e.status) as status_name');
+
+					$employees->set_where_in('e.name_id', $this->input->get('employee'));
+					$this->template_data->set('employees', $employees->populate());
+				}
+				$this->load->view('employees/employees/employees_report_display', $this->template_data->get_data());
+			break;
+			case 'print':
+				$this->load->view('employees/employees/employees_report_print', $this->template_data->get_data());
+			break;
+			case 'config':
+			default:
+
+				$employees->set_select('e.*');
+				//$employees->set_select('(SELECT name FROM employees_groups WHERE id=e.group_id) as group_name');
+				//$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position_name');
+				//$employees->set_select('(SELECT name FROM employees_areas WHERE id=e.area_id) as area_name');
+				//$employees->set_select('(SELECT name FROM terms_list WHERE id=e.status) as status_name');
+
+				$employees->set_order('ni.lastname', 'ASC');
+				$employees->set_limit(0);
+				$this->template_data->set('employees', $employees->populate());
+				$this->load->view('employees/employees/employees_report_config', $this->template_data->get_data());
+			break;
 		}
 
 	}
