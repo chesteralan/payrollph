@@ -446,6 +446,7 @@ class Employees extends MY_Controller {
 
 	private function _employee_columns($employees, $columns) {
 					
+					$columns = ($columns) ? $columns : array();
 					// personal info
 					$employees->set_select('ni.*');
 					if( in_array('age', $columns)) {
@@ -552,6 +553,10 @@ class Employees extends MY_Controller {
 				$employees->set_select('ni.firstname as firstname');
 				$employees->set_select('ni.middlename as middlename');
 
+				$employees->set_limit(0);
+				$employees->set_order('ni.lastname', 'ASC');
+				$employees->set_order('ni.firstname', 'ASC');
+				$employees->set_order('ni.middlename', 'ASC');
 		switch( $page ) {
 			case 'display':
 				if($this->input->get('employee')) {

@@ -163,7 +163,7 @@ $selected_columns = array_merge($default_columns, (($this->input->get('columns')
 $data_type = 'String';  
 $field_value = $employee->$fld['field'];
 $cell_style = 's64';
-if( isset($fld['data_type']) ) {
+if( (isset($fld['data_type'])) && ($field_value) ) {
   switch($fld['data_type']) {
     case 'DateTime':
       $data_type = 'DateTime'; 

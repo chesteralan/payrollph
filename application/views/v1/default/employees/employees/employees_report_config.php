@@ -107,6 +107,7 @@ foreach($columns as $accordion2_id=>$accordion2) { ?>
     <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
+        <input type="checkbox" data-class="<?php echo $accordion2_id; ?>-checkbox" class="pull-right select_all_by_class">
         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion2" href="#collapse_<?php echo $accordion2_id; ?>" aria-expanded="false" aria-controls="collapse_<?php echo $accordion2_id; ?>">
           <?php echo $accordion2['title']; ?>
         </a>
@@ -117,7 +118,7 @@ foreach($columns as $accordion2_id=>$accordion2) { ?>
 <div class="list-group">
         <?php foreach($accordion2['items'] as $cid=>$cname) { ?>
           <label class="list-group-item">
-            <input type="checkbox" name="columns[]" value="<?php echo $cid; ?>" <?php echo (in_array($cid, $selected_columns)) ? 'CHECKED' : ''; ?> <?php echo (in_array($cid, $default_checked)) ? 'DISABLED' : ''; ?>>
+            <input class="<?php echo $accordion2_id; ?>-checkbox" type="checkbox" name="columns[]" value="<?php echo $cid; ?>" <?php echo (in_array($cid, $selected_columns)) ? 'CHECKED' : ''; ?> <?php echo (in_array($cid, $default_checked)) ? 'DISABLED' : ''; ?>>
             <?php echo $cname; ?>
           </label>
         <?php } ?>
@@ -137,6 +138,7 @@ foreach($columns as $accordion2_id=>$accordion2) { ?>
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
+        <input type="checkbox" data-class="employee-checkbox" class="pull-right select_all_by_class">
         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
           Employees
         </a>
@@ -147,7 +149,7 @@ foreach($columns as $accordion2_id=>$accordion2) { ?>
       <div class="list-group">
         <?php foreach($employees as $employee) { ?>
           <label class="list-group-item">
-            <input type="checkbox" name="employee[]" value="<?php echo $employee->name_id; ?>" <?php echo (in_array($employee->name_id, $selected_employees)) ? 'CHECKED' : ''; ?>>
+            <input class="employee-checkbox" type="checkbox" name="employee[]" value="<?php echo $employee->name_id; ?>" <?php echo (in_array($employee->name_id, $selected_employees)) ? 'CHECKED' : ''; ?>>
             <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?>, <?php echo $employee->middlename; ?></label>
         <?php } ?>
       </div>

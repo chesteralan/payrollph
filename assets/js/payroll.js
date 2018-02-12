@@ -124,6 +124,17 @@ var select_all_print_column = function() {
   });
 };
 
+var select_all_by_class = function() {
+  $('.select_all_by_class').click(function(){
+      var data_class = $(this).attr('data-class');
+      if( $(this).is(':checked') ) {
+          $('.' + data_class).prop('checked',true);
+      } else {
+          $('.' + data_class).prop('checked',false);
+      }
+  });
+};
+
 var confirmButton = function() {
   $('.confirm').click(function(){
   	if(confirm('Are you sure?')) {
@@ -292,7 +303,7 @@ var navbar_search_employee = function() {
 	                        window.history.replaceState('Object', $(document).prop('title'), ui.item.redirect);
 	                        window['uri_string'] = ui.item.redirect;
 	                        $('.autocomplete-search_employee').val('');
-	                        init_coop();
+	                        init_payroll();
 	                      });
 	                    });
 	                }
@@ -531,7 +542,7 @@ var bodyWrapper = function() {
 	                        window.history.replaceState('Object', $(document).prop('title'), ajax_url);
 	                        window['uri_string'] = ajax_url;
 	                        $('.autocomplete-member_change').attr('data-current_sub_uri', ajax_url);
-	                        init_coop();
+	                        init_payroll();
 	                      });
 	                    });
                	 	}
@@ -549,6 +560,7 @@ var loadLib = function() {
     bodyWrapper();
     init_sortable();
     select_all_print_column();
+    select_all_by_class();
     init_calendar_check();
 
 $('#ajaxModal .datepicker').datepicker();
@@ -971,7 +983,7 @@ var lending_schedule_details = function() {
 	                        window.history.replaceState('Object', $(document).prop('title'), ajax_url);
 	                        window['uri_string'] = ajax_url;
 	                        $('.autocomplete-member_change').attr('data-current_sub_uri', ajax_url);
-	                        init_coop();
+	                        init_payroll();
 	                      });
 	                    });
                 	}
@@ -983,7 +995,7 @@ var lending_schedule_details = function() {
     });
   };
 
- var init_coop = function() {
+ var init_payroll = function() {
       bodyWrapper();
       ajaxPagination();
       setupAjaxModal();
@@ -1006,8 +1018,9 @@ var lending_schedule_details = function() {
       checkSelectedReceipts();
       init_sortable();
       select_all_print_column();
+      select_all_by_class();
  }
- init_coop();
+ init_payroll();
 
 /** ******  NProgress  *********************** **/
 if (typeof NProgress != 'undefined') {
