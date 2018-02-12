@@ -444,8 +444,103 @@ class Employees extends MY_Controller {
 		$this->load->view('employees/employees/employees_edit_leave_benefits', $this->template_data->get_data());
 	}
 
-	public function report($output='config') {
+	private function _employee_columns($employees, $columns) {
+					
+					// personal info
+					$employees->set_select('ni.*');
+					if( in_array('age', $columns)) {
+						$employees->set_select("(TIMESTAMPDIFF(YEAR, ni.birthday, CURDATE())) as age");
+					}
+
+					// employment info
+					if( in_array('emp_group', $columns)) {
+						$employees->set_select('(SELECT name FROM employees_groups WHERE id=e.group_id) as group_name');
+					}
+					if( in_array('emp_position', $columns)) {
+						$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position_name');
+					}
+					if( in_array('emp_area', $columns)) {
+						$employees->set_select('(SELECT name FROM employees_areas WHERE id=e.area_id) as area_name');
+					}
+					if( in_array('emp_status', $columns)) {
+						$employees->set_select('(SELECT name FROM terms_list WHERE id=e.status) as status_name');
+					}
+
+					if( in_array('contact_address', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="address") as address');
+					}
+					if( in_array('contact_email', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="email") as email');
+					}
+					if( in_array('contact_phone', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="phone_number") as phone_number');
+					}
+					if( in_array('contact_smart', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="cell_smart") as cell_smart');
+					}
+					if( in_array('contact_globe', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="cell_globe") as cell_globe');
+					}
+					if( in_array('contact_sun', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="cell_sun") as cell_sun');
+					}
+
+					if( in_array('sm_facebook', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="facebook_id") as facebook_id');
+					}
+					if( in_array('sm_twitter', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="twitter_id") as twitter_id');
+					}
+					if( in_array('sm_instagram', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="instagram_id") as instagram_id');
+					}
+					if( in_array('sm_skype', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="skype_id") as skype_id');
+					}
+					if( in_array('sm_yahoo', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="yahoo_id") as yahoo_id');
+					}
+					if( in_array('sm_google', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="google_id") as google_id');
+					}
+
+					if( in_array('idn_tin', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="tin") as tin');
+					}
+					if( in_array('idn_sss', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="sss") as sss');
+					}
+					if( in_array('idn_hdmf', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="hdmf") as hdmf');
+					}
+					if( in_array('idn_phic', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="phic") as phic');
+					}
+					if( in_array('idn_driver', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="drivers_license") as drivers_license');
+					}
+					if( in_array('idn_voter', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="voters_number") as voters_number');
+					}
+
+					if( in_array('emergency_name', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="emergency_name") as emergency_name');
+					}
+					if( in_array('emergency_address', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="emergency_address") as emergency_address');
+					}
+					if( in_array('emergency_number', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="emergency_contact") as emergency_contact');
+					}
+					if( in_array('emergency_rel', $columns)) {
+						$employees->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="emergency_relationship") as emergency_relationship');
+					}
+					return $employees;
+	}
+
+	public function report($page='config', $output='') {
 	
+		$this->template_data->set('page', $page);
 		$this->template_data->set('output', $output);
 
 		$employees = new $this->Employees_model('e');
@@ -457,33 +552,46 @@ class Employees extends MY_Controller {
 				$employees->set_select('ni.firstname as firstname');
 				$employees->set_select('ni.middlename as middlename');
 
-		switch( $output ) {
+		switch( $page ) {
 			case 'display':
-
-
 				if($this->input->get('employee')) {
+					
 					$employees->set_select('e.*');
 
-					// personal info
-					$employees->set_select('ni.*');
-					$employees->set_select("(TIMESTAMPDIFF(YEAR, ni.birthday, CURDATE())) as age");
-
-					// employment info
-					$employees->set_select('(SELECT name FROM employees_groups WHERE id=e.group_id) as group_name');
-					$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position_name');
-					$employees->set_select('(SELECT name FROM employees_areas WHERE id=e.area_id) as area_name');
-					$employees->set_select('(SELECT name FROM terms_list WHERE id=e.status) as status_name');
+					$this->_employee_columns($employees, $this->input->get('columns'));
 
 					$employees->set_where_in('e.name_id', $this->input->get('employee'));
 					$this->template_data->set('employees', $employees->populate());
 				}
 				$this->load->view('employees/employees/employees_report_display', $this->template_data->get_data());
 			break;
-			case 'print':
-				$this->load->view('employees/employees/employees_report_print', $this->template_data->get_data());
+			case 'download':
+				if($this->input->get('employee')) {
+					
+					$employees->set_select('e.*');
+
+					$this->_employee_columns($employees, $this->input->get('columns'));
+
+					$employees->set_where_in('e.name_id', $this->input->get('employee'));
+					$this->template_data->set('employees', $employees->populate());
+				}
+
+				$company = new $this->Companies_list_model;
+				$company->setId($this->session->userdata('current_company_id'),true);
+				$company_data = $company->get();
+				$filename = url_title($company_data->name)."-Employees-Report.xls";
+
+				$this->output->set_content_type('application/vnd-ms-excel');
+				$this->output->set_header('Content-Disposition: attachment; filename=' . $filename);
+				$this->load->view('employees/employees/employees_report_xls', $this->template_data->get_data());
 			break;
 			case 'config':
 			default:
+
+				if($this->input->post()) {
+					redirect( site_url("employees/report/display") . "?" . http_build_query($this->input->post()) );
+					exit;
+				}
 
 				$employees->set_select('e.*');
 				//$employees->set_select('(SELECT name FROM employees_groups WHERE id=e.group_id) as group_name');

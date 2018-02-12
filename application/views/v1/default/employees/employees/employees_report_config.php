@@ -37,7 +37,7 @@
 
 <?php 
 $default_checked = array('lastname', 'firstname', 'middlename');
-foreach(array(
+$columns = array(
   'info' => array(
         'title' => 'Personal Information', 
         'items' => array(
@@ -55,7 +55,6 @@ foreach(array(
         'items' => array(
           'emp_id' => 'Employee ID',
           'emp_hired' => 'Date Hired',
-          'emp_regular' => 'Dated Regularized',
           'emp_status' => 'Status',
           'emp_group' => 'Group',
           'emp_position' => 'Position',
@@ -98,8 +97,12 @@ foreach(array(
           'emergency_address' => 'Address',
           'emergency_number' => 'Contact Number',
           'emergency_rel' => 'Relationship',
-          )),
-  ) as $accordion2_id=>$accordion2) { ?>
+        )),
+  );
+  $selected_columns = array_merge($default_checked, (($this->input->get('columns'))? $this->input->get('columns') : array()) );
+  $selected_employees = ($this->input->get('employee')) ? $this->input->get('employee') : array();
+  
+foreach($columns as $accordion2_id=>$accordion2) { ?>
 
     <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingTwo">
@@ -114,7 +117,7 @@ foreach(array(
 <div class="list-group">
         <?php foreach($accordion2['items'] as $cid=>$cname) { ?>
           <label class="list-group-item">
-            <input type="checkbox" name="columns[]" value="<?php echo $cid; ?>" <?php echo (in_array($cid, $default_checked)) ? 'CHECKED DISABLED' : ''; ?>>
+            <input type="checkbox" name="columns[]" value="<?php echo $cid; ?>" <?php echo (in_array($cid, $selected_columns)) ? 'CHECKED' : ''; ?> <?php echo (in_array($cid, $default_checked)) ? 'DISABLED' : ''; ?>>
             <?php echo $cname; ?>
           </label>
         <?php } ?>
@@ -144,7 +147,7 @@ foreach(array(
       <div class="list-group">
         <?php foreach($employees as $employee) { ?>
           <label class="list-group-item">
-            <input type="checkbox" name="employee[]" value="<?php echo $employee->name_id; ?>">
+            <input type="checkbox" name="employee[]" value="<?php echo $employee->name_id; ?>" <?php echo (in_array($employee->name_id, $selected_employees)) ? 'CHECKED' : ''; ?>>
             <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?>, <?php echo $employee->middlename; ?></label>
         <?php } ?>
       </div>

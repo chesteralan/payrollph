@@ -1,12 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <?php 
+$default_columns = array('lastname', 'firstname', 'middlename');
 $columns = array(
   'info' => array(
         'title' => 'Personal Information', 
         'items' => array(
-          'lastname' => array('name'=>'Last Name','field'=>'lastname'),
-          'firstname' => array('name'=>'First Name','field'=>'firstname'),
-          'middlename' => array('name'=>'Middle Name','field'=>'middlename'),
+          'lastname' => array('name'=>'Last Name','field'=>'lastname', 'align'=>'left'),
+          'firstname' => array('name'=>'First Name','field'=>'firstname', 'align'=>'left'),
+          'middlename' => array('name'=>'Middle Name','field'=>'middlename', 'align'=>'left'),
           'birthday' => array('name'=>'Birth Day','field'=>'birthday'),
           'birthplace' => array('name'=>'Birth Place','field'=>'birthplace'),
           'age' => array('name'=>'Age','field'=>'age'),
@@ -33,37 +34,41 @@ $columns = array(
           'contact_globe' => array('name'=>'Cellphone (Globe)','field'=>'cell_globe'),
           'contact_sun' => array('name'=>'Cellphone (Sun)','field'=>'cell_sun'),
           )),
-/*
+
   'social_media' => array(
         'title' => 'Social Media Accounts', 
         'items' => array(
-          'sm_facebook' => array('name'=>'Facebook ID','field'=>''),
-          'sm_twitter' => array('name'=>'Twitter ID','field'=>''),
-          'sm_instagram' => array('name'=>'Instagram ID','field'=>''),
-          'sm_skype' => array('name'=>'Skype ID','field'=>''),
-          'sm_yahoo' => array('name'=>'Yahoo ID','field'=>''),
-          'sm_google' => array('name'=>'Google ID','field'=>''),
+          'sm_facebook' => array('name'=>'Facebook ID','field'=>'facebook_id'),
+          'sm_twitter' => array('name'=>'Twitter ID','field'=>'twitter_id'),
+          'sm_instagram' => array('name'=>'Instagram ID','field'=>'instagram_id'),
+          'sm_skype' => array('name'=>'Skype ID','field'=>'skype_id'),
+          'sm_yahoo' => array('name'=>'Yahoo ID','field'=>'yahoo_id'),
+          'sm_google' => array('name'=>'Google ID','field'=>'google_id'),
           )),
+
   'idn' => array(
         'title' => 'Identification Numbers', 
         'items' => array(
-          'idn_tin' => array('name'=>'Tax Identification Number (TIN)','field'=>''),
-          'idn_sss' => array('name'=>'SSS Number','field'=>''),
-          'idn_hdmf' => array('name'=>'Pag-ibig (HDMF)','field'=>''),
-          'idn_phic' => array('name'=>'PhilHealth','field'=>''),
-          'idn_driver' => array('name'=>'Driver\'s License','field'=>''),
-          'idn_voter' => array('name'=>'Voter\'s Number','field'=>''),
+          'idn_tin' => array('name'=>'Tax Identification Number (TIN)','field'=>'tin'),
+          'idn_sss' => array('name'=>'SSS Number','field'=>'sss'),
+          'idn_hdmf' => array('name'=>'Pag-ibig (HDMF)','field'=>'hdmf'),
+          'idn_phic' => array('name'=>'PhilHealth','field'=>'phic'),
+          'idn_driver' => array('name'=>'Driver\'s License','field'=>'drivers_license'),
+          'idn_voter' => array('name'=>'Voter\'s Number','field'=>'voters_number'),
           )),
+
   'emergency' => array(
         'title' => 'Emergency Contacts', 
         'items' => array(
-          'emergency_name' => array('name'=>'Name','field'=>''),
-          'emergency_address' => array('name'=>'Address','field'=>''),
-          'emergency_number' => array('name'=>'Contact Number','field'=>''),
-          'emergency_rel' => array('name'=>'Relationship','field'=>''),
+          'emergency_name' => array('name'=>'Name','field'=>'emergency_name'),
+          'emergency_address' => array('name'=>'Address','field'=>'emergency_address'),
+          'emergency_number' => array('name'=>'Contact Number','field'=>'emergency_contact'),
+          'emergency_rel' => array('name'=>'Relationship','field'=>'emergency_relationship'),
           )),
-*/
+
   ) ;
+
+$selected_columns = array_merge($default_columns, (($this->input->get('columns'))?$this->input->get('columns'):array()));
 ?>
 <?php $this->load->view('header'); ?>
 <?php if( ! $inner_page ): ?>
@@ -79,6 +84,8 @@ $columns = array(
 <div class="col-md-12">
 
                   <h3 class="panel-title">
+                    <a class="pull-right" href="<?php echo site_url("employees/report/download") . "?" . http_build_query($this->input->get()); ?>"><span class="fa fa-file-excel-o"></span></a>
+                    <a style="margin-right: 10px;" class="ajax-modal pull-right" data-toggle="modal" data-target="#ajaxModal" href="#ajaxModal" data-title="Options" data-url="<?php echo site_url("employees/report/config/ajax") . "?" . http_build_query($this->input->get()); ?>"><span class="glyphicon glyphicon-cog"></span></a>
                     <strong>Employees Report</strong>
                   </h3>
 </div>
@@ -92,16 +99,25 @@ $columns = array(
           <table class="table table-default table-hover">
             <thead>
 <tr>
-<?php foreach($columns as $col_id=>$column) { ?>
-                <th class="text-center" colspan="<?php echo count($column['items']); ?>"><?php echo $column['title']; ?></th>
+<?php foreach($columns as $col_id=>$column) { 
+$display_col = 0;
+?>
+<?php foreach($column['items'] as $fld_id=>$fld) { ?>
+<?php 
+if( in_array($fld_id, $selected_columns)) { $display_col++; } ?>
+<?php } ?>
+<?php if( $display_col ) { ?>
+    <th class="text-center" colspan="<?php echo $display_col; ?>"><?php echo $column['title']; ?></th>
+<?php } ?>
 <?php } ?>
  </tr>
 
  <tr>
 <?php foreach($columns as $col_id=>$column) { ?>
 <?php foreach($column['items'] as $fld_id=>$fld) { ?>
-                <th class="text-center"><?php echo $fld['name']; ?></th>
-             
+<?php if( in_array($fld_id, $selected_columns)) { ?>
+                <th class="text-<?php echo ((isset($fld['align']))?$fld['align']:'center'); ?>"><?php echo $fld['name']; ?></th>
+<?php } ?>
 <?php } ?>
 <?php } ?>
  </tr>
@@ -111,7 +127,9 @@ $columns = array(
  <tr>
 <?php foreach($columns as $col_id=>$column) { ?>
 <?php foreach($column['items'] as $fld_id=>$fld) { ?>
-                <?php echo '<td>'.$employee->$fld['field'].'</td>';  ?>
+<?php if( in_array($fld_id, $selected_columns)) { ?>
+                <?php echo '<td class="text-'.((isset($fld['align']))?$fld['align']:'center').'">'.$employee->$fld['field'].'</td>';  ?>
+<?php } ?>
 <?php } ?>
 <?php } ?>
  </tr>
@@ -122,7 +140,9 @@ $columns = array(
 
 <?php } else { ?>
 
-  <div class="text-center">No Employee Selected!</div>
+  <div class="text-center">No Employee Selected!
+<br><a class="ajax-modal btn btn-warning btn-xs" data-toggle="modal" data-target="#ajaxModal" href="#ajaxModal" data-title="Options" data-url="<?php echo site_url("employees/report/config/ajax") . "?" . http_build_query($this->input->get()); ?>"><span class="glyphicon glyphicon-cog"></span> Update Options</a>
+  </div>
 
 <?php } ?>
 <?php if( ! $inner_page ): ?>
