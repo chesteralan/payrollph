@@ -75,7 +75,7 @@
                 <th>Template</th>
                 <th>Working Days</th>
                 <?php if( hasAccess('payroll', 'payroll', 'edit') ) { ?>
-                  <th width="165px">Action</th>
+                  <th width="175px">Action</th>
                 <?php } ?>
               </tr>
             </thead>
