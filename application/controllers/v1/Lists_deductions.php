@@ -131,6 +131,10 @@ class Lists_deductions extends MY_Controller {
 		$items->set_select("ed.*");
 		$items->set_start($start);
 		$items->set_order('ed.id', 'DESC');
+		
+		//$items->set_order('ni.lastname', 'ASC');
+		//$items->set_order('ni.firstname', 'ASC');
+		//$items->set_order('ni.middlename', 'ASC');
 
 		foreach($templates_data as $temp) {
 			$items->set_select("(SELECT COUNT(*) FROM employees_deductions_templates edt WHERE edt.ed_id=ed.id AND edt.template_id={$temp->id}) as temp_{$temp->id}");

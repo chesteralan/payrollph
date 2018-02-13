@@ -110,6 +110,7 @@ if( in_array($fld_id, $selected_columns)) { $display_col++; } ?>
     <th class="text-center" colspan="<?php echo $display_col; ?>"><?php echo $column['title']; ?></th>
 <?php } ?>
 <?php } ?>
+<th width="10px"></th>
  </tr>
 
  <tr>
@@ -120,6 +121,7 @@ if( in_array($fld_id, $selected_columns)) { $display_col++; } ?>
 <?php } ?>
 <?php } ?>
 <?php } ?>
+<th></th>
  </tr>
             </thead>
             <tbody>
@@ -132,6 +134,7 @@ if( in_array($fld_id, $selected_columns)) { $display_col++; } ?>
 <?php } ?>
 <?php } ?>
 <?php } ?>
+<td><a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo site_url("lists_names/profile/{$employee->name_id}/ajax") . "?output=inner_page&next=" . uri_string(); ?>"><span class="glyphicon glyphicon-edit"></span></a></td>
  </tr>
 <?php } ?>
 

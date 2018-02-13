@@ -129,6 +129,10 @@ class Lists_benefits extends MY_Controller {
 		$items->set_select("ni.*");
 		$items->set_select("eb.*");
 		$items->set_start($start);
+		
+		$items->set_order('ni.lastname', 'ASC');
+		$items->set_order('ni.firstname', 'ASC');
+		$items->set_order('ni.middlename', 'ASC');
 
 		foreach($templates_data as $temp) {
 			$items->set_select("(SELECT COUNT(*) FROM employees_benefits_templates ebt WHERE ebt.eb_id=eb.id AND ebt.template_id={$temp->id}) as temp_{$temp->id}");
