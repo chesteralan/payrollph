@@ -11,7 +11,7 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
 <?php if( hasAccess('payroll', 'templates', 'add') ) { ?>
-  <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Template" data-url="<?php echo site_url("payroll_templates/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Add Template</button>
+  <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Template" data-url="<?php echo site_url("payroll_templates/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Create Template</button>
 <?php } ?>
                   <h3 class="panel-title bold"><?php echo $current_page; ?></h3>
                 </div>

@@ -408,37 +408,50 @@ class Employees extends MY_Controller {
 
 	}
 
-	public function edit_leave_benefits($id,$output='') {
+	public function edit_leave_benefits($id,$selected_year=NULL,$output='') {
+
+		$this->template_data->set('selected_year', $selected_year);
 
 		$employee = new $this->Employees_model;
 		$employee->setNameId($id,true);
 		$employee_data = $employee->get();
 		$this->template_data->set('employee', $employee_data);
 
-		if( $this->input->post('leave') ) {
-			foreach($this->input->post('leave') as $benefit_id=>$days) {
-				$leave_b = new $this->Employees_leave_benefits_model('elb');
-				$leave_b->setCompanyId($employee_data->company_id,true);
-				$leave_b->setNameId($employee_data->name_id,true);
-				$leave_b->setBenefitId($benefit_id,true);
+		if( $selected_year ) {
+			if( $this->input->post('leave') ) {
+				foreach($this->input->post('leave') as $benefit_id=>$days) {
+					$leave_b = new $this->Employees_leave_benefits_model('elb');
+					$leave_b->setCompanyId($employee_data->company_id,true);
+					$leave_b->setNameId($employee_data->name_id,true);
+					$leave_b->setBenefitId($benefit_id,true);
+					$leave_b->setYear($selected_year,true);
 
-				if( $leave_b->nonEmpty() ) {
-					$leave_b->setDays($days,false,true);
-					$leave_b->update();
-				} else {
-					$leave_b->setDays($days);
-					$leave_b->insert();
+					if( $leave_b->nonEmpty() ) {
+						$leave_b->setDays($days,false,true);
+						$leave_b->update();
+					} else {
+						$leave_b->setDays($days);
+						$leave_b->insert();
+					}
 				}
+				$this->postNext();
 			}
-			$this->postNext();
+			
+			$leave = new $this->Benefits_list_model('b');
+			$leave->setLeave(1,true);
+			$leave->setTrash(0,true);
+			$leave->set_select("*");
+			$leave->set_select("(SELECT elb.days FROM employees_leave_benefits elb WHERE elb.name_id={$employee_data->name_id} AND elb.company_id={$employee_data->company_id} AND b.id=elb.benefit_id AND elb.year='{$selected_year}' LIMIT 1) as days");
+			$this->template_data->set('leaves', $leave->populate());
 		}
-		
-		$leave = new $this->Benefits_list_model('b');
-		$leave->setLeave(1,true);
-		$leave->setTrash(0,true);
-		$leave->set_select("*");
-		$leave->set_select("(SELECT elb.days FROM employees_leave_benefits elb WHERE elb.name_id={$employee_data->name_id} AND elb.company_id={$employee_data->company_id} AND b.id=elb.benefit_id LIMIT 1) as days");
-		$this->template_data->set('leaves', $leave->populate());
+
+		$payroll_years = new $this->Payroll_model;
+		$payroll_years->setCompanyId($this->session->userdata('current_company_id'),true);
+		$payroll_years->set_select('year');
+		$payroll_years->set_group_by('year');
+		$payroll_years->set_order('year', 'DESC');
+		$payroll_years->set_limit(0);
+		$this->template_data->set('payroll_years', $payroll_years->populate());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('employees/employees/employees_edit_leave_benefits', $this->template_data->get_data());

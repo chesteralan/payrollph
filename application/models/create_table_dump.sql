@@ -227,6 +227,7 @@ CREATE TABLE `employees_leave_benefits` (
   `name_id` int(20) NOT NULL,
   `benefit_id` int(20) NOT NULL,
   `days` int(2) DEFAULT '0',
+  `year` int(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`benefit_id`),
   KEY `company_id` (`company_id`)

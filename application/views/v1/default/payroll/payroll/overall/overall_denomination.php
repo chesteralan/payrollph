@@ -264,18 +264,18 @@ $d005 += $cent5;
 $d001 += $cent1;
 
 ?>
-<td class="text-right"><?php echo $one_thousand; ?></td>
+<td class="text-right"><?php echo ($one_thousand>0) ? $one_thousand : ''; ?></td>
 <!--<td class="text-right"><?php //echo $five_hundred; ?></td> -->
-<td class="text-right"><?php echo $one_hundred; ?></td>
-<td class="text-right"><?php echo $fifty; ?></td>
-<td class="text-right"><?php echo $twenty; ?></td>
-<td class="text-right"><?php echo $ten; ?></td>
-<td class="text-right"><?php echo $five; ?></td>
-<td class="text-right"><?php echo $one; ?></td>
-<td class="text-right"><?php echo $cent25; ?></td>
-<td class="text-right"><?php echo $cent10; ?></td>
-<td class="text-right"><?php echo $cent5; ?></td>
-<td class="text-right"><?php echo $cent1; ?></td>
+<td class="text-right"><?php echo ($one_hundred>0) ? $one_hundred : ''; ?></td>
+<td class="text-right"><?php echo ($fifty>0) ? $fifty : ''; ?></td>
+<td class="text-right"><?php echo ($twenty>0) ? $twenty : ''; ?></td>
+<td class="text-right"><?php echo ($ten>0) ? $ten : ''; ?></td>
+<td class="text-right"><?php echo ($five>0) ? $five : ''; ?></td>
+<td class="text-right"><?php echo ($one>0) ? $one : ''; ?></td>
+<td class="text-right"><?php echo ($cent25>0) ? $cent25 : ''; ?></td>
+<td class="text-right"><?php echo ($cent10>0) ? $cent10 : ''; ?></td>
+<td class="text-right"><?php echo ($cent5>0) ? $cent5 : ''; ?></td>
+<td class="text-right"><?php echo ($cent1>0) ? $cent1 : ''; ?></td>
               </tr>
 <?php } ?>
 

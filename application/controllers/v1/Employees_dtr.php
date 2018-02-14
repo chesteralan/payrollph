@@ -46,10 +46,15 @@ class Employees_dtr extends MY_Controller {
 		
 		$this->template_data->set('date', $date);
 		
+		$selected_year = date('Y', strtotime($date));
+
 		$employee = new $this->Employees_model('e');
 		$employee->setNameId($name_id,true);
 		$employee->set_select('e.*');
 		$employee->set_select('(SELECT es.hours FROM employees_salaries es WHERE es.name_id=e.name_id AND es.primary=1 AND es.trash=0) as working_hours');
+		$employee->set_select('ni.*');
+		$employee->set_select('e.name_id');
+		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
 		$employee_data = $employee->get();
 		$this->template_data->set('employee', $employee_data );
 
@@ -57,7 +62,7 @@ class Employees_dtr extends MY_Controller {
 		$benefits->setLeave(1,true);
 		$benefits->setTrash(0,true);
 		$benefits->set_select("*");
-		$benefits->set_select("(SELECT elb.days FROM employees_leave_benefits elb WHERE elb.name_id={$employee_data->name_id} AND elb.company_id={$employee_data->company_id} AND b.id=elb.benefit_id LIMIT 1) as days");
+		$benefits->set_select("(SELECT elb.days FROM employees_leave_benefits elb WHERE elb.name_id={$employee_data->name_id} AND elb.company_id={$employee_data->company_id} AND b.id=elb.benefit_id AND elb.year='{$selected_year}' LIMIT 1) as days");
 		$benefits->set_select("(SELECT SUM(eab.hours/8) FROM employees_absences eab WHERE eab.name_id={$employee_data->name_id} AND eab.leave_type=b.id AND YEAR(eab.date_absent)='".date('Y')."') as availed");
 		$this->template_data->set('leaves', $benefits->populate());
 

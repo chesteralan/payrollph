@@ -202,7 +202,7 @@ if( $benefits_columns || $deductions_columns ) {
 <?php } ?>
 <?php if( $deductions_count == 0 ) { ?>
 <tr>
-<td class="text-center tab1" colspan="2"><br><br><small>- - No Deductions - -</small><br><br><br></td>
+<td class="text-center tab1" colspan="2"><small>- - No Deductions - -</small></td>
 </tr>
 <?php } else { ?>
 <tr>
@@ -222,6 +222,27 @@ if( $benefits_columns || $deductions_columns ) {
                  ?></td>
               </tr>
           </table>
+
+<?php if( $leave_benefits && $employee->has_leave ) { ?>
+<br>
+<table width="100%" class="table table-details bordered" cellpadding="0" cellspacing="0">
+   <tr>
+   <td colspan="2" class="allcaps bold">Leave Benefits Balance</td>
+ </tr>
+ <?php foreach($leave_benefits as $leave) { 
+$allowed_leave = 'allowed_leave_' . $leave->id;
+$availed_leave = 'availed_leave_' . $leave->id;
+$leave_balance = ($employee->$allowed_leave - $employee->$availed_leave); 
+if( $employee->$allowed_leave ) {
+  ?>
+  <tr>
+    <td class="text-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $leave->name; ?> (<?php echo intval($employee->$allowed_leave); ?>)</td>
+    <td class="text-right"><strong><?php echo ($leave_balance > 0) ? $leave_balance : 0; ?> days</strong></td>
+  </tr>
+ <?php } ?>
+ <?php } ?>
+</table>
+<?php } ?>
 
  </td>
   </tr>

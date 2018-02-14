@@ -17,12 +17,18 @@
     <?php echo ($this->input->get('month')) ? date("F", strtotime($this->input->get('month')."/1/1970")) : 'Filter by Month'; ?> <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
+<?php if($this->input->get('month')) { ?>
+    <li><a href="<?php echo site_url("lists_names/birthdays/{$company_id}"); ?>">- - Show All - -</a></li>
+<?php } ?>
 <?php for($i=1;$i<=12;$i++) { ?>
     <li><a href="<?php echo site_url("lists_names/birthdays/{$company_id}"); ?>?month=<?php echo $i; ?>"><?php echo date("F", strtotime($i."/1/1970")); ?></a></li>
 <?php } ?>
   </ul>
 </div>
 	    		<h3 class="panel-title bold">Birthdays
+	    			<?php if($this->input->get('month')) { ?>
+	    			<span class="badge"><?php echo date('F', strtotime($this->input->get('month')."/1/1990")) ;?></span>
+	    			<?php } ?>
 	    		</h3>
 </div>
 </div>

@@ -137,7 +137,7 @@ Basic Salary</a></li>
   
    <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_deductions/view/{$employee->name_id}");  ?>">Deductions</a></li>
 
-  <li><a data-title="Leave Benefits" data-target="#ajaxModal" href="#ajaxModal" data-toggle="modal" class="ajax-modal" data-url="<?php echo site_url("employees/edit_leave_benefits/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Leave Benefits</a></li>
+  <li><a data-title="Leave Benefits" data-target="#ajaxModal" href="#ajaxModal" data-toggle="modal" class="ajax-modal" data-url="<?php echo site_url("employees/edit_leave_benefits/{$employee->name_id}/0/ajax") . "?next=" . uri_string(); ?>">Leave Benefits</a></li>
   
   <li role="separator" class="divider"></li>
   

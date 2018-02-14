@@ -17,14 +17,15 @@ class Lists_benefits extends MY_Controller {
 		
 		$benefits = new $this->Benefits_list_model;
 		if( $this->input->get('q') ) {
-			$benefits->set_where('name LIKE "%' . $this->input->get('q') . '%"');
-			$benefits->set_where_or('notes LIKE "%' . $this->input->get('q') . '%"');
+			$benefits->set_where('(name LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+			$benefits->set_where_or('notes LIKE "%' . $this->input->get('q') . '%")', NULL, 99);
 		}
 		$benefits->set_select("*");
 		$benefits->set_order('leave', 'ASC');
 		$benefits->set_order('name', 'ASC');
 		$benefits->set_start($start);
 		$benefits->setTrash('0',true);
+		$benefits->setActive('1',true);
 		$this->template_data->set('benefits', $benefits->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
@@ -35,6 +36,31 @@ class Lists_benefits extends MY_Controller {
 		)));
 		
 		$this->load->view('lists/benefits/benefits_list', $this->template_data->get_data());
+	}
+
+	public function trash($start=0) {
+		
+		$benefits = new $this->Benefits_list_model;
+		if( $this->input->get('q') ) {
+			$benefits->set_where('(name LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
+			$benefits->set_where_or('notes LIKE "%' . $this->input->get('q') . '%")', NULL, 99);
+		}
+		$benefits->set_select("*");
+		$benefits->set_order('leave', 'ASC');
+		$benefits->set_order('name', 'ASC');
+		$benefits->set_start($start);
+		$benefits->setTrash('1',true);
+		$benefits->setActive('0',true);
+		$this->template_data->set('benefits', $benefits->populate());
+
+		$this->template_data->set('pagination', bootstrap_pagination(array(
+			'base_url' => base_url($this->config->item('index_page') . '/lists_benefits/index/'),
+			'total_rows' => $benefits->count_all_results(),
+			'per_page' => $benefits->get_limit(),
+			'ajax'=>true,
+		)));
+		
+		$this->load->view('lists/benefits/benefits_trash', $this->template_data->get_data());
 	}
 
 	public function add($output='') {
@@ -91,7 +117,7 @@ class Lists_benefits extends MY_Controller {
 		$this->load->view('lists/benefits/benefits_edit', $this->template_data->get_data());
 	}
 
-	public function delete($id) {
+	public function deactivate($id) {
 		
 		$this->_isAuth('lists', 'benefits', 'delete');
 

@@ -29,6 +29,7 @@ class Welcome extends MY_Controller {
 		$birthdays->set_order('(DAY(ni.birthday))', 'ASC');
 		$birthdays->set_select("ni.*");
 		$birthdays->set_select("(TIMESTAMPDIFF(YEAR, ni.birthday, CURDATE())) as age");
+		$birthdays->set_limit(5);
 		$this->template_data->set('birthdays', $birthdays->populate());
 
 		$services = new $this->Names_info_model('ni');
@@ -39,6 +40,7 @@ class Welcome extends MY_Controller {
 		$services->set_select("ni.*");
 		$services->set_select("e.hired");
 		$services->set_select("(TIMESTAMPDIFF(YEAR, e.hired, CURDATE())) as age");
+		$services->set_limit(5);
 		$this->template_data->set('services', $services->populate());
 
 		$payrolls = new $this->Payroll_model;

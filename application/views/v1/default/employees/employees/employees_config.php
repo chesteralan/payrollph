@@ -75,7 +75,7 @@
     <p class="list-group-item-text">Salary Loans, Cash Advances, and other deductions</p>
   </a>
 
-  <a data-target="#ajaxModal" data-title="Leave Benefits" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit_leave_benefits/{$employee->name_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+  <a data-target="#ajaxModal" data-title="Leave Benefits" class="list-group-item ajax-modal-inner" href="<?php echo site_url("employees/edit_leave_benefits/{$employee->name_id}/0/ajax") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Leave Benefits</h4>
     <p class="list-group-item-text">Vacation Leave, Sick Leave, Emergency Leave, Maternity Leave, and etc.</p>
   </a>

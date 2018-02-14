@@ -11,7 +11,7 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
 <?php if( hasAccess('payroll', 'payroll', 'add') ) { ?>
-  <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Payroll" data-url="<?php echo site_url("payroll/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Add Payroll</button>
+  <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Payroll" data-url="<?php echo site_url("payroll/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Create Payroll</button>
 <?php } ?>
                  <!-- <h3 class="panel-title"><strong><?php echo $current_page; ?></strong></h3>-->
                     <?php if(isset($template)) { ?>
@@ -107,16 +107,13 @@
     <li><a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/print"); ?>">Print</a></li>
     <li><a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/payslip"); ?>">Payslip</a></li>
     <li role="separator" class="divider"></li>
-    <li><a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/xls"); ?>">Download</a></li>
+    <li><a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/xls"); ?>">Export</a></li>
   </ul>
 </div>
 
 <?php } else { ?>
 
                   <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Payroll" data-url="<?php echo site_url("payroll/config/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">Config</button>
-
-
-
 <?php } ?>
 
 <?php if($payroll->lock==0) { ?>

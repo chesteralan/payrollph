@@ -12,14 +12,16 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Edit Leave Benefits</h3>
+          <h3 class="panel-title">Edit Leave Benefits <?php echo ( $selected_year ) ? $selected_year : ''; ?></h3>
         </div>
         <form method="post">
         <div class="panel-body">
 
 <?php echo (validation_errors()) ? '<div class="alert alert-danger">' . validation_errors() . '</div>' : ''; ?>
-
 <?php endif; ?>
+
+<?php if( $selected_year ) { ?>
+
 <?php foreach($leaves as $leave) { ?>
           <div class="form-group">
             <label><?php echo $leave->name; ?></label>
@@ -27,6 +29,23 @@
             <small class="help-block"><?php echo $leave->notes; ?></small>
           </div>
 <?php } ?>
+
+<?php } else { ?>
+
+<?php if( count( $payroll_years ) > 0) { ?>
+<div class="btn-group">
+  <button type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Select a Year <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <?php foreach($payroll_years as $year) { ?>
+      <li><a class="ajax-modal-inner" href="<?php echo site_url("employees/edit_leave_benefits/{$employee->name_id}/{$year->year}/ajax") . '?next=' . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>" data-title="Leave Benefits <?php echo $year->year; ?>"><?php echo $year->year; ?></a></li>
+    <?php } ?>
+  </ul>
+</div>
+<?php } ?>
+<?php } ?>
+
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
         </div>

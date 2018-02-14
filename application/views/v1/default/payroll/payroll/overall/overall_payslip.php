@@ -60,6 +60,9 @@ $box_count = 0;
 <div class="print-topnav topnav2 hide-print text-center allcaps">
   Filter by Employee: <select name="" style="margin-top: 2px;" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
     <option value="" disabled="disabled" selected="selected">Select Employee...</option>
+<?php if($this->input->get('filter')) { ?>
+    <option value="<?php echo site_url(uri_string()); ?>">- - Show All - -</option>
+<?php } ?>
 <?php foreach($payroll_groups as $payroll_group) { ?>
 <?php if($payroll_group->employees) { 
         foreach($payroll_group->employees as $employee) { 

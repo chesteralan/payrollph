@@ -11,6 +11,7 @@ CREATE TABLE `employees_leave_benefits` (
   `name_id` int(20) NOT NULL,
   `benefit_id` int(20) NOT NULL,
   `days` int(2) DEFAULT '0',
+  `year` int(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`benefit_id`),
   KEY `company_id` (`company_id`)
@@ -21,6 +22,7 @@ ALTER TABLE  `employees_leave_benefits` ADD  `company_id` int(20) NOT NULL   ;
 ALTER TABLE  `employees_leave_benefits` ADD  `name_id` int(20) NOT NULL   ;
 ALTER TABLE  `employees_leave_benefits` ADD  `benefit_id` int(20) NOT NULL   ;
 ALTER TABLE  `employees_leave_benefits` ADD  `days` int(2) NULL   DEFAULT '0';
+ALTER TABLE  `employees_leave_benefits` ADD  `year` int(4) NOT NULL   ;
 
 
  * @package			        Model
@@ -39,6 +41,7 @@ class Employees_leave_benefits_model extends MY_Model {
 	protected $name_id;
 	protected $benefit_id;
 	protected $days;
+	protected $year;
 
 	// --------------------------------------------------------------------
 
@@ -52,8 +55,8 @@ class Employees_leave_benefits_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees_leave_benefits';
 		$this->_short_name = 'employees_leave_benefits';
-		$this->_fields = array("id","company_id","name_id","benefit_id","days");
-		$this->_required = array("company_id","name_id","benefit_id");
+		$this->_fields = array("id","company_id","name_id","benefit_id","days","year");
+		$this->_required = array("company_id","name_id","benefit_id","year");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -175,6 +178,29 @@ class Employees_leave_benefits_model extends MY_Model {
 // ------------------------------ End Field: days --------------------------------------
 
 
+// ---------------------------- Start Field: year -------------------------------------- 
+
+	/** 
+	* Sets a value to `year` variable
+	* @access public
+	*/
+
+	public function setYear($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('year', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `year` variable
+	* @access public
+	*/
+
+	public function getYear() {
+		return $this->year;
+	}
+	
+// ------------------------------ End Field: year --------------------------------------
+
+
 
 	
 	public function get_table_options() {
@@ -222,6 +248,15 @@ class Employees_leave_benefits_model extends MY_Model {
 										'Key'=>'',
 										'Default'=>'0',
 										'Extra'=>''
+									),
+
+			'year' => (object) array(
+										'Field'=>'year',
+										'Type'=>'int(4)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
 									)
 		);
 	}
@@ -233,6 +268,7 @@ class Employees_leave_benefits_model extends MY_Model {
 			'name_id' => "ALTER TABLE  `employees_leave_benefits` ADD  `name_id` int(20) NOT NULL   ;",
 			'benefit_id' => "ALTER TABLE  `employees_leave_benefits` ADD  `benefit_id` int(20) NOT NULL   ;",
 			'days' => "ALTER TABLE  `employees_leave_benefits` ADD  `days` int(2) NULL   DEFAULT '0';",
+			'year' => "ALTER TABLE  `employees_leave_benefits` ADD  `year` int(4) NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

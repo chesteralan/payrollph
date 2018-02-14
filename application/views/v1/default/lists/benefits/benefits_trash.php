@@ -11,8 +11,8 @@
 
 <div class="row">
 <div class="col-md-9">
-                    <h3 class="panel-title bold"><?php echo $current_page; ?> 
-<a href="<?php echo site_url("lists_benefits/trash"); ?>"><span class="glyphicon glyphicon-trash"></span></a>
+                    <h3 class="panel-title bold"><?php echo $current_page; ?> (Trash Bin)
+<a href="<?php echo site_url("lists_benefits"); ?>"><span class="glyphicon glyphicon-arrow-left"></span></a>
                     <?php if( $this->input->get('q') ) { ?>
                     <span class="badge"><?php echo $this->input->get('q'); ?> <a href="<?php echo site_url(uri_string()); ?>"><span class="glyphicon glyphicon-remove"></span></a></span>
                     <?php } ?>
@@ -50,7 +50,7 @@
                 <th>ER Account Title</th>
                 <th>Leave</th>
                 <?php if( hasAccess('lists', 'benefits', 'edit') ) { ?>
-                  <th width="185px">Action</th>
+                  <th width="230px">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -65,9 +65,9 @@
                 <td><span class="glyphicon glyphicon-<?php echo ($benefit->leave) ? 'ok' : 'remove'; ?>"></span></td>
               <?php if( hasAccess('lists', 'benefits', 'edit') ) { ?>
                 <td>
-                <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Benefit" data-url="<?php echo site_url("lists_benefits/edit/{$benefit->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
+                <button type="button" class="btn btn-success btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Benefit" data-url="<?php echo site_url("lists_benefits/edit/{$benefit->id}/ajax") . "?next=" . uri_string(); ?>">Restore</button>
 
-                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("lists_benefits/deactivate/{$benefit->id}"); ?>" data-target="#employee-benefit-<?php echo $benefit->id; ?>">Deactivate</a>
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("lists_benefits/deactivate/{$benefit->id}"); ?>" data-target="#employee-benefit-<?php echo $benefit->id; ?>">Permanently Delete</a>
                 <?php if(!$benefit->leave) { ?>
                 <a class="btn btn-success btn-xs body_wrapper" href="<?php echo site_url("lists_benefits/items/{$benefit->id}"); ?>">Items</a>
                 <?php } ?>
