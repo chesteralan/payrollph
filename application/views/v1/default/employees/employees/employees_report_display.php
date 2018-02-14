@@ -134,7 +134,7 @@ if( in_array($fld_id, $selected_columns)) { $display_col++; } ?>
 <?php } ?>
 <?php } ?>
 <?php } ?>
-<td><a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo site_url("lists_names/profile/{$employee->name_id}/ajax") . "?output=inner_page&next=" . uri_string(); ?>"><span class="glyphicon glyphicon-edit"></span></a></td>
+<td><a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo site_url("lists_names/profile/{$employee->name_id}/ajax") . "?output=inner_page&next=" . uri_string() . "&next_query=" . urlencode(serialize($this->input->get())); ?>"><span class="glyphicon glyphicon-edit"></span></a></td>
  </tr>
 <?php } ?>
 

@@ -285,7 +285,7 @@ public function leave_benefits($id,$group_id=0,$output='') {
 
 			foreach( $leave_benefits as $leave1) {
 				$employees->set_select("(SELECT elb.days FROM employees_leave_benefits elb WHERE elb.company_id=e.company_id AND elb.name_id=e.name_id AND elb.benefit_id={$leave1->id} AND elb.year='{$payroll_data->year}') as allowed_leave_{$leave1->id}");
-				$employees->set_select("(SELECT SUM(eab.hours/8) FROM employees_absences eab WHERE eab.name_id=e.name_id AND eab.leave_type={$leave1->id} AND YEAR(eab.date_absent)='".date('Y')."') as availed_leave_{$leave1->id}");
+				$employees->set_select("(SELECT SUM(eab.hours/8) FROM employees_absences eab WHERE eab.name_id=e.name_id AND eab.leave_type={$leave1->id} AND YEAR(eab.date_absent)='{$payroll_data->year}') as availed_leave_{$leave1->id}");
 			}
 
 

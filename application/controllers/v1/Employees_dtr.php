@@ -63,7 +63,7 @@ class Employees_dtr extends MY_Controller {
 		$benefits->setTrash(0,true);
 		$benefits->set_select("*");
 		$benefits->set_select("(SELECT elb.days FROM employees_leave_benefits elb WHERE elb.name_id={$employee_data->name_id} AND elb.company_id={$employee_data->company_id} AND b.id=elb.benefit_id AND elb.year='{$selected_year}' LIMIT 1) as days");
-		$benefits->set_select("(SELECT SUM(eab.hours/8) FROM employees_absences eab WHERE eab.name_id={$employee_data->name_id} AND eab.leave_type=b.id AND YEAR(eab.date_absent)='".date('Y')."') as availed");
+		$benefits->set_select("(SELECT SUM(eab.hours/8) FROM employees_absences eab WHERE eab.name_id={$employee_data->name_id} AND eab.leave_type=b.id AND YEAR(eab.date_absent)='{$selected_year}') as availed");
 		$this->template_data->set('leaves', $benefits->populate());
 
 		$this->template_data->set('output', $output);

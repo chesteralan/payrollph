@@ -10,7 +10,6 @@ class Lists_names extends MY_Controller {
 		$this->template_data->set('navbar_search', false);
 
 		$this->_isAuth('lists', 'names', 'view');
-
 	}
 
 	private function _searchRedirect($uri='lists_names') {
