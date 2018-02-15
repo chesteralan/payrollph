@@ -23,8 +23,15 @@ class Employees extends MY_Controller {
 			$employees->set_where_or('ni.firstname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
 			$employees->set_where_or('ni.middlename LIKE "%' . $this->input->get('q') . '%")', NULL, 99);
 		}
+
+		if( $this->input->get('filter') == 'trash' ) {
+			$employees->setTrash(1,true);
+		} else {
+			$employees->setTrash(0,true);
+		}
+
 		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
-		$employees->setTrash(0,true);
+		
 		$employees->set_select('e.*');
 		$employees->set_select('(SELECT name FROM employees_groups WHERE id=e.group_id) as group_name');
 		$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position_name');
@@ -50,7 +57,11 @@ class Employees extends MY_Controller {
 			'ajax'=>true
 		)));
 
-		$this->load->view('employees/employees/employees_list', $this->template_data->get_data());
+		if( $this->input->get('filter') == 'trash' ) {
+			$this->load->view('employees/employees/employees_list_trash', $this->template_data->get_data());
+		} else {
+			$this->load->view('employees/employees/employees_list', $this->template_data->get_data());
+		}
 	}
 
 	public function group($id, $start=0) {
@@ -65,6 +76,13 @@ class Employees extends MY_Controller {
 			$employees->set_where_or('ni.firstname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
 			$employees->set_where_or('ni.middlename LIKE "%' . $this->input->get('q') . '%")', NULL, 99);
 		}
+
+		if( $this->input->get('filter') == 'trash' ) {
+			$employees->setTrash(1,true);
+		} else {
+			$employees->setTrash(0,true);
+		}
+
 		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 		$employees->setGroupId($id,true);
 		$employees->set_select('e.*');
@@ -385,7 +403,29 @@ class Employees extends MY_Controller {
 		$this->load->view('employees/employees/employees_edit_address', $this->template_data->get_data());
 	}
 
+	public function restore($id) {
+		$this->_isAuth('employees', 'employees', 'delete');
+
+		$employee = new $this->Employees_model;
+		$employee->setNameId($id,true,false);
+		$employee->setTrash(0,true,true);
+		$employee->update();
+		
+		$this->getNext("employees");
+	}
+
 	public function delete($id) {
+		$this->_isAuth('employees', 'employees', 'delete');
+
+		$employee = new $this->Employees_model;
+		$employee->setNameId($id,true);
+		$employee->setTrash(1,true);
+		$employee->delete();
+		
+		$this->getNext("employees");
+	}
+
+	public function deactivate($id) {
 		$this->_isAuth('employees', 'employees', 'delete');
 
 		$employee = new $this->Employees_model;

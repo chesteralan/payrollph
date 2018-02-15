@@ -192,7 +192,7 @@ body#payslip .payslip_box.payslip2 {
 }
 body#payslip .payslip_box.payslip2.second-half {
     margin: 0;
-    padding-top: 50px;
+    padding-top: 10px;
     border-top:1px dashed #CCC;
 }
 body#payslip .payslip_box .inner_body {

@@ -58,8 +58,9 @@
               <?php if( hasAccess('employees', 'groups', 'edit') ) { ?>
                 <td>
                 <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Group" data-url="<?php echo site_url("employees_groups/edit/{$group->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
-
-                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees_groups/delete/{$group->id}"); ?>" data-target="#employee-group-<?php echo $group->id; ?>">Delete</button>
+<?php if( $group->employees_count==0 ) { ?>
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees_groups/delete/{$group->id}"); ?>" data-target="#employee-group-<?php echo $group->id; ?>">Delete</a>
+<?php } ?>
                 </td>
               <?php } ?>
               </tr>

@@ -24,7 +24,7 @@
                     <span class="badge"><?php echo $this->input->get('q'); ?> <a href="<?php echo site_url(uri_string()); ?>"><span class="glyphicon glyphicon-remove"></span></a></span>
                     <?php } ?>
 
-  <a href="<?php echo site_url(uri_string()); ?>?filter=trash"><span class="glyphicon glyphicon-trash"></span></a>
+  <a href="<?php echo site_url(uri_string()); ?>"><span class="glyphicon glyphicon-arrow-left"></span></a>
 
 <a href="<?php echo site_url("employees/report"); ?>" class=""><span class="glyphicon glyphicon-print"></span></a>
 <br><small><em>(<?php echo $employees_count; ?> name<?php echo ($employees_count>1)?"s":""; ?> found)</em></small>
@@ -71,7 +71,7 @@
                 <th>Status</th>
 */ ?>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
-                  <th width="185px">Action</th>
+                  <th width="225px">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -109,59 +109,9 @@
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
 
+<a class="btn btn-success btn-xs confirm_remove" href="<?php echo site_url("employees/restore/{$employee->name_id}"); ?>" data-target="#employee-<?php echo $employee->name_id; ?>">Restore</a>
 
-<div class="btn-group">
-                  <a class="btn btn-info btn-xs body_wrapper" href="<?php echo site_url("lists_names/profile/{$employee->name_id}"); ?>">Profile</a>
-  <button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
-  <ul class="dropdown-menu dropdown-menu-right">
-    <li><a data-title="Personal Information" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("lists_names/update_personal/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Personal Information</a></li>
-
- <li><a data-title="Address and Contact" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("lists_names/update_contacts/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Address and Contacts</a></li>
-
- <li><a data-title="Social Media Accounts" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("lists_names/update_social_media/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Social Media Accounts</a></li>
-
- <li><a data-title="Identification Numbers" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("lists_names/update_ids/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Identification Numbers</a></li>
-
-  <li><a data-title="Emergency Contacts" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("lists_names/update_emergency/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Emergency Contacts</a></li>
-
-   <li role="separator" class="divider"></li>
-
-   <li><a data-title="Employment Information" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("employees/edit_employment/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Employment Information</a></li>
-
-    <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_salaries/view/{$employee->name_id}"); ?>">
-Basic Salary</a></li>
-
-  <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_earnings/view/{$employee->name_id}"); ?>">Earnings</a></li>
-
-  <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_benefits/view/{$employee->name_id}");  ?>">Benefits</a></li>
-  
-   <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_deductions/view/{$employee->name_id}");  ?>">Deductions</a></li>
-
-  <li><a data-title="Leave Benefits" data-target="#ajaxModal" href="#ajaxModal" data-toggle="modal" class="ajax-modal" data-url="<?php echo site_url("employees/edit_leave_benefits/{$employee->name_id}/0/ajax") . "?next=" . uri_string(); ?>">Leave Benefits</a></li>
-  
-  <li role="separator" class="divider"></li>
-  
-  <?php 
-$column_groups = array(
-  array('url'=>site_url('payroll_dtr/by_name/' . $employee->name_id),'name' => 'Daily Time Record'),
-  array('url'=>site_url('payroll_salaries/by_name/' . $employee->name_id), 'name' => 'Basic Salary'),
-  array('url'=>site_url('payroll_earnings/by_name/' . $employee->name_id), 'name' => 'Earnings'),
-  array('url'=>site_url('payroll_benefits/by_name/' . $employee->name_id), 'name' => 'Benefits'),
-  array('url'=>site_url('payroll_deductions/by_name/' . $employee->name_id), 'name' => 'Deductions'),
-  array('url'=>site_url('payroll_summary/by_name/' . $employee->name_id), 'name' => 'Summary'),
-);
-foreach($column_groups as $col) {
-?>
-    <li><a href="<?php echo $col['url']; ?>"><?php echo $col['name']; ?></a></li>
-<?php } ?>
-
-  </ul>
-</div>
-
-                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees/deactivate/{$employee->name_id}"); ?>" data-target="#employee-<?php echo $employee->name_id; ?>">Deactivate</a>
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees/delete/{$employee->name_id}"); ?>" data-target="#employee-<?php echo $employee->name_id; ?>">Delete Permanently</a>
                 </td>
               <?php } ?>
               </tr>
