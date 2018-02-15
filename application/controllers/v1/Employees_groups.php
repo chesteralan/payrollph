@@ -9,7 +9,7 @@ class Employees_groups extends MY_Controller {
 		$this->template_data->set('current_uri', 'employees_groups');
 		$this->template_data->set('navbar_search', true);
 
-		$this->_isAuth('employees', 'groups', 'view');
+		$this->_isAuth('employees', 'employees', 'edit');
 
 	}
 

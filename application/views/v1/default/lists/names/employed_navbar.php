@@ -47,6 +47,7 @@ $url['employees_salaries'] = array('uri' => 'employees_salaries/view/' . $name->
 $url['employees_earnings'] = array('uri' => 'employees_earnings/view/' . $name->id, 'title'=>'Earnings', 'access'=>hasAccess('employees', 'employees', 'view'));
 $url['employees_benefits'] = array('uri' => 'employees_benefits/view/' . $name->id, 'title'=>'Benefits', 'access'=>hasAccess('employees', 'employees', 'view'));
 $url['employees_deductions'] = array('uri' => 'employees_deductions/view/' . $name->id, 'title'=>'Deductions', 'access'=>hasAccess('employees', 'employees', 'view'));
+$url['employees_calendar'] = array('uri' => 'employees_calendar/view/' . $name->id, 'title'=>'Calendar', 'access'=>hasAccess('employees', 'employees', 'view'));
 
 foreach($url as $k=>$v) {
   if( $v['access'] ) {

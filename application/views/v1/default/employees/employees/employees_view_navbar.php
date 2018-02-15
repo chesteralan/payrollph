@@ -33,12 +33,15 @@ $url['employees_salaries'] = array('uri' => 'employees_salaries/view/' . $employ
 $url['employees_earnings'] = array('uri' => 'employees_earnings/view/' . $employee->name_id, 'title'=>'Earnings', 'access'=>hasAccess('employees', 'employees', 'view'));
 $url['employees_benefits'] = array('uri' => 'employees_benefits/view/' . $employee->name_id, 'title'=>'Benefits', 'access'=>hasAccess('employees', 'employees', 'view'));
 $url['employees_deductions'] = array('uri' => 'employees_deductions/view/' . $employee->name_id, 'title'=>'Deductions', 'access'=>hasAccess('employees', 'employees', 'view'));
+$url['employees_calendar'] = array('uri' => 'employees_calendar/view/' . $employee->name_id, 'title'=>'Calendar', 'access'=>hasAccess('employees', 'employees', 'view'));
 
 foreach($url as $k=>$v) {
   if( $v['access'] ) {
 ?>
   <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($v['uri']) . (($this->input->get('next')) ? '?next=' . $this->input->get('next') : ''); ?>"><?php echo $v['title']; ?></a></li>
 <?php } } ?>
+
+<li class=""><a class="body_wrapper" href="<?php echo site_url("payroll_dtr/by_name/{$employee->name_id}"); ?>"><span class="fa fa-list-alt"></span></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

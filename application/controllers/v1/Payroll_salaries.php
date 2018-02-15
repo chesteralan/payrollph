@@ -23,7 +23,7 @@ class Payroll_salaries extends MY_Controller {
 		redirect("payroll");
 	}
 
-	private function _next($id, $url='payroll_salaries/view/') {
+	private function _next($id, $group_id=0, $url='payroll_salaries/view/') {
 		$payroll = new $this->Payroll_model('p');
 		$payroll->setActive(1, true);
 		$payroll->setCompanyId($this->session->userdata('current_company_id'),true);
@@ -35,12 +35,12 @@ class Payroll_salaries extends MY_Controller {
 			$where->set_limit(1);
 		$payroll->set_limit(1);
 		$payroll->set_select("p.id");
-		$payroll->set_select("CONCAT('{$url}',p.id) as url");
+		$payroll->set_select("CONCAT('{$url}',p.id,'/',{$group_id}) as url");
 		$payroll->set_where('id = ('. $where->get_compiled_select() . ')');
 		return $payroll->get();
 	}
 
-	private function _previous($id, $url='payroll_salaries/view/') {
+	private function _previous($id, $group_id=0, $url='payroll_salaries/view/') {
 		$payroll = new $this->Payroll_model('p');
 		$payroll->setActive(1, true);
 		$payroll->setCompanyId($this->session->userdata('current_company_id'),true);
@@ -52,7 +52,7 @@ class Payroll_salaries extends MY_Controller {
 			$where->set_limit(1);
 		$payroll->set_limit(1);
 		$payroll->set_select("p.id");
-		$payroll->set_select("CONCAT('{$url}',p.id) as url");
+		$payroll->set_select("CONCAT('{$url}',p.id,'/',{$group_id}) as url");
 		$payroll->set_where('id = ('. $where->get_compiled_select() . ')');
 		return $payroll->get();
 	}
@@ -201,8 +201,8 @@ class Payroll_salaries extends MY_Controller {
 		$employees_status->set_order('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status)', 'ASC');
 		$this->template_data->set('employees_status', $employees_status->populate());
 
-		$this->template_data->set('next_item', $this->_next($id));
-		$this->template_data->set('previous_item', $this->_previous($id));
+		$this->template_data->set('next_item', $this->_next($id, $group_id));
+		$this->template_data->set('previous_item', $this->_previous($id, $group_id));
 		
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/salaries/salaries_view', $this->template_data->get_data());

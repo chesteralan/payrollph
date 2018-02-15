@@ -9,7 +9,7 @@ class Employees_positions extends MY_Controller {
 		$this->template_data->set('current_uri', 'employees_positions');
 		$this->template_data->set('navbar_search', true);
 
-		$this->_isAuth('employees', 'positions', 'view');
+		$this->_isAuth('employees', 'employees', 'edit');
 
 	}
 
