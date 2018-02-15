@@ -27,12 +27,21 @@
       <div class="col-md-6">
           <div class="form-group">
             <label>Leave Type</label>
-            <select class="form-control" title="Leave Type" name="leave_type">
+<?php if( isset($current_leave) ) { ?>
+<input type="hidden" name="leave_type" value="<?php echo $current_leave->id; ?>">
+  <div class="form-control"><?php echo $current_leave->name; ?> (<?php echo number_format($current_leave->availed,2); ?> / <?php echo number_format($current_leave->days,2); ?>)</div>
+<?php } else { ?>
+            <select class="form-control" name="leave_type">
                 <option value="" <?php echo (($absence) && ($absence->leave_type==0)) ? 'SELECTED' : ''; ?>>Absence without Leave</option>
-                <?php foreach($leaves as $leave) { ?>
-                  <option value="<?php echo $leave->id; ?>" <?php echo (($absence) && ($absence->leave_type==$leave->id)) ? 'SELECTED' : ''; ?>><?php echo $leave->name; ?> (<?php echo number_format($leave->availed,2); ?> / <?php echo number_format($leave->days,2); ?>)</option>
+                <?php foreach($leave_benefits as $leave) { ?>
+                  <?php if( $leave->days ) { ?>
+                    <?php if(($employee->availed < $employee->days)) { ?>
+                      <option value="<?php echo $leave->id; ?>" <?php echo (($absence) && ($absence->leave_type==$leave->id)) ? 'SELECTED' : ''; ?>><?php echo $leave->name; ?> (<?php echo number_format($leave->availed,2); ?> / <?php echo number_format($leave->days,2); ?>)</option>
+                    <?php } ?>
+                  <?php } ?>
                 <?php } ?>
             </select>
+<?php } ?>
           </div>
       </div>
         <div class="col-md-6">
@@ -44,7 +53,7 @@
       </div>
 
     <div class="form-group">
-      <label>Notes</label>
+      <label>Notes / Reason</label>
       <textarea name="notes" class="form-control" rows="3"><?php echo ($absence) ? $absence->notes : ''; ?></textarea>
     </div>
 

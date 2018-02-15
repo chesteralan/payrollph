@@ -75,7 +75,7 @@ $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $worki
                 <td class="text-right"><?php echo $inclusive_dates->working_days; ?></td>
                 <td class="text-right">
 
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Employee Attendance" data-url="<?php echo site_url("payroll_dtr/absences/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Inclusive Dates" data-url="<?php echo site_url("payroll_dtr/absences/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
                 <?php echo $days_absent; ?>
 </a>
                 </td>

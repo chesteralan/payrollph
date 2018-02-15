@@ -315,6 +315,7 @@ public function leave_benefits($id,$group_id=0,$output='') {
 
 	public function absences($id,$name_id,$output='') {
 
+		$this->_column_groups();
 		$this->template_data->set('name_id', $name_id);
 
 		$payroll = new $this->Payroll_model;
@@ -335,7 +336,7 @@ public function leave_benefits($id,$group_id=0,$output='') {
 		$this->template_data->set('inclusive_dates', $inclusive_dates->populate());
 
 		$this->template_data->set('output', $output);
-		$this->load->view('payroll/payroll/dtr/dtr_calendar', $this->template_data->get_data());
+		$this->load->view('payroll/payroll/dtr/dtr_absences', $this->template_data->get_data());
 	}
 
 	public function by_name($name_id,$start=0) {

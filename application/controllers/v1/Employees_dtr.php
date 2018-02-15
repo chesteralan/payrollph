@@ -58,13 +58,22 @@ class Employees_dtr extends MY_Controller {
 		$employee_data = $employee->get();
 		$this->template_data->set('employee', $employee_data );
 
-		$benefits = new $this->Benefits_list_model('b');
-		$benefits->setLeave(1,true);
-		$benefits->setTrash(0,true);
-		$benefits->set_select("*");
-		$benefits->set_select("(SELECT elb.days FROM employees_leave_benefits elb WHERE elb.name_id={$employee_data->name_id} AND elb.company_id={$employee_data->company_id} AND b.id=elb.benefit_id AND elb.year='{$selected_year}' LIMIT 1) as days");
-		$benefits->set_select("(SELECT SUM(eab.hours/8) FROM employees_absences eab WHERE eab.name_id={$employee_data->name_id} AND eab.leave_type=b.id AND YEAR(eab.date_absent)='{$selected_year}') as availed");
-		$this->template_data->set('leaves', $benefits->populate());
+		if( $this->input->get('leave_id') ) {
+			$current_leave = new $this->Benefits_list_model('b');
+			$current_leave->setId($this->input->get('leave_id'),true);
+			$current_leave->set_select("*");
+			$current_leave->set_select("(SELECT elb.days FROM employees_leave_benefits elb WHERE elb.name_id={$employee_data->name_id} AND elb.company_id={$employee_data->company_id} AND b.id=elb.benefit_id AND elb.year='{$selected_year}' LIMIT 1) as days");
+			$current_leave->set_select("(SELECT SUM(eab.hours/8) FROM employees_absences eab WHERE eab.name_id={$employee_data->name_id} AND eab.leave_type=b.id AND YEAR(eab.date_absent)='{$selected_year}') as availed");
+			$this->template_data->set('current_leave', $current_leave->get());
+		} else {
+			$leave_benefits = new $this->Benefits_list_model('b');
+			$leave_benefits->setLeave(1,true);
+			$leave_benefits->setTrash(0,true);
+			$leave_benefits->set_select("*");
+			$leave_benefits->set_select("(SELECT elb.days FROM employees_leave_benefits elb WHERE elb.name_id={$employee_data->name_id} AND elb.company_id={$employee_data->company_id} AND b.id=elb.benefit_id AND elb.year='{$selected_year}' LIMIT 1) as days");
+			$leave_benefits->set_select("(SELECT SUM(eab.hours/8) FROM employees_absences eab WHERE eab.name_id={$employee_data->name_id} AND eab.leave_type=b.id AND YEAR(eab.date_absent)='{$selected_year}') as availed");
+			$this->template_data->set('leave_benefits', $leave_benefits->populate());
+		}
 
 		$this->template_data->set('output', $output);
 		$this->load->view('employees/employees/dtr/dtr_add_leave', $this->template_data->get_data());
