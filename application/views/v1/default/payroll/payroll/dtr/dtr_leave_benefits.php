@@ -11,7 +11,7 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
-<a class="body_wrapper" href="<?php echo site_url("payroll_dtr/view/{$payroll->id}"); ?>"><small>Daily Time Record</small></a>
+<a class="body_wrapper" href="<?php echo site_url("payroll_dtr/view/{$payroll->id}/{$group_id}"); ?>"><small>Daily Time Record</small></a>
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
@@ -28,9 +28,9 @@
                 <th>
 <?php if( !$this->session->userdata('current_employee') ) { ?>
 <?php if( intval($group_id) > 0 ) { ?>
-<a href="<?php echo site_url("payroll_dtr/view/{$payroll->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></a>
+<a href="<?php echo site_url("payroll_dtr/leave_benefits/{$payroll->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></a>
 <?php } else { ?>
-  <a href="<?php echo site_url("payroll_dtr/view/{$payroll->id}/{$payroll_group->group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
+  <a href="<?php echo site_url("payroll_dtr/leave_benefits/{$payroll->id}/{$payroll_group->group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
 <?php } ?>
                 <?php echo $payroll_group->name; ?>

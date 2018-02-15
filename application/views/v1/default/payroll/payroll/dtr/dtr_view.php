@@ -11,7 +11,7 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong> (<?php echo date( 'F d,Y', strtotime( $inclusive_dates->start_date ) ); ?> - <?php echo date( 'F d,Y', strtotime( $inclusive_dates->end_date ) ); ?>)
-<a class="body_wrapper" href="<?php echo site_url("payroll_dtr/leave_benefits/{$payroll->id}"); ?>"><small>Leave Benefits</small></a>
+<a class="body_wrapper" href="<?php echo site_url("payroll_dtr/leave_benefits/{$payroll->id}/{$group_id}"); ?>"><small>Leave Benefits</small></a>
 <?php if(!$payroll->lock) { ?>
 <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Inclusive Dates" data-url="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
 <?php } ?>
