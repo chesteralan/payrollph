@@ -39,6 +39,9 @@ class Employees_salaries extends MY_Controller {
 			'per_page' => $salaries->get_limit(),
 			'ajax'=>true,
 		)));
+
+		$this->template_data->set('next_item', $this->_next_name($id, 'employees_salaries/view/'));
+		$this->template_data->set('previous_item', $this->_previous_name($id, 'employees_salaries/view/'));
 		
 		$this->load->view('employees/employees/salaries/salaries_list', $this->template_data->get_data());
 	}

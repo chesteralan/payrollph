@@ -51,6 +51,9 @@ class Employees_earnings extends MY_Controller {
 			'per_page' => $earnings->get_limit(),
 			'ajax'=>true,
 		)));
+
+		$this->template_data->set('next_item', $this->_next_name($id, 'employees_earnings/view/'));
+		$this->template_data->set('previous_item', $this->_previous_name($id, 'employees_earnings/view/'));
 		
 		$this->load->view('employees/employees/earnings/earnings_list', $this->template_data->get_data());
 	}

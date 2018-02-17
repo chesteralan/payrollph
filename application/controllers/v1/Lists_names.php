@@ -18,36 +18,6 @@ class Lists_names extends MY_Controller {
 		}
 	}
 
-	private function _next($id, $url='lists_names/edit/') {
-		$names = new $this->Names_list_model('nl');
-		$names->setTrash(0, true);
-			$where = new $this->Names_list_model('w');
-			$where->setTrash(0, true);
-			$where->set_select('MIN(w.id)');
-			$where->set_where("w.id > " . $id);
-			$where->set_limit(1);
-		$names->set_limit(1);
-		$names->set_select("nl.id");
-		$names->set_select("CONCAT('{$url}',nl.id) as url");
-		$names->set_where('id = ('. $where->get_compiled_select() . ')');
-		return $names->get();
-	}
-
-	private function _previous($id, $url='lists_names/edit/') {
-		$names = new $this->Names_list_model('nl');
-		$names->setTrash(0, true);
-			$where = new $this->Names_list_model('w');
-			$where->setTrash(0, true);
-			$where->set_select('MAX(w.id)');
-			$where->set_where("w.id < " . $id);
-			$where->set_limit(1);
-		$names->set_limit(1);
-		$names->set_select("nl.id");
-		$names->set_select("CONCAT('{$url}',nl.id) as url");
-		$names->set_where('id = ('. $where->get_compiled_select() . ')');
-		return $names->get();
-	}
-
 	public function index($start=0) {
 		
 		if( $start > 0 ) {
@@ -261,8 +231,8 @@ class Lists_names extends MY_Controller {
 			$this->template_data->set('employee', $employee->get());
 		}
 
-		$this->template_data->set('next_item', $this->_next($id, 'lists_names/profile/'));
-		$this->template_data->set('previous_item', $this->_previous($id, 'lists_names/profile/'));
+		$this->template_data->set('next_item', $this->_next_name($id, 'lists_names/profile/'));
+		$this->template_data->set('previous_item', $this->_previous_name($id, 'lists_names/profile/'));
 
 		if( $output == 'ajax' ) {
 			$this->load->view('lists/names/names_profile_ajax', $this->template_data->get_data());

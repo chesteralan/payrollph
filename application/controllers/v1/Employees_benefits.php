@@ -52,6 +52,9 @@ class Employees_benefits extends MY_Controller {
 			'per_page' => $benefits->get_limit(),
 			'ajax'=>true,
 		)));
+
+		$this->template_data->set('next_item', $this->_next_name($id, 'employees_benefits/view/'));
+		$this->template_data->set('previous_item', $this->_previous_name($id, 'employees_benefits/view/'));
 		
 		$this->load->view('employees/employees/benefits/benefits_list', $this->template_data->get_data());
 	}

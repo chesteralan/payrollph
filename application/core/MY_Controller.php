@@ -151,4 +151,112 @@ class MY_Controller extends CI_Controller {
             }
         }
 
+        protected function _next_name($id, $url='lists_names/edit/') {
+            $names = new $this->Names_list_model('nl');
+            $names->setTrash(0, true);
+                $where = new $this->Names_list_model('w');
+                $where->setTrash(0, true);
+                $where->set_select('MIN(w.id)');
+                $where->set_where("w.id > " . $id);
+                $where->set_limit(1);
+            $names->set_limit(1);
+            $names->set_select("nl.id");
+            $names->set_select("CONCAT('{$url}',nl.id) as url");
+            $names->set_where('id = ('. $where->get_compiled_select() . ')');
+            return $names->get();
+        }
+
+        protected function _previous_name($id, $url='lists_names/edit/') {
+            $names = new $this->Names_list_model('nl');
+            $names->setTrash(0, true);
+                $where = new $this->Names_list_model('w');
+                $where->setTrash(0, true);
+                $where->set_select('MAX(w.id)');
+                $where->set_where("w.id < " . $id);
+                $where->set_limit(1);
+            $names->set_limit(1);
+            $names->set_select("nl.id");
+            $names->set_select("CONCAT('{$url}',nl.id) as url");
+            $names->set_where('id = ('. $where->get_compiled_select() . ')');
+            return $names->get();
+        }
+
+        protected function _next_employee($id, $url='payroll_dtr/by_name/') {
+            $names = new $this->Employees_model('nl');
+            $names->setCompanyId($this->session->userdata('current_company_id'),true);
+            $names->setTrash(0, true);
+                $where = new $this->Employees_model('w');
+                $where->setCompanyId($this->session->userdata('current_company_id'),true);
+                $where->setTrash(0, true);
+                $where->set_select('MIN(w.name_id)');
+                $where->set_where("w.name_id > " . $id);
+                $where->set_limit(1);
+            $names->set_limit(1);
+            $names->set_select("nl.name_id");
+            $names->set_select("CONCAT('{$url}',nl.name_id) as url");
+            $names->set_where('nl.name_id = ('. $where->get_compiled_select() . ')');
+            return $names->get();
+        }
+
+        protected function _previous_employee($id, $url='payroll_dtr/by_name/') {
+            $names = new $this->Employees_model('nl');
+            $names->setCompanyId($this->session->userdata('current_company_id'),true);
+            $names->setTrash(0, true);
+                $where = new $this->Employees_model('w');
+                $where->setCompanyId($this->session->userdata('current_company_id'),true);
+                $where->setTrash(0, true);
+                $where->set_select('MAX(w.name_id)');
+                $where->set_where("w.name_id < " . $id);
+                $where->set_limit(1);
+            $names->set_limit(1);
+            $names->set_select("nl.name_id");
+            $names->set_select("CONCAT('{$url}',nl.name_id) as url");
+            $names->set_where('name_id = ('. $where->get_compiled_select() . ')');
+            return $names->get();
+        }
+
+        protected function _next_payroll($id, $group_id=0, $url='payroll_dtr/view/') {
+            $payroll = new $this->Payroll_model('p');
+            $payroll->setActive(1, true);
+            $payroll->setCompanyId($this->session->userdata('current_company_id'),true);
+                $where = new $this->Payroll_model('w');
+                $where->setActive(1, true);
+                $where->set_select('MIN(w.id)');
+                $where->set_where("w.id > " . $id);
+                $where->setCompanyId($this->session->userdata('current_company_id'),true);
+                $where->set_limit(1);
+            $payroll->set_limit(1);
+            $payroll->set_select("p.id");
+            $payroll->set_select("CONCAT('{$url}',p.id,'/',{$group_id}) as url");
+            $payroll->set_where('id = ('. $where->get_compiled_select() . ')');
+            return $payroll->get();
+        }
+
+        protected function _previous_payroll($id, $group_id=0, $url='payroll_dtr/view/') {
+            $payroll = new $this->Payroll_model('p');
+            $payroll->setActive(1, true);
+            $payroll->setCompanyId($this->session->userdata('current_company_id'),true);
+                $where = new $this->Payroll_model('w');
+                $where->setActive(1, true);
+                $where->set_select('MAX(w.id)');
+                $where->set_where("w.id < " . $id);
+                $where->setCompanyId($this->session->userdata('current_company_id'),true);
+                $where->set_limit(1);
+            $payroll->set_limit(1);
+            $payroll->set_select("p.id");
+            $payroll->set_select("CONCAT('{$url}',p.id,'/',{$group_id}) as url");
+            $payroll->set_where('id = ('. $where->get_compiled_select() . ')');
+            return $payroll->get();
+        }
+
+        protected function _column_groups() {
+            $this->template_data->set('column_group_dtr', get_company_option($this->session->userdata('current_company_id'), 'column_group_dtr'));
+            $this->template_data->set('column_group_salaries', get_company_option($this->session->userdata('current_company_id'), 'column_group_salaries'));
+            $this->template_data->set('column_group_earnings', get_company_option($this->session->userdata('current_company_id'), 'column_group_earnings'));
+            $this->template_data->set('column_group_benefits', get_company_option($this->session->userdata('current_company_id'), 'column_group_benefits'));
+            $this->template_data->set('column_group_deductions', get_company_option($this->session->userdata('current_company_id'), 'column_group_deductions'));
+            $this->template_data->set('column_group_summary', get_company_option($this->session->userdata('current_company_id'), 'column_group_summary'));
+            $this->template_data->set('column_group_sort', get_company_option($this->session->userdata('current_company_id'), 'column_group_sort'));
+        }
+    
 }

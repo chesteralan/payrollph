@@ -21,85 +21,7 @@ class Payroll_summary extends MY_Controller {
 	public function index() {
 		redirect("payroll");
 	}
-
-	private function _next($id, $group_id=0, $url='payroll_summary/view/') {
-		$payroll = new $this->Payroll_model('p');
-		$payroll->setActive(1, true);
-		$payroll->setCompanyId($this->session->userdata('current_company_id'),true);
-			$where = new $this->Payroll_model('w');
-			$where->setActive(1, true);
-			$where->set_select('MIN(w.id)');
-			$where->set_where("w.id > " . $id);
-			$where->setCompanyId($this->session->userdata('current_company_id'),true);
-			$where->set_limit(1);
-		$payroll->set_limit(1);
-		$payroll->set_select("p.id");
-		$payroll->set_select("CONCAT('{$url}',p.id,'/',{$group_id}) as url");
-		$payroll->set_where('id = ('. $where->get_compiled_select() . ')');
-		return $payroll->get();
-	}
-
-	private function _previous($id, $group_id=0, $url='payroll_summary/view/') {
-		$payroll = new $this->Payroll_model('p');
-		$payroll->setActive(1, true);
-		$payroll->setCompanyId($this->session->userdata('current_company_id'),true);
-			$where = new $this->Payroll_model('w');
-			$where->setActive(1, true);
-			$where->set_select('MAX(w.id)');
-			$where->set_where("w.id < " . $id);
-			$where->setCompanyId($this->session->userdata('current_company_id'),true);
-			$where->set_limit(1);
-		$payroll->set_limit(1);
-		$payroll->set_select("p.id");
-		$payroll->set_select("CONCAT('{$url}',p.id,'/',{$group_id}) as url");
-		$payroll->set_where('id = ('. $where->get_compiled_select() . ')');
-		return $payroll->get();
-	}
-
-	private function _next_name($id, $url='payroll_dtr/by_name/') {
-		$names = new $this->Employees_model('nl');
-		$names->setCompanyId($this->session->userdata('current_company_id'),true);
-		$names->setTrash(0, true);
-			$where = new $this->Employees_model('w');
-			$where->setCompanyId($this->session->userdata('current_company_id'),true);
-			$where->setTrash(0, true);
-			$where->set_select('MIN(w.name_id)');
-			$where->set_where("w.name_id > " . $id);
-			$where->set_limit(1);
-		$names->set_limit(1);
-		$names->set_select("nl.name_id");
-		$names->set_select("CONCAT('{$url}',nl.name_id) as url");
-		$names->set_where('nl.name_id = ('. $where->get_compiled_select() . ')');
-		return $names->get();
-	}
-
-	private function _previous_name($id, $url='payroll_dtr/by_name/') {
-		$names = new $this->Employees_model('nl');
-		$names->setCompanyId($this->session->userdata('current_company_id'),true);
-		$names->setTrash(0, true);
-			$where = new $this->Employees_model('w');
-			$where->setCompanyId($this->session->userdata('current_company_id'),true);
-			$where->setTrash(0, true);
-			$where->set_select('MAX(w.name_id)');
-			$where->set_where("w.name_id < " . $id);
-			$where->set_limit(1);
-		$names->set_limit(1);
-		$names->set_select("nl.name_id");
-		$names->set_select("CONCAT('{$url}',nl.name_id) as url");
-		$names->set_where('name_id = ('. $where->get_compiled_select() . ')');
-		return $names->get();
-	}
 		
-	private function _column_groups() {
-		$this->template_data->set('column_group_dtr', get_company_option($this->session->userdata('current_company_id'), 'column_group_dtr'));
-		$this->template_data->set('column_group_salaries', get_company_option($this->session->userdata('current_company_id'), 'column_group_salaries'));
-		$this->template_data->set('column_group_earnings', get_company_option($this->session->userdata('current_company_id'), 'column_group_earnings'));
-		$this->template_data->set('column_group_benefits', get_company_option($this->session->userdata('current_company_id'), 'column_group_benefits'));
-		$this->template_data->set('column_group_deductions', get_company_option($this->session->userdata('current_company_id'), 'column_group_deductions'));
-		$this->template_data->set('column_group_summary', get_company_option($this->session->userdata('current_company_id'), 'column_group_summary'));
-		$this->template_data->set('column_group_sort', get_company_option($this->session->userdata('current_company_id'), 'column_group_sort'));
-	}
-
 	public function view($id,$group_id=0,$output='') {
 
 		$this->_column_groups();
@@ -209,8 +131,8 @@ class Payroll_summary extends MY_Controller {
 		$employees_status->set_order('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status)', 'ASC');
 		$this->template_data->set('employees_status', $employees_status->populate());
 
-		$this->template_data->set('next_item', $this->_next($id, $group_id));
-		$this->template_data->set('previous_item', $this->_previous($id, $group_id));
+		$this->template_data->set('next_item', $this->_next_payroll($id, $group_id, 'payroll_summary/view/'));
+		$this->template_data->set('previous_item', $this->_previous_payroll($id, $group_id, 'payroll_summary/view/'));
 		
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/summary/summary_view', $this->template_data->get_data());
@@ -409,8 +331,8 @@ class Payroll_summary extends MY_Controller {
 			'ajax'=>true
 		)));
 
-		$this->template_data->set('next_name', $this->_next_name($name_id, 'payroll_summary/by_name/'));
-		$this->template_data->set('previous_name', $this->_previous_name($name_id, 'payroll_summary/by_name/'));
+		$this->template_data->set('next_name', $this->_next_employee($name_id, 'payroll_summary/by_name/'));
+		$this->template_data->set('previous_name', $this->_previous_employee($name_id, 'payroll_summary/by_name/'));
 
 		$this->load->view('payroll/payroll/dtr/dtr_by_name', $this->template_data->get_data());
 	}

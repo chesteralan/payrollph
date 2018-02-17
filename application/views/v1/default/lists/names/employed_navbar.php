@@ -42,12 +42,12 @@
 
 <?php 
 
-$url['lists_names'] = array('uri' => 'lists_names/profile/' . $name->id, 'title'=>'Profile', 'access'=>hasAccess('lists', 'names', 'view'));
+$url['lists_names'] = array('uri' => 'lists_names/profile/' . $name->id, 'title'=>'Employee Profile', 'access'=>hasAccess('lists', 'names', 'view'));
+$url['employees_dtr'] = array('uri' => 'employees_dtr/view/' . $name->id, 'title'=>'Daily Time Record', 'access'=>hasAccess('employees', 'employees', 'view'));
 $url['employees_salaries'] = array('uri' => 'employees_salaries/view/' . $name->id, 'title'=>'Basic Salary', 'access'=>hasAccess('employees', 'employees', 'view'));
 $url['employees_earnings'] = array('uri' => 'employees_earnings/view/' . $name->id, 'title'=>'Earnings', 'access'=>hasAccess('employees', 'employees', 'view'));
 $url['employees_benefits'] = array('uri' => 'employees_benefits/view/' . $name->id, 'title'=>'Benefits', 'access'=>hasAccess('employees', 'employees', 'view'));
 $url['employees_deductions'] = array('uri' => 'employees_deductions/view/' . $name->id, 'title'=>'Deductions', 'access'=>hasAccess('employees', 'employees', 'view'));
-$url['employees_calendar'] = array('uri' => 'employees_calendar/view/' . $name->id, 'title'=>'Calendar', 'access'=>hasAccess('employees', 'employees', 'view'));
 
 foreach($url as $k=>$v) {
   if( $v['access'] ) {

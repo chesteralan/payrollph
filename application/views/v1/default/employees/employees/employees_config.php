@@ -56,6 +56,11 @@
   </a>
 
   <a class="list-group-item body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_salaries/view/{$employee->name_id}"); ?>">
+    <h4 class="list-group-item-heading">Daily Time Record</h4>
+    <p class="list-group-item-text">Employee's Attendance Record</p>
+  </a>
+
+  <a class="list-group-item body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_salaries/view/{$employee->name_id}"); ?>">
     <h4 class="list-group-item-heading">Basic Salary</h4>
     <p class="list-group-item-text">Employee's Monthly Compensation</p>
   </a>

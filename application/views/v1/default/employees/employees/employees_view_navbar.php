@@ -21,19 +21,28 @@
         
         <li><a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Payroll" data-url="<?php echo site_url("employees/config/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" style="margin-left:10px" data-hide_footer="1"><span class="glyphicon glyphicon-cog"></span></a></li>
 
-
+<?php if(isset($previous_item) && ($previous_item)) { ?>
+<li>
+    <a href="<?php echo site_url($previous_item->url); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></span></a>
+</li>
+<?php } ?>
+<?php if(isset($next_item) && ($next_item)) { ?>
+<li>
+    <a href="<?php echo site_url($next_item->url); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-right"></span></a>
+</li>
+<?php } ?>
         </ul>
        
       <ul class="nav navbar-nav navbar-right">
 
 <?php 
 
-$url['employees_profile'] = array('uri' => 'lists_names/profile/' . $employee->name_id, 'title'=>'Profile', 'access'=>hasAccess('lists', 'names', 'view'));
+$url['employees_profile'] = array('uri' => 'lists_names/profile/' . $employee->name_id, 'title'=>'Employee Profile', 'access'=>hasAccess('lists', 'names', 'view'));
+$url['employees_dtr'] = array('uri' => 'employees_dtr/view/' . $employee->name_id, 'title'=>'Daily Time Record', 'access'=>hasAccess('employees', 'employees', 'view'));
 $url['employees_salaries'] = array('uri' => 'employees_salaries/view/' . $employee->name_id, 'title'=>'Basic Salary', 'access'=>hasAccess('employees', 'employees', 'view'));
 $url['employees_earnings'] = array('uri' => 'employees_earnings/view/' . $employee->name_id, 'title'=>'Earnings', 'access'=>hasAccess('employees', 'employees', 'view'));
 $url['employees_benefits'] = array('uri' => 'employees_benefits/view/' . $employee->name_id, 'title'=>'Benefits', 'access'=>hasAccess('employees', 'employees', 'view'));
 $url['employees_deductions'] = array('uri' => 'employees_deductions/view/' . $employee->name_id, 'title'=>'Deductions', 'access'=>hasAccess('employees', 'employees', 'view'));
-$url['employees_calendar'] = array('uri' => 'employees_calendar/view/' . $employee->name_id, 'title'=>'Calendar', 'access'=>hasAccess('employees', 'employees', 'view'));
 
 foreach($url as $k=>$v) {
   if( $v['access'] ) {
