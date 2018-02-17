@@ -250,6 +250,7 @@ if( $employee->$allowed_leave ) {
 
 </div>
 
+<?php if($i == 1) { ?>
 
 <div class="signatories">
   <table width="100%">
@@ -264,6 +265,7 @@ _____________________________________<br><center><span class="allcaps" style="fo
     </tr>
   </table>
 </div>
+<?php } ?>
 
 </div>
 

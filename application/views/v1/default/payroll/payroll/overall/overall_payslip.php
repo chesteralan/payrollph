@@ -59,25 +59,40 @@ $box_count = 0;
 
 <div class="print-topnav topnav2 hide-print text-center allcaps">
   Filter by Employee: <select name="" style="margin-top: 2px;" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-    <option value="" disabled="disabled" selected="selected">Select Employee...</option>
-<?php if($this->input->get('filter')) { ?>
+    
+<?php if($this->input->get('filter')||$this->input->get('filter_group')) { ?>
     <option value="<?php echo site_url(uri_string()); ?>">- - Show All - -</option>
+<?php } else { ?>
+<option value="" disabled="disabled" selected="selected">Select Employee...</option>
 <?php } ?>
 <?php foreach($payroll_groups as $payroll_group) { ?>
-<?php if($payroll_group->employees) { 
+<?php if($payroll_group->employees) { ?>
+<optgroup label="<?php echo $payroll_group->name; ?>">
+<?php if( count($payroll_group->employees) > 1) { ?>
+  <option value="<?php echo site_url(uri_string()); ?>?filter_group=<?php echo $payroll_group->id; ?>" <?php echo ($payroll_group->id==$this->input->get('filter_group')) ? 'selected' : ''; ?>>All <?php echo $payroll_group->name; ?></option>
+<?php } ?>
+<?php 
         foreach($payroll_group->employees as $employee) { 
           if( $employee->payslip_template == 'none' ) {
               continue;
           }
           ?>
-            <option value="<?php echo site_url(uri_string()); ?>?filter=<?php echo $employee->name_id; ?>" <?php echo ($employee->name_id==$this->input->get('filter')) ? 'selected' : ''; ?>><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?></option>
+            <option value="<?php echo site_url(uri_string()); ?>?filter=<?php echo $employee->name_id; ?>" <?php echo ($employee->name_id==$this->input->get('filter')) ? 'selected' : ''; ?>><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1); ?>.</option>
       <?php } ?>
+</optgroup>
 <?php } ?>
 <?php } ?>
   </select>
 </div>
 
 <?php foreach($payroll_groups as $payroll_group) { ?>
+<?php 
+if( $this->input->get('filter_group') ) {
+  if( $payroll_group->id != $this->input->get('filter_group') ) {
+      continue;
+  }
+}
+?>
 <?php if($payroll_group->employees) { 
         foreach($payroll_group->employees as $employee) { 
 
