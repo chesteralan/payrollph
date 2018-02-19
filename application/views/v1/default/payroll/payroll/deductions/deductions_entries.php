@@ -12,8 +12,8 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <a class="btn btn-success btn-xs pull-right" href="<?php echo site_url("payroll_deductions/add/{$payroll_id}/{$name_id}/{$deduction_id}") . '?next=' . uri_string(); ?>">Add Entry</a>
-          <a style="margin-right:10px" class="btn btn-warning btn-xs pull-right" href="<?php echo site_url("employees_deductions/summary/{$deduction_id}/{$name_id}") . '?next=' . uri_string(); ?>">Summary</a>
+          <a class="btn btn-success btn-xs pull-right" href="<?php echo site_url("payroll_deductions/add/{$payroll_id}/{$name_id}/{$deduction_id}") . '?next=' . uri_string(). "&next_query=" . urlencode($this->input->get('next_query')); ?>">Add Entry</a>
+          <a style="margin-right:10px" class="btn btn-warning btn-xs pull-right" href="<?php echo site_url("employees_deductions/summary/{$deduction_id}/{$name_id}") . '?next=' . uri_string(). "&next_query=" . urlencode($this->input->get('next_query')); ?>">Summary</a>
           <h3 class="panel-title"><?php echo $deduction_data->name; ?></h3>
         </div>
 
@@ -24,11 +24,11 @@
 
 <?php if( isset($output) && ($output=='ajax') ) : ?>
 <?php if((!$payroll->lock)&&(!$this->input->get('lock'))) { ?>
-<p><a href="<?php echo site_url("payroll_deductions/add/{$payroll_id}/{$name_id}/{$deduction_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Entry - <?php echo $deduction_data->name; ?>">Add Payroll Entry</a> <em><small> - This will add an item to this current payroll only.</small></em>
+<p><a href="<?php echo site_url("payroll_deductions/add/{$payroll_id}/{$name_id}/{$deduction_id}/ajax") . '?next=' . uri_string(). "&next_query=" . urlencode($this->input->get('next_query'));?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Entry - <?php echo $deduction_data->name; ?>">Add Payroll Entry</a> <em><small> - This will add an item to this current payroll only.</small></em>
 </p>
 <?php } ?>
 <p>
-<a href="<?php echo site_url("employees_deductions/summary/{$deduction_id}/{$name_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-warning btn-xs ajax-modal-inner" data-title="Summary - <?php echo $deduction_data->name; ?>" data-hide_footer="1">Summary</a>
+<a href="<?php echo site_url("employees_deductions/summary/{$deduction_id}/{$name_id}/ajax") . '?next=' . uri_string(). "&next_query=" . urlencode($this->input->get('next_query')); ?>" class="btn btn-warning btn-xs ajax-modal-inner" data-title="Summary - <?php echo $deduction_data->name; ?>" data-hide_footer="1">Summary</a>
 </p>
 <?php endif; ?>
 
@@ -43,7 +43,7 @@ foreach($deductions as $deduction) {   ?>
 <?php if(($payroll->lock)||($this->input->get('lock'))) { ?>
   <div class="list-group-item">
 <?php } else { ?>
-  <a data-target="#ajaxModal" data-title="Edit Entry" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll_deductions/edit/{$deduction->ped_id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+  <a data-target="#ajaxModal" data-title="Edit Entry" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll_deductions/edit/{$deduction->ped_id}/ajax") . "?next=" . $this->input->get('next') . "&next_query=" . urlencode($this->input->get('next_query')); ?>">
 <?php } ?>
 
   <span class="badge pull-right"><?php echo number_format($deduction->ped_amount,2); ?></span>
