@@ -133,6 +133,7 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('first_model' => 'first');
 */
 $models = array();
+
 $models[] = 'Account_sessions_model';
 $models[] = 'Benefits_list_model';
 $models[] = 'Companies_list_model';
@@ -179,4 +180,5 @@ $models[] = 'User_accounts_model';
 $models[] = 'User_accounts_companies_model';
 $models[] = 'User_accounts_options_model';
 $models[] = 'User_accounts_restrictions_model';
+
 $autoload['model'] = $models;
