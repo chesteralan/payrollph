@@ -46,14 +46,18 @@ Employee No: <strong class="allcaps employee-name underlined bold"><?php echo $e
 
 $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
+$present_days = $inclusive_dates->working_days - $days_absent;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
-$cola = 0;
-$present_days = $inclusive_dates->working_days - $days_absent;
+$cola_rate = 0;
+$absences = 0;
+$basic_salary = 0;
+$manner = 'daily';
 
 if( $employee->salary ) {
   $salary = $employee->salary;
+  $manner = $salary->manner;
   switch( $salary->rate_per ) {
     case 'month':
       $monthly_rate = $salary->amount;
@@ -71,19 +75,34 @@ if( $employee->salary ) {
       $hourly_rate = $salary->amount;
     break;
   }
-  $cola = ($salary->cola * $present_days);
+  $cola_rate = (isset($salary)) ? $salary->cola : 0;
+  $absences = $days_absent * $daily_rate;
+
+  switch( $salary->manner ) {
+      case 'hourly':
+        $basic_salary = ($hourly_rate * $inclusive_dates->working_days * $salary->hours); 
+      break;
+      case 'daily':
+        $basic_salary = ($daily_rate * $inclusive_dates->working_days); 
+      break;
+      case 'semi-monthly':
+        $basic_salary = ($daily_rate * $salary->days) / 2; 
+      break;
+      default:
+      case 'monthly':
+        $basic_salary = ($daily_rate * $salary->days); 
+      break;
+  }
 }
 
-$absences = ($daily_rate * $days_absent);
-$basic_salary = ($daily_rate * $inclusive_dates->working_days);
-//$basic_salary = ($monthly_rate / 2);
+$cola = ($cola_rate * $present_days);
 $net_salary = ($daily_rate * $present_days);
 $basic_pay = ($basic_salary + $cola); 
 $net_basic_pay = ($basic_pay - $absences); 
 $net_pay = $net_basic_pay;
 
 
-// if( floatval( $gross_pay ) ) {
+if( $employee->salary ) {
 ?>
 
  <table width="100%" class="table table-details bordered" cellpadding="0" cellspacing="0">
@@ -105,7 +124,7 @@ $net_pay = $net_basic_pay;
 </tr>
 
 <tr>
-  <td class="text-left  bold allcaps">Basic Salary</td>
+  <td class="text-left  bold allcaps">Basic Salary (<?php echo $manner; ?>)</td>
   <td class="text-right bold"><?php  echo number_format($basic_pay,2); ?></td>
 </tr>
  <tr>
@@ -117,13 +136,13 @@ $net_pay = $net_basic_pay;
   <td class="text-right bold"><?php  echo number_format($net_basic_pay,2); ?></td>
 </tr>
 </table>
-<?php //} ?>
+<?php } ?>
 <?php 
 $total_earnings = 0;
 if( $earnings_columns ) { ?>
  <table width="100%" class="table table-details bordered" cellpadding="0" cellspacing="0">
  <tr>
-   <td colspan="2" class="allcaps bold">Other Earnings</td>
+   <td colspan="2" class="allcaps bold"><?php echo ($employee->salary) ? 'Other ': ''; ?>Earnings</td>
  </tr>
 <?php 
 $earnings_count = 0;
@@ -142,7 +161,7 @@ foreach( $earnings_columns as $column ) {
 <?php } ?>
 <?php if( $earnings_count == 0 ) { ?>
 <tr>
-<td class="text-center tab1" colspan="2"><small>- - No Other Earnings - -</small></td>
+<td class="text-center tab1" colspan="2"><small>- - No <?php echo ($employee->salary) ? 'Other ': ''; ?>Earnings - -</small></td>
 </tr>
 <?php } ?>
 <tr>

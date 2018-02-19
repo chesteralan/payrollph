@@ -517,6 +517,7 @@ class Payroll extends MY_Controller {
 					$payroll_salary->setHours($salary_data->hours);
 					$payroll_salary->setCola($salary_data->cola);
 					$payroll_salary->setNotes($salary_data->notes);
+					$payroll_salary->setManner($salary_data->manner);
 					if( ! $payroll_salary->nonEmpty() ) {
 						$payroll_salary->insert();
 					}

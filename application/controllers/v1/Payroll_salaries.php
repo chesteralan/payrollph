@@ -130,6 +130,62 @@ class Payroll_salaries extends MY_Controller {
 		$this->load->view('payroll/payroll/salaries/salaries_view', $this->template_data->get_data());
 	}
 
+	public function generate_entry($payroll_id,$salary_id) {
+
+		$salaries = new $this->Employees_salaries_model('pee');
+		$salaries->setId($salary_id,true);
+		$salaries->setTrash(0,true);
+		$salaries->set_select('*');
+		$salaries->setCompanyId($this->session->userdata('current_company_id'),true);
+		$salaries_data = $salaries->get();
+
+		$salary = new $this->Payroll_employees_salaries_model('pee');
+		$salary->setPayrollId($payroll_id,true,true);
+		$salary->setNameId($salaries_data->name_id,true,true);
+		$salary->setSalaryId($salaries_data->id,true,true);
+		$salary->setAmount( $salaries_data->amount,false,true);
+		$salary->setRatePer($salaries_data->rate_per,false,true);
+		$salary->setAnnualDays($salaries_data->annual_days,false,true);
+		$salary->setMonths($salaries_data->months,false,true);
+		$salary->setDays($salaries_data->days,false,true);
+		$salary->setHours($salaries_data->hours,false,true);
+		$salary->setCola($salaries_data->cola,false,true);
+		$salary->setNotes($salaries_data->notes,false,true);
+		$salary->setManner($salaries_data->manner,false,true);
+		if( $salary->nonEmpty() ) {
+			$salary->update();
+		} else {
+			$salary->insert();
+		}
+
+		$next = ($this->input->get('next')) ? $this->input->get('next') : "payroll_salaries/view/{$payroll_id}";
+
+		redirect($next);
+	}
+
+	public function add_entry($id,$name_id,$output='') {
+
+		$this->_column_groups();
+
+		$this->template_data->set('payroll_id', $id);
+		$this->template_data->set('name_id', $name_id);
+
+		$salaries = new $this->Employees_salaries_model('pee');
+		$salaries->setNameId($name_id,true);
+		$salaries->setTrash(0,true);
+		$salaries->set_select('*');
+		$salaries->setCompanyId($this->session->userdata('current_company_id'),true);
+		$this->template_data->set('salaries', $salaries->populate());
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/salaries/salaries_add_entry', $this->template_data->get_data());
+	}
+
 	public function entry($id,$name_id,$output='') {
 
 		$this->_column_groups();
@@ -160,7 +216,6 @@ class Payroll_salaries extends MY_Controller {
 					$salary->setNotes($this->input->post('notes'),false,true);
 					$salary->setManner($this->input->post('manner'),false,true);
 					$salary->update();
-					
 				}
 				$this->postNext();
 			}

@@ -76,12 +76,17 @@ $total_deductions = 0;
             
 <?php 
               foreach($payroll_group->employees as $employee) { 
+
 $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
+$present_days = $inclusive_dates->working_days - $days_absent;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
 $cola_rate = 0;
+$absences = 0;
+$basic_salary = 0;
+
 if( $employee->salary ) {
   $salary = $employee->salary;
   switch( $salary->rate_per ) {
@@ -102,13 +107,27 @@ if( $employee->salary ) {
     break;
   }
   $cola_rate = (isset($salary)) ? $salary->cola : 0;
+  $absences = $days_absent * $daily_rate;
+
+  switch( $salary->manner ) {
+      case 'hourly':
+        $basic_salary = ($hourly_rate * $inclusive_dates->working_days * $salary->hours); 
+      break;
+      case 'daily':
+        $basic_salary = ($daily_rate * $inclusive_dates->working_days); 
+      break;
+      case 'semi-monthly':
+        $basic_salary = ($daily_rate * $salary->days) / 2; 
+      break;
+      default:
+      case 'monthly':
+        $basic_salary = ($daily_rate * $salary->days); 
+      break;
+  }
 }
 
-$present_days = $inclusive_dates->working_days - $days_absent;
-$absences = $days_absent * $daily_rate;
 $total_absences += $absences;
-$basic_salary = ($daily_rate * $inclusive_dates->working_days); 
-//$basic_salary = ($monthly_rate / 2); 
+
 $total_basic_salary += $basic_salary;
 $cola = ($cola_rate * $present_days);
 $employee_gross_pay = (($basic_salary + $cola) - $absences);

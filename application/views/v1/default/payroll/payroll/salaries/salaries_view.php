@@ -64,13 +64,18 @@ $total_gross_pay = 0;
             <tbody>
             
 <?php 
-              foreach($payroll_group->employees as $employee) { 
+foreach($payroll_group->employees as $employee) { 
+
 $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
+$present_days = $inclusive_dates->working_days - $days_absent;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
 $cola_rate = 0;
+$absences = 0;
+$basic_salary = 0;
+
 if( $employee->salary ) {
   $salary = $employee->salary;
   switch( $salary->rate_per ) {
@@ -91,18 +96,33 @@ if( $employee->salary ) {
     break;
   }
   $cola_rate = (isset($salary)) ? $salary->cola : 0;
+  $absences = $days_absent * $daily_rate;
+
+  switch( $salary->manner ) {
+      case 'hourly':
+        $basic_salary = ($hourly_rate * $inclusive_dates->working_days * $salary->hours); 
+      break;
+      case 'daily':
+        $basic_salary = ($daily_rate * $inclusive_dates->working_days); 
+      break;
+      case 'semi-monthly':
+        $basic_salary = ($daily_rate * $salary->days) / 2; 
+      break;
+      default:
+      case 'monthly':
+        $basic_salary = ($daily_rate * $salary->days); 
+      break;
+  }
 }
 
-$present_days = $inclusive_dates->working_days - $days_absent;
-$absences = $days_absent * $daily_rate;
 $total_absences += $absences;
-//$basic_salary = ($monthly_rate / 2); 
-$basic_salary = ($daily_rate * $inclusive_dates->working_days); 
+
 $total_basic_salary += $basic_salary;
 $cola = ($cola_rate * $present_days);
 $employee_gross_pay = (($basic_salary + $cola) - $absences);
 $total_gross_pay += $employee_gross_pay; 
-              ?>
+
+?>
               <tr>
                 <td>
 <?php if( !$this->session->userdata('current_employee') ) { ?>
@@ -121,16 +141,13 @@ $total_gross_pay += $employee_gross_pay;
                 <td class="text-right"><?php echo number_format($daily_rate,2); ?></td>
                 <td class="text-right">
 <?php if(!$payroll->lock) { ?>
-<?php if($employee->salary) { ?>
-                <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Basic Salary" data-url="<?php echo site_url("payroll_salaries/entry/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">
-<?php } ?>
+                <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Basic Salary" data-url="<?php echo site_url("payroll_salaries/".(($employee->salary)?'entry':'add_entry')."/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">
 <?php } ?>
                 <?php echo number_format($basic_salary,2); ?>
 <?php if(!$payroll->lock) { ?>
-<?php if($employee->salary) { ?>
                 </a>
 <?php } ?>
-<?php } ?>
+
                 </td>
                 <td class="text-right"><?php echo number_format($cola,2); ?></td>
                 <td class="text-right">(<?php echo number_format($absences,2); ?>)</td>

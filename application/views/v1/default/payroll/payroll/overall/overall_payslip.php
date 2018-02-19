@@ -58,7 +58,7 @@ $box_count = 0;
   ?>
 
 <div class="print-topnav topnav2 hide-print text-center allcaps">
-  Filter by Employee: <select name="" style="margin-top: 2px;" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+  Filter by Employee: <select style="margin-top: 2px;width: 150px;" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
     
 <?php if($this->input->get('filter')||$this->input->get('filter_group')) { ?>
     <option value="<?php echo site_url(uri_string()); ?>">- - Show All - -</option>
@@ -83,6 +83,33 @@ $box_count = 0;
 <?php } ?>
 <?php } ?>
   </select>
+<?php if( $this->input->get('filter') ) { ?>
+    <select style="margin-top: 2px;width: 100px;" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+          <option value="<?php echo site_url(uri_string()); ?>?filter=<?php echo $this->input->get('filter'); ?>&payslip_template=none">No Payslip</option>
+<?php 
+foreach(array(
+  'payslip' => 'Payslip (1/4)',
+  'payslip2' => 'Payslip (1/2)',
+  'payslip3' => 'Payslip (1/2) v2',
+  'cash_voucher' => 'Cash Voucher',
+  'clergy_allowance' => 'Clergy Allowance',
+  ) as $pId => $pName) { 
+
+$selected = '';
+if( $this->input->get('payslip_template') ) {
+  if($this->input->get('payslip_template')==$pId) {
+    $selected = 'SELECTED';
+  }
+} else {
+  if($employee->payslip_template==$pId) {
+    $selected = 'SELECTED';
+  }
+}
+?>
+          <option value="<?php echo site_url(uri_string()); ?>?filter=<?php echo $this->input->get('filter'); ?>&payslip_template=<?php echo $pId; ?>" <?php echo $selected; ?>><?php echo $pName; ?></option>
+<?php } ?>
+      </select>
+<?php } ?>
 </div>
 
 <?php foreach($payroll_groups as $payroll_group) { ?>
@@ -107,7 +134,11 @@ if( $this->input->get('filter_group') ) {
                 'employee' => $employee,
             );
 
-        switch ( $employee->payslip_template ) {
+$payslip_template = $employee->payslip_template;
+if( $this->input->get('payslip_template') ) {
+  $payslip_template = $this->input->get('payslip_template');
+}
+        switch ( $payslip_template ) {
           case 'payslip':
             $this->load->view('payroll/payroll/overall/overall_payslip_payslip', $template_data);
             break;

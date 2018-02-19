@@ -109,19 +109,22 @@ $total_deductions = 0;
 $total_earnings = 0;
 $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
+$present_days = $inclusive_dates->working_days - $days_absent;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
+$cola_rate = 0;
 $cola = 0;
-$gross_pay = 0;
+$absences = 0;
+$basic_salary = 0; 
+
 if( $employee->salary ) {
   $salary = $employee->salary;
-  $cola = $salary->cola;
   switch( $salary->rate_per ) {
     case 'month':
       $monthly_rate = $salary->amount;
-      $daily_rate = ( $salary->amount / $salary->days );
-      $hourly_rate = ( $salary->amount / $salary->days / $salary->hours );
+      $daily_rate = ( ($salary->amount * $salary->months) / $salary->annual_days );
+      $hourly_rate = ( (($salary->amount * $salary->months) / $salary->annual_days) / $salary->hours );
     break;
     case 'day':
       $monthly_rate = ( $salary->amount * $salary->days );
@@ -134,12 +137,27 @@ if( $employee->salary ) {
       $hourly_rate = $salary->amount;
     break;
   }
+  $cola_rate = (isset($salary)) ? $salary->cola : 0;
+  $absences = $days_absent * $daily_rate;
+
+  switch( $salary->manner ) {
+      case 'hourly':
+        $basic_salary = ($hourly_rate * $inclusive_dates->working_days * $salary->hours); 
+      break;
+      case 'daily':
+        $basic_salary = ($daily_rate * $inclusive_dates->working_days); 
+      break;
+      case 'semi-monthly':
+        $basic_salary = ($daily_rate * $salary->days) / 2; 
+      break;
+      default:
+      case 'monthly':
+        $basic_salary = ($daily_rate * $salary->days); 
+      break;
+  }
 }
 
-$present_days = $inclusive_dates->working_days - $days_absent;
-$basic_salary = ($daily_rate * $inclusive_dates->working_days);
-$cola = ($cola * $present_days);
-$absences = ($daily_rate * $days_absent);
+$cola = ($cola_rate * $present_days);
 $gross_pay = (($basic_salary + $cola) - $absences); 
 
 $group_basic_salary += $basic_salary;
