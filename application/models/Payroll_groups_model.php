@@ -13,10 +13,10 @@ CREATE TABLE `payroll_groups` (
   KEY `group_id` (`payroll_id`,`group_id`)
 );
 
-ALTER TABLE  `payroll_groups` ADD  `payroll_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_groups` ADD  `group_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_groups` ADD  `order` int(2) NOT NULL   DEFAULT '0';
-ALTER TABLE  `payroll_groups` ADD  `page` int(2) NULL   DEFAULT '1';
+ALTER TABLE  `{$this->_db->database}`.`payroll_groups` ADD  `payroll_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_groups` ADD  `group_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_groups` ADD  `order` int(2) NOT NULL   DEFAULT '0';
+ALTER TABLE  `{$this->_db->database}`.`payroll_groups` ADD  `page` int(2) NULL   DEFAULT '1';
 
 
  * @package			        Model
@@ -191,10 +191,10 @@ class Payroll_groups_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'payroll_id' => "ALTER TABLE  `payroll_groups` ADD  `payroll_id` int(20) NOT NULL   ;",
-			'group_id' => "ALTER TABLE  `payroll_groups` ADD  `group_id` int(20) NOT NULL   ;",
-			'order' => "ALTER TABLE  `payroll_groups` ADD  `order` int(2) NOT NULL   DEFAULT '0';",
-			'page' => "ALTER TABLE  `payroll_groups` ADD  `page` int(2) NULL   DEFAULT '1';",
+			'payroll_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_groups` ADD  `payroll_id` int(20) NOT NULL   ;",
+			'group_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_groups` ADD  `group_id` int(20) NOT NULL   ;",
+			'order' => "ALTER TABLE  `{$this->_db->database}`.`payroll_groups` ADD  `order` int(2) NOT NULL   DEFAULT '0';",
+			'page' => "ALTER TABLE  `{$this->_db->database}`.`payroll_groups` ADD  `page` int(2) NULL   DEFAULT '1';",
 		);
 
 		if( isset( $column[$field_name] ) ) {

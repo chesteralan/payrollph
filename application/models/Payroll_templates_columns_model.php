@@ -12,9 +12,9 @@ CREATE TABLE `payroll_templates_columns` (
   KEY `term_id` (`term_id`,`template_id`)
 );
 
-ALTER TABLE  `payroll_templates_columns` ADD  `template_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_templates_columns` ADD  `term_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_templates_columns` ADD  `column_id` varchar(200) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates_columns` ADD  `template_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates_columns` ADD  `term_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates_columns` ADD  `column_id` varchar(200) NOT NULL   ;
 
 
  * @package			        Model
@@ -156,9 +156,9 @@ class Payroll_templates_columns_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'template_id' => "ALTER TABLE  `payroll_templates_columns` ADD  `template_id` int(20) NOT NULL   ;",
-			'term_id' => "ALTER TABLE  `payroll_templates_columns` ADD  `term_id` int(20) NOT NULL   ;",
-			'column_id' => "ALTER TABLE  `payroll_templates_columns` ADD  `column_id` varchar(200) NOT NULL   ;",
+			'template_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_columns` ADD  `template_id` int(20) NOT NULL   ;",
+			'term_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_columns` ADD  `term_id` int(20) NOT NULL   ;",
+			'column_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_columns` ADD  `column_id` varchar(200) NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

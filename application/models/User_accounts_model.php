@@ -15,10 +15,10 @@ CREATE TABLE `user_accounts` (
   KEY `id` (`id`)
 );
 
-ALTER TABLE  `user_accounts` ADD  `id` int(10) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `user_accounts` ADD  `username` varchar(200) NOT NULL   UNIQUE KEY;
-ALTER TABLE  `user_accounts` ADD  `password` varchar(200) NOT NULL   ;
-ALTER TABLE  `user_accounts` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`user_accounts` ADD  `id` int(10) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `{$this->_db->database}`.`user_accounts` ADD  `username` varchar(200) NOT NULL   UNIQUE KEY;
+ALTER TABLE  `{$this->_db->database}`.`user_accounts` ADD  `password` varchar(200) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`user_accounts` ADD  `name` varchar(200) NOT NULL   ;
 
 
  * @package			        Model
@@ -193,10 +193,10 @@ class User_accounts_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `user_accounts` ADD  `id` int(10) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'username' => "ALTER TABLE  `user_accounts` ADD  `username` varchar(200) NOT NULL   UNIQUE KEY;",
-			'password' => "ALTER TABLE  `user_accounts` ADD  `password` varchar(200) NOT NULL   ;",
-			'name' => "ALTER TABLE  `user_accounts` ADD  `name` varchar(200) NOT NULL   ;",
+			'id' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts` ADD  `id` int(10) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'username' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts` ADD  `username` varchar(200) NOT NULL   UNIQUE KEY;",
+			'password' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts` ADD  `password` varchar(200) NOT NULL   ;",
+			'name' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts` ADD  `name` varchar(200) NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

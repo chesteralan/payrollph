@@ -22,17 +22,17 @@ CREATE TABLE `employees_deductions` (
   KEY `company_id` (`company_id`)
 );
 
-ALTER TABLE  `employees_deductions` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `employees_deductions` ADD  `company_id` int(20) NOT NULL   ;
-ALTER TABLE  `employees_deductions` ADD  `name_id` int(20) NOT NULL   ;
-ALTER TABLE  `employees_deductions` ADD  `deduction_id` int(20) NOT NULL   ;
-ALTER TABLE  `employees_deductions` ADD  `amount` decimal(30,5) NOT NULL   ;
-ALTER TABLE  `employees_deductions` ADD  `max_amount` decimal(30,5) NOT NULL   ;
-ALTER TABLE  `employees_deductions` ADD  `start_date` date NULL   ;
-ALTER TABLE  `employees_deductions` ADD  `computed` varchar(10) NULL   ;
-ALTER TABLE  `employees_deductions` ADD  `active` int(1) NULL   DEFAULT '0';
-ALTER TABLE  `employees_deductions` ADD  `trash` int(1) NULL   DEFAULT '1';
-ALTER TABLE  `employees_deductions` ADD  `notes` text NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `deduction_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `amount` decimal(30,5) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `max_amount` decimal(30,5) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `start_date` date NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `computed` varchar(10) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `active` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `trash` int(1) NULL   DEFAULT '1';
+ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `notes` text NULL   ;
 
 
  * @package			        Model
@@ -438,17 +438,17 @@ class Employees_deductions_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `employees_deductions` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'company_id' => "ALTER TABLE  `employees_deductions` ADD  `company_id` int(20) NOT NULL   ;",
-			'name_id' => "ALTER TABLE  `employees_deductions` ADD  `name_id` int(20) NOT NULL   ;",
-			'deduction_id' => "ALTER TABLE  `employees_deductions` ADD  `deduction_id` int(20) NOT NULL   ;",
-			'amount' => "ALTER TABLE  `employees_deductions` ADD  `amount` decimal(30,5) NOT NULL   ;",
-			'max_amount' => "ALTER TABLE  `employees_deductions` ADD  `max_amount` decimal(30,5) NOT NULL   ;",
-			'start_date' => "ALTER TABLE  `employees_deductions` ADD  `start_date` date NULL   ;",
-			'computed' => "ALTER TABLE  `employees_deductions` ADD  `computed` varchar(10) NULL   ;",
-			'active' => "ALTER TABLE  `employees_deductions` ADD  `active` int(1) NULL   DEFAULT '0';",
-			'trash' => "ALTER TABLE  `employees_deductions` ADD  `trash` int(1) NULL   DEFAULT '1';",
-			'notes' => "ALTER TABLE  `employees_deductions` ADD  `notes` text NULL   ;",
+			'id' => "ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'company_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `company_id` int(20) NOT NULL   ;",
+			'name_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `name_id` int(20) NOT NULL   ;",
+			'deduction_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `deduction_id` int(20) NOT NULL   ;",
+			'amount' => "ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `amount` decimal(30,5) NOT NULL   ;",
+			'max_amount' => "ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `max_amount` decimal(30,5) NOT NULL   ;",
+			'start_date' => "ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `start_date` date NULL   ;",
+			'computed' => "ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `computed` varchar(10) NULL   ;",
+			'active' => "ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `active` int(1) NULL   DEFAULT '0';",
+			'trash' => "ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `trash` int(1) NULL   DEFAULT '1';",
+			'notes' => "ALTER TABLE  `{$this->_db->database}`.`employees_deductions` ADD  `notes` text NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

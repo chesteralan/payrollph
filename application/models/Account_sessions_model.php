@@ -13,10 +13,10 @@ CREATE TABLE `account_sessions` (
   KEY `account_sessions_timestamp` (`timestamp`)
 );
 
-ALTER TABLE  `account_sessions` ADD  `id` varchar(40) NOT NULL   ;
-ALTER TABLE  `account_sessions` ADD  `ip_address` varchar(45) NOT NULL   ;
-ALTER TABLE  `account_sessions` ADD  `timestamp` int(10) unsigned NOT NULL   DEFAULT '0';
-ALTER TABLE  `account_sessions` ADD  `data` blob NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`account_sessions` ADD  `id` varchar(40) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`account_sessions` ADD  `ip_address` varchar(45) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`account_sessions` ADD  `timestamp` int(10) unsigned NOT NULL   DEFAULT '0';
+ALTER TABLE  `{$this->_db->database}`.`account_sessions` ADD  `data` blob NOT NULL   ;
 
 
  * @package			        Model
@@ -191,10 +191,10 @@ class Account_sessions_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `account_sessions` ADD  `id` varchar(40) NOT NULL   ;",
-			'ip_address' => "ALTER TABLE  `account_sessions` ADD  `ip_address` varchar(45) NOT NULL   ;",
-			'timestamp' => "ALTER TABLE  `account_sessions` ADD  `timestamp` int(10) unsigned NOT NULL   DEFAULT '0';",
-			'data' => "ALTER TABLE  `account_sessions` ADD  `data` blob NOT NULL   ;",
+			'id' => "ALTER TABLE  `{$this->_db->database}`.`account_sessions` ADD  `id` varchar(40) NOT NULL   ;",
+			'ip_address' => "ALTER TABLE  `{$this->_db->database}`.`account_sessions` ADD  `ip_address` varchar(45) NOT NULL   ;",
+			'timestamp' => "ALTER TABLE  `{$this->_db->database}`.`account_sessions` ADD  `timestamp` int(10) unsigned NOT NULL   DEFAULT '0';",
+			'data' => "ALTER TABLE  `{$this->_db->database}`.`account_sessions` ADD  `data` blob NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

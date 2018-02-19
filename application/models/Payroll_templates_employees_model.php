@@ -15,12 +15,12 @@ CREATE TABLE `payroll_templates_employees` (
   KEY `name_id` (`template_id`,`name_id`)
 );
 
-ALTER TABLE  `payroll_templates_employees` ADD  `template_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_templates_employees` ADD  `name_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_templates_employees` ADD  `order` int(2) NOT NULL   DEFAULT '0';
-ALTER TABLE  `payroll_templates_employees` ADD  `template` varchar(20) NULL   DEFAULT 'payslip';
-ALTER TABLE  `payroll_templates_employees` ADD  `print_group` int(20) NULL   ;
-ALTER TABLE  `payroll_templates_employees` ADD  `active` int(1) NULL   DEFAULT '1';
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `template_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `order` int(2) NOT NULL   DEFAULT '0';
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `template` varchar(20) NULL   DEFAULT 'payslip';
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `print_group` int(20) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `active` int(1) NULL   DEFAULT '1';
 
 
  * @package			        Model
@@ -261,12 +261,12 @@ class Payroll_templates_employees_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'template_id' => "ALTER TABLE  `payroll_templates_employees` ADD  `template_id` int(20) NOT NULL   ;",
-			'name_id' => "ALTER TABLE  `payroll_templates_employees` ADD  `name_id` int(20) NOT NULL   ;",
-			'order' => "ALTER TABLE  `payroll_templates_employees` ADD  `order` int(2) NOT NULL   DEFAULT '0';",
-			'template' => "ALTER TABLE  `payroll_templates_employees` ADD  `template` varchar(20) NULL   DEFAULT 'payslip';",
-			'print_group' => "ALTER TABLE  `payroll_templates_employees` ADD  `print_group` int(20) NULL   ;",
-			'active' => "ALTER TABLE  `payroll_templates_employees` ADD  `active` int(1) NULL   DEFAULT '1';",
+			'template_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `template_id` int(20) NOT NULL   ;",
+			'name_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `name_id` int(20) NOT NULL   ;",
+			'order' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `order` int(2) NOT NULL   DEFAULT '0';",
+			'template' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `template` varchar(20) NULL   DEFAULT 'payslip';",
+			'print_group' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `print_group` int(20) NULL   ;",
+			'active' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `active` int(1) NULL   DEFAULT '1';",
 		);
 
 		if( isset( $column[$field_name] ) ) {

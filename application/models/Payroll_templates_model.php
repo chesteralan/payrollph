@@ -19,14 +19,14 @@ CREATE TABLE `payroll_templates` (
   KEY `company_id` (`company_id`)
 );
 
-ALTER TABLE  `payroll_templates` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `payroll_templates` ADD  `company_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_templates` ADD  `name` varchar(200) NOT NULL   ;
-ALTER TABLE  `payroll_templates` ADD  `pages` int(2) NULL   DEFAULT '1';
-ALTER TABLE  `payroll_templates` ADD  `checked_by` int(20) NULL   ;
-ALTER TABLE  `payroll_templates` ADD  `approved_by` int(20) NULL   ;
-ALTER TABLE  `payroll_templates` ADD  `print_format` varchar(50) NULL   ;
-ALTER TABLE  `payroll_templates` ADD  `active` int(1) NOT NULL   DEFAULT '1';
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `pages` int(2) NULL   DEFAULT '1';
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `checked_by` int(20) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `approved_by` int(20) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `print_format` varchar(50) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `active` int(1) NOT NULL   DEFAULT '1';
 
 
  * @package			        Model
@@ -333,14 +333,14 @@ class Payroll_templates_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `payroll_templates` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'company_id' => "ALTER TABLE  `payroll_templates` ADD  `company_id` int(20) NOT NULL   ;",
-			'name' => "ALTER TABLE  `payroll_templates` ADD  `name` varchar(200) NOT NULL   ;",
-			'pages' => "ALTER TABLE  `payroll_templates` ADD  `pages` int(2) NULL   DEFAULT '1';",
-			'checked_by' => "ALTER TABLE  `payroll_templates` ADD  `checked_by` int(20) NULL   ;",
-			'approved_by' => "ALTER TABLE  `payroll_templates` ADD  `approved_by` int(20) NULL   ;",
-			'print_format' => "ALTER TABLE  `payroll_templates` ADD  `print_format` varchar(50) NULL   ;",
-			'active' => "ALTER TABLE  `payroll_templates` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
+			'id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'company_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `company_id` int(20) NOT NULL   ;",
+			'name' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `name` varchar(200) NOT NULL   ;",
+			'pages' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `pages` int(2) NULL   DEFAULT '1';",
+			'checked_by' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `checked_by` int(20) NULL   ;",
+			'approved_by' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `approved_by` int(20) NULL   ;",
+			'print_format' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `print_format` varchar(50) NULL   ;",
+			'active' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
 		);
 
 		if( isset( $column[$field_name] ) ) {

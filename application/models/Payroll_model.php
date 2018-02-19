@@ -19,14 +19,14 @@ CREATE TABLE `payroll` (
   KEY `company_id` (`company_id`)
 );
 
-ALTER TABLE  `payroll` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `payroll` ADD  `company_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll` ADD  `name` varchar(200) NOT NULL   ;
-ALTER TABLE  `payroll` ADD  `template_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll` ADD  `month` int(2) NOT NULL   ;
-ALTER TABLE  `payroll` ADD  `year` int(4) NOT NULL   ;
-ALTER TABLE  `payroll` ADD  `active` int(1) NOT NULL   DEFAULT '1';
-ALTER TABLE  `payroll` ADD  `lock` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `template_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `month` int(2) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `year` int(4) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `active` int(1) NOT NULL   DEFAULT '1';
+ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `lock` int(1) NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -333,14 +333,14 @@ class Payroll_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `payroll` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'company_id' => "ALTER TABLE  `payroll` ADD  `company_id` int(20) NOT NULL   ;",
-			'name' => "ALTER TABLE  `payroll` ADD  `name` varchar(200) NOT NULL   ;",
-			'template_id' => "ALTER TABLE  `payroll` ADD  `template_id` int(20) NOT NULL   ;",
-			'month' => "ALTER TABLE  `payroll` ADD  `month` int(2) NOT NULL   ;",
-			'year' => "ALTER TABLE  `payroll` ADD  `year` int(4) NOT NULL   ;",
-			'active' => "ALTER TABLE  `payroll` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
-			'lock' => "ALTER TABLE  `payroll` ADD  `lock` int(1) NULL   DEFAULT '0';",
+			'id' => "ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'company_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `company_id` int(20) NOT NULL   ;",
+			'name' => "ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `name` varchar(200) NOT NULL   ;",
+			'template_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `template_id` int(20) NOT NULL   ;",
+			'month' => "ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `month` int(2) NOT NULL   ;",
+			'year' => "ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `year` int(4) NOT NULL   ;",
+			'active' => "ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
+			'lock' => "ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `lock` int(1) NULL   DEFAULT '0';",
 		);
 
 		if( isset( $column[$field_name] ) ) {

@@ -11,8 +11,8 @@ CREATE TABLE `employees_deductions_templates` (
   KEY `ed_id` (`ed_id`,`template_id`)
 );
 
-ALTER TABLE  `employees_deductions_templates` ADD  `ed_id` int(20) NOT NULL   ;
-ALTER TABLE  `employees_deductions_templates` ADD  `template_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`employees_deductions_templates` ADD  `ed_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`employees_deductions_templates` ADD  `template_id` int(20) NOT NULL   ;
 
 
  * @package			        Model
@@ -121,8 +121,8 @@ class Employees_deductions_templates_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'ed_id' => "ALTER TABLE  `employees_deductions_templates` ADD  `ed_id` int(20) NOT NULL   ;",
-			'template_id' => "ALTER TABLE  `employees_deductions_templates` ADD  `template_id` int(20) NOT NULL   ;",
+			'ed_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_deductions_templates` ADD  `ed_id` int(20) NOT NULL   ;",
+			'template_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_deductions_templates` ADD  `template_id` int(20) NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

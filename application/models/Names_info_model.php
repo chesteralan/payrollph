@@ -20,16 +20,16 @@ CREATE TABLE `names_info` (
   KEY `name_id` (`name_id`)
 );
 
-ALTER TABLE  `names_info` ADD  `name_id` int(20) NOT NULL   PRIMARY KEY;
-ALTER TABLE  `names_info` ADD  `lastname` varchar(100) NOT NULL   ;
-ALTER TABLE  `names_info` ADD  `firstname` varchar(100) NOT NULL   ;
-ALTER TABLE  `names_info` ADD  `middlename` varchar(100) NULL   ;
-ALTER TABLE  `names_info` ADD  `birthday` date NULL   ;
-ALTER TABLE  `names_info` ADD  `birthplace` varchar(50) NULL   ;
-ALTER TABLE  `names_info` ADD  `gender` varchar(50) NULL   ;
-ALTER TABLE  `names_info` ADD  `civil_status` varchar(50) NULL   ;
-ALTER TABLE  `names_info` ADD  `prefix` varchar(50) NULL   ;
-ALTER TABLE  `names_info` ADD  `suffix` varchar(50) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `name_id` int(20) NOT NULL   PRIMARY KEY;
+ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `lastname` varchar(100) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `firstname` varchar(100) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `middlename` varchar(100) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `birthday` date NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `birthplace` varchar(50) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `gender` varchar(50) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `civil_status` varchar(50) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `prefix` varchar(50) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `suffix` varchar(50) NULL   ;
 
 
  * @package			        Model
@@ -402,16 +402,16 @@ class Names_info_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'name_id' => "ALTER TABLE  `names_info` ADD  `name_id` int(20) NOT NULL   PRIMARY KEY;",
-			'lastname' => "ALTER TABLE  `names_info` ADD  `lastname` varchar(100) NOT NULL   ;",
-			'firstname' => "ALTER TABLE  `names_info` ADD  `firstname` varchar(100) NOT NULL   ;",
-			'middlename' => "ALTER TABLE  `names_info` ADD  `middlename` varchar(100) NULL   ;",
-			'birthday' => "ALTER TABLE  `names_info` ADD  `birthday` date NULL   ;",
-			'birthplace' => "ALTER TABLE  `names_info` ADD  `birthplace` varchar(50) NULL   ;",
-			'gender' => "ALTER TABLE  `names_info` ADD  `gender` varchar(50) NULL   ;",
-			'civil_status' => "ALTER TABLE  `names_info` ADD  `civil_status` varchar(50) NULL   ;",
-			'prefix' => "ALTER TABLE  `names_info` ADD  `prefix` varchar(50) NULL   ;",
-			'suffix' => "ALTER TABLE  `names_info` ADD  `suffix` varchar(50) NULL   ;",
+			'name_id' => "ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `name_id` int(20) NOT NULL   PRIMARY KEY;",
+			'lastname' => "ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `lastname` varchar(100) NOT NULL   ;",
+			'firstname' => "ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `firstname` varchar(100) NOT NULL   ;",
+			'middlename' => "ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `middlename` varchar(100) NULL   ;",
+			'birthday' => "ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `birthday` date NULL   ;",
+			'birthplace' => "ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `birthplace` varchar(50) NULL   ;",
+			'gender' => "ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `gender` varchar(50) NULL   ;",
+			'civil_status' => "ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `civil_status` varchar(50) NULL   ;",
+			'prefix' => "ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `prefix` varchar(50) NULL   ;",
+			'suffix' => "ALTER TABLE  `{$this->_db->database}`.`names_info` ADD  `suffix` varchar(50) NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

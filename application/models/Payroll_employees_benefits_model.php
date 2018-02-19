@@ -20,14 +20,14 @@ CREATE TABLE `payroll_employees_benefits` (
   KEY `entry_id` (`entry_id`)
 );
 
-ALTER TABLE  `payroll_employees_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `payroll_employees_benefits` ADD  `payroll_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_employees_benefits` ADD  `name_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_employees_benefits` ADD  `benefit_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_employees_benefits` ADD  `entry_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_employees_benefits` ADD  `employee_share` decimal(30,5) NULL   DEFAULT '0.00000';
-ALTER TABLE  `payroll_employees_benefits` ADD  `employer_share` decimal(30,5) NULL   DEFAULT '0.00000';
-ALTER TABLE  `payroll_employees_benefits` ADD  `notes` text NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_benefits` ADD  `payroll_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_benefits` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_benefits` ADD  `benefit_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_benefits` ADD  `entry_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_benefits` ADD  `employee_share` decimal(30,5) NULL   DEFAULT '0.00000';
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_benefits` ADD  `employer_share` decimal(30,5) NULL   DEFAULT '0.00000';
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_benefits` ADD  `notes` text NULL   ;
 
 
  * @package			        Model
@@ -334,14 +334,14 @@ class Payroll_employees_benefits_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `payroll_employees_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'payroll_id' => "ALTER TABLE  `payroll_employees_benefits` ADD  `payroll_id` int(20) NOT NULL   ;",
-			'name_id' => "ALTER TABLE  `payroll_employees_benefits` ADD  `name_id` int(20) NOT NULL   ;",
-			'benefit_id' => "ALTER TABLE  `payroll_employees_benefits` ADD  `benefit_id` int(20) NOT NULL   ;",
-			'entry_id' => "ALTER TABLE  `payroll_employees_benefits` ADD  `entry_id` int(20) NOT NULL   ;",
-			'employee_share' => "ALTER TABLE  `payroll_employees_benefits` ADD  `employee_share` decimal(30,5) NULL   DEFAULT '0.00000';",
-			'employer_share' => "ALTER TABLE  `payroll_employees_benefits` ADD  `employer_share` decimal(30,5) NULL   DEFAULT '0.00000';",
-			'notes' => "ALTER TABLE  `payroll_employees_benefits` ADD  `notes` text NULL   ;",
+			'id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'payroll_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_benefits` ADD  `payroll_id` int(20) NOT NULL   ;",
+			'name_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_benefits` ADD  `name_id` int(20) NOT NULL   ;",
+			'benefit_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_benefits` ADD  `benefit_id` int(20) NOT NULL   ;",
+			'entry_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_benefits` ADD  `entry_id` int(20) NOT NULL   ;",
+			'employee_share' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_benefits` ADD  `employee_share` decimal(30,5) NULL   DEFAULT '0.00000';",
+			'employer_share' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_benefits` ADD  `employer_share` decimal(30,5) NULL   DEFAULT '0.00000';",
+			'notes' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_benefits` ADD  `notes` text NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

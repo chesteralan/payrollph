@@ -14,11 +14,11 @@ CREATE TABLE `user_accounts_options` (
   KEY `uid` (`uid`)
 );
 
-ALTER TABLE  `user_accounts_options` ADD  `uid` int(20) NOT NULL   ;
-ALTER TABLE  `user_accounts_options` ADD  `department` varchar(200) NOT NULL   ;
-ALTER TABLE  `user_accounts_options` ADD  `section` varchar(200) NOT NULL   ;
-ALTER TABLE  `user_accounts_options` ADD  `key` varchar(200) NOT NULL   ;
-ALTER TABLE  `user_accounts_options` ADD  `value` text NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`user_accounts_options` ADD  `uid` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`user_accounts_options` ADD  `department` varchar(200) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`user_accounts_options` ADD  `section` varchar(200) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`user_accounts_options` ADD  `key` varchar(200) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`user_accounts_options` ADD  `value` text NOT NULL   ;
 
 
  * @package			        Model
@@ -226,11 +226,11 @@ class User_accounts_options_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'uid' => "ALTER TABLE  `user_accounts_options` ADD  `uid` int(20) NOT NULL   ;",
-			'department' => "ALTER TABLE  `user_accounts_options` ADD  `department` varchar(200) NOT NULL   ;",
-			'section' => "ALTER TABLE  `user_accounts_options` ADD  `section` varchar(200) NOT NULL   ;",
-			'key' => "ALTER TABLE  `user_accounts_options` ADD  `key` varchar(200) NOT NULL   ;",
-			'value' => "ALTER TABLE  `user_accounts_options` ADD  `value` text NOT NULL   ;",
+			'uid' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts_options` ADD  `uid` int(20) NOT NULL   ;",
+			'department' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts_options` ADD  `department` varchar(200) NOT NULL   ;",
+			'section' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts_options` ADD  `section` varchar(200) NOT NULL   ;",
+			'key' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts_options` ADD  `key` varchar(200) NOT NULL   ;",
+			'value' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts_options` ADD  `value` text NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

@@ -11,8 +11,8 @@ CREATE TABLE `payroll_inclusive_dates` (
   KEY `payroll_id` (`payroll_id`)
 );
 
-ALTER TABLE  `payroll_inclusive_dates` ADD  `payroll_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_inclusive_dates` ADD  `inclusive_date` date NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_inclusive_dates` ADD  `payroll_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_inclusive_dates` ADD  `inclusive_date` date NOT NULL   ;
 
 
  * @package			        Model
@@ -121,8 +121,8 @@ class Payroll_inclusive_dates_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'payroll_id' => "ALTER TABLE  `payroll_inclusive_dates` ADD  `payroll_id` int(20) NOT NULL   ;",
-			'inclusive_date' => "ALTER TABLE  `payroll_inclusive_dates` ADD  `inclusive_date` date NOT NULL   ;",
+			'payroll_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_inclusive_dates` ADD  `payroll_id` int(20) NOT NULL   ;",
+			'inclusive_date' => "ALTER TABLE  `{$this->_db->database}`.`payroll_inclusive_dates` ADD  `inclusive_date` date NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

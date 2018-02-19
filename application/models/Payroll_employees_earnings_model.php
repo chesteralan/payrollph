@@ -17,13 +17,13 @@ CREATE TABLE `payroll_employees_earnings` (
   KEY `name_id` (`name_id`,`payroll_id`,`earning_id`)
 );
 
-ALTER TABLE  `payroll_employees_earnings` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `payroll_employees_earnings` ADD  `payroll_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_employees_earnings` ADD  `name_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_employees_earnings` ADD  `earning_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_employees_earnings` ADD  `entry_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_employees_earnings` ADD  `amount` decimal(30,5) NOT NULL   ;
-ALTER TABLE  `payroll_employees_earnings` ADD  `notes` text NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_earnings` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_earnings` ADD  `payroll_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_earnings` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_earnings` ADD  `earning_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_earnings` ADD  `entry_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_earnings` ADD  `amount` decimal(30,5) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_earnings` ADD  `notes` text NULL   ;
 
 
  * @package			        Model
@@ -297,13 +297,13 @@ class Payroll_employees_earnings_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `payroll_employees_earnings` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'payroll_id' => "ALTER TABLE  `payroll_employees_earnings` ADD  `payroll_id` int(20) NOT NULL   ;",
-			'name_id' => "ALTER TABLE  `payroll_employees_earnings` ADD  `name_id` int(20) NOT NULL   ;",
-			'earning_id' => "ALTER TABLE  `payroll_employees_earnings` ADD  `earning_id` int(20) NOT NULL   ;",
-			'entry_id' => "ALTER TABLE  `payroll_employees_earnings` ADD  `entry_id` int(20) NOT NULL   ;",
-			'amount' => "ALTER TABLE  `payroll_employees_earnings` ADD  `amount` decimal(30,5) NOT NULL   ;",
-			'notes' => "ALTER TABLE  `payroll_employees_earnings` ADD  `notes` text NULL   ;",
+			'id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_earnings` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'payroll_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_earnings` ADD  `payroll_id` int(20) NOT NULL   ;",
+			'name_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_earnings` ADD  `name_id` int(20) NOT NULL   ;",
+			'earning_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_earnings` ADD  `earning_id` int(20) NOT NULL   ;",
+			'entry_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_earnings` ADD  `entry_id` int(20) NOT NULL   ;",
+			'amount' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_earnings` ADD  `amount` decimal(30,5) NOT NULL   ;",
+			'notes' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_earnings` ADD  `notes` text NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

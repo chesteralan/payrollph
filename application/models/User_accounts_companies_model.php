@@ -11,8 +11,8 @@ CREATE TABLE `user_accounts_companies` (
   KEY `uid` (`uid`,`company_id`)
 );
 
-ALTER TABLE  `user_accounts_companies` ADD  `uid` int(20) NOT NULL   ;
-ALTER TABLE  `user_accounts_companies` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`user_accounts_companies` ADD  `uid` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`user_accounts_companies` ADD  `company_id` int(20) NOT NULL   ;
 
 
  * @package			        Model
@@ -121,8 +121,8 @@ class User_accounts_companies_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'uid' => "ALTER TABLE  `user_accounts_companies` ADD  `uid` int(20) NOT NULL   ;",
-			'company_id' => "ALTER TABLE  `user_accounts_companies` ADD  `company_id` int(20) NOT NULL   ;",
+			'uid' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts_companies` ADD  `uid` int(20) NOT NULL   ;",
+			'company_id' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts_companies` ADD  `company_id` int(20) NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

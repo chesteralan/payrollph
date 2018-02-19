@@ -24,19 +24,19 @@ CREATE TABLE `payroll_employees_salaries` (
   KEY `payroll_id` (`payroll_id`)
 );
 
-ALTER TABLE  `payroll_employees_salaries` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `payroll_employees_salaries` ADD  `payroll_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_employees_salaries` ADD  `name_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_employees_salaries` ADD  `salary_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_employees_salaries` ADD  `amount` decimal(30,5) NULL   DEFAULT '0.00000';
-ALTER TABLE  `payroll_employees_salaries` ADD  `notes` text NULL   ;
-ALTER TABLE  `payroll_employees_salaries` ADD  `manner` varchar(50) NOT NULL   DEFAULT 'daily';
-ALTER TABLE  `payroll_employees_salaries` ADD  `rate_per` varchar(10) NULL   DEFAULT 'month';
-ALTER TABLE  `payroll_employees_salaries` ADD  `days` int(10) NULL   DEFAULT '26';
-ALTER TABLE  `payroll_employees_salaries` ADD  `hours` int(10) NULL   DEFAULT '8';
-ALTER TABLE  `payroll_employees_salaries` ADD  `cola` decimal(10,5) NULL   DEFAULT '0.00000';
-ALTER TABLE  `payroll_employees_salaries` ADD  `annual_days` int(3) NULL   DEFAULT '312';
-ALTER TABLE  `payroll_employees_salaries` ADD  `months` int(2) NULL   DEFAULT '12';
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `payroll_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `salary_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `amount` decimal(30,5) NULL   DEFAULT '0.00000';
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `notes` text NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `manner` varchar(50) NOT NULL   DEFAULT 'daily';
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `rate_per` varchar(10) NULL   DEFAULT 'month';
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `days` int(10) NULL   DEFAULT '26';
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `hours` int(10) NULL   DEFAULT '8';
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `cola` decimal(10,5) NULL   DEFAULT '0.00000';
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `annual_days` int(3) NULL   DEFAULT '312';
+ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `months` int(2) NULL   DEFAULT '12';
 
 
  * @package			        Model
@@ -508,19 +508,19 @@ class Payroll_employees_salaries_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `payroll_employees_salaries` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'payroll_id' => "ALTER TABLE  `payroll_employees_salaries` ADD  `payroll_id` int(20) NOT NULL   ;",
-			'name_id' => "ALTER TABLE  `payroll_employees_salaries` ADD  `name_id` int(20) NOT NULL   ;",
-			'salary_id' => "ALTER TABLE  `payroll_employees_salaries` ADD  `salary_id` int(20) NOT NULL   ;",
-			'amount' => "ALTER TABLE  `payroll_employees_salaries` ADD  `amount` decimal(30,5) NULL   DEFAULT '0.00000';",
-			'notes' => "ALTER TABLE  `payroll_employees_salaries` ADD  `notes` text NULL   ;",
-			'manner' => "ALTER TABLE  `payroll_employees_salaries` ADD  `manner` varchar(50) NOT NULL   DEFAULT 'daily';",
-			'rate_per' => "ALTER TABLE  `payroll_employees_salaries` ADD  `rate_per` varchar(10) NULL   DEFAULT 'month';",
-			'days' => "ALTER TABLE  `payroll_employees_salaries` ADD  `days` int(10) NULL   DEFAULT '26';",
-			'hours' => "ALTER TABLE  `payroll_employees_salaries` ADD  `hours` int(10) NULL   DEFAULT '8';",
-			'cola' => "ALTER TABLE  `payroll_employees_salaries` ADD  `cola` decimal(10,5) NULL   DEFAULT '0.00000';",
-			'annual_days' => "ALTER TABLE  `payroll_employees_salaries` ADD  `annual_days` int(3) NULL   DEFAULT '312';",
-			'months' => "ALTER TABLE  `payroll_employees_salaries` ADD  `months` int(2) NULL   DEFAULT '12';",
+			'id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'payroll_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `payroll_id` int(20) NOT NULL   ;",
+			'name_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `name_id` int(20) NOT NULL   ;",
+			'salary_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `salary_id` int(20) NOT NULL   ;",
+			'amount' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `amount` decimal(30,5) NULL   DEFAULT '0.00000';",
+			'notes' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `notes` text NULL   ;",
+			'manner' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `manner` varchar(50) NOT NULL   DEFAULT 'daily';",
+			'rate_per' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `rate_per` varchar(10) NULL   DEFAULT 'month';",
+			'days' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `days` int(10) NULL   DEFAULT '26';",
+			'hours' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `hours` int(10) NULL   DEFAULT '8';",
+			'cola' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `cola` decimal(10,5) NULL   DEFAULT '0.00000';",
+			'annual_days' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `annual_days` int(3) NULL   DEFAULT '312';",
+			'months' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_salaries` ADD  `months` int(2) NULL   DEFAULT '12';",
 		);
 
 		if( isset( $column[$field_name] ) ) {

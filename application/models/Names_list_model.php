@@ -15,11 +15,11 @@ CREATE TABLE `names_list` (
   UNIQUE KEY `full_name` (`full_name`)
 );
 
-ALTER TABLE  `names_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `names_list` ADD  `full_name` varchar(200) NOT NULL   UNIQUE KEY;
-ALTER TABLE  `names_list` ADD  `address` varchar(200) NULL   ;
-ALTER TABLE  `names_list` ADD  `contact_number` varchar(200) NULL   ;
-ALTER TABLE  `names_list` ADD  `trash` int(1) NOT NULL   DEFAULT '0';
+ALTER TABLE  `{$this->_db->database}`.`names_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `{$this->_db->database}`.`names_list` ADD  `full_name` varchar(200) NOT NULL   UNIQUE KEY;
+ALTER TABLE  `{$this->_db->database}`.`names_list` ADD  `address` varchar(200) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`names_list` ADD  `contact_number` varchar(200) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`names_list` ADD  `trash` int(1) NOT NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -227,11 +227,11 @@ class Names_list_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `names_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'full_name' => "ALTER TABLE  `names_list` ADD  `full_name` varchar(200) NOT NULL   UNIQUE KEY;",
-			'address' => "ALTER TABLE  `names_list` ADD  `address` varchar(200) NULL   ;",
-			'contact_number' => "ALTER TABLE  `names_list` ADD  `contact_number` varchar(200) NULL   ;",
-			'trash' => "ALTER TABLE  `names_list` ADD  `trash` int(1) NOT NULL   DEFAULT '0';",
+			'id' => "ALTER TABLE  `{$this->_db->database}`.`names_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'full_name' => "ALTER TABLE  `{$this->_db->database}`.`names_list` ADD  `full_name` varchar(200) NOT NULL   UNIQUE KEY;",
+			'address' => "ALTER TABLE  `{$this->_db->database}`.`names_list` ADD  `address` varchar(200) NULL   ;",
+			'contact_number' => "ALTER TABLE  `{$this->_db->database}`.`names_list` ADD  `contact_number` varchar(200) NULL   ;",
+			'trash' => "ALTER TABLE  `{$this->_db->database}`.`names_list` ADD  `trash` int(1) NOT NULL   DEFAULT '0';",
 		);
 
 		if( isset( $column[$field_name] ) ) {

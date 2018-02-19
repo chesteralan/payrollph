@@ -15,11 +15,11 @@ CREATE TABLE `employees_areas` (
   KEY `company_id` (`company_id`)
 );
 
-ALTER TABLE  `employees_areas` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `employees_areas` ADD  `company_id` int(20) NOT NULL   ;
-ALTER TABLE  `employees_areas` ADD  `trash` int(1) NOT NULL   DEFAULT '0';
-ALTER TABLE  `employees_areas` ADD  `notes` text NULL   ;
-ALTER TABLE  `employees_areas` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `trash` int(1) NOT NULL   DEFAULT '0';
+ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `notes` text NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `name` varchar(200) NOT NULL   ;
 
 
  * @package			        Model
@@ -227,11 +227,11 @@ class Employees_areas_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `employees_areas` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'company_id' => "ALTER TABLE  `employees_areas` ADD  `company_id` int(20) NOT NULL   ;",
-			'trash' => "ALTER TABLE  `employees_areas` ADD  `trash` int(1) NOT NULL   DEFAULT '0';",
-			'notes' => "ALTER TABLE  `employees_areas` ADD  `notes` text NULL   ;",
-			'name' => "ALTER TABLE  `employees_areas` ADD  `name` varchar(200) NOT NULL   ;",
+			'id' => "ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'company_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `company_id` int(20) NOT NULL   ;",
+			'trash' => "ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `trash` int(1) NOT NULL   DEFAULT '0';",
+			'notes' => "ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `notes` text NULL   ;",
+			'name' => "ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `name` varchar(200) NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

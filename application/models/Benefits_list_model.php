@@ -18,15 +18,15 @@ CREATE TABLE `benefits_list` (
   PRIMARY KEY (`id`)
 );
 
-ALTER TABLE  `benefits_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `benefits_list` ADD  `name` varchar(200) NOT NULL   ;
-ALTER TABLE  `benefits_list` ADD  `notes` text NULL   ;
-ALTER TABLE  `benefits_list` ADD  `leave` int(1) NULL   DEFAULT '0';
-ALTER TABLE  `benefits_list` ADD  `ee_account_title` varchar(200) NULL   ;
-ALTER TABLE  `benefits_list` ADD  `er_account_title` varchar(200) NULL   ;
-ALTER TABLE  `benefits_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';
-ALTER TABLE  `benefits_list` ADD  `trash` int(1) NULL   DEFAULT '0';
-ALTER TABLE  `benefits_list` ADD  `abbr` varchar(100) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `notes` text NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `leave` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `ee_account_title` varchar(200) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `er_account_title` varchar(200) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';
+ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `trash` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `abbr` varchar(100) NULL   ;
 
 
  * @package			        Model
@@ -366,15 +366,15 @@ class Benefits_list_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `benefits_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'name' => "ALTER TABLE  `benefits_list` ADD  `name` varchar(200) NOT NULL   ;",
-			'notes' => "ALTER TABLE  `benefits_list` ADD  `notes` text NULL   ;",
-			'leave' => "ALTER TABLE  `benefits_list` ADD  `leave` int(1) NULL   DEFAULT '0';",
-			'ee_account_title' => "ALTER TABLE  `benefits_list` ADD  `ee_account_title` varchar(200) NULL   ;",
-			'er_account_title' => "ALTER TABLE  `benefits_list` ADD  `er_account_title` varchar(200) NULL   ;",
-			'active' => "ALTER TABLE  `benefits_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
-			'trash' => "ALTER TABLE  `benefits_list` ADD  `trash` int(1) NULL   DEFAULT '0';",
-			'abbr' => "ALTER TABLE  `benefits_list` ADD  `abbr` varchar(100) NULL   ;",
+			'id' => "ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'name' => "ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `name` varchar(200) NOT NULL   ;",
+			'notes' => "ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `notes` text NULL   ;",
+			'leave' => "ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `leave` int(1) NULL   DEFAULT '0';",
+			'ee_account_title' => "ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `ee_account_title` varchar(200) NULL   ;",
+			'er_account_title' => "ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `er_account_title` varchar(200) NULL   ;",
+			'active' => "ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
+			'trash' => "ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `trash` int(1) NULL   DEFAULT '0';",
+			'abbr' => "ALTER TABLE  `{$this->_db->database}`.`benefits_list` ADD  `abbr` varchar(100) NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

@@ -14,10 +14,10 @@ CREATE TABLE `names_meta` (
   KEY `name_id` (`name_id`)
 );
 
-ALTER TABLE  `names_meta` ADD  `meta_id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `names_meta` ADD  `name_id` int(20) NOT NULL   ;
-ALTER TABLE  `names_meta` ADD  `meta_key` varchar(200) NOT NULL   ;
-ALTER TABLE  `names_meta` ADD  `meta_value` text NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`names_meta` ADD  `meta_id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `{$this->_db->database}`.`names_meta` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`names_meta` ADD  `meta_key` varchar(200) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`names_meta` ADD  `meta_value` text NULL   ;
 
 
  * @package			        Model
@@ -192,10 +192,10 @@ class Names_meta_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'meta_id' => "ALTER TABLE  `names_meta` ADD  `meta_id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'name_id' => "ALTER TABLE  `names_meta` ADD  `name_id` int(20) NOT NULL   ;",
-			'meta_key' => "ALTER TABLE  `names_meta` ADD  `meta_key` varchar(200) NOT NULL   ;",
-			'meta_value' => "ALTER TABLE  `names_meta` ADD  `meta_value` text NULL   ;",
+			'meta_id' => "ALTER TABLE  `{$this->_db->database}`.`names_meta` ADD  `meta_id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'name_id' => "ALTER TABLE  `{$this->_db->database}`.`names_meta` ADD  `name_id` int(20) NOT NULL   ;",
+			'meta_key' => "ALTER TABLE  `{$this->_db->database}`.`names_meta` ADD  `meta_key` varchar(200) NOT NULL   ;",
+			'meta_value' => "ALTER TABLE  `{$this->_db->database}`.`names_meta` ADD  `meta_value` text NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

@@ -16,13 +16,13 @@ CREATE TABLE `deductions_list` (
   PRIMARY KEY (`id`)
 );
 
-ALTER TABLE  `deductions_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `deductions_list` ADD  `name` varchar(200) NOT NULL   ;
-ALTER TABLE  `deductions_list` ADD  `notes` text NULL   ;
-ALTER TABLE  `deductions_list` ADD  `account_title` varchar(200) NULL   ;
-ALTER TABLE  `deductions_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';
-ALTER TABLE  `deductions_list` ADD  `trash` int(1) NULL   DEFAULT '0';
-ALTER TABLE  `deductions_list` ADD  `abbr` varchar(100) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`deductions_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `{$this->_db->database}`.`deductions_list` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`deductions_list` ADD  `notes` text NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`deductions_list` ADD  `account_title` varchar(200) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`deductions_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';
+ALTER TABLE  `{$this->_db->database}`.`deductions_list` ADD  `trash` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `{$this->_db->database}`.`deductions_list` ADD  `abbr` varchar(100) NULL   ;
 
 
  * @package			        Model
@@ -296,13 +296,13 @@ class Deductions_list_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `deductions_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'name' => "ALTER TABLE  `deductions_list` ADD  `name` varchar(200) NOT NULL   ;",
-			'notes' => "ALTER TABLE  `deductions_list` ADD  `notes` text NULL   ;",
-			'account_title' => "ALTER TABLE  `deductions_list` ADD  `account_title` varchar(200) NULL   ;",
-			'active' => "ALTER TABLE  `deductions_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
-			'trash' => "ALTER TABLE  `deductions_list` ADD  `trash` int(1) NULL   DEFAULT '0';",
-			'abbr' => "ALTER TABLE  `deductions_list` ADD  `abbr` varchar(100) NULL   ;",
+			'id' => "ALTER TABLE  `{$this->_db->database}`.`deductions_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'name' => "ALTER TABLE  `{$this->_db->database}`.`deductions_list` ADD  `name` varchar(200) NOT NULL   ;",
+			'notes' => "ALTER TABLE  `{$this->_db->database}`.`deductions_list` ADD  `notes` text NULL   ;",
+			'account_title' => "ALTER TABLE  `{$this->_db->database}`.`deductions_list` ADD  `account_title` varchar(200) NULL   ;",
+			'active' => "ALTER TABLE  `{$this->_db->database}`.`deductions_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
+			'trash' => "ALTER TABLE  `{$this->_db->database}`.`deductions_list` ADD  `trash` int(1) NULL   DEFAULT '0';",
+			'abbr' => "ALTER TABLE  `{$this->_db->database}`.`deductions_list` ADD  `abbr` varchar(100) NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

@@ -14,11 +14,11 @@ CREATE TABLE `employees_absences` (
   KEY `name_id` (`name_id`,`date_absent`)
 );
 
-ALTER TABLE  `employees_absences` ADD  `name_id` int(20) NOT NULL   ;
-ALTER TABLE  `employees_absences` ADD  `date_absent` date NOT NULL   ;
-ALTER TABLE  `employees_absences` ADD  `hours` int(2) NULL   DEFAULT '8';
-ALTER TABLE  `employees_absences` ADD  `leave_type` int(20) NULL   ;
-ALTER TABLE  `employees_absences` ADD  `notes` text NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `date_absent` date NOT NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `hours` int(2) NULL   DEFAULT '8';
+ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `leave_type` int(20) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `notes` text NULL   ;
 
 
  * @package			        Model
@@ -226,11 +226,11 @@ class Employees_absences_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'name_id' => "ALTER TABLE  `employees_absences` ADD  `name_id` int(20) NOT NULL   ;",
-			'date_absent' => "ALTER TABLE  `employees_absences` ADD  `date_absent` date NOT NULL   ;",
-			'hours' => "ALTER TABLE  `employees_absences` ADD  `hours` int(2) NULL   DEFAULT '8';",
-			'leave_type' => "ALTER TABLE  `employees_absences` ADD  `leave_type` int(20) NULL   ;",
-			'notes' => "ALTER TABLE  `employees_absences` ADD  `notes` text NULL   ;",
+			'name_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `name_id` int(20) NOT NULL   ;",
+			'date_absent' => "ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `date_absent` date NOT NULL   ;",
+			'hours' => "ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `hours` int(2) NULL   DEFAULT '8';",
+			'leave_type' => "ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `leave_type` int(20) NULL   ;",
+			'notes' => "ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `notes` text NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {
