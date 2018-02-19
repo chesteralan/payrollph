@@ -12,6 +12,7 @@ CREATE TABLE `payroll_employees_salaries` (
   `salary_id` int(20) NOT NULL,
   `amount` decimal(30,5) DEFAULT '0.00000',
   `notes` text,
+  `manner` varchar(50) NOT NULL DEFAULT 'daily',
   `rate_per` varchar(10) DEFAULT 'month',
   `days` int(10) DEFAULT '26',
   `hours` int(10) DEFAULT '8',
@@ -29,6 +30,7 @@ ALTER TABLE  `payroll_employees_salaries` ADD  `name_id` int(20) NOT NULL   ;
 ALTER TABLE  `payroll_employees_salaries` ADD  `salary_id` int(20) NOT NULL   ;
 ALTER TABLE  `payroll_employees_salaries` ADD  `amount` decimal(30,5) NULL   DEFAULT '0.00000';
 ALTER TABLE  `payroll_employees_salaries` ADD  `notes` text NULL   ;
+ALTER TABLE  `payroll_employees_salaries` ADD  `manner` varchar(50) NOT NULL   DEFAULT 'daily';
 ALTER TABLE  `payroll_employees_salaries` ADD  `rate_per` varchar(10) NULL   DEFAULT 'month';
 ALTER TABLE  `payroll_employees_salaries` ADD  `days` int(10) NULL   DEFAULT '26';
 ALTER TABLE  `payroll_employees_salaries` ADD  `hours` int(10) NULL   DEFAULT '8';
@@ -54,6 +56,7 @@ class Payroll_employees_salaries_model extends MY_Model {
 	protected $salary_id;
 	protected $amount;
 	protected $notes;
+	protected $manner;
 	protected $rate_per;
 	protected $days;
 	protected $hours;
@@ -73,8 +76,8 @@ class Payroll_employees_salaries_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_employees_salaries';
 		$this->_short_name = 'payroll_employees_salaries';
-		$this->_fields = array("id","payroll_id","name_id","salary_id","amount","notes","rate_per","days","hours","cola","annual_days","months");
-		$this->_required = array("payroll_id","name_id","salary_id");
+		$this->_fields = array("id","payroll_id","name_id","salary_id","amount","notes","manner","rate_per","days","hours","cola","annual_days","months");
+		$this->_required = array("payroll_id","name_id","salary_id","manner");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -217,6 +220,29 @@ class Payroll_employees_salaries_model extends MY_Model {
 	}
 	
 // ------------------------------ End Field: notes --------------------------------------
+
+
+// ---------------------------- Start Field: manner -------------------------------------- 
+
+	/** 
+	* Sets a value to `manner` variable
+	* @access public
+	*/
+
+	public function setManner($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('manner', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `manner` variable
+	* @access public
+	*/
+
+	public function getManner() {
+		return $this->manner;
+	}
+	
+// ------------------------------ End Field: manner --------------------------------------
 
 
 // ---------------------------- Start Field: rate_per -------------------------------------- 
@@ -415,6 +441,15 @@ class Payroll_employees_salaries_model extends MY_Model {
 										'Extra'=>''
 									),
 
+			'manner' => (object) array(
+										'Field'=>'manner',
+										'Type'=>'varchar(50)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'daily',
+										'Extra'=>''
+									),
+
 			'rate_per' => (object) array(
 										'Field'=>'rate_per',
 										'Type'=>'varchar(10)',
@@ -479,6 +514,7 @@ class Payroll_employees_salaries_model extends MY_Model {
 			'salary_id' => "ALTER TABLE  `payroll_employees_salaries` ADD  `salary_id` int(20) NOT NULL   ;",
 			'amount' => "ALTER TABLE  `payroll_employees_salaries` ADD  `amount` decimal(30,5) NULL   DEFAULT '0.00000';",
 			'notes' => "ALTER TABLE  `payroll_employees_salaries` ADD  `notes` text NULL   ;",
+			'manner' => "ALTER TABLE  `payroll_employees_salaries` ADD  `manner` varchar(50) NOT NULL   DEFAULT 'daily';",
 			'rate_per' => "ALTER TABLE  `payroll_employees_salaries` ADD  `rate_per` varchar(10) NULL   DEFAULT 'month';",
 			'days' => "ALTER TABLE  `payroll_employees_salaries` ADD  `days` int(10) NULL   DEFAULT '26';",
 			'hours' => "ALTER TABLE  `payroll_employees_salaries` ADD  `hours` int(10) NULL   DEFAULT '8';",

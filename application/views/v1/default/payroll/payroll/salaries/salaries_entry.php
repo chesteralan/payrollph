@@ -4,7 +4,7 @@
 
 <?php $this->load->view('header'); ?>
 
-<?php $this->load->view('employees/employees/employees_view_navbar'); ?>
+<?php $this->load->view('payroll/payroll/payroll_view_navbar'); ?>
 
 <div class="container">
 <div class="row">
@@ -79,7 +79,15 @@
           </div>
     </div>
     <div class="col-md-6">
-
+          <div class="form-group">
+            <label>Computation Manner</label>
+            <select class="form-control" title="Select Manner" name="manner">
+                <option value="daily" <?php echo ($salary->manner=='daily') ? 'SELECTED' : ''; ?>>Daily</option>
+                <option value="hourly" <?php echo ($salary->manner=='hourly') ? 'SELECTED' : ''; ?>>Hourly</option>
+                <option value="semi-monthly" <?php echo ($salary->manner=='semi-monthly') ? 'SELECTED' : ''; ?>>Semi-Monthly</option>
+                <option value="monthly" <?php echo ($salary->manner=='monthly') ? 'SELECTED' : ''; ?>>Monthly</option>
+            </select>
+          </div>
     </div>
 </div>
 

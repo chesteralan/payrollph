@@ -100,6 +100,7 @@ class Employees_salaries extends MY_Controller {
 				$salaries->setCola($this->input->post('cola'));
 				$salaries->setPrimary($this->input->post('primary') ? 1 : 0);
 				$salaries->setNotes($this->input->post('notes'));
+				$salaries->setManner($this->input->post('manner'));
 				$salaries->insert();
 			}
 			$this->postNext();
@@ -151,6 +152,7 @@ class Employees_salaries extends MY_Controller {
 					$salaries->setCola($this->input->post('cola'),false,true);
 					$salaries->setPrimary(($this->input->post('primary') ? 1 : 0),false,true);
 					$salaries->setNotes($this->input->post('notes'),false,true);
+					$salaries->setManner($this->input->post('manner'),false,true);
 					$salaries->update();
 					
 				}

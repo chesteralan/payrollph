@@ -17,6 +17,7 @@ CREATE TABLE `employees_salaries` (
   `hours` int(10) NOT NULL DEFAULT '8',
   `cola` decimal(10,5) NOT NULL DEFAULT '0.00000',
   `notes` text,
+  `manner` varchar(50) NOT NULL DEFAULT 'daily',
   `primary` int(1) DEFAULT '0',
   `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -35,6 +36,7 @@ ALTER TABLE  `employees_salaries` ADD  `months` int(2) NULL   DEFAULT '12';
 ALTER TABLE  `employees_salaries` ADD  `hours` int(10) NOT NULL   DEFAULT '8';
 ALTER TABLE  `employees_salaries` ADD  `cola` decimal(10,5) NOT NULL   DEFAULT '0.00000';
 ALTER TABLE  `employees_salaries` ADD  `notes` text NULL   ;
+ALTER TABLE  `employees_salaries` ADD  `manner` varchar(50) NOT NULL   DEFAULT 'daily';
 ALTER TABLE  `employees_salaries` ADD  `primary` int(1) NULL   DEFAULT '0';
 ALTER TABLE  `employees_salaries` ADD  `trash` int(1) NULL   DEFAULT '0';
 
@@ -61,6 +63,7 @@ class Employees_salaries_model extends MY_Model {
 	protected $hours;
 	protected $cola;
 	protected $notes;
+	protected $manner;
 	protected $primary;
 	protected $trash;
 
@@ -76,8 +79,8 @@ class Employees_salaries_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees_salaries';
 		$this->_short_name = 'employees_salaries';
-		$this->_fields = array("id","company_id","name_id","amount","rate_per","days","annual_days","months","hours","cola","notes","primary","trash");
-		$this->_required = array("company_id","name_id","amount","rate_per","days","hours","cola");
+		$this->_fields = array("id","company_id","name_id","amount","rate_per","days","annual_days","months","hours","cola","notes","manner","primary","trash");
+		$this->_required = array("company_id","name_id","amount","rate_per","days","hours","cola","manner");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -337,6 +340,29 @@ class Employees_salaries_model extends MY_Model {
 // ------------------------------ End Field: notes --------------------------------------
 
 
+// ---------------------------- Start Field: manner -------------------------------------- 
+
+	/** 
+	* Sets a value to `manner` variable
+	* @access public
+	*/
+
+	public function setManner($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('manner', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `manner` variable
+	* @access public
+	*/
+
+	public function getManner() {
+		return $this->manner;
+	}
+	
+// ------------------------------ End Field: manner --------------------------------------
+
+
 // ---------------------------- Start Field: primary -------------------------------------- 
 
 	/** 
@@ -486,6 +512,15 @@ class Employees_salaries_model extends MY_Model {
 										'Extra'=>''
 									),
 
+			'manner' => (object) array(
+										'Field'=>'manner',
+										'Type'=>'varchar(50)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'daily',
+										'Extra'=>''
+									),
+
 			'primary' => (object) array(
 										'Field'=>'primary',
 										'Type'=>'int(1)',
@@ -519,6 +554,7 @@ class Employees_salaries_model extends MY_Model {
 			'hours' => "ALTER TABLE  `employees_salaries` ADD  `hours` int(10) NOT NULL   DEFAULT '8';",
 			'cola' => "ALTER TABLE  `employees_salaries` ADD  `cola` decimal(10,5) NOT NULL   DEFAULT '0.00000';",
 			'notes' => "ALTER TABLE  `employees_salaries` ADD  `notes` text NULL   ;",
+			'manner' => "ALTER TABLE  `employees_salaries` ADD  `manner` varchar(50) NOT NULL   DEFAULT 'daily';",
 			'primary' => "ALTER TABLE  `employees_salaries` ADD  `primary` int(1) NULL   DEFAULT '0';",
 			'trash' => "ALTER TABLE  `employees_salaries` ADD  `trash` int(1) NULL   DEFAULT '0';",
 		);

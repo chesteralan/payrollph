@@ -78,6 +78,15 @@
           </div>
     </div>
     <div class="col-md-6">
+          <div class="form-group">
+            <label>Computation Manner</label>
+            <select class="form-control" title="Select Manner" name="manner">
+                <option value="daily" selected="selected">Daily</option>
+                <option value="hourly">Hourly</option>
+                <option value="semi-monthly">Semi-Monthly</option>
+                <option value="monthly">Monthly</option>
+            </select>
+          </div>
     </div>
 </div>
 
