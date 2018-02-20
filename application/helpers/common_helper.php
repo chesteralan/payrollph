@@ -43,3 +43,25 @@ if( ! function_exists('get_company_option') ) {
         return false;
     }
 }
+
+if( ! function_exists('payroll_url') ) {
+    function payroll_url($uri, $next=true, $next_query=true) {
+        $CI = get_instance();
+        $url = site_url($uri) . "?";
+        if( $next ) {
+            if( $CI->input->get('next') ) {
+                $url .= 'next=' . $CI->input->get('next') . "&";
+            } else {
+                $url .= 'next=' . uri_string() . "&";
+            }
+        }
+        if( $next_query ) {
+            if( $CI->input->get('next_query') ) {
+                $url .= 'next_query=' . urlencode($CI->input->get('next_query'));
+            } else {
+                $url .= 'next_query=' . urlencode( serialize( $CI->input->get() ) );
+            }
+        }
+        return $url;
+    }
+}

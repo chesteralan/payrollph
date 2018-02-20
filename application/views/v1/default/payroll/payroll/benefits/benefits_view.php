@@ -13,7 +13,7 @@
                   
 <?php if( !$column_id ) { ?>
 <?php if(!$payroll->lock) { ?>
-<a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Benefits" data-url="<?php echo site_url("payroll/benefits/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
+<a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Benefits" data-url="<?php echo payroll_url("payroll/benefits/{$payroll->id}/ajax"); ?>"><span class="glyphicon glyphicon-cog"></span></a>
 <?php } ?>
 <?php } else { ?>
   <?php if( $other_payrolls ) { ?>
@@ -135,7 +135,7 @@ $total_benefit = 0;
 
                 <td class="text-right">
 <?php if(!$payroll->lock) { ?>
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo ($column->notes!='') ? $column->notes : $column->name; ?> (EE)" data-url="<?php echo site_url("payroll_benefits/entries/{$payroll->id}/{$employee->name_id}/{$column->id}/ee/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo ($column->notes!='') ? $column->notes : $column->name; ?> (EE)" data-url="<?php echo payroll_url("payroll_benefits/entries/{$payroll->id}/{$employee->name_id}/{$column->id}/ee/ajax"); ?>" data-hide_footer="1">
 <?php } ?>
 <span data-toggle="tooltip" data-placement="left" title="<?php echo $column->name; ?>-ER: <?php echo number_format($employee->$er,2); ?>">
        <?php echo number_format($employee->$ee,2); ?>

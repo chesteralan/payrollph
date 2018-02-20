@@ -219,7 +219,8 @@ class Payroll_benefits extends MY_Controller {
 				$benefits->setNotes($this->input->post('notes'));
 				$benefits->insert();
 			}
-			redirect("payroll_benefits/view/{$id}");
+			//redirect("payroll_benefits/view/{$id}");
+			$this->postNext();
 		}
 
 		$payroll = new $this->Payroll_model;
@@ -257,7 +258,8 @@ class Payroll_benefits extends MY_Controller {
 				$benefits->setNotes($this->input->post('notes'));
 				$benefits->update();
 			}
-			redirect("payroll_benefits/view/{$benefit_data->payroll_id}");
+			//redirect("payroll_benefits/view/{$benefit_data->payroll_id}");
+			$this->postNext();
 		}
 
 		$this->template_data->set('benefit', $benefits->get());

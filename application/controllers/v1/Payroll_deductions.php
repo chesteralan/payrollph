@@ -203,7 +203,8 @@ class Payroll_deductions extends MY_Controller {
 				$deductions->setNotes($this->input->post('notes'));
 				$deductions->insert();
 			}
-			redirect("payroll_deductions/view/{$id}");
+			//redirect("payroll_deductions/view/{$id}");
+			$this->postNext();
 		}
 
 		$payroll = new $this->Payroll_model;
@@ -317,11 +318,7 @@ class Payroll_deductions extends MY_Controller {
 		$deduction_data = $deductions->get();
 		$deductions->delete();
 
-		if( $this->input->get('next') ) {
-			redirect( $this->input->get('next') );
-		} else {
-			redirect("payroll_deductions/view/{$deduction_data->payroll_id}");
-		}
+		$this->getNext("payroll_deductions/view/{$deduction_data->payroll_id}");
 
 	}
 
@@ -456,11 +453,7 @@ if( $this->input->get('equalizer') == '1' ) {
 		$deductions->setDeductionId($deduction_id,true);
 		$deductions->delete();
 		
-		if( $this->input->get('next') ) {
-			redirect( $this->input->get('next') );
-		} else {
-			redirect( "payroll_deductions/view/{$id}" );
-		}
+		$this->getNext( "payroll_deductions/view/{$id}" );
 
 	}
 

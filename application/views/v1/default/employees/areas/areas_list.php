@@ -25,7 +25,7 @@
     <button class="btn btn-default" type="submit">Search</button>
     
 <?php if( hasAccess('employees', 'areas', 'add') ) { ?>
-  <button type="button" class="btn btn-success ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Area" data-url="<?php echo site_url("employees_areas/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Add Area</button>
+  <button type="button" class="btn btn-success ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Area" data-url="<?php echo payroll_url("employees_areas/add/ajax"); ?>" style="margin-right: 5px">Add Area</button>
 <?php } ?>
 
   </span>
@@ -57,7 +57,7 @@
                 <td><a href="<?php echo site_url("employees/area/{$area->id}"); ?>" class="body_wrapper"><?php echo $area->employees_count; ?></a></td>
               <?php if( hasAccess('employees', 'areas', 'edit') ) { ?>
                 <td>
-                <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Area" data-url="<?php echo site_url("employees_areas/edit/{$area->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
+                <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Area" data-url="<?php echo payroll_url("employees_areas/edit/{$area->id}/ajax"); ?>">Edit</button>
 <?php if( $area->employees_count==0 ) { ?>
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees_areas/delete/{$area->id}"); ?>" data-target="#employee-group-<?php echo $area->id; ?>">Delete</a>
 <?php } ?>

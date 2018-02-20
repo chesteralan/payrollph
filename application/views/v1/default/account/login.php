@@ -98,7 +98,7 @@ if( is_view_exists("account/login_override") ) {
     <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
     <script>
       <!--
-        var ajax_login_url = '<?php echo site_url("account/login/ajax") . (($this->input->get('next'))?'?next='.$this->input->get('next'):''); ?>';
+        var ajax_login_url = '<?php echo payroll_url("account/login/ajax"); ?>';
       -->
     </script>
     <script src="<?php echo base_url('assets/js/login.js'); ?>"></script>

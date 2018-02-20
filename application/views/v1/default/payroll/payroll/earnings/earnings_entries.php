@@ -12,7 +12,7 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <a class="btn btn-success btn-xs pull-right" href="<?php echo site_url("payroll_earnings/add/{$payroll_id}/{$name_id}/{$earning_id}") . '?next=' . uri_string(); ?>">Add Earning</a>
+          <a class="btn btn-success btn-xs pull-right" href="<?php echo payroll_url("payroll_earnings/add/{$payroll_id}/{$name_id}/{$earning_id}"); ?>">Add Earning</a>
           <h3 class="panel-title"><?php echo $earning_data->name; ?></h3>
         </div>
 
@@ -23,7 +23,7 @@
 
 <?php if( isset($output) && ($output=='ajax') && (!$payroll->lock) && (!$this->input->get('lock')) ) : ?>
 
-<p><a href="<?php echo site_url("payroll_earnings/add/{$payroll_id}/{$name_id}/{$earning_id}/ajax") . '?next=' . uri_string(); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Payroll Entry">Add Payroll Entry</a> <em><small> - This will add an item to this current payroll only.</small></em>
+<p><a href="<?php echo payroll_url("payroll_earnings/add/{$payroll_id}/{$name_id}/{$earning_id}/ajax"); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Payroll Entry">Add Payroll Entry</a> <em><small> - This will add an item to this current payroll only.</small></em>
 </p>
 
 <?php endif; ?>
@@ -38,7 +38,7 @@ foreach($earnings as $earning) { ?>
 <?php if(($payroll->lock)||($this->input->get('lock'))) { ?>
   <div class="list-group-item">
 <?php } else { ?>
-   <a data-target="#ajaxModal" data-title="Edit Entry" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll_earnings/edit/{$earning->pee_id}/{$output}") . "?next=" . $this->input->get('next'); ?>">
+   <a data-target="#ajaxModal" data-title="Edit Entry" class="list-group-item ajax-modal-inner" href="<?php echo payroll_url("payroll_earnings/edit/{$earning->pee_id}/{$output}"); ?>">
 <?php } ?>
  
   <span class="badge pull-right"><?php echo number_format($earning->pee_amount,2); ?></span>

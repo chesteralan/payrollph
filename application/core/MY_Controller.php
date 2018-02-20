@@ -144,7 +144,14 @@ class MY_Controller extends CI_Controller {
 
         public function getNext($else='') {
             if( $this->input->get('next') ) {
-                    $url = site_url($this->input->get('next'));
+                    $url = site_url($this->input->get('next')) . "?";
+                    $next_query = unserialize( urldecode($this->input->get('next_query')) );
+                    if( $next_query ) {
+                        $url .= "&" . http_build_query($next_query);
+                    }
+                    if( $query_string ) {
+                            $url .= "&" . $query_string;
+                    }
                     redirect( $url );
             } else {
                 redirect( $else );

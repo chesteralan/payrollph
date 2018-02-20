@@ -14,7 +14,7 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
 <?php if( isset($output) && ($output!='ajax') ) { ?>
-<a class="btn btn-success btn-xs ajax-modal pull-right" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Item" data-url="<?php echo site_url("employees_benefits/edit/{$entry->id}/{$output}/ajax") . '?next=' . uri_string(); ?>">Edit Item</a>
+<a class="btn btn-success btn-xs ajax-modal pull-right" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Item" data-url="<?php echo payroll_url("employees_benefits/edit/{$entry->id}/{$output}/ajax"); ?>">Edit Item</a>
 <?php } ?>
                   <h3 class="panel-title bold">
                   <?php echo $benefit->name; ?> - <?php echo $benefit->notes; ?> <?php echo ($entry->notes) ? "(".$entry->notes.")" : ""; ?>
@@ -27,7 +27,7 @@
 
 <?php if( $benefits ) { ?>
 <?php if( isset($output) && ($output=='ajax') ) { ?>
-<center><a class="btn btn-success btn-xs ajax-modal-inner" href="<?php echo site_url("employees_benefits/edit/{$entry->id}/{$output}") . '?next=' . (($this->input->get('next'))? $this->input->get('next'): "employees_benefits/view/{$employee->name_id}"); ?>">Edit Item</a></center>
+<center><a class="btn btn-success btn-xs ajax-modal-inner" href="<?php echo payroll_url("employees_benefits/edit/{$entry->id}/{$output}"); ?>">Edit Item</a></center>
 <?php } ?>
           <table class="table table-default">
             <thead>
@@ -52,7 +52,7 @@ $total_er = 0;
                 <td class="text-right"><?php echo number_format($benefit->peb_employer_share,2); $total_er += $benefit->peb_employer_share; ?></td>
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
-                <a class="btn btn-warning btn-xs body_wrapper" data-dismiss="modal" href="<?php echo site_url("payroll_benefits/view/{$benefit->payroll_id}") . '?next=' . uri_string(); ?>">Payroll</a>
+                <a class="btn btn-warning btn-xs body_wrapper" data-dismiss="modal" href="<?php echo payroll_url("payroll_benefits/view/{$benefit->payroll_id}"); ?>">Payroll</a>
 
                 </td>
               <?php } ?>

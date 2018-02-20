@@ -204,7 +204,8 @@ class Payroll_earnings extends MY_Controller {
 				$earnings->setEntryId( $this->input->post('entry_id') );
 				$earnings->insert();
 			}
-			redirect("payroll_earnings/view/{$id}");
+			//redirect("payroll_earnings/view/{$id}");
+			$this->postNext();
 		}
 
 		$payroll = new $this->Payroll_model;
@@ -259,7 +260,8 @@ class Payroll_earnings extends MY_Controller {
 				$earnings->setEntryId( $this->input->post('entry_id'), false, true );
 				$earnings->update();
 			}
-			redirect("payroll_earnings/view/{$earning_data->payroll_id}");
+			//redirect("payroll_earnings/view/{$earning_data->payroll_id}");
+			$this->postNext();
 		}
 
 		$this->template_data->set('earning', $earnings->get());
@@ -295,11 +297,8 @@ class Payroll_earnings extends MY_Controller {
 		$earning_data = $earnings->get();
 		$earnings->delete();
 
-		if( $this->input->get('next') ) {
-			redirect( $this->input->get('next') );
-		} else {
-			redirect("payroll_earnings/view/{$earning_data->payroll_id}");
-		}
+		$this->getNext("payroll_earnings/view/{$earning_data->payroll_id}");
+		
 	}
 
 	public function item_schedule($id,$earning_id,$output='') {
@@ -394,11 +393,7 @@ class Payroll_earnings extends MY_Controller {
 		$earnings->setEarningId($earning_id,true);
 		$earnings->delete();
 		
-		if( $this->input->get('next') ) {
-			redirect( $this->input->get('next') );
-		} else {
-			redirect( "payroll_earnings/view/{$id}" );
-		}
+		$this->getNext("payroll_earnings/view/{$id}");
 
 	}
 
