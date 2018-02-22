@@ -44,6 +44,7 @@ foreach( $earnings_columns as $column ) {
 }
 if( isset($compare_payroll) ) {
   $total['compare'] = 0;
+  $total['difference'] = 0;
 }
 ?>
 
@@ -82,6 +83,9 @@ if( isset($compare_payroll) ) {
 <?php } ?>
 <?php if( !$column_id ) { ?>
                 <th width="10%" class="text-right">Total</th>
+<?php } ?>
+<?php if( isset($compare_payroll) ) { ?>
+  <th width="20%" class="text-right">Difference</th>
 <?php } ?>
               </tr>
             </thead>
@@ -133,6 +137,15 @@ $total_earnings = 0;
 <?php if( !$column_id ) { ?>
                 <td class="text-right"><?php echo number_format($total_earnings,2); ?></td>
 <?php } ?>
+
+<?php if( isset($compare_payroll) ) { ?>
+  <td class="text-right">
+    <?php 
+    $dif = ($employee->$var - $employee->$var2);
+$total['difference'] += $dif;
+    echo number_format($dif,2); ?>
+  </td>
+<?php } ?>
               </tr>
 <?php } ?>
 
@@ -160,6 +173,9 @@ $total_earnings = 0;
 <?php if( !$column_id ) { ?>
   <th width="10%" class="text-right">TOTAL</th>
 <?php } ?>
+<?php if( isset($compare_payroll) ) { ?>
+  <th width="20%" class="text-right">Difference</th>
+<?php } ?>
               </tr>
             </thead>
             <tbody>
@@ -181,6 +197,9 @@ $total_earnings += $total[$column->id];
 <?php } ?>
 <?php if( !$column_id ) { ?>
                 <td class="text-right"><strong><?php echo number_format($total_earnings,2); ?></strong></td>
+<?php } ?>
+<?php if( isset($compare_payroll) ) { ?>
+  <td class="text-right"><?php echo number_format($total['difference'],2);?></td>
 <?php } ?>
   </tr>
             </tbody>

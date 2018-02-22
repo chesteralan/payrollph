@@ -47,6 +47,8 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
 if( isset($compare_payroll) ) {
   $total['compare']['ee'] = 0;
   $total['compare']['er'] = 0;
+  $total['difference']['ee'] = 0;
+  $total['difference']['er'] = 0;
 }
 ?>
 
@@ -98,6 +100,10 @@ if( isset($compare_payroll) ) {
 
 <?php if( !$column_id ) { ?>
 <th width="10%" class="text-right">TOTAL EE</th>
+<?php } ?>
+
+<?php if( isset($compare_payroll) ) { ?>
+  <th width="15%" class="text-right">Difference</th>
 <?php } ?>
               </tr>
             </thead>
@@ -171,6 +177,12 @@ $total_benefit = 0;
 <?php if( !$column_id ) { ?>
 <td class="text-right"><?php echo number_format($total_benefit,2); ?></td>
 <?php } ?>
+<?php if( isset($compare_payroll) ) { ?>
+<td class="text-right"><?php 
+$diff_ee = $employee->$ee - $employee->$ee2;
+$total['difference']['ee'] += $diff_ee;
+echo number_format($diff_ee,2); ?></td>
+<?php } ?>
               </tr>
 <?php } ?>
 
@@ -210,6 +222,9 @@ $total_benefit = 0;
 <?php if( !$column_id ) { ?>
                 <th width="10%" class="text-right">TOTAL EE</th>
 <?php } ?>
+<?php if( isset($compare_payroll) ) { ?>
+  <th width="15%" class="text-right">Difference</th>
+<?php } ?>
               </tr>
             </thead>
             <tbody>
@@ -229,6 +244,9 @@ $total_benefit = 0;
 <?php } ?>
 <?php if( !$column_id ) { ?>
 <td class="text-right"><?php echo number_format($total_benefits,2); ?></td>
+<?php } ?>
+<?php if( isset($compare_payroll) ) { ?>
+<td class="text-right"><?php echo number_format($total['difference']['ee'],2); ?></td>
 <?php } ?>
   </tr>
             </tbody>
