@@ -29,14 +29,18 @@
 </div>
 
 
-<?php if( $item_data ) {  ?>
+<?php if( $item_data ) {  
+$n = 1;
+  ?>
   <div class="payroll">
 
 
  <table cellspacing="0" cellpadding="0" class="table"  width="100%">
 
               <tr class="warning">
+                <th class="text-left" width="1%">#</th>
                 <th class="text-left">Employee Name</th>
+                <th class="text-left">Area Assignment</th>
                 <th width="20%" class="text-right">Employee Share</th>
                 <th width="20%" class="text-right">Employer Share</th>
                 <th width="20%" class="text-right">Total Payable</th>
@@ -52,9 +56,11 @@ $total_er_share += $item->employer_share;
 $total_payment += $item->employee_share + $item->employer_share;
               ?>
               <tr>
+                <td><?php echo $n++; ?>.</td>
                 <td><?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?>
                 <a href="<?php echo site_url("employees_benefits/view/{$item->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper"><span class="glyphicon glyphicon-cog"></span></a>
                 </td>
+                <td><?php echo $item->area_name; ?></td>
                 <td class="text-right"><?php echo number_format($item->employee_share,2); ?></td>
                 <td class="text-right"><?php echo number_format($item->employer_share,2); ?></td>
                 <td class="text-right"><?php echo number_format(($item->employee_share + $item->employer_share),2); ?></td>
@@ -62,7 +68,9 @@ $total_payment += $item->employee_share + $item->employer_share;
 <?php } ?>
 
               <tr class="success">
-                <td><strong>Total</strong></td>
+                <td></td>
+                <td></td>
+                <td class="text-right"><strong>Total</strong></td>
                 <td class="text-right"><strong><?php echo number_format($total_ee_share,2); ?></strong></td>
                 <td class="text-right"><strong><?php echo number_format($total_er_share,2); ?></strong></td>
                 <td class="text-right"><strong><?php echo number_format($total_payment,2); ?></strong></td>

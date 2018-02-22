@@ -325,6 +325,12 @@ class Payroll_benefits extends MY_Controller {
 		$benefits->set_where('pe.active', 1);
 		$benefits->set_where('pe.payroll_id', $id);
 		
+if( $output == 'print') {
+	$benefits->set_join("employees e2", 'e2.name_id=e.name_id');
+	$benefits->set_join("employees_areas ea", 'ea.id=e2.area_id');
+	$benefits->set_select("ea.name as area_name");
+}
+
 		$benefits->set_limit(0);
 		$item_data = $benefits->populate();
 		$this->template_data->set('item_data', $item_data);

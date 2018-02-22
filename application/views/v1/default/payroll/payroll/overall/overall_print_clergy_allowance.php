@@ -190,6 +190,7 @@ $hourly_rate = 0;
 $cola_rate = 0;
 $cola = 0;
 $absences = 0;
+$basic_salary = 0;
 
 if( $employee->salary ) {
   $salary = $employee->salary;
@@ -230,7 +231,6 @@ if( $employee->salary ) {
   }
 }
 
-$total_absences += $absences;
 $cola = ($cola_rate * $present_days);
 $absences = ($daily_rate * $days_absent);
 $gross_pay = (($basic_salary + $cola) - $absences); 
