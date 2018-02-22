@@ -284,7 +284,8 @@ class Payroll_benefits extends MY_Controller {
 		$benefits->setId($id,true);
 		$benefit_data = $benefits->get();
 		$benefits->delete();
-		redirect("payroll_benefits/view/{$benefit_data->payroll_id}");
+
+		$this->getNext("payroll_benefits/view/{$benefit_data->payroll_id}");
 
 	}
 

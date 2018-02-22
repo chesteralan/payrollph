@@ -380,8 +380,11 @@ class Payroll_earnings extends MY_Controller {
 			$this->template_data->set('template', $template->get());
 
 			$this->load->view('payroll/payroll/earnings/earnings_item_schedule_print', $this->template_data->get_data());
+
 		} else {
+
 			$this->load->view('payroll/payroll/earnings/earnings_item_schedule', $this->template_data->get_data());
+			
 		}
 
 	}
