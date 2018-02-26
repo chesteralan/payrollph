@@ -230,6 +230,9 @@ public function leave_benefits($id,$group_id=0,$output='') {
 		$employees_status->set_order('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status)', 'ASC');
 		$this->template_data->set('employees_status', $employees_status->populate());
 
+		$this->template_data->set('next_item', $this->_next_payroll($id, $group_id, 'payroll_dtr/leave_benefits/'));
+		$this->template_data->set('previous_item', $this->_previous_payroll($id, $group_id, 'payroll_dtr/leave_benefits/'));
+		
 		$this->template_data->set('output', $output);
 
 		$this->load->view('payroll/payroll/dtr/dtr_leave_benefits', $this->template_data->get_data());
