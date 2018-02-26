@@ -227,6 +227,8 @@ public function leave_benefits($id,$group_id=0,$output='') {
 		$employees_status->set_limit(0);
 		$employees_status->set_group_by('e.status');
 		$employees_status->set_where('e.status IS NOT NULL');
+		$employees_status->set_where('e.status <> 0');
+		$employees_status->set_where('e.status <> ""');
 		$employees_status->set_order('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status)', 'ASC');
 		$this->template_data->set('employees_status', $employees_status->populate());
 
