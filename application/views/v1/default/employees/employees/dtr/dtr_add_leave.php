@@ -33,10 +33,12 @@
 <?php } else { ?>
             <select class="form-control" name="leave_type">
                 <option value="" <?php echo (($absence) && ($absence->leave_type==0)) ? 'SELECTED' : ''; ?>>Absence without Leave</option>
-                <?php foreach($leave_benefits as $leave) { ?>
+                <?php foreach($leave_benefits as $leave) { 
+$leave_balance = ($leave->days - $leave->availed) + ($absence->hours / $employee->working_hours);
+                  ?>
                   <?php if( $leave->days ) { ?>
-                    <?php if(($employee->availed < $employee->days)) { ?>
-                      <option value="<?php echo $leave->id; ?>" <?php echo (($absence) && ($absence->leave_type==$leave->id)) ? 'SELECTED' : ''; ?>><?php echo $leave->name; ?> (<?php echo number_format($leave->availed,2); ?> / <?php echo number_format($leave->days,2); ?>)</option>
+                    <?php if($leave_balance > 0) { ?>
+                      <option value="<?php echo $leave->id; ?>" <?php echo (($absence) && ($absence->leave_type==$leave->id)) ? 'SELECTED' : ''; ?>><?php echo $leave->name; ?> (<?php echo number_format($leave->days,2); ?> | <?php echo number_format($leave->availed,2); ?> | <?php echo number_format($leave_balance,2); ?>)</option>
                     <?php } ?>
                   <?php } ?>
                 <?php } ?>

@@ -65,14 +65,17 @@
 <?php foreach($leave_benefits as $leave) { 
 $var1 = 'allowed_leave_' . $leave->id;
 $var2 = 'availed_leave_' . $leave->id;
+
+$leave_balance = ($employee->$var1 - $employee->$var2);
 ?>
                 <td class="text-right">
 <?php if(( $employee->$var1 > 0 )) { ?>
+<?php echo number_format($employee->$var1,2); ?> | 
 <?php if(($employee->$var2 < $employee->$var1)) { ?>
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Inclusive Dates" data-url="<?php echo site_url("payroll_dtr/absences/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string() . "&leave_id=" . $leave->id; ?>" data-hide_footer="1"><?php echo number_format($employee->$var2,2); ?></a>
 <?php } else { ?>
   <?php echo number_format($employee->$var2,2); ?>
-<?php } ?> / <?php echo number_format($employee->$var1,2); ?>
+<?php } ?> | <?php echo number_format($leave_balance,2); ?>
 <?php } ?>
                 </td>
 <?php } ?>

@@ -10,7 +10,7 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
-
+<?php if( $years ) { ?>
 <div class="btn-group pull-right">
   <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <?php echo ($this->input->get('filter_by_year')) ? $this->input->get('filter_by_year') : 'Filter by Year'; ?> <span class="caret"></span>
@@ -28,6 +28,7 @@
 <?php } ?>
   </ul>
 </div>
+<?php } ?>
 
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong></h3>
                 </div>

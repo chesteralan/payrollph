@@ -127,12 +127,13 @@
 
   <li><a data-title="Emergency Contacts" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("lists_names/update_emergency/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Emergency Contacts</a></li>
 
-   <li role="separator" class="divider"></li>
-
    <li><a data-title="Employment Information" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("employees/edit_employment/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Employment Information</a></li>
 
-    <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_salaries/view/{$employee->name_id}"); ?>">
-Basic Salary</a></li>
+   <li role="separator" class="divider"></li>
+
+    <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_dtr/view/{$employee->name_id}"); ?>">Daily Time Record</a></li>
+
+    <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_salaries/view/{$employee->name_id}"); ?>">Basic Salary</a></li>
 
   <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_earnings/view/{$employee->name_id}"); ?>">Earnings</a></li>
 
