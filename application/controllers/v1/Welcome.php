@@ -106,6 +106,14 @@ class Welcome extends MY_Controller {
 		redirect( $this->input->get('uri') );
 	}
 
+	public function filter_employee($name_id) {
+		$employee = new $this->Employees_model('e');
+		$employee->setNameId($name_id,true);
+		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
+		$this->session->set_userdata('current_employee', $employee->get() );
+		redirect( site_url( $this->input->get('next') ) . "?error_code=101" );
+	}
+	
 	public function ajax($action='') {
 		$results = array();
 		switch($action) {
@@ -148,7 +156,7 @@ class Welcome extends MY_Controller {
 					$results[] = array(
 						'label' => $employee->lastname . ", " . $employee->firstname. " " . substr($employee->middlename,0,1).".",
 						'id' => $employee->name_id,
-						'redirect'=> site_url( $ctrl . $employee->name_id ),
+						'redirect'=> site_url( "welcome/filter_employee/{$employee->name_id}" ) . "?next=" . $ctrl . $employee->name_id,
 						);
 				}
 			break;

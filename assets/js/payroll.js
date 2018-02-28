@@ -285,6 +285,8 @@ var navbar_search_employee = function() {
               //loadingDiv.html( loadingImg );
               divBody.prepend( loadingDiv );
 
+              window.location.href = ui.item.redirect;
+/*
               $.ajax({
                 url: ui.item.redirect,
                 method: 'POST',
@@ -309,7 +311,7 @@ var navbar_search_employee = function() {
 	                }
                 }
               }); // $.ajax()
-          
+*/
       }
     });
 

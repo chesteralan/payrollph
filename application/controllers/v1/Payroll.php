@@ -634,6 +634,7 @@ class Payroll extends MY_Controller {
 
 				$employees = new $this->Employees_model('e');
 				$employees->setCompanyId($this->session->userdata('current_company_id'),true);
+				$employees->setTrash(0,true);
 				$employees->set_select('e.*');
 				$employees->set_select('(SELECT ep.name FROM employees_positions ep WHERE ep.id=e.position_id) as position_name');
 				$employees->set_select('(SELECT ni.birthday FROM names_info ni WHERE ni.name_id=e.name_id) as birthday');
@@ -977,8 +978,8 @@ class Payroll extends MY_Controller {
 		if( $payroll->nonEmpty() ) {
 			$this->session->set_userdata('current_payroll', $payroll->getResults() );
 			
-			$this->session->set_userdata('employees_status', false);
-			$this->session->set_userdata('current_employee', false );
+			//$this->session->set_userdata('employees_status', false);
+			//$this->session->set_userdata('current_employee', false );
 			
 
 			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_dtr') ) {

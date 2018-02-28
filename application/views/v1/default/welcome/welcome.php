@@ -10,7 +10,14 @@
 <?php if( $this->session->userdata( 'current_company' ) ) { ?>
 
 <div class="row">
+
     		<div class="col-md-6">
+
+<div class="well">
+  
+  <input name="q" type="text" class="form-control autocomplete-search_employee" data-source="<?php echo site_url("welcome/ajax/search_employee"); ?>" placeholder="Search Employees">
+
+</div>
 
     			<div class="panel panel-default">
     				<div class="panel-heading">
