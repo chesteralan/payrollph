@@ -101,10 +101,15 @@ class Lists_deductions extends MY_Controller {
 
 	public function items($id, $name_id=0, $start=0) {
 		
+		$this->template_data->set('name_id', $name_id);
 		if( $name_id ) {
-			$employee = new $this->Employees_model;
+			$employee = new $this->Employees_model('e');
 			$employee->setNameId($name_id,true);
 			$employee->set_select("*");
+			$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
+			$employee->set_select("e.*");
+			$employee->set_select("ni.*");
+			$employee->set_where("e.company_id=" . $this->session->userdata('current_company_id'));
 			$this->template_data->set('employee', $employee->get());
 		}
 
@@ -142,6 +147,12 @@ class Lists_deductions extends MY_Controller {
 
 		$items->set_select("(SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id) as amount_paid");
 		$items->set_select("(ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) as balance");
+
+		if( $this->input->get('archived') ) {
+			$items->set_where("((ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) = 0)");
+		} else {
+			$items->set_where("((ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) > 0)");
+		}
 
 		if( $this->input->get('group_by') == 'employee' ) {
 			$items->set_group_by("ed.name_id");

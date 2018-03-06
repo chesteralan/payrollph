@@ -27,7 +27,7 @@
 
 <?php } ?>
                   <h3 class="panel-title bold"><?php echo $current_page; ?>:  <?php echo $deduction->name; ?> <small><?php echo $deduction->notes; ?></small>
-                  <span class="badge">Active</span> <a href="<?php echo site_url("lists_deductions/archived/{$deduction->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-folder-close"></span></a>
+                  <span class="badge"><?php echo ($this->input->get('archived')) ? 'Archived' : 'Active'; ?></span> <a href="<?php echo site_url("lists_deductions/items/{$deduction->id}/{$name_id}"); ?><?php echo ($this->input->get('archived')) ? '' : '?archived=1'; ?>" class="body_wrapper"><span class="glyphicon glyphicon-folder-<?php echo ($this->input->get('archived')) ? 'open' : 'close'; ?>"></span></a>
 
                   </h3>
                 </div>
