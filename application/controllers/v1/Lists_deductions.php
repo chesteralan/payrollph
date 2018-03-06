@@ -130,7 +130,7 @@ class Lists_deductions extends MY_Controller {
 		$items->set_select("e.*");
 		$items->set_select("ed.*");
 		$items->set_start($start);
-		$items->set_order('ed.id', 'DESC');
+		$items->set_order('ed.start_date', 'DESC');
 		
 		//$items->set_order('ni.lastname', 'ASC');
 		//$items->set_order('ni.firstname', 'ASC');

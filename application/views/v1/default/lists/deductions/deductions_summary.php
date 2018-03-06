@@ -8,6 +8,7 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
+                  <a href="<?php echo site_url("lists_deductions/items/{$deduction->id}/0"); ?>" class="btn btn-warning btn-xs pull-right">Back</a>
                   <h3 class="panel-title bold"><?php echo $current_page; ?> Summary: <?php echo $deduction->name; ?> <small><?php echo $deduction->notes; ?></small></h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">

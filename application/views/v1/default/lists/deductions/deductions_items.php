@@ -40,14 +40,15 @@
               <tr>
                 <th>Deduction Name</th>
                 <th>Notes</th>
+                <th class="text-right">Start Date</th>
                 <th class="text-right">Whole Amount</th>
-                <th class="text-right">Amount</th>
+                <!--<th class="text-right">Amount</th>-->
                 <th class="text-right">Amount Paid</th>
                 <th class="text-right">Balance</th>
 
-                <?php foreach($templates as $temp) { ?>
+                <?php /* foreach($templates as $temp) { ?>
                   <th class="text-center" width="5%"><?php echo $temp->name; ?></th>
-                <?php } ?>
+                <?php } */ ?>
                 <th width="130px" class="text-right">Action</th>
 
               </tr>
@@ -67,8 +68,9 @@ $balance_total = 0;
 </td>
 
                 <td><?php echo $item->notes; ?></td>
+                <td class="text-right"><?php echo date("F d, Y", strtotime($item->start_date)); ?></td>
                 <td class="text-right"><?php echo number_format($item->max_amount,2); $max_amount_total+=$item->max_amount; ?></td>
-                <td class="text-right"><?php echo number_format($item->amount,2); $amount_total+=$item->amount; ?></td>
+                <!--td class="text-right"><?php echo number_format($item->amount,2); $amount_total+=$item->amount; ?></td>-->
                 <td class="text-right"><?php echo number_format($item->amount_paid,2); $amount_paid_total+=$item->amount_paid; ?></td>
                 <td class="text-right"><?php 
 if( $item->balance ) {
@@ -78,11 +80,11 @@ if( $item->balance ) {
 }
               ?></td>
 
-                <?php foreach($templates as $temp) { 
+                <?php /* foreach($templates as $temp) { 
                   $var = 'temp_' . $temp->id;
                   ?>
                   <td class="text-center"><span class="glyphicon glyphicon-<?php echo ($item->$var) ? 'ok' : 'remove'; ?>"></span></td>
-                <?php } ?>
+                <?php } */ ?>
                 <td class="text-right">
                   <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Deduction" data-url="<?php echo site_url("employees_deductions/edit/{$item->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 
