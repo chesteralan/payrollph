@@ -148,11 +148,13 @@ class Lists_deductions extends MY_Controller {
 		$items->set_select("(SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id) as amount_paid");
 		$items->set_select("(ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) as balance");
 
+if( !$this->input->get('show_all') ) {
 		if( $this->input->get('archived') ) {
 			$items->set_where("((ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) = 0)");
 		} else {
 			$items->set_where("((ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) > 0)");
 		}
+}
 
 		if( $this->input->get('group_by') == 'employee' ) {
 			$items->set_group_by("ed.name_id");
@@ -182,7 +184,7 @@ class Lists_deductions extends MY_Controller {
 			'total_rows' => $items->count_all_results(),
 			'per_page' => $items->get_limit(),
 			'ajax'=>true,
-		)));
+		), "?archived=" . $this->input->get('archived') . "&show_all=" .$this->input->get('show_all') ));
 
 		$employees = new $this->Payroll_employees_deductions_model('ped');
 		$employees->setDeductionId($id,true);

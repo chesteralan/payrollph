@@ -41,6 +41,7 @@ class Employees_deductions extends MY_Controller {
 		$deductions->set_select("(SELECT notes FROM deductions_list WHERE id=ed.deduction_id) as deduction_notes");
 		$deductions->setTrash('0',true);
 		$deductions->setActive('1', true);
+		$deductions->set_order('ed.start_date', 'DESC');
 
 		if( $this->input->get('filter') ) {
 			$deductions->setDeductionId($this->input->get('filter'),true);
@@ -102,6 +103,7 @@ if((!$this->input->get('show_all'))) {
 		$deductions->set_select("(SELECT name FROM deductions_list WHERE id=ed.deduction_id) as deduction_name");
 		$deductions->set_select("(SELECT notes FROM deductions_list WHERE id=ed.deduction_id) as deduction_notes");
 		$deductions->setTrash('0',true);
+		$deductions->set_order('ed.start_date', 'DESC');
 
 		if( $this->input->get('filter') ) {
 			$deductions->setDeductionId($this->input->get('filter'),true);
