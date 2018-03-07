@@ -82,7 +82,15 @@
             <tbody>
             <?php foreach($payrolls as $payroll) {  ?>
               <tr id="Payroll-<?php echo $payroll->id; ?>">
-                <td><?php echo ($payroll->lock) ? '<span class="glyphicon glyphicon-lock"></span>' : ''; ?></td>
+                <td>
+<a href="<?php echo site_url("payroll/edit/{$payroll->id}"); ?>?lock=update&next=<?php echo uri_string(); ?>" class="confirm">
+                  <?php if($payroll->lock) { ?>
+                  <span class="fa fa-lock" style="color: red;"></span>
+                  <?php } else { ?>
+                  <span class="fa fa-unlock" style="color: green;"></span>
+                  <?php } ?>
+</a>
+                </td>
                 <td><?php echo $payroll->id; ?></td>
                 <td><?php echo $payroll->name; ?></td>
                 <td><?php echo date('F', strtotime($payroll->month."/1/1970")); ?></td>

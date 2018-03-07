@@ -46,7 +46,7 @@
           <label>Month</label>
           <select class="form-control" title="Select a Month" name="month">
             <?php for($i=1;$i<=12;$i++) { ?>
-              <option value="<?php echo $i; ?>" <?php echo ($i==$payroll->month) ? "SELECTED": (($i==date('m')) ? "SELECTED": ""); ?>><?php echo date('F', strtotime("{$i}/1/1970")); ?></option>
+              <option value="<?php echo $i; ?>" <?php echo ($i==$payroll->month) ? "SELECTED" : ""; ?>><?php echo date('F', strtotime("{$i}/1/1970")); ?></option>
             <?php } ?>
           </select>
         </div>
@@ -56,7 +56,7 @@
           <label>Year</label>
           <select class="form-control" title="Select a Year" name="year">
             <?php for($i=date('Y');$i>=2017;$i--) { ?>
-              <option value="<?php echo $i; ?>" <?php echo ($i==$payroll->year) ? "SELECTED": (($i==date('Y')) ? "SELECTED": ""); ?>><?php echo $i; ?></option>
+              <option value="<?php echo $i; ?>" <?php echo ($i==$payroll->year) ? "SELECTED" : ""; ?>><?php echo $i; ?></option>
             <?php } ?>
           </select>
         </div>    

@@ -155,6 +155,12 @@ class Payroll extends MY_Controller {
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
 
+		if( $this->input->get('lock') == 'update' ) {
+			$payroll_data = $payroll->get();
+			$payroll->setLock((($payroll_data->lock)?0:1),false,true);
+			$payroll->update();
+			redirect( $this->input->get('next') );
+		}
 		if( $payroll->nonEmpty() ) {
 			if( $this->input->post() ) {
 				$this->form_validation->set_rules('name', 'Template Name', 'trim|required');
