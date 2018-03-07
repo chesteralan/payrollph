@@ -10,9 +10,11 @@
                 <div class="panel-heading">
                   <h3 class="panel-title bold">
                   <?php echo $current_page; ?> <span class="badge">Archived</span> 
-                  <a href="<?php echo site_url("employees_deductions/view/{$employee->name_id}"); ?><?php echo ($this->input->get('filter')) ? "?filter=" . $this->input->get('filter') : ""; ?>" class="body_wrapper"><span class="glyphicon glyphicon-folder-open"></span></a>
+                  <a href="<?php echo site_url("employees_deductions/view/{$employee->name_id}"); ?>?<?php echo ($this->input->get('filter')) ? "filter=" . $this->input->get('filter') : ""; ?><?php echo ($this->input->get('show_all')) ? "&show_all=" . $this->input->get('show_all') : ""; ?>" class="body_wrapper"><span class="glyphicon glyphicon-folder-open"></span></a>
 
-                  <a href="<?php echo site_url("employees_deductions/trash/{$employee->name_id}"); ?><?php echo ($this->input->get('filter')) ? "?filter=" . $this->input->get('filter') : ""; ?>" class="body_wrapper"><span class="glyphicon glyphicon-trash"></span></a>
+                  <a href="<?php echo site_url("employees_deductions/trash/{$employee->name_id}"); ?>?<?php echo ($this->input->get('filter')) ? "filter=" . $this->input->get('filter') : ""; ?><?php echo ($this->input->get('show_all')) ? "&show_all=" . $this->input->get('show_all') : ""; ?>" class="body_wrapper"><span class="glyphicon glyphicon-trash"></span></a>
+
+                  <a href="<?php echo site_url("employees_deductions/archived/{$employee->name_id}"); ?>?<?php echo ($this->input->get('filter')) ? "filter=" . $this->input->get('filter') : ""; ?><?php echo ($this->input->get('show_all')) ? "&show_all=0" : "&show_all=1"; ?>" class="body_wrapper"><span class="glyphicon glyphicon-eye-<?php echo ($this->input->get('show_all')) ? "close" : "open"; ?>"></span></a>
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
@@ -31,9 +33,9 @@
                 <th>Max Amount</th>
                 <th>Amount</th>
                 <th>Balance</th>
-                <?php foreach($templates as $temp) { ?>
+                <?php /*foreach($templates as $temp) { ?>
                   <th class="text-center" width="5%"><?php echo $temp->name; ?></th>
-                <?php } ?>
+                <?php }*/ ?>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                   <th width="185px" class="action_column">Action</th>
                 <?php } ?>
@@ -42,7 +44,7 @@
             <tbody>
 
             <?php foreach($deductions as $deduction) { ?>
-              <tr id="salary-<?php echo $deduction->id; ?>" class="<?php echo ($deduction->active==1) ? 'success' : ''; ?>">
+              <tr id="salary-<?php echo $deduction->id; ?>" class="<?php echo ($deduction->active==1) ? '' : 'danger'; ?>">
                 <td><?php echo $deduction->deduction_name; ?> - <?php echo $deduction->deduction_notes; ?>
 <?php if( !$this->input->get('filter') ) { ?>
  <a class="body_wrapper" href="<?php echo site_url("employees_deductions/archived/{$deduction->name_id}") . "?filter=" . $deduction->deduction_id; ?>"><span class="glyphicon glyphicon-filter"></span></a>
@@ -53,11 +55,11 @@
                 <td><?php echo number_format($deduction->amount,2); ?></td>
                 <td><?php echo number_format($deduction->balance,2); ?></td>
              
-                <?php foreach($templates as $temp) { 
+                <?php /*foreach($templates as $temp) { 
                   $var = 'temp_' . $temp->id;
                   ?>
                   <td class="text-center"><span class="glyphicon glyphicon-<?php echo ($deduction->$var) ? 'ok' : 'remove'; ?>"></span></td>
-                <?php } ?>
+                <?php }*/ ?>
                 
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>

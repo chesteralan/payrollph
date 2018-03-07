@@ -12,9 +12,13 @@
   <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Deduction" data-url="<?php echo site_url("employees_deductions/add/{$employee->name_id}/ajax") . "?next=" . ( ( ($this->input->get('next')) && ($this->input->get('next') != 'employees') ) ? $this->input->get('next') : uri_string()); ?>" style="margin-right: 5px">Add Deduction</button>
 <?php } ?>
                   <h3 class="panel-title bold">
-                  <?php echo $current_page; ?> <span class="badge">Active</span> <a href="<?php echo site_url("employees_deductions/archived/{$employee->name_id}"); ?><?php echo ($this->input->get('filter')) ? "?filter=" . $this->input->get('filter') : ""; ?>" class="body_wrapper"><span class="glyphicon glyphicon-folder-close"></span></a>
+                  <?php echo $current_page; ?> <span class="badge">Active</span> 
 
-<a class="body_wrapper" title="Deductions Analysis" href="<?php echo site_url("employees_deductions/analyze/{$employee->name_id}"); ?>"><span class="glyphicon glyphicon-signal"></span></a>
+<a href="<?php echo site_url("employees_deductions/archived/{$employee->name_id}"); ?>?<?php echo ($this->input->get('filter')) ? "filter=" . $this->input->get('filter') : ""; ?><?php echo ($this->input->get('show_all')) ? "&show_all=" . $this->input->get('show_all') : ""; ?>" class="body_wrapper"><span class="glyphicon glyphicon-folder-close"></span></a>
+
+<a class="body_wrapper" title="Deductions Analysis" href="<?php echo site_url("employees_deductions/analyze/{$employee->name_id}"); ?>?<?php echo ($this->input->get('filter')) ? "filter=" . $this->input->get('filter') : ""; ?><?php echo ($this->input->get('show_all')) ? "&show_all=" . $this->input->get('show_all') : ""; ?>"><span class="glyphicon glyphicon-signal"></span></a>
+
+<a href="<?php echo site_url("employees_deductions/view/{$employee->name_id}"); ?>?<?php echo ($this->input->get('filter')) ? "filter=" . $this->input->get('filter') : ""; ?><?php echo ($this->input->get('show_all')) ? "&show_all=0" : "&show_all=1"; ?>" class="body_wrapper"><span class="glyphicon glyphicon-eye-<?php echo ($this->input->get('show_all')) ? "close" : "open"; ?>"></span></a>
 
                   </h3>
                 </div>
@@ -34,9 +38,9 @@
                 <th>Max Amount</th>
                 <th>Amount</th>
                 <th>Balance</th>
-                <?php foreach($templates as $temp) { ?>
+                <?php /* foreach($templates as $temp) { ?>
                   <th class="text-center" width="5%"><?php echo $temp->name; ?></th>
-                <?php } ?>
+                <?php }*/ ?>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                   <th width="125px" class="action_column">Action</th>
                 <?php } ?>
@@ -49,7 +53,7 @@ $total_max_amount = 0;
 $total_amount = 0;
 $total_balance = 0;
             foreach($deductions as $deduction) { ?>
-              <tr id="salary-<?php echo $deduction->id; ?>" class="<?php echo ($deduction->active==1) ? 'success' : ''; ?>">
+              <tr id="salary-<?php echo $deduction->id; ?>" class="<?php echo ($deduction->active==1) ? '' : 'danger'; ?>">
                 <td><?php echo $deduction->deduction_name; ?> - <?php echo $deduction->deduction_notes; ?>
 <?php if( !$this->input->get('filter') ) { ?>
  <a class="body_wrapper" href="<?php echo site_url("employees_deductions/view/{$deduction->name_id}") . "?filter=" . $deduction->deduction_id; ?>"><span class="glyphicon glyphicon-filter"></span></a>
@@ -68,11 +72,11 @@ $total_balance = 0;
                     $total_balance+=$deduction->max_amount;
                   } ?></td>
              
-                <?php foreach($templates as $temp) { 
+                <?php /*foreach($templates as $temp) { 
                   $var = 'temp_' . $temp->id;
                   ?>
                   <td class="text-center"><span class="glyphicon glyphicon-<?php echo ($deduction->$var) ? 'ok' : 'remove'; ?>"></span></td>
-                <?php } ?>
+                <?php }*/ ?>
                 
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
@@ -95,8 +99,10 @@ $total_balance = 0;
       <td><strong><?php echo number_format($total_amount,2); ?></strong></td>
       <td><strong><?php echo number_format($total_balance,2); ?></strong></td>
       <td></td>
-      <td></td>
-      <td></td>
+<?php /*foreach($templates as $temp) { 
+                  ?>
+                  <td></td>
+<?php }*/ ?>
   </tr>
 <?php } ?>
             </tbody>

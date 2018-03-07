@@ -13,13 +13,7 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
-<?php 
-  $print_url = site_url("employees_deductions/print_analysis/{$employee->name_id}"); 
-  if( isset($deduction) ) {
-    $print_url = site_url("employees_deductions/print_analysis/{$employee->name_id}/{$deduction->id}"); 
-  }
-?>
-<a target="_print" class="pull-right" title="Deductions Analysis" href="<?php echo $print_url; ?>"><span class="glyphicon glyphicon-print"></span></a>
+<a href="<?php echo site_url("employees_deductions/view/{$employee->name_id}"); ?>" class="btn btn-warning btn-xs pull-right body_wrapper"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
                   <h3 class="panel-title bold">
 <?php if( isset($deduction) ) { ?>
   <?php echo $deduction->name; ?> - <?php echo $deduction->notes; ?>
@@ -27,6 +21,14 @@
   Deductions
 <?php } ?>
                   Analysis
+<?php 
+  $print_url = site_url("employees_deductions/print_analysis/{$employee->name_id}"); 
+  if( isset($deduction) ) {
+    $print_url = site_url("employees_deductions/print_analysis/{$employee->name_id}/{$deduction->id}"); 
+  }
+?>
+<a target="_print" title="Deductions Analysis" href="<?php echo $print_url; ?>"><span class="glyphicon glyphicon-print"></span></a>
+
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">

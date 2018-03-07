@@ -45,11 +45,11 @@ class Employees_deductions extends MY_Controller {
 		if( $this->input->get('filter') ) {
 			$deductions->setDeductionId($this->input->get('filter'),true);
 		}
-
+/*
 		foreach($templates_data as $temp) {
 			$deductions->set_select("(SELECT COUNT(*) FROM employees_deductions_templates edt WHERE edt.ed_id=ed.id AND edt.template_id={$temp->id}) as temp_{$temp->id}");
 		}
-
+*/
 			$pe = new $this->Payroll_employees_model('pe');
 			$pe->set_select('pe.active');
 			$pe->set_where('ped.payroll_id=pe.payroll_id');
@@ -58,9 +58,10 @@ class Employees_deductions extends MY_Controller {
 
 		$deductions->set_select("(IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id AND ((".$pe->get_compiled_select().")=1) )), NULL)) as balance");
 		
+if((!$this->input->get('show_all'))) {
 		$deductions->set_where("(((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) IS NULL)");
 		$deductions->set_where_or("((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) > 0))");
-
+}
 
 		//print_r( $deductions->populate() );
 		$this->template_data->set('deductions', $deductions->populate());
@@ -118,8 +119,10 @@ class Employees_deductions extends MY_Controller {
 
 		$deductions->set_select("(IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id AND ((".$pe->get_compiled_select().")=1) )), NULL)) as balance");
 
+if((!$this->input->get('show_all'))) {
 		$deductions->set_where("((ed.active=0)");
 		$deductions->set_where_or("((IF((ed.max_amount>0), (ed.max_amount-(SELECT SUM(ped.amount) FROM  payroll_employees_deductions ped WHERE ed.name_id=ped.name_id AND ped.entry_id=ed.id)), NULL)) = 0))");
+}
 		//$deductions->set_limit(1);
 		$this->template_data->set('deductions', $deductions->populate());
 
