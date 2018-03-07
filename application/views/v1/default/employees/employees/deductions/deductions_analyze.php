@@ -43,6 +43,7 @@ if( $deductions && $payroll_deductions ) { ?>
           <table class="table table-default">
             <thead>
               <tr>
+                <th width="1px"></th>
                 <th>Payroll</th>
 <?php 
 $total_amount = 0;
@@ -66,9 +67,14 @@ foreach($deductions as $ed) { ?>
             <tbody>
 <?php 
 $payroll_total = array();
+$excluded = explode("|", $this->input->get('exclude'));
 foreach( $payrolls as $payroll) { 
+  if( in_array($payroll->id, $excluded) ) {
+      continue;
+  }
 ?>
             <tr>
+              <td><a href="<?php echo site_url(uri_string()) . "?exclude=" . implode("|", array_merge($excluded,array($payroll->id))); ?>"><span class="glyphicon glyphicon-remove" style="color: red;"></span></a></td>
               <td><a title="Deductions Analysis" href="<?php echo site_url('payroll/select_payroll/' . $payroll->id); ?>"><?php echo $payroll->payroll_name; ?></a></td>
               <?php 
 $ed_total = 0;
@@ -105,8 +111,10 @@ $ed_total = 0;
             </tr>
 <?php } ?>
             </tbody>
+<?php if( $payroll_total ) { ?>
             <tfoot>
               <tr class="success">
+                <th></th>
                 <th>TOTAL</th>
                   <?php 
                   $ped_amount_grand = 0;
@@ -124,6 +132,7 @@ $ed_total = 0;
                 <?php } ?>
               </tr>
               <tr>
+                <th></th>
                 <th>BALANCE</th>
                   <?php 
                   foreach($deductions as $ed) { ?>
@@ -138,7 +147,17 @@ $ed_total = 0;
                 <?php } ?>
               </tr>
             </tfoot>
+<?php } ?>
           </table>
+
+<?php
+if( $excluded ) { foreach( $payrolls as $payroll) { 
+  if( ! in_array($payroll->id, $excluded) ) {
+      continue;
+  } 
+ ?>
+ <a href="<?php echo site_url(uri_string()) . "?exclude=" . implode("|", array_diff($excluded,array($payroll->id))); ?>" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-ok"></span> <?php  echo $payroll->payroll_name; ?></a>
+<?php } } ?>
 
 <?php } else { ?>
 
