@@ -393,10 +393,10 @@ class Lists_names extends MY_Controller {
 
 		$meta = new $this->Names_meta_model('nc');
 		$meta->setNameId($id,true);
-		$meta->setMetaKey('tin',true);
-		$meta->set_select('nc.meta_value as tin');
+		//$meta->setMetaKey('tin',true);
+		//$meta->set_select('nc.meta_value as tin');
 
-		foreach(array('sss','hdmf','phic','drivers_license','voters_number') as $k) {
+		foreach(array('tin', 'sss','hdmf','phic','drivers_license','voters_number') as $k) {
 			$data = new $this->Names_meta_model('d');
 			$data->setMetaKey($k,true);
 			$data->set_select('d.meta_value');

@@ -4,7 +4,7 @@
 
 <?php $this->load->view('header'); ?>
 
-<?php $this->load->view('lists/lists_navbar'); ?>
+<?php $this->load->view('lists/lists_navbar');  ?>
 
 <div class="container">
 <div class="row">
@@ -12,7 +12,7 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Update Address &amp; Contact Numbers</h3>
+          <h3 class="panel-title">Update Identification Numbers</h3>
         </div>
         <form method="post">
         <div class="panel-body">
