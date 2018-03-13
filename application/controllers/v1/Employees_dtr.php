@@ -38,6 +38,7 @@ class Employees_dtr extends MY_Controller {
 		$absences->set_select('a.*');
 		$absences->set_select('b.name as leave_name');
 		$absences->set_join('benefits_list b', 'b.id=a.leave_type');
+		$absences->set_limit(0);
 		$this->template_data->set('absences', $absences->populate());
 
 		$this->template_data->set('next_item', $this->_next_name($id, 'employees_dtr/view/'));
