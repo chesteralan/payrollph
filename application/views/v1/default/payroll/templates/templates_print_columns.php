@@ -51,6 +51,8 @@ function isSelected($group,$column_id,$print_columns) {
           'basic_salary'=>'Basic Salary', 
           'cola'=>'COLA', 
           'absences_amount'=>'Absences Amount', 
+          'net_pay'=>'Net Pay', 
+          'leave_benefits'=>'Leave Benefits', 
           'gross_pay'=>'Gross Pay', 
         ) as $col_key=>$col_name) { ?>
             <div class="col-md-4 col-sm-4 col-xs-4">
@@ -114,6 +116,8 @@ function isSelected($group,$column_id,$print_columns) {
           'basic_salary'=>'Basic Salary', 
           'cola'=>'COLA', 
           'absences_amount'=>'Absences Amount', 
+          'net_pay'=>'Net Pay', 
+          'leave_benefits'=>'Leave Benefits', 
           'gross_pay'=>'Gross Pay', 
         ) as $col_key=>$col_name) { ?>
             <div class="col-md-4 col-sm-4 col-xs-4">

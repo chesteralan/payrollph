@@ -47,6 +47,9 @@
                 </th>
                 <th width="10%" class="text-right">Working Days</th>
                 <th width="10%" class="text-right">Absences</th>
+<?php foreach($leave_benefits as $leave) { ?>
+                <th width="10%" class="text-right"><?php echo $leave->name; ?></th>
+<?php } ?>
                 <th width="10%" class="text-right">Days Present</th>
               </tr>
             </thead>
@@ -72,6 +75,8 @@ $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $worki
                 <a class="ajax-modal pull-right" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Employee Salary" data-url="<?php echo site_url("employees_salaries/ajax/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
 <?php } ?>
                 </td>
+
+
                 <td class="text-right"><?php echo $inclusive_dates->working_days; ?></td>
                 <td class="text-right">
 
@@ -79,6 +84,18 @@ $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $worki
                 <?php echo $days_absent; ?>
 </a>
                 </td>
+
+<?php foreach($leave_benefits as $leave) { 
+$var1 = 'leave_' . $leave->id;
+
+$leave_in_days = ($employee->$var1) ? ($employee->$var1 / $working_hours) : 0;
+
+?>
+                <td class="text-right">
+<?php echo number_format($leave_in_days,0); ?>
+                </td>
+<?php } ?>
+
                 <td class="text-right"><?php $present_days = $inclusive_dates->working_days - $days_absent; echo $present_days; ?></td>
               </tr>
 <?php } ?>

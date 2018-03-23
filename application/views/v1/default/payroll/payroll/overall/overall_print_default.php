@@ -124,6 +124,12 @@ $column_width = ceil(71 / $pc_count);
 <?php if( isColumn($this, 'absences_amount', $print_columns) ) { ?>
                 <th width="<?php echo $column_width; ?>%" class="text-right">Absences</th>
 <?php } ?>
+<?php if( isColumn($this, 'net_pay', $print_columns) ) { ?>
+                <th width="<?php echo $column_width; ?>%" class="text-right">Net Salary</th>
+<?php } ?>
+<?php if( isColumn($this, 'leave_benefits', $print_columns) ) { ?>
+                <th width="<?php echo $column_width; ?>%" class="text-right">Leave Benefits</th>
+<?php } ?>
 <?php if( isColumn($this, 'gross_pay', $print_columns) ) { ?>
                 <th width="<?php echo $column_width; ?>%" class="text-right">Gross Pay</th>
 <?php } ?>
@@ -165,6 +171,8 @@ $column_width = ceil(71 / $pc_count);
 
 $group_basic_salary = 0;
 $group_absences = 0;
+$group_net_salary = 0;
+$group_leave_benefits = 0;
 $group_gross_pay = 0;
 $group_total_earnings = 0;
 $group_total_deductions = 0;
@@ -179,6 +187,7 @@ $total_deductions = 0;
 $total_earnings = 0;
 $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
+$days_benefits = ($employee->leave_benefits) ? ($employee->leave_benefits / $working_hours) : 0;
 $present_days = $inclusive_dates->working_days - $days_absent;
 $monthly_rate = 0;
 $daily_rate = 0;
@@ -186,6 +195,7 @@ $hourly_rate = 0;
 $cola_rate = 0;
 $absences = 0;
 $basic_salary = 0;
+$net_salary = 0;
 
 if( $employee->salary ) {
   $salary = $employee->salary;
@@ -208,6 +218,7 @@ if( $employee->salary ) {
   }
   $cola_rate = (isset($salary)) ? $salary->cola : 0;
   $absences = $days_absent * $daily_rate;
+  $addon_benefits = $days_benefits * $daily_rate;
 
   switch( $salary->manner ) {
       case 'hourly':
@@ -227,8 +238,8 @@ if( $employee->salary ) {
 }
 
 $cola = ($cola_rate * $present_days);
-$absences = ($daily_rate * $days_absent);
-$gross_pay = (($basic_salary + $cola) - $absences); 
+$net_pay = (($basic_salary + $cola) - $absences); 
+$gross_pay = $net_pay + $addon_benefits;
 $group_basic_salary += $basic_salary;
 $group_absences += $absences;
 $group_gross_pay += $gross_pay;
@@ -257,6 +268,12 @@ if( isColumn($this, 'cola', $print_columns) ) { ?>
 <?php 
 if( isColumn($this, 'absences_amount', $print_columns) ) { ?>
                 <td class="text-right">(<?php echo number_format($absences,2); ?>)</td>
+<?php } ?>
+<?php if( isColumn($this, 'net_pay', $print_columns) ) { ?>
+                <td class="text-right"><?php echo number_format($net_pay,2); ?></td>
+<?php } ?>
+<?php if( isColumn($this, 'leave_benefits', $print_columns) ) { ?>
+                <td class="text-right"><?php echo number_format($addon_benefits,2); ?></td>
 <?php } ?>
 <?php if( isColumn($this, 'gross_pay', $print_columns) ) { ?>
                 <td class="text-right"><?php echo number_format($gross_pay,2); ?></td>
@@ -359,6 +376,12 @@ if( isColumn($this, 'cola', $print_columns) ) { ?>
 <?php 
 if( isColumn($this, 'absences_amount', $print_columns) ) { ?>
                 <td class="text-right">(<?php echo number_format($group_absences,2); ?>)</td>
+<?php } ?>
+<?php if( isColumn($this, 'net_pay', $print_columns) ) { ?>
+                <td class="text-right"><?php echo number_format($group_gross_pay,2); ?></td>
+<?php } ?>
+<?php if( isColumn($this, 'leave_benefits', $print_columns) ) { ?>
+                <td class="text-right"><?php echo number_format($group_gross_pay,2); ?></td>
 <?php } ?>
 <?php 
 if( isColumn($this, 'gross_pay', $print_columns) ) { ?>

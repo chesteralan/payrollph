@@ -46,6 +46,7 @@ Employee No: <strong class="allcaps employee-name underlined bold"><?php echo $e
 
 $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
+$days_benefits = ($employee->leave_benefits) ? ($employee->leave_benefits / $working_hours) : 0;
 $present_days = $inclusive_dates->working_days - $days_absent;
 $monthly_rate = 0;
 $daily_rate = 0;
@@ -77,6 +78,7 @@ if( $employee->salary ) {
   }
   $cola_rate = (isset($salary)) ? $salary->cola : 0;
   $absences = $days_absent * $daily_rate;
+  $addon_benefits = $days_benefits * $daily_rate;
 
   switch( $salary->manner ) {
       case 'hourly':
@@ -99,7 +101,8 @@ $cola = ($cola_rate * $present_days);
 $net_salary = ($daily_rate * $present_days);
 $basic_pay = ($basic_salary + $cola); 
 $net_basic_pay = ($basic_pay - $absences); 
-$net_pay = $net_basic_pay;
+$gross_basic_pay = ($net_basic_pay + $addon_benefits); 
+$net_pay = $gross_basic_pay;
 
 
 if( $employee->salary ) {
@@ -134,6 +137,10 @@ if( $employee->salary ) {
 <tr>
   <td class="text-left  bold allcaps">Net Basic Salary</td>
   <td class="text-right bold"><?php  echo number_format($net_basic_pay,2); ?></td>
+</tr>
+<tr>
+  <td class="text-left"><strong>Add:</strong> Leave Benefits (<?php  echo $days_benefits; ?>)</td>
+  <td class="text-right"><?php  echo number_format($addon_benefits,2); ?></td>
 </tr>
 </table>
 <?php } ?>
