@@ -92,7 +92,7 @@ $leave_in_days = ($employee->$var1) ? ($employee->$var1 / $working_hours) : 0;
 
 ?>
                 <td class="text-right">
-<?php echo number_format($leave_in_days,0); ?>
+<?php echo $leave_in_days; ?>
                 </td>
 <?php } ?>
 
