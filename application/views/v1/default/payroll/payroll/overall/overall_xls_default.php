@@ -302,6 +302,14 @@ if( $column_group_salaries ) {
     $columns_count += 1;
     $total_earnings_cell += 1;
    } 
+   if( isColumn($this, 'net_pay', $print_columns) ) { 
+    $columns_count += 1;
+    $total_earnings_cell += 1;
+   } 
+   if( isColumn($this, 'leave_benefits', $print_columns) ) { 
+    $columns_count += 1;
+    $total_earnings_cell += 1;
+   } 
   if( isColumn($this, 'gross_pay', $print_columns) ) { 
   $columns_count += 1;
   $total_earnings_cell += 1;
@@ -384,6 +392,12 @@ $overall_gross_cell = array();
 <?php if( isColumn($this, 'absences_amount', $print_columns) ) { ?>
     <Cell ss:StyleID="s63"><Data ss:Type="String">ABSENCES</Data></Cell>
 <?php } ?>
+<?php if( isColumn($this, 'net_pay', $print_columns) ) { ?>
+    <Cell ss:StyleID="s63"><Data ss:Type="String">NET SALARY</Data></Cell>
+<?php } ?>
+<?php if( isColumn($this, 'leave_benefits', $print_columns) ) { ?>
+    <Cell ss:StyleID="s63"><Data ss:Type="String">LEAVE BENEFITS</Data></Cell>
+<?php } ?>
 <?php if( isColumn($this, 'gross_pay', $print_columns) ) { ?>
     <Cell ss:StyleID="s63"><Data ss:Type="String">GROSS PAY</Data></Cell>
 <?php } ?>
@@ -422,6 +436,8 @@ $overall_gross_cell = array();
 
 $group_basic_salary = 0;
 $group_absences = 0;
+$group_net_salary = 0;
+$group_leave_benefits = 0;
 $group_gross_pay = 0;
 $group_total_earnings = 0;
 $group_total_deductions = 0;
@@ -437,6 +453,7 @@ $total_deductions = 0;
 $total_earnings = 0;
 $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
+$days_benefits = ($employee->leave_benefits) ? ($employee->leave_benefits / $working_hours) : 0;
 $present_days = $inclusive_dates->working_days - $days_absent;
 $monthly_rate = 0;
 $daily_rate = 0;
@@ -444,6 +461,7 @@ $hourly_rate = 0;
 $cola_rate = 0;
 $absences = 0;
 $basic_salary = 0;
+$addon_benefits = 0;
 
 if( $employee->salary ) {
   $salary = $employee->salary;
@@ -466,6 +484,7 @@ if( $employee->salary ) {
   }
   $cola_rate = (isset($salary)) ? $salary->cola : 0;
   $absences = $days_absent * $daily_rate;
+  $addon_benefits = $days_benefits * $daily_rate;
 
   switch( $salary->manner ) {
       case 'hourly':
@@ -485,8 +504,8 @@ if( $employee->salary ) {
 }
 
 $cola = ($cola_rate * $present_days);
-
-$gross_pay = (($basic_salary + $cola) - $absences); 
+$net_pay = (($basic_salary + $cola) - $absences); 
+$gross_pay = $net_pay + $addon_benefits;
 $group_basic_salary += $basic_salary;
 $group_absences += $absences;
 $group_gross_pay += $gross_pay;
@@ -539,8 +558,14 @@ if( isColumn($this, 'absences_amount', $print_columns) ) { ?>
 <?php $formula1 .= '-RC[-1]'; ?>
     <Cell ss:StyleID="s66" ss:Formula="=RC[-<?php echo $days_absent_column; ?>]*RC[-<?php echo $daily_rate_column; ?>]"><Data ss:Type="Number"><?php echo $absences; ?></Data></Cell>
 <?php } ?>
+<?php if( isColumn($this, 'net_pay', $print_columns) ) { ?>
+                <Cell ss:StyleID="s651" ss:Formula="=<?php echo $formula1; ?>"><Data ss:Type="Number"><?php echo $net_pay; ?></Data></Cell>
+<?php } ?>
+<?php if( isColumn($this, 'leave_benefits', $print_columns) ) { ?>
+                <Cell ss:StyleID="s651"><Data ss:Type="Number"><?php echo $addon_benefits; ?></Data></Cell>
+<?php } ?>
 <?php if( isColumn($this, 'gross_pay', $print_columns) ) { ?>
-    <Cell ss:StyleID="s651" ss:Formula="=<?php echo $formula1; ?>"><Data ss:Type="Number"><?php echo $gross_pay; ?></Data></Cell>
+    <Cell ss:StyleID="s651" ss:Formula="=(RC[-2]+RC[-1])"><Data ss:Type="Number"><?php echo $gross_pay; ?></Data></Cell>
 <?php } ?>
 <?php } ?>
 <?php if( $column_group_earnings ) { ?>
@@ -647,6 +672,12 @@ if($benefits_cells > 0) {
     <Cell ss:StyleID="s711" ss:Formula="=SUM(R[-<?php echo $inner_row; ?>]C:R[-1]C)"><Data ss:Type="Number">0</Data></Cell>
 <?php } ?>
 <?php if( isColumn($this, 'absences_amount', $print_columns) ) { ?>
+    <Cell ss:StyleID="s711" ss:Formula="=SUM(R[-<?php echo $inner_row; ?>]C:R[-1]C)"><Data ss:Type="Number">0</Data></Cell>
+<?php } ?>
+<?php if( isColumn($this, 'net_pay', $print_columns) ) { ?>
+    <Cell ss:StyleID="s711" ss:Formula="=SUM(R[-<?php echo $inner_row; ?>]C:R[-1]C)"><Data ss:Type="Number">0</Data></Cell>
+<?php } ?>
+<?php if( isColumn($this, 'leave_benefits', $print_columns) ) { ?>
     <Cell ss:StyleID="s711" ss:Formula="=SUM(R[-<?php echo $inner_row; ?>]C:R[-1]C)"><Data ss:Type="Number">0</Data></Cell>
 <?php } ?>
 <?php if( isColumn($this, 'gross_pay', $print_columns) ) { ?>

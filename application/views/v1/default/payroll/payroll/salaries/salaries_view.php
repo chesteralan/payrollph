@@ -80,6 +80,7 @@ $hourly_rate = 0;
 $cola_rate = 0;
 $absences = 0;
 $basic_salary = 0;
+$addon_benefits = 0;
 
 if( $employee->salary ) {
   $salary = $employee->salary;
