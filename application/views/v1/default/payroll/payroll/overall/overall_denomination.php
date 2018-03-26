@@ -123,6 +123,8 @@ if( $payroll_group->page != $current_page ) {
 
 $group_basic_salary = 0;
 $group_absences = 0;
+$group_net_salary = 0;
+$group_leave_benefits = 0;
 $group_gross_pay = 0;
 $group_total_earnings = 0;
 $group_total_deductions = 0;
@@ -137,11 +139,14 @@ $total_deductions = 0;
 $total_earnings = 0;
 $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
+$days_benefits = ($employee->leave_benefits) ? ($employee->leave_benefits / $working_hours) : 0;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
 $cola = 0;
 $gross_pay = 0;
+$addon_benefits = 0;
+
 if( $employee->salary ) {
   $salary = $employee->salary;
   switch( $salary->rate_per ) {
@@ -162,6 +167,8 @@ if( $employee->salary ) {
     break;
   }
   $cola_rate = (isset($salary)) ? $salary->cola : 0;
+  $absences = $days_absent * $daily_rate;
+  $addon_benefits = $days_benefits * $daily_rate;
 }
 
 $present_days = $inclusive_dates->working_days - $days_absent;
@@ -169,10 +176,12 @@ $basic_salary = ($daily_rate * $inclusive_dates->working_days);
 //$basic_salary = ($monthly_rate / 2);
 $cola = ($cola * $present_days);
 $absences = ($daily_rate * $days_absent);
-$gross_pay = (($basic_salary + $cola) - $absences); 
-
+$net_pay = (($basic_salary + $cola) - $absences); 
+$gross_pay = $net_pay + $addon_benefits;
 $group_basic_salary += $basic_salary;
 $group_absences += $absences;
+$group_net_salary += $net_pay;
+$group_leave_benefits += $addon_benefits;
 $group_gross_pay += $gross_pay;
 ?>
               <tr>
