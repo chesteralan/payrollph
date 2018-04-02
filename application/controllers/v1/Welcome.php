@@ -97,6 +97,7 @@ class Welcome extends MY_Controller {
 				$this->session->set_userdata( 'current_company_id', $company->id );
 				$this->session->set_userdata( 'current_company_theme', $company->theme );
 				$this->session->set_userdata('employees_status', false);
+				$this->session->set_userdata('current_employee', false);
 		}
 		redirect("welcome");
 	}

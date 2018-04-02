@@ -69,6 +69,7 @@ $total_deductions = 0;
                 <th width="10%" class="text-right">Deductions</th>
 <?php } ?>
 <?php } ?>
+                <th width="10%" class="text-right">Total Deductions</th>
                 <th width="10%" class="text-right">Net Pay</th>
               </tr>
             </thead>
@@ -169,6 +170,7 @@ $total_deductions += $employee->gross_deductions;
                 <td class="text-right"><?php echo number_format($employee->gross_deductions,2); ?></td>
 <?php } ?>
 <?php } ?>
+                <td class="text-right bold"><?php echo number_format(($employee->gross_benefits+$employee->gross_deductions),2); ?></td>
                 <td class="text-right bold"><?php echo number_format((($employee_gross_pay+$employee->gross_earnings)-($employee->gross_benefits+$employee->gross_deductions)),2); ?></td>
               </tr>
 <?php } ?>
@@ -203,6 +205,7 @@ $total_deductions += $employee->gross_deductions;
                 <th width="10%" class="text-right">Deductions</th>
 <?php } ?>
 <?php } ?>
+                <th width="10%" class="text-right">Total Deductions</th>
                 <th width="10%" class="text-right">Net Pay</th>
               </tr>
               </tr>
@@ -232,6 +235,7 @@ $total_deductions += $employee->gross_deductions;
                 <td class="text-right"><strong><?php echo number_format($total_deductions,2); ?></strong></td>
 <?php } ?>
 <?php } ?>
+                <td class="text-right"><strong><?php echo number_format(($total_benefits+$total_deductions),2); ?></strong></td>
                 <td class="text-right"><strong><?php echo number_format(($total_gross_salary+$total_earnings)-($total_benefits+$total_deductions),2); ?></strong></td>
   </tr>
             </tbody>

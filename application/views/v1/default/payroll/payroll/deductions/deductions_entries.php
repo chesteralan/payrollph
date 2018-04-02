@@ -12,7 +12,9 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
+<?php if((!$payroll->lock)&&(!$this->input->get('lock'))) { ?>
           <a class="btn btn-success btn-xs pull-right" href="<?php echo payroll_url("payroll_deductions/add/{$payroll_id}/{$name_id}/{$deduction_id}"); ?>">Add Entry</a>
+<?php } ?>
           <a style="margin-right:10px" class="btn btn-warning btn-xs pull-right" href="<?php echo payroll_url("employees_deductions/summary/{$deduction_id}/{$name_id}"); ?>">Summary</a>
           <h3 class="panel-title"><?php echo $deduction_data->name; ?></h3>
         </div>
@@ -38,6 +40,7 @@
 
 <?php 
 
+$total = 0;
 foreach($deductions as $deduction) {   ?>
 
 <?php if(($payroll->lock)||($this->input->get('lock'))) { ?>
@@ -46,7 +49,7 @@ foreach($deductions as $deduction) {   ?>
   <a data-target="#ajaxModal" data-title="Edit Entry" class="list-group-item ajax-modal-inner" href="<?php echo payroll_url("payroll_deductions/edit/{$deduction->ped_id}/ajax"); ?>">
 <?php } ?>
 
-  <span class="badge pull-right"><?php echo number_format($deduction->ped_amount,2); ?></span>
+  <span class="badge pull-right"><?php echo number_format($deduction->ped_amount,2); $total+=$deduction->ped_amount; ?></span>
     <h4 class="list-group-item-heading"><?php echo $deduction->name; ?> <?php echo ($deduction->max_amount > 0) ? "(".number_format($deduction->max_amount,2).")" : ''; ?></h4>
     <p class="list-group-item-text"><?php if( $deduction->entry_id ) { ?>Entry ID # <?php echo $deduction->entry_id; ?> &middot; <?php } ?><?php echo ($deduction->dnotes!="") ? $deduction->dnotes : ''; ?></p>
 
@@ -57,7 +60,9 @@ foreach($deductions as $deduction) {   ?>
 <?php } ?>
 
 <?php } ?>
-
+<div class="list-group-item">
+  <span class="badge pull-right"><?php echo number_format($total,2); ?></span>
+  <strong>TOTAL</strong></div>
 </div>
 
 <?php } else { ?>

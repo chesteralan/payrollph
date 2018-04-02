@@ -228,6 +228,7 @@ class Lists_names extends MY_Controller {
 			$employee->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position_name');
 			$employee->set_select('(SELECT name FROM employees_areas WHERE id=e.area_id) as area_name');
 			$employee->set_select('(SELECT name FROM terms_list WHERE id=e.status) as status_name');
+			$employee->set_select("(TIMESTAMPDIFF(YEAR, e.hired, CURDATE())) as years_service");
 			$this->template_data->set('employee', $employee->get());
 		}
 

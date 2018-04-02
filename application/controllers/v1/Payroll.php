@@ -987,7 +987,9 @@ class Payroll extends MY_Controller {
 			//$this->session->set_userdata('employees_status', false);
 			//$this->session->set_userdata('current_employee', false );
 			
-
+			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_summary')) {
+				redirect("payroll_summary/view/{$payroll_id}");
+			}
 			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_dtr') ) {
 				redirect("payroll_dtr/view/{$payroll_id}");
 			}
@@ -1003,9 +1005,7 @@ class Payroll extends MY_Controller {
 			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_deductions')) {
 				redirect("payroll_deductions/view/{$payroll_id}");
 			}
-			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_summary')) {
-				redirect("payroll_summary/view/{$payroll_id}");
-			}
+
 		}
 
 		redirect(site_url("welcome") . "?error_code=106");

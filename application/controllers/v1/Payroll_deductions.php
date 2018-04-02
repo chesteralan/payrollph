@@ -158,7 +158,8 @@ class Payroll_deductions extends MY_Controller {
 		$this->template_data->set('payroll_id', $id);
 		$this->template_data->set('name_id', $name_id);
 		$this->template_data->set('deduction_id', $deduction_id);
-
+		$this->_column_groups();
+		
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
 		$payroll_data = $payroll->get();
