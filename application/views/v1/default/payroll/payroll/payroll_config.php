@@ -48,7 +48,7 @@
 
 <div class="list-group">
 
-  <a data-target="#ajaxModal"  data-title="Employee Groups" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll/groups/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+  <a data-target="#ajaxModal"  data-title="Employee Groups" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll/groups/{$payroll->id}/ajax") . "?collapse=1&next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Employee Groups</h4>
     <p class="list-group-item-text">Employee Groups</p>
   </a>

@@ -23,6 +23,7 @@
 
 <?php 
 $column_groups = array(
+  array('key'=>'column_group_employees','name' => 'Employees', 'checked' => ((($column_group_employees)&&(isset($column_group_employees->value)))?unserialize($column_group_dtr->value):0)),
   array('key'=>'column_group_dtr','name' => 'Daily Time Record', 'checked' => ((($column_group_dtr)&&(isset($column_group_dtr->value)))?unserialize($column_group_dtr->value):0)),
   array('key'=>'column_group_salaries', 'name' => 'Basic Salary', 'checked' => ((($column_group_salaries)&&(isset($column_group_salaries->value)))?unserialize($column_group_salaries->value):0)),
   array('key'=>'column_group_earnings', 'name' => 'Earnings', 'checked' => ((($column_group_earnings)&&(isset($column_group_earnings->value)))?unserialize($column_group_earnings->value):0)),

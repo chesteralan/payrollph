@@ -70,6 +70,13 @@ $current_employee = $this->session->userdata('current_employee');
 <?php 
 $group_id = (isset($group_id)) ? $group_id : 0;
 $column_groups = array(
+  array(  'key'=>'column_group_employees',
+          'name' => 'Employees',
+          'checked' => (($column_group_employees)?$column_group_employees:0),
+          'uri' => "payroll_employees/view/{$payroll->id}/{$group_id}",
+          'url_key'=> 'payroll_employees',
+          'access'=>hasAccess('payroll', 'payroll', 'view'),
+        ),
   array(  'key'=>'column_group_dtr',
           'name' => 'Daily Time Record',
           'checked' => (($column_group_dtr)?$column_group_dtr:0),

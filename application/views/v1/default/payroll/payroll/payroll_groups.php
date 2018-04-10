@@ -68,6 +68,7 @@
         </a>
       </h4>
     </div>
+<?php if( $this->input->get('collapse') ) { ?>
 <?php if($group->id==$group->selected) { ?>
     <div id="collapse<?php echo $group->id; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $group->id; ?>">
       <div class="panel-body">
@@ -75,6 +76,7 @@
 <?php echo $group->notes; ?>
       </div>
     </div>
+<?php } ?>
 <?php } ?>
   </div>
 <?php } ?>

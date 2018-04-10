@@ -257,6 +257,7 @@ class MY_Controller extends CI_Controller {
         }
 
         protected function _column_groups() {
+            $this->template_data->set('column_group_employees', get_company_option($this->session->userdata('current_company_id'), 'column_group_employees'));
             $this->template_data->set('column_group_dtr', get_company_option($this->session->userdata('current_company_id'), 'column_group_dtr'));
             $this->template_data->set('column_group_salaries', get_company_option($this->session->userdata('current_company_id'), 'column_group_salaries'));
             $this->template_data->set('column_group_earnings', get_company_option($this->session->userdata('current_company_id'), 'column_group_earnings'));

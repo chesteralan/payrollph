@@ -179,6 +179,7 @@ class System_companies extends MY_Controller {
 
 		$this->_isAuth('system', 'companies', 'edit');
 
+		$this->template_data->set('column_group_employees', $this->_save_option($id, 'column_group_employees'));
 		$this->template_data->set('column_group_dtr', $this->_save_option($id, 'column_group_dtr'));
 		$this->template_data->set('column_group_salaries', $this->_save_option($id, 'column_group_salaries'));
 		$this->template_data->set('column_group_earnings', $this->_save_option($id, 'column_group_earnings'));
