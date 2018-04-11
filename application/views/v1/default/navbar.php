@@ -181,7 +181,7 @@ foreach($main_menu as $main=>$menu):
           <ul class="nav navbar-nav navbar-right">
 
 <?php if( hasAccess('developer_tools', 'themes', 'view') ) { ?>
-   <li class="hidden-xs hidden-sm dropdown">
+   <li class="hidden-xs dropdown">
    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong><?php echo $this->session->userdata('current_company_theme' ); ?></strong> <span class="caret hidden-xs"></span></a>
    <ul class="dropdown-menu">
    <?php foreach(array('default','cerulean','cosmo','cyborg','darkly','flatly','journal','lumen','paper','readable','sandstone','simplex','slate','spacelab','superhero','united','yeti') as $theme) { ?>
@@ -193,7 +193,7 @@ foreach($main_menu as $main=>$menu):
 <?php if( $this->session->userdata('current_payroll') ) { 
 $current_payroll = $this->session->userdata('current_payroll');
   ?>
-          <li class="active hidden-xs hidden-sm">
+          <li class="active hidden-xs">
               <a href="<?php echo site_url( 'payroll/page_session/' . $current_payroll->id); ?>"><strong><?php echo $current_payroll->name; ?></strong></a>
           </li>
 <?php } ?>

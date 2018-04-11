@@ -154,7 +154,7 @@ iframe.panel-body {
 		font-weight: bold;
 	}
 
-@media (min-width: 1200px) {
+@media (min-width: 400px) {
 	.container {
 		width:100%;
 	}
@@ -175,7 +175,7 @@ iframe.panel-body {
 	}
 
 	.list-group.list-group-icons {
-
+		
 	}
 	.list-group.list-group-icons > .list-group-item {
 		width: 114px;

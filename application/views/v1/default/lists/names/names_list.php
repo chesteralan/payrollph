@@ -12,7 +12,7 @@
 	    	<div class="panel-heading">
 
 <div class="row">
-<div class="col-md-9">
+<div class="col-md-9 col-sm-6">
 
 	    		<h3 class="panel-title">
  <strong><?php echo $current_page; ?></strong>

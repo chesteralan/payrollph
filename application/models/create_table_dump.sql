@@ -360,6 +360,10 @@ CREATE TABLE `payroll_employees` (
   `template` varchar(20) DEFAULT 'payslip',
   `print_group` int(20) DEFAULT NULL,
   `active` int(1) DEFAULT '1',
+  `status_id` int(20) DEFAULT NULL,
+  `group_id` int(20) DEFAULT NULL,
+  `position_id` int(20) DEFAULT NULL,
+  `area_id` int(20) DEFAULT NULL,
   KEY `name_id` (`payroll_id`,`name_id`)
 );
 

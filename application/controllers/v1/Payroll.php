@@ -759,10 +759,18 @@ class Payroll extends MY_Controller {
 				$pemployee->setOrder($order);
 
 				$template = $this->input->post('payslip_template');
-				$pemployee->setTemplate($template[$name_id]);
+				if( isset($template[$name_id]) ) {
+					$pemployee->setTemplate($template[$name_id]);
+				} else {
+					$pemployee->set_exclude('template');
+				}
 
 				$print_group = $this->input->post('print_group');
-				$pemployee->setPrintGroup($print_group[$name_id]);
+				if( isset($print_group[$name_id]) ) {
+					$pemployee->setPrintGroup($print_group[$name_id]);
+				} else {
+					$pemployee->set_exclude('print_group');
+				}
 
 				if( $pemployee->nonEmpty() ) {
 					$pemployee->set_exclude(array('payroll_id','name_id'));

@@ -73,6 +73,7 @@ class Payroll_employees extends MY_Controller {
 				$employees->setNameId($this->session->userdata('current_employee')->name_id,true);
 			}
 			$employees->setPayrollId($id,true);
+			$employees->set_select('pe.*');
 			$employees->set_select('ni.*');
 			$employees->set_select('e.name_id');
 			$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
@@ -83,7 +84,15 @@ class Payroll_employees extends MY_Controller {
 				$employees->set_where('e.status', $this->session->userdata('employees_status')->id);
 			}
 
-			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
+			$employees->set_select('(SELECT tl.name FROM terms_list tl WHERE tl.type="print_group" AND tl.id=pe.print_group) as print_group_name');
+
+			$employees->set_select('(SELECT tl.name FROM terms_list tl WHERE tl.type="employment_status" AND tl.id=pe.status_id) as status_name');
+
+			$employees->set_select('(SELECT eg.name FROM employees_groups eg WHERE eg.company_id='.$this->session->userdata('current_company_id').' AND eg.id=pe.group_id) as group_name');
+
+			$employees->set_select('(SELECT ep.name FROM employees_positions ep WHERE ep.id=pe.position_id) as position_name');
+
+			$employees->set_select('(SELECT ea.name FROM employees_areas ea WHERE ea.company_id='.$this->session->userdata('current_company_id').' AND ea.id=pe.area_id) as area_name');
 
 			$employees->set_select("(SELECT COUNT(*) FROM employees_absences ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences");
 
@@ -100,7 +109,7 @@ class Payroll_employees extends MY_Controller {
 			// gross deductions
 			$employees->set_select("(SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.payroll_id=pe.payroll_id AND ped.name_id=pe.name_id) as gross_deductions");
 
-			$employees->setActive('1', true);
+			$employees->setActive(1, true);
 			$employees->set_order('pe.order', 'ASC');
 			$employees->set_limit(0);
 			$employees_data = $employees->populate();
@@ -138,5 +147,274 @@ class Payroll_employees extends MY_Controller {
 		$this->load->view('payroll/payroll/employees/employees_view', $this->template_data->get_data());
 	}
 
+	public function deactivate($payroll_id, $name_id, $output='') {
+		$employees = new $this->Payroll_employees_model('pe');
+		$employees->setPayrollId($payroll_id,true);
+		$employees->setNameId($name_id,true);
+		$employees->setActive(0,false,true);
+		$employees->update();
+		redirect( $this->input->get('next') );
+	}
+
+	public function change_status($payroll_id, $name_id, $output='') {
+
+		$this->_column_groups();
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($payroll_id,true);
+		$payroll->set_select("*");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pe WHERE pe.payroll_id=payroll.id) as earnings_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_benefits` pb WHERE pb.payroll_id=payroll.id) as benefits_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_deductions` pd WHERE pd.payroll_id=payroll.id) as deductions_columns");
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$names = new $this->Names_list_model;
+		$names->setId($name_id, true);
+		$names->setTrash(0,true);
+		$names->set_join('names_info', 'names_info.name_id=names_list.id');
+		$this->template_data->set('name', $names->get());
+
+		$terms = new $this->Terms_list_model;
+		$terms->set_select("*");
+		$terms->set_order('priority', 'ASC');
+		$terms->set_order('name', 'ASC');
+		$terms->set_start(0);
+		$terms->setTrash('0',true);
+		$terms->setType('employment_status',true);
+		$this->template_data->set('employment_status', $terms->populate());
+
+		$employees = new $this->Payroll_employees_model('pe');
+		$employees->setPayrollId($payroll_id,true);
+		$employees->setNameId($name_id,true);
+		
+
+		if( $this->input->post('status') ) {
+			$employees->setStatusId($this->input->post('status'),false,true);
+			$employees->update();
+			redirect( $this->input->get('next') );
+		}
+
+		$employees->set_select('pe.*');
+		$this->template_data->set('employee', $employees->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/employees/change_status', $this->template_data->get_data());
+	}
+
+	public function change_group($payroll_id, $name_id, $output='') {
+
+		$this->_column_groups();
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($payroll_id,true);
+		$payroll->set_select("*");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pe WHERE pe.payroll_id=payroll.id) as earnings_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_benefits` pb WHERE pb.payroll_id=payroll.id) as benefits_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_deductions` pd WHERE pd.payroll_id=payroll.id) as deductions_columns");
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$names = new $this->Names_list_model;
+		$names->setId($name_id, true);
+		$names->setTrash(0,true);
+		$names->set_join('names_info', 'names_info.name_id=names_list.id');
+		$this->template_data->set('name', $names->get());
+
+		$groups = new $this->Employees_groups_model;
+		$groups->setCompanyId($this->session->userdata('current_company_id'),true);
+		$groups->set_limit(0);
+		$groups->set_order('name', 'ASC');
+		$this->template_data->set('groups', $groups->populate());
+
+		$employees = new $this->Payroll_employees_model('pe');
+		$employees->setPayrollId($payroll_id,true);
+		$employees->setNameId($name_id,true);
+		
+
+		if( $this->input->post('group_id') ) {
+			$employees->setGroupId($this->input->post('group_id'),false,true);
+			$employees->update();
+			redirect( $this->input->get('next') );
+		}
+
+		$employees->set_select('pe.*');
+		$this->template_data->set('employee', $employees->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/employees/change_group', $this->template_data->get_data());
+	}
+
+	public function change_position($payroll_id, $name_id, $output='') {
+
+		$this->_column_groups();
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($payroll_id,true);
+		$payroll->set_select("*");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pe WHERE pe.payroll_id=payroll.id) as earnings_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_benefits` pb WHERE pb.payroll_id=payroll.id) as benefits_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_deductions` pd WHERE pd.payroll_id=payroll.id) as deductions_columns");
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$names = new $this->Names_list_model;
+		$names->setId($name_id, true);
+		$names->setTrash(0,true);
+		$names->set_join('names_info', 'names_info.name_id=names_list.id');
+		$this->template_data->set('name', $names->get());
+
+		$positions = new $this->Employees_positions_model;
+		$positions->setCompanyId($this->session->userdata('current_company_id'),true);
+		$positions->set_limit(0);
+		$positions->set_order('name', 'ASC');
+		$this->template_data->set('positions', $positions->populate());
+
+		$employees = new $this->Payroll_employees_model('pe');
+		$employees->setPayrollId($payroll_id,true);
+		$employees->setNameId($name_id,true);
+		
+
+		if( $this->input->post('position_id') ) {
+			$employees->setPositionId($this->input->post('position_id'),false,true);
+			$employees->update();
+			redirect( $this->input->get('next') );
+		}
+
+		$employees->set_select('pe.*');
+		$this->template_data->set('employee', $employees->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/employees/change_position', $this->template_data->get_data());
+	}
+
+	public function change_area($payroll_id, $name_id, $output='') {
+
+		$this->_column_groups();
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($payroll_id,true);
+		$payroll->set_select("*");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pe WHERE pe.payroll_id=payroll.id) as earnings_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_benefits` pb WHERE pb.payroll_id=payroll.id) as benefits_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_deductions` pd WHERE pd.payroll_id=payroll.id) as deductions_columns");
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$names = new $this->Names_list_model;
+		$names->setId($name_id, true);
+		$names->setTrash(0,true);
+		$names->set_join('names_info', 'names_info.name_id=names_list.id');
+		$this->template_data->set('name', $names->get());
+
+		$areas = new $this->Employees_areas_model;
+		$areas->setCompanyId($this->session->userdata('current_company_id'),true);
+		$areas->set_limit(0);
+		$areas->set_order('name', 'ASC');
+		$this->template_data->set('areas', $areas->populate());
+
+		$employees = new $this->Payroll_employees_model('pe');
+		$employees->setPayrollId($payroll_id,true);
+		$employees->setNameId($name_id,true);
+		
+
+		if( $this->input->post('area_id') ) {
+			$employees->setAreaId($this->input->post('area_id'),false,true);
+			$employees->update();
+			redirect( $this->input->get('next') );
+		}
+
+		$employees->set_select('pe.*');
+		$this->template_data->set('employee', $employees->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/employees/change_area', $this->template_data->get_data());
+	}
+
+	public function change_payslip($payroll_id, $name_id, $output='') {
+
+		$this->_column_groups();
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($payroll_id,true);
+		$payroll->set_select("*");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pe WHERE pe.payroll_id=payroll.id) as earnings_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_benefits` pb WHERE pb.payroll_id=payroll.id) as benefits_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_deductions` pd WHERE pd.payroll_id=payroll.id) as deductions_columns");
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$names = new $this->Names_list_model;
+		$names->setId($name_id, true);
+		$names->setTrash(0,true);
+		$names->set_join('names_info', 'names_info.name_id=names_list.id');
+		$this->template_data->set('name', $names->get());
+
+		$terms = new $this->Terms_list_model;
+		$terms->set_select("*");
+		$terms->set_order('priority', 'ASC');
+		$terms->set_order('name', 'ASC');
+		$terms->set_start(0);
+		$terms->setTrash('0',true);
+		$terms->setType('employment_status',true);
+		$this->template_data->set('employment_status', $terms->populate());
+
+		$employees = new $this->Payroll_employees_model('pe');
+		$employees->setPayrollId($payroll_id,true);
+		$employees->setNameId($name_id,true);
+		
+
+		if( $this->input->post('payslip') ) {
+			$employees->setTemplate($this->input->post('payslip'),false,true);
+			$employees->update();
+			redirect( $this->input->get('next') );
+		}
+
+		$employees->set_select('pe.*');
+		$this->template_data->set('employee', $employees->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/employees/change_payslip', $this->template_data->get_data());
+	}
+
+	public function change_print_group($payroll_id, $name_id, $output='') {
+
+		$this->_column_groups();
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($payroll_id,true);
+		$payroll->set_select("*");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pe WHERE pe.payroll_id=payroll.id) as earnings_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_benefits` pb WHERE pb.payroll_id=payroll.id) as benefits_columns");
+		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_deductions` pd WHERE pd.payroll_id=payroll.id) as deductions_columns");
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$names = new $this->Names_list_model;
+		$names->setId($name_id, true);
+		$names->setTrash(0,true);
+		$names->set_join('names_info', 'names_info.name_id=names_list.id');
+		$this->template_data->set('name', $names->get());
+
+		$terms = new $this->Terms_list_model;
+		$terms->set_select("*");
+		$terms->set_order('priority', 'ASC');
+		$terms->set_order('name', 'ASC');
+		$terms->set_start(0);
+		$terms->setTrash('0',true);
+		$terms->setType('print_group',true);
+		$this->template_data->set('print_groups', $terms->populate());
+
+		$employees = new $this->Payroll_employees_model('pe');
+		$employees->setPayrollId($payroll_id,true);
+		$employees->setNameId($name_id,true);
+		
+
+		if( $this->input->post('print_group') ) {
+			$employees->setPrintGroup($this->input->post('print_group'),false,true);
+			$employees->update();
+			redirect( $this->input->get('next') );
+		}
+
+		$employees->set_select('pe.*');
+		$this->template_data->set('employee', $employees->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/employees/change_print_group', $this->template_data->get_data());
+	}
 
 }

@@ -10,7 +10,7 @@
                 <div class="panel-heading">
 
 <div class="row">
-<div class="col-md-9">
+<div class="col-md-9 col-sm-6">
 
                   <h3 class="panel-title">
                     <strong><?php echo $current_page; ?></strong>
@@ -30,7 +30,7 @@
 <br><small><em>(<?php echo $employees_count; ?> name<?php echo ($employees_count>1)?"s":""; ?> found)</em></small>
                   </h3>
 </div>
-<div class="col-md-3">
+<div class="col-md-3 col-sm-6">
 <form method="get" action="<?php echo site_url( uri_string() ); ?>">
 <div class="input-group input-group-sm">
   <input type="text" name="q" class="form-control" placeholder="Search for..." value="<?php echo $this->input->get('q'); ?>">

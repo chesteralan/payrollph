@@ -1,4 +1,14 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php
+$payslip_templates = array(
+  'none' => 'No Payslip',
+  'payslip' => 'Payslip (1/4)',
+  'payslip2' => 'Payslip (1/2)',
+  'payslip3' => 'Payslip (1/2) v2',
+  'cash_voucher' => 'Cash Voucher',
+  'clergy_allowance' => 'Clergy Allowance',
+);
+?>
 <?php $this->load->view('header'); ?>
 
 <?php if( ! $inner_page ): ?>
@@ -18,16 +28,6 @@
                 <div class="panel-body" id="ajaxBodyInnerPage">
 
 <?php endif; ?>
-
-<?php 
-$total_basic_salary = 0; 
-$total_absences = 0;
-$total_gross_salary = 0; 
-$total_earnings = 0; 
-$total_gross_pay = 0; 
-$total_benefits = 0; 
-$total_deductions = 0; 
-?>
 
 <?php if( $payroll_groups ) { ?>
   
@@ -51,99 +51,25 @@ $total_deductions = 0;
 <?php } ?>
 <?php } ?>
                 </th>
-<?php if( $column_group_salaries ) { ?>
-                <th width="10%" class="text-right">Gross Salary</th>
-<?php } ?>
-<?php if( $column_group_earnings ) { ?>
-<?php if( (isset($payroll->earnings_columns)) && ( $payroll->earnings_columns > 0 ) ) { ?>
-                <th width="10%" class="text-right">Earnings</th>
-<?php } ?>
-<?php } ?>
-<?php if( $column_group_salaries||$column_group_earnings ) { ?>
-                <th width="10%" class="text-right">Gross Pay</th>
-<?php } ?>
-<?php if( $column_group_benefits ) { ?>
-<?php if( (isset($payroll->benefits_columns)) && ( $payroll->benefits_columns > 0 ) ) { ?>
-                <th width="10%" class="text-right">Benefits</th>
-<?php } ?>
-<?php } ?>
-<?php if( $column_group_deductions ) { ?>
-<?php if( (isset($payroll->deductions_columns)) && ( $payroll->deductions_columns > 0 ) ) { ?>
-                <th width="10%" class="text-right">Deductions</th>
-<?php } ?>
-<?php } ?>
-                <th width="10%" class="text-right">Total Deductions</th>
-                <th width="10%" class="text-right">Net Pay</th>
+
+                <th width="12%" class="text-right">Status</th>
+                <th width="12%" class="text-right">Group</th>
+                <th width="12%" class="text-right">Position</th>
+                <th width="12%" class="text-right">Area</th>
+                <th width="12%" class="text-right">Payslip</th>
+                <th width="12%" class="text-right">Print Group</th>
               </tr>
             </thead>
             <tbody>
             
-<?php 
-              foreach($payroll_group->employees as $employee) { 
+<?php foreach($payroll_group->employees as $employee) { 
 
-$working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
-$days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
-$present_days = $inclusive_dates->working_days - $days_absent;
-$monthly_rate = 0;
-$daily_rate = 0;
-$hourly_rate = 0;
-$cola_rate = 0;
-$absences = 0;
-$basic_salary = 0;
 
-if( $employee->salary ) {
-  $salary = $employee->salary;
-  switch( $salary->rate_per ) {
-    case 'month':
-      $monthly_rate = $salary->amount;
-      $daily_rate = ( ($salary->amount * $salary->months) / $salary->annual_days );
-      $hourly_rate = ( (($salary->amount * $salary->months) / $salary->annual_days) / $salary->hours );
-    break;
-    case 'day':
-      $monthly_rate = ( $salary->amount * $salary->days );
-      $daily_rate = $salary->amount;
-      $hourly_rate = ( $salary->amount / $salary->hours );
-    break;
-    case 'hour':
-      $monthly_rate = ( $salary->amount * $salary->days * $salary->hours );
-      $daily_rate = ( $salary->amount * $salary->hours );
-      $hourly_rate = $salary->amount;
-    break;
-  }
-  $cola_rate = (isset($salary)) ? $salary->cola : 0;
-  $absences = $days_absent * $daily_rate;
-
-  switch( $salary->manner ) {
-      case 'hourly':
-        $basic_salary = ($hourly_rate * $inclusive_dates->working_days * $salary->hours); 
-      break;
-      case 'daily':
-        $basic_salary = ($daily_rate * $inclusive_dates->working_days); 
-      break;
-      case 'semi-monthly':
-        $basic_salary = ($daily_rate * $salary->days) / 2; 
-      break;
-      default:
-      case 'monthly':
-        $basic_salary = ($daily_rate * $salary->days); 
-      break;
-  }
-}
-
-$total_absences += $absences;
-
-$total_basic_salary += $basic_salary;
-$cola = ($cola_rate * $present_days);
-$employee_gross_pay = (($basic_salary + $cola) - $absences);
-$total_gross_salary += $employee_gross_pay; 
-$total_earnings += $employee->gross_earnings;
-$total_benefits += $employee->gross_benefits;
-$total_deductions += $employee->gross_deductions;
               ?>
               <tr>
                 <td>
-<?php if( !$this->session->userdata('current_employee') ) { ?>
-                <a href="<?php echo site_url("payroll/select_employee/{$employee->name_id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-filter"></span></a>
+<?php if(!$payroll->lock) { ?>
+                <a class="confirm" href="<?php echo site_url("payroll_employees/deactivate/{$payroll->id}/{$employee->name_id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-remove"></span></a>
 <?php } ?>
                 <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> 
                 
@@ -152,29 +78,60 @@ $total_deductions += $employee->gross_deductions;
 
                 </td>
 
-<?php if( $column_group_salaries ) { ?>
-                <td class="text-right"><?php echo number_format($employee_gross_pay,2); ?></td>
+                <td class="text-right">
+<?php if(!$payroll->lock) { ?>
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Status" data-url="<?php echo site_url("payroll_employees/change_status/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
 <?php } ?>
-<?php if( $column_group_earnings ) { ?>
-<?php if( (isset($payroll->earnings_columns)) && ( $payroll->earnings_columns > 0 ) ) { ?>
-                <td class="text-right"><?php echo number_format($employee->gross_earnings,2); ?></td>
+                <?php echo ($employee->status_name) ? $employee->status_name : '-'; ?>
+<?php if(!$payroll->lock) { ?>
+</a>
 <?php } ?>
+                </td>
+                <td class="text-right">
+<?php if(!$payroll->lock) { ?>
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Group" data-url="<?php echo site_url("payroll_employees/change_group/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
 <?php } ?>
-<?php if( $column_group_salaries||$column_group_earnings ) { ?>
-                <td class="text-right bold"><?php echo number_format(($employee_gross_pay+$employee->gross_earnings),2); ?></td>
+                <?php echo ($employee->group_name) ? $employee->group_name : '-'; ?>
+<?php if(!$payroll->lock) { ?>
+</a>
 <?php } ?>
-<?php if( $column_group_benefits ) { ?>
-<?php if( (isset($payroll->benefits_columns)) && ( $payroll->benefits_columns > 0 ) ) { ?>
-                <td class="text-right"><?php echo number_format($employee->gross_benefits,2); ?></td>
+                </td>
+                <td class="text-right">
+<?php if(!$payroll->lock) { ?>
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Position" data-url="<?php echo site_url("payroll_employees/change_position/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
 <?php } ?>
+                <?php echo ($employee->position_name) ? $employee->position_name : '-'; ?>
+<?php if(!$payroll->lock) { ?>
+</a>
 <?php } ?>
-<?php if( $column_group_deductions ) { ?>
-<?php if( (isset($payroll->deductions_columns)) && ( $payroll->deductions_columns > 0 ) ) { ?>
-                <td class="text-right"><?php echo number_format($employee->gross_deductions,2); ?></td>
+                </td>
+                <td class="text-right">
+<?php if(!$payroll->lock) { ?>
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Area" data-url="<?php echo site_url("payroll_employees/change_area/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
 <?php } ?>
+                <?php echo ($employee->area_name) ? $employee->area_name : '-'; ?>
+<?php if(!$payroll->lock) { ?>
+</a>
 <?php } ?>
-                <td class="text-right bold"><?php echo number_format(($employee->gross_benefits+$employee->gross_deductions),2); ?></td>
-                <td class="text-right bold"><?php echo number_format((($employee_gross_pay+$employee->gross_earnings)-($employee->gross_benefits+$employee->gross_deductions)),2); ?></td>
+                </td>
+                <td class="text-right">
+<?php if(!$payroll->lock) { ?>                
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Template" data-url="<?php echo site_url("payroll_employees/change_payslip/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
+<?php } ?>
+                <?php echo $payslip_templates[$employee->template]; ?>
+<?php if(!$payroll->lock) { ?>
+</a>
+<?php } ?>
+                </td>
+                <td class="text-right">
+<?php if(!$payroll->lock) { ?>
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Print Group" data-url="<?php echo site_url("payroll_employees/change_print_group/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
+<?php } ?>
+                <?php echo $employee->print_group_name; ?>
+<?php if(!$payroll->lock) { ?>
+</a>
+<?php } ?>
+                </td>
               </tr>
 <?php } ?>
 
@@ -182,68 +139,8 @@ $total_deductions += $employee->gross_deductions;
           </table>
 <?php } ?>
     <?php } ?>
-<?php if( !$this->session->userdata('current_employee') ) { ?>
-    <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
-            <thead>
-              <tr class="warning">
-                <th>TOTAL</th>
-<?php if( $column_group_salaries ) { ?>
-                                <th width="10%" class="text-right">Gross Salary</th>
-<?php } ?>
-<?php if( $column_group_earnings ) { ?>
-<?php if( (isset($payroll->earnings_columns)) && ( $payroll->earnings_columns > 0 ) ) { ?>
-                <th width="10%" class="text-right">Earnings</th>
-<?php } ?>
-<?php } ?>
-<?php if( $column_group_salaries||$column_group_earnings ) { ?>
-                <th width="10%" class="text-right">Gross Pay</th>
-<?php } ?>
-<?php if( $column_group_benefits ) { ?>
-<?php if( (isset($payroll->benefits_columns)) && ( $payroll->benefits_columns > 0 ) ) { ?>
-                <th width="10%" class="text-right">Benefits</th>
-<?php } ?>
-<?php } ?>
-<?php if( $column_group_deductions ) { ?>
-<?php if( (isset($payroll->deductions_columns)) && ( $payroll->deductions_columns > 0 ) ) { ?>
-                <th width="10%" class="text-right">Deductions</th>
-<?php } ?>
-<?php } ?>
-                <th width="10%" class="text-right">Total Deductions</th>
-                <th width="10%" class="text-right">Net Pay</th>
-              </tr>
-              </tr>
-            </thead>
-            <tbody>
-            <tr class="success">
-                <td></td>
-<?php if( $column_group_salaries ) { ?>
-                <td class="text-right"><strong><?php echo number_format($total_gross_salary,2); ?></strong></td>
-<?php } ?>
-<?php if( $column_group_earnings ) { ?>
-<?php if( (isset($payroll->earnings_columns)) && ( $payroll->earnings_columns > 0 ) ) { ?>
-                <td class="text-right"><strong><?php echo number_format($total_earnings,2); ?></strong></td>
-<?php } ?>
-<?php } ?>
-<?php if( $column_group_salaries||$column_group_earnings ) { ?>
-                <td class="text-right"><strong><?php echo number_format(($total_gross_salary+$total_earnings),2); ?></strong></td>
-<?php } ?>
-                
-<?php if( $column_group_benefits ) { ?>
-<?php if( (isset($payroll->benefits_columns)) && ( $payroll->benefits_columns > 0 ) ) { ?>
-                <td class="text-right"><strong><?php echo number_format($total_benefits,2); ?></strong></td>
-<?php } ?>
-<?php } ?>
-<?php if( $column_group_deductions ) { ?>
-<?php if( (isset($payroll->deductions_columns)) && ( $payroll->deductions_columns > 0 ) ) { ?>
-                <td class="text-right"><strong><?php echo number_format($total_deductions,2); ?></strong></td>
-<?php } ?>
-<?php } ?>
-                <td class="text-right"><strong><?php echo number_format(($total_benefits+$total_deductions),2); ?></strong></td>
-                <td class="text-right"><strong><?php echo number_format(($total_gross_salary+$total_earnings)-($total_benefits+$total_deductions),2); ?></strong></td>
-  </tr>
-            </tbody>
-            </table>
-<?php } ?>
+
+
 <?php } else { ?>
 
   <div class="text-center">No Group Assigned!</div>

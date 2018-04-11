@@ -122,7 +122,7 @@ $column_groups = array(
 );
 
 $cg_sort = ($column_group_sort) ? $column_group_sort : false;
-
+$nav_title = 'Navigation';
   if( $cg_sort ) {
     $cg_sort2 = array();
     $si = 0;
@@ -141,9 +141,24 @@ $cg_sort = ($column_group_sort) ? $column_group_sort : false;
  foreach($column_groups as $cg) { 
   if( $cg['checked'] == 0 ) continue;
   if( !$cg['access'] ) continue;
+  if($cg['url_key']==$current_uri) {
+      $nav_title = $cg['name'];
+  }
+?>
+<li class="visible-lg visible-md <?php echo ($cg['url_key']==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($cg['uri']); ?>"><?php echo $cg['name']; ?></a></li>
+<?php } ?>
+<li class="dropdown visible-sm visible-xs">
+<a href="#" class="dropdown-toggle bold" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $nav_title; ?> <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+<?php
+ foreach($column_groups as $cg) { 
+  if( $cg['checked'] == 0 ) continue;
+  if( !$cg['access'] ) continue;
 ?>
 <li class="<?php echo ($cg['url_key']==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($cg['uri']); ?>"><?php echo $cg['name']; ?></a></li>
 <?php } ?>
+    </ul>
+</li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

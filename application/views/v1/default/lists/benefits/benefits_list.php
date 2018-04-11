@@ -10,7 +10,7 @@
                 <div class="panel-heading">
 
 <div class="row">
-<div class="col-md-9">
+<div class="col-md-9 col-sm-6">
                     <h3 class="panel-title bold"><?php echo $current_page; ?> 
 <a href="<?php echo site_url("lists_benefits/trash"); ?>"><span class="glyphicon glyphicon-trash"></span></a>
                     <?php if( $this->input->get('q') ) { ?>
