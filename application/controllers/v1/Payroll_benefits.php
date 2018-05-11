@@ -330,7 +330,9 @@ if( $output == 'print') {
 	$benefits->set_join("employees_areas ea", 'ea.id=e2.area_id');
 	$benefits->set_select("ea.name as area_name");
 }
-
+		$benefits->set_select("SUM(peb.employee_share) as employee_share_sum");
+		$benefits->set_select("SUM(peb.employer_share) as employer_share_sum");
+		$benefits->set_group_by('peb.name_id');
 		$benefits->set_limit(0);
 		$item_data = $benefits->populate();
 		$this->template_data->set('item_data', $item_data);

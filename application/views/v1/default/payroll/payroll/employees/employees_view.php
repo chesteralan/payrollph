@@ -82,7 +82,7 @@ $payslip_templates = array(
 <?php if(!$payroll->lock) { ?>
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Status" data-url="<?php echo site_url("payroll_employees/change_status/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
 <?php } ?>
-                <?php echo ($employee->status_name) ? $employee->status_name : '-'; ?>
+                <?php echo ($employee->status_name) ? $employee->status_name : '- - - - -'; ?>
 <?php if(!$payroll->lock) { ?>
 </a>
 <?php } ?>
@@ -91,7 +91,7 @@ $payslip_templates = array(
 <?php if(!$payroll->lock) { ?>
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Group" data-url="<?php echo site_url("payroll_employees/change_group/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
 <?php } ?>
-                <?php echo ($employee->group_name) ? $employee->group_name : '-'; ?>
+                <?php echo ($employee->group_name) ? $employee->group_name : '- - - - -'; ?>
 <?php if(!$payroll->lock) { ?>
 </a>
 <?php } ?>
@@ -100,7 +100,7 @@ $payslip_templates = array(
 <?php if(!$payroll->lock) { ?>
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Position" data-url="<?php echo site_url("payroll_employees/change_position/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
 <?php } ?>
-                <?php echo ($employee->position_name) ? $employee->position_name : '-'; ?>
+                <?php echo ($employee->position_name) ? $employee->position_name : '- - - - -'; ?>
 <?php if(!$payroll->lock) { ?>
 </a>
 <?php } ?>
@@ -109,7 +109,7 @@ $payslip_templates = array(
 <?php if(!$payroll->lock) { ?>
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Area" data-url="<?php echo site_url("payroll_employees/change_area/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
 <?php } ?>
-                <?php echo ($employee->area_name) ? $employee->area_name : '-'; ?>
+                <?php echo ($employee->area_name) ? $employee->area_name : '- - - - -'; ?>
 <?php if(!$payroll->lock) { ?>
 </a>
 <?php } ?>

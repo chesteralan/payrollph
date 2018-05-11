@@ -38,9 +38,9 @@ $total_ee_share = 0;
 $total_er_share = 0;
 $total_payment = 0;
 foreach($item_data as $item) { 
-$total_ee_share += $item->employee_share;
-$total_er_share += $item->employer_share;
-$total_payment += $item->employee_share + $item->employer_share;
+$total_ee_share += $item->employee_share_sum;
+$total_er_share += $item->employer_share_sum;
+$total_payment += $item->employee_share_sum + $item->employer_share_sum;
               ?>
               <tr>
                 <td><?php echo $item->lastname; ?>, <?php echo $item->firstname; ?> <?php echo substr($item->middlename,0,1)."."; ?>
@@ -48,9 +48,33 @@ $total_payment += $item->employee_share + $item->employer_share;
                 <a href="<?php echo site_url("employees_benefits/view/{$item->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper"><span class="glyphicon glyphicon-cog"></span></a>
 <?php } ?>
                 </td>
-                <td class="text-right"><?php echo number_format($item->employee_share,2); ?></td>
-                <td class="text-right"><?php echo number_format($item->employer_share,2); ?></td>
-                <td class="text-right"><?php echo number_format(($item->employee_share + $item->employer_share),2); ?></td>
+                <td class="text-right">
+<?php if(!$payroll->lock) { ?>
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo ($benefit_data->notes!='') ? $benefit_data->notes : $benefit_data->name; ?> (EE)" data-url="<?php echo payroll_url("payroll_benefits/entries/{$payroll->id}/{$item->name_id}/{$benefit_data->id}/ee/ajax"); ?>" data-hide_footer="1">
+<?php } ?>
+                <?php echo number_format($item->employee_share_sum,2); ?>
+<?php if(!$payroll->lock) { ?>
+</a>
+<?php } ?>
+                </td>
+                <td class="text-right">
+<?php if(!$payroll->lock) { ?>
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo ($benefit_data->notes!='') ? $benefit_data->notes : $benefit_data->name; ?> (EE)" data-url="<?php echo payroll_url("payroll_benefits/entries/{$payroll->id}/{$item->name_id}/{$benefit_data->id}/ee/ajax"); ?>" data-hide_footer="1">
+<?php } ?>
+                <?php echo number_format($item->employer_share_sum,2); ?>
+<?php if(!$payroll->lock) { ?>
+</a>
+<?php } ?>
+                </td>
+                <td class="text-right">
+<?php if(!$payroll->lock) { ?>
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo ($benefit_data->notes!='') ? $benefit_data->notes : $benefit_data->name; ?> (EE)" data-url="<?php echo payroll_url("payroll_benefits/entries/{$payroll->id}/{$item->name_id}/{$benefit_data->id}/ee/ajax"); ?>" data-hide_footer="1">
+<?php } ?>
+                <?php echo number_format(($item->employee_share_sum + $item->employer_share_sum),2); ?>
+<?php if(!$payroll->lock) { ?>
+</a>
+<?php } ?>
+                </td>
               </tr>
 <?php } ?>
 

@@ -181,7 +181,7 @@ $total_gross_pay += $employee_gross_pay;
 <?php if( $column_group_deductions ) { ?>
 <?php if( (isset($deductions_columns)) && ( $deductions_columns > 0 ) ) { ?>
                 <td class="text-right"><?php 
-                $ed_amount = 0;
+              $ed_amount = 0;
 
                     foreach($employee->deductions_data as $deductions2) {
                         switch( $deductions2->computed ) {
@@ -196,22 +196,6 @@ $total_gross_pay += $employee_gross_pay;
                             $eamount = $deductions2->amount;
                           break;
                         }
-/*
-                        switch( $earning2->multiplier ) { 
-                          case 'employment':
-                            $end_date = new DateTime(date('Y-m-d'));
-                            $hired = new DateTime($employee->hired);
-                            $diff = $hired->diff($end_date);
-                            $eamount = $eamount * $diff->y;
-                          break;
-                          case 'birthday':
-                            $end_date = new DateTime(date('Y-m-d'));
-                            $birth_date = new DateTime($employee->birthday);
-                            $diff = $birth_date->diff($end_date);
-                            $eamount = $eamount * $diff->y;
-                          break;
-                        }
-*/
                         $ed_amount += $eamount;
                     }
                     $total_deductions += $ed_amount;
