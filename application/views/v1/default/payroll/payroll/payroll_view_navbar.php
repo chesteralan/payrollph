@@ -133,7 +133,9 @@ $nav_title = 'Navigation';
     $pgs = array();
     foreach($column_groups as $cg) {
       $cg_key = $cg['key'];
-      $pgs[$cg_sort2[$cg_key]] = $cg;
+      if( isset($cg_sort2[$cg_key])) {
+        $pgs[$cg_sort2[$cg_key]] = $cg;
+      }
     }
     ksort($pgs);
     $column_groups = $pgs;
