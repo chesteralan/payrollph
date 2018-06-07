@@ -542,4 +542,272 @@ class Payroll_templates extends MY_Controller {
         ->set_output(json_encode( $results ));
 	}
 
+	public function change_status($template_id, $name_id, $output='') {
+
+		$this->_column_groups();
+		$template = new $this->Payroll_templates_model;
+		$template->setId($template_id,true);
+		$this->template_data->set('template', $template->get());
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$templates->set_select('*');
+		$templates->set_limit(0);
+		$this->template_data->set('templates', $templates->populate());
+
+		$names = new $this->Names_list_model;
+		$names->setId($name_id, true);
+		$names->setTrash(0,true);
+		$names->set_join('names_info', 'names_info.name_id=names_list.id');
+		$this->template_data->set('name', $names->get());
+
+		$terms = new $this->Terms_list_model;
+		$terms->set_select("*");
+		$terms->set_order('priority', 'ASC');
+		$terms->set_order('name', 'ASC');
+		$terms->set_start(0);
+		$terms->setTrash('0',true);
+		$terms->setType('employment_status',true);
+		$this->template_data->set('employment_status', $terms->populate());
+
+		$employees = new $this->Payroll_templates_employees_model('pe');
+		$employees->setTemplateId($template_id,true);
+		$employees->setNameId($name_id,true);
+		
+		if( $this->input->post('status') ) {
+			$employees->setStatusId($this->input->post('status'),false,true);
+			$employees->update();
+			redirect( $this->input->get('next') );
+		}
+
+		$employees->set_select('pe.*');
+		$this->template_data->set('employee', $employees->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/templates/change_status', $this->template_data->get_data());
+	}
+
+	public function change_group($template_id, $name_id, $output='') {
+
+		$this->_column_groups();
+		$template = new $this->Payroll_templates_model;
+		$template->setId($template_id,true);
+		$this->template_data->set('template', $template->get());
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$templates->set_select('*');
+		$templates->set_limit(0);
+		$this->template_data->set('templates', $templates->populate());
+
+		$names = new $this->Names_list_model;
+		$names->setId($name_id, true);
+		$names->setTrash(0,true);
+		$names->set_join('names_info', 'names_info.name_id=names_list.id');
+		$this->template_data->set('name', $names->get());
+
+		$groups = new $this->Employees_groups_model;
+		$groups->setCompanyId($this->session->userdata('current_company_id'),true);
+		$groups->set_limit(0);
+		$groups->set_order('name', 'ASC');
+		$this->template_data->set('groups', $groups->populate());
+
+		$employees = new $this->Payroll_templates_employees_model('pe');
+		$employees->setTemplateId($template_id,true);
+		$employees->setNameId($name_id,true);
+		
+		if( $this->input->post('group_id') ) {
+			$employees->setGroupId($this->input->post('group_id'),false,true);
+			$employees->update();
+			redirect( $this->input->get('next') );
+		}
+
+		$employees->set_select('pe.*');
+		$this->template_data->set('employee', $employees->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/templates/change_group', $this->template_data->get_data());
+	}
+
+	public function change_position($template_id, $name_id, $output='') {
+
+		$this->_column_groups();
+		$template = new $this->Payroll_templates_model;
+		$template->setId($template_id,true);
+		$this->template_data->set('template', $template->get());
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$templates->set_select('*');
+		$templates->set_limit(0);
+		$this->template_data->set('templates', $templates->populate());
+
+		$names = new $this->Names_list_model;
+		$names->setId($name_id, true);
+		$names->setTrash(0,true);
+		$names->set_join('names_info', 'names_info.name_id=names_list.id');
+		$this->template_data->set('name', $names->get());
+
+		$positions = new $this->Employees_positions_model;
+		$positions->setCompanyId($this->session->userdata('current_company_id'),true);
+		$positions->set_limit(0);
+		$positions->set_order('name', 'ASC');
+		$this->template_data->set('positions', $positions->populate());
+
+		$employees = new $this->Payroll_templates_employees_model('pe');
+		$employees->setTemplateId($template_id,true);
+		$employees->setNameId($name_id,true);
+		
+		if( $this->input->post('position_id') ) {
+			$employees->setPositionId($this->input->post('position_id'),false,true);
+			$employees->update();
+			redirect( $this->input->get('next') );
+		}
+
+		$employees->set_select('pe.*');
+		$this->template_data->set('employee', $employees->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/templates/change_position', $this->template_data->get_data());
+	}
+
+	public function change_area($template_id, $name_id, $output='') {
+
+		$this->_column_groups();
+		$template = new $this->Payroll_templates_model;
+		$template->setId($template_id,true);
+		$this->template_data->set('template', $template->get());
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$templates->set_select('*');
+		$templates->set_limit(0);
+		$this->template_data->set('templates', $templates->populate());
+
+		$names = new $this->Names_list_model;
+		$names->setId($name_id, true);
+		$names->setTrash(0,true);
+		$names->set_join('names_info', 'names_info.name_id=names_list.id');
+		$this->template_data->set('name', $names->get());
+
+		$areas = new $this->Employees_areas_model;
+		$areas->setCompanyId($this->session->userdata('current_company_id'),true);
+		$areas->set_limit(0);
+		$areas->set_order('name', 'ASC');
+		$this->template_data->set('areas', $areas->populate());
+
+		$employees = new $this->Payroll_templates_employees_model('pe');
+		$employees->setTemplateId($template_id,true);
+		$employees->setNameId($name_id,true);
+		
+		if( $this->input->post('area_id') ) {
+			$employees->setAreaId($this->input->post('area_id'),false,true);
+			$employees->update();
+			redirect( $this->input->get('next') );
+		}
+
+		$employees->set_select('pe.*');
+		$this->template_data->set('employee', $employees->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/templates/change_area', $this->template_data->get_data());
+	}
+
+	public function change_payslip($template_id, $name_id, $output='') {
+
+		$this->_column_groups();
+		$template = new $this->Payroll_templates_model;
+		$template->setId($template_id,true);
+		$this->template_data->set('template', $template->get());
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$templates->set_select('*');
+		$templates->set_limit(0);
+		$this->template_data->set('templates', $templates->populate());
+
+		$names = new $this->Names_list_model;
+		$names->setId($name_id, true);
+		$names->setTrash(0,true);
+		$names->set_join('names_info', 'names_info.name_id=names_list.id');
+		$this->template_data->set('name', $names->get());
+
+		$terms = new $this->Terms_list_model;
+		$terms->set_select("*");
+		$terms->set_order('priority', 'ASC');
+		$terms->set_order('name', 'ASC');
+		$terms->set_start(0);
+		$terms->setTrash('0',true);
+		$terms->setType('employment_status',true);
+		$this->template_data->set('employment_status', $terms->populate());
+
+		$employees = new $this->Payroll_templates_employees_model('pe');
+		$employees->setTemplateId($template_id,true);
+		$employees->setNameId($name_id,true);
+
+		if( $this->input->post('payslip') ) {
+			$employees->setTemplate($this->input->post('payslip'),false,true);
+			$employees->update();
+			redirect( $this->input->get('next') );
+		}
+
+		$employees->set_select('pe.*');
+		$this->template_data->set('employee', $employees->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/templates/change_payslip', $this->template_data->get_data());
+	}
+
+	public function change_print_group($template_id, $name_id, $output='') {
+
+		$this->_column_groups();
+		$template = new $this->Payroll_templates_model;
+		$template->setId($template_id,true);
+		$this->template_data->set('template', $template->get());
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$templates->set_select('*');
+		$templates->set_limit(0);
+		$this->template_data->set('templates', $templates->populate());
+		
+		$names = new $this->Names_list_model;
+		$names->setId($name_id, true);
+		$names->setTrash(0,true);
+		$names->set_join('names_info', 'names_info.name_id=names_list.id');
+		$this->template_data->set('name', $names->get());
+
+		$terms = new $this->Terms_list_model;
+		$terms->set_select("*");
+		$terms->set_order('priority', 'ASC');
+		$terms->set_order('name', 'ASC');
+		$terms->set_start(0);
+		$terms->setTrash('0',true);
+		$terms->setType('print_group',true);
+		$this->template_data->set('print_groups', $terms->populate());
+
+		$employees = new $this->Payroll_templates_employees_model('pe');
+		$employees->setTemplateId($template_id,true);
+		$employees->setNameId($name_id,true);
+		
+
+		if( $this->input->post('print_group') ) {
+			$employees->setPrintGroup($this->input->post('print_group'),false,true);
+			$employees->update();
+			redirect( $this->input->get('next') );
+		}
+
+		$employees->set_select('pe.*');
+		$this->template_data->set('employee', $employees->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/templates/change_print_group', $this->template_data->get_data());
+	}
+
 }

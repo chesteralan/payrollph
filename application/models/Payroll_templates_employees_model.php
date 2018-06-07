@@ -12,6 +12,10 @@ CREATE TABLE `payroll_templates_employees` (
   `template` varchar(20) DEFAULT 'payslip',
   `print_group` int(20) DEFAULT NULL,
   `active` int(1) DEFAULT '1',
+  `status_id` int(20) DEFAULT NULL,
+  `group_id` int(20) DEFAULT NULL,
+  `position_id` int(20) DEFAULT NULL,
+  `area_id` int(20) DEFAULT NULL,
   KEY `name_id` (`template_id`,`name_id`)
 );
 
@@ -21,6 +25,10 @@ ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `order`
 ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `template` varchar(20) NULL   DEFAULT 'payslip';
 ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `print_group` int(20) NULL   ;
 ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `active` int(1) NULL   DEFAULT '1';
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `status_id` int(20) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `group_id` int(20) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `position_id` int(20) NULL   ;
+ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `area_id` int(20) NULL   ;
 
 
  * @package			        Model
@@ -40,6 +48,10 @@ class Payroll_templates_employees_model extends MY_Model {
 	protected $template;
 	protected $print_group;
 	protected $active;
+	protected $status_id;
+	protected $group_id;
+	protected $position_id;
+	protected $area_id;
 
 	// --------------------------------------------------------------------
 
@@ -53,7 +65,7 @@ class Payroll_templates_employees_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_templates_employees';
 		$this->_short_name = 'payroll_templates_employees';
-		$this->_fields = array("template_id","name_id","order","template","print_group","active");
+		$this->_fields = array("template_id","name_id","order","template","print_group","active","status_id","group_id","position_id","area_id");
 		$this->_required = array("template_id","name_id","order");
 		parent::__construct($short_name, $db_config);
 	}
@@ -199,6 +211,98 @@ class Payroll_templates_employees_model extends MY_Model {
 // ------------------------------ End Field: active --------------------------------------
 
 
+// ---------------------------- Start Field: status_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `status_id` variable
+	* @access public
+	*/
+
+	public function setStatusId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('status_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `status_id` variable
+	* @access public
+	*/
+
+	public function getStatusId() {
+		return $this->status_id;
+	}
+	
+// ------------------------------ End Field: status_id --------------------------------------
+
+
+// ---------------------------- Start Field: group_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `group_id` variable
+	* @access public
+	*/
+
+	public function setGroupId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('group_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `group_id` variable
+	* @access public
+	*/
+
+	public function getGroupId() {
+		return $this->group_id;
+	}
+	
+// ------------------------------ End Field: group_id --------------------------------------
+
+
+// ---------------------------- Start Field: position_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `position_id` variable
+	* @access public
+	*/
+
+	public function setPositionId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('position_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `position_id` variable
+	* @access public
+	*/
+
+	public function getPositionId() {
+		return $this->position_id;
+	}
+	
+// ------------------------------ End Field: position_id --------------------------------------
+
+
+// ---------------------------- Start Field: area_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `area_id` variable
+	* @access public
+	*/
+
+	public function setAreaId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('area_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `area_id` variable
+	* @access public
+	*/
+
+	public function getAreaId() {
+		return $this->area_id;
+	}
+	
+// ------------------------------ End Field: area_id --------------------------------------
+
+
 
 	
 	public function get_table_options() {
@@ -255,6 +359,42 @@ class Payroll_templates_employees_model extends MY_Model {
 										'Key'=>'',
 										'Default'=>'1',
 										'Extra'=>''
+									),
+
+			'status_id' => (object) array(
+										'Field'=>'status_id',
+										'Type'=>'int(20)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'group_id' => (object) array(
+										'Field'=>'group_id',
+										'Type'=>'int(20)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'position_id' => (object) array(
+										'Field'=>'position_id',
+										'Type'=>'int(20)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'area_id' => (object) array(
+										'Field'=>'area_id',
+										'Type'=>'int(20)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
 									)
 		);
 	}
@@ -267,6 +407,10 @@ class Payroll_templates_employees_model extends MY_Model {
 			'template' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `template` varchar(20) NULL   DEFAULT 'payslip';",
 			'print_group' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `print_group` int(20) NULL   ;",
 			'active' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `active` int(1) NULL   DEFAULT '1';",
+			'status_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `status_id` int(20) NULL   ;",
+			'group_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `group_id` int(20) NULL   ;",
+			'position_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `position_id` int(20) NULL   ;",
+			'area_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_employees` ADD  `area_id` int(20) NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {
