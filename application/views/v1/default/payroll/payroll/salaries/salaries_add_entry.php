@@ -42,6 +42,7 @@
 
 <p class="text-center">No Entry Found!</p>
 
+<p class="text-center"><a href="<?php echo site_url("employees_salaries/add/{$name_id}/ajax") . '?next=' . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Salary">Add Salary</a></p>
 <?php }  ?>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>

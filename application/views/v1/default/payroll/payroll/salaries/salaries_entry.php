@@ -102,6 +102,7 @@
 
 <?php } else { ?>
   <p class="text-center">No Entry Found!</p>
+
 <?php } ?>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>

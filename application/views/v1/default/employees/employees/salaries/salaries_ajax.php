@@ -1,8 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 
-<p class="text-center"><a href="<?php echo site_url("employees_salaries/add/{$name_id}/ajax") . '?next=' . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Salary">Add Salary</a></p>
-
 <?php if( $salaries ) { ?>
 
 <div class="list-group">
@@ -42,5 +40,7 @@ switch( $salary->rate_per ) {
 <?php } else { ?>
 
 <p class="text-center">No Salary Found!</p>
+
+<p class="text-center"><a href="<?php echo site_url("employees_salaries/add/{$name_id}/ajax") . '?next=' . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Salary">Add Salary</a></p>
 
 <?php }  ?>
