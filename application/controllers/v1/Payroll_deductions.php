@@ -66,6 +66,7 @@ class Payroll_deductions extends MY_Controller {
 		if( $column_id ) {
 			$deductions_columns->set_where('dl.id', $column_id);
 		}
+		$deductions_columns->set_limit(0);
 		$columns = $deductions_columns->populate();
 		$this->template_data->set('deductions_columns', $columns);
 
@@ -179,6 +180,7 @@ class Payroll_deductions extends MY_Controller {
 		$deductions->set_select('ped.id as ped_id');
 		$deductions->set_join('employees_deductions ed', 'ed.id=ped.entry_id');
 		$deductions->set_join('deductions_list dl', 'ped.deduction_id=dl.id');
+		$deductions->set_limit(0);
 		$this->template_data->set('deductions', $deductions->populate());
 
 		$this->template_data->set('output', $output);
@@ -234,6 +236,7 @@ class Payroll_deductions extends MY_Controller {
 		$employees_deductions->set_where("ed.active=1");
 		$employees_deductions->set_where("(((ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) IS NULL)");
 		$employees_deductions->set_where_or("((ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) > 0))");
+		$employees_deductions->set_limit(0);
 		$this->template_data->set('employees_deductions', $employees_deductions->populate());
 
 		$this->_column_groups();
@@ -305,6 +308,7 @@ class Payroll_deductions extends MY_Controller {
 		$employees_deductions->set_where("ed.active=1");
 		$employees_deductions->set_where("(((ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id AND ped.id != {$id} AND ((".$pe->get_compiled_select().")=1) )) IS NULL)");
 		$employees_deductions->set_where_or("((ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id AND ped.id != {$id} AND ((".$pe->get_compiled_select().")=1) )) > 0))");
+		$employees_deductions->set_limit(0);
 		$this->template_data->set('employees_deductions', $employees_deductions->populate());
 
 		$this->_column_groups();
@@ -380,31 +384,31 @@ class Payroll_deductions extends MY_Controller {
 		$item_data = $deductions->populate(); 
 		$this->template_data->set('item_data', $item_data);
 
-if( $this->input->get('equalizer') == '1' ) {
-		$items = new $this->Employees_deductions_model('ed');
-		$items->setDeductionId($deduction_id,true);
-		$items->setCompanyId($this->session->userdata('current_company_id'),true);
-		$items->setActive(1,true);
-		$items->setTrash(0,true);
-		$items->set_where('(start_date <="' . date('Y-m-d') .'")');
-		$items->set_join('employees e', 'e.name_id=ed.name_id');
-		$items->set_select("e.*");
-		$items->set_select("ed.*");
-		$items->set_start(0);
-		$items->set_order('e.lastname', 'ASC');
+		if( $this->input->get('equalizer') == '1' ) {
+				$items = new $this->Employees_deductions_model('ed');
+				$items->setDeductionId($deduction_id,true);
+				$items->setCompanyId($this->session->userdata('current_company_id'),true);
+				$items->setActive(1,true);
+				$items->setTrash(0,true);
+				$items->set_where('(start_date <="' . date('Y-m-d') .'")');
+				$items->set_join('employees e', 'e.name_id=ed.name_id');
+				$items->set_select("e.*");
+				$items->set_select("ed.*");
+				$items->set_start(0);
+				$items->set_order('e.lastname', 'ASC');
 
-		$items->set_select("(SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id) as amount_paid");
-		$items->set_select("(ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) as balance");
+				$items->set_select("(SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id) as amount_paid");
+				$items->set_select("(ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) as balance");
 
-		$items->set_group_by("ed.name_id");
-		$items->set_limit(0);
-		$items->set_where("(ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) > 0");
-		$items->set_select("SUM(ed.max_amount) as max_amount");
-		$items->set_select("SUM(ed.amount) as amount");
-		$items->set_select("(SUM(ed.max_amount) - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) as balance");
+				$items->set_group_by("ed.name_id");
+				$items->set_limit(0);
+				$items->set_where("(ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) > 0");
+				$items->set_select("SUM(ed.max_amount) as max_amount");
+				$items->set_select("SUM(ed.amount) as amount");
+				$items->set_select("(SUM(ed.max_amount) - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) as balance");
 
-		$this->template_data->set('equalizer', $items->populate());
-}
+				$this->template_data->set('equalizer', $items->populate());
+		}
 
 		$print_groups = new $this->Terms_list_model;
 		$print_groups->set_select("*");
@@ -483,6 +487,7 @@ if( $this->input->get('equalizer') == '1' ) {
 		$deductions_columns->set_select('dl.*');
 		$deductions_columns->set_join('deductions_list dl', 'dl.id=pd.deduction_id');
 		$deductions_columns->set_order('pd.order', 'DESC');
+		$deductions_columns->set_limit(0);
 		$columns = $deductions_columns->populate();
 		$this->template_data->set('deductions_columns', $columns);
 
@@ -596,6 +601,7 @@ if( $this->input->get('equalizer') == '1' ) {
 		$deductions->set_where("((SELECT COUNT(*) FROM employees_deductions_templates edt WHERE edt.template_id=".$template_id." AND edt.ed_id=ped.id) > 0)");
 		$deductions->set_where('(((ped.max_amount - (SELECT SUM(ped2.amount) FROM payroll_employees_deductions ped2 WHERE ped2.entry_id=ped.id)) > 0)');
 		$deductions->set_where_or('(ped.max_amount = 0))');
+		$deductions->set_limit(0);
 		$this->template_data->set('deductions', $deductions->populate());
 
 		$employees = new $this->Employees_model('pe');
@@ -660,6 +666,7 @@ if( $this->input->get('equalizer') == '1' ) {
 		$years->set_select('p.year');
 		$years->set_group_by('p.year');
 		$years->set_order('p.year', 'DESC');
+		$years->set_limit(0);
 		$this->template_data->set('years', $years->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
