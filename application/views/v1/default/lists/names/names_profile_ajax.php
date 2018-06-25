@@ -240,6 +240,12 @@ return <<<HTML
   </div>
   <div class="col-md-6">
     <div class="form-group">
+      <label>Status</label>
+      <div class="form-control">{$employee->status_name}</div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
       <label>Date Hired</label>
       <div class="form-control">{$date_hired}</div>
     </div>
@@ -250,12 +256,7 @@ return <<<HTML
       <div class="form-control">{$employee->years_service} years</div>
     </div>
   </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label>Status</label>
-      <div class="form-control">{$employee->status_name}</div>
-    </div>
-  </div>
+
 
   <div class="col-md-6">
     <div class="form-group">
