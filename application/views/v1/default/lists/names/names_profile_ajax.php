@@ -246,8 +246,8 @@ return <<<HTML
   </div>
   <div class="col-md-6">
     <div class="form-group">
-      <label>Dated Regularized</label>
-      <div class="form-control">{$employee->area_name}</div>
+      <label>Years of Service</label>
+      <div class="form-control">{$employee->years_service} years</div>
     </div>
   </div>
   <div class="col-md-6">
