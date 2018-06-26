@@ -152,10 +152,10 @@ if( !$this->input->get('show_all') ) {
 		if( $this->input->get('archived') ) {
 			$items->set_where("((ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) = 0)");
 		} else {
-			$items->set_where("((ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) > 0)");
+			$items->set_where("((ed.max_amount - ( IF(((SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id) IS NOT NULL),(SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id),0) ))  > 0)");
 		}
 }
-
+		
 		if( $this->input->get('group_by') == 'employee' ) {
 			$items->set_group_by("ed.name_id");
 			$items->set_limit(0);
