@@ -236,6 +236,8 @@ if( $benefits_columns || $deductions_columns ) {
 
 <?php } ?>
 
+</div>
+
 <?php /* 
 <div class="payslip_box full-border even <?php echo (($box_count % 2) == 0) ? 'second-half' : 'first-half'; ?>">
   <div class="header-title">
