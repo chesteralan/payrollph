@@ -120,6 +120,11 @@ class Employees_dtr extends MY_Controller {
 		$absence = new $this->Employees_absences_model;
 		$absence->setNameId($name_id,true);
 		$absence->setDateAbsent($date,true);
+
+		if( $this->input->get('delete') ) {
+			$absence->delete();
+			$this->getNext();
+		}
 		if( $this->input->post() ) {
 			if( $this->input->post('absent') ) {
 				$this->form_validation->set_rules('absent', 'Absent', 'trim');

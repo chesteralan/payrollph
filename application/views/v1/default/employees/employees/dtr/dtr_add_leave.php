@@ -18,11 +18,21 @@
         <div class="panel-body">
   <?php echo (validation_errors()) ? '<div class="alert alert-danger">' . validation_errors() . '</div>' : ''; ?>
 <?php endif; ?>
-          
-           <div class="form-group">
-                <p><label><input name="absent" type="checkbox" value="1" <?php echo ($absence) ? 'CHECKED' : ''; ?>> Employee is Absent</label></p>
-            </div>
 
+      <div class="row">
+      <div class="col-md-12">
+<?php if($absence) {  ?>
+  <div class="alert alert-danger"><strong>Marked as absent!</strong> <a href="<?php echo site_url(uri_string()) . "?delete=1&next=" . $this->input->get('next'); ?>" class="pull-right btn btn-danger btn-xs">Remove</a></div>
+<?php } else { ?>
+  <h3><strong>Add Leave / Absence</strong></h3>
+<?php } ?>
+</div></div>
+         <!-- 
+           <div class="form-group">
+                <p><label><input name="absent" type="checkbox" value="1" <?php echo ($absence) ? 'CHECKED' : 'CHECKED'; ?>> Employee is Absent</label></p>
+            </div>
+          -->
+          <input name="absent" type="hidden" value="1">
       <div class="row">
       <div class="col-md-6">
           <div class="form-group">
@@ -32,7 +42,7 @@
   <div class="form-control"><?php echo $current_leave->name; ?> (<?php echo number_format($current_leave->availed,2); ?> / <?php echo number_format($current_leave->days,2); ?>)</div>
 <?php } else { ?>
             <select class="form-control" name="leave_type">
-                <option value="" <?php echo (($absence) && ($absence->leave_type==0)) ? 'SELECTED' : ''; ?>>Absence without Leave</option>
+                
                 <?php foreach($leave_benefits as $leave) { 
 $leave_balance = ($leave->days - $leave->availed) + ($absence->hours / $employee->working_hours);
                   ?>
@@ -42,6 +52,7 @@ $leave_balance = ($leave->days - $leave->availed) + ($absence->hours / $employee
                     <?php } ?>
                   <?php } ?>
                 <?php } ?>
+                <option value="" <?php echo (($absence) && ($absence->leave_type==0)) ? 'SELECTED' : ''; ?>>Absence without Leave</option>
             </select>
 <?php } ?>
           </div>
@@ -58,6 +69,7 @@ $leave_balance = ($leave->days - $leave->availed) + ($absence->hours / $employee
       <label>Notes / Reason</label>
       <textarea name="notes" class="form-control" rows="3"><?php echo ($absence) ? $absence->notes : ''; ?></textarea>
     </div>
+
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>
