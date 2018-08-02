@@ -545,6 +545,7 @@ class Payroll extends MY_Controller {
 
 			$payroll_earnings = new $this->Payroll_earnings_model;
 			$payroll_earnings->setPayrollId($payroll_data->id,true);
+			$payroll_earnings->set_limit(0);
 			foreach( $payroll_earnings->populate() as $earning ) {
 				if( $employees_data ) foreach( $employees_data as $employee ) {
 					$this->_generate_earnings($payroll_data,$earning->earning_id, $employee);
@@ -566,6 +567,7 @@ class Payroll extends MY_Controller {
 			
 			$payroll_deductions = new $this->Payroll_deductions_model;
 			$payroll_deductions->setPayrollId($payroll_data->id,true);
+			$payroll_deductions->set_limit(0);
 			foreach( $payroll_deductions->populate() as $deduction ) {
 				if( $employees_data ) foreach( $employees_data as $employee ) {
 					 $this->_generate_deductions($payroll_data,$deduction->deduction_id, $employee);
@@ -587,6 +589,7 @@ class Payroll extends MY_Controller {
 
 			$payroll_benefits = new $this->Payroll_benefits_model;
 			$payroll_benefits->setPayrollId($payroll_data->id,true);
+			$payroll_benefits->set_limit(0);
 			foreach( $payroll_benefits->populate() as $benefit ) {
 				if( $employees_data ) foreach( $employees_data as $employee ) {
 					 $this->_generate_benefits($payroll_data,$benefit->benefit_id,$employee);
