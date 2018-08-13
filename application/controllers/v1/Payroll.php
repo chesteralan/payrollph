@@ -15,6 +15,13 @@ class Payroll extends MY_Controller {
 
 		$this->_isAuth('payroll', 'payroll', 'view');
 
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		if( !$templates->nonEmpty() ) {
+			redirect("payroll_templates");
+		}
+
 	}
 
 	public function index($filter_year=0, $filter_month=0, $filter_template=0, $start=0) {

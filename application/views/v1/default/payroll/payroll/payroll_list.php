@@ -13,12 +13,12 @@
 <?php if( hasAccess('payroll', 'payroll', 'add') ) { ?>
   <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Payroll" data-url="<?php echo site_url("payroll/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Create Payroll</button>
 <?php } ?>
-                 <!-- <h3 class="panel-title"><strong><?php echo $current_page; ?></strong></h3>-->
+                 <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
                     <?php if(isset($template)) { ?>
                       : <?php echo $template->name; ?>
                     <?php } ?>
 
-<?php if( count( $payroll_years ) > 0) { ?>
+<?php if( isset($payroll_years) && ( count( $payroll_years ) > 0) ) { ?>
 <div class="btn-group">
   <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <?php echo ($filter_year) ? $filter_year : "Filter by Year"; ?> <span class="caret"></span>
@@ -31,7 +31,7 @@
   </ul>
 </div>
 <?php } ?>
-<?php if( count( $payroll_months ) > 1) { ?>
+<?php if( isset($payroll_years) && ( count( $payroll_months ) > 1) ) { ?>
 <div class="btn-group">
   <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <?php echo ($filter_month) ? date('F', strtotime($filter_month."/1/1990")) : "Filter by Month"; ?> <span class="caret"></span>
@@ -44,7 +44,10 @@
   </ul>
 </div>
 <?php } ?>
-<?php if( count( $payroll_templates ) > 1) { ?>
+
+</h3>
+
+<?php if( isset($payroll_years) && ( count( $payroll_templates ) > 1) ) { ?>
 <div class="btn-group">
   <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <?php echo ($filter_template) ? $current_template->name : "Filter by Template"; ?> <span class="caret"></span>

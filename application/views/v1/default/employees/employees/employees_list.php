@@ -84,9 +84,11 @@
                 <td><?php echo $employee->middlename; ?></td>
                 <?php if( !isset($group) ) { ?>
                 <td>
-                <a class="body_wrapper" href="<?php echo site_url("employees/group/{$employee->group_id}"); ?>">
-                <?php echo $employee->group_name; ?>
-                  </a>
+<?php if( $employee->group_name ) { ?>
+                <a class="body_wrapper" href="<?php echo site_url("employees/group/{$employee->group_id}"); ?>"><?php echo $employee->group_name; ?></a>
+<?php } else { ?>
+<a data-title="Employment Information" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("employees/edit_employment/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">--</a>
+<?php } ?>
                 </td>
                 <?php } ?>
 <?php /*

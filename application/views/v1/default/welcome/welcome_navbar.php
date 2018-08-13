@@ -9,7 +9,7 @@
     </div>
      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-<?php if( (isset($companies)) && ( $this->config->item('multi_company') ) ) { ?>
+<?php if( (isset($companies)) && ( $this->config->item('multi_company') ) && $companies ) { ?>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Companies <span class="caret"></span></a>
