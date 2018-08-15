@@ -66,6 +66,7 @@ class Payroll_overall extends MY_Controller {
 		$earnings_columns->set_select('el.*');
 		$earnings_columns->set_join('earnings_list el', 'el.id=pe.earning_id');
 		$earnings_columns->set_order('pe.order', 'DESC');
+		$earnings_columns->set_limit(0);
 		$columns_earnings = $earnings_columns->populate();
 		$this->template_data->set('earnings_columns', $columns_earnings);
 
@@ -75,6 +76,7 @@ class Payroll_overall extends MY_Controller {
 		$benefits_columns->set_select('bl.*');
 		$benefits_columns->set_join('benefits_list bl', 'bl.id=pb.benefit_id');
 		$benefits_columns->set_order('pb.order', 'DESC');
+		$benefits_columns->set_limit(0);
 		$columns_benefits = $benefits_columns->populate();
 		$this->template_data->set('benefits_columns', $columns_benefits);
 
@@ -84,6 +86,7 @@ class Payroll_overall extends MY_Controller {
 		$deductions_columns->set_select('dl.*');
 		$deductions_columns->set_join('deductions_list dl', 'dl.id=pd.deduction_id');
 		$deductions_columns->set_order('pd.order', 'DESC');
+		$deductions_columns->set_limit(0);
 		$columns_deductions = $deductions_columns->populate();
 		$this->template_data->set('deductions_columns', $columns_deductions);
 
