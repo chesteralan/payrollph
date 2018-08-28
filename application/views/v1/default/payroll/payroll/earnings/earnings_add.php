@@ -24,7 +24,7 @@
   <div class="col-md-6">
           <div class="form-group">
             <label>Amount</label>
-            <input name="amount" type="text" class="form-control text-center" value="" required>
+            <input name="amount" type="text" class="form-control text-center focus" value="" required>
           </div>
   </div>
     <div class="col-md-6">

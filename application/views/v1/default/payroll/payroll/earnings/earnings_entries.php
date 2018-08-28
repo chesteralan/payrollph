@@ -23,7 +23,7 @@
 
 <?php if( isset($output) && ($output=='ajax') && (!$payroll->lock) && (!$this->input->get('lock')) ) : ?>
 
-<p><a href="<?php echo payroll_url("payroll_earnings/add/{$payroll_id}/{$name_id}/{$earning_id}/ajax"); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Payroll Entry">Add Payroll Entry</a> <em><small> - This will add an item to this current payroll only.</small></em>
+<p><a href="<?php echo payroll_url("payroll_earnings/add/{$payroll_id}/{$name_id}/{$earning_id}/ajax"); ?>" class="btn btn-success btn-xs ajax-modal-inner focus" data-title="Add Payroll Entry">Add Payroll Entry</a> <em><small> - This will add an item to this current payroll only.</small></em>
 </p>
 
 <?php endif; ?>

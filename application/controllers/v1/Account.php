@@ -46,9 +46,9 @@ class Account extends Login_Controller {
 			'loggedIn' => false
 			);
 
-		//echo sha1("test"); exit;
 
 		if( count($this->input->post()) > 0 ) {
+			//echo sha1($this->input->post('password')); exit;
 			$this->form_validation->set_rules('username', 'Username', 'trim|required');
 			$this->form_validation->set_rules('password', 'Password', 'trim|required');
 			if( $this->form_validation->run() != FALSE) {

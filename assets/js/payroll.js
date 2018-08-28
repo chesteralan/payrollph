@@ -700,14 +700,20 @@ $('.ajax-modal-inner').each(function(){
         method : 'GET',
         dataType : 'html'
       }).success(function(html){
-      	if( html.search('login_page') >= 0 ) {
-    		window.location.href = window.base_url;
-    	} else {
-	        $('#ajaxModal .loader').slideUp('slow', function(){
-	          $('#ajaxModal .output').css('display', 'none').html( html ).slideDown('slow', function(){
-	            loadLib();
-	          });
-	        });
+        if( html.search('login_page') >= 0 ) {
+      		  window.location.href = window.base_url;
+      	} else {
+          $('#ajaxModal .loader').slideUp('slow', function(){
+            $('#ajaxModal .output').css('display', 'none').html( html ).slideDown('slow', function(){
+              loadLib();
+            });
+            $('input').keypress(function(e){
+                if(e.which == 13) {
+                    $('#ajaxModal button[type="submit"]').click();
+                }
+            });
+            $('#ajaxModal .focus').focus();
+          });
         }
       });
 

@@ -43,6 +43,7 @@ $dept = unserialize(USERACCOUNTS_RESTRICTIONS);
   <div class="panel panel-<?php echo (isset($rest_depts[$id])) ? 'success' : 'default'; ?>">
     <div class="panel-heading" role="tab" id="heading-<?php echo $id; ?>">
       <h4 class="panel-title">
+        <input type="checkbox" name="" value="" class="pull-right select_all_by_class" data-class="restriction_<?php echo $id; ?>">
         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-<?php echo $id; ?>" aria-expanded="true" aria-controls="collapseOne">
           <?php echo $dep->title; ?>
         </a>
@@ -64,10 +65,10 @@ $dept = unserialize(USERACCOUNTS_RESTRICTIONS);
         	<?php foreach($dep->sections as $sect_id=>$sect_name) { ?>
         	<tr>
         		<td><?php echo $sect_name; ?></td>
-        		<td class="text-center"><input <?php echo (isset($rest[$id][$sect_id]['view']) && $rest[$id][$sect_id]['view']) ? 'CHECKED' : ''; ?> type="checkbox" name="r[<?php echo $id; ?>][<?php echo $sect_id; ?>][view]" value="1"></td>
-        		<td class="text-center"><input <?php echo (isset($rest[$id][$sect_id]['add']) && $rest[$id][$sect_id]['add']) ? 'CHECKED' : ''; ?> type="checkbox" name="r[<?php echo $id; ?>][<?php echo $sect_id; ?>][add]" value="1"></td>
-        		<td class="text-center"><input <?php echo (isset($rest[$id][$sect_id]['edit']) && $rest[$id][$sect_id]['edit']) ? 'CHECKED' : ''; ?> type="checkbox" name="r[<?php echo $id; ?>][<?php echo $sect_id; ?>][edit]" value="1"></td>
-        		<td class="text-center"><input <?php echo (isset($rest[$id][$sect_id]['delete']) && $rest[$id][$sect_id]['delete']) ? 'CHECKED' : ''; ?> type="checkbox" name="r[<?php echo $id; ?>][<?php echo $sect_id; ?>][delete]" value="1"></td>
+        		<td class="text-center"><input <?php echo (isset($rest[$id][$sect_id]['view']) && $rest[$id][$sect_id]['view']) ? 'CHECKED' : ''; ?> type="checkbox" name="r[<?php echo $id; ?>][<?php echo $sect_id; ?>][view]" value="1" class="restriction_<?php echo $id; ?> <?php echo $id; ?>_<?php echo $sect_id; ?>_view"></td>
+        		<td class="text-center"><input <?php echo (isset($rest[$id][$sect_id]['add']) && $rest[$id][$sect_id]['add']) ? 'CHECKED' : ''; ?> type="checkbox" name="r[<?php echo $id; ?>][<?php echo $sect_id; ?>][add]" value="1" class="restriction_<?php echo $id; ?> <?php echo $id; ?>_<?php echo $sect_id; ?>_add"></td>
+        		<td class="text-center"><input <?php echo (isset($rest[$id][$sect_id]['edit']) && $rest[$id][$sect_id]['edit']) ? 'CHECKED' : ''; ?> type="checkbox" name="r[<?php echo $id; ?>][<?php echo $sect_id; ?>][edit]" value="1" class="restriction_<?php echo $id; ?> <?php echo $id; ?>_<?php echo $sect_id; ?>_edit"></td>
+        		<td class="text-center"><input <?php echo (isset($rest[$id][$sect_id]['delete']) && $rest[$id][$sect_id]['delete']) ? 'CHECKED' : ''; ?> type="checkbox" name="r[<?php echo $id; ?>][<?php echo $sect_id; ?>][delete]" value="1" class="restriction_<?php echo $id; ?> <?php echo $id; ?>_<?php echo $sect_id; ?>_delete"></td>
         	</tr>
         	<?php } ?>
         	</tbody>
