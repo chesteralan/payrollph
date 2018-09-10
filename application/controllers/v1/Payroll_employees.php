@@ -35,6 +35,17 @@ class Payroll_employees extends MY_Controller {
 		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_deductions` pd WHERE pd.payroll_id=payroll.id) as deductions_columns");
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
+	
+		$inclusive_dates = new $this->Payroll_inclusive_dates_model;
+		$inclusive_dates->setPayrollId($id,true);
+		$inclusive_dates->set_select('COUNT(*) as working_days');
+		$inclusive_dates->set_select('MIN(inclusive_date) as start_date');
+		$inclusive_dates->set_select('MAX(inclusive_date) as end_date');
+		$dates_data = $inclusive_dates->get();
+		$this->template_data->set('inclusive_dates', $dates_data);
+
+	if( $dates_data->working_days > 0 ) {
+
 
 		$print_groups = new $this->Terms_list_model;
 		$print_groups->set_select("*");
@@ -59,14 +70,6 @@ class Payroll_employees extends MY_Controller {
 		$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
 		$payroll_group_data =  $payroll_group->populate();
 
-		$inclusive_dates = new $this->Payroll_inclusive_dates_model;
-		$inclusive_dates->setPayrollId($id,true);
-		$inclusive_dates->set_select('COUNT(*) as working_days');
-		$inclusive_dates->set_select('MIN(inclusive_date) as start_date');
-		$inclusive_dates->set_select('MAX(inclusive_date) as end_date');
-		$dates_data = $inclusive_dates->get();
-		$this->template_data->set('inclusive_dates', $dates_data);
-
 		foreach($payroll_group_data as $key=>$group) {
 			$employees = new $this->Payroll_employees_model('pe');
 			if( $this->session->userdata('current_employee') ) {
@@ -78,7 +81,7 @@ class Payroll_employees extends MY_Controller {
 			$employees->set_select('e.name_id');
 			$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
-			$employees->set_where('e.group_id', $group->group_id);
+			$employees->set_where('pe.group_id', $group->group_id);
 
 			if( $this->session->userdata('employees_status') ) {
 				$employees->set_where('e.status', $this->session->userdata('employees_status')->id);
@@ -142,7 +145,13 @@ class Payroll_employees extends MY_Controller {
 
 		$this->template_data->set('next_item', $this->_next_payroll($id, $group_id, 'payroll_employees/view/'));
 		$this->template_data->set('previous_item', $this->_previous_payroll($id, $group_id, 'payroll_employees/view/'));
-		
+
+	} else {
+
+		$this->template_data->set('no_inclusive_dates', true);
+
+	}
+
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/employees/employees_view', $this->template_data->get_data());
 	}

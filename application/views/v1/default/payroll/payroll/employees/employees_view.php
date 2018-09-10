@@ -18,6 +18,13 @@ $payslip_templates = array(
 <div class="container">
     <div class="row">
             <div class="col-md-12">
+
+
+<?php if( isset($no_inclusive_dates) ) { ?>
+<div class="alert alert-danger" role="alert"><strong>ERROR FOUND!</strong> Inclusive dates not set! <a data-title="Inclusive Dates" class="btn btn-danger btn-xs ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-url="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>" >Fix This</a></div>
+<?php } ?>
+
+<?php if( !isset($no_inclusive_dates) ) { ?>
               <div class="panel panel-default">
                 <div class="panel-heading">
 <?php if(!$payroll->lock) { ?>
@@ -26,9 +33,10 @@ $payslip_templates = array(
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong></h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
-
+<?php } ?>
 <?php endif; ?>
 
+<?php if( !isset($no_inclusive_dates) ) { ?>
 <?php if( $payroll_groups ) { ?>
   
   <?php foreach($payroll_groups as $payroll_group) { ?>
@@ -73,7 +81,7 @@ $payslip_templates = array(
 <?php } ?>
                 <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> 
                 
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo site_url("lists_names/profile/{$employee->name_id}/ajax") . "?output=inner_page"; ?>"><span class="glyphicon glyphicon-eye-open"></span></a>
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo site_url("lists_names/profile/{$employee->name_id}/ajax") . "?output=inner_page&next=" . uri_string(); ?>"><span class="glyphicon glyphicon-eye-open"></span></a>
 
 
                 </td>
@@ -146,11 +154,15 @@ $payslip_templates = array(
   <div class="text-center">No Group Assigned!</div>
 
 <?php } ?>
+<?php } ?>
 
 <?php if( ! $inner_page ): ?>
+<?php if( !isset($no_inclusive_dates) ) { ?>
+              </div>
+              </div>
 
-              </div>
-              </div>
+<?php } ?>
+
             </div>
     </div>
 </div>

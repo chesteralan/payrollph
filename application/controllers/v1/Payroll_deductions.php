@@ -36,6 +36,16 @@ class Payroll_deductions extends MY_Controller {
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
+		$inclusive_dates = new $this->Payroll_inclusive_dates_model;
+		$inclusive_dates->setPayrollId($id,true);
+		$inclusive_dates->set_select('COUNT(*) as working_days');
+		$inclusive_dates->set_select('MIN(inclusive_date) as start_date');
+		$inclusive_dates->set_select('MAX(inclusive_date) as end_date');
+		$dates_data = $inclusive_dates->get();
+		$this->template_data->set('inclusive_dates', $inclusive_dates->get());
+
+	if( $dates_data->working_days > 0 ) {
+
 		if( $column_id ) {
 			$exclude = array($id);
 			if($this->input->get('compare')) {
@@ -126,14 +136,7 @@ class Payroll_deductions extends MY_Controller {
 			$payroll_group_data[$key]->employees = $employees_data;
 		}
 		$this->template_data->set('payroll_groups', $payroll_group_data);
-
-		$inclusive_dates = new $this->Payroll_inclusive_dates_model;
-		$inclusive_dates->setPayrollId($id,true);
-		$inclusive_dates->set_select('COUNT(*) as working_days');
-		$inclusive_dates->set_select('MIN(inclusive_date) as start_date');
-		$inclusive_dates->set_select('MAX(inclusive_date) as end_date');
-		$this->template_data->set('inclusive_dates', $inclusive_dates->get());
-		
+	
 		$employees_status = new $this->Payroll_employees_model('pe');
 		$employees_status->setPayrollId($id,true);
 		$employees_status->set_select('e.status');
@@ -149,7 +152,13 @@ class Payroll_deductions extends MY_Controller {
 
 		$this->template_data->set('next_item', $this->_next_payroll($id, $group_id, 'payroll_deductions/view/'));
 		$this->template_data->set('previous_item', $this->_previous_payroll($id, $group_id, 'payroll_deductions/view/'));
-		
+
+	} else {
+
+		$this->template_data->set('no_inclusive_dates', true);
+
+	}
+
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/deductions/deductions_view', $this->template_data->get_data());
 	}

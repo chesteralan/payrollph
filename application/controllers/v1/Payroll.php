@@ -287,6 +287,8 @@ class Payroll extends MY_Controller {
 	public function inclusive_dates($id,$output='') {
 		$this->_isAuth('payroll', 'payroll', 'edit');
 
+		$this->_column_groups();
+		
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
 		$payroll_data = $payroll->get();
@@ -663,6 +665,7 @@ class Payroll extends MY_Controller {
 				$employees->set_select('pte.print_group');
 				$employees->set_select('pte.order');
 				foreach( $employees->populate() as $employee ) {
+
 					$employees_data[] = $employee;
 					$payroll_employees = new $this->Payroll_employees_model;
 					$payroll_employees->setPayrollId($id,true);
@@ -671,6 +674,11 @@ class Payroll extends MY_Controller {
 					$payroll_employees->setTemplate($employee->template);
 					$payroll_employees->setPrintGroup($employee->print_group);
 					$payroll_employees->setActive($employee->active);
+					$payroll_employees->setStatusId($employee->status);
+					$payroll_employees->setGroupId($employee->group_id);
+					$payroll_employees->setPositionId($employee->position_id);
+					$payroll_employees->setAreaId($employee->area_id);
+
 					if( $payroll_employees->nonEmpty() === FALSE ) {
 						$payroll_employees->insert();
 					} 

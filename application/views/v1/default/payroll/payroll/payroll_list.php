@@ -45,7 +45,7 @@
 </div>
 <?php } ?>
 
-</h3>
+
 
 <?php if( isset($payroll_years) && ( count( $payroll_templates ) > 1) ) { ?>
 <div class="btn-group">
@@ -60,6 +60,9 @@
   </ul>
 </div>
 <?php } ?>
+
+</h3>
+
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 
@@ -67,7 +70,7 @@
 
 <?php if( $payrolls ) { ?>
 
-          <table class="table table-default">
+          <table class="table table-striped">
             <thead>
               <tr>
                 <th width="1%"></th>

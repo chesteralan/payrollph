@@ -69,6 +69,8 @@ class Payroll_salaries extends MY_Controller {
 		$dates_data = $inclusive_dates->get();
 		$this->template_data->set('inclusive_dates', $dates_data);
 
+	if( $dates_data->working_days > 0 ) {
+		
 		foreach($payroll_group_data as $key=>$group) {
 			$employees = new $this->Payroll_employees_model('pe');
 			if( $this->session->userdata('current_employee') ) {
@@ -131,7 +133,13 @@ class Payroll_salaries extends MY_Controller {
 
 		$this->template_data->set('next_item', $this->_next_payroll($id, $group_id, 'payroll_salaries/view/'));
 		$this->template_data->set('previous_item', $this->_previous_payroll($id, $group_id, 'payroll_salaries/view/'));
-		
+
+	} else {
+
+		$this->template_data->set('no_inclusive_dates', true);
+
+	}
+
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/salaries/salaries_view', $this->template_data->get_data());
 	}

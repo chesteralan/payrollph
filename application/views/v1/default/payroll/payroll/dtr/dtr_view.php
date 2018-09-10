@@ -8,6 +8,11 @@
 <div class="container">
     <div class="row">
             <div class="col-md-12">
+
+<?php if( isset($no_inclusive_dates) ) { ?>
+<div class="alert alert-danger" role="alert"><strong>ERROR FOUND!</strong> Inclusive dates not set! <a data-title="Inclusive Dates" class="btn btn-danger btn-xs ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-url="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>" >Fix This</a></div>
+<?php } ?>
+<?php if( !isset($no_inclusive_dates) ) { ?>
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong> (<?php echo date( 'F d,Y', strtotime( $inclusive_dates->start_date ) ); ?> - <?php echo date( 'F d,Y', strtotime( $inclusive_dates->end_date ) ); ?>)
@@ -18,10 +23,11 @@
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
-
+<?php } ?>
 <?php endif; ?>
 
-<?php if( $payroll_groups ) { ?>
+<?php if( !isset($no_inclusive_dates) ) { ?>
+<?php if( isset($payroll_groups) && $payroll_groups ) { ?>
   
   <?php foreach($payroll_groups as $payroll_group) { ?>
  <?php if($payroll_group->employees) { ?>
@@ -109,11 +115,14 @@ $leave_in_days = ($employee->$var1) ? ($employee->$var1 / $working_hours) : 0;
   <div class="text-center">No Group Assigned!</div>
 
 <?php } ?>
-
+<?php } ?>
 <?php if( ! $inner_page ): ?>
 
+<?php if( !isset($no_inclusive_dates) ) { ?>
               </div>
               </div>
+<?php } ?>
+ 
             </div>
     </div>
 </div>

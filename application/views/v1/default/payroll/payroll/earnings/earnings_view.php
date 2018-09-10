@@ -8,9 +8,17 @@
 <div class="container">
     <div class="row">
             <div class="col-md-12">
+
+<?php if( isset($no_inclusive_dates) ) { ?>
+<div class="alert alert-danger" role="alert"><strong>ERROR FOUND!</strong> Inclusive dates not set! <a data-title="Inclusive Dates" class="btn btn-danger btn-xs ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-url="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>" >Fix This</a></div>
+<?php } ?>
+
+<?php if( !isset($no_inclusive_dates) ) { ?>
+
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  
+
+
 <?php if( !$column_id ) { ?>
 <?php if(!$payroll->lock) { ?>
 <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Earnings" data-url="<?php echo site_url("payroll/earnings/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
@@ -32,9 +40,11 @@
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong></h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
-
+<?php } ?>
 <?php endif; ?>
 
+<?php if( !isset($no_inclusive_dates) ) { ?>
+  
 <?php if( $payroll_groups && $earnings_columns ) { ?>
   
 <?php
@@ -209,10 +219,16 @@ $total_earnings += $total[$column->id];
   <div class="text-center">No Group and/or Earnings Assigned!</div>
 <?php } ?>
 
+<?php } ?>
+
+
 <?php if( ! $inner_page ): ?>
 
+<?php if( !isset($no_inclusive_dates) ) { ?>
               </div>
               </div>
+<?php } ?>
+
             </div>
     </div>
 </div>

@@ -226,16 +226,23 @@ class MY_Controller extends CI_Controller {
             $payroll = new $this->Payroll_model('p');
             $payroll->setActive(1, true);
             $payroll->setCompanyId($this->session->userdata('current_company_id'),true);
+                
                 $where = new $this->Payroll_model('w');
                 $where->setActive(1, true);
                 $where->set_select('MIN(w.id)');
                 $where->set_where("w.id > " . $id);
                 $where->setCompanyId($this->session->userdata('current_company_id'),true);
                 $where->set_limit(1);
+
+                $inclusive_dates = new $this->Payroll_inclusive_dates_model('id'); 
+                $inclusive_dates->set_select('COUNT(*)');
+                $inclusive_dates->set_where('p.id=id.payroll_id');
+
             $payroll->set_limit(1);
             $payroll->set_select("p.id");
             $payroll->set_select("CONCAT('{$url}',p.id,'/',{$group_id}) as url");
-            $payroll->set_where('id = ('. $where->get_compiled_select() . ')');
+            $payroll->set_where('(p.id = ('. $where->get_compiled_select() . '))');
+            $payroll->set_where('(('. $inclusive_dates->get_compiled_select() . ') > 0)');
             return $payroll->get();
         }
 
@@ -243,16 +250,23 @@ class MY_Controller extends CI_Controller {
             $payroll = new $this->Payroll_model('p');
             $payroll->setActive(1, true);
             $payroll->setCompanyId($this->session->userdata('current_company_id'),true);
+                
                 $where = new $this->Payroll_model('w');
                 $where->setActive(1, true);
                 $where->set_select('MAX(w.id)');
                 $where->set_where("w.id < " . $id);
                 $where->setCompanyId($this->session->userdata('current_company_id'),true);
                 $where->set_limit(1);
+
+                $inclusive_dates = new $this->Payroll_inclusive_dates_model('id'); 
+                $inclusive_dates->set_select('COUNT(*)');
+                $inclusive_dates->set_where('p.id=id.payroll_id');
+
             $payroll->set_limit(1);
             $payroll->set_select("p.id");
             $payroll->set_select("CONCAT('{$url}',p.id,'/',{$group_id}) as url");
             $payroll->set_where('id = ('. $where->get_compiled_select() . ')');
+             $payroll->set_where('(('. $inclusive_dates->get_compiled_select() . ') > 0)');
             return $payroll->get();
         }
 

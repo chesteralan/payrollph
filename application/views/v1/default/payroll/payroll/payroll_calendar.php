@@ -124,7 +124,7 @@ function draw_calendar($month,$year,$inclusive_dates,$not_available_days){
 
 <?php $this->load->view('header'); ?>
 
-<?php $this->load->view('payroll/payroll_navbar'); ?>
+<?php $this->load->view('payroll/payroll/payroll_view_navbar'); ?>
 
 <div class="container">
 <div class="row">
