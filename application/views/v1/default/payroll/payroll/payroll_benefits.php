@@ -20,6 +20,10 @@
 
 <?php endif; ?>
 
+<div class="col-md-5 pull-right">
+  <input type="text" class="form-control input-sm filter-list-name2" data-list="list-group" placeholder="Filter Name...">
+</div>
+
 <div class="btn-group" role="group" aria-label="..." style="margin-bottom: 5px;">
   <button class="btn btn-default btn-xs sortable-asc" data-sortable="sortable" type="button"><span class="glyphicon glyphicon-sort-by-alphabet"></span></button> 
   <button class="btn btn-default btn-xs sortable-desc" data-sortable="sortable" type="button"><span class="glyphicon glyphicon-sort-by-alphabet-alt"></span></button> 

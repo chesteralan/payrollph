@@ -679,9 +679,11 @@ class Payroll extends MY_Controller {
 					$payroll_employees->setPositionId($employee->position_id);
 					$payroll_employees->setAreaId($employee->area_id);
 
-					if( $payroll_employees->nonEmpty() === FALSE ) {
+					if( $payroll_employees->nonEmpty() ) {
+						$peData = $payroll_employees->getResults();
+					} else {
 						$payroll_employees->insert();
-					} 
+					}
 				}
 			}
 

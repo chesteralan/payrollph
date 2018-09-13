@@ -20,6 +20,10 @@
 
 <?php endif; ?>
 
+<div class="col-md-5 pull-right">
+	<input type="text" class="form-control input-sm filter-list-name" data-list="accordion" placeholder="Filter Name...">
+</div>
+
 <div class="btn-group" role="group" aria-label="..." style="margin-bottom: 5px;">
   <button class="btn btn-default btn-xs accordion-sort-asc" data-sortable="sortable" type="button"><span class="glyphicon glyphicon-sort-by-alphabet"></span></button> 
   <button class="btn btn-default btn-xs accordion-sort-desc" data-sortable="sortable" type="button"><span class="glyphicon glyphicon-sort-by-alphabet-alt"></span></button> 
@@ -66,8 +70,12 @@
           <span class="glyphicon glyphicon-sort pull-right" style="margin-left: 10px;"></span>
            <?php echo $group->name; ?>
         </a>
+
+        <a href="<?php echo site_url("payroll/employees/{$payroll->id}/{$group->id}/ajax") . '?next=' . (($this->input->get('next'))?$this->input->get('next'):uri_string()); ?>" class="ajax-modal-inner pull-right"><span class="glyphicon glyphicon-user"></span></a>
+
       </h4>
     </div>
+<?php /*
 <?php if( $this->input->get('collapse') ) { ?>
 <?php if($group->id==$group->selected) { ?>
     <div id="collapse<?php echo $group->id; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $group->id; ?>">
@@ -78,6 +86,9 @@
     </div>
 <?php } ?>
 <?php } ?>
+
+*/ ?>
+
   </div>
 <?php } ?>
 </div>

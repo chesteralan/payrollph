@@ -80,38 +80,22 @@ $payslip_templates = array(
 
                 <td class="text-right">
 
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Status" data-url="<?php echo site_url("payroll_templates/change_status/{$template->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
-
-                <?php echo ($employee->status_name) ? $employee->status_name : '- - - - -'; ?>
-
-</a>
+                <?php echo $employee->status_name; ?>
 
                 </td>
                 <td class="text-right">
 
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Group" data-url="<?php echo site_url("payroll_templates/change_group/{$template->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
-
-                <?php echo ($employee->group_name) ? $employee->group_name : '- - - - -'; ?>
-
-</a>
+                <?php echo $employee->group_name; ?>
 
                 </td>
                 <td class="text-right">
 
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Position" data-url="<?php echo site_url("payroll_templates/change_position/{$template->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
-
-                <?php echo ($employee->position_name) ? $employee->position_name : '- - - - -'; ?>
-
-</a>
+                <?php echo $employee->position_name; ?>
 
                 </td>
                 <td class="text-right">
 
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Area" data-url="<?php echo site_url("payroll_templates/change_area/{$template->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
-
-                <?php echo ($employee->area_name) ? $employee->area_name : '- - - - -'; ?>
-
-</a>
+                <?php echo $employee->area_name; ?>
 
                 </td>
                 <td class="text-right">

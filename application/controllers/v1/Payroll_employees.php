@@ -97,20 +97,20 @@ class Payroll_employees extends MY_Controller {
 
 			$employees->set_select('(SELECT ea.name FROM employees_areas ea WHERE ea.company_id='.$this->session->userdata('current_company_id').' AND ea.id=pe.area_id) as area_name');
 
-			$employees->set_select("(SELECT COUNT(*) FROM employees_absences ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences");
+			//$employees->set_select("(SELECT COUNT(*) FROM employees_absences ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences");
 
-			$employees->set_select('(SELECT es.hours FROM employees_salaries es WHERE es.name_id=e.name_id AND es.primary=1 AND es.trash=0) as working_hours');
+			//$employees->set_select('(SELECT es.hours FROM employees_salaries es WHERE es.name_id=e.name_id AND es.primary=1 AND es.trash=0) as working_hours');
 
-			$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences_hours");
+			//$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences_hours");
 			
 			// gross earnings
-			$employees->set_select("(SELECT SUM(pee.amount) FROM payroll_employees_earnings pee WHERE pee.payroll_id=pe.payroll_id AND pee.name_id=pe.name_id) as gross_earnings");
+			//$employees->set_select("(SELECT SUM(pee.amount) FROM payroll_employees_earnings pee WHERE pee.payroll_id=pe.payroll_id AND pee.name_id=pe.name_id) as gross_earnings");
 
 			// gross benefits
-			$employees->set_select("(SELECT SUM(peb.employee_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=pe.payroll_id AND peb.name_id=pe.name_id) as gross_benefits");
+			//$employees->set_select("(SELECT SUM(peb.employee_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=pe.payroll_id AND peb.name_id=pe.name_id) as gross_benefits");
 
 			// gross deductions
-			$employees->set_select("(SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.payroll_id=pe.payroll_id AND ped.name_id=pe.name_id) as gross_deductions");
+			//$employees->set_select("(SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.payroll_id=pe.payroll_id AND ped.name_id=pe.name_id) as gross_deductions");
 
 			$employees->setActive(1, true);
 			$employees->set_order('pe.order', 'ASC');
@@ -490,13 +490,13 @@ class Payroll_employees extends MY_Controller {
 
 			$employees->set_select('(SELECT tl.name FROM terms_list tl WHERE tl.type="print_group" AND tl.id=pe.print_group) as print_group_name');
 
-			$employees->set_select('(SELECT tl.name FROM terms_list tl WHERE tl.type="employment_status" AND tl.id=pe.status_id) as status_name');
+			$employees->set_select('(SELECT tl.name FROM terms_list tl WHERE tl.type="employment_status" AND tl.id=e.status) as status_name');
 
-			$employees->set_select('(SELECT eg.name FROM employees_groups eg WHERE eg.company_id='.$this->session->userdata('current_company_id').' AND eg.id=pe.group_id) as group_name');
+			$employees->set_select('(SELECT eg.name FROM employees_groups eg WHERE eg.company_id='.$this->session->userdata('current_company_id').' AND eg.id=e.group_id) as group_name');
 
-			$employees->set_select('(SELECT ep.name FROM employees_positions ep WHERE ep.id=pe.position_id) as position_name');
+			$employees->set_select('(SELECT ep.name FROM employees_positions ep WHERE ep.id=e.position_id) as position_name');
 
-			$employees->set_select('(SELECT ea.name FROM employees_areas ea WHERE ea.company_id='.$this->session->userdata('current_company_id').' AND ea.id=pe.area_id) as area_name');
+			$employees->set_select('(SELECT ea.name FROM employees_areas ea WHERE ea.company_id='.$this->session->userdata('current_company_id').' AND ea.id=e.area_id) as area_name');
 			
 			$employees->set_select("pe.template");
 			$employees->setActive(1, true);

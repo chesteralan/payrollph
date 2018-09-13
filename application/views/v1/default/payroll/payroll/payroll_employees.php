@@ -42,6 +42,11 @@ $payslip_templates = array(
 <?php endif; ?>
 
 <?php if( isset($output) && ($output=='ajax') ) { ?>
+
+<div class="col-md-5 pull-right">
+  <input type="text" class="form-control input-sm filter-list-name" data-list="accordion" placeholder="Filter Name...">
+</div>
+
 <div class="btn-group" role="group" aria-label="..." style="margin-bottom: 5px;">
   <button class="btn btn-default btn-xs sortable-asc1 accordion-sort-asc" data-sortable="sortable-employees" type="button"><span class="glyphicon glyphicon-sort-by-alphabet"></span></button> 
   <button class="btn btn-default btn-xs sortable-desc1 accordion-sort-desc" data-sortable="sortable-employees" type="button"><span class="glyphicon glyphicon-sort-by-alphabet-alt"></span></button> 
@@ -66,6 +71,42 @@ $payslip_templates = array(
 <?php if($employee->active==1) { ?>
     <div id="collapse<?php echo $employee->name_id; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $employee->name_id; ?>">
       <div class="panel-body">
+
+
+<div class="row" style="margin-top:10px;">
+  <div class="col-md-6 col-sm-6 col-xs-6">
+    <select class="form-control input-sm" name="payslip_template[<?php echo $employee->name_id; ?>]" data-style="btn-default btn-sm">
+<?php foreach( $payslip_templates as $k=>$v) { ?>
+          <option value="<?php echo $k; ?>" <?php echo ($employee->template==$k) ? 'SELECTED' : ''; ?>><?php echo $v; ?></option>
+<?php } ?>
+      </select>
+  </div>
+  <div class="col-md-6 col-sm-6 col-xs-6">
+    <select class="form-control input-sm" name="payslip_template[<?php echo $employee->name_id; ?>]" data-style="btn-default btn-sm">
+<?php foreach( $payslip_templates as $k=>$v) { ?>
+          <option value="<?php echo $k; ?>" <?php echo ($employee->template==$k) ? 'SELECTED' : ''; ?>><?php echo $v; ?></option>
+<?php } ?>
+      </select>
+  </div>
+</div>
+
+<div class="row" style="margin-top:10px;">
+  <div class="col-md-6 col-sm-6 col-xs-6">
+    <select class="form-control input-sm" name="payslip_template[<?php echo $employee->name_id; ?>]" data-style="btn-default btn-sm">
+<?php foreach( $payslip_templates as $k=>$v) { ?>
+          <option value="<?php echo $k; ?>" <?php echo ($employee->template==$k) ? 'SELECTED' : ''; ?>><?php echo $v; ?></option>
+<?php } ?>
+      </select>
+  </div>
+  <div class="col-md-6 col-sm-6 col-xs-6">
+    <select class="form-control input-sm" name="payslip_template[<?php echo $employee->name_id; ?>]" data-style="btn-default btn-sm">
+<?php foreach( $payslip_templates as $k=>$v) { ?>
+          <option value="<?php echo $k; ?>" <?php echo ($employee->template==$k) ? 'SELECTED' : ''; ?>><?php echo $v; ?></option>
+<?php } ?>
+      </select>
+  </div>
+</div>
+
 
 <div class="row">
   <div class="col-md-6 col-sm-6 col-xs-6">

@@ -3,6 +3,45 @@
 var modal_backlink = [];
 var current_uri = '';
 
+var filter_list_name = function(){
+      $('.filter-list-name').keyup(function(k){
+          var find = $('.filter-list-name').val();
+          var elm = $(this).attr('data-list');
+          var mylist = $('#' + elm);
+          var listitems = mylist.children('.panel').get();
+          var label_arr = [];
+          var listitems_arr = {};
+          for(i in listitems) {
+            var label = $(listitems[i]).find('.panel-heading').text();
+            if( label.trim().toLowerCase().indexOf(find) >= 0 ) {
+              label_arr.push(label.trim().toLowerCase());
+              listitems_arr[label.trim().toLowerCase()] = listitems[i];
+              $(listitems[i]).show();
+            } else {
+              $(listitems[i]).hide();
+            }
+          }
+      });
+
+    $('.filter-list-name2').keyup(function(k){
+          var find = $('.filter-list-name2').val();
+          var elm = $(this).attr('data-list');
+          var mylist = $('.' + elm);
+          var listitems = mylist.children('.list-group-item').get();
+          var label_arr = [];
+          var listitems_arr = {};
+          for(i in listitems) {
+            var label = $(listitems[i]).find('.list-group-item-heading').text();
+            if( label.trim().toLowerCase().indexOf(find) >= 0 ) {
+              label_arr.push(label.trim().toLowerCase());
+              listitems_arr[label.trim().toLowerCase()] = listitems[i];
+              $(listitems[i]).show();
+            } else {
+              $(listitems[i]).hide();
+            }
+          }
+      });
+};
  var init_sortable = function() {
     $( ".sortable" ).sortable();
     $( ".sortable" ).disableSelection();
@@ -561,6 +600,7 @@ var loadLib = function() {
 
     bodyWrapper();
     init_sortable();
+    filter_list_name();
     select_all_print_column();
     select_all_by_class();
     init_calendar_check();
@@ -1027,6 +1067,7 @@ var lending_schedule_details = function() {
       init_sortable();
       select_all_print_column();
       select_all_by_class();
+      filter_list_name();
  }
  init_payroll();
 
