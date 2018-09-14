@@ -236,6 +236,33 @@ return <<<HTML
 HTML;
 }
 
+function security_guard_license($name) { 
+return <<<HTML
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>License Number</label>
+      <div class="form-control">{$name->sgl_number}</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>License Expiry</label>
+      <div class="form-control">{$name->sgl_expiry}</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Status</label>
+      <div class="form-control">{$name->sgl_status}</div>
+    </div>
+  </div>
+
+</div>
+
+HTML;
+}
+
 function employment($employee) { 
   $date_hired = date('F d, Y', strtotime($employee->hired));
 return <<<HTML
@@ -320,8 +347,8 @@ HTML;
 
 $modules = array();
 
-
 $modules[] = array(
+    'id' => 'personal_info',
     'title'=>'Personal Information',
     'title_ajax'=>'Personal Information',
     'config_url' => site_url("lists_names/update_personal/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
@@ -331,6 +358,7 @@ $modules[] = array(
 
 if( ($name->is_employed) && ($name->company_id==$this->session->userdata('current_company_id')) ) { 
   $modules[] = array(
+    'id' => 'employment_info',
     'title'=>'Employment Information: <span class="badge">' . $name->company . '</span>',
     'title_ajax'=>'Employment Information',
     'config_url' => site_url("employees/edit_employment/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
@@ -340,6 +368,7 @@ if( ($name->is_employed) && ($name->company_id==$this->session->userdata('curren
 }
 
 $modules[] = array(
+    'id' => 'address_contacts',
     'title'=>'Address &amp; Contact Numbers',
     'title_ajax'=>'Address &amp; Contact Numbers',
     'config_url' => site_url("lists_names/update_contacts/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
@@ -347,6 +376,7 @@ $modules[] = array(
     'open' => ($this->input->get('active')==='contacts'),
   );
 $modules[] = array(
+  'id' => 'social_media_accounts',
     'title'=>'Social Media Accounts',
     'title_ajax'=>'Social Media Accounts',
     'config_url' => site_url("lists_names/update_social_media/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
@@ -354,20 +384,41 @@ $modules[] = array(
     'open' => ($this->input->get('active')==='social_media'),
   );
 $modules[] = array(
+  'id' => 'identification_numbers',
     'title'=>'Identification Numbers',
     'title_ajax'=>'Identification Numbers',
     'config_url' => site_url("lists_names/update_ids/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
     'panel_body' => ids($name),
     'open' => ($this->input->get('active')==='ids'),
   );
+
 $modules[] = array(
+  'id' => 'emergency_contacts',
     'title'=>'Emergency Contacts',
     'title_ajax'=>'Emergency Contacts',
     'config_url' => site_url("lists_names/update_emergency/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
     'panel_body' => emergency($name),
     'open' => ($this->input->get('active')==='emergency'),
   );
-foreach($modules as $i=>$content) {  ?>
+
+$modules[] = array(
+  'id' => 'security_guard_license',
+    'title'=>'Security Guard License',
+    'title_ajax'=>'Security Guard License',
+    'config_url' => site_url("lists_names/update_security_guard_license/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
+    'panel_body' => security_guard_license($name),
+    'open' => ($this->input->get('active')==='security_guard_license'),
+  );
+
+$profile_modules = $this->config->item('profile_modules');
+
+foreach($modules as $i=>$content) {  
+
+if( !in_array($content['id'], $profile_modules) || (!$profile_modules[$content['id']]) ) {
+    continue;
+}
+
+?>
 <div class="panel panel-default">
                 <div class="panel-heading">
 <?php if ( isset($output) && ($output=='ajax') ) {  ?>

@@ -11,12 +11,3 @@ $config['civil_status'] = array(
 	'widower' => 'Widow / Widower',
 );
 
-$config['profile_modules'] = array(
-	'personal_info' => true,
-	'employment_info' => true,
-	'address_contacts' => true,
-	'social_media_accounts' => true,
-	'identification_numbers' => true,
-	'emergency_contacts' => true,
-	'security_guard_license' => true,
-);

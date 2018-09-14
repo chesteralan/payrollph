@@ -217,6 +217,14 @@ class Lists_names extends MY_Controller {
 			$name->set_select('('.$data->get_compiled_select().') as ' . $k);
 		}
 
+		foreach(array('sgl_number','sgl_expiry','sgl_status') as $k) {
+			$data = new $this->Names_meta_model('d');
+			$data->setMetaKey($k,true);
+			$data->set_select('d.meta_value');
+			$data->set_where('d.name_id=nl.id');
+			$name->set_select('('.$data->get_compiled_select().') as ' . $k);
+		}
+
 		$name_data = $name->get();	
 		$this->template_data->set('name', $name_data);
 
@@ -453,6 +461,50 @@ class Lists_names extends MY_Controller {
 
 		$this->template_data->set('output', $output);
 		$this->load->view('lists/names/names_update_emergency', $this->template_data->get_data());
+	}	
+
+	public function update_security_guard_license($id,$output='') {
+
+		$this->_isAuth('lists', 'names', 'edit');
+
+		if( $this->input->post('data') ) {
+			foreach($this->input->post('data') as $key=>$value) {
+				
+				$meta = new $this->Names_meta_model;
+				$meta->setNameId($id,true);
+				$meta->setMetaKey($key,true);
+				if( !empty( $value ) ) {
+					if( $meta->nonEmpty() ) {
+						$meta->setMetaValue($value,false,true);
+						$meta->update();
+					} else {
+						$meta->setMetaValue($value);
+						$meta->insert();
+					}
+				} else {
+					$meta->delete();
+				}
+			}
+			$this->postNext("active=security_guard_license");
+		}
+
+		$meta = new $this->Names_meta_model('nc');
+		$meta->setNameId($id,true);
+		$meta->setMetaKey('sgl_number',true);
+		$meta->set_select('nc.meta_value as sgl_number');
+
+		foreach(array('sgl_expiry', 'sgl_status') as $k) {
+			$data = new $this->Names_meta_model('d');
+			$data->setMetaKey($k,true);
+			$data->set_select('d.meta_value');
+			$data->set_where('d.name_id=nc.name_id');
+			$meta->set_select('('.$data->get_compiled_select().') as ' . $k);
+		}
+
+		$this->template_data->set('meta', $meta->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('lists/names/names_update_security_guard_license', $this->template_data->get_data());
 	}
 
 	public function birthdays($company_id, $start=0) {

@@ -9,7 +9,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
 
-<?php if( hasAccess('system', 'backup', 'add') ) { ?>
+<?php if( hasAccess('system', 'database', 'add') ) { ?>
         <!-- Split button -->
 <div class="btn-group pull-right">
   <a href="<?php echo base_url("create_backup.php"); ?>?type=php_multiple" class="btn btn-xs btn-success">Multiple (PHP Backup)</a>
