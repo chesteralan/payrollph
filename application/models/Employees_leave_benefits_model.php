@@ -15,14 +15,14 @@ CREATE TABLE `employees_leave_benefits` (
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`benefit_id`),
   KEY `company_id` (`company_id`)
-);
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`employees_leave_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `{$this->_db->database}`.`employees_leave_benefits` ADD  `company_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_leave_benefits` ADD  `name_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_leave_benefits` ADD  `benefit_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_leave_benefits` ADD  `days` int(2) NULL   DEFAULT '0';
-ALTER TABLE  `{$this->_db->database}`.`employees_leave_benefits` ADD  `year` int(4) NOT NULL   ;
+ALTER TABLE  `employees_leave_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `employees_leave_benefits` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_leave_benefits` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_leave_benefits` ADD  `benefit_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_leave_benefits` ADD  `days` int(2) NULL   DEFAULT '0';
+ALTER TABLE  `employees_leave_benefits` ADD  `year` int(4) NOT NULL   ;
 
 
  * @package			        Model
@@ -31,7 +31,7 @@ ALTER TABLE  `{$this->_db->database}`.`employees_leave_benefits` ADD  `year` int
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Employees_leave_benefits_model extends MY_Model {
@@ -263,12 +263,12 @@ class Employees_leave_benefits_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `{$this->_db->database}`.`employees_leave_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'company_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_leave_benefits` ADD  `company_id` int(20) NOT NULL   ;",
-			'name_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_leave_benefits` ADD  `name_id` int(20) NOT NULL   ;",
-			'benefit_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_leave_benefits` ADD  `benefit_id` int(20) NOT NULL   ;",
-			'days' => "ALTER TABLE  `{$this->_db->database}`.`employees_leave_benefits` ADD  `days` int(2) NULL   DEFAULT '0';",
-			'year' => "ALTER TABLE  `{$this->_db->database}`.`employees_leave_benefits` ADD  `year` int(4) NOT NULL   ;",
+			'id' => "ALTER TABLE  `employees_leave_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'company_id' => "ALTER TABLE  `employees_leave_benefits` ADD  `company_id` int(20) NOT NULL   ;",
+			'name_id' => "ALTER TABLE  `employees_leave_benefits` ADD  `name_id` int(20) NOT NULL   ;",
+			'benefit_id' => "ALTER TABLE  `employees_leave_benefits` ADD  `benefit_id` int(20) NOT NULL   ;",
+			'days' => "ALTER TABLE  `employees_leave_benefits` ADD  `days` int(2) NULL   DEFAULT '0';",
+			'year' => "ALTER TABLE  `employees_leave_benefits` ADD  `year` int(4) NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

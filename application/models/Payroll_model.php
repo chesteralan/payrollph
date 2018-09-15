@@ -14,19 +14,27 @@ CREATE TABLE `payroll` (
   `year` int(4) NOT NULL,
   `active` int(1) NOT NULL DEFAULT '1',
   `lock` int(1) DEFAULT '0',
+  `print_format` varchar(50) DEFAULT NULL,
+  `group_by` varchar(50) NOT NULL DEFAULT 'group',
+  `checked_by` int(20) DEFAULT NULL,
+  `approved_by` int(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `template_id` (`template_id`),
   KEY `company_id` (`company_id`)
-);
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `company_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `name` varchar(200) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `template_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `month` int(2) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `year` int(4) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `active` int(1) NOT NULL   DEFAULT '1';
-ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `lock` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `payroll` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `payroll` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `payroll` ADD  `template_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll` ADD  `month` int(2) NOT NULL   ;
+ALTER TABLE  `payroll` ADD  `year` int(4) NOT NULL   ;
+ALTER TABLE  `payroll` ADD  `active` int(1) NOT NULL   DEFAULT '1';
+ALTER TABLE  `payroll` ADD  `lock` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `payroll` ADD  `print_format` varchar(50) NULL   ;
+ALTER TABLE  `payroll` ADD  `group_by` varchar(50) NOT NULL   DEFAULT 'group';
+ALTER TABLE  `payroll` ADD  `checked_by` int(20) NULL   ;
+ALTER TABLE  `payroll` ADD  `approved_by` int(20) NULL   ;
 
 
  * @package			        Model
@@ -35,7 +43,7 @@ ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `lock` int(1) NULL   DEFAUL
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Payroll_model extends MY_Model {
@@ -48,6 +56,10 @@ class Payroll_model extends MY_Model {
 	protected $year;
 	protected $active;
 	protected $lock;
+	protected $print_format;
+	protected $group_by;
+	protected $checked_by;
+	protected $approved_by;
 
 	// --------------------------------------------------------------------
 
@@ -61,8 +73,8 @@ class Payroll_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll';
 		$this->_short_name = 'payroll';
-		$this->_fields = array("id","company_id","name","template_id","month","year","active","lock");
-		$this->_required = array("company_id","name","template_id","month","year","active");
+		$this->_fields = array("id","company_id","name","template_id","month","year","active","lock","print_format","group_by","checked_by","approved_by");
+		$this->_required = array("company_id","name","template_id","month","year","active","group_by");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -253,6 +265,98 @@ class Payroll_model extends MY_Model {
 // ------------------------------ End Field: lock --------------------------------------
 
 
+// ---------------------------- Start Field: print_format -------------------------------------- 
+
+	/** 
+	* Sets a value to `print_format` variable
+	* @access public
+	*/
+
+	public function setPrintFormat($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('print_format', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `print_format` variable
+	* @access public
+	*/
+
+	public function getPrintFormat() {
+		return $this->print_format;
+	}
+	
+// ------------------------------ End Field: print_format --------------------------------------
+
+
+// ---------------------------- Start Field: group_by -------------------------------------- 
+
+	/** 
+	* Sets a value to `group_by` variable
+	* @access public
+	*/
+
+	public function setGroupBy($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('group_by', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `group_by` variable
+	* @access public
+	*/
+
+	public function getGroupBy() {
+		return $this->group_by;
+	}
+	
+// ------------------------------ End Field: group_by --------------------------------------
+
+
+// ---------------------------- Start Field: checked_by -------------------------------------- 
+
+	/** 
+	* Sets a value to `checked_by` variable
+	* @access public
+	*/
+
+	public function setCheckedBy($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('checked_by', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `checked_by` variable
+	* @access public
+	*/
+
+	public function getCheckedBy() {
+		return $this->checked_by;
+	}
+	
+// ------------------------------ End Field: checked_by --------------------------------------
+
+
+// ---------------------------- Start Field: approved_by -------------------------------------- 
+
+	/** 
+	* Sets a value to `approved_by` variable
+	* @access public
+	*/
+
+	public function setApprovedBy($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('approved_by', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `approved_by` variable
+	* @access public
+	*/
+
+	public function getApprovedBy() {
+		return $this->approved_by;
+	}
+	
+// ------------------------------ End Field: approved_by --------------------------------------
+
+
 
 	
 	public function get_table_options() {
@@ -327,20 +431,60 @@ class Payroll_model extends MY_Model {
 										'Key'=>'',
 										'Default'=>'0',
 										'Extra'=>''
+									),
+
+			'print_format' => (object) array(
+										'Field'=>'print_format',
+										'Type'=>'varchar(50)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'group_by' => (object) array(
+										'Field'=>'group_by',
+										'Type'=>'varchar(50)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'group',
+										'Extra'=>''
+									),
+
+			'checked_by' => (object) array(
+										'Field'=>'checked_by',
+										'Type'=>'int(20)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
+			'approved_by' => (object) array(
+										'Field'=>'approved_by',
+										'Type'=>'int(20)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
 									)
 		);
 	}
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'company_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `company_id` int(20) NOT NULL   ;",
-			'name' => "ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `name` varchar(200) NOT NULL   ;",
-			'template_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `template_id` int(20) NOT NULL   ;",
-			'month' => "ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `month` int(2) NOT NULL   ;",
-			'year' => "ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `year` int(4) NOT NULL   ;",
-			'active' => "ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
-			'lock' => "ALTER TABLE  `{$this->_db->database}`.`payroll` ADD  `lock` int(1) NULL   DEFAULT '0';",
+			'id' => "ALTER TABLE  `payroll` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'company_id' => "ALTER TABLE  `payroll` ADD  `company_id` int(20) NOT NULL   ;",
+			'name' => "ALTER TABLE  `payroll` ADD  `name` varchar(200) NOT NULL   ;",
+			'template_id' => "ALTER TABLE  `payroll` ADD  `template_id` int(20) NOT NULL   ;",
+			'month' => "ALTER TABLE  `payroll` ADD  `month` int(2) NOT NULL   ;",
+			'year' => "ALTER TABLE  `payroll` ADD  `year` int(4) NOT NULL   ;",
+			'active' => "ALTER TABLE  `payroll` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
+			'lock' => "ALTER TABLE  `payroll` ADD  `lock` int(1) NULL   DEFAULT '0';",
+			'print_format' => "ALTER TABLE  `payroll` ADD  `print_format` varchar(50) NULL   ;",
+			'group_by' => "ALTER TABLE  `payroll` ADD  `group_by` varchar(50) NOT NULL   DEFAULT 'group';",
+			'checked_by' => "ALTER TABLE  `payroll` ADD  `checked_by` int(20) NULL   ;",
+			'approved_by' => "ALTER TABLE  `payroll` ADD  `approved_by` int(20) NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

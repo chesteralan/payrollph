@@ -18,19 +18,19 @@ CREATE TABLE `payroll_employees` (
   `position_id` int(20) DEFAULT NULL,
   `area_id` int(20) DEFAULT NULL,
   KEY `name_id` (`payroll_id`,`name_id`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `payroll_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `name_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `order` int(2) NOT NULL   DEFAULT '0';
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `payslip` varchar(20) NULL   DEFAULT 'payslip';
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `template` varchar(20) NULL   DEFAULT 'payslip';
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `print_group` int(20) NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `active` int(1) NULL   DEFAULT '1';
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `status_id` int(20) NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `group_id` int(20) NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `position_id` int(20) NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `area_id` int(20) NULL   ;
+ALTER TABLE  `payroll_employees` ADD  `payroll_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_employees` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_employees` ADD  `order` int(2) NOT NULL   DEFAULT '0';
+ALTER TABLE  `payroll_employees` ADD  `payslip` varchar(20) NULL   DEFAULT 'payslip';
+ALTER TABLE  `payroll_employees` ADD  `template` varchar(20) NULL   DEFAULT 'payslip';
+ALTER TABLE  `payroll_employees` ADD  `print_group` int(20) NULL   ;
+ALTER TABLE  `payroll_employees` ADD  `active` int(1) NULL   DEFAULT '1';
+ALTER TABLE  `payroll_employees` ADD  `status_id` int(20) NULL   ;
+ALTER TABLE  `payroll_employees` ADD  `group_id` int(20) NULL   ;
+ALTER TABLE  `payroll_employees` ADD  `position_id` int(20) NULL   ;
+ALTER TABLE  `payroll_employees` ADD  `area_id` int(20) NULL   ;
 
 
  * @package			        Model
@@ -39,7 +39,7 @@ ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `area_id` int(20)
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Payroll_employees_model extends MY_Model {
@@ -436,17 +436,17 @@ class Payroll_employees_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'payroll_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `payroll_id` int(20) NOT NULL   ;",
-			'name_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `name_id` int(20) NOT NULL   ;",
-			'order' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `order` int(2) NOT NULL   DEFAULT '0';",
-			'payslip' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `payslip` varchar(20) NULL   DEFAULT 'payslip';",
-			'template' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `template` varchar(20) NULL   DEFAULT 'payslip';",
-			'print_group' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `print_group` int(20) NULL   ;",
-			'active' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `active` int(1) NULL   DEFAULT '1';",
-			'status_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `status_id` int(20) NULL   ;",
-			'group_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `group_id` int(20) NULL   ;",
-			'position_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `position_id` int(20) NULL   ;",
-			'area_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees` ADD  `area_id` int(20) NULL   ;",
+			'payroll_id' => "ALTER TABLE  `payroll_employees` ADD  `payroll_id` int(20) NOT NULL   ;",
+			'name_id' => "ALTER TABLE  `payroll_employees` ADD  `name_id` int(20) NOT NULL   ;",
+			'order' => "ALTER TABLE  `payroll_employees` ADD  `order` int(2) NOT NULL   DEFAULT '0';",
+			'payslip' => "ALTER TABLE  `payroll_employees` ADD  `payslip` varchar(20) NULL   DEFAULT 'payslip';",
+			'template' => "ALTER TABLE  `payroll_employees` ADD  `template` varchar(20) NULL   DEFAULT 'payslip';",
+			'print_group' => "ALTER TABLE  `payroll_employees` ADD  `print_group` int(20) NULL   ;",
+			'active' => "ALTER TABLE  `payroll_employees` ADD  `active` int(1) NULL   DEFAULT '1';",
+			'status_id' => "ALTER TABLE  `payroll_employees` ADD  `status_id` int(20) NULL   ;",
+			'group_id' => "ALTER TABLE  `payroll_employees` ADD  `group_id` int(20) NULL   ;",
+			'position_id' => "ALTER TABLE  `payroll_employees` ADD  `position_id` int(20) NULL   ;",
+			'area_id' => "ALTER TABLE  `payroll_employees` ADD  `area_id` int(20) NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

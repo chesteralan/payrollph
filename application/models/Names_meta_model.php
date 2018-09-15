@@ -12,12 +12,12 @@ CREATE TABLE `names_meta` (
   `meta_value` text,
   PRIMARY KEY (`meta_id`),
   KEY `name_id` (`name_id`)
-);
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`names_meta` ADD  `meta_id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `{$this->_db->database}`.`names_meta` ADD  `name_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`names_meta` ADD  `meta_key` varchar(200) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`names_meta` ADD  `meta_value` text NULL   ;
+ALTER TABLE  `names_meta` ADD  `meta_id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `names_meta` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `names_meta` ADD  `meta_key` varchar(200) NOT NULL   ;
+ALTER TABLE  `names_meta` ADD  `meta_value` text NULL   ;
 
 
  * @package			        Model
@@ -26,7 +26,7 @@ ALTER TABLE  `{$this->_db->database}`.`names_meta` ADD  `meta_value` text NULL  
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Names_meta_model extends MY_Model {
@@ -192,10 +192,10 @@ class Names_meta_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'meta_id' => "ALTER TABLE  `{$this->_db->database}`.`names_meta` ADD  `meta_id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'name_id' => "ALTER TABLE  `{$this->_db->database}`.`names_meta` ADD  `name_id` int(20) NOT NULL   ;",
-			'meta_key' => "ALTER TABLE  `{$this->_db->database}`.`names_meta` ADD  `meta_key` varchar(200) NOT NULL   ;",
-			'meta_value' => "ALTER TABLE  `{$this->_db->database}`.`names_meta` ADD  `meta_value` text NULL   ;",
+			'meta_id' => "ALTER TABLE  `names_meta` ADD  `meta_id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'name_id' => "ALTER TABLE  `names_meta` ADD  `name_id` int(20) NOT NULL   ;",
+			'meta_key' => "ALTER TABLE  `names_meta` ADD  `meta_key` varchar(200) NOT NULL   ;",
+			'meta_value' => "ALTER TABLE  `names_meta` ADD  `meta_value` text NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

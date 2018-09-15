@@ -30,7 +30,7 @@
 <?php if( isset($payroll_groups) && $payroll_groups ) { ?>
   
   <?php foreach($payroll_groups as $payroll_group) { ?>
- <?php if($payroll_group->employees) { ?>
+
           <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
               <tr class="warning">
@@ -60,9 +60,8 @@
               </tr>
             </thead>
             <tbody>
-            
-<?php 
-              foreach($payroll_group->employees as $employee) {
+ <?php if($payroll_group->employees) { ?>
+<?php foreach($payroll_group->employees as $employee) {
 $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
               ?>
@@ -105,10 +104,10 @@ $leave_in_days = ($employee->$var1) ? ($employee->$var1 / $working_hours) : 0;
                 <td class="text-right"><?php $present_days = $inclusive_dates->working_days - $days_absent; echo $present_days; ?></td>
               </tr>
 <?php } ?>
-
+<?php } ?>
             </tbody>
           </table>
-<?php } ?>
+
     <?php } ?>
 <?php } else { ?>
 

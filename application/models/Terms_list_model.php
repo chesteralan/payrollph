@@ -13,14 +13,14 @@ CREATE TABLE `terms_list` (
   `trash` int(1) DEFAULT '0',
   `priority` int(3) DEFAULT '0',
   PRIMARY KEY (`id`)
-);
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`terms_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `{$this->_db->database}`.`terms_list` ADD  `name` varchar(200) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`terms_list` ADD  `notes` text NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`terms_list` ADD  `type` varchar(50) NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`terms_list` ADD  `trash` int(1) NULL   DEFAULT '0';
-ALTER TABLE  `{$this->_db->database}`.`terms_list` ADD  `priority` int(3) NULL   DEFAULT '0';
+ALTER TABLE  `terms_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `terms_list` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `terms_list` ADD  `notes` text NULL   ;
+ALTER TABLE  `terms_list` ADD  `type` varchar(50) NULL   ;
+ALTER TABLE  `terms_list` ADD  `trash` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `terms_list` ADD  `priority` int(3) NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -29,7 +29,7 @@ ALTER TABLE  `{$this->_db->database}`.`terms_list` ADD  `priority` int(3) NULL  
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Terms_list_model extends MY_Model {
@@ -261,12 +261,12 @@ class Terms_list_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `{$this->_db->database}`.`terms_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'name' => "ALTER TABLE  `{$this->_db->database}`.`terms_list` ADD  `name` varchar(200) NOT NULL   ;",
-			'notes' => "ALTER TABLE  `{$this->_db->database}`.`terms_list` ADD  `notes` text NULL   ;",
-			'type' => "ALTER TABLE  `{$this->_db->database}`.`terms_list` ADD  `type` varchar(50) NULL   ;",
-			'trash' => "ALTER TABLE  `{$this->_db->database}`.`terms_list` ADD  `trash` int(1) NULL   DEFAULT '0';",
-			'priority' => "ALTER TABLE  `{$this->_db->database}`.`terms_list` ADD  `priority` int(3) NULL   DEFAULT '0';",
+			'id' => "ALTER TABLE  `terms_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'name' => "ALTER TABLE  `terms_list` ADD  `name` varchar(200) NOT NULL   ;",
+			'notes' => "ALTER TABLE  `terms_list` ADD  `notes` text NULL   ;",
+			'type' => "ALTER TABLE  `terms_list` ADD  `type` varchar(50) NULL   ;",
+			'trash' => "ALTER TABLE  `terms_list` ADD  `trash` int(1) NULL   DEFAULT '0';",
+			'priority' => "ALTER TABLE  `terms_list` ADD  `priority` int(3) NULL   DEFAULT '0';",
 		);
 
 		if( isset( $column[$field_name] ) ) {

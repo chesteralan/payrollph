@@ -11,12 +11,12 @@ CREATE TABLE `employees_contacts` (
   `cell_number` varchar(50) DEFAULT NULL,
   `address` varchar(200) DEFAULT NULL,
   UNIQUE KEY `name_id` (`name_id`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`employees_contacts` ADD  `name_id` int(20) NOT NULL   PRIMARY KEY;
-ALTER TABLE  `{$this->_db->database}`.`employees_contacts` ADD  `phone_number` varchar(50) NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_contacts` ADD  `cell_number` varchar(50) NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_contacts` ADD  `address` varchar(200) NULL   ;
+ALTER TABLE  `employees_contacts` ADD  `name_id` int(20) NOT NULL   PRIMARY KEY;
+ALTER TABLE  `employees_contacts` ADD  `phone_number` varchar(50) NULL   ;
+ALTER TABLE  `employees_contacts` ADD  `cell_number` varchar(50) NULL   ;
+ALTER TABLE  `employees_contacts` ADD  `address` varchar(200) NULL   ;
 
 
  * @package			        Model
@@ -25,7 +25,7 @@ ALTER TABLE  `{$this->_db->database}`.`employees_contacts` ADD  `address` varcha
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Employees_contacts_model extends MY_Model {
@@ -191,10 +191,10 @@ class Employees_contacts_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'name_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_contacts` ADD  `name_id` int(20) NOT NULL   PRIMARY KEY;",
-			'phone_number' => "ALTER TABLE  `{$this->_db->database}`.`employees_contacts` ADD  `phone_number` varchar(50) NULL   ;",
-			'cell_number' => "ALTER TABLE  `{$this->_db->database}`.`employees_contacts` ADD  `cell_number` varchar(50) NULL   ;",
-			'address' => "ALTER TABLE  `{$this->_db->database}`.`employees_contacts` ADD  `address` varchar(200) NULL   ;",
+			'name_id' => "ALTER TABLE  `employees_contacts` ADD  `name_id` int(20) NOT NULL   PRIMARY KEY;",
+			'phone_number' => "ALTER TABLE  `employees_contacts` ADD  `phone_number` varchar(50) NULL   ;",
+			'cell_number' => "ALTER TABLE  `employees_contacts` ADD  `cell_number` varchar(50) NULL   ;",
+			'address' => "ALTER TABLE  `employees_contacts` ADD  `address` varchar(200) NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

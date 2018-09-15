@@ -136,6 +136,16 @@ class Payroll extends MY_Controller {
 				$payroll = new $this->Payroll_model;
 				$payroll->setName($this->input->post('name'));
 				$payroll->setTemplateId($this->input->post('template_id'));
+
+				$template = new $this->Payroll_templates_model;
+				$template->setId($this->input->post('template_id'),true);
+				$template_data = $template->get();
+
+				$payroll->setPrintFormat($template_data->print_format);
+				$payroll->setGroupBy($template_data->group_by);
+				$payroll->setCheckedBy($template_data->checked_by);
+				$payroll->setApprovedBy($template_data->approved_by);
+
 				$payroll->setMonth($this->input->post('month'));
 				$payroll->setYear($this->input->post('year'));
 				$payroll->setCompanyId($this->session->userdata('current_company_id'));
@@ -173,15 +183,31 @@ class Payroll extends MY_Controller {
 				$this->form_validation->set_rules('name', 'Template Name', 'trim|required');
 				if( $this->form_validation->run() ) {
 					$payroll->setName($this->input->post('name'),false,true);
+
 					$payroll->setTemplateId($this->input->post('template_id'),false,true);
+
+					$payroll->setPrintFormat($this->input->post('print_format'),false,true);
+					$payroll->setGroupBy($this->input->post('group_by'),false,true);
+					$payroll->setCheckedBy($this->input->post('checked_by'),false,true);
+					$payroll->setApprovedBy($this->input->post('approved_by'),false,true);
+
 					$payroll->setMonth($this->input->post('month'),false,true);
 					$payroll->setYear($this->input->post('year'),false,true);
 					$payroll->setLock((($this->input->post('lock'))?1:0),false,true);
+					
 					$payroll->update();
 				}
 				$this->postNext();
 			}
 		}
+
+		$payroll->set_join('names_list cnl', 'cnl.id=payroll.checked_by');
+		$payroll->set_join('names_list anl', 'anl.id=payroll.approved_by');
+
+		$payroll->set_select('payroll.*');
+		$payroll->set_select('cnl.full_name as checked_by_name');
+		$payroll->set_select('anl.full_name as approved_by_name');
+
 		$this->template_data->set('payroll', $payroll->get());
 
 		$templates = new $this->Payroll_templates_model;
@@ -792,6 +818,34 @@ class Payroll extends MY_Controller {
 					$pemployee->set_exclude('print_group');
 				}
 
+				$group = $this->input->post('group');
+				if( isset($group[$name_id]) ) {
+					$pemployee->setGroupId($group[$name_id]);
+				} else {
+					$pemployee->set_exclude('group_id');
+				}
+
+				$position = $this->input->post('position');
+				if( isset($position[$name_id]) ) {
+					$pemployee->setPositionId($position[$name_id]);
+				} else {
+					$pemployee->set_exclude('position_id');
+				}
+
+				$area = $this->input->post('area');
+				if( isset($area[$name_id]) ) {
+					$pemployee->setAreaId($area[$name_id]);
+				} else {
+					$pemployee->set_exclude('area_id');
+				}
+
+				$status = $this->input->post('status');
+				if( isset($status[$name_id]) ) {
+					$pemployee->setStatusId($status[$name_id]);
+				} else {
+					$pemployee->set_exclude('status_id');
+				}
+
 				if( $pemployee->nonEmpty() ) {
 					$pemployee->set_exclude(array('payroll_id','name_id'));
 					$pemployee->update();
@@ -817,6 +871,9 @@ class Payroll extends MY_Controller {
 		$employees->set_select('pe.template');
 		$employees->set_select('pe.print_group');
 		$employees->set_select('pe.order'); 
+		
+		$employees->set_select('pe.group_id as group_id2');
+
 		$employees->set_join('names_info ni', 'ni.name_id=e.name_id');
 		$employees->set_select('ni.lastname');
 		$employees->set_select('ni.firstname');
@@ -824,6 +881,9 @@ class Payroll extends MY_Controller {
 		$employees->set_order('pe.order', 'ASC');
 		if( $this->input->get('action') == 'sort') {
 			$employees->set_where('pe.active', 1);
+		}
+		if( $this->input->get('action') == 'add_employee') {
+			$employees->set_where('pe.active', 0);
 		} 
 		$employees_data = $employees->populate();
 		$this->template_data->set('employees', $employees_data);
@@ -836,6 +896,42 @@ class Payroll extends MY_Controller {
 		$print_groups->setTrash('0',true);
 		$print_groups->setType('print_group',true);
 		$this->template_data->set('print_groups', $print_groups->populate());
+
+		$groups = new $this->Employees_groups_model;
+		$groups->setCompanyId($this->session->userdata('current_company_id'),true);
+		$groups->setTrash(0,true);
+		$groups->set_select("*");
+		$groups->set_limit(0);
+		$groups->set_select("(SELECT COUNT(*) FROM `employees` WHERE group_id=employees_groups.id) as employees_count");
+		$groups->set_order('name', 'ASC');
+		$this->template_data->set('groups', $groups->populate());
+
+		$areas = new $this->Employees_areas_model;
+		$areas->setCompanyId($this->session->userdata('current_company_id'),true);
+		$areas->setTrash(0,true);
+		$areas->set_select("*");
+		$areas->set_limit(0);
+		$areas->set_select("(SELECT COUNT(*) FROM `employees` WHERE area_id=employees_areas.id) as employees_count");
+		$areas->set_order('name', 'ASC');
+		$this->template_data->set('areas', $areas->populate());
+
+		$positions = new $this->Employees_positions_model;
+		$positions->setCompanyId($this->session->userdata('current_company_id'),true);
+		$positions->setTrash(0,true);
+		$positions->set_select("*");
+		$positions->set_limit(0);
+		$positions->set_select("(SELECT COUNT(*) FROM `employees` WHERE position_id=employees_positions.id) as employees_count");
+		$positions->set_order('name', 'ASC');
+		$this->template_data->set('positions', $positions->populate());
+
+		$terms = new $this->Terms_list_model;
+		$terms->set_select("*");
+		$terms->set_order('priority', 'ASC');
+		$terms->set_order('name', 'ASC');
+		$terms->set_start(0);
+		$terms->setTrash('0',true);
+		$terms->setType('employment_status',true);
+		$this->template_data->set('employment_status', $terms->populate());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/payroll_employees', $this->template_data->get_data());

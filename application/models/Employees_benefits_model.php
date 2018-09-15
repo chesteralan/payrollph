@@ -19,18 +19,18 @@ CREATE TABLE `employees_benefits` (
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`benefit_id`),
   KEY `company_id` (`company_id`)
-);
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `company_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `name_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `benefit_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `employee_share` decimal(30,5) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `employer_share` decimal(30,5) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `start_date` date NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `primary` int(1) NULL   DEFAULT '0';
-ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `trash` int(1) NULL   DEFAULT '1';
-ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `notes` text NULL   ;
+ALTER TABLE  `employees_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `employees_benefits` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_benefits` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_benefits` ADD  `benefit_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_benefits` ADD  `employee_share` decimal(30,5) NOT NULL   ;
+ALTER TABLE  `employees_benefits` ADD  `employer_share` decimal(30,5) NOT NULL   ;
+ALTER TABLE  `employees_benefits` ADD  `start_date` date NULL   ;
+ALTER TABLE  `employees_benefits` ADD  `primary` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `employees_benefits` ADD  `trash` int(1) NULL   DEFAULT '1';
+ALTER TABLE  `employees_benefits` ADD  `notes` text NULL   ;
 
 
  * @package			        Model
@@ -39,7 +39,7 @@ ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `notes` text NUL
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Employees_benefits_model extends MY_Model {
@@ -403,16 +403,16 @@ class Employees_benefits_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'company_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `company_id` int(20) NOT NULL   ;",
-			'name_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `name_id` int(20) NOT NULL   ;",
-			'benefit_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `benefit_id` int(20) NOT NULL   ;",
-			'employee_share' => "ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `employee_share` decimal(30,5) NOT NULL   ;",
-			'employer_share' => "ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `employer_share` decimal(30,5) NOT NULL   ;",
-			'start_date' => "ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `start_date` date NULL   ;",
-			'primary' => "ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `primary` int(1) NULL   DEFAULT '0';",
-			'trash' => "ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `trash` int(1) NULL   DEFAULT '1';",
-			'notes' => "ALTER TABLE  `{$this->_db->database}`.`employees_benefits` ADD  `notes` text NULL   ;",
+			'id' => "ALTER TABLE  `employees_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'company_id' => "ALTER TABLE  `employees_benefits` ADD  `company_id` int(20) NOT NULL   ;",
+			'name_id' => "ALTER TABLE  `employees_benefits` ADD  `name_id` int(20) NOT NULL   ;",
+			'benefit_id' => "ALTER TABLE  `employees_benefits` ADD  `benefit_id` int(20) NOT NULL   ;",
+			'employee_share' => "ALTER TABLE  `employees_benefits` ADD  `employee_share` decimal(30,5) NOT NULL   ;",
+			'employer_share' => "ALTER TABLE  `employees_benefits` ADD  `employer_share` decimal(30,5) NOT NULL   ;",
+			'start_date' => "ALTER TABLE  `employees_benefits` ADD  `start_date` date NULL   ;",
+			'primary' => "ALTER TABLE  `employees_benefits` ADD  `primary` int(1) NULL   DEFAULT '0';",
+			'trash' => "ALTER TABLE  `employees_benefits` ADD  `trash` int(1) NULL   DEFAULT '1';",
+			'notes' => "ALTER TABLE  `employees_benefits` ADD  `notes` text NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

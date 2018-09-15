@@ -13,13 +13,13 @@ CREATE TABLE `employees_areas` (
   `name` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`)
-);
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `company_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `trash` int(1) NOT NULL   DEFAULT '0';
-ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `notes` text NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `employees_areas` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `employees_areas` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_areas` ADD  `trash` int(1) NOT NULL   DEFAULT '0';
+ALTER TABLE  `employees_areas` ADD  `notes` text NULL   ;
+ALTER TABLE  `employees_areas` ADD  `name` varchar(200) NOT NULL   ;
 
 
  * @package			        Model
@@ -28,7 +28,7 @@ ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `name` varchar(200)
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Employees_areas_model extends MY_Model {
@@ -227,11 +227,11 @@ class Employees_areas_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'company_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `company_id` int(20) NOT NULL   ;",
-			'trash' => "ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `trash` int(1) NOT NULL   DEFAULT '0';",
-			'notes' => "ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `notes` text NULL   ;",
-			'name' => "ALTER TABLE  `{$this->_db->database}`.`employees_areas` ADD  `name` varchar(200) NOT NULL   ;",
+			'id' => "ALTER TABLE  `employees_areas` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'company_id' => "ALTER TABLE  `employees_areas` ADD  `company_id` int(20) NOT NULL   ;",
+			'trash' => "ALTER TABLE  `employees_areas` ADD  `trash` int(1) NOT NULL   DEFAULT '0';",
+			'notes' => "ALTER TABLE  `employees_areas` ADD  `notes` text NULL   ;",
+			'name' => "ALTER TABLE  `employees_areas` ADD  `name` varchar(200) NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

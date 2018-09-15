@@ -14,15 +14,15 @@ CREATE TABLE `earnings_list` (
   `trash` int(1) DEFAULT '0',
   `abbr` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-);
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`earnings_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `{$this->_db->database}`.`earnings_list` ADD  `name` varchar(200) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`earnings_list` ADD  `notes` text NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`earnings_list` ADD  `account_title` varchar(200) NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`earnings_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';
-ALTER TABLE  `{$this->_db->database}`.`earnings_list` ADD  `trash` int(1) NULL   DEFAULT '0';
-ALTER TABLE  `{$this->_db->database}`.`earnings_list` ADD  `abbr` varchar(100) NULL   ;
+ALTER TABLE  `earnings_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `earnings_list` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `earnings_list` ADD  `notes` text NULL   ;
+ALTER TABLE  `earnings_list` ADD  `account_title` varchar(200) NULL   ;
+ALTER TABLE  `earnings_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';
+ALTER TABLE  `earnings_list` ADD  `trash` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `earnings_list` ADD  `abbr` varchar(100) NULL   ;
 
 
  * @package			        Model
@@ -31,7 +31,7 @@ ALTER TABLE  `{$this->_db->database}`.`earnings_list` ADD  `abbr` varchar(100) N
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Earnings_list_model extends MY_Model {
@@ -296,13 +296,13 @@ class Earnings_list_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `{$this->_db->database}`.`earnings_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'name' => "ALTER TABLE  `{$this->_db->database}`.`earnings_list` ADD  `name` varchar(200) NOT NULL   ;",
-			'notes' => "ALTER TABLE  `{$this->_db->database}`.`earnings_list` ADD  `notes` text NULL   ;",
-			'account_title' => "ALTER TABLE  `{$this->_db->database}`.`earnings_list` ADD  `account_title` varchar(200) NULL   ;",
-			'active' => "ALTER TABLE  `{$this->_db->database}`.`earnings_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
-			'trash' => "ALTER TABLE  `{$this->_db->database}`.`earnings_list` ADD  `trash` int(1) NULL   DEFAULT '0';",
-			'abbr' => "ALTER TABLE  `{$this->_db->database}`.`earnings_list` ADD  `abbr` varchar(100) NULL   ;",
+			'id' => "ALTER TABLE  `earnings_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'name' => "ALTER TABLE  `earnings_list` ADD  `name` varchar(200) NOT NULL   ;",
+			'notes' => "ALTER TABLE  `earnings_list` ADD  `notes` text NULL   ;",
+			'account_title' => "ALTER TABLE  `earnings_list` ADD  `account_title` varchar(200) NULL   ;",
+			'active' => "ALTER TABLE  `earnings_list` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
+			'trash' => "ALTER TABLE  `earnings_list` ADD  `trash` int(1) NULL   DEFAULT '0';",
+			'abbr' => "ALTER TABLE  `earnings_list` ADD  `abbr` varchar(100) NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

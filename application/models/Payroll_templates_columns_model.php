@@ -10,11 +10,11 @@ CREATE TABLE `payroll_templates_columns` (
   `term_id` int(20) NOT NULL,
   `column_id` varchar(200) NOT NULL,
   KEY `term_id` (`term_id`,`template_id`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`payroll_templates_columns` ADD  `template_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_templates_columns` ADD  `term_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_templates_columns` ADD  `column_id` varchar(200) NOT NULL   ;
+ALTER TABLE  `payroll_templates_columns` ADD  `template_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_templates_columns` ADD  `term_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_templates_columns` ADD  `column_id` varchar(200) NOT NULL   ;
 
 
  * @package			        Model
@@ -23,7 +23,7 @@ ALTER TABLE  `{$this->_db->database}`.`payroll_templates_columns` ADD  `column_i
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Payroll_templates_columns_model extends MY_Model {
@@ -156,9 +156,9 @@ class Payroll_templates_columns_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'template_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_columns` ADD  `template_id` int(20) NOT NULL   ;",
-			'term_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_columns` ADD  `term_id` int(20) NOT NULL   ;",
-			'column_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_columns` ADD  `column_id` varchar(200) NOT NULL   ;",
+			'template_id' => "ALTER TABLE  `payroll_templates_columns` ADD  `template_id` int(20) NOT NULL   ;",
+			'term_id' => "ALTER TABLE  `payroll_templates_columns` ADD  `term_id` int(20) NOT NULL   ;",
+			'column_id' => "ALTER TABLE  `payroll_templates_columns` ADD  `column_id` varchar(200) NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

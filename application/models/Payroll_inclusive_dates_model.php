@@ -9,10 +9,10 @@ CREATE TABLE `payroll_inclusive_dates` (
   `payroll_id` int(20) NOT NULL,
   `inclusive_date` date NOT NULL,
   KEY `payroll_id` (`payroll_id`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`payroll_inclusive_dates` ADD  `payroll_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_inclusive_dates` ADD  `inclusive_date` date NOT NULL   ;
+ALTER TABLE  `payroll_inclusive_dates` ADD  `payroll_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_inclusive_dates` ADD  `inclusive_date` date NOT NULL   ;
 
 
  * @package			        Model
@@ -21,7 +21,7 @@ ALTER TABLE  `{$this->_db->database}`.`payroll_inclusive_dates` ADD  `inclusive_
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Payroll_inclusive_dates_model extends MY_Model {
@@ -121,8 +121,8 @@ class Payroll_inclusive_dates_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'payroll_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_inclusive_dates` ADD  `payroll_id` int(20) NOT NULL   ;",
-			'inclusive_date' => "ALTER TABLE  `{$this->_db->database}`.`payroll_inclusive_dates` ADD  `inclusive_date` date NOT NULL   ;",
+			'payroll_id' => "ALTER TABLE  `payroll_inclusive_dates` ADD  `payroll_id` int(20) NOT NULL   ;",
+			'inclusive_date' => "ALTER TABLE  `payroll_inclusive_dates` ADD  `inclusive_date` date NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

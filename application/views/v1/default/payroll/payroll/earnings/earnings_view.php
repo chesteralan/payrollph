@@ -59,7 +59,7 @@ if( isset($compare_payroll) ) {
 ?>
 
   <?php foreach($payroll_groups as $payroll_group) { ?>
- <?php if($payroll_group->employees) { ?>
+ 
           <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
               <tr class="warning">
@@ -100,10 +100,8 @@ if( isset($compare_payroll) ) {
               </tr>
             </thead>
             <tbody>
-            
-<?php 
-  
-              foreach($payroll_group->employees as $employee) { 
+<?php if($payroll_group->employees) { ?>
+<?php foreach($payroll_group->employees as $employee) { 
               ?>
               <tr>
                 <td>
@@ -158,10 +156,10 @@ $total['difference'] += $dif;
 <?php } ?>
               </tr>
 <?php } ?>
-
+<?php } ?>
             </tbody>
           </table>
-<?php } ?>
+
     <?php } ?>
 <?php if( !$this->session->userdata('current_employee') ) { ?>
     <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">

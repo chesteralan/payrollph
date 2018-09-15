@@ -44,7 +44,7 @@ $total_gross_pay = 0;
 <?php if( $payroll_groups ) { ?>
   
   <?php foreach($payroll_groups as $payroll_group) { ?>
- <?php if($payroll_group->employees) { ?>
+ 
           <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
               <tr class="warning">
@@ -77,9 +77,8 @@ $total_gross_pay = 0;
               </tr>
             </thead>
             <tbody>
-            
-<?php 
-foreach($payroll_group->employees as $employee) { 
+<?php if($payroll_group->employees) { ?>
+<?php foreach($payroll_group->employees as $employee) { 
 
 $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
@@ -177,10 +176,10 @@ $total_gross_pay += $employee_gross_pay;
                 <td class="text-right"><?php echo number_format($employee_gross_pay,2); ?></td>
               </tr>
 <?php } ?>
-
+<?php } ?>
             </tbody>
           </table>
-<?php } ?>
+
     <?php } ?>
 <?php if( !$this->session->userdata('current_employee') ) { ?>
     <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">

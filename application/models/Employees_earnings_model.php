@@ -21,20 +21,20 @@ CREATE TABLE `employees_earnings` (
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`earning_id`),
   KEY `company_id` (`company_id`)
-);
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `company_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `name_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `earning_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `amount` decimal(30,5) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `max_amount` decimal(30,5) NULL   DEFAULT '0.00000';
-ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `start_date` date NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `computed` varchar(10) NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `active` int(1) NULL   DEFAULT '0';
-ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `trash` int(1) NULL   DEFAULT '0';
-ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `notes` text NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `multiplier` varchar(50) NULL   ;
+ALTER TABLE  `employees_earnings` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `employees_earnings` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_earnings` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_earnings` ADD  `earning_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_earnings` ADD  `amount` decimal(30,5) NOT NULL   ;
+ALTER TABLE  `employees_earnings` ADD  `max_amount` decimal(30,5) NULL   DEFAULT '0.00000';
+ALTER TABLE  `employees_earnings` ADD  `start_date` date NULL   ;
+ALTER TABLE  `employees_earnings` ADD  `computed` varchar(10) NULL   ;
+ALTER TABLE  `employees_earnings` ADD  `active` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `employees_earnings` ADD  `trash` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `employees_earnings` ADD  `notes` text NULL   ;
+ALTER TABLE  `employees_earnings` ADD  `multiplier` varchar(50) NULL   ;
 
 
  * @package			        Model
@@ -43,7 +43,7 @@ ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `multiplier` var
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Employees_earnings_model extends MY_Model {
@@ -473,18 +473,18 @@ class Employees_earnings_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'company_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `company_id` int(20) NOT NULL   ;",
-			'name_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `name_id` int(20) NOT NULL   ;",
-			'earning_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `earning_id` int(20) NOT NULL   ;",
-			'amount' => "ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `amount` decimal(30,5) NOT NULL   ;",
-			'max_amount' => "ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `max_amount` decimal(30,5) NULL   DEFAULT '0.00000';",
-			'start_date' => "ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `start_date` date NULL   ;",
-			'computed' => "ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `computed` varchar(10) NULL   ;",
-			'active' => "ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `active` int(1) NULL   DEFAULT '0';",
-			'trash' => "ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `trash` int(1) NULL   DEFAULT '0';",
-			'notes' => "ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `notes` text NULL   ;",
-			'multiplier' => "ALTER TABLE  `{$this->_db->database}`.`employees_earnings` ADD  `multiplier` varchar(50) NULL   ;",
+			'id' => "ALTER TABLE  `employees_earnings` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'company_id' => "ALTER TABLE  `employees_earnings` ADD  `company_id` int(20) NOT NULL   ;",
+			'name_id' => "ALTER TABLE  `employees_earnings` ADD  `name_id` int(20) NOT NULL   ;",
+			'earning_id' => "ALTER TABLE  `employees_earnings` ADD  `earning_id` int(20) NOT NULL   ;",
+			'amount' => "ALTER TABLE  `employees_earnings` ADD  `amount` decimal(30,5) NOT NULL   ;",
+			'max_amount' => "ALTER TABLE  `employees_earnings` ADD  `max_amount` decimal(30,5) NULL   DEFAULT '0.00000';",
+			'start_date' => "ALTER TABLE  `employees_earnings` ADD  `start_date` date NULL   ;",
+			'computed' => "ALTER TABLE  `employees_earnings` ADD  `computed` varchar(10) NULL   ;",
+			'active' => "ALTER TABLE  `employees_earnings` ADD  `active` int(1) NULL   DEFAULT '0';",
+			'trash' => "ALTER TABLE  `employees_earnings` ADD  `trash` int(1) NULL   DEFAULT '0';",
+			'notes' => "ALTER TABLE  `employees_earnings` ADD  `notes` text NULL   ;",
+			'multiplier' => "ALTER TABLE  `employees_earnings` ADD  `multiplier` varchar(50) NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

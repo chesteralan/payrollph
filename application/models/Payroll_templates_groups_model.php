@@ -11,12 +11,12 @@ CREATE TABLE `payroll_templates_groups` (
   `order` int(2) NOT NULL DEFAULT '0',
   `page` int(2) DEFAULT '1',
   KEY `template_id` (`template_id`,`group_id`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`payroll_templates_groups` ADD  `template_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_templates_groups` ADD  `group_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_templates_groups` ADD  `order` int(2) NOT NULL   DEFAULT '0';
-ALTER TABLE  `{$this->_db->database}`.`payroll_templates_groups` ADD  `page` int(2) NULL   DEFAULT '1';
+ALTER TABLE  `payroll_templates_groups` ADD  `template_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_templates_groups` ADD  `group_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_templates_groups` ADD  `order` int(2) NOT NULL   DEFAULT '0';
+ALTER TABLE  `payroll_templates_groups` ADD  `page` int(2) NULL   DEFAULT '1';
 
 
  * @package			        Model
@@ -25,7 +25,7 @@ ALTER TABLE  `{$this->_db->database}`.`payroll_templates_groups` ADD  `page` int
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Payroll_templates_groups_model extends MY_Model {
@@ -191,10 +191,10 @@ class Payroll_templates_groups_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'template_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_groups` ADD  `template_id` int(20) NOT NULL   ;",
-			'group_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_groups` ADD  `group_id` int(20) NOT NULL   ;",
-			'order' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_groups` ADD  `order` int(2) NOT NULL   DEFAULT '0';",
-			'page' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates_groups` ADD  `page` int(2) NULL   DEFAULT '1';",
+			'template_id' => "ALTER TABLE  `payroll_templates_groups` ADD  `template_id` int(20) NOT NULL   ;",
+			'group_id' => "ALTER TABLE  `payroll_templates_groups` ADD  `group_id` int(20) NOT NULL   ;",
+			'order' => "ALTER TABLE  `payroll_templates_groups` ADD  `order` int(2) NOT NULL   DEFAULT '0';",
+			'page' => "ALTER TABLE  `payroll_templates_groups` ADD  `page` int(2) NULL   DEFAULT '1';",
 		);
 
 		if( isset( $column[$field_name] ) ) {

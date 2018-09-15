@@ -23,22 +23,22 @@ CREATE TABLE `employees_salaries` (
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`),
   KEY `company_id` (`company_id`)
-);
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `company_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `name_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `amount` decimal(30,5) NOT NULL   DEFAULT '0.00000';
-ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `rate_per` varchar(10) NOT NULL   DEFAULT 'month';
-ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `days` int(10) NOT NULL   DEFAULT '26';
-ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `annual_days` int(3) NULL   DEFAULT '312';
-ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `months` int(2) NULL   DEFAULT '12';
-ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `hours` int(10) NOT NULL   DEFAULT '8';
-ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `cola` decimal(10,5) NOT NULL   DEFAULT '0.00000';
-ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `notes` text NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `manner` varchar(50) NOT NULL   DEFAULT 'daily';
-ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `primary` int(1) NULL   DEFAULT '0';
-ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `trash` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `employees_salaries` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `employees_salaries` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_salaries` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_salaries` ADD  `amount` decimal(30,5) NOT NULL   DEFAULT '0.00000';
+ALTER TABLE  `employees_salaries` ADD  `rate_per` varchar(10) NOT NULL   DEFAULT 'month';
+ALTER TABLE  `employees_salaries` ADD  `days` int(10) NOT NULL   DEFAULT '26';
+ALTER TABLE  `employees_salaries` ADD  `annual_days` int(3) NULL   DEFAULT '312';
+ALTER TABLE  `employees_salaries` ADD  `months` int(2) NULL   DEFAULT '12';
+ALTER TABLE  `employees_salaries` ADD  `hours` int(10) NOT NULL   DEFAULT '8';
+ALTER TABLE  `employees_salaries` ADD  `cola` decimal(10,5) NOT NULL   DEFAULT '0.00000';
+ALTER TABLE  `employees_salaries` ADD  `notes` text NULL   ;
+ALTER TABLE  `employees_salaries` ADD  `manner` varchar(50) NOT NULL   DEFAULT 'daily';
+ALTER TABLE  `employees_salaries` ADD  `primary` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `employees_salaries` ADD  `trash` int(1) NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -47,7 +47,7 @@ ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `trash` int(1) N
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Employees_salaries_model extends MY_Model {
@@ -543,20 +543,20 @@ class Employees_salaries_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'company_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `company_id` int(20) NOT NULL   ;",
-			'name_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `name_id` int(20) NOT NULL   ;",
-			'amount' => "ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `amount` decimal(30,5) NOT NULL   DEFAULT '0.00000';",
-			'rate_per' => "ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `rate_per` varchar(10) NOT NULL   DEFAULT 'month';",
-			'days' => "ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `days` int(10) NOT NULL   DEFAULT '26';",
-			'annual_days' => "ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `annual_days` int(3) NULL   DEFAULT '312';",
-			'months' => "ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `months` int(2) NULL   DEFAULT '12';",
-			'hours' => "ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `hours` int(10) NOT NULL   DEFAULT '8';",
-			'cola' => "ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `cola` decimal(10,5) NOT NULL   DEFAULT '0.00000';",
-			'notes' => "ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `notes` text NULL   ;",
-			'manner' => "ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `manner` varchar(50) NOT NULL   DEFAULT 'daily';",
-			'primary' => "ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `primary` int(1) NULL   DEFAULT '0';",
-			'trash' => "ALTER TABLE  `{$this->_db->database}`.`employees_salaries` ADD  `trash` int(1) NULL   DEFAULT '0';",
+			'id' => "ALTER TABLE  `employees_salaries` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'company_id' => "ALTER TABLE  `employees_salaries` ADD  `company_id` int(20) NOT NULL   ;",
+			'name_id' => "ALTER TABLE  `employees_salaries` ADD  `name_id` int(20) NOT NULL   ;",
+			'amount' => "ALTER TABLE  `employees_salaries` ADD  `amount` decimal(30,5) NOT NULL   DEFAULT '0.00000';",
+			'rate_per' => "ALTER TABLE  `employees_salaries` ADD  `rate_per` varchar(10) NOT NULL   DEFAULT 'month';",
+			'days' => "ALTER TABLE  `employees_salaries` ADD  `days` int(10) NOT NULL   DEFAULT '26';",
+			'annual_days' => "ALTER TABLE  `employees_salaries` ADD  `annual_days` int(3) NULL   DEFAULT '312';",
+			'months' => "ALTER TABLE  `employees_salaries` ADD  `months` int(2) NULL   DEFAULT '12';",
+			'hours' => "ALTER TABLE  `employees_salaries` ADD  `hours` int(10) NOT NULL   DEFAULT '8';",
+			'cola' => "ALTER TABLE  `employees_salaries` ADD  `cola` decimal(10,5) NOT NULL   DEFAULT '0.00000';",
+			'notes' => "ALTER TABLE  `employees_salaries` ADD  `notes` text NULL   ;",
+			'manner' => "ALTER TABLE  `employees_salaries` ADD  `manner` varchar(50) NOT NULL   DEFAULT 'daily';",
+			'primary' => "ALTER TABLE  `employees_salaries` ADD  `primary` int(1) NULL   DEFAULT '0';",
+			'trash' => "ALTER TABLE  `employees_salaries` ADD  `trash` int(1) NULL   DEFAULT '0';",
 		);
 
 		if( isset( $column[$field_name] ) ) {

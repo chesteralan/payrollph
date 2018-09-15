@@ -67,7 +67,15 @@
               </div>
           </div>
           <div class="col-md-6">
-
+              <div class="form-group">
+                <label>Group By</label>
+                <select name="group_by" class="form-control">
+                    <option value="group" <?php echo ($template->group_by=='group') ? 'SELECTED' : ''; ?>>Group (Default)</option>
+                    <option value="area" <?php echo ($template->group_by=='area') ? 'SELECTED' : ''; ?>>Area</option>
+                    <option value="position" <?php echo ($template->group_by=='position') ? 'SELECTED' : ''; ?>>Position</option>
+                    <option value="status" <?php echo ($template->group_by=='status') ? 'SELECTED' : ''; ?>>Status</option>
+                </select>
+              </div>
           </div>
         </div>
 

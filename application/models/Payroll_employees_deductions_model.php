@@ -15,15 +15,15 @@ CREATE TABLE `payroll_employees_deductions` (
   `notes` text,
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`payroll_id`,`deduction_id`)
-);
+) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees_deductions` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees_deductions` ADD  `payroll_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees_deductions` ADD  `name_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees_deductions` ADD  `deduction_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees_deductions` ADD  `entry_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees_deductions` ADD  `amount` decimal(30,5) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_employees_deductions` ADD  `notes` text NULL   ;
+ALTER TABLE  `payroll_employees_deductions` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `payroll_employees_deductions` ADD  `payroll_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_employees_deductions` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_employees_deductions` ADD  `deduction_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_employees_deductions` ADD  `entry_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_employees_deductions` ADD  `amount` decimal(30,5) NOT NULL   ;
+ALTER TABLE  `payroll_employees_deductions` ADD  `notes` text NULL   ;
 
 
  * @package			        Model
@@ -32,7 +32,7 @@ ALTER TABLE  `{$this->_db->database}`.`payroll_employees_deductions` ADD  `notes
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Payroll_employees_deductions_model extends MY_Model {
@@ -297,13 +297,13 @@ class Payroll_employees_deductions_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_deductions` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'payroll_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_deductions` ADD  `payroll_id` int(20) NOT NULL   ;",
-			'name_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_deductions` ADD  `name_id` int(20) NOT NULL   ;",
-			'deduction_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_deductions` ADD  `deduction_id` int(20) NOT NULL   ;",
-			'entry_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_deductions` ADD  `entry_id` int(20) NOT NULL   ;",
-			'amount' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_deductions` ADD  `amount` decimal(30,5) NOT NULL   ;",
-			'notes' => "ALTER TABLE  `{$this->_db->database}`.`payroll_employees_deductions` ADD  `notes` text NULL   ;",
+			'id' => "ALTER TABLE  `payroll_employees_deductions` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'payroll_id' => "ALTER TABLE  `payroll_employees_deductions` ADD  `payroll_id` int(20) NOT NULL   ;",
+			'name_id' => "ALTER TABLE  `payroll_employees_deductions` ADD  `name_id` int(20) NOT NULL   ;",
+			'deduction_id' => "ALTER TABLE  `payroll_employees_deductions` ADD  `deduction_id` int(20) NOT NULL   ;",
+			'entry_id' => "ALTER TABLE  `payroll_employees_deductions` ADD  `entry_id` int(20) NOT NULL   ;",
+			'amount' => "ALTER TABLE  `payroll_employees_deductions` ADD  `amount` decimal(30,5) NOT NULL   ;",
+			'notes' => "ALTER TABLE  `payroll_employees_deductions` ADD  `notes` text NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

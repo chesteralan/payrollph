@@ -40,7 +40,6 @@ $payslip_templates = array(
 <?php if( $payroll_groups ) { ?>
   
   <?php foreach($payroll_groups as $payroll_group) { ?>
- <?php if($payroll_group->employees) { ?>
           <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
               <tr class="warning">
@@ -53,9 +52,13 @@ $payslip_templates = array(
 <?php } ?>
 <?php } ?>
                 <?php echo $payroll_group->name; ?>
+
 <?php if(!$payroll->lock) { ?>
 <?php if( !$this->session->userdata('current_employee') ) { ?>
  <a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Sort <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll/employees/{$payroll->id}/{$payroll_group->id}/ajax") . "?action=sort&next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-sort"></span></a>
+
+ <a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Employee <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll/employees/{$payroll->id}/{$payroll_group->id}/ajax") . "?action=add_employee&next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-plus"></span></a>
+
 <?php } ?>
 <?php } ?>
                 </th>
@@ -69,7 +72,7 @@ $payslip_templates = array(
               </tr>
             </thead>
             <tbody>
-            
+<?php if($payroll_group->employees) { ?>
 <?php foreach($payroll_group->employees as $employee) { 
 
 
@@ -142,10 +145,11 @@ $payslip_templates = array(
                 </td>
               </tr>
 <?php } ?>
+<?php } ?>
 
             </tbody>
           </table>
-<?php } ?>
+
     <?php } ?>
 
 

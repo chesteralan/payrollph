@@ -10,11 +10,11 @@ CREATE TABLE `payroll_benefits` (
   `benefit_id` int(20) NOT NULL,
   `order` int(2) NOT NULL DEFAULT '0',
   KEY `benefit_id` (`payroll_id`,`benefit_id`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`payroll_benefits` ADD  `payroll_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_benefits` ADD  `benefit_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_benefits` ADD  `order` int(2) NOT NULL   DEFAULT '0';
+ALTER TABLE  `payroll_benefits` ADD  `payroll_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_benefits` ADD  `benefit_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_benefits` ADD  `order` int(2) NOT NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -23,7 +23,7 @@ ALTER TABLE  `{$this->_db->database}`.`payroll_benefits` ADD  `order` int(2) NOT
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Payroll_benefits_model extends MY_Model {
@@ -156,9 +156,9 @@ class Payroll_benefits_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'payroll_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_benefits` ADD  `payroll_id` int(20) NOT NULL   ;",
-			'benefit_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_benefits` ADD  `benefit_id` int(20) NOT NULL   ;",
-			'order' => "ALTER TABLE  `{$this->_db->database}`.`payroll_benefits` ADD  `order` int(2) NOT NULL   DEFAULT '0';",
+			'payroll_id' => "ALTER TABLE  `payroll_benefits` ADD  `payroll_id` int(20) NOT NULL   ;",
+			'benefit_id' => "ALTER TABLE  `payroll_benefits` ADD  `benefit_id` int(20) NOT NULL   ;",
+			'order' => "ALTER TABLE  `payroll_benefits` ADD  `order` int(2) NOT NULL   DEFAULT '0';",
 		);
 
 		if( isset( $column[$field_name] ) ) {

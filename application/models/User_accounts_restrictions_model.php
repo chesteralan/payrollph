@@ -14,15 +14,15 @@ CREATE TABLE `user_accounts_restrictions` (
   `edit` int(1) NOT NULL DEFAULT '0',
   `delete` int(1) NOT NULL DEFAULT '0',
   KEY `uid` (`uid`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`user_accounts_restrictions` ADD  `uid` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`user_accounts_restrictions` ADD  `department` varchar(50) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`user_accounts_restrictions` ADD  `section` varchar(50) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`user_accounts_restrictions` ADD  `view` int(1) NOT NULL   DEFAULT '0';
-ALTER TABLE  `{$this->_db->database}`.`user_accounts_restrictions` ADD  `add` int(1) NOT NULL   DEFAULT '0';
-ALTER TABLE  `{$this->_db->database}`.`user_accounts_restrictions` ADD  `edit` int(1) NOT NULL   DEFAULT '0';
-ALTER TABLE  `{$this->_db->database}`.`user_accounts_restrictions` ADD  `delete` int(1) NOT NULL   DEFAULT '0';
+ALTER TABLE  `user_accounts_restrictions` ADD  `uid` int(20) NOT NULL   ;
+ALTER TABLE  `user_accounts_restrictions` ADD  `department` varchar(50) NOT NULL   ;
+ALTER TABLE  `user_accounts_restrictions` ADD  `section` varchar(50) NOT NULL   ;
+ALTER TABLE  `user_accounts_restrictions` ADD  `view` int(1) NOT NULL   DEFAULT '0';
+ALTER TABLE  `user_accounts_restrictions` ADD  `add` int(1) NOT NULL   DEFAULT '0';
+ALTER TABLE  `user_accounts_restrictions` ADD  `edit` int(1) NOT NULL   DEFAULT '0';
+ALTER TABLE  `user_accounts_restrictions` ADD  `delete` int(1) NOT NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -31,7 +31,7 @@ ALTER TABLE  `{$this->_db->database}`.`user_accounts_restrictions` ADD  `delete`
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class User_accounts_restrictions_model extends MY_Model {
@@ -296,13 +296,13 @@ class User_accounts_restrictions_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'uid' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts_restrictions` ADD  `uid` int(20) NOT NULL   ;",
-			'department' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts_restrictions` ADD  `department` varchar(50) NOT NULL   ;",
-			'section' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts_restrictions` ADD  `section` varchar(50) NOT NULL   ;",
-			'view' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts_restrictions` ADD  `view` int(1) NOT NULL   DEFAULT '0';",
-			'add' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts_restrictions` ADD  `add` int(1) NOT NULL   DEFAULT '0';",
-			'edit' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts_restrictions` ADD  `edit` int(1) NOT NULL   DEFAULT '0';",
-			'delete' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts_restrictions` ADD  `delete` int(1) NOT NULL   DEFAULT '0';",
+			'uid' => "ALTER TABLE  `user_accounts_restrictions` ADD  `uid` int(20) NOT NULL   ;",
+			'department' => "ALTER TABLE  `user_accounts_restrictions` ADD  `department` varchar(50) NOT NULL   ;",
+			'section' => "ALTER TABLE  `user_accounts_restrictions` ADD  `section` varchar(50) NOT NULL   ;",
+			'view' => "ALTER TABLE  `user_accounts_restrictions` ADD  `view` int(1) NOT NULL   DEFAULT '0';",
+			'add' => "ALTER TABLE  `user_accounts_restrictions` ADD  `add` int(1) NOT NULL   DEFAULT '0';",
+			'edit' => "ALTER TABLE  `user_accounts_restrictions` ADD  `edit` int(1) NOT NULL   DEFAULT '0';",
+			'delete' => "ALTER TABLE  `user_accounts_restrictions` ADD  `delete` int(1) NOT NULL   DEFAULT '0';",
 		);
 
 		if( isset( $column[$field_name] ) ) {

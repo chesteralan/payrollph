@@ -12,13 +12,13 @@ CREATE TABLE `employees_absences` (
   `leave_type` int(20) DEFAULT NULL,
   `notes` text,
   KEY `name_id` (`name_id`,`date_absent`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `name_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `date_absent` date NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `hours` int(2) NULL   DEFAULT '8';
-ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `leave_type` int(20) NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `notes` text NULL   ;
+ALTER TABLE  `employees_absences` ADD  `name_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_absences` ADD  `date_absent` date NOT NULL   ;
+ALTER TABLE  `employees_absences` ADD  `hours` int(2) NULL   DEFAULT '8';
+ALTER TABLE  `employees_absences` ADD  `leave_type` int(20) NULL   ;
+ALTER TABLE  `employees_absences` ADD  `notes` text NULL   ;
 
 
  * @package			        Model
@@ -27,7 +27,7 @@ ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `notes` text NUL
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Employees_absences_model extends MY_Model {
@@ -226,11 +226,11 @@ class Employees_absences_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'name_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `name_id` int(20) NOT NULL   ;",
-			'date_absent' => "ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `date_absent` date NOT NULL   ;",
-			'hours' => "ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `hours` int(2) NULL   DEFAULT '8';",
-			'leave_type' => "ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `leave_type` int(20) NULL   ;",
-			'notes' => "ALTER TABLE  `{$this->_db->database}`.`employees_absences` ADD  `notes` text NULL   ;",
+			'name_id' => "ALTER TABLE  `employees_absences` ADD  `name_id` int(20) NOT NULL   ;",
+			'date_absent' => "ALTER TABLE  `employees_absences` ADD  `date_absent` date NOT NULL   ;",
+			'hours' => "ALTER TABLE  `employees_absences` ADD  `hours` int(2) NULL   DEFAULT '8';",
+			'leave_type' => "ALTER TABLE  `employees_absences` ADD  `leave_type` int(20) NULL   ;",
+			'notes' => "ALTER TABLE  `employees_absences` ADD  `notes` text NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

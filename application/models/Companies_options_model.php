@@ -10,11 +10,11 @@ CREATE TABLE `companies_options` (
   `key` varchar(50) NOT NULL,
   `value` text NOT NULL,
   KEY `company_id` (`company_id`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`companies_options` ADD  `company_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`companies_options` ADD  `key` varchar(50) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`companies_options` ADD  `value` text NOT NULL   ;
+ALTER TABLE  `companies_options` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `companies_options` ADD  `key` varchar(50) NOT NULL   ;
+ALTER TABLE  `companies_options` ADD  `value` text NOT NULL   ;
 
 
  * @package			        Model
@@ -23,7 +23,7 @@ ALTER TABLE  `{$this->_db->database}`.`companies_options` ADD  `value` text NOT 
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Companies_options_model extends MY_Model {
@@ -156,9 +156,9 @@ class Companies_options_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'company_id' => "ALTER TABLE  `{$this->_db->database}`.`companies_options` ADD  `company_id` int(20) NOT NULL   ;",
-			'key' => "ALTER TABLE  `{$this->_db->database}`.`companies_options` ADD  `key` varchar(50) NOT NULL   ;",
-			'value' => "ALTER TABLE  `{$this->_db->database}`.`companies_options` ADD  `value` text NOT NULL   ;",
+			'company_id' => "ALTER TABLE  `companies_options` ADD  `company_id` int(20) NOT NULL   ;",
+			'key' => "ALTER TABLE  `companies_options` ADD  `key` varchar(50) NOT NULL   ;",
+			'value' => "ALTER TABLE  `companies_options` ADD  `value` text NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

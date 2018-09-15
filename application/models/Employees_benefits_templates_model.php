@@ -9,10 +9,10 @@ CREATE TABLE `employees_benefits_templates` (
   `eb_id` int(20) NOT NULL,
   `template_id` int(20) NOT NULL,
   KEY `eb_id` (`eb_id`,`template_id`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`employees_benefits_templates` ADD  `eb_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`employees_benefits_templates` ADD  `template_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_benefits_templates` ADD  `eb_id` int(20) NOT NULL   ;
+ALTER TABLE  `employees_benefits_templates` ADD  `template_id` int(20) NOT NULL   ;
 
 
  * @package			        Model
@@ -21,7 +21,7 @@ ALTER TABLE  `{$this->_db->database}`.`employees_benefits_templates` ADD  `templ
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Employees_benefits_templates_model extends MY_Model {
@@ -121,8 +121,8 @@ class Employees_benefits_templates_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'eb_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_benefits_templates` ADD  `eb_id` int(20) NOT NULL   ;",
-			'template_id' => "ALTER TABLE  `{$this->_db->database}`.`employees_benefits_templates` ADD  `template_id` int(20) NOT NULL   ;",
+			'eb_id' => "ALTER TABLE  `employees_benefits_templates` ADD  `eb_id` int(20) NOT NULL   ;",
+			'template_id' => "ALTER TABLE  `employees_benefits_templates` ADD  `template_id` int(20) NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

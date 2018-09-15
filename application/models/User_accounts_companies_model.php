@@ -9,10 +9,10 @@ CREATE TABLE `user_accounts_companies` (
   `uid` int(20) NOT NULL,
   `company_id` int(20) NOT NULL,
   KEY `uid` (`uid`,`company_id`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`user_accounts_companies` ADD  `uid` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`user_accounts_companies` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `user_accounts_companies` ADD  `uid` int(20) NOT NULL   ;
+ALTER TABLE  `user_accounts_companies` ADD  `company_id` int(20) NOT NULL   ;
 
 
  * @package			        Model
@@ -21,7 +21,7 @@ ALTER TABLE  `{$this->_db->database}`.`user_accounts_companies` ADD  `company_id
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class User_accounts_companies_model extends MY_Model {
@@ -121,8 +121,8 @@ class User_accounts_companies_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'uid' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts_companies` ADD  `uid` int(20) NOT NULL   ;",
-			'company_id' => "ALTER TABLE  `{$this->_db->database}`.`user_accounts_companies` ADD  `company_id` int(20) NOT NULL   ;",
+			'uid' => "ALTER TABLE  `user_accounts_companies` ADD  `uid` int(20) NOT NULL   ;",
+			'company_id' => "ALTER TABLE  `user_accounts_companies` ADD  `company_id` int(20) NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

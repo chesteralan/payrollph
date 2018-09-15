@@ -15,16 +15,16 @@ CREATE TABLE `companies_list` (
   `default` int(1) DEFAULT '0',
   `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-);
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`companies_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `{$this->_db->database}`.`companies_list` ADD  `theme` varchar(50) NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`companies_list` ADD  `name` varchar(200) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`companies_list` ADD  `address` varchar(200) NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`companies_list` ADD  `phone` varchar(200) NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`companies_list` ADD  `notes` text NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`companies_list` ADD  `default` int(1) NULL   DEFAULT '0';
-ALTER TABLE  `{$this->_db->database}`.`companies_list` ADD  `trash` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `companies_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `companies_list` ADD  `theme` varchar(50) NULL   ;
+ALTER TABLE  `companies_list` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `companies_list` ADD  `address` varchar(200) NULL   ;
+ALTER TABLE  `companies_list` ADD  `phone` varchar(200) NULL   ;
+ALTER TABLE  `companies_list` ADD  `notes` text NULL   ;
+ALTER TABLE  `companies_list` ADD  `default` int(1) NULL   DEFAULT '0';
+ALTER TABLE  `companies_list` ADD  `trash` int(1) NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -33,7 +33,7 @@ ALTER TABLE  `{$this->_db->database}`.`companies_list` ADD  `trash` int(1) NULL 
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Companies_list_model extends MY_Model {
@@ -331,14 +331,14 @@ class Companies_list_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `{$this->_db->database}`.`companies_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'theme' => "ALTER TABLE  `{$this->_db->database}`.`companies_list` ADD  `theme` varchar(50) NULL   ;",
-			'name' => "ALTER TABLE  `{$this->_db->database}`.`companies_list` ADD  `name` varchar(200) NOT NULL   ;",
-			'address' => "ALTER TABLE  `{$this->_db->database}`.`companies_list` ADD  `address` varchar(200) NULL   ;",
-			'phone' => "ALTER TABLE  `{$this->_db->database}`.`companies_list` ADD  `phone` varchar(200) NULL   ;",
-			'notes' => "ALTER TABLE  `{$this->_db->database}`.`companies_list` ADD  `notes` text NULL   ;",
-			'default' => "ALTER TABLE  `{$this->_db->database}`.`companies_list` ADD  `default` int(1) NULL   DEFAULT '0';",
-			'trash' => "ALTER TABLE  `{$this->_db->database}`.`companies_list` ADD  `trash` int(1) NULL   DEFAULT '0';",
+			'id' => "ALTER TABLE  `companies_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'theme' => "ALTER TABLE  `companies_list` ADD  `theme` varchar(50) NULL   ;",
+			'name' => "ALTER TABLE  `companies_list` ADD  `name` varchar(200) NOT NULL   ;",
+			'address' => "ALTER TABLE  `companies_list` ADD  `address` varchar(200) NULL   ;",
+			'phone' => "ALTER TABLE  `companies_list` ADD  `phone` varchar(200) NULL   ;",
+			'notes' => "ALTER TABLE  `companies_list` ADD  `notes` text NULL   ;",
+			'default' => "ALTER TABLE  `companies_list` ADD  `default` int(1) NULL   DEFAULT '0';",
+			'trash' => "ALTER TABLE  `companies_list` ADD  `trash` int(1) NULL   DEFAULT '0';",
 		);
 
 		if( isset( $column[$field_name] ) ) {

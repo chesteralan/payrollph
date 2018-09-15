@@ -13,20 +13,22 @@ CREATE TABLE `payroll_templates` (
   `checked_by` int(20) DEFAULT NULL,
   `approved_by` int(20) DEFAULT NULL,
   `print_format` varchar(50) DEFAULT NULL,
+  `group_by` varchar(50) NOT NULL DEFAULT 'group',
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `checked_by` (`checked_by`,`approved_by`),
   KEY `company_id` (`company_id`)
-);
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
 
-ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `company_id` int(20) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `name` varchar(200) NOT NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `pages` int(2) NULL   DEFAULT '1';
-ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `checked_by` int(20) NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `approved_by` int(20) NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `print_format` varchar(50) NULL   ;
-ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `active` int(1) NOT NULL   DEFAULT '1';
+ALTER TABLE  `payroll_templates` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE  `payroll_templates` ADD  `company_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_templates` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `payroll_templates` ADD  `pages` int(2) NULL   DEFAULT '1';
+ALTER TABLE  `payroll_templates` ADD  `checked_by` int(20) NULL   ;
+ALTER TABLE  `payroll_templates` ADD  `approved_by` int(20) NULL   ;
+ALTER TABLE  `payroll_templates` ADD  `print_format` varchar(50) NULL   ;
+ALTER TABLE  `payroll_templates` ADD  `group_by` varchar(50) NOT NULL   DEFAULT 'group';
+ALTER TABLE  `payroll_templates` ADD  `active` int(1) NOT NULL   DEFAULT '1';
 
 
  * @package			        Model
@@ -35,7 +37,7 @@ ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `active` int(1) N
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
  * @author_link		        http://www.chesteralan.com
- * @generator		        CodeIgniter Model Generator (CMG) v3.2.10
+ * @generator		        CodeIgniter Model Generator (CMG) v3.5.0
  */
  
 class Payroll_templates_model extends MY_Model {
@@ -47,6 +49,7 @@ class Payroll_templates_model extends MY_Model {
 	protected $checked_by;
 	protected $approved_by;
 	protected $print_format;
+	protected $group_by;
 	protected $active;
 
 	// --------------------------------------------------------------------
@@ -61,8 +64,8 @@ class Payroll_templates_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_templates';
 		$this->_short_name = 'payroll_templates';
-		$this->_fields = array("id","company_id","name","pages","checked_by","approved_by","print_format","active");
-		$this->_required = array("company_id","name","active");
+		$this->_fields = array("id","company_id","name","pages","checked_by","approved_by","print_format","group_by","active");
+		$this->_required = array("company_id","name","group_by","active");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -230,6 +233,29 @@ class Payroll_templates_model extends MY_Model {
 // ------------------------------ End Field: print_format --------------------------------------
 
 
+// ---------------------------- Start Field: group_by -------------------------------------- 
+
+	/** 
+	* Sets a value to `group_by` variable
+	* @access public
+	*/
+
+	public function setGroupBy($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('group_by', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `group_by` variable
+	* @access public
+	*/
+
+	public function getGroupBy() {
+		return $this->group_by;
+	}
+	
+// ------------------------------ End Field: group_by --------------------------------------
+
+
 // ---------------------------- Start Field: active -------------------------------------- 
 
 	/** 
@@ -320,6 +346,15 @@ class Payroll_templates_model extends MY_Model {
 										'Extra'=>''
 									),
 
+			'group_by' => (object) array(
+										'Field'=>'group_by',
+										'Type'=>'varchar(50)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'group',
+										'Extra'=>''
+									),
+
 			'active' => (object) array(
 										'Field'=>'active',
 										'Type'=>'int(1)',
@@ -333,14 +368,15 @@ class Payroll_templates_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
-			'id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
-			'company_id' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `company_id` int(20) NOT NULL   ;",
-			'name' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `name` varchar(200) NOT NULL   ;",
-			'pages' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `pages` int(2) NULL   DEFAULT '1';",
-			'checked_by' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `checked_by` int(20) NULL   ;",
-			'approved_by' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `approved_by` int(20) NULL   ;",
-			'print_format' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `print_format` varchar(50) NULL   ;",
-			'active' => "ALTER TABLE  `{$this->_db->database}`.`payroll_templates` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
+			'id' => "ALTER TABLE  `payroll_templates` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
+			'company_id' => "ALTER TABLE  `payroll_templates` ADD  `company_id` int(20) NOT NULL   ;",
+			'name' => "ALTER TABLE  `payroll_templates` ADD  `name` varchar(200) NOT NULL   ;",
+			'pages' => "ALTER TABLE  `payroll_templates` ADD  `pages` int(2) NULL   DEFAULT '1';",
+			'checked_by' => "ALTER TABLE  `payroll_templates` ADD  `checked_by` int(20) NULL   ;",
+			'approved_by' => "ALTER TABLE  `payroll_templates` ADD  `approved_by` int(20) NULL   ;",
+			'print_format' => "ALTER TABLE  `payroll_templates` ADD  `print_format` varchar(50) NULL   ;",
+			'group_by' => "ALTER TABLE  `payroll_templates` ADD  `group_by` varchar(50) NOT NULL   DEFAULT 'group';",
+			'active' => "ALTER TABLE  `payroll_templates` ADD  `active` int(1) NOT NULL   DEFAULT '1';",
 		);
 
 		if( isset( $column[$field_name] ) ) {
