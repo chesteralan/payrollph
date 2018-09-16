@@ -46,7 +46,6 @@ class Payroll_employees extends MY_Controller {
 
 	if( $dates_data->working_days > 0 ) {
 
-
 		$print_groups = new $this->Terms_list_model;
 		$print_groups->set_select("*");
 		$print_groups->set_order('priority', 'ASC');
@@ -56,19 +55,48 @@ class Payroll_employees extends MY_Controller {
 		$print_groups->setType('print_group',true);
 		$this->template_data->set('print_groups', $print_groups->populate());
 		
-		$payroll_group = new $this->Payroll_groups_model('pg');
-		$payroll_group->setPayrollId($id,true);
-		
-		if( intval($group_id) > 0 ) {
-			$payroll_group->setGroupId(intval($group_id),true);
+		switch( $payroll_data->group_by ) {
+			case 'position':
+
+				$payroll_group = new $this->Payroll_groups_model('pg');
+				$payroll_group->setPayrollId($id,true);
+				
+				if( intval($group_id) > 0 ) {
+					$payroll_group->setGroupId(intval($group_id),true);
+				}
+
+				$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');
+				$payroll_group->set_limit(0);
+				$payroll_group->set_order('pg.order', 'DESC');
+				$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
+				$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
+				$payroll_group_data =  $payroll_group->populate();
+				
+			break;
+			case 'area':
+			break;
+			case 'status':
+			break;
+			case 'group':
+
+				$payroll_group = new $this->Payroll_groups_model('pg');
+				$payroll_group->setPayrollId($id,true);
+				
+				if( intval($group_id) > 0 ) {
+					$payroll_group->setGroupId(intval($group_id),true);
+				}
+
+				$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');
+				$payroll_group->set_limit(0);
+				$payroll_group->set_order('pg.order', 'DESC');
+				$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
+				$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
+				$payroll_group_data =  $payroll_group->populate();
+
+			default:
+			break;
 		}
 
-		$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');
-		$payroll_group->set_limit(0);
-		$payroll_group->set_order('pg.order', 'DESC');
-		$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
-		$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
-		$payroll_group_data =  $payroll_group->populate();
 
 		foreach($payroll_group_data as $key=>$group) {
 			$employees = new $this->Payroll_employees_model('pe');
