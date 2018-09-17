@@ -15,10 +15,30 @@
           <h3 class="panel-title">Configure Payroll Template</h3>
         </div>
 <form method="post">
-        <div class="panel-body">
+        <div class="panel-body">         
   <?php echo (validation_errors()) ? '<div class="alert alert-danger">' . validation_errors() . '</div>' : ''; ?>
 
 <?php endif; ?>
+
+
+<div class="row">
+<div class="col-md-12">
+<div class="btn-group btn-group-xs btn-group-justified" style="margin-bottom: 10px;">
+  <?php foreach(array(
+    'group'=>'Group',
+    'position'=>'Position',
+    'area'=>'Area',
+    'status'=>'Status',
+) as $key=>$value) { ?>
+    <a href="<?php echo site_url("payroll_templates/groups/{$template->id}") . "?switch=" . $key; ?><?php echo ($this->input->get('next')) ? '&next=' . $this->input->get('next') : ''; ?>" class="btn btn-<?php echo ($key==$template->group_by) ? 'success': 'default'; ?>"><?php echo $value; ?></a>
+  <?php } ?>
+</div>
+</div>
+</div>
+
+<div class="col-md-5 pull-right">
+  <input type="text" class="form-control input-sm filter-list-name" data-list="accordion" placeholder="Filter Name...">
+</div>
 
 <div class="btn-group" role="group" aria-label="..." style="margin-bottom: 5px;">
   <button class="btn btn-default btn-xs accordion-sort-asc" data-sortable="sortable" type="button"><span class="glyphicon glyphicon-sort-by-alphabet"></span></button> 
@@ -65,16 +85,20 @@
           <span class="glyphicon glyphicon-sort pull-right" style="margin-left: 10px;"></span>
            <?php echo $group->name; ?>
         </a>
+
+          <a href="<?php echo site_url("payroll_templates/employees/{$template->id}/{$group->id}/" . $output) . '?next=' . (($this->input->get('next'))?$this->input->get('next'):uri_string()); ?>" class="ajax-modal-inner pull-right"><span class="glyphicon glyphicon-user"></span></a>
+
       </h4>
     </div>
-<?php if($group->id==$group->selected) { ?>
+<?php /* if($group->id==$group->selected) { ?>
     <div id="collapse<?php echo $group->id; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $group->id; ?>">
       <div class="panel-body">
 <a href="<?php echo site_url("payroll_templates/employees/{$template->id}/{$group->id}/ajax") . '?next=' . (($this->input->get('next'))?$this->input->get('next'):uri_string()); ?>" class="ajax-modal-inner"><span class="glyphicon glyphicon-user"></span></a>
+
 <?php echo $group->notes; ?>
       </div>
     </div>
-<?php } ?>
+<?php } */ ?>
   </div>
 <?php } ?>
 </div>

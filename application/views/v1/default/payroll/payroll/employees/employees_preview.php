@@ -8,6 +8,7 @@ $payslip_templates = array(
   'cash_voucher' => 'Cash Voucher',
   'clergy_allowance' => 'Clergy Allowance',
 );
+
 ?>
 <?php $this->load->view('header'); ?>
 
@@ -32,7 +33,7 @@ $payslip_templates = array(
 <?php if( $payroll_groups ) { ?>
   
   <?php foreach($payroll_groups as $payroll_group) { ?>
- <?php if($payroll_group->employees) { ?>
+ 
           <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
               <tr class="warning">
@@ -61,7 +62,7 @@ $payslip_templates = array(
               </tr>
             </thead>
             <tbody>
-            
+<?php if($payroll_group->employees) {  ?>
 <?php foreach($payroll_group->employees as $employee) { 
 
 
@@ -73,7 +74,7 @@ $payslip_templates = array(
 
                 <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> 
                 
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo site_url("lists_names/profile/{$employee->name_id}/ajax") . "?output=inner_page"; ?>"><span class="glyphicon glyphicon-eye-open"></span></a>
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo site_url("lists_names/profile/{$employee->name_id}/ajax") . "?output=inner_page" . '&next=' . uri_string() ; ?>"><span class="glyphicon glyphicon-eye-open"></span></a>
 
 
                 </td>
@@ -118,10 +119,10 @@ $payslip_templates = array(
                 </td>
               </tr>
 <?php } ?>
-
+<?php } ?>
             </tbody>
           </table>
-<?php } ?>
+
     <?php } ?>
 
 

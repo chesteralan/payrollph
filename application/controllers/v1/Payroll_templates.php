@@ -131,13 +131,37 @@ class Payroll_templates extends MY_Controller {
 
 	public function groups($id, $output='') {
 
+		$template = new $this->Payroll_templates_model;
+		$template->setId($id,true);
+		if( $this->input->get('switch') != '' ) {
+			$template->setGroupBy($this->input->get('switch'),false,true);
+			$template->update();
+			redirect( ($this->input->get('next')) ? $this->input->get('next') : uri_string());
+		}
+		$template_data = $template->get();
+		$this->template_data->set('template', $template_data);
+
 		if( $this->input->post() ) {
 
 			foreach( $this->input->post('group') as $group_id ) {
 				if( ! in_array($group_id, $this->input->post('selected')) ) {
 					$pgroup = new $this->Payroll_templates_groups_model;
 					$pgroup->setTemplateId($id,true);
-					$pgroup->setGroupId($group_id,true);
+					switch( $template_data->group_by ) {
+						case 'position':
+							$pgroup->setPositionId($group_id,true);
+						break;
+						case 'area':
+							$pgroup->setAreaId($group_id,true);
+						break;
+						case 'status':
+							$pgroup->setStatusId($group_id,true);
+						break;
+						case 'group':
+						default:
+							$pgroup->setGroupId($group_id,true);
+						break;
+					}
 					if( $pgroup->nonEmpty() ) {
 						$pgroup->delete();
 					}
@@ -148,7 +172,21 @@ class Payroll_templates extends MY_Controller {
 			foreach( $this->input->post('selected') as $order=>$selected_id ) {
 				$pgroup = new $this->Payroll_templates_groups_model;
 				$pgroup->setTemplateId($id,true);
-				$pgroup->setGroupId($selected_id,true);
+					switch( $template_data->group_by ) {
+						case 'position':
+							$pgroup->setPositionId($selected_id,true);
+						break;
+						case 'area':
+							$pgroup->setAreaId($selected_id,true);
+						break;
+						case 'status':
+							$pgroup->setStatusId($selected_id,true);
+						break;
+						case 'group':
+						default:
+							$pgroup->setGroupId($selected_id,true);
+						break;
+					}
 				$pgroup->setOrder(($len - $order));
 				$pages = $this->input->post('page');
 				$page = ( isset($pages[$selected_id]) ) ? $pages[$selected_id] : 1;
@@ -162,7 +200,21 @@ class Payroll_templates extends MY_Controller {
 				$employees = new $this->Employees_model('e');
 				$employees->set_select('e.*');
 				$employees->set_limit(0);
-				$employees->set_where('e.group_id', $selected_id);
+					switch( $template_data->group_by ) {
+						case 'position':
+							$employees->set_where('e.position_id', $selected_id);
+						break;
+						case 'area':
+							$employees->set_where('e.area_id', $selected_id);
+						break;
+						case 'status':
+							$employees->set_where('e.status', $selected_id);
+						break;
+						case 'group':
+						default:
+							$employees->set_where('e.group_id', $selected_id);
+						break;
+					}
 				foreach($employees->populate() as $employee) {
 					$pte = new $this->Payroll_templates_employees_model('pte');
 					$pte->setTemplateId($id,true);
@@ -177,21 +229,65 @@ class Payroll_templates extends MY_Controller {
 
 			$this->postNext();
 		}
+	
+		switch( $template_data->group_by ) {
+			case 'position':
 
-		$template = new $this->Payroll_templates_model;
-		$template->setId($id,true);
-		$this->template_data->set('template', $template->get());
-		
-		$groups = new $this->Employees_groups_model('eg');
-		$groups->setCompanyId($this->session->userdata('current_company_id'),true);
-		$groups->set_select('eg.*');
-		$groups->set_select("(SELECT ptg.group_id FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.group_id = eg.id ) as selected");
-		$groups->set_select("(SELECT ptg.order FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.group_id = eg.id) as sort");
-		$groups->set_select("(SELECT ptg.page FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.group_id = eg.id) as page");
-		$groups->set_order("(SELECT ptg.order FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.group_id = eg.id)", 'DESC');
-		$groups->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=eg.id) > 0)");
-		$groups->set_limit(0);
-		$this->template_data->set('groups', $groups->populate());
+				$groups = new $this->Employees_positions_model('eg');
+				$groups->setCompanyId($this->session->userdata('current_company_id'),true);
+				$groups->set_select('eg.*');
+				$groups->set_select("(SELECT ptg.position_id FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.position_id = eg.id ) as selected");
+				$groups->set_select("(SELECT ptg.order FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.position_id = eg.id) as sort");
+				$groups->set_select("(SELECT ptg.page FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.position_id = eg.id) as page");
+				$groups->set_order("(SELECT ptg.order FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.position_id = eg.id)", 'DESC');
+				$groups->set_where("((SELECT COUNT(*) FROM employees WHERE position_id=eg.id) > 0)");
+				$groups->set_limit(0);
+				$this->template_data->set('groups', $groups->populate());
+
+			break;
+			case 'area':
+
+				$groups = new $this->Employees_areas_model('eg');
+				$groups->setCompanyId($this->session->userdata('current_company_id'),true);
+				$groups->set_select('eg.*');
+				$groups->set_select("(SELECT ptg.area_id FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.area_id = eg.id ) as selected");
+				$groups->set_select("(SELECT ptg.order FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.area_id = eg.id) as sort");
+				$groups->set_select("(SELECT ptg.page FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.area_id = eg.id) as page");
+				$groups->set_order("(SELECT ptg.order FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.area_id = eg.id)", 'DESC');
+				$groups->set_where("((SELECT COUNT(*) FROM employees WHERE area_id=eg.id) > 0)");
+				$groups->set_limit(0);
+				$this->template_data->set('groups', $groups->populate());
+
+			break;
+			case 'status':
+
+				$groups = new $this->Terms_list_model('eg');
+				$groups->setType('employment_status', true);
+				$groups->setTrash(0, true);
+				$groups->set_select('eg.*');
+				$groups->set_select("(SELECT ptg.status_id FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.status_id = eg.id ) as selected");
+				$groups->set_select("(SELECT ptg.order FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.status_id = eg.id) as sort");
+				$groups->set_select("(SELECT ptg.page FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.status_id = eg.id) as page");
+				$groups->set_order("(SELECT ptg.order FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.status_id = eg.id)", 'DESC');
+				$groups->set_where("((SELECT COUNT(*) FROM employees WHERE status=eg.id) > 0)");
+				$groups->set_limit(0);
+				$this->template_data->set('groups', $groups->populate());
+
+			break;
+			case 'group':
+			default:
+				$groups = new $this->Employees_groups_model('eg');
+				$groups->setCompanyId($this->session->userdata('current_company_id'),true);
+				$groups->set_select('eg.*');
+				$groups->set_select("(SELECT ptg.group_id FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.group_id = eg.id ) as selected");
+				$groups->set_select("(SELECT ptg.order FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.group_id = eg.id) as sort");
+				$groups->set_select("(SELECT ptg.page FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.group_id = eg.id) as page");
+				$groups->set_order("(SELECT ptg.order FROM payroll_templates_groups ptg WHERE ptg.template_id = {$id} AND ptg.group_id = eg.id)", 'DESC');
+				$groups->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=eg.id) > 0)");
+				$groups->set_limit(0);
+				$this->template_data->set('groups', $groups->populate());
+			break;
+		}
 
 		$this->template_data->set('output', $output);
 
@@ -231,13 +327,30 @@ class Payroll_templates extends MY_Controller {
 
 		$template = new $this->Payroll_templates_model;
 		$template->setId($id,true);
-		$this->template_data->set('template', $template->get());
+		$template_data = $template->get();
+		$this->template_data->set('template', $template_data);
 		
 		$employees = new $this->Employees_model('e');
 		$employees->set_select('e.*');
 		$employees->set_select('(SELECT ep.name FROM employees_positions ep WHERE ep.id=e.position_id) as position_name');
 		$employees->set_limit(0);
-		$employees->set_where('e.group_id', $group_id);
+
+		switch( $template_data->group_by ) {
+			case 'position':
+				$employees->set_where('e.position_id', $group_id);
+			break;
+			case 'area':
+				$employees->set_where('e.area_id', $group_id);
+			break;
+			case 'status':
+				$employees->set_where('e.status', $group_id);
+			break;
+			case 'group':
+			default:
+				$employees->set_where('e.group_id', $group_id);
+			break;
+		}
+
 		$employees->set_join('payroll_templates_employees pte', 'pte.name_id=e.name_id AND pte.template_id='.$id);
 		$employees->set_select('pte.active');
 		$employees->set_select('pte.template');

@@ -241,7 +241,7 @@ CREATE TABLE `employees_positions` (
   `trash` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin;
 
 -- Table structure for table `employees_positions` 
 
@@ -439,7 +439,10 @@ CREATE TABLE `payroll_employees_salaries` (
 
 CREATE TABLE `payroll_groups` (
   `payroll_id` int(20) NOT NULL,
-  `group_id` int(20) NOT NULL,
+  `group_id` int(20) NOT NULL DEFAULT '0',
+  `area_id` int(20) NOT NULL DEFAULT '0',
+  `position_id` int(20) NOT NULL DEFAULT '0',
+  `status_id` int(20) NOT NULL DEFAULT '0',
   `order` int(2) NOT NULL DEFAULT '0',
   `page` int(2) DEFAULT '1',
   KEY `group_id` (`payroll_id`,`group_id`)
@@ -526,7 +529,10 @@ CREATE TABLE `payroll_templates_employees` (
 
 CREATE TABLE `payroll_templates_groups` (
   `template_id` int(20) NOT NULL,
-  `group_id` int(20) NOT NULL,
+  `group_id` int(20) NOT NULL DEFAULT '0',
+  `area_id` int(20) NOT NULL DEFAULT '0',
+  `position_id` int(20) NOT NULL DEFAULT '0',
+  `status_id` int(20) NOT NULL DEFAULT '0',
   `order` int(2) NOT NULL DEFAULT '0',
   `page` int(2) DEFAULT '1',
   KEY `template_id` (`template_id`,`group_id`)
@@ -542,7 +548,7 @@ CREATE TABLE `terms_list` (
   `trash` int(1) DEFAULT '0',
   `priority` int(3) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin;
 
 -- Table structure for table `terms_list` 
 

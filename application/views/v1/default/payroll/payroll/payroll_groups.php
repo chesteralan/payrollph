@@ -71,7 +71,7 @@
            <?php echo $group->name; ?>
         </a>
 
-        <a href="<?php echo site_url("payroll/employees/{$payroll->id}/{$group->id}/ajax") . '?next=' . (($this->input->get('next'))?$this->input->get('next'):uri_string()); ?>" class="ajax-modal-inner pull-right"><span class="glyphicon glyphicon-user"></span></a>
+        <a href="<?php echo site_url("payroll/employees/{$payroll->id}/{$group->id}/" . $output) . '?next=' . (($this->input->get('next'))?$this->input->get('next'):uri_string()); ?>" class="ajax-modal-inner pull-right"><span class="glyphicon glyphicon-user"></span></a>
 
       </h4>
     </div>
