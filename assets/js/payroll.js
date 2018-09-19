@@ -5,7 +5,7 @@ var current_uri = '';
 
 var filter_list_name = function(){
       $('.filter-list-name').keyup(function(k){
-          var find = $('.filter-list-name').val();
+          var find = $('.filter-list-name').val().toLowerCase();
           var elm = $(this).attr('data-list');
           var mylist = $('#' + elm);
           var listitems = mylist.children('.panel').get();
@@ -24,7 +24,7 @@ var filter_list_name = function(){
       });
 
     $('.filter-list-name2').keyup(function(k){
-          var find = $('.filter-list-name2').val();
+          var find = $('.filter-list-name2').val().toLowerCase();
           var elm = $(this).attr('data-list');
           var mylist = $('.' + elm);
           var listitems = mylist.children('.list-group-item').get();

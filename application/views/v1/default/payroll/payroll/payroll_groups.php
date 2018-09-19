@@ -20,6 +20,21 @@
 
 <?php endif; ?>
 
+<div class="row">
+<div class="col-md-12">
+<div class="btn-group btn-group-xs btn-group-justified" style="margin-bottom: 10px;">
+  <?php foreach(array(
+    'group'=>'Group',
+    'position'=>'Position',
+    'area'=>'Area',
+    'status'=>'Status',
+) as $key=>$value) { ?>
+    <a href="<?php echo site_url("payroll/groups/{$payroll->id}") . "?switch=" . $key; ?><?php echo ($this->input->get('next')) ? '&next=' . $this->input->get('next') : ''; ?>" class="btn btn-<?php echo ($key==$payroll->group_by) ? 'success': 'default'; ?>"><?php echo $value; ?></a>
+  <?php } ?>
+</div>
+</div>
+</div>
+
 <div class="col-md-5 pull-right">
 	<input type="text" class="form-control input-sm filter-list-name" data-list="accordion" placeholder="Filter Name...">
 </div>

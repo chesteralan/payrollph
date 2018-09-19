@@ -5,6 +5,8 @@ $config['multi_company'] = true;
 
 $config['system_name'] = 'Payroll PH';
 
+$config['online_payroll'] = false;
+
 $config['civil_status'] = array(
 	'single' => 'Single',
 	'married' => 'Married',
@@ -20,3 +22,4 @@ $config['profile_modules'] = array(
 	'emergency_contacts' => true,
 	'security_guard_license' => true,
 );
+

@@ -49,6 +49,8 @@ $current_employee = $this->session->userdata('current_employee');
           <a href="#" class="dropdown-toggle bold" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo ($this->session->userdata('employees_status')) ? $this->session->userdata('employees_status')->name : 'All Employees'; ?> <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li class="<?php echo (!$this->session->userdata('employees_status')) ? 'active' : ''; ?>"><a href="<?php echo site_url("payroll/change_status/0") . "?uri=" . uri_string(); ?>">All Employees</a></li>
+            <li role="separator" class="divider"></li>
+            <span class="dropdown-header">Employee Status</span>
             <?php foreach($employees_status as $emp_stat) { ?>
                 <li class="<?php echo (($this->session->userdata('employees_status')) && ($this->session->userdata('employees_status')->id == $emp_stat->status)) ? 'active' : ''; ?>"><a href="<?php echo site_url("payroll/change_status/{$emp_stat->status}") . "?uri=" . uri_string(); ?>"><?php echo $emp_stat->status_name; ?></a></li>
             <?php } ?>

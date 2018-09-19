@@ -355,6 +355,7 @@ CREATE TABLE `payroll_earnings` (
 -- Table structure for table `payroll_earnings` 
 
 CREATE TABLE `payroll_employees` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
   `payroll_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `order` int(2) NOT NULL DEFAULT '0',
@@ -366,8 +367,9 @@ CREATE TABLE `payroll_employees` (
   `group_id` int(20) DEFAULT NULL,
   `position_id` int(20) DEFAULT NULL,
   `area_id` int(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `name_id` (`payroll_id`,`name_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=113 DEFAULT CHARSET=latin;
 
 -- Table structure for table `payroll_employees` 
 

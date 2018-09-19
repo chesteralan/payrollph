@@ -197,6 +197,7 @@ class Payroll_templates extends MY_Controller {
 					$pgroup->insert();
 				}
 				
+				/*
 				$employees = new $this->Employees_model('e');
 				$employees->set_select('e.*');
 				$employees->set_limit(0);
@@ -225,6 +226,7 @@ class Payroll_templates extends MY_Controller {
 						$pte->update();
 					}
 				}
+				*/
 			}
 
 			$this->postNext();

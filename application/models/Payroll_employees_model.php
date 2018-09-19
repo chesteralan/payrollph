@@ -6,6 +6,7 @@
  * Manipulates `payroll_employees` table on database
 
 CREATE TABLE `payroll_employees` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
   `payroll_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `order` int(2) NOT NULL DEFAULT '0',
@@ -17,9 +18,11 @@ CREATE TABLE `payroll_employees` (
   `group_id` int(20) DEFAULT NULL,
   `position_id` int(20) DEFAULT NULL,
   `area_id` int(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `name_id` (`payroll_id`,`name_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=113 DEFAULT CHARSET=latin;
 
+ALTER TABLE  `payroll_employees` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `payroll_employees` ADD  `payroll_id` int(20) NOT NULL   ;
 ALTER TABLE  `payroll_employees` ADD  `name_id` int(20) NOT NULL   ;
 ALTER TABLE  `payroll_employees` ADD  `order` int(2) NOT NULL   DEFAULT '0';
@@ -44,6 +47,7 @@ ALTER TABLE  `payroll_employees` ADD  `area_id` int(20) NULL   ;
  
 class Payroll_employees_model extends MY_Model {
 
+	protected $id;
 	protected $payroll_id;
 	protected $name_id;
 	protected $order;
@@ -68,12 +72,35 @@ class Payroll_employees_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_employees';
 		$this->_short_name = 'payroll_employees';
-		$this->_fields = array("payroll_id","name_id","order","payslip","template","print_group","active","status_id","group_id","position_id","area_id");
+		$this->_fields = array("id","payroll_id","name_id","order","payslip","template","print_group","active","status_id","group_id","position_id","area_id");
 		$this->_required = array("payroll_id","name_id","order");
 		parent::__construct($short_name, $db_config);
 	}
 
 	// --------------------------------------------------------------------
+
+
+// ---------------------------- Start Field: id -------------------------------------- 
+
+	/** 
+	* Sets a value to `id` variable
+	* @access public
+	*/
+
+	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `id` variable
+	* @access public
+	*/
+
+	public function getId() {
+		return $this->id;
+	}
+	
+// ------------------------------ End Field: id --------------------------------------
 
 
 // ---------------------------- Start Field: payroll_id -------------------------------------- 
@@ -333,6 +360,15 @@ class Payroll_employees_model extends MY_Model {
 	
 	public function get_table_options() {
 		return array(
+			'id' => (object) array(
+										'Field'=>'id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'PRI',
+										'Default'=>'',
+										'Extra'=>'auto_increment'
+									),
+
 			'payroll_id' => (object) array(
 										'Field'=>'payroll_id',
 										'Type'=>'int(20)',
@@ -436,6 +472,7 @@ class Payroll_employees_model extends MY_Model {
 
 	public function add_table_column($field_name) {
 		$column = array(
+			'id' => "ALTER TABLE  `payroll_employees` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
 			'payroll_id' => "ALTER TABLE  `payroll_employees` ADD  `payroll_id` int(20) NOT NULL   ;",
 			'name_id' => "ALTER TABLE  `payroll_employees` ADD  `name_id` int(20) NOT NULL   ;",
 			'order' => "ALTER TABLE  `payroll_employees` ADD  `order` int(2) NOT NULL   DEFAULT '0';",
