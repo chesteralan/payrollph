@@ -29,7 +29,7 @@ if( is_view_exists("account/login_override") ) {
         }
       @media (min-width: 1200px) {
         body {
-            padding-top: 170px;
+            padding-top: 150px;
         }
       }
       #divBody {
