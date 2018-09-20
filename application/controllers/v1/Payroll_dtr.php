@@ -164,8 +164,21 @@ class Payroll_dtr extends MY_Controller {
 				break;
 			}
 
-			if( $this->session->userdata('employees_status') ) {
-				$employees->set_where('e.status', $this->session->userdata('employees_status')->id);
+			if( $this->session->userdata('employees_filter') ) {
+				switch( $this->session->userdata('employees_filter_type') ) {
+					case 'position':
+						$employees->set_where('pe.position_id', $this->session->userdata('employees_filter')->id);
+					break;
+					case 'area':
+						$employees->set_where('pe.area_id', $this->session->userdata('employees_filter')->id);
+					break;
+					case 'status':
+						$employees->set_where('pe.status_id', $this->session->userdata('employees_filter')->id);
+					break;
+					case 'group':
+						$employees->set_where('pe.group_id', $this->session->userdata('employees_filter')->id);
+					break;
+				}
 			}
 
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
@@ -193,19 +206,46 @@ class Payroll_dtr extends MY_Controller {
 
 		$this->template_data->set('payroll_groups', $payroll_group_data);
 
-		$employees_status = new $this->Payroll_employees_model('pe');
-		$employees_status->setPayrollId($id,true);
-		$employees_status->set_select('e.status');
-		$employees_status->set_select('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status) as status_name');
-		$employees_status->set_join('employees e', 'e.name_id=pe.name_id');
-		$employees_status->set_limit(0);
-		$employees_status->set_group_by('e.status');
-		$employees_status->set_where('e.status IS NOT NULL');
-		$employees_status->set_where('e.status <> 0');
-		$employees_status->set_where('e.status <> ""');
-		$employees_status->set_order('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status)', 'ASC');
-		$this->template_data->set('employees_status', $employees_status->populate());
+		if( $payroll_data->group_by != 'status' ) {
+			$employees_status = new $this->Payroll_employees_model('pe');
+			$employees_status->setPayrollId($id,true);
+			$employees_status->set_select('e.status');
+			$employees_status->set_select('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status) as status_name');
+			$employees_status->set_join('employees e', 'e.name_id=pe.name_id');
+			$employees_status->set_limit(0);
+			$employees_status->set_group_by('e.status');
+			$employees_status->set_where('e.status IS NOT NULL');
+			$employees_status->set_where('e.status <> 0');
+			$employees_status->set_where('e.status <> ""');
+			$employees_status->set_order('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status)', 'ASC');
+			$this->template_data->set('employees_status', $employees_status->populate());
+		}
 
+
+		if( $payroll_data->group_by != 'group' ) {
+			$groups = new $this->Employees_groups_model;
+			$groups->setCompanyId($this->session->userdata('current_company_id'),true);
+			$groups->set_limit(0);
+			$groups->set_order('name', 'ASC');
+			$this->template_data->set('employees_groups', $groups->populate());
+		}
+
+		if( $payroll_data->group_by != 'area' ) {
+			$areas = new $this->Employees_areas_model;
+			$areas->setCompanyId($this->session->userdata('current_company_id'),true);
+			$areas->set_limit(0);
+			$areas->set_order('name', 'ASC');
+			$this->template_data->set('employees_areas', $areas->populate());
+		}
+
+		if( $payroll_data->group_by != 'position' ) {
+			$positions = new $this->Employees_positions_model;
+			$positions->setCompanyId($this->session->userdata('current_company_id'),true);
+			$positions->set_limit(0);
+			$positions->set_order('name', 'ASC');
+			$this->template_data->set('employees_positions', $positions->populate());
+		}
+		
 		$this->template_data->set('next_item', $this->_next_payroll($id, $group_id, 'payroll_dtr/view/'));
 		$this->template_data->set('previous_item', $this->_previous_payroll($id, $group_id, 'payroll_dtr/view/'));
 

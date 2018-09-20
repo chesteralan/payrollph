@@ -97,14 +97,59 @@ class Payroll_overall extends MY_Controller {
 		$leave_benefits = $leave->populate();
 		$this->template_data->set('leave_benefits', $leave_benefits);
 
-		$payroll_group = new $this->Payroll_groups_model('pg');
-		$payroll_group->setPayrollId($id,true);
-		$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');
-		$payroll_group->set_limit(0);
-		$payroll_group->set_order('pg.order', 'DESC');
-		//$payroll_group->set_select("(SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) as employee_count");
-		$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
-		$payroll_group_data =  $payroll_group->populate();
+		switch( $payroll_data->group_by ) {
+			case 'position':
+
+				$payroll_group = new $this->Payroll_groups_model('pg');
+				$payroll_group->setPayrollId($id,true);
+				$payroll_group->set_join('employees_positions eg', 'pg.position_id=eg.id');
+				$payroll_group->set_limit(0);
+				$payroll_group->set_order('pg.order', 'DESC');
+				$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE position_id=pg.position_id) > 0)");
+				$payroll_group->set_where("((SELECT company_id FROM employees_positions WHERE id=pg.position_id) = {$this->session->userdata('current_company_id')})");
+				$payroll_group_data =  $payroll_group->populate();
+				
+			break;
+			case 'area':
+
+				$payroll_group = new $this->Payroll_groups_model('pg');
+				$payroll_group->setPayrollId($id,true);
+				$payroll_group->set_join('employees_areas eg', 'pg.area_id=eg.id');
+				$payroll_group->set_limit(0);
+				$payroll_group->set_order('pg.order', 'DESC');
+				$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE area_id=pg.area_id) > 0)");
+				$payroll_group->set_where("((SELECT company_id FROM employees_areas WHERE id=pg.area_id) = {$this->session->userdata('current_company_id')})");
+				$payroll_group_data =  $payroll_group->populate();
+
+			break;
+			case 'status':
+
+				$payroll_group = new $this->Payroll_groups_model('pg');
+				$payroll_group->setPayrollId($id,true);
+				$payroll_group->set_join('terms_list eg', 'pg.status_id=eg.id');
+				$payroll_group->set_limit(0);
+				$payroll_group->set_order('pg.order', 'DESC');
+				$payroll_group->set_where("pg.status_id > 0");
+				$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE status=pg.status_id) > 0)");
+				//$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
+				$payroll_group_data =  $payroll_group->populate();
+
+			break;
+			case 'group':
+
+				$payroll_group = new $this->Payroll_groups_model('pg');
+				$payroll_group->setPayrollId($id,true);
+				$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');
+				$payroll_group->set_limit(0);
+				$payroll_group->set_order('pg.order', 'DESC');
+				$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
+				$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
+				$payroll_group_data =  $payroll_group->populate();
+
+			default:
+			break;
+		}
+
 		foreach($payroll_group_data as $key=>$group) {
 
 			$employees = new $this->Payroll_employees_model('pe');
@@ -117,8 +162,23 @@ class Payroll_overall extends MY_Controller {
 			$employees->set_select('pe.print_group');
 			$employees->set_select('e.employee_id');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
-			$employees->set_where('e.group_id', $group->group_id);
 
+			switch( $payroll_data->group_by ) {
+				case 'position':
+					$employees->set_where('pe.position_id', $group->position_id);
+				break;
+				case 'area':
+					$employees->set_where('pe.area_id', $group->area_id);
+				break;
+				case 'status':
+					$employees->set_where('pe.status_id', $group->status_id);
+				break;
+				case 'group':
+				default:
+					$employees->set_where('pe.group_id', $group->group_id);
+				break;
+			}
+			
 			if( $this->input->get('filter') ) {
 				//$employees->set_where('e.name_id', $this->input->get('filter'));
 			}

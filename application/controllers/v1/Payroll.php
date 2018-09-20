@@ -959,7 +959,7 @@ class Payroll extends MY_Controller {
 				$employees->set_where('pe.area_id', $group_id);
 			break;
 			case 'status':
-				$employees->set_where('pe.status', $group_id);
+				$employees->set_where('pe.status_id', $group_id);
 			break;
 			case 'group':
 			default:
@@ -1201,6 +1201,61 @@ class Payroll extends MY_Controller {
 		redirect($this->input->get('uri'));
 	}
 
+	public function filter_status($status_id) {
+		$term = new $this->Terms_list_model('t');
+		$term->setId($status_id,true);
+		$term->setType('employment_status',true);
+		if( $term->nonEmpty() ) {
+			$this->session->set_userdata('employees_filter', $term->getResults());
+			$this->session->set_userdata('employees_filter_type', 'status');
+		} else {
+			$this->session->set_userdata('employees_filter', false);
+		}
+		redirect($this->input->get('uri'));
+	}
+
+	public function filter_group($group_id) {
+		$group = new $this->Employees_groups_model;
+		$group->setId($group_id,true);
+		if( $group->nonEmpty() ) {
+			$this->session->set_userdata('employees_filter', $group->getResults());
+			$this->session->set_userdata('employees_filter_type', 'group');
+		} else {
+			$this->session->set_userdata('employees_filter', false);
+		}
+		redirect($this->input->get('uri'));
+	}
+
+	public function filter_area($area_id) {
+		$area = new $this->Employees_areas_model;
+		$area->setId($area_id,true);
+		if( $area->nonEmpty() ) {
+			$this->session->set_userdata('employees_filter', $area->getResults());
+			$this->session->set_userdata('employees_filter_type', 'area');
+		} else {
+			$this->session->set_userdata('employees_filter', false);
+		}
+		redirect($this->input->get('uri'));
+	}
+
+	public function filter_position($position_id) {
+		$position = new $this->Employees_positions_model;
+		$position->setId($position_id,true);
+		if( $position->nonEmpty() ) {
+			$this->session->set_userdata('employees_filter', $position->getResults());
+			$this->session->set_userdata('employees_filter_type', 'position');
+		} else {
+			$this->session->set_userdata('employees_filter', false);
+		}
+		redirect($this->input->get('uri'));
+	}
+
+	public function clear_filter() {
+		$this->session->set_userdata('employees_filter', false);
+		$this->session->set_userdata('employees_filter_type', false);
+		redirect($this->input->get('uri'));
+	}
+
 	public function select_payroll($payroll_id) {
 		
 		$payroll = new $this->Payroll_model;
@@ -1251,6 +1306,40 @@ class Payroll extends MY_Controller {
 	public function clear_current_employee() {
 		$this->session->unset_userdata('current_employee');
 		redirect( site_url( $this->input->get('next') ) . "?error_code=102" );
+	}
+
+	public function insert_name($payroll_id, $group_id, $output='') {
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($payroll_id,true);
+		$payroll_data = $payroll->get();
+
+		if( $this->input->post('name_id') ) {
+			$group = new $this->Payroll_employees_model();
+			$group->setPayrollId($payroll_id, true);
+			$group->setNameId($this->input->post('name_id'), true);
+			switch( $payroll_data->group_by ) {
+				case 'position':
+					$group->setPositionId($group_id, true);
+				break;
+				case 'area':
+					$employees->set_where('pe.area_id', $group_id);
+				break;
+				case 'status':
+					$employees->set_where('pe.status_id', $group_id);
+				break;
+				case 'group':
+				default:
+					$employees->set_where('pe.group_id', $group_id);
+				break;
+			}
+		}
+
+		$this->template_data->set('output', $output);
+		$this->template_data->set('payroll_id', $payroll_id);
+		$this->template_data->set('group_id', $group_id);
+
+		$this->load->view('payroll/payroll/payroll_insert_name', $this->template_data->get_data());
 	}
 
 }

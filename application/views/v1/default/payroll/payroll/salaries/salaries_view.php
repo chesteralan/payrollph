@@ -54,7 +54,26 @@ $total_gross_pay = 0;
 <?php if( intval($group_id) > 0 ) { ?>
 <a href="<?php echo site_url("payroll_salaries/view/{$payroll->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></span></a>
 <?php } else { ?>
-  <a href="<?php echo site_url("payroll_salaries/view/{$payroll->id}/{$payroll_group->group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
+
+<?php 
+  switch ($payroll->group_by) {
+    case 'position':
+      $filter_id = $payroll_group->position_id;
+      break;
+    case 'area':
+      $filter_id = $payroll_group->area_id;
+      break;
+    case 'status':
+      $filter_id = $payroll_group->status_id;
+      break;
+    case 'group':
+    default:
+      $filter_id = $payroll_group->group_id;
+      break;
+  }
+?>
+
+  <a href="<?php echo site_url("payroll_salaries/view/{$payroll->id}/{$filter_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
 <?php } ?>
 

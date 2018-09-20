@@ -68,7 +68,26 @@ if( isset($compare_payroll) ) {
 <?php if( intval($group_id) > 0 ) { ?>
 <a href="<?php echo site_url("payroll_earnings/view/{$payroll->id}/0/{$column_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></a>
 <?php } else { ?>
-  <a href="<?php echo site_url("payroll_earnings/view/{$payroll->id}/{$payroll_group->group_id}/{$column_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></a>
+
+  <?php 
+  switch ($payroll->group_by) {
+    case 'position':
+      $filter_id = $payroll_group->position_id;
+      break;
+    case 'area':
+      $filter_id = $payroll_group->area_id;
+      break;
+    case 'status':
+      $filter_id = $payroll_group->status_id;
+      break;
+    case 'group':
+    default:
+      $filter_id = $payroll_group->group_id;
+      break;
+  }
+  ?>
+  
+  <a href="<?php echo site_url("payroll_earnings/view/{$payroll->id}/{$filter_id}/{$column_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></a>
 <?php } ?>
 <?php } ?>
 

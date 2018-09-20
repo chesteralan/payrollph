@@ -18,7 +18,7 @@
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong> (<?php echo date( 'F d,Y', strtotime( $inclusive_dates->start_date ) ); ?> - <?php echo date( 'F d,Y', strtotime( $inclusive_dates->end_date ) ); ?>)
 <a class="body_wrapper" href="<?php echo site_url("payroll_dtr/leave_benefits/{$payroll->id}/{$group_id}"); ?>"><small>Leave Benefits</small></a>
 <?php if(!$payroll->lock) { ?>
-<a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Inclusive Dates" data-url="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
+<a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Inclusive Dates" data-url="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-calendar"></span></a>
 <?php } ?>
                   </h3>
                 </div>
@@ -39,7 +39,24 @@
 <?php if( intval($group_id) > 0 ) { ?>
 <a href="<?php echo site_url("payroll_dtr/view/{$payroll->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></a>
 <?php } else { ?>
-  <a href="<?php echo site_url("payroll_dtr/view/{$payroll->id}/{$payroll_group->group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
+  <?php 
+  switch ($payroll->group_by) {
+    case 'position':
+      $filter_id = $payroll_group->position_id;
+      break;
+    case 'area':
+      $filter_id = $payroll_group->area_id;
+      break;
+    case 'status':
+      $filter_id = $payroll_group->status_id;
+      break;
+    case 'group':
+    default:
+      $filter_id = $payroll_group->group_id;
+      break;
+  }
+  ?>
+  <a href="<?php echo site_url("payroll_dtr/view/{$payroll->id}/{$filter_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
 <?php } ?>
                 <?php echo $payroll_group->name; ?>

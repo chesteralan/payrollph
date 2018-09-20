@@ -44,20 +44,58 @@ $current_employee = $this->session->userdata('current_employee');
         </ul>
   </li>
 <?php } else { ?>
-<?php if( isset($employees_status) && ($employees_status) ) { ?>
+
     <li class="dropdown">
-          <a href="#" class="dropdown-toggle bold" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo ($this->session->userdata('employees_status')) ? $this->session->userdata('employees_status')->name : 'All Employees'; ?> <span class="caret"></span></a>
+
+<?php 
+  $filter_text = ($this->session->userdata('employees_filter')) ? $this->session->userdata('employees_filter')->name : 'All Employees';
+?>
+          <a href="#" class="dropdown-toggle bold" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $filter_text; ?> <span class="caret"></span></a>
+
           <ul class="dropdown-menu">
-            <li class="<?php echo (!$this->session->userdata('employees_status')) ? 'active' : ''; ?>"><a href="<?php echo site_url("payroll/change_status/0") . "?uri=" . uri_string(); ?>">All Employees</a></li>
-            <li role="separator" class="divider"></li>
+
+<?php if($this->session->userdata('employees_filter')) { ?>
+            <li class="<?php echo (!$this->session->userdata('employees_filter')) ? 'active' : ''; ?>"><a href="<?php echo site_url("payroll/clear_filter") . "?uri=" . uri_string(); ?>">All Employees</a></li>
+             <li role="separator" class="divider"></li>
+<?php } ?>
+
+<?php if( isset($employees_status) && ($employees_status) ) { ?>
+           
             <span class="dropdown-header">Employee Status</span>
             <?php foreach($employees_status as $emp_stat) { ?>
-                <li class="<?php echo (($this->session->userdata('employees_status')) && ($this->session->userdata('employees_status')->id == $emp_stat->status)) ? 'active' : ''; ?>"><a href="<?php echo site_url("payroll/change_status/{$emp_stat->status}") . "?uri=" . uri_string(); ?>"><?php echo $emp_stat->status_name; ?></a></li>
+                <li class="<?php echo (($this->session->userdata('employees_filter')) && ($this->session->userdata('employees_filter_type')=='status') && ($this->session->userdata('employees_filter')->id == $emp_stat->status)) ? 'active' : ''; ?>"><a href="<?php echo site_url("payroll/filter_status/{$emp_stat->status}") . "?uri=" . uri_string(); ?>"><?php echo $emp_stat->status_name; ?></a></li>
             <?php } ?>
+<?php } ?>
+
+<?php if( isset($employees_groups) && ($employees_groups) ) { ?>
+            <li role="separator" class="divider"></li>
+            <span class="dropdown-header">Employee Groups</span>
+            <?php foreach($employees_groups as $emp_grp) { ?>
+                <li class="<?php echo (($this->session->userdata('employees_filter')) && ($this->session->userdata('employees_filter_type')=='group') && ($this->session->userdata('employees_filter')->id == $emp_grp->id)) ? 'active' : ''; ?>"><a href="<?php echo site_url("payroll/filter_group/{$emp_grp->id}") . "?uri=" . uri_string(); ?>"><?php echo $emp_grp->name; ?></a></li>
+            <?php } ?>
+<?php } ?>
+
+<?php if( isset($employees_areas) && ($employees_areas) ) { ?>
+            <li role="separator" class="divider"></li>
+            <span class="dropdown-header">Employee Areas</span>
+            <?php foreach($employees_areas as $emp_area) { ?>
+                <li class="<?php echo (($this->session->userdata('employees_filter')) && ($this->session->userdata('employees_filter_type')=='area') && ($this->session->userdata('employees_filter')->id == $emp_area->id)) ? 'active' : ''; ?>"><a href="<?php echo site_url("payroll/filter_area/{$emp_area->id}") . "?uri=" . uri_string(); ?>"><?php echo $emp_area->name; ?></a></li>
+            <?php } ?>
+<?php } ?>
+
+<?php if( isset($employees_positions) && ($employees_positions) ) { ?>
+            <li role="separator" class="divider"></li>
+            <span class="dropdown-header">Employee Positions</span>
+            <?php foreach($employees_positions as $emp_position) { ?>
+                <li class="<?php echo (($this->session->userdata('employees_filter')) && ($this->session->userdata('employees_filter_type')=='position') && ($this->session->userdata('employees_filter')->id == $emp_position->id)) ? 'active' : ''; ?>"><a href="<?php echo site_url("payroll/filter_position/{$emp_position->id}") . "?uri=" . uri_string(); ?>"><?php echo $emp_position->name; ?></a></li>
+            <?php } ?>
+<?php } ?>
+
           </ul>
         </li>
+
 <?php } ?>
-<?php } ?>
+
 
 <?php if(isset($previous_item) && ($previous_item)) { ?>
 <li>

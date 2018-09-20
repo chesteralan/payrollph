@@ -36,6 +36,7 @@ $cola_rate = 0;
 $absences = 0;
 $basic_salary = 0;
 $manner = 'daily';
+$addon_benefits = 0;
 
 if( $employee->salary ) {
   $salary = $employee->salary;

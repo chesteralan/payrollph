@@ -140,7 +140,7 @@ defined('APP_NAME') OR define('APP_NAME', 'Payroll PH' );
 defined('USER_AGENT_CHECK') OR define('USER_AGENT_CHECK', false );
 
 // working days
-defined('WORK_ON_SUN')      OR define('WORK_ON_SUN', false); 
+defined('WORK_ON_SUN')      OR define('WORK_ON_SUN', true); 
 defined('WORK_ON_MON')      OR define('WORK_ON_MON', true); 
 defined('WORK_ON_TUE')      OR define('WORK_ON_TUE', true); 
 defined('WORK_ON_WED')      OR define('WORK_ON_WED', true); 

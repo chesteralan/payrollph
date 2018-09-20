@@ -128,7 +128,7 @@ if( $this->config->item('multi_company') ) {
         );
 
     $main_menu['system'] = array(
-      'title' => 'System',
+      'title' => 'Administration',
       'uri' => 'system',
       'permission' => 'system',
       'sub_menus' => $system_submenus,

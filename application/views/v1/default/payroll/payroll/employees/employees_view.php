@@ -30,7 +30,29 @@ $payslip_templates = array(
 <?php if(!$payroll->lock) { ?>
 <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Employee Groups" data-url="<?php echo site_url("payroll/groups/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="fa fa-users"></span></a>
 <?php } ?>
-                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong></h3>
+                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
+<span class="badge">Grouped by
+<?php 
+switch($payroll->group_by) {
+  case 'position':
+    echo 'Position';
+  break;
+  case 'area':
+    echo 'Area';
+  break;
+  case 'status':
+    echo 'Status';
+  break;
+  case 'group':
+    echo 'Group';
+  break;
+}
+?>
+</span>
+<?php if( $group_id ) { ?>
+  <a class="badge" href="<?php echo site_url("payroll_employees/view/{$payroll->id}"); ?>"><?php print_r($payroll_groups[0]->name); ?> <span class="glyphicon glyphicon-remove"></span></a>
+<?php } ?>
+                  </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 <?php } ?>
@@ -48,7 +70,24 @@ $payslip_templates = array(
 <?php if( intval($group_id) > 0 ) { ?>
 <a href="<?php echo site_url("payroll_employees/view/{$payroll->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></span></a>
 <?php } else { ?>
-  <a href="<?php echo site_url("payroll_employees/view/{$payroll->id}/{$payroll_group->group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
+  <?php 
+  switch ($payroll->group_by) {
+    case 'position':
+      $filter_id = $payroll_group->position_id;
+      break;
+    case 'area':
+      $filter_id = $payroll_group->area_id;
+      break;
+    case 'status':
+      $filter_id = $payroll_group->status_id;
+      break;
+    case 'group':
+    default:
+      $filter_id = $payroll_group->group_id;
+      break;
+  }
+  ?>
+  <a href="<?php echo site_url("payroll_employees/view/{$payroll->id}/{$filter_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
 <?php } ?>
                 <?php echo $payroll_group->name; ?>
@@ -57,7 +96,7 @@ $payslip_templates = array(
 <?php if( !$this->session->userdata('current_employee') ) { ?>
  <a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Sort <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll/employees/{$payroll->id}/{$payroll_group->id}/ajax") . "?action=sort&next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-sort"></span></a>
 
- <a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Employee <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll/employees/{$payroll->id}/{$payroll_group->id}/ajax") . "?action=add_employee&next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-plus"></span></a>
+ <a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Insert Name - <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll/insert_name/{$payroll->id}/{$payroll_group->id}/ajax") . "?next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-plus"></span></a>
 
 <?php } ?>
 <?php } ?>

@@ -22,4 +22,3 @@ $config['profile_modules'] = array(
 	'emergency_contacts' => true,
 	'security_guard_license' => true,
 );
-
