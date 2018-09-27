@@ -13,9 +13,10 @@ CREATE TABLE `payroll_employees_deductions` (
   `entry_id` int(20) NOT NULL,
   `amount` decimal(30,5) NOT NULL,
   `notes` text,
+  `manual` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`payroll_id`,`deduction_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `payroll_employees_deductions` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `payroll_employees_deductions` ADD  `payroll_id` int(20) NOT NULL   ;
@@ -24,6 +25,7 @@ ALTER TABLE  `payroll_employees_deductions` ADD  `deduction_id` int(20) NOT NULL
 ALTER TABLE  `payroll_employees_deductions` ADD  `entry_id` int(20) NOT NULL   ;
 ALTER TABLE  `payroll_employees_deductions` ADD  `amount` decimal(30,5) NOT NULL   ;
 ALTER TABLE  `payroll_employees_deductions` ADD  `notes` text NULL   ;
+ALTER TABLE  `payroll_employees_deductions` ADD  `manual` int(1) NOT NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -44,6 +46,7 @@ class Payroll_employees_deductions_model extends MY_Model {
 	protected $entry_id;
 	protected $amount;
 	protected $notes;
+	protected $manual;
 
 	// --------------------------------------------------------------------
 
@@ -57,8 +60,8 @@ class Payroll_employees_deductions_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_employees_deductions';
 		$this->_short_name = 'payroll_employees_deductions';
-		$this->_fields = array("id","payroll_id","name_id","deduction_id","entry_id","amount","notes");
-		$this->_required = array("payroll_id","name_id","deduction_id","entry_id","amount");
+		$this->_fields = array("id","payroll_id","name_id","deduction_id","entry_id","amount","notes","manual");
+		$this->_required = array("payroll_id","name_id","deduction_id","entry_id","amount","manual");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -226,6 +229,29 @@ class Payroll_employees_deductions_model extends MY_Model {
 // ------------------------------ End Field: notes --------------------------------------
 
 
+// ---------------------------- Start Field: manual -------------------------------------- 
+
+	/** 
+	* Sets a value to `manual` variable
+	* @access public
+	*/
+
+	public function setManual($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('manual', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `manual` variable
+	* @access public
+	*/
+
+	public function getManual() {
+		return $this->manual;
+	}
+	
+// ------------------------------ End Field: manual --------------------------------------
+
+
 
 	
 	public function get_table_options() {
@@ -291,6 +317,15 @@ class Payroll_employees_deductions_model extends MY_Model {
 										'Key'=>'',
 										'Default'=>'',
 										'Extra'=>''
+									),
+
+			'manual' => (object) array(
+										'Field'=>'manual',
+										'Type'=>'int(1)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
 									)
 		);
 	}
@@ -304,6 +339,7 @@ class Payroll_employees_deductions_model extends MY_Model {
 			'entry_id' => "ALTER TABLE  `payroll_employees_deductions` ADD  `entry_id` int(20) NOT NULL   ;",
 			'amount' => "ALTER TABLE  `payroll_employees_deductions` ADD  `amount` decimal(30,5) NOT NULL   ;",
 			'notes' => "ALTER TABLE  `payroll_employees_deductions` ADD  `notes` text NULL   ;",
+			'manual' => "ALTER TABLE  `payroll_employees_deductions` ADD  `manual` int(1) NOT NULL   DEFAULT '0';",
 		);
 
 		if( isset( $column[$field_name] ) ) {

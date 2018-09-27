@@ -56,12 +56,12 @@ $payslip_templates = array(
 
 <div class="panel-group sortable sortable-employees" id="accordion" role="tablist" aria-multiselectable="true">
 <?php foreach($employees as $employee) { ?>
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="heading<?php echo $employee->name_id; ?>">
+   <div class="panel panel-<?php echo ($employee->active==1) ? (($employee->manual==1)?'warning':'default') : 'danger'; ?>">
+    <div class="panel-heading" role="tab" id="heading<?php echo $employee->pe_id; ?>">
       <h4 class="panel-title">
-        <label><input type="checkbox" name="selected[]" value="<?php echo $employee->name_id; ?>" <?php echo ($employee->active==1) ? "CHECKED" : ""; ?>></label>
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $employee->name_id; ?>" aria-expanded="true" aria-controls="collapseOne">
-          <input type="hidden" name="name_id[]" value="<?php echo $employee->name_id; ?>">
+        <label><input type="checkbox" name="selected[]" value="<?php echo $employee->pe_id; ?>" <?php echo ($employee->active==1) ? "CHECKED" : ""; ?>></label>
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $employee->pe_id; ?>" aria-expanded="true" aria-controls="collapseOne">
+          <input type="hidden" name="pe_id[]" value="<?php echo $employee->pe_id; ?>">
           <span class="glyphicon glyphicon-sort pull-right" style="margin-left: 10px;"></span>
            <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>
         </a>
@@ -69,14 +69,14 @@ $payslip_templates = array(
     </div>
     
 <?php if($this->input->get('action')!='sort') { ?>
-<?php if($employee->active==1) { ?>
-    <div id="collapse<?php echo $employee->name_id; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $employee->name_id; ?>">
+<?php if($employee->active==1 && $employee->manual==0) { ?>
+    <div id="collapse<?php echo $employee->pe_id; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $employee->pe_id; ?>">
       <div class="panel-body">
 
 
 <div class="row" style="margin-top:10px;">
   <div class="col-md-6 col-sm-6 col-xs-6">
-    <select class="form-control input-sm" name="group[<?php echo $employee->name_id; ?>]" data-style="btn-default btn-sm">
+    <select class="form-control input-sm" name="group[<?php echo $employee->pe_id; ?>]" data-style="btn-default btn-sm">
       <option value="0">- - No Group - -</option>
 <?php foreach( $groups as $group) { ?>
           <option value="<?php echo $group->id; ?>" <?php echo ($employee->group_id2==$group->id) ? 'SELECTED' : ''; ?>><?php echo $group->name; ?></option>
@@ -84,7 +84,7 @@ $payslip_templates = array(
       </select>
   </div>
   <div class="col-md-6 col-sm-6 col-xs-6">
-    <select class="form-control input-sm" name="position[<?php echo $employee->name_id; ?>]" data-style="btn-default btn-sm">
+    <select class="form-control input-sm" name="position[<?php echo $employee->pe_id; ?>]" data-style="btn-default btn-sm">
       <option value="0">- - No Position - -</option>
 <?php foreach( $positions as $position) { ?>
           <option value="<?php echo $position->id; ?>" <?php echo ($employee->position_id==$position->id) ? 'SELECTED' : ''; ?>><?php echo $position->name; ?></option>
@@ -95,7 +95,7 @@ $payslip_templates = array(
 
 <div class="row" style="margin-top:10px;">
   <div class="col-md-6 col-sm-6 col-xs-6">
-    <select class="form-control input-sm" name="area[<?php echo $employee->name_id; ?>]" data-style="btn-default btn-sm">
+    <select class="form-control input-sm" name="area[<?php echo $employee->pe_id; ?>]" data-style="btn-default btn-sm">
       <option value="0">- - No Area - -</option>
 <?php foreach( $areas as $area) { ?>
           <option value="<?php echo $area->id; ?>" <?php echo ($employee->area_id==$area->id) ? 'SELECTED' : ''; ?>><?php echo $area->name; ?></option>
@@ -103,7 +103,7 @@ $payslip_templates = array(
       </select>
   </div>
   <div class="col-md-6 col-sm-6 col-xs-6">
-    <select class="form-control input-sm" name="status[<?php echo $employee->name_id; ?>]" data-style="btn-default btn-sm">
+    <select class="form-control input-sm" name="status[<?php echo $employee->pe_id; ?>]" data-style="btn-default btn-sm">
       <option value="0">- - No Assigned Status - -</option>
 <?php foreach( $employment_status as $status) { ?>
           <option value="<?php echo $status->id; ?>" <?php echo ($employee->status==$status->id) ? 'SELECTED' : ''; ?>><?php echo $status->name; ?></option>
@@ -115,7 +115,7 @@ $payslip_templates = array(
 
 <div class="row" style="margin-top:10px;">
   <div class="col-md-6 col-sm-6 col-xs-6">
-    <select class="form-control input-sm" name="payslip_template[<?php echo $employee->name_id; ?>]" data-style="btn-default btn-sm">
+    <select class="form-control input-sm" name="payslip_template[<?php echo $employee->pe_id; ?>]" data-style="btn-default btn-sm">
 <?php foreach( $payslip_templates as $k=>$v) { ?>
           <option value="<?php echo $k; ?>" <?php echo ($employee->template==$k) ? 'SELECTED' : ''; ?>><?php echo $v; ?></option>
 <?php } ?>
@@ -123,7 +123,7 @@ $payslip_templates = array(
   </div>
   <div class="col-md-6 col-sm-6 col-xs-6">
       <?php if( $print_groups ) { ?>
-            <select class="form-control input-sm" name="print_group[<?php echo $employee->name_id; ?>]" data-style="btn-default btn-sm">
+            <select class="form-control input-sm" name="print_group[<?php echo $employee->pe_id; ?>]" data-style="btn-default btn-sm">
               <option value="none">No Print Group</option>
               <?php foreach($print_groups as $grp) { ?>
                 <option value="<?php echo $grp->id; ?>" <?php echo ($employee->print_group==$grp->id) ? "SELECTED" : ""; ?>><?php echo $grp->name; ?></option>

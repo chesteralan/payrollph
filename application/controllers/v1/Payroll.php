@@ -407,6 +407,7 @@ class Payroll extends MY_Controller {
 		 	$pee_earning->setNameId($earning2->name_id,true);
 		 	$pee_earning->setEarningId($earning2->earning_id,true);
 		 	$pee_earning->setEntryId($earning2->id,true);
+		 	$pee_earning->setManual(0,true);
 
 		 	switch( $earning2->computed ) {
 		 		case 'hour':
@@ -473,6 +474,7 @@ class Payroll extends MY_Controller {
 			 	$peb_benefit->setNameId($benefit2->name_id,true);
 			 	$peb_benefit->setBenefitId($benefit2->benefit_id,true);
 			 	$peb_benefit->setEntryId($benefit2->id,true);
+			 	$peb_benefit->setManual(0,true);
 			 	$peb_benefit->setEmployeeShare($benefit2->employee_share);
 			 	$peb_benefit->setEmployerShare($benefit2->employer_share);
 				if( $peb_benefit->nonEmpty() ) {
@@ -506,6 +508,7 @@ class Payroll extends MY_Controller {
 			 	$ped_deduction->setNameId($deduction2->name_id,true);
 			 	$ped_deduction->setDeductionId($deduction2->deduction_id,true);
 			 	$ped_deduction->setEntryId($deduction2->id,true);
+			 	$ped_deduction->setManual(0,true);
 
 			 	switch( $deduction2->computed ) {
 			 		case 'hour':
@@ -549,6 +552,7 @@ class Payroll extends MY_Controller {
 					$payroll_salary = new $this->Payroll_employees_salaries_model;
 					$payroll_salary->setPayrollId($payroll_data->id,true);
 					$payroll_salary->setNameId($employee->name_id,true);
+					$payroll_salary->setManual(0,true);
 					$payroll_salary->setSalaryId($salary_data->id);
 					$payroll_salary->setAmount($salary_data->amount);
 					$payroll_salary->setRatePer($salary_data->rate_per);
@@ -670,6 +674,9 @@ class Payroll extends MY_Controller {
 				$payroll_group = new $this->Payroll_groups_model;
 				$payroll_group->setPayrollId($id,true);
 				$payroll_group->setGroupId($group->group_id,true);
+				$payroll_group->setAreaId($group->area_id,true);
+				$payroll_group->setPositionId($group->position_id,true);
+				$payroll_group->setStatusId($group->status_id,true);
 				$payroll_group->setOrder($group->order);
 				$payroll_group->setPage($group->page);
 				if( $payroll_group->nonEmpty() === FALSE ) {
@@ -696,6 +703,7 @@ class Payroll extends MY_Controller {
 					$payroll_employees = new $this->Payroll_employees_model;
 					$payroll_employees->setPayrollId($id,true);
 					$payroll_employees->setNameId($employee->name_id,true);
+					$payroll_employees->setManual(0,true);
 					$payroll_employees->setOrder($employee->order);
 					$payroll_employees->setTemplate($employee->template);
 					$payroll_employees->setPrintGroup($employee->print_group);
@@ -876,11 +884,11 @@ class Payroll extends MY_Controller {
 		$this->template_data->set('payroll', $payroll_data);
 
 		if( $this->input->post() ) {
-			foreach( $this->input->post('name_id') as $order=>$name_id ) {
+			foreach( $this->input->post('pe_id') as $order=>$pe_id ) {
 				$pemployee = new $this->Payroll_employees_model;
 				$pemployee->setPayrollId($id,true);
-				$pemployee->setNameId($name_id,true);
-				if( in_array($name_id, $this->input->post('selected')) ) {
+				$pemployee->setId($pe_id,true);
+				if( in_array($pe_id, $this->input->post('selected')) ) {
 					$pemployee->setActive('1');
 				} else {
 					$pemployee->setActive('0');
@@ -888,49 +896,49 @@ class Payroll extends MY_Controller {
 				$pemployee->setOrder($order);
 
 				$template = $this->input->post('payslip_template');
-				if( isset($template[$name_id]) ) {
-					$pemployee->setTemplate($template[$name_id]);
+				if( isset($template[$pe_id]) ) {
+					$pemployee->setTemplate($template[$pe_id]);
 				} else {
 					$pemployee->set_exclude('template');
 				}
 
 				$print_group = $this->input->post('print_group');
-				if( isset($print_group[$name_id]) ) {
-					$pemployee->setPrintGroup($print_group[$name_id]);
+				if( isset($print_group[$pe_id]) ) {
+					$pemployee->setPrintGroup($print_group[$pe_id]);
 				} else {
 					$pemployee->set_exclude('print_group');
 				}
 
 				$group = $this->input->post('group');
-				if( isset($group[$name_id]) ) {
-					$pemployee->setGroupId($group[$name_id]);
+				if( isset($group[$pe_id]) ) {
+					$pemployee->setGroupId($group[$pe_id]);
 				} else {
 					$pemployee->set_exclude('group_id');
 				}
 
 				$position = $this->input->post('position');
-				if( isset($position[$name_id]) ) {
-					$pemployee->setPositionId($position[$name_id]);
+				if( isset($position[$pe_id]) ) {
+					$pemployee->setPositionId($position[$pe_id]);
 				} else {
 					$pemployee->set_exclude('position_id');
 				}
 
 				$area = $this->input->post('area');
-				if( isset($area[$name_id]) ) {
-					$pemployee->setAreaId($area[$name_id]);
+				if( isset($area[$pe_id]) ) {
+					$pemployee->setAreaId($area[$pe_id]);
 				} else {
 					$pemployee->set_exclude('area_id');
 				}
 
 				$status = $this->input->post('status');
-				if( isset($status[$name_id]) ) {
-					$pemployee->setStatusId($status[$name_id]);
+				if( isset($status[$pe_id]) ) {
+					$pemployee->setStatusId($status[$pe_id]);
 				} else {
 					$pemployee->set_exclude('status_id');
 				}
 
 				if( $pemployee->nonEmpty() ) {
-					$pemployee->set_exclude(array('payroll_id','name_id'));
+					$pemployee->set_exclude(array('payroll_id','name_id','id'));
 					$pemployee->update();
 				} else {
 					$pemployee->insert();
@@ -949,7 +957,9 @@ class Payroll extends MY_Controller {
 		//$employees->set_select('(SELECT ep.name FROM employees_positions ep WHERE ep.id=e.position_id) as position_name');
 		$employees->set_limit(0);
 		
-		$employees->set_join('payroll_employees pe', 'pe.name_id=e.name_id AND pe.payroll_id=' . $id);
+		$employees->set_join('payroll_employees pe', 'pe.name_id=e.name_id AND pe.payroll_id=' . $id . '');
+		$employees->set_select('pe.id as pe_id');
+		$employees->set_select('pe.manual');
 
 		switch( $payroll_data->group_by ) {
 			case 'position':
@@ -1308,31 +1318,36 @@ class Payroll extends MY_Controller {
 		redirect( site_url( $this->input->get('next') ) . "?error_code=102" );
 	}
 
-	public function insert_name($payroll_id, $group_id, $output='') {
+	public function insert_name($payroll_id, $group_id, $group_by='group', $output='') {
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($payroll_id,true);
 		$payroll_data = $payroll->get();
 
 		if( $this->input->post('name_id') ) {
-			$group = new $this->Payroll_employees_model();
-			$group->setPayrollId($payroll_id, true);
-			$group->setNameId($this->input->post('name_id'), true);
-			switch( $payroll_data->group_by ) {
+			$employee = new $this->Payroll_employees_model('pe');
+			$employee->setPayrollId($payroll_id, true);
+			$employee->setNameId($this->input->post('name_id'), true);
+			$employee->setManual(1, true);
+			switch( $group_by ) {
 				case 'position':
-					$group->setPositionId($group_id, true);
+					$employee->setPositionId($group_id,true);
 				break;
 				case 'area':
-					$employees->set_where('pe.area_id', $group_id);
+					$employee->setAreaId($group_id,true);
 				break;
 				case 'status':
-					$employees->set_where('pe.status_id', $group_id);
+					$employee->setStatusId($group_id,true);
 				break;
 				case 'group':
 				default:
-					$employees->set_where('pe.group_id', $group_id);
+					$employee->setGroupId($group_id,true);
 				break;
 			}
+			if( !$employee->nonEmpty() ) {
+				$employee->insert();
+			}
+			redirect($this->input->get('next'));
 		}
 
 		$this->template_data->set('output', $output);

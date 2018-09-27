@@ -96,7 +96,7 @@ switch($payroll->group_by) {
 <?php if( !$this->session->userdata('current_employee') ) { ?>
  <a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Sort <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll/employees/{$payroll->id}/{$payroll_group->id}/ajax") . "?action=sort&next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-sort"></span></a>
 
- <a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Insert Name - <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll/insert_name/{$payroll->id}/{$payroll_group->id}/ajax") . "?next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-plus"></span></a>
+ <a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Insert Name - <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll/insert_name/{$payroll->id}/{$payroll_group->id}/{$payroll->group_by}/ajax") . "?next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-plus"></span></a>
 
 <?php } ?>
 <?php } ?>
@@ -114,12 +114,11 @@ switch($payroll->group_by) {
 <?php if($payroll_group->employees) { ?>
 <?php foreach($payroll_group->employees as $employee) { 
 
-
               ?>
               <tr>
                 <td>
 <?php if(!$payroll->lock) { ?>
-                <a class="confirm" href="<?php echo site_url("payroll_employees/deactivate/{$payroll->id}/{$employee->name_id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-remove"></span></a>
+                <a class="confirm" href="<?php echo site_url("payroll_employees/deactivate/{$payroll->id}/{$employee->id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-remove"></span></a>
 <?php } ?>
                 <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> 
                 
@@ -130,7 +129,7 @@ switch($payroll->group_by) {
 
                 <td class="text-right">
 <?php if(!$payroll->lock) { ?>
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Status" data-url="<?php echo site_url("payroll_employees/change_status/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Status" data-url="<?php echo site_url("payroll_employees/change_status/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" .uri_string(); ?>">
 <?php } ?>
                 <?php echo ($employee->status_name) ? $employee->status_name : '- - - - -'; ?>
 <?php if(!$payroll->lock) { ?>
@@ -139,7 +138,7 @@ switch($payroll->group_by) {
                 </td>
                 <td class="text-right">
 <?php if(!$payroll->lock) { ?>
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Group" data-url="<?php echo site_url("payroll_employees/change_group/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Group" data-url="<?php echo site_url("payroll_employees/change_group/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" .uri_string(); ?>">
 <?php } ?>
                 <?php echo ($employee->group_name) ? $employee->group_name : '- - - - -'; ?>
 <?php if(!$payroll->lock) { ?>
@@ -148,7 +147,7 @@ switch($payroll->group_by) {
                 </td>
                 <td class="text-right">
 <?php if(!$payroll->lock) { ?>
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Position" data-url="<?php echo site_url("payroll_employees/change_position/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Position" data-url="<?php echo site_url("payroll_employees/change_position/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" .uri_string(); ?>">
 <?php } ?>
                 <?php echo ($employee->position_name) ? $employee->position_name : '- - - - -'; ?>
 <?php if(!$payroll->lock) { ?>
@@ -157,7 +156,7 @@ switch($payroll->group_by) {
                 </td>
                 <td class="text-right">
 <?php if(!$payroll->lock) { ?>
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Area" data-url="<?php echo site_url("payroll_employees/change_area/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Area" data-url="<?php echo site_url("payroll_employees/change_area/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" .uri_string(); ?>">
 <?php } ?>
                 <?php echo ($employee->area_name) ? $employee->area_name : '- - - - -'; ?>
 <?php if(!$payroll->lock) { ?>
@@ -166,7 +165,7 @@ switch($payroll->group_by) {
                 </td>
                 <td class="text-right">
 <?php if(!$payroll->lock) { ?>                
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Template" data-url="<?php echo site_url("payroll_employees/change_payslip/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Template" data-url="<?php echo site_url("payroll_employees/change_payslip/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" .uri_string(); ?>">
 <?php } ?>
                 <?php echo ($employee->template) ? $payslip_templates[$employee->template] : '- - - - -'; ?>
 <?php if(!$payroll->lock) { ?>
@@ -175,7 +174,7 @@ switch($payroll->group_by) {
                 </td>
                 <td class="text-right">
 <?php if(!$payroll->lock) { ?>
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Print Group" data-url="<?php echo site_url("payroll_employees/change_print_group/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Print Group" data-url="<?php echo site_url("payroll_employees/change_print_group/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" .uri_string(); ?>">
 <?php } ?>
                 <?php echo ($employee->print_group_name) ? $employee->print_group_name : '- - - - -'; ?>
 <?php if(!$payroll->lock) { ?>

@@ -14,6 +14,7 @@ CREATE TABLE `payroll_employees_benefits` (
   `employee_share` decimal(30,5) DEFAULT '0.00000',
   `employer_share` decimal(30,5) DEFAULT '0.00000',
   `notes` text,
+  `manual` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`),
   KEY `benefit_id` (`benefit_id`),
@@ -28,6 +29,7 @@ ALTER TABLE  `payroll_employees_benefits` ADD  `entry_id` int(20) NOT NULL   ;
 ALTER TABLE  `payroll_employees_benefits` ADD  `employee_share` decimal(30,5) NULL   DEFAULT '0.00000';
 ALTER TABLE  `payroll_employees_benefits` ADD  `employer_share` decimal(30,5) NULL   DEFAULT '0.00000';
 ALTER TABLE  `payroll_employees_benefits` ADD  `notes` text NULL   ;
+ALTER TABLE  `payroll_employees_benefits` ADD  `manual` int(1) NOT NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -49,6 +51,7 @@ class Payroll_employees_benefits_model extends MY_Model {
 	protected $employee_share;
 	protected $employer_share;
 	protected $notes;
+	protected $manual;
 
 	// --------------------------------------------------------------------
 
@@ -62,8 +65,8 @@ class Payroll_employees_benefits_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_employees_benefits';
 		$this->_short_name = 'payroll_employees_benefits';
-		$this->_fields = array("id","payroll_id","name_id","benefit_id","entry_id","employee_share","employer_share","notes");
-		$this->_required = array("payroll_id","name_id","benefit_id","entry_id");
+		$this->_fields = array("id","payroll_id","name_id","benefit_id","entry_id","employee_share","employer_share","notes","manual");
+		$this->_required = array("payroll_id","name_id","benefit_id","entry_id","manual");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -254,6 +257,29 @@ class Payroll_employees_benefits_model extends MY_Model {
 // ------------------------------ End Field: notes --------------------------------------
 
 
+// ---------------------------- Start Field: manual -------------------------------------- 
+
+	/** 
+	* Sets a value to `manual` variable
+	* @access public
+	*/
+
+	public function setManual($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('manual', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `manual` variable
+	* @access public
+	*/
+
+	public function getManual() {
+		return $this->manual;
+	}
+	
+// ------------------------------ End Field: manual --------------------------------------
+
+
 
 	
 	public function get_table_options() {
@@ -328,6 +354,15 @@ class Payroll_employees_benefits_model extends MY_Model {
 										'Key'=>'',
 										'Default'=>'',
 										'Extra'=>''
+									),
+
+			'manual' => (object) array(
+										'Field'=>'manual',
+										'Type'=>'int(1)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
 									)
 		);
 	}
@@ -342,6 +377,7 @@ class Payroll_employees_benefits_model extends MY_Model {
 			'employee_share' => "ALTER TABLE  `payroll_employees_benefits` ADD  `employee_share` decimal(30,5) NULL   DEFAULT '0.00000';",
 			'employer_share' => "ALTER TABLE  `payroll_employees_benefits` ADD  `employer_share` decimal(30,5) NULL   DEFAULT '0.00000';",
 			'notes' => "ALTER TABLE  `payroll_employees_benefits` ADD  `notes` text NULL   ;",
+			'manual' => "ALTER TABLE  `payroll_employees_benefits` ADD  `manual` int(1) NOT NULL   DEFAULT '0';",
 		);
 
 		if( isset( $column[$field_name] ) ) {

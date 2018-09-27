@@ -19,6 +19,7 @@ CREATE TABLE `payroll_employees_salaries` (
   `cola` decimal(10,5) DEFAULT '0.00000',
   `annual_days` int(3) DEFAULT '312',
   `months` int(2) DEFAULT '12',
+  `manual` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`),
   KEY `payroll_id` (`payroll_id`)
@@ -37,6 +38,7 @@ ALTER TABLE  `payroll_employees_salaries` ADD  `hours` int(10) NULL   DEFAULT '8
 ALTER TABLE  `payroll_employees_salaries` ADD  `cola` decimal(10,5) NULL   DEFAULT '0.00000';
 ALTER TABLE  `payroll_employees_salaries` ADD  `annual_days` int(3) NULL   DEFAULT '312';
 ALTER TABLE  `payroll_employees_salaries` ADD  `months` int(2) NULL   DEFAULT '12';
+ALTER TABLE  `payroll_employees_salaries` ADD  `manual` int(1) NOT NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -63,6 +65,7 @@ class Payroll_employees_salaries_model extends MY_Model {
 	protected $cola;
 	protected $annual_days;
 	protected $months;
+	protected $manual;
 
 	// --------------------------------------------------------------------
 
@@ -76,8 +79,8 @@ class Payroll_employees_salaries_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_employees_salaries';
 		$this->_short_name = 'payroll_employees_salaries';
-		$this->_fields = array("id","payroll_id","name_id","salary_id","amount","notes","manner","rate_per","days","hours","cola","annual_days","months");
-		$this->_required = array("payroll_id","name_id","salary_id","manner");
+		$this->_fields = array("id","payroll_id","name_id","salary_id","amount","notes","manner","rate_per","days","hours","cola","annual_days","months","manual");
+		$this->_required = array("payroll_id","name_id","salary_id","manner","manual");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -383,6 +386,29 @@ class Payroll_employees_salaries_model extends MY_Model {
 // ------------------------------ End Field: months --------------------------------------
 
 
+// ---------------------------- Start Field: manual -------------------------------------- 
+
+	/** 
+	* Sets a value to `manual` variable
+	* @access public
+	*/
+
+	public function setManual($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('manual', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `manual` variable
+	* @access public
+	*/
+
+	public function getManual() {
+		return $this->manual;
+	}
+	
+// ------------------------------ End Field: manual --------------------------------------
+
+
 
 	
 	public function get_table_options() {
@@ -502,6 +528,15 @@ class Payroll_employees_salaries_model extends MY_Model {
 										'Key'=>'',
 										'Default'=>'12',
 										'Extra'=>''
+									),
+
+			'manual' => (object) array(
+										'Field'=>'manual',
+										'Type'=>'int(1)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
 									)
 		);
 	}
@@ -521,6 +556,7 @@ class Payroll_employees_salaries_model extends MY_Model {
 			'cola' => "ALTER TABLE  `payroll_employees_salaries` ADD  `cola` decimal(10,5) NULL   DEFAULT '0.00000';",
 			'annual_days' => "ALTER TABLE  `payroll_employees_salaries` ADD  `annual_days` int(3) NULL   DEFAULT '312';",
 			'months' => "ALTER TABLE  `payroll_employees_salaries` ADD  `months` int(2) NULL   DEFAULT '12';",
+			'manual' => "ALTER TABLE  `payroll_employees_salaries` ADD  `manual` int(1) NOT NULL   DEFAULT '0';",
 		);
 
 		if( isset( $column[$field_name] ) ) {

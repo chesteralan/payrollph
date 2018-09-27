@@ -136,6 +136,7 @@ class Payroll_employees extends MY_Controller {
 			}
 			$employees->setPayrollId($id,true);
 			$employees->set_select('pe.*');
+			$employees->set_select('pe.id as pe_id');
 			$employees->set_select('ni.*');
 			$employees->set_select('e.name_id');
 			$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
@@ -269,16 +270,16 @@ class Payroll_employees extends MY_Controller {
 		$this->load->view('payroll/payroll/employees/employees_view', $this->template_data->get_data());
 	}
 
-	public function deactivate($payroll_id, $name_id, $output='') {
+	public function deactivate($payroll_id, $pe_id, $output='') {
 		$employees = new $this->Payroll_employees_model('pe');
 		$employees->setPayrollId($payroll_id,true);
-		$employees->setNameId($name_id,true);
+		$employees->setId($pe_id,true);
 		$employees->setActive(0,false,true);
 		$employees->update();
 		redirect( $this->input->get('next') );
 	}
 
-	public function change_status($payroll_id, $name_id, $output='') {
+	public function change_status($payroll_id, $pe_id, $output='') {
 
 		$this->_column_groups();
 		$payroll = new $this->Payroll_model;
@@ -290,8 +291,12 @@ class Payroll_employees extends MY_Controller {
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
+		$employee = new $this->Payroll_employees_model();
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get(); 
+
 		$names = new $this->Names_list_model;
-		$names->setId($name_id, true);
+		$names->setId($employee_data->name_id, true);
 		$names->setTrash(0,true);
 		$names->set_join('names_info', 'names_info.name_id=names_list.id');
 		$this->template_data->set('name', $names->get());
@@ -304,26 +309,21 @@ class Payroll_employees extends MY_Controller {
 		$terms->setTrash('0',true);
 		$terms->setType('employment_status',true);
 		$this->template_data->set('employment_status', $terms->populate());
-
-		$employees = new $this->Payroll_employees_model('pe');
-		$employees->setPayrollId($payroll_id,true);
-		$employees->setNameId($name_id,true);
 		
-
 		if( $this->input->post('status') ) {
-			$employees->setStatusId($this->input->post('status'),false,true);
-			$employees->update();
+			$employee->setStatusId($this->input->post('status'),false,true);
+			$employee->update();
 			redirect( $this->input->get('next') );
 		}
 
-		$employees->set_select('pe.*');
-		$this->template_data->set('employee', $employees->get());
+		$employee->set_select('*');
+		$this->template_data->set('employee', $employee->get());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/employees/change_status', $this->template_data->get_data());
 	}
 
-	public function change_group($payroll_id, $name_id, $output='') {
+	public function change_group($payroll_id, $pe_id, $output='') {
 
 		$this->_column_groups();
 		$payroll = new $this->Payroll_model;
@@ -335,8 +335,12 @@ class Payroll_employees extends MY_Controller {
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
+		$employee = new $this->Payroll_employees_model();
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get();
+
 		$names = new $this->Names_list_model;
-		$names->setId($name_id, true);
+		$names->setId($employee_data->name_id, true);
 		$names->setTrash(0,true);
 		$names->set_join('names_info', 'names_info.name_id=names_list.id');
 		$this->template_data->set('name', $names->get());
@@ -346,26 +350,22 @@ class Payroll_employees extends MY_Controller {
 		$groups->set_limit(0);
 		$groups->set_order('name', 'ASC');
 		$this->template_data->set('groups', $groups->populate());
-
-		$employees = new $this->Payroll_employees_model('pe');
-		$employees->setPayrollId($payroll_id,true);
-		$employees->setNameId($name_id,true);
-		
+	
 
 		if( $this->input->post('group_id') ) {
-			$employees->setGroupId($this->input->post('group_id'),false,true);
-			$employees->update();
+			$employee->setGroupId($this->input->post('group_id'),false,true);
+			$employee->update();
 			redirect( $this->input->get('next') );
 		}
 
-		$employees->set_select('pe.*');
-		$this->template_data->set('employee', $employees->get());
+		$employee->set_select('*');
+		$this->template_data->set('employee', $employee->get());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/employees/change_group', $this->template_data->get_data());
 	}
 
-	public function change_position($payroll_id, $name_id, $output='') {
+	public function change_position($payroll_id, $pe_id, $output='') {
 
 		$this->_column_groups();
 		$payroll = new $this->Payroll_model;
@@ -377,8 +377,12 @@ class Payroll_employees extends MY_Controller {
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
+		$employee = new $this->Payroll_employees_model();
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get();
+
 		$names = new $this->Names_list_model;
-		$names->setId($name_id, true);
+		$names->setId($employee_data->name_id, true);
 		$names->setTrash(0,true);
 		$names->set_join('names_info', 'names_info.name_id=names_list.id');
 		$this->template_data->set('name', $names->get());
@@ -388,26 +392,22 @@ class Payroll_employees extends MY_Controller {
 		$positions->set_limit(0);
 		$positions->set_order('name', 'ASC');
 		$this->template_data->set('positions', $positions->populate());
-
-		$employees = new $this->Payroll_employees_model('pe');
-		$employees->setPayrollId($payroll_id,true);
-		$employees->setNameId($name_id,true);
 		
 
 		if( $this->input->post('position_id') ) {
-			$employees->setPositionId($this->input->post('position_id'),false,true);
-			$employees->update();
+			$employee->setPositionId($this->input->post('position_id'),false,true);
+			$employee->update();
 			redirect( $this->input->get('next') );
 		}
 
-		$employees->set_select('pe.*');
-		$this->template_data->set('employee', $employees->get());
+		$employee->set_select('*');
+		$this->template_data->set('employee', $employee->get());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/employees/change_position', $this->template_data->get_data());
 	}
 
-	public function change_area($payroll_id, $name_id, $output='') {
+	public function change_area($payroll_id, $pe_id, $output='') {
 
 		$this->_column_groups();
 		$payroll = new $this->Payroll_model;
@@ -419,8 +419,12 @@ class Payroll_employees extends MY_Controller {
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
+		$employee = new $this->Payroll_employees_model();
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get();
+
 		$names = new $this->Names_list_model;
-		$names->setId($name_id, true);
+		$names->setId($employee_data->name_id, true);
 		$names->setTrash(0,true);
 		$names->set_join('names_info', 'names_info.name_id=names_list.id');
 		$this->template_data->set('name', $names->get());
@@ -430,26 +434,22 @@ class Payroll_employees extends MY_Controller {
 		$areas->set_limit(0);
 		$areas->set_order('name', 'ASC');
 		$this->template_data->set('areas', $areas->populate());
-
-		$employees = new $this->Payroll_employees_model('pe');
-		$employees->setPayrollId($payroll_id,true);
-		$employees->setNameId($name_id,true);
-		
+	
 
 		if( $this->input->post('area_id') ) {
-			$employees->setAreaId($this->input->post('area_id'),false,true);
-			$employees->update();
+			$employee->setAreaId($this->input->post('area_id'),false,true);
+			$employee->update();
 			redirect( $this->input->get('next') );
 		}
 
-		$employees->set_select('pe.*');
-		$this->template_data->set('employee', $employees->get());
+		$employee->set_select('*');
+		$this->template_data->set('employee', $employee->get());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/employees/change_area', $this->template_data->get_data());
 	}
 
-	public function change_payslip($payroll_id, $name_id, $output='') {
+	public function change_payslip($payroll_id, $pe_id, $output='') {
 
 		$this->_column_groups();
 		$payroll = new $this->Payroll_model;
@@ -461,8 +461,12 @@ class Payroll_employees extends MY_Controller {
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
+		$employee = new $this->Payroll_employees_model();
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get();
+
 		$names = new $this->Names_list_model;
-		$names->setId($name_id, true);
+		$names->setId($employee_data->name_id, true);
 		$names->setTrash(0,true);
 		$names->set_join('names_info', 'names_info.name_id=names_list.id');
 		$this->template_data->set('name', $names->get());
@@ -475,26 +479,22 @@ class Payroll_employees extends MY_Controller {
 		$terms->setTrash('0',true);
 		$terms->setType('employment_status',true);
 		$this->template_data->set('employment_status', $terms->populate());
-
-		$employees = new $this->Payroll_employees_model('pe');
-		$employees->setPayrollId($payroll_id,true);
-		$employees->setNameId($name_id,true);
-		
+	
 
 		if( $this->input->post('payslip') ) {
-			$employees->setTemplate($this->input->post('payslip'),false,true);
-			$employees->update();
+			$employee->setTemplate($this->input->post('payslip'),false,true);
+			$employee->update();
 			redirect( $this->input->get('next') );
 		}
 
-		$employees->set_select('pe.*');
-		$this->template_data->set('employee', $employees->get());
+		$employee->set_select('*');
+		$this->template_data->set('employee', $employee->get());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/employees/change_payslip', $this->template_data->get_data());
 	}
 
-	public function change_print_group($payroll_id, $name_id, $output='') {
+	public function change_print_group($payroll_id, $pe_id, $output='') {
 
 		$this->_column_groups();
 		$payroll = new $this->Payroll_model;
@@ -506,8 +506,12 @@ class Payroll_employees extends MY_Controller {
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
+		$employee = new $this->Payroll_employees_model();
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get();
+
 		$names = new $this->Names_list_model;
-		$names->setId($name_id, true);
+		$names->setId($employee_data->name_id, true);
 		$names->setTrash(0,true);
 		$names->set_join('names_info', 'names_info.name_id=names_list.id');
 		$this->template_data->set('name', $names->get());
@@ -520,20 +524,15 @@ class Payroll_employees extends MY_Controller {
 		$terms->setTrash('0',true);
 		$terms->setType('print_group',true);
 		$this->template_data->set('print_groups', $terms->populate());
-
-		$employees = new $this->Payroll_employees_model('pe');
-		$employees->setPayrollId($payroll_id,true);
-		$employees->setNameId($name_id,true);
 		
-
 		if( $this->input->post('print_group') ) {
-			$employees->setPrintGroup($this->input->post('print_group'),false,true);
-			$employees->update();
+			$employee->setPrintGroup($this->input->post('print_group'),false,true);
+			$employee->update();
 			redirect( $this->input->get('next') );
 		}
 
-		$employees->set_select('pe.*');
-		$this->template_data->set('employee', $employees->get());
+		$employee->set_select('*');
+		$this->template_data->set('employee', $employee->get());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/employees/change_print_group', $this->template_data->get_data());

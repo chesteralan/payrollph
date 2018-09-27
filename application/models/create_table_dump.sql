@@ -367,6 +367,7 @@ CREATE TABLE `payroll_employees` (
   `group_id` int(20) DEFAULT NULL,
   `position_id` int(20) DEFAULT NULL,
   `area_id` int(20) DEFAULT NULL,
+  `manual` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`payroll_id`,`name_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=113 DEFAULT CHARSET=latin;
@@ -382,6 +383,7 @@ CREATE TABLE `payroll_employees_benefits` (
   `employee_share` decimal(30,5) DEFAULT '0.00000',
   `employer_share` decimal(30,5) DEFAULT '0.00000',
   `notes` text,
+  `manual` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`),
   KEY `benefit_id` (`benefit_id`),
@@ -398,9 +400,10 @@ CREATE TABLE `payroll_employees_deductions` (
   `entry_id` int(20) NOT NULL,
   `amount` decimal(30,5) NOT NULL,
   `notes` text,
+  `manual` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`payroll_id`,`deduction_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=latin;
 
 -- Table structure for table `payroll_employees_deductions` 
 
@@ -412,6 +415,7 @@ CREATE TABLE `payroll_employees_earnings` (
   `entry_id` int(20) NOT NULL,
   `amount` decimal(30,5) NOT NULL,
   `notes` text,
+  `manual` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`payroll_id`,`earning_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=73 DEFAULT CHARSET=latin;
@@ -432,6 +436,7 @@ CREATE TABLE `payroll_employees_salaries` (
   `cola` decimal(10,5) DEFAULT '0.00000',
   `annual_days` int(3) DEFAULT '312',
   `months` int(2) DEFAULT '12',
+  `manual` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`),
   KEY `payroll_id` (`payroll_id`)
