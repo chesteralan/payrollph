@@ -8,6 +8,7 @@ $autoload['model'] = $models;$models[] = 'Earnings_list_model';
 $autoload['model'] = $models;$models[] = 'Employees_model';
 $autoload['model'] = $models;$models[] = 'Employees_absences_model';
 $autoload['model'] = $models;$models[] = 'Employees_areas_model';
+$autoload['model'] = $models;$models[] = 'Employees_attendance_model';
 $autoload['model'] = $models;$models[] = 'Employees_benefits_model';
 $autoload['model'] = $models;$models[] = 'Employees_benefits_templates_model';
 $autoload['model'] = $models;$models[] = 'Employees_contacts_model';

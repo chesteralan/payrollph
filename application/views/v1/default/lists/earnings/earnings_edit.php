@@ -35,6 +35,11 @@
             <input name="account_title" type="text" class="form-control" value="<?php echo $earning->account_title; ?>">
           </div>
           
+          <div class="form-group">
+            <label>Abbreviation</label>
+            <input name="abbr" type="text" class="form-control" value="<?php echo $earning->abbr; ?>">
+          </div>
+          
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
         </div>

@@ -19,9 +19,10 @@ CREATE TABLE `payroll_employees` (
   `position_id` int(20) DEFAULT NULL,
   `area_id` int(20) DEFAULT NULL,
   `manual` int(1) NOT NULL DEFAULT '0',
+  `presence` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`payroll_id`,`name_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=113 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `payroll_employees` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `payroll_employees` ADD  `payroll_id` int(20) NOT NULL   ;
@@ -36,6 +37,7 @@ ALTER TABLE  `payroll_employees` ADD  `group_id` int(20) NULL   ;
 ALTER TABLE  `payroll_employees` ADD  `position_id` int(20) NULL   ;
 ALTER TABLE  `payroll_employees` ADD  `area_id` int(20) NULL   ;
 ALTER TABLE  `payroll_employees` ADD  `manual` int(1) NOT NULL   DEFAULT '0';
+ALTER TABLE  `payroll_employees` ADD  `presence` int(1) NOT NULL   DEFAULT '0';
 
 
  * @package			        Model
@@ -62,6 +64,7 @@ class Payroll_employees_model extends MY_Model {
 	protected $position_id;
 	protected $area_id;
 	protected $manual;
+	protected $presence;
 
 	// --------------------------------------------------------------------
 
@@ -75,8 +78,8 @@ class Payroll_employees_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_employees';
 		$this->_short_name = 'payroll_employees';
-		$this->_fields = array("id","payroll_id","name_id","order","payslip","template","print_group","active","status_id","group_id","position_id","area_id","manual");
-		$this->_required = array("payroll_id","name_id","order","manual");
+		$this->_fields = array("id","payroll_id","name_id","order","payslip","template","print_group","active","status_id","group_id","position_id","area_id","manual","presence");
+		$this->_required = array("payroll_id","name_id","order","manual","presence");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -382,6 +385,29 @@ class Payroll_employees_model extends MY_Model {
 // ------------------------------ End Field: manual --------------------------------------
 
 
+// ---------------------------- Start Field: presence -------------------------------------- 
+
+	/** 
+	* Sets a value to `presence` variable
+	* @access public
+	*/
+
+	public function setPresence($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('presence', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `presence` variable
+	* @access public
+	*/
+
+	public function getPresence() {
+		return $this->presence;
+	}
+	
+// ------------------------------ End Field: presence --------------------------------------
+
+
 
 	
 	public function get_table_options() {
@@ -501,6 +527,15 @@ class Payroll_employees_model extends MY_Model {
 										'Key'=>'',
 										'Default'=>'0',
 										'Extra'=>''
+									),
+
+			'presence' => (object) array(
+										'Field'=>'presence',
+										'Type'=>'int(1)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
 									)
 		);
 	}
@@ -520,6 +555,7 @@ class Payroll_employees_model extends MY_Model {
 			'position_id' => "ALTER TABLE  `payroll_employees` ADD  `position_id` int(20) NULL   ;",
 			'area_id' => "ALTER TABLE  `payroll_employees` ADD  `area_id` int(20) NULL   ;",
 			'manual' => "ALTER TABLE  `payroll_employees` ADD  `manual` int(1) NOT NULL   DEFAULT '0';",
+			'presence' => "ALTER TABLE  `payroll_employees` ADD  `presence` int(1) NOT NULL   DEFAULT '0';",
 		);
 
 		if( isset( $column[$field_name] ) ) {

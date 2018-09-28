@@ -140,7 +140,7 @@ $total_earnings = 0;
                 if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
                     <td class="text-right">
 
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo ($column->notes!='') ? $column->notes : $column->name; ?>" data-url="<?php echo payroll_url("payroll_earnings/entries/{$payroll->id}/{$employee->name_id}/{$column->id}/ajax"); ?>" data-hide_footer="1">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo ($column->abbr!='') ? $column->abbr : $column->name; ?>" data-url="<?php echo payroll_url("payroll_earnings/entries/{$payroll->id}/{$employee->name_id}/{$column->id}/ajax"); ?>" data-hide_footer="1">
 
                     <?php 
                     $var = 'earnings_' . $column->id;

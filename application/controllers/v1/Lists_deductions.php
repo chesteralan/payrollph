@@ -48,6 +48,7 @@ class Lists_deductions extends MY_Controller {
 				$deductions->setName($this->input->post('deduction_name'));
 				$deductions->setNotes($this->input->post('notes'));
 				$deductions->setAccountTitle($this->input->post('account_title'));
+				$deductions->setAbbr($this->input->post('abbr'));
 				if( $deductions->insert() ) {
 					redirect("lists_deductions");
 				}
@@ -73,6 +74,7 @@ class Lists_deductions extends MY_Controller {
 					$deductions->setName($this->input->post('deduction_name'), false, true);
 					$deductions->setNotes($this->input->post('notes'), false, true);
 					$deductions->setAccountTitle($this->input->post('account_title'), false, true);
+					$deductions->setAbbr($this->input->post('abbr'), false, true);
 					$deductions->update();
 				}
 				$this->postNext();

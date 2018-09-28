@@ -34,7 +34,12 @@
             <label>Account Title (Accounting)</label>
             <input name="account_title" type="text" class="form-control" value="<?php echo $deduction->account_title; ?>">
           </div>
-          
+
+          <div class="form-group">
+            <label>Abbreviation</label>
+            <input name="abbr" type="text" class="form-control" value="<?php echo $deduction->abbr; ?>">
+          </div>
+
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
         </div>

@@ -45,6 +45,7 @@
               <tr>
                 <th>Deduction Name</th>
                 <th>Notes</th>
+                <th>Abbr</th>
                 <?php if( hasAccess('lists', 'deductions', 'edit') ) { ?>
                   <th width="250px">Action</th>
                 <?php } ?>
@@ -56,6 +57,7 @@
               <tr id="employee-group-<?php echo $deduction->id; ?>">
                 <td><?php echo $deduction->name; ?></td>
                 <td><?php echo $deduction->notes; ?></td>
+                <td><?php echo $deduction->abbr; ?></td>
               <?php if( hasAccess('lists', 'deductions', 'edit') ) { ?>
                 <td>
                 <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Deduction" data-url="<?php echo site_url("lists_deductions/edit/{$deduction->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>

@@ -50,6 +50,7 @@ class Lists_earnings extends MY_Controller {
 				$earnings->setName($this->input->post('earning_name'));
 				$earnings->setNotes($this->input->post('notes'));
 				$earnings->setAccountTitle($this->input->post('account_title'));
+				$earnings->setAbbr($this->input->post('abbr'));
 				if( $earnings->insert() ) {
 					redirect("lists_earnings");
 				}
@@ -75,6 +76,7 @@ class Lists_earnings extends MY_Controller {
 					$earnings->setName($this->input->post('earning_name'), false, true);
 					$earnings->setNotes($this->input->post('notes'), false, true);
 					$earnings->setAccountTitle($this->input->post('account_title'), false, true);
+					$earnings->setAbbr($this->input->post('abbr'), false, true);
 					$earnings->update();
 				}
 				$this->postNext();

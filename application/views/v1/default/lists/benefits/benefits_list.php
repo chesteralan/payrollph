@@ -46,8 +46,7 @@
               <tr>
                 <th>Benefit Name</th>
                 <th>Notes</th>
-                <th>EE Account Title</th>
-                <th>ER Account Title</th>
+                <th>Abbr</th>
                 <th>Leave</th>
                 <?php if( hasAccess('lists', 'benefits', 'edit') ) { ?>
                   <th width="185px">Action</th>
@@ -60,8 +59,7 @@
               <tr id="employee-benefit-<?php echo $benefit->id; ?>">
                 <td><?php echo $benefit->name; ?></td>
                 <td><?php echo $benefit->notes; ?></td>
-                <td><?php echo $benefit->ee_account_title; ?></td>
-                <td><?php echo $benefit->er_account_title; ?></td>
+                <td><?php echo $benefit->abbr; ?></td>
                 <td><span class="glyphicon glyphicon-<?php echo ($benefit->leave) ? 'ok' : 'remove'; ?>"></span></td>
               <?php if( hasAccess('lists', 'benefits', 'edit') ) { ?>
                 <td>

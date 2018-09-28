@@ -713,4 +713,29 @@ class Payroll_employees extends MY_Controller {
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/employees/employees_preview', $this->template_data->get_data());
 	}
+
+	public function dtr_settings($payroll_id, $pe_id, $output='') {
+
+		$this->_column_groups();
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($payroll_id,true);
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$employee = new $this->Payroll_employees_model();
+		$employee->setId($pe_id, true);
+		$employee_data = $employee->get();
+
+		if( $this->input->post() ) {
+			$employee->setPresence( (($this->input->post('attendance_method')) ? 1 : 0), false, true );
+			$employee->update();
+			redirect( $this->input->get('next') );
+		}
+		$this->template_data->set('employee', $employee_data);
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/employees/dtr_settings', $this->template_data->get_data());
+	}
+
 }

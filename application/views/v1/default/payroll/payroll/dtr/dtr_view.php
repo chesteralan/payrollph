@@ -78,9 +78,16 @@
             </thead>
             <tbody>
  <?php if($payroll_group->employees) { ?>
-<?php foreach($payroll_group->employees as $employee) {
+<?php foreach($payroll_group->employees as $employee) { 
 $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
+
+if($employee->pe_presence) {
+  $present_days = $employee->attendance;
+} else {
+  $present_days = $inclusive_dates->working_days - $days_absent;
+}
+
               ?>
               <tr>
                 <td>
@@ -94,17 +101,28 @@ $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $worki
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo site_url("lists_names/profile/{$employee->name_id}/ajax") . "?output=inner_page&next=" . uri_string(); ?>"><span class="glyphicon glyphicon-eye-open"></span></a>
 
 <?php if(!$payroll->lock) { ?>
-                <a class="ajax-modal pull-right" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Employee Salary" data-url="<?php echo site_url("employees_salaries/ajax/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
+                <a class="ajax-modal pull-right" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Employee DTR Settings" data-url="<?php echo site_url("payroll_employees/dtr_settings/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
 <?php } ?>
                 </td>
 
 
-                <td class="text-right"><?php echo $inclusive_dates->working_days; ?></td>
                 <td class="text-right">
-
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Inclusive Dates" data-url="<?php echo site_url("payroll_dtr/absences/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
+<?php if($employee->pe_presence) { ?>
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Attendance" data-url="<?php echo site_url("payroll_dtr/attendance/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
+  <?php echo $employee->attendance; ?>
+</a>
+<?php } else { ?>
+            <?php echo $inclusive_dates->working_days; ?>
+<?php } ?>
+                </td>
+                <td class="text-right">
+<?php if($employee->pe_presence) { ?>
+  n/a
+<?php } else { ?>
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Absences" data-url="<?php echo site_url("payroll_dtr/absences/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
                 <?php echo $days_absent; ?>
 </a>
+<?php } ?>
                 </td>
 
 <?php foreach($leave_benefits as $leave) { 
@@ -114,11 +132,15 @@ $leave_in_days = ($employee->$var1) ? ($employee->$var1 / $working_hours) : 0;
 
 ?>
                 <td class="text-right">
+<?php if($employee->pe_presence) { ?>
+  n/a
+<?php } else { ?>
 <?php echo $leave_in_days; ?>
+<?php } ?>
                 </td>
 <?php } ?>
 
-                <td class="text-right"><?php $present_days = $inclusive_dates->working_days - $days_absent; echo $present_days; ?></td>
+                <td class="text-right"><?php echo $present_days; ?></td>
               </tr>
 <?php } ?>
 <?php } ?>

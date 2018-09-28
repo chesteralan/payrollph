@@ -143,6 +143,7 @@ $models[] = 'Earnings_list_model';
 $models[] = 'Employees_model';
 $models[] = 'Employees_absences_model';
 $models[] = 'Employees_areas_model';
+$models[] = 'Employees_attendance_model';
 $models[] = 'Employees_benefits_model';
 $models[] = 'Employees_benefits_templates_model';
 $models[] = 'Employees_contacts_model';

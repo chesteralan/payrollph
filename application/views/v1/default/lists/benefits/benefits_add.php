@@ -44,6 +44,11 @@
             <input name="er_account_title" type="text" class="form-control" value="<?php echo $this->input->post('er_account_title'); ?>">
           </div>
           
+          <div class="form-group">
+            <label>Abbreviation</label>
+            <input name="abbr" type="text" class="form-control" value="<?php echo $this->input->post('abbr'); ?>">
+          </div>
+          
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
         </div>

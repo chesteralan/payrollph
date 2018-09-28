@@ -105,6 +105,46 @@ class Employees_dtr extends MY_Controller {
 		$this->load->view('employees/employees/dtr/dtr_edit_date', $this->template_data->get_data());
 	}
 
+	public function add_attendance($name_id, $date, $output='') {
+
+		$this->template_data->set('date', $date );
+
+		$employee = new $this->Employees_model('e');
+		$employee->setNameId($name_id,true);
+		$employee->set_select('e.*');
+		$employee->set_select('(SELECT es.hours FROM employees_salaries es WHERE es.name_id=e.name_id AND es.primary=1 AND es.trash=0) as working_hours');
+		$employee->set_select('ni.*');
+		$employee->set_select('e.name_id');
+		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
+		$employee_data = $employee->get();
+		$this->template_data->set('employee', $employee_data );
+
+		$attendance = new $this->Employees_attendance_model;
+		$attendance->setNameId($name_id,true);
+		$attendance->setDatePresent($date,true);
+
+		if( $this->input->get('delete') ) {
+			$attendance->delete();
+			$this->getNext();
+		}
+
+		if( $this->input->post() ) {
+					$attendance->setHours($this->input->post('hours'));
+					$attendance->setNotes($this->input->post('notes'));
+					if( $attendance->nonEmpty() ) {
+						$attendance->update();
+					} else {
+						$attendance->insert();
+					}
+					$this->postNext();
+		}
+
+		$this->template_data->set('attendance', $attendance->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('employees/employees/dtr/dtr_add_attendance', $this->template_data->get_data());
+	}
+
 	public function add_leave($name_id, $date, $output='') {
 
 		$employee = new $this->Employees_model('e');
