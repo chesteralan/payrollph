@@ -60,6 +60,7 @@ class System_database extends MY_Controller {
 		$models['employees'] = 'Employees_model';
 		$models['employees_absences'] = 'Employees_absences_model';
 		$models['employees_areas'] = 'Employees_areas_model';
+		$models['employees_attendance'] = 'Employees_attendance_model';
 		$models['employees_benefits'] = 'Employees_benefits_model';
 		$models['employees_benefits_templates'] = 'Employees_benefits_templates_model';
 		$models['employees_contacts'] = 'Employees_contacts_model';
