@@ -26,9 +26,9 @@
 
 <?php if( !isset($no_inclusive_dates) ) { ?>
 
-      <li><a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/payslip") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-th-large"></span></a></li>
+      <li><a target="_payslip" href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/payslip") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-th-large"></span></a></li>
 
-      <li><a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/print") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-print"></span></a></li>
+      <li><a target="_print" href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/print") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-print"></span></a></li>
 
 <?php } ?>
 

@@ -160,8 +160,18 @@ class Payroll_overall extends MY_Controller {
 			$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
 			$employees->set_select('pe.template as payslip_template');
 			$employees->set_select('pe.print_group');
+			$employees->set_select('pe.id as pe_id');
+			$employees->set_select('pe.presence as pe_presence');
+			$employees->set_select('pe.manual as pe_manual');
 			$employees->set_select('e.employee_id');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
+
+			switch ($output) {
+				case 'payslip':
+					$employees->set_group_by('e.name_id');
+					break;
+				
+			}
 
 			switch( $payroll_data->group_by ) {
 				case 'position':
@@ -180,7 +190,7 @@ class Payroll_overall extends MY_Controller {
 			}
 			
 			if( $this->input->get('filter') ) {
-				//$employees->set_where('e.name_id', $this->input->get('filter'));
+				$employees->set_where('e.name_id', $this->input->get('filter'));
 			}
 
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
@@ -189,22 +199,26 @@ class Payroll_overall extends MY_Controller {
 
 			$employees->set_select('(SELECT es.hours FROM employees_salaries es WHERE es.name_id=e.name_id AND es.primary=1 AND es.trash=0) as working_hours');
 
+			$employees->set_select("(SELECT COUNT(*) FROM employees_attendance ea2 WHERE ea2.name_id=pe.name_id AND ea2.date_present >= '{$dates_data->start_date}' AND ea2.date_present <= '{$dates_data->end_date}') as attendance");
+
+			$employees->set_select("(SELECT SUM(ea2.hours) FROM employees_attendance ea2 WHERE ea2.name_id=pe.name_id AND ea2.date_present >= '{$dates_data->start_date}' AND ea2.date_present <= '{$dates_data->end_date}') as attendance_hours");
+			
 			//$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences_hours");
 			$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences_hours");
 			$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE ea.leave_type>0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as leave_benefits");
 
 			foreach($columns_earnings as $column) {
-				$employees->set_select(sprintf('(SELECT SUM(amount) FROM payroll_employees_earnings pee WHERE pee.payroll_id=%s AND pee.name_id=pe.name_id AND pee.earning_id=%s) as earnings_%s', $id, $column->id, $column->id));
+				$employees->set_select(sprintf('(SELECT SUM(amount) FROM payroll_employees_earnings pee WHERE pee.payroll_id=%s AND pee.name_id=pe.name_id AND pee.earning_id=%s  AND pee.manual=pe.manual) as earnings_%s', $id, $column->id, $column->id));
 			}
 
 			foreach($columns_benefits as $column) {
-				$employees->set_select(sprintf('(SELECT SUM(peb.employee_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s) as ee_share_%s', $id, $column->id, $column->id));
-				$employees->set_select(sprintf('(SELECT SUM(peb.employer_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s) as er_share_%s', $id, $column->id, $column->id));
+				$employees->set_select(sprintf('(SELECT SUM(peb.employee_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s AND peb.manual=pe.manual) as ee_share_%s', $id, $column->id, $column->id));
+				$employees->set_select(sprintf('(SELECT SUM(peb.employer_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s AND peb.manual=pe.manual) as er_share_%s', $id, $column->id, $column->id));
 
 			}
 
 			foreach($columns_deductions as $column) {
-				$employees->set_select(sprintf('(SELECT SUM(amount) FROM payroll_employees_deductions ped WHERE ped.payroll_id=%s AND ped.name_id=pe.name_id AND ped.deduction_id=%s) as deductions_%s', $id, $column->id, $column->id));
+				$employees->set_select(sprintf('(SELECT SUM(amount) FROM payroll_employees_deductions ped WHERE ped.payroll_id=%s AND ped.name_id=pe.name_id AND ped.deduction_id=%s AND ped.manual=pe.manual) as deductions_%s', $id, $column->id, $column->id));
 			}
 
 			if( $output == 'payslip') {
@@ -229,6 +243,7 @@ class Payroll_overall extends MY_Controller {
 				$salary = new $this->Payroll_employees_salaries_model('pes');
 				$salary->setPayrollId($id,true);
 				$salary->setNameId($employee->name_id,true);
+				$salary->setPeId($employee->pe_id,true);
 				//$salary->set_join('employees_salaries es', 'es.id=pes.salary_id');
 				//$salary->set_select('*, pes.amount as override');
 				//$salary->set_where('es.trash', 0);

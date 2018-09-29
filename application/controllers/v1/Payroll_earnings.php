@@ -172,6 +172,9 @@ class Payroll_earnings extends MY_Controller {
 			$employees->setPayrollId($id,true);
 			$employees->set_select('ni.*');
 			$employees->set_select('e.name_id');
+			$employees->set_select('pe.id as pe_id');
+			$employees->set_select('pe.presence as pe_presence');
+			$employees->set_select('pe.manual as pe_manual');
 			$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 
@@ -211,10 +214,10 @@ class Payroll_earnings extends MY_Controller {
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
 			
 			foreach($columns as $column) {
-				$employees->set_select(sprintf('(SELECT SUM(amount) FROM payroll_employees_earnings pee WHERE pee.payroll_id=%s AND pee.name_id=pe.name_id AND pee.earning_id=%s) as earnings_%s', $id, $column->id, $column->id));
+				$employees->set_select(sprintf('(SELECT SUM(amount) FROM payroll_employees_earnings pee WHERE pee.payroll_id=%s AND pee.name_id=pe.name_id AND pee.earning_id=%s AND pee.manual=pe.manual) as earnings_%s', $id, $column->id, $column->id));
 
 				if( ($column_id) && ($this->input->get('compare'))) {
-					$employees->set_select(sprintf('(SELECT SUM(amount) FROM payroll_employees_earnings pee WHERE pee.payroll_id=%s AND pee.name_id=pe.name_id AND pee.earning_id=%s) as compare_%s', $this->input->get('compare'), $column->id, $column->id));
+					$employees->set_select(sprintf('(SELECT SUM(amount) FROM payroll_employees_earnings pee WHERE pee.payroll_id=%s AND pee.name_id=pe.name_id AND pee.earning_id=%s AND pee.manual=0) as compare_%s', $this->input->get('compare'), $column->id, $column->id));
 				}
 			}
 
@@ -280,10 +283,17 @@ class Payroll_earnings extends MY_Controller {
 		$this->load->view('payroll/payroll/earnings/earnings_view', $this->template_data->get_data());
 	}
 
-	public function entries($id,$name_id,$earning_id,$output='') {
+	public function entries($id,$pe_id,$earning_id,$output='') {
+
+		$employee = new $this->Payroll_employees_model('pe');
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get();
+
+		$name_id = $employee_data->name_id; 
 
 		$this->template_data->set('payroll_id', $id);
 		$this->template_data->set('name_id', $name_id);
+		$this->template_data->set('pe_id', $pe_id);
 		$this->template_data->set('earning_id', $earning_id);
 
 		$payroll = new $this->Payroll_model;
@@ -305,16 +315,25 @@ class Payroll_earnings extends MY_Controller {
 		$earnings->set_select('pee.id as pee_id');
 		$earnings->set_join('earnings_list el', 'pee.earning_id=el.id');
 		$earnings->set_join('employees_earnings ee', 'ee.id=pee.entry_id');
+		$earnings->setManual($employee_data->manual,true);
 		$this->template_data->set('earnings', $earnings->populate());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/earnings/earnings_entries', $this->template_data->get_data());
 	}
 
-	public function add($id,$name_id,$earning_id,$output='') {
+	public function add($id,$pe_id,$earning_id,$output='') {
+
+		$employee = new $this->Payroll_employees_model('pe');
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get();
+		$this->template_data->set('employee_data', $employee_data);
+
+		$name_id = $employee_data->name_id; 
 
 		$this->template_data->set('payroll_id', $id);
 		$this->template_data->set('name_id', $name_id);
+		$this->template_data->set('pe_id', $pe_id);
 		$this->template_data->set('earning_id', $earning_id);
 
 		if( $this->input->post() ) {
@@ -328,6 +347,7 @@ class Payroll_earnings extends MY_Controller {
 				$earnings->setAmount( str_replace(",", "", $this->input->post('amount')) );
 				$earnings->setNotes($this->input->post('notes'));
 				$earnings->setEntryId( $this->input->post('entry_id') );
+				$earnings->setManual( $employee_data->manual );
 				$earnings->insert();
 			}
 			//redirect("payroll_earnings/view/{$id}");

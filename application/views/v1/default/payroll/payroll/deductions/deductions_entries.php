@@ -13,7 +13,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
 <?php if((!$payroll->lock)&&(!$this->input->get('lock'))) { ?>
-          <a class="btn btn-success btn-xs pull-right" href="<?php echo payroll_url("payroll_deductions/add/{$payroll_id}/{$name_id}/{$deduction_id}"); ?>">Add Entry</a>
+          <a class="btn btn-success btn-xs pull-right" href="<?php echo payroll_url("payroll_deductions/add/{$payroll_id}/{$pe_id}/{$deduction_id}"); ?>">Add Entry</a>
 <?php } ?>
           <a style="margin-right:10px" class="btn btn-warning btn-xs pull-right" href="<?php echo payroll_url("employees_deductions/summary/{$deduction_id}/{$name_id}"); ?>">Summary</a>
           <h3 class="panel-title"><?php echo $deduction_data->name; ?></h3>
@@ -26,7 +26,7 @@
 
 <?php if( isset($output) && ($output=='ajax') ) : ?>
 <?php if((!$payroll->lock)&&(!$this->input->get('lock'))) { ?>
-<p><a href="<?php echo payroll_url("payroll_deductions/add/{$payroll_id}/{$name_id}/{$deduction_id}/ajax"); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Entry - <?php echo $deduction_data->name; ?>">Add Payroll Entry</a> <em><small> - This will add an item to this current payroll only.</small></em>
+<p><a href="<?php echo payroll_url("payroll_deductions/add/{$payroll_id}/{$pe_id}/{$deduction_id}/ajax"); ?>" class="btn btn-success btn-xs ajax-modal-inner" data-title="Add Entry - <?php echo $deduction_data->name; ?>">Add Payroll Entry</a> <em><small> - This will add an item to this current payroll only.</small></em>
 </p>
 <?php } ?>
 <p>

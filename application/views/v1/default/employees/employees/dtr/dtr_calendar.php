@@ -2,12 +2,20 @@
 <?php 
 
 /* draws a calendar */
-function draw_calendar($name_id, $month,$year,$absences=NULL){
+function draw_calendar($name_id, $month,$year,$absences=NULL, $attendance=NULL){
 
   $absents = array();
   if( $absences ) {
-    foreach($absences as $idate)
-    $absents[$idate->date_absent] = $idate;
+    foreach($absences as $idate) {
+      $absents[$idate->date_absent] = $idate;
+    }
+  }
+
+  $presents = array();
+  if( $attendance ) {
+    foreach($attendance as $adate) {
+      $presents[$adate->date_present] = $adate;
+    }
   }
 
   /* draw table */
@@ -73,16 +81,33 @@ function draw_calendar($name_id, $month,$year,$absences=NULL){
           if( isset($absents[$list_date]) ) {
             $calendar.= 'is_absent ';        
           }
+          if( isset($presents[$list_date]) ) {
+            $calendar.= 'is_absent ';        
+          }
       }
 
       $calendar.= '">';
 
       if( $working_day ) {
-        $calendar.= '<a class="date_checkbox ajax-modal" data-toggle="modal" data-title="'.$list_date2.'" href="#ajaxModal" data-url="'.site_url("employees_dtr/edit_date/{$name_id}/{$list_date}/ajax") . "?next=" . uri_string() .'">';
+        $calendar.= '<a class="date_checkbox ajax-modal" data-toggle="modal" data-title="'.$list_date2.'" href="#ajaxModal" data-url="'.site_url("employees_dtr/add_leave/{$name_id}/{$list_date}/ajax") . "?next=" . uri_string() .'">';
           if( isset($absents[$list_date]) ) {
-              $calendar.="<strong>".(($absents[$list_date]->leave_type)?$absents[$list_date]->leave_name:'Leave without pay')."</strong>";
-              $calendar.=" (".number_format(($absents[$list_date]->hours/8),2)." day)";
-              $calendar.="<p>".$absents[$list_date]->notes."</p>";
+              $calendar.="<p class='text-center'><strong>".(($absents[$list_date]->leave_type)?$absents[$list_date]->leave_name:'Leave without pay')."</strong>";
+              $calendar.=" (".number_format(($absents[$list_date]->hours/8),2)." day)</p>";
+              if( $absents[$list_date]->notes!='' ) {
+                $calendar.="<p class='text-center'>".$absents[$list_date]->notes."</p>";
+              }
+          } else {
+            $calendar.= "<p class='text-center'>Set Absence</p>";
+          }
+        $calendar.= '</a>';
+         $calendar.= '<a class="date_checkbox ajax-modal" data-toggle="modal" data-title="'.$list_date2.'" href="#ajaxModal" data-url="'.site_url("employees_dtr/add_attendance/{$name_id}/{$list_date}/ajax") . "?next=" . uri_string() .'">';
+          if( isset($presents[$list_date]) ) {
+              $calendar.="<p class='text-center'><strong>Employee is present</strong> (".number_format(($presents[$list_date]->hours/8),2)." day)</p>";
+              if( $presents[$list_date]->notes!='' ) {
+                $calendar.="<p class='text-center'>".$presents[$list_date]->notes."</p>";
+              }
+          } else {
+            $calendar.="<p class='text-center'>Set Attendance</p>";
           }
         $calendar.= '</a>';
       }
@@ -145,7 +170,7 @@ function draw_calendar($name_id, $month,$year,$absences=NULL){
                 <div class="panel-body" id="ajaxBodyInnerPage">
 <?php endif; ?>
 
-<?php echo draw_calendar($employee->name_id, $current_month,$current_year, $absences); ?>
+<?php echo draw_calendar($employee->name_id, $current_month,$current_year, $absences, $attendance); ?>
 
 <?php if( ! $inner_page ): ?>
 

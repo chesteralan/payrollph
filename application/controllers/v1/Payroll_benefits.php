@@ -170,6 +170,9 @@ class Payroll_benefits extends MY_Controller {
 			$employees->setPayrollId($id,true);
 			$employees->set_select('ni.*');
 			$employees->set_select('e.name_id');
+			$employees->set_select('pe.id as pe_id');
+			$employees->set_select('pe.presence as pe_presence');
+			$employees->set_select('pe.manual as pe_manual');
 			$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 
@@ -209,12 +212,12 @@ class Payroll_benefits extends MY_Controller {
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
 			
 			foreach($columns as $column) {
-				$employees->set_select(sprintf('(SELECT SUM(peb.employee_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s) as ee_share_%s', $id, $column->id, $column->id));
-				$employees->set_select(sprintf('(SELECT SUM(peb.employer_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s) as er_share_%s', $id, $column->id, $column->id));
+				$employees->set_select(sprintf('(SELECT SUM(peb.employee_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s AND peb.manual=pe.manual) as ee_share_%s', $id, $column->id, $column->id));
+				$employees->set_select(sprintf('(SELECT SUM(peb.employer_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s AND peb.manual=pe.manual) as er_share_%s', $id, $column->id, $column->id));
 				
 				if( ($column_id) && ($this->input->get('compare'))) {
-					$employees->set_select(sprintf('(SELECT SUM(peb.employee_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s) as ee_compare_%s', $this->input->get('compare'), $column->id, $column->id));
-					$employees->set_select(sprintf('(SELECT SUM(peb.employer_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s) as er_compare_%s', $this->input->get('compare'), $column->id, $column->id));
+					$employees->set_select(sprintf('(SELECT SUM(peb.employee_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s AND peb.manual=pe.manual) as ee_compare_%s', $this->input->get('compare'), $column->id, $column->id));
+					$employees->set_select(sprintf('(SELECT SUM(peb.employer_share) FROM payroll_employees_benefits peb WHERE peb.payroll_id=%s AND peb.name_id=pe.name_id AND peb.benefit_id=%s AND peb.manual=pe.manual) as er_compare_%s', $this->input->get('compare'), $column->id, $column->id));
 				}
 			}
 
@@ -280,11 +283,18 @@ class Payroll_benefits extends MY_Controller {
 		$this->load->view('payroll/payroll/benefits/benefits_view', $this->template_data->get_data());
 	}
 
-	public function entries($id,$name_id,$benefit_id,$benefit_type='ee',$output='') {
+	public function entries($id,$pe_id,$benefit_id,$benefit_type='ee',$output='') {
+
+		$employee = new $this->Payroll_employees_model('pe');
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get();
+
+		$name_id = $employee_data->name_id; 
 
 		$this->_column_groups();
 		$this->template_data->set('payroll_id', $id);
 		$this->template_data->set('name_id', $name_id);
+		$this->template_data->set('pe_id', $pe_id);
 		$this->template_data->set('benefit_id', $benefit_id);
 		$this->template_data->set('benefit_type', $benefit_type);
 
@@ -301,6 +311,7 @@ class Payroll_benefits extends MY_Controller {
 		$benefits->setPayrollId($id,true);
 		$benefits->setNameId($name_id,true);
 		$benefits->setBenefitId($benefit_id,true);
+		$benefits->setManual($employee_data->manual,true);
 		$benefits->set_select('*');
 		$benefits->set_select('IF((peb.notes="" OR peb.notes IS NULL), ed.notes, peb.notes) as dnotes');
 		if( $benefit_type=='ee' ) {
@@ -318,10 +329,18 @@ class Payroll_benefits extends MY_Controller {
 		$this->load->view('payroll/payroll/benefits/benefits_entries', $this->template_data->get_data());
 	}
 
-	public function add($id,$name_id,$benefit_id,$output='') {
+	public function add($id,$pe_id,$benefit_id,$output='') {
+
+		$employee = new $this->Payroll_employees_model('pe');
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get();
+		$this->template_data->set('employee_data', $employee_data);
+		
+		$name_id = $employee_data->name_id; 
 
 		$this->template_data->set('payroll_id', $id);
 		$this->template_data->set('name_id', $name_id);
+		$this->template_data->set('pe_id', $pe_id);
 		$this->template_data->set('benefit_id', $benefit_id);
 
 		if( $this->input->post() ) {
@@ -340,6 +359,7 @@ class Payroll_benefits extends MY_Controller {
 				$benefits->setEmployerShare( $employer_share );
 				
 				$benefits->setNotes($this->input->post('notes'));
+				$benefits->setManual( $employee_data->manual );
 				$benefits->insert();
 			}
 			//redirect("payroll_benefits/view/{$id}");

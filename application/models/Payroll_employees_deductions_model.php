@@ -8,6 +8,7 @@
 CREATE TABLE `payroll_employees_deductions` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `payroll_id` int(20) NOT NULL,
+  `pe_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `deduction_id` int(20) NOT NULL,
   `entry_id` int(20) NOT NULL,
@@ -16,10 +17,11 @@ CREATE TABLE `payroll_employees_deductions` (
   `manual` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`payroll_id`,`deduction_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `payroll_employees_deductions` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `payroll_employees_deductions` ADD  `payroll_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_employees_deductions` ADD  `pe_id` int(20) NOT NULL   ;
 ALTER TABLE  `payroll_employees_deductions` ADD  `name_id` int(20) NOT NULL   ;
 ALTER TABLE  `payroll_employees_deductions` ADD  `deduction_id` int(20) NOT NULL   ;
 ALTER TABLE  `payroll_employees_deductions` ADD  `entry_id` int(20) NOT NULL   ;
@@ -41,6 +43,7 @@ class Payroll_employees_deductions_model extends MY_Model {
 
 	protected $id;
 	protected $payroll_id;
+	protected $pe_id;
 	protected $name_id;
 	protected $deduction_id;
 	protected $entry_id;
@@ -60,8 +63,8 @@ class Payroll_employees_deductions_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_employees_deductions';
 		$this->_short_name = 'payroll_employees_deductions';
-		$this->_fields = array("id","payroll_id","name_id","deduction_id","entry_id","amount","notes","manual");
-		$this->_required = array("payroll_id","name_id","deduction_id","entry_id","amount","manual");
+		$this->_fields = array("id","payroll_id","pe_id","name_id","deduction_id","entry_id","amount","notes","manual");
+		$this->_required = array("payroll_id","pe_id","name_id","deduction_id","entry_id","amount","manual");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -112,6 +115,29 @@ class Payroll_employees_deductions_model extends MY_Model {
 	}
 	
 // ------------------------------ End Field: payroll_id --------------------------------------
+
+
+// ---------------------------- Start Field: pe_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `pe_id` variable
+	* @access public
+	*/
+
+	public function setPeId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('pe_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `pe_id` variable
+	* @access public
+	*/
+
+	public function getPeId() {
+		return $this->pe_id;
+	}
+	
+// ------------------------------ End Field: pe_id --------------------------------------
 
 
 // ---------------------------- Start Field: name_id -------------------------------------- 
@@ -274,6 +300,15 @@ class Payroll_employees_deductions_model extends MY_Model {
 										'Extra'=>''
 									),
 
+			'pe_id' => (object) array(
+										'Field'=>'pe_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
 			'name_id' => (object) array(
 										'Field'=>'name_id',
 										'Type'=>'int(20)',
@@ -334,6 +369,7 @@ class Payroll_employees_deductions_model extends MY_Model {
 		$column = array(
 			'id' => "ALTER TABLE  `payroll_employees_deductions` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
 			'payroll_id' => "ALTER TABLE  `payroll_employees_deductions` ADD  `payroll_id` int(20) NOT NULL   ;",
+			'pe_id' => "ALTER TABLE  `payroll_employees_deductions` ADD  `pe_id` int(20) NOT NULL   ;",
 			'name_id' => "ALTER TABLE  `payroll_employees_deductions` ADD  `name_id` int(20) NOT NULL   ;",
 			'deduction_id' => "ALTER TABLE  `payroll_employees_deductions` ADD  `deduction_id` int(20) NOT NULL   ;",
 			'entry_id' => "ALTER TABLE  `payroll_employees_deductions` ADD  `entry_id` int(20) NOT NULL   ;",

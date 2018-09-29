@@ -102,7 +102,12 @@ $total_gross_pay = 0;
 $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
 $days_benefits = ($employee->leave_benefits) ? ($employee->leave_benefits / $working_hours) : 0;
-$present_days = $inclusive_dates->working_days - $days_absent;
+$days_present = ($employee->attendance_hours) ? ($employee->attendance_hours / $working_hours) : 0;
+if( $employee->pe_presence ) {
+  $present_days = $employee->attendance;
+} else {
+  $present_days = $inclusive_dates->working_days - $days_absent;
+}
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
@@ -134,20 +139,38 @@ if( $employee->salary ) {
   $absences = $days_absent * $daily_rate;
   $addon_benefits = $days_benefits * $daily_rate;
 
-  switch( $salary->manner ) {
-      case 'hourly':
-        $basic_salary = ($hourly_rate * $inclusive_dates->working_days * $salary->hours); 
-      break;
-      case 'daily':
-        $basic_salary = ($daily_rate * $inclusive_dates->working_days); 
-      break;
-      case 'semi-monthly':
-        $basic_salary = ($daily_rate * $salary->days) / 2; 
-      break;
-      default:
-      case 'monthly':
-        $basic_salary = ($daily_rate * $salary->days); 
-      break;
+  if( $employee->pe_presence ) {
+    switch( $salary->manner ) {
+        case 'hourly':
+          $basic_salary = ($hourly_rate * $days_present); 
+        break;
+        case 'daily':
+          $basic_salary = ($daily_rate * $present_days); 
+        break;
+        case 'semi-monthly':
+          $basic_salary = ($daily_rate * $present_days); 
+        break;
+        default:
+        case 'monthly':
+          $basic_salary = ($daily_rate * $present_days); 
+        break;
+    }
+  } else {
+    switch( $salary->manner ) {
+        case 'hourly':
+          $basic_salary = ($hourly_rate * $inclusive_dates->working_days * $salary->hours); 
+        break;
+        case 'daily':
+          $basic_salary = ($daily_rate * $inclusive_dates->working_days); 
+        break;
+        case 'semi-monthly':
+          $basic_salary = ($daily_rate * $salary->days) / 2; 
+        break;
+        default:
+        case 'monthly':
+          $basic_salary = ($daily_rate * $salary->days); 
+        break;
+    }
   }
 }
 
@@ -180,7 +203,7 @@ $total_gross_pay += $employee_gross_pay;
                 <td class="text-right"><?php echo number_format($daily_rate,2); ?></td>
                 <td class="text-right">
 <?php if(!$payroll->lock) { ?>
-                <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Basic Salary" data-url="<?php echo site_url("payroll_salaries/".(($employee->salary)?'entry':'add_entry')."/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">
+                <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Basic Salary" data-url="<?php echo site_url("payroll_salaries/".(($employee->salary)?'entry':'add_entry')."/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" . uri_string(); ?>">
 <?php } ?>
                 <?php echo number_format($basic_salary,2); ?>
 <?php if(!$payroll->lock) { ?>

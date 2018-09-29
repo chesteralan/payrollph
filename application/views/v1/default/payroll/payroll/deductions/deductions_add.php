@@ -27,6 +27,7 @@
             <input name="amount" type="text" class="form-control text-center" value="" required>
           </div>
   </div>
+<?php if( $employee_data->manual == 0) { ?>
   <div class="col-md-6">
   <?php if( $employees_deductions ) { ?>
           <div class="form-group">
@@ -40,6 +41,7 @@
           </div>
   <?php } ?>
   </div>
+  <?php } ?>
 </div> 
 
           <div class="form-group">

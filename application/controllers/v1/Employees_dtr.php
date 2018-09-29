@@ -41,6 +41,14 @@ class Employees_dtr extends MY_Controller {
 		$absences->set_limit(0);
 		$this->template_data->set('absences', $absences->populate());
 
+		$attendance = new $this->Employees_attendance_model('a');
+		$attendance->set_where('MONTH(date_present)', $current_month);
+		$attendance->set_where('YEAR(date_present)', $current_year);
+		$attendance->setNameId($id,true);
+		$attendance->set_select('a.*');
+		$attendance->set_limit(0);
+		$this->template_data->set('attendance', $attendance->populate());
+
 		$this->template_data->set('next_item', $this->_next_name($id, 'employees_dtr/view/'));
 		$this->template_data->set('previous_item', $this->_previous_name($id, 'employees_dtr/view/'));
 
@@ -80,7 +88,6 @@ class Employees_dtr extends MY_Controller {
 					}
 				}
 			} else {
-
 				if( $absence->nonEmpty() ) {
 					$absence->delete();
 				}

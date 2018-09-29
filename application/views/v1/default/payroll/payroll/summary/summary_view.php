@@ -105,7 +105,12 @@ $total_deductions = 0;
 
 $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
-$present_days = $inclusive_dates->working_days - $days_absent;
+$days_present = ($employee->attendance_hours) ? ($employee->attendance_hours / $working_hours) : 0;
+if( $employee->pe_presence ) {
+  $present_days = $employee->attendance;
+} else {
+  $present_days = $inclusive_dates->working_days - $days_absent;
+}
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
@@ -135,20 +140,38 @@ if( $employee->salary ) {
   $cola_rate = (isset($salary)) ? $salary->cola : 0;
   $absences = $days_absent * $daily_rate;
 
-  switch( $salary->manner ) {
-      case 'hourly':
-        $basic_salary = ($hourly_rate * $inclusive_dates->working_days * $salary->hours); 
-      break;
-      case 'daily':
-        $basic_salary = ($daily_rate * $inclusive_dates->working_days); 
-      break;
-      case 'semi-monthly':
-        $basic_salary = ($daily_rate * $salary->days) / 2; 
-      break;
-      default:
-      case 'monthly':
-        $basic_salary = ($daily_rate * $salary->days); 
-      break;
+if( $employee->pe_presence ) {
+    switch( $salary->manner ) {
+        case 'hourly':
+          $basic_salary = ($hourly_rate * $days_present); 
+        break;
+        case 'daily':
+          $basic_salary = ($daily_rate * $present_days); 
+        break;
+        case 'semi-monthly':
+          $basic_salary = ($daily_rate * $present_days); 
+        break;
+        default:
+        case 'monthly':
+          $basic_salary = ($daily_rate * $present_days); 
+        break;
+    }
+  } else {
+    switch( $salary->manner ) {
+        case 'hourly':
+          $basic_salary = ($hourly_rate * $inclusive_dates->working_days * $salary->hours); 
+        break;
+        case 'daily':
+          $basic_salary = ($daily_rate * $inclusive_dates->working_days); 
+        break;
+        case 'semi-monthly':
+          $basic_salary = ($daily_rate * $salary->days) / 2; 
+        break;
+        default:
+        case 'monthly':
+          $basic_salary = ($daily_rate * $salary->days); 
+        break;
+    }
   }
 }
 

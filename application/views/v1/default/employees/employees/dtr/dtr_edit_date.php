@@ -19,6 +19,16 @@
   <?php echo (validation_errors()) ? '<div class="alert alert-danger">' . validation_errors() . '</div>' : ''; ?>
 <?php endif; ?>
           
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+<div class="btn-group btn-group-justified">
+  <a type="button" class="btn btn-success">Absence</a>
+  <a type="button" class="btn btn-default">Attendance</a>
+</div>
+</div>
+</div>
+
+
            <div class="form-group">
                 <p><label><input name="absent" type="checkbox" value="1" <?php echo ($absence) ? 'CHECKED' : ''; ?>> Employee is Absent</label></p>
             </div>

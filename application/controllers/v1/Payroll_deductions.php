@@ -171,6 +171,9 @@ class Payroll_deductions extends MY_Controller {
 			$employees->setPayrollId($id,true);
 			$employees->set_select('ni.*');
 			$employees->set_select('e.name_id');
+			$employees->set_select('pe.id as pe_id');
+			$employees->set_select('pe.presence as pe_presence');
+			$employees->set_select('pe.manual as pe_manual');
 			$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 			
@@ -210,10 +213,10 @@ class Payroll_deductions extends MY_Controller {
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
 			
 			foreach($columns as $column) {
-				$employees->set_select(sprintf('(SELECT SUM(amount) FROM payroll_employees_deductions ped WHERE ped.payroll_id=%s AND ped.name_id=pe.name_id AND ped.deduction_id=%s) as deductions_%s', $id, $column->id, $column->id));
+				$employees->set_select(sprintf('(SELECT SUM(amount) FROM payroll_employees_deductions ped WHERE ped.payroll_id=%s AND ped.name_id=pe.name_id AND ped.deduction_id=%s AND ped.manual=pe.manual) as deductions_%s', $id, $column->id, $column->id));
 				
 				if( ($column_id) && ($this->input->get('compare'))) {
-					$employees->set_select(sprintf('(SELECT SUM(amount) FROM payroll_employees_deductions ped WHERE ped.payroll_id=%s AND ped.name_id=pe.name_id AND ped.deduction_id=%s) as compare_%s', $this->input->get('compare'), $column->id, $column->id));
+					$employees->set_select(sprintf('(SELECT SUM(amount) FROM payroll_employees_deductions ped WHERE ped.payroll_id=%s AND ped.name_id=pe.name_id AND ped.deduction_id=%s AND ped.manual=pe.manual) as compare_%s', $this->input->get('compare'), $column->id, $column->id));
 				}
 			}
 
@@ -278,10 +281,17 @@ class Payroll_deductions extends MY_Controller {
 		$this->load->view('payroll/payroll/deductions/deductions_view', $this->template_data->get_data());
 	}
 
-	public function entries($id,$name_id,$deduction_id,$output='') {
+	public function entries($id,$pe_id,$deduction_id,$output='') {
+
+		$employee = new $this->Payroll_employees_model('pe');
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get();
+
+		$name_id = $employee_data->name_id; 
 
 		$this->template_data->set('payroll_id', $id);
 		$this->template_data->set('name_id', $name_id);
+		$this->template_data->set('pe_id', $pe_id);
 		$this->template_data->set('deduction_id', $deduction_id);
 		$this->_column_groups();
 		
@@ -298,6 +308,7 @@ class Payroll_deductions extends MY_Controller {
 		$deductions->setPayrollId($id,true);
 		$deductions->setNameId($name_id,true);
 		$deductions->setDeductionId($deduction_id,true);
+		$deductions->setManual($employee_data->manual,true);
 		$deductions->set_select('*');
 		$deductions->set_select('IF((ped.notes="" OR ped.notes IS NULL), ed.notes, ped.notes) as dnotes');
 		$deductions->set_select('ped.amount as ped_amount');
@@ -311,10 +322,18 @@ class Payroll_deductions extends MY_Controller {
 		$this->load->view('payroll/payroll/deductions/deductions_entries', $this->template_data->get_data());
 	}
 
-	public function add($id,$name_id,$deduction_id,$output='') {
+	public function add($id,$pe_id,$deduction_id,$output='') {
+
+		$employee = new $this->Payroll_employees_model('pe');
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get();
+		$this->template_data->set('employee_data', $employee_data);
+		
+		$name_id = $employee_data->name_id;
 
 		$this->template_data->set('payroll_id', $id);
 		$this->template_data->set('name_id', $name_id);
+		$this->template_data->set('pe_id', $pe_id);
 		$this->template_data->set('deduction_id', $deduction_id);
 
 		if( $this->input->post() ) {
@@ -328,6 +347,7 @@ class Payroll_deductions extends MY_Controller {
 				$deductions->setAmount( str_replace(",", "", $this->input->post('amount')) );
 				$deductions->setEntryId( $this->input->post('entry_id') );
 				$deductions->setNotes($this->input->post('notes'));
+				$deductions->setManual( $employee_data->manual );
 				$deductions->insert();
 			}
 			//redirect("payroll_deductions/view/{$id}");

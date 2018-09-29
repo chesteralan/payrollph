@@ -25,7 +25,7 @@
 
 <div class="print-topnav hide-print text-center allcaps">
   <a href="<?php echo site_url("payroll/select_payroll/{$payroll->id}"); ?>">Back</a>
-  &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}"); ?>">Print</a>
+  &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}") . (($this->input->get('filter'))?'?filter='.$this->input->get('filter'):''); ?>">Print</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/payslip"); ?>">All</a>
     <?php 
   if( ( isset($print_group_option) ) && ( $print_group_option ) )  {

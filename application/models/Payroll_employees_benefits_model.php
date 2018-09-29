@@ -8,6 +8,7 @@
 CREATE TABLE `payroll_employees_benefits` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `payroll_id` int(20) NOT NULL,
+  `pe_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `benefit_id` int(20) NOT NULL,
   `entry_id` int(20) NOT NULL,
@@ -19,10 +20,11 @@ CREATE TABLE `payroll_employees_benefits` (
   KEY `name_id` (`name_id`),
   KEY `benefit_id` (`benefit_id`),
   KEY `entry_id` (`entry_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `payroll_employees_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `payroll_employees_benefits` ADD  `payroll_id` int(20) NOT NULL   ;
+ALTER TABLE  `payroll_employees_benefits` ADD  `pe_id` int(20) NOT NULL   ;
 ALTER TABLE  `payroll_employees_benefits` ADD  `name_id` int(20) NOT NULL   ;
 ALTER TABLE  `payroll_employees_benefits` ADD  `benefit_id` int(20) NOT NULL   ;
 ALTER TABLE  `payroll_employees_benefits` ADD  `entry_id` int(20) NOT NULL   ;
@@ -45,6 +47,7 @@ class Payroll_employees_benefits_model extends MY_Model {
 
 	protected $id;
 	protected $payroll_id;
+	protected $pe_id;
 	protected $name_id;
 	protected $benefit_id;
 	protected $entry_id;
@@ -65,8 +68,8 @@ class Payroll_employees_benefits_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_employees_benefits';
 		$this->_short_name = 'payroll_employees_benefits';
-		$this->_fields = array("id","payroll_id","name_id","benefit_id","entry_id","employee_share","employer_share","notes","manual");
-		$this->_required = array("payroll_id","name_id","benefit_id","entry_id","manual");
+		$this->_fields = array("id","payroll_id","pe_id","name_id","benefit_id","entry_id","employee_share","employer_share","notes","manual");
+		$this->_required = array("payroll_id","pe_id","name_id","benefit_id","entry_id","manual");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -117,6 +120,29 @@ class Payroll_employees_benefits_model extends MY_Model {
 	}
 	
 // ------------------------------ End Field: payroll_id --------------------------------------
+
+
+// ---------------------------- Start Field: pe_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `pe_id` variable
+	* @access public
+	*/
+
+	public function setPeId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('pe_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `pe_id` variable
+	* @access public
+	*/
+
+	public function getPeId() {
+		return $this->pe_id;
+	}
+	
+// ------------------------------ End Field: pe_id --------------------------------------
 
 
 // ---------------------------- Start Field: name_id -------------------------------------- 
@@ -302,6 +328,15 @@ class Payroll_employees_benefits_model extends MY_Model {
 										'Extra'=>''
 									),
 
+			'pe_id' => (object) array(
+										'Field'=>'pe_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
 			'name_id' => (object) array(
 										'Field'=>'name_id',
 										'Type'=>'int(20)',
@@ -371,6 +406,7 @@ class Payroll_employees_benefits_model extends MY_Model {
 		$column = array(
 			'id' => "ALTER TABLE  `payroll_employees_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
 			'payroll_id' => "ALTER TABLE  `payroll_employees_benefits` ADD  `payroll_id` int(20) NOT NULL   ;",
+			'pe_id' => "ALTER TABLE  `payroll_employees_benefits` ADD  `pe_id` int(20) NOT NULL   ;",
 			'name_id' => "ALTER TABLE  `payroll_employees_benefits` ADD  `name_id` int(20) NOT NULL   ;",
 			'benefit_id' => "ALTER TABLE  `payroll_employees_benefits` ADD  `benefit_id` int(20) NOT NULL   ;",
 			'entry_id' => "ALTER TABLE  `payroll_employees_benefits` ADD  `entry_id` int(20) NOT NULL   ;",

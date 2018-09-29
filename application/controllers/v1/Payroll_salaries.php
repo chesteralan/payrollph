@@ -138,6 +138,9 @@ class Payroll_salaries extends MY_Controller {
 			$employees->setPayrollId($id,true);
 			$employees->set_select('ni.*');
 			$employees->set_select('e.name_id');
+			$employees->set_select('pe.id as pe_id');
+			$employees->set_select('pe.presence as pe_presence');
+			$employees->set_select('pe.manual as pe_manual');
 			$employees->set_join('employees e', 'e.name_id=pe.name_id');
 			$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
 
@@ -184,9 +187,11 @@ class Payroll_salaries extends MY_Controller {
 			//$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences_hours");
 			$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences_hours");
 
-
 			$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE ea.leave_type>0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as leave_benefits");
 			
+			$employees->set_select("(SELECT COUNT(*) FROM employees_attendance ea2 WHERE ea2.name_id=pe.name_id AND ea2.date_present >= '{$dates_data->start_date}' AND ea2.date_present <= '{$dates_data->end_date}') as attendance");
+
+			$employees->set_select("(SELECT SUM(ea2.hours) FROM employees_attendance ea2 WHERE ea2.name_id=pe.name_id AND ea2.date_present >= '{$dates_data->start_date}' AND ea2.date_present <= '{$dates_data->end_date}') as attendance_hours");
 
 			$employees->setActive('1', true);
 			$employees->set_order('pe.order', 'ASC');
@@ -196,9 +201,8 @@ class Payroll_salaries extends MY_Controller {
 				$salary = new $this->Payroll_employees_salaries_model('pes');
 				$salary->setPayrollId($id,true);
 				$salary->setNameId($employee->name_id,true);
-				//$salary->set_join('employees_salaries es', 'es.id=pes.salary_id');
-				//$salary->set_select('*, pes.amount as override');
-				//$salary->set_where('es.trash', 0);
+				$salary->setPeId($employee->pe_id,true);
+				$salary->setManual($employee->pe_manual,true);
 				$employees_data[$eKey]->salary = $salary->get();
 			}
 			$payroll_group_data[$key]->employees = $employees_data;
@@ -258,7 +262,7 @@ class Payroll_salaries extends MY_Controller {
 		$this->load->view('payroll/payroll/salaries/salaries_view', $this->template_data->get_data());
 	}
 
-	public function generate_entry($payroll_id,$salary_id) {
+	public function generate_entry($pe_id,$salary_id) {
 
 		$salaries = new $this->Employees_salaries_model('pee');
 		$salaries->setId($salary_id,true);
@@ -267,8 +271,15 @@ class Payroll_salaries extends MY_Controller {
 		$salaries->setCompanyId($this->session->userdata('current_company_id'),true);
 		$salaries_data = $salaries->get();
 
+		$employee = new $this->Payroll_employees_model('pe');
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get();
+
+		$name_id = $employee_data->name_id;
+
 		$salary = new $this->Payroll_employees_salaries_model('pee');
-		$salary->setPayrollId($payroll_id,true,true);
+		$salary->setPayrollId($employee_data->payroll_id,true,true);
+		$salary->setPeId($employee_data->id,true,true);
 		$salary->setNameId($salaries_data->name_id,true,true);
 		$salary->setSalaryId($salaries_data->id,true,true);
 		$salary->setAmount( $salaries_data->amount,false,true);
@@ -280,6 +291,7 @@ class Payroll_salaries extends MY_Controller {
 		$salary->setCola($salaries_data->cola,false,true);
 		$salary->setNotes($salaries_data->notes,false,true);
 		$salary->setManner($salaries_data->manner,false,true);
+		$salary->setManual($employee_data->manual,false,true);
 		if( $salary->nonEmpty() ) {
 			$salary->update();
 		} else {
@@ -291,12 +303,19 @@ class Payroll_salaries extends MY_Controller {
 		redirect($next);
 	}
 
-	public function add_entry($id,$name_id,$output='') {
+	public function add_entry($id,$pe_id,$output='') {
+
+		$employee = new $this->Payroll_employees_model('pe');
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get();
+
+		$name_id = $employee_data->name_id;
 
 		$this->_column_groups();
 
 		$this->template_data->set('payroll_id', $id);
 		$this->template_data->set('name_id', $name_id);
+		$this->template_data->set('pe_id', $pe_id);
 
 		$salaries = new $this->Employees_salaries_model('pee');
 		$salaries->setNameId($name_id,true);
@@ -314,12 +333,19 @@ class Payroll_salaries extends MY_Controller {
 		$this->load->view('payroll/payroll/salaries/salaries_add_entry', $this->template_data->get_data());
 	}
 
-	public function entry($id,$name_id,$output='') {
+	public function entry($id,$pe_id,$output='') {
+
+		$employee = new $this->Payroll_employees_model('pe');
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get();
+
+		$name_id = $employee_data->name_id;
 
 		$this->_column_groups();
 
 		$this->template_data->set('payroll_id', $id);
 		$this->template_data->set('name_id', $name_id);
+		$this->template_data->set('pe_id', $pe_id);
 
 		$salary = new $this->Payroll_employees_salaries_model('pee');
 		$salary->setPayrollId($id,true);
@@ -343,6 +369,7 @@ class Payroll_salaries extends MY_Controller {
 					$salary->setCola($this->input->post('cola'),false,true);
 					$salary->setNotes($this->input->post('notes'),false,true);
 					$salary->setManner($this->input->post('manner'),false,true);
+					$salary->setManual($employee_data->manual,false,true);
 					$salary->update();
 				}
 				$this->postNext();

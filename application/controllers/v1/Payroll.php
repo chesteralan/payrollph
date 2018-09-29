@@ -404,6 +404,7 @@ class Payroll extends MY_Controller {
 		 	
 		 	$pee_earning = new $this->Payroll_employees_earnings_model;
 		 	$pee_earning->setPayrollId($payroll_data->id,true);
+		 	$pee_earning->setPeId($employee->id,true);
 		 	$pee_earning->setNameId($earning2->name_id,true);
 		 	$pee_earning->setEarningId($earning2->earning_id,true);
 		 	$pee_earning->setEntryId($earning2->id,true);
@@ -471,6 +472,7 @@ class Payroll extends MY_Controller {
 			 if( $ee_benefits_data ) foreach( $ee_benefits_data as $benefit2 ) {
 			 	$peb_benefit = new $this->Payroll_employees_benefits_model;
 			 	$peb_benefit->setPayrollId($payroll_data->id,true);
+			 	$peb_benefit->setPeId($employee->id,true);
 			 	$peb_benefit->setNameId($benefit2->name_id,true);
 			 	$peb_benefit->setBenefitId($benefit2->benefit_id,true);
 			 	$peb_benefit->setEntryId($benefit2->id,true);
@@ -506,6 +508,7 @@ class Payroll extends MY_Controller {
 			 	$ped_deduction = new $this->Payroll_employees_deductions_model;
 			 	$ped_deduction->setPayrollId($payroll_data->id,true);
 			 	$ped_deduction->setNameId($deduction2->name_id,true);
+			 	$ped_deduction->setPeId($employee->id,true);
 			 	$ped_deduction->setDeductionId($deduction2->deduction_id,true);
 			 	$ped_deduction->setEntryId($deduction2->id,true);
 			 	$ped_deduction->setManual(0,true);
@@ -547,26 +550,31 @@ class Payroll extends MY_Controller {
 					$salary->setNameId($employee->name_id,true);
 					$salary->setPrimary(1,true);
 					$salary->setTrash(0,true);
-				if( $salary->nonEmpty() ) {
-					$salary_data = $salary->getResults();
-					$payroll_salary = new $this->Payroll_employees_salaries_model;
-					$payroll_salary->setPayrollId($payroll_data->id,true);
-					$payroll_salary->setNameId($employee->name_id,true);
-					$payroll_salary->setManual(0,true);
-					$payroll_salary->setSalaryId($salary_data->id);
-					$payroll_salary->setAmount($salary_data->amount);
-					$payroll_salary->setRatePer($salary_data->rate_per);
-					$payroll_salary->setAnnualDays($salary_data->annual_days);
-					$payroll_salary->setMonths($salary_data->months);
-					$payroll_salary->setDays($salary_data->days);
-					$payroll_salary->setHours($salary_data->hours);
-					$payroll_salary->setCola($salary_data->cola);
-					$payroll_salary->setNotes($salary_data->notes);
-					$payroll_salary->setManner($salary_data->manner);
-					if( ! $payroll_salary->nonEmpty() ) {
-						$payroll_salary->insert();
+				
+					if( $salary->nonEmpty() ) {
+
+						$salary_data = $salary->getResults();
+						$payroll_salary = new $this->Payroll_employees_salaries_model;
+						$payroll_salary->setPayrollId($payroll_data->id,true);
+						$payroll_salary->setNameId($employee->name_id,true);
+						$payroll_salary->setPeId($employee->id,true);
+						$payroll_salary->setManual(0,true);
+						$payroll_salary->setSalaryId($salary_data->id);
+						$payroll_salary->setAmount($salary_data->amount);
+						$payroll_salary->setRatePer($salary_data->rate_per);
+						$payroll_salary->setAnnualDays($salary_data->annual_days);
+						$payroll_salary->setMonths($salary_data->months);
+						$payroll_salary->setDays($salary_data->days);
+						$payroll_salary->setHours($salary_data->hours);
+						$payroll_salary->setCola($salary_data->cola);
+						$payroll_salary->setNotes($salary_data->notes);
+						$payroll_salary->setManner($salary_data->manner);
+						$payroll_salary->setManual(0,true);
+						if( ! $payroll_salary->nonEmpty() ) {
+							$payroll_salary->insert();
+						}
 					}
-				}
+
 			}
 
 			$temp_earnings = new $this->Payroll_templates_earnings_model;
@@ -697,9 +705,9 @@ class Payroll extends MY_Controller {
 				$employees->set_select('pte.template');
 				$employees->set_select('pte.print_group');
 				$employees->set_select('pte.order');
+
 				foreach( $employees->populate() as $employee ) {
 
-					$employees_data[] = $employee;
 					$payroll_employees = new $this->Payroll_employees_model;
 					$payroll_employees->setPayrollId($id,true);
 					$payroll_employees->setNameId($employee->name_id,true);
@@ -717,7 +725,11 @@ class Payroll extends MY_Controller {
 						$peData = $payroll_employees->getResults();
 					} else {
 						$payroll_employees->insert();
+						$employee->id = $payroll_employees->get_inserted_id();
+						$peData = $employee;
 					}
+
+					$employees_data[] = $peData;
 				}
 			}
 
@@ -1329,6 +1341,8 @@ class Payroll extends MY_Controller {
 			$employee->setPayrollId($payroll_id, true);
 			$employee->setNameId($this->input->post('name_id'), true);
 			$employee->setManual(1, true);
+			$employee->setPresence(1);
+			$employee->setOrder(999);
 			switch( $group_by ) {
 				case 'position':
 					$employee->setPositionId($group_id,true);

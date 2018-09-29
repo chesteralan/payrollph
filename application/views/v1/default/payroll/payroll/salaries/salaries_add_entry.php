@@ -26,7 +26,7 @@
 
 <?php foreach($salaries as $salary) {  ?>
 
-  <a class="list-group-item <?php echo ($salary->primary)?'active':''; ?>" href="<?php echo site_url("payroll_salaries/generate_entry/{$payroll_id}/{$salary->id}") . "?next=" . $this->input->get('next'); ?>">
+  <a class="list-group-item <?php echo ($salary->primary)?'active':''; ?>" href="<?php echo site_url("payroll_salaries/generate_entry/{$pe_id}/{$salary->id}") . "?next=" . $this->input->get('next'); ?>">
 
   <span class="badge pull-right"><?php echo $salary->manner; ?></span>
     <h4 class="list-group-item-heading"><?php echo number_format($salary->amount,2); ?></h4>

@@ -22,7 +22,7 @@
       <div class="row">
       <div class="col-md-12">
 <?php if($absence) {  ?>
-  <div class="alert alert-danger"><strong>Marked as absent!</strong> <a href="<?php echo site_url(uri_string()) . "?delete=1&next=" . $this->input->get('next'); ?>" class="pull-right btn btn-danger btn-xs">Remove</a></div>
+  <div class="alert alert-success"><strong>Marked as absent!</strong> <a href="<?php echo site_url(uri_string()) . "?delete=1&next=" . $this->input->get('next'); ?>" class="pull-right btn btn-danger btn-xs">Remove</a></div>
 <?php } else { ?>
   <h3><strong>Add Leave / Absence</strong></h3>
 <?php } ?>
