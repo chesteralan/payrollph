@@ -19,7 +19,13 @@ class Payroll_templates extends MY_Controller {
 
 		$templates = new $this->Payroll_templates_model;
 		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
-		$templates->setActive('1', true);
+
+		if( $this->input->get('filter')=='trash') {
+			$templates->setActive('0', true);
+		} else {
+			$templates->setActive('1', true);	
+		}
+		
 		$templates->set_select('*');
 		$templates->set_select('(SELECT COUNT(*) FROM `payroll` WHERE template_id=payroll_templates.id) as payroll_count');
 		$templates->set_start($start);
@@ -99,12 +105,34 @@ class Payroll_templates extends MY_Controller {
 		$this->load->view('payroll/templates/templates_edit', $this->template_data->get_data());
 	}
 
+	public function deactivate($id) {
+		$this->_isAuth('payroll', 'templates', 'delete');
+
+		$template = new $this->Payroll_templates_model;
+		$template->setId($id,true,false);
+		$template->setActive('0',false,true);
+		$template->update();
+
+		$this->getNext("payroll_templates");
+	}
+
 	public function delete($id) {
 		$this->_isAuth('payroll', 'templates', 'delete');
 
 		$template = new $this->Payroll_templates_model;
 		$template->setId($id,true,false);
 		$template->setActive('0',false,true);
+		$template->update();
+
+		$this->getNext("payroll_templates");
+	}
+
+	public function restore($id) {
+		$this->_isAuth('payroll', 'templates', 'delete');
+
+		$template = new $this->Payroll_templates_model;
+		$template->setId($id,true,false);
+		$template->setActive('1',false,true);
 		$template->update();
 
 		$this->getNext("payroll_templates");

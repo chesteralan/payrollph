@@ -21,7 +21,7 @@ CREATE TABLE `payroll` (
   PRIMARY KEY (`id`),
   KEY `template_id` (`template_id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `payroll` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `payroll` ADD  `company_id` int(20) NOT NULL   ;

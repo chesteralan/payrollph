@@ -10,6 +10,7 @@ CREATE TABLE `user_accounts` (
   `username` varchar(200) NOT NULL,
   `password` varchar(200) NOT NULL,
   `name` varchar(200) NOT NULL,
+  `last_login` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `id` (`id`)
@@ -19,6 +20,7 @@ ALTER TABLE  `user_accounts` ADD  `id` int(10) NOT NULL  AUTO_INCREMENT PRIMARY 
 ALTER TABLE  `user_accounts` ADD  `username` varchar(200) NOT NULL   UNIQUE KEY;
 ALTER TABLE  `user_accounts` ADD  `password` varchar(200) NOT NULL   ;
 ALTER TABLE  `user_accounts` ADD  `name` varchar(200) NOT NULL   ;
+ALTER TABLE  `user_accounts` ADD  `last_login` datetime NULL   DEFAULT 'CURRENT_TIMESTAMP';
 
 
  * @package			        Model
@@ -36,6 +38,7 @@ class User_accounts_model extends MY_Model {
 	protected $username;
 	protected $password;
 	protected $name;
+	protected $last_login;
 
 	// --------------------------------------------------------------------
 
@@ -49,7 +52,7 @@ class User_accounts_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'user_accounts';
 		$this->_short_name = 'user_accounts';
-		$this->_fields = array("id","username","password","name");
+		$this->_fields = array("id","username","password","name","last_login");
 		$this->_required = array("username","password","name");
 		parent::__construct($short_name, $db_config);
 	}
@@ -149,6 +152,29 @@ class User_accounts_model extends MY_Model {
 // ------------------------------ End Field: name --------------------------------------
 
 
+// ---------------------------- Start Field: last_login -------------------------------------- 
+
+	/** 
+	* Sets a value to `last_login` variable
+	* @access public
+	*/
+
+	public function setLastLogin($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('last_login', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `last_login` variable
+	* @access public
+	*/
+
+	public function getLastLogin() {
+		return $this->last_login;
+	}
+	
+// ------------------------------ End Field: last_login --------------------------------------
+
+
 
 	
 	public function get_table_options() {
@@ -187,6 +213,15 @@ class User_accounts_model extends MY_Model {
 										'Key'=>'',
 										'Default'=>'',
 										'Extra'=>''
+									),
+
+			'last_login' => (object) array(
+										'Field'=>'last_login',
+										'Type'=>'datetime',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'CURRENT_TIMESTAMP',
+										'Extra'=>''
 									)
 		);
 	}
@@ -197,6 +232,7 @@ class User_accounts_model extends MY_Model {
 			'username' => "ALTER TABLE  `user_accounts` ADD  `username` varchar(200) NOT NULL   UNIQUE KEY;",
 			'password' => "ALTER TABLE  `user_accounts` ADD  `password` varchar(200) NOT NULL   ;",
 			'name' => "ALTER TABLE  `user_accounts` ADD  `name` varchar(200) NOT NULL   ;",
+			'last_login' => "ALTER TABLE  `user_accounts` ADD  `last_login` datetime NULL   DEFAULT 'CURRENT_TIMESTAMP';",
 		);
 
 		if( isset( $column[$field_name] ) ) {

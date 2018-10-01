@@ -163,7 +163,17 @@ function draw_calendar($name_id, $month,$year,$absences=NULL, $attendance=NULL){
 <a href="<?php echo site_url(uri_string()) . "?month=" .  date('m', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))) . "&year=" .  date('Y', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?>" class="pull-left">&lArr; <?php echo date('F Y', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?></a>                  
                   <center>
                   <h3 class="panel-title bold">
-                  <?php echo date('F Y', strtotime($current_month."/1/".$current_year)); ?> 
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <strong><?php echo date('F Y', strtotime($current_month."/1/".$current_year)); ?></strong> <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+<?php for($i=1;$i <= 12; $i++ ) { ?>
+    <li class="<?php echo ($i==$current_month) ? "active" : ""; ?>"><a href="<?php echo site_url(uri_string()) . "?month={$i}&year={$current_year}"; ?>"><?php echo date('F Y', strtotime($i."/1/".$current_year)); ?></a></li>
+<?php } ?>
+  </ul>
+</div>
+
                   </h3>
                 </center>
                 </div>

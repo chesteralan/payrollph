@@ -15,13 +15,6 @@ class Payroll extends MY_Controller {
 
 		$this->_isAuth('payroll', 'payroll', 'view');
 
-		$templates = new $this->Payroll_templates_model;
-		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
-		$templates->setActive('1', true);
-		if( !$templates->nonEmpty() ) {
-			redirect("payroll_templates");
-		}
-
 	}
 
 	public function index($filter_year=0, $filter_month=0, $filter_template=0, $start=0) {
@@ -32,7 +25,13 @@ class Payroll extends MY_Controller {
 
 		$payrolls = new $this->Payroll_model;
 		$payrolls->setCompanyId($this->session->userdata('current_company_id'),true);
-		$payrolls->setActive(1,true);
+		
+		if( $this->input->get('filter')=='trash') {
+			$payrolls->setActive('0', true);
+		} else {
+			$payrolls->setActive('1', true);	
+		}
+
 		$payrolls->set_select('*');
 		$payrolls->set_select('(SELECT name FROM payroll_templates WHERE id=payroll.template_id) as template_name');
 		$payrolls->set_select('(SELECT COUNT(*) FROM payroll_employees WHERE payroll_id=payroll.id) as employees_count');
@@ -91,6 +90,11 @@ class Payroll extends MY_Controller {
 			'per_page' => $payrolls->get_limit(),
 			'ajax'=>true
 		)));
+
+		$templates = new $this->Payroll_templates_model;
+		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->setActive('1', true);
+		$this->template_data->set('templates', $templates->populate());
 
 		$this->load->view('payroll/payroll/payroll_list', $this->template_data->get_data());
 	}
@@ -220,12 +224,34 @@ class Payroll extends MY_Controller {
 		$this->load->view('payroll/payroll/payroll_edit', $this->template_data->get_data());
 	}
 
+	public function deactivate($id) {
+		$this->_isAuth('payroll', 'payroll', 'delete');
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true,false);
+		$payroll->setActive('0',false,true);
+		$payroll->update();
+
+		$this->getNext("payroll");
+	}
+
 	public function delete($id) {
 		$this->_isAuth('payroll', 'payroll', 'delete');
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true,false);
 		$payroll->setActive('0',false,true);
+		$payroll->update();
+
+		$this->getNext("payroll");
+	}
+
+	public function restore($id) {
+		$this->_isAuth('payroll', 'payroll', 'delete');
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true,false);
+		$payroll->setActive('1',false,true);
 		$payroll->update();
 
 		$this->getNext("payroll");

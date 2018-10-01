@@ -47,7 +47,13 @@
       <textarea name="notes" class="form-control" rows="3"><?php echo ($attendance) ? $attendance->notes : ''; ?></textarea>
     </div>
 
-
+<?php if( $attendance ) { ?>
+<?php if( $attendance->pe_id ) { ?>
+    <div class="alert alert-warning"><strong>Assigned to Payroll: <?php echo $payroll->name; ?></strong> <a href="<?php echo site_url(uri_string()) . "?remove_assignment=1&next=" . $this->input->get('next'); ?>" class="pull-right btn btn-danger btn-xs">Remove</a></div>
+<?php } else { ?>
+<a href="<?php echo site_url(uri_string()) . "?assign=1&next=" . $this->input->get('next'); ?>" class="btn btn-default btn-xs">Assign to payroll</a>
+<?php } ?>
+<?php } ?>
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>
         <div class="panel-footer">

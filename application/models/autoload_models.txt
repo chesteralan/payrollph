@@ -41,6 +41,7 @@ $autoload['model'] = $models;$models[] = 'Payroll_templates_deductions_model';
 $autoload['model'] = $models;$models[] = 'Payroll_templates_earnings_model';
 $autoload['model'] = $models;$models[] = 'Payroll_templates_employees_model';
 $autoload['model'] = $models;$models[] = 'Payroll_templates_groups_model';
+$autoload['model'] = $models;$models[] = 'System_audit_model';
 $autoload['model'] = $models;$models[] = 'Terms_list_model';
 $autoload['model'] = $models;$models[] = 'User_accounts_model';
 $autoload['model'] = $models;$models[] = 'User_accounts_companies_model';

@@ -58,6 +58,11 @@ class Account extends Login_Controller {
 				$account->setPassword(sha1($this->input->post('password')),true); 
 				if( $account->nonEmpty() ) {
 					$results = $account->getResults();
+
+					record_system_audit($results->id, 'account', 'users', 'login');
+					$account->setLastLogin(date('Y-m-d H:i:s'),false,true);
+					$account->update();
+
 					$this->session->set_userdata( 'loggedIn', true );
 					$this->session->set_userdata( 'user_id', $results->id );
 					$this->session->set_userdata( 'username', $results->username );
@@ -137,6 +142,7 @@ class Account extends Login_Controller {
 	}
 
 	public function logout() {
+		record_system_audit($this->session->userdata('user_id'), 'account', 'users', 'logout');
 		$this->session->sess_destroy();
 		redirect( site_url("account/login") . "?next=" . $this->input->get('next') );
 	}

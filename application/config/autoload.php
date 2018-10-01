@@ -176,6 +176,7 @@ $models[] = 'Payroll_templates_deductions_model';
 $models[] = 'Payroll_templates_earnings_model';
 $models[] = 'Payroll_templates_employees_model';
 $models[] = 'Payroll_templates_groups_model';
+$models[] = 'System_audit_model';
 $models[] = 'Terms_list_model';
 $models[] = 'User_accounts_model';
 $models[] = 'User_accounts_companies_model';

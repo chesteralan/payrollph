@@ -65,3 +65,17 @@ if( ! function_exists('payroll_url') ) {
         return $url;
     }
 }
+
+if( ! function_exists('record_system_audit') ) {
+    function record_system_audit($user_id, $dept, $sect, $action, $company_id=0, $notes='') {
+        $CI = get_instance();
+        $audit = new $CI->System_audit_model();
+        $audit->setUserId($user_id);
+        $audit->setDept($dept);
+        $audit->setSect($sect);
+        $audit->setAction($action);
+        $audit->setCompanyId($company_id);
+        $audit->setNotes($notes);
+        $audit->insert();
+    }
+}

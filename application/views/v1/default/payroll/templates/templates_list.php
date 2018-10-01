@@ -13,7 +13,11 @@
 <?php if( hasAccess('payroll', 'templates', 'add') ) { ?>
   <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Template" data-url="<?php echo site_url("payroll_templates/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Create Template</button>
 <?php } ?>
-                  <h3 class="panel-title bold"><?php echo $current_page; ?></h3>
+                  <h3 class="panel-title bold"><?php echo $current_page; ?>
+
+  <a href="<?php echo site_url(uri_string()); ?>?filter=trash"><span class="glyphicon glyphicon-trash"></span></a>
+
+                  </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 
@@ -27,7 +31,7 @@
                 <th>Template Name</th>
                 <th>Payroll</th>
                 <?php if( hasAccess('payroll', 'templates', 'edit') ) { ?>
-                  <th width="230px">Action</th>
+                  <th width="250px">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -35,10 +39,10 @@
             <?php foreach($templates as $template) { ?>
               <tr id="template-<?php echo $template->id; ?>">
                 <td><?php echo $template->name; ?></td>
-                <td><a class="body_wrapper" href="<?php echo site_url("payroll/template/{$template->id}"); ?>"><?php echo $template->payroll_count; ?></a></td>
+                <td><a class="body_wrapper" href="<?php echo site_url("payroll/index/0/0/{$template->id}"); ?>"><?php echo $template->payroll_count; ?></a></td>
               <?php if( hasAccess('payroll', 'templates', 'edit') ) { ?>
                 <td>
-
+<?php if( $template->active ) { ?>
 <div class="btn-group">
                   <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Template" data-url="<?php echo site_url("payroll_templates/config/{$template->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">Config</button>
   <button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -63,9 +67,18 @@
   <li><a href="#ajaxModal" data-target="#ajaxModal" data-title="Print Columns" data-toggle="modal" class="ajax-modal" data-url="<?php echo site_url("payroll_templates/print_columns/{$template->id}/ajax") . "?next=" . uri_string(); ?>">Print Columns</a></li>
   </ul>
 </div>
-                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("payroll_templates/delete/{$template->id}"); ?>" data-target="#template-<?php echo $template->id; ?>">Delete</a>
+
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("payroll_templates/deactivate/{$template->id}"). "?next=" . uri_string(); ?>" data-target="#template-<?php echo $template->id; ?>">Deactivate</a>
 
                 <a class="btn btn-warning btn-xs" href="<?php echo site_url("payroll_templates/select_preview/{$template->id}"); ?>">Preview</a>
+
+<?php } else { ?>
+
+  <a class="btn btn-success btn-xs confirm" href="<?php echo site_url("payroll_templates/restore/{$template->id}") . "?next=" . uri_string(); ?>">Restore</a>
+
+  <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("payroll_templates/delete/{$template->id}"). "?next=" . uri_string(); ?>">Delete Permanently</a>
+
+<?php } ?>
                 </td>
               <?php } ?>
               </tr>

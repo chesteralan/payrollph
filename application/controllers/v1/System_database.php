@@ -93,6 +93,7 @@ class System_database extends MY_Controller {
 		$models['payroll_templates_earnings'] = 'Payroll_templates_earnings_model';
 		$models['payroll_templates_employees'] = 'Payroll_templates_employees_model';
 		$models['payroll_templates_groups'] = 'Payroll_templates_groups_model';
+		$models['system_audit'] = 'System_audit_model';
 		$models['terms_list'] = 'Terms_list_model';
 		$models['user_accounts'] = 'User_accounts_model';
 		$models['user_accounts_companies'] = 'User_accounts_companies_model';
@@ -163,7 +164,17 @@ class System_database extends MY_Controller {
 
 	public function fix_default($table_name, $field_name, $field_type, $value) {
 		$field_type = urldecode( $field_type );
-		$this->db->query("ALTER TABLE `{$table_name}` CHANGE `{$field_name}` `{$field_name}` {$field_type} NOT NULL DEFAULT '{$value}';");
+
+		switch($value) {
+			case 'CURRENT_TIMESTAMP':
+				$value1 = "{$value}";
+			break;
+			default:
+				$value1 = "'{$value}'";
+			break;
+		}
+
+		$this->db->query("ALTER TABLE `{$table_name}` CHANGE `{$field_name}` `{$field_name}` {$field_type} NOT NULL DEFAULT {$value1};");
 		redirect( site_url("system_database/verify") . "?table=" . $table_name );
 	}
 

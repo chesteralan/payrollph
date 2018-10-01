@@ -115,12 +115,20 @@ $dept = array(
 			),
 	),
 
+	'reports' =>  (object) array(
+		'title' => 'Reports',
+		'sections' => array(
+				'13month' => '13th Month Pay',
+			),
+	),
+
 	'system' =>  (object) array(
 		'title' => 'System',
 		'sections' => array(
 				'companies' => 'Companies',
 				'terms' => 'Terminologies',
 				'users' => 'User Accounts',
+				'audit' => 'System Audit',
 				'database' => 'Database',
 			),
 	),

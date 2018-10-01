@@ -103,9 +103,23 @@ if( $this->session->userdata( 'current_company' ) ) {
         )
     );
 
+ $main_menu['reports'] = array(
+      'title' => 'Reports',
+      'uri' => 'reports',
+      'permission' => 'reports',
+      'sub_menus' => array(
+          'lists_names' => array(
+            'title' => '13th Month Pay',
+            'uri' => 'reports_13month',
+            'permission' => array('reports','13month'),
+          ),
+      )
+    );
+
+
 if( $this->config->item('multi_company') ) {
     $system_submenus['system_companies'] = array(
-            'title' => 'Companies',
+            'title' => (($this->lang->line('nav_companies')) ? $this->lang->line('nav_companies') : 'Companies'),
             'uri' => 'system_companies',
             'permission' => array('system', 'companies'),
           );
@@ -121,6 +135,13 @@ if( $this->config->item('multi_company') ) {
             'uri' => 'system_users',
             'permission' => array('system', 'users'),
           );
+
+    $system_submenus['system_audit'] = array(
+            'title' => 'Audit Trail',
+            'uri' => 'system_audit',
+            'permission' => array('system', 'audit'),
+          );
+
     $system_submenus['system_database'] = array(
             'title' => 'Database',
             'uri' => 'system_database',

@@ -99,6 +99,7 @@ CREATE TABLE `employees_absences` (
   `hours` int(2) DEFAULT '8',
   `leave_type` int(20) DEFAULT NULL,
   `notes` text,
+  `pe_id` int(20) DEFAULT NULL,
   KEY `name_id` (`name_id`,`date_absent`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
@@ -121,6 +122,7 @@ CREATE TABLE `employees_attendance` (
   `date_present` date NOT NULL,
   `hours` int(2) DEFAULT '8',
   `notes` text,
+  `pe_id` int(20) DEFAULT NULL,
   KEY `name_id` (`name_id`,`date_present`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
@@ -273,7 +275,7 @@ CREATE TABLE `employees_salaries` (
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin;
 
 -- Table structure for table `employees_salaries` 
 
@@ -333,7 +335,7 @@ CREATE TABLE `payroll` (
   PRIMARY KEY (`id`),
   KEY `template_id` (`template_id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
 
 -- Table structure for table `payroll` 
 
@@ -381,7 +383,7 @@ CREATE TABLE `payroll_employees` (
   `presence` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`payroll_id`,`name_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=latin;
 
 -- Table structure for table `payroll_employees` 
 
@@ -400,7 +402,7 @@ CREATE TABLE `payroll_employees_benefits` (
   KEY `name_id` (`name_id`),
   KEY `benefit_id` (`benefit_id`),
   KEY `entry_id` (`entry_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin;
 
 -- Table structure for table `payroll_employees_benefits` 
 
@@ -416,7 +418,7 @@ CREATE TABLE `payroll_employees_deductions` (
   `manual` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`payroll_id`,`deduction_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin;
 
 -- Table structure for table `payroll_employees_deductions` 
 
@@ -432,7 +434,7 @@ CREATE TABLE `payroll_employees_earnings` (
   `manual` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`payroll_id`,`earning_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin;
 
 -- Table structure for table `payroll_employees_earnings` 
 
@@ -455,7 +457,7 @@ CREATE TABLE `payroll_employees_salaries` (
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`),
   KEY `payroll_id` (`payroll_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin;
 
 -- Table structure for table `payroll_employees_salaries` 
 
@@ -562,6 +564,20 @@ CREATE TABLE `payroll_templates_groups` (
 
 -- Table structure for table `payroll_templates_groups` 
 
+CREATE TABLE `system_audit` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `user_id` int(20) NOT NULL,
+  `dept` varchar(200) NOT NULL,
+  `sect` varchar(200) NOT NULL,
+  `action` varchar(200) NOT NULL,
+  `company_id` int(20) DEFAULT NULL,
+  `notes` text,
+  `date_accessed` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin;
+
+-- Table structure for table `system_audit` 
+
 CREATE TABLE `terms_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
@@ -579,6 +595,7 @@ CREATE TABLE `user_accounts` (
   `username` varchar(200) NOT NULL,
   `password` varchar(200) NOT NULL,
   `name` varchar(200) NOT NULL,
+  `last_login` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `id` (`id`)

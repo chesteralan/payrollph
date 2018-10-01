@@ -2,7 +2,7 @@
 
 <?php if( $this->session->userdata( 'current_company' ) ) { ?>
 <div class="container">
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default stickynav1">
   <div class="container-fluid">
     <div class="navbar-header">
       <div class="navbar-brand"><?php echo $this->session->userdata( 'current_company' ); ?></div>

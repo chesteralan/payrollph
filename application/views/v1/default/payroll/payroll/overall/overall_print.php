@@ -77,19 +77,18 @@ function isColumn($ths, $column_id,$print_columns) {
 <?php } ?>
 <?php foreach($payroll_groups as $payroll_group) { ?>
 <?php if($payroll_group->employees) { ?>
-<optgroup label="<?php echo $payroll_group->name; ?>">
 <?php if( count($payroll_group->employees) > 1) { ?>
+<optgroup label="<?php echo $payroll_group->name; ?>">
   <option value="<?php echo site_url(uri_string()); ?>?filter_group=<?php echo $payroll_group->id; ?>" <?php echo ($payroll_group->id==$this->input->get('filter_group')) ? 'selected' : ''; ?>>All <?php echo $payroll_group->name; ?></option>
 <?php } ?>
 <?php 
         foreach($payroll_group->employees as $employee) { 
-          if( $employee->payslip_template == 'none' ) {
-              continue;
-          }
           ?>
             <option value="<?php echo site_url(uri_string()); ?>?filter=<?php echo $employee->name_id; ?>" <?php echo ($employee->name_id==$this->input->get('filter')) ? 'selected' : ''; ?>><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1); ?>.</option>
       <?php } ?>
+<?php if( count($payroll_group->employees) > 1) { ?>
 </optgroup>
+<?php } ?>
 <?php } ?>
 <?php } ?>
   </select>

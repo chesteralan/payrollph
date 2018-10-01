@@ -203,6 +203,7 @@ class Payroll_summary extends MY_Controller {
 				$salary = new $this->Payroll_employees_salaries_model('pes');
 				$salary->setPayrollId($id,true);
 				$salary->setNameId($employee->name_id,true);
+				$salary->setPeId($employee->pe_id,true);
 				//$salary->set_join('employees_salaries es', 'es.id=pes.salary_id');
 				//$salary->set_select('*, pes.amount as override');
 				//$salary->set_where('es.trash', 0);

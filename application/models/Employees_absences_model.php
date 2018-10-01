@@ -11,6 +11,7 @@ CREATE TABLE `employees_absences` (
   `hours` int(2) DEFAULT '8',
   `leave_type` int(20) DEFAULT NULL,
   `notes` text,
+  `pe_id` int(20) DEFAULT NULL,
   KEY `name_id` (`name_id`,`date_absent`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
@@ -19,6 +20,7 @@ ALTER TABLE  `employees_absences` ADD  `date_absent` date NOT NULL   ;
 ALTER TABLE  `employees_absences` ADD  `hours` int(2) NULL   DEFAULT '8';
 ALTER TABLE  `employees_absences` ADD  `leave_type` int(20) NULL   ;
 ALTER TABLE  `employees_absences` ADD  `notes` text NULL   ;
+ALTER TABLE  `employees_absences` ADD  `pe_id` int(20) NULL   ;
 
 
  * @package			        Model
@@ -37,6 +39,7 @@ class Employees_absences_model extends MY_Model {
 	protected $hours;
 	protected $leave_type;
 	protected $notes;
+	protected $pe_id;
 
 	// --------------------------------------------------------------------
 
@@ -50,7 +53,7 @@ class Employees_absences_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees_absences';
 		$this->_short_name = 'employees_absences';
-		$this->_fields = array("name_id","date_absent","hours","leave_type","notes");
+		$this->_fields = array("name_id","date_absent","hours","leave_type","notes","pe_id");
 		$this->_required = array("name_id","date_absent");
 		parent::__construct($short_name, $db_config);
 	}
@@ -173,6 +176,29 @@ class Employees_absences_model extends MY_Model {
 // ------------------------------ End Field: notes --------------------------------------
 
 
+// ---------------------------- Start Field: pe_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `pe_id` variable
+	* @access public
+	*/
+
+	public function setPeId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('pe_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `pe_id` variable
+	* @access public
+	*/
+
+	public function getPeId() {
+		return $this->pe_id;
+	}
+	
+// ------------------------------ End Field: pe_id --------------------------------------
+
+
 
 	
 	public function get_table_options() {
@@ -220,6 +246,15 @@ class Employees_absences_model extends MY_Model {
 										'Key'=>'',
 										'Default'=>'',
 										'Extra'=>''
+									),
+
+			'pe_id' => (object) array(
+										'Field'=>'pe_id',
+										'Type'=>'int(20)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
 									)
 		);
 	}
@@ -231,6 +266,7 @@ class Employees_absences_model extends MY_Model {
 			'hours' => "ALTER TABLE  `employees_absences` ADD  `hours` int(2) NULL   DEFAULT '8';",
 			'leave_type' => "ALTER TABLE  `employees_absences` ADD  `leave_type` int(20) NULL   ;",
 			'notes' => "ALTER TABLE  `employees_absences` ADD  `notes` text NULL   ;",
+			'pe_id' => "ALTER TABLE  `employees_absences` ADD  `pe_id` int(20) NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {

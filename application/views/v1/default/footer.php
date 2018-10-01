@@ -7,24 +7,23 @@
 	<div class="row">
 		<div class="col-md-6">
 			<small>
-      <p>
+
 <?php if( $this->config->item('multi_company') ) { ?>
 <strong>
 <a class="ajax-modal" href="#ajaxModal" data-hide_footer="1" data-toggle="modal" data-target="#ajaxModal" data-title="Switch Company" data-url="<?php echo site_url("welcome/select_company/0/ajax") . "?next=" . uri_string(); ?>">
-      <?php echo $this->session->userdata( 'current_company' ); ?></a></strong><br>
+      <?php echo $this->session->userdata( 'current_company' ); ?></a></strong>
 <?php } ?>
-				<a href="http://www.trokis.com/" target="footer_credits">Payroll PH</a> 
-				&copy; <?php echo date('Y'); ?> 
+				<p><a href="http://www.trokis.com/" target="footer_credits">Payroll PH</a> 
+				&copy; <?php echo date('Y'); ?> </p>
 				
-				</p>
+				
 			</small>
 		</div>
     <div class="col-md-6 text-right">
 <small>
 Developed by: 
         <a href="http://www.chesteralan.com/" target="footer_credits">Chester Alan Tagudin</a>
-        <br>
-        <strong>M:</strong> <?php echo $this->benchmark->memory_usage();?> <strong>T:</strong> <?php echo $this->benchmark->elapsed_time();?> <strong>IP:</strong> <?php echo $this->input->ip_address(); ?>
+        <p><strong>M:</strong> <?php echo $this->benchmark->memory_usage();?> <strong>T:</strong> <?php echo $this->benchmark->elapsed_time();?> <strong>IP:</strong> <?php echo $this->input->ip_address(); ?></p>
 </small>
     </div> 
 	</div> 

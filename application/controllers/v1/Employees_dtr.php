@@ -112,9 +112,21 @@ class Employees_dtr extends MY_Controller {
 		$this->load->view('employees/employees/dtr/dtr_edit_date', $this->template_data->get_data());
 	}
 
-	public function add_attendance($name_id, $date, $output='') {
+	public function add_attendance($pe_id, $date, $output='') {
+
+		$employee = new $this->Payroll_employees_model('pe');
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get();
+
+		$name_id = $employee_data->name_id;
 
 		$this->template_data->set('date', $date );
+		$this->template_data->set('pe_id', $pe_id );
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($employee_data->payroll_id,true);
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
 
 		$employee = new $this->Employees_model('e');
 		$employee->setNameId($name_id,true);
@@ -135,6 +147,18 @@ class Employees_dtr extends MY_Controller {
 			$this->getNext();
 		}
 
+		if( $this->input->get('assign') ) {
+			$attendance->setPeId($pe_id,false,true);
+			$attendance->update();
+			$this->getNext();
+		}
+
+		if( $this->input->get('remove_assignment') ) {
+			$attendance->setPeId('0',false,true);
+			$attendance->update();
+			$this->getNext();
+		}
+
 		if( $this->input->post() ) {
 					$attendance->setHours($this->input->post('hours'));
 					$attendance->setNotes($this->input->post('notes'));
@@ -152,7 +176,22 @@ class Employees_dtr extends MY_Controller {
 		$this->load->view('employees/employees/dtr/dtr_add_attendance', $this->template_data->get_data());
 	}
 
-	public function add_leave($name_id, $date, $output='') {
+	public function add_leave($pe_id, $date, $output='') {
+
+		$employee = new $this->Payroll_employees_model('pe');
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get();
+
+		$name_id = $employee_data->name_id;
+
+		$this->template_data->set('date', $date );
+		$this->template_data->set('pe_id', $pe_id );
+		$this->template_data->set('name_id', $name_id );
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($employee_data->payroll_id,true);
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
 
 		$employee = new $this->Employees_model('e');
 		$employee->setNameId($name_id,true);
@@ -172,6 +211,19 @@ class Employees_dtr extends MY_Controller {
 			$absence->delete();
 			$this->getNext();
 		}
+
+		if( $this->input->get('assign') ) {
+			$absence->setPeId($pe_id,false,true);
+			$absence->update();
+			$this->getNext();
+		}
+
+		if( $this->input->get('remove_assignment') ) {
+			$absence->setPeId('0',false,true);
+			$absence->update();
+			$this->getNext();
+		}
+
 		if( $this->input->post() ) {
 			if( $this->input->post('absent') ) {
 				$this->form_validation->set_rules('absent', 'Absent', 'trim');
@@ -183,6 +235,7 @@ class Employees_dtr extends MY_Controller {
 					$hours = ($hours > $employee_data->working_hours) ? $employee_data->working_hours : $hours;
 					$absence->setHours($hours);
 					$absence->setNotes($this->input->post('notes'));
+					$absence->setPeId($pe_id);
 					if( $absence->nonEmpty() ) {
 						$absence->update();
 					} else {
@@ -196,10 +249,9 @@ class Employees_dtr extends MY_Controller {
 				}
 			}
 			$this->postNext();
-		}
+		} 
+
 		$this->template_data->set('absence', $absence->get());
-		
-		$this->template_data->set('date', $date);
 		
 		$selected_year = date('Y', strtotime($date));
 

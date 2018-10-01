@@ -108,7 +108,7 @@ if($employee->pe_presence) {
 
                 <td class="text-right">
 <?php if($employee->pe_presence) { ?>
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Attendance" data-url="<?php echo site_url("payroll_dtr/attendance/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Attendance" data-url="<?php echo site_url("payroll_dtr/attendance/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
   <?php echo $employee->attendance; ?>
 </a>
 <?php } else { ?>
@@ -119,7 +119,7 @@ if($employee->pe_presence) {
 <?php if($employee->pe_presence) { ?>
   n/a
 <?php } else { ?>
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Absences" data-url="<?php echo site_url("payroll_dtr/absences/{$payroll->id}/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Absences" data-url="<?php echo site_url("payroll_dtr/absences/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
                 <?php echo $days_absent; ?>
 </a>
 <?php } ?>

@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <div class="container">
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-default stickynav1">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -31,9 +31,13 @@
     <a href="<?php echo site_url($next_item->url); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-right"></span></a>
 </li>
 <?php } ?>
+
         </ul>
        
       <ul class="nav navbar-nav navbar-right">
+
+
+<li class=""><a class="body_wrapper" href="<?php echo site_url("payroll_dtr/by_name/{$employee->name_id}"); ?>"><span class="fa fa-list-alt"></span></a></li>
 
 <?php 
 
@@ -50,7 +54,6 @@ foreach($url as $k=>$v) {
   <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($v['uri']) . (($this->input->get('next')) ? '?next=' . $this->input->get('next') : ''); ?>"><?php echo $v['title']; ?></a></li>
 <?php } } ?>
 
-<li class=""><a class="body_wrapper" href="<?php echo site_url("payroll_dtr/by_name/{$employee->name_id}"); ?>"><span class="fa fa-list-alt"></span></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

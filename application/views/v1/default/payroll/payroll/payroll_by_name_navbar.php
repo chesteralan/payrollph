@@ -38,6 +38,9 @@
         </ul>
         
       <ul class="nav navbar-nav navbar-right">
+
+<li class=""><a class="body_wrapper" href="<?php echo site_url("lists_names/profile/{$name->id}"); ?>"><span class="fa fa-user"></span></a></li>
+
 <?php 
 $group_id = (isset($group_id)) ? $group_id : 0;
 $column_groups = array(
@@ -108,7 +111,7 @@ $cg_sort = ($column_group_sort) ? $column_group_sort : false;
 ?>
 <li class="<?php echo ($cg['url_key']==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($cg['uri']); ?>"><?php echo $cg['name']; ?></a></li>
 <?php } ?>
-<li class=""><a class="body_wrapper" href="<?php echo site_url("lists_names/profile/{$name->id}"); ?>"><span class="fa fa-user"></span></a></li>
+
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

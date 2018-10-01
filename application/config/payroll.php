@@ -5,7 +5,7 @@ $config['multi_company'] = true;
 
 $config['system_name'] = 'Payroll PH';
 
-$config['online_payroll'] = false;
+$config['online_payroll'] = true;
 
 $config['civil_status'] = array(
 	'single' => 'Single',
