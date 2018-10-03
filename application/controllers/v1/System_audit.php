@@ -18,6 +18,8 @@ class System_audit extends MY_Controller {
 		$audit = new $this->System_audit_model('s');
 		$audit->set_select('s.*');
 		$audit->set_select('ua.name as user_name');
+		$audit->set_select('(SELECT cl.name FROM companies_list cl WHERE cl.id=s.company_id) as company_name');
+		$audit->set_select('(SELECT nl.full_name FROM names_list nl WHERE nl.id=s.name_id) as full_name');
 		$audit->set_join('user_accounts ua', 'ua.id=s.user_id');
 		$audit->set_order('s.date_accessed', 'DESC');
 		$audit->set_start($start);

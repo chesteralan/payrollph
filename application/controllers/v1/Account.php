@@ -59,7 +59,6 @@ class Account extends Login_Controller {
 				if( $account->nonEmpty() ) {
 					$results = $account->getResults();
 
-					record_system_audit($results->id, 'account', 'users', 'login');
 					$account->setLastLogin(date('Y-m-d H:i:s'),false,true);
 					$account->update();
 
@@ -67,6 +66,8 @@ class Account extends Login_Controller {
 					$this->session->set_userdata( 'user_id', $results->id );
 					$this->session->set_userdata( 'username', $results->username );
 					$this->session->set_userdata( 'name', $results->name );
+
+					record_system_audit($this->session->userdata('user_id'), 'account', 'users', 'login', 0, 'Logged In');
 
 					$this->load->model('User_accounts_restrictions_model');
 					$ua_rest = new $this->User_accounts_restrictions_model;
@@ -142,7 +143,7 @@ class Account extends Login_Controller {
 	}
 
 	public function logout() {
-		record_system_audit($this->session->userdata('user_id'), 'account', 'users', 'logout');
+		record_system_audit($this->session->userdata('user_id'), 'account', 'users', 'logout', 0, 'Logged Out');
 		$this->session->sess_destroy();
 		redirect( site_url("account/login") . "?next=" . $this->input->get('next') );
 	}

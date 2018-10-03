@@ -77,8 +77,11 @@ class Lists_names extends MY_Controller {
 				$name->setContactNumber($this->input->post('contact_number'));
 				$name->setTrash('0');
 				if( ! $name->nonEmpty() ) {
-					$name->insert();
-					$name_id = $name->get_inserted_id();
+					if( $name->insert() ) {
+						$name_id = $name->get_inserted_id();
+						record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'add', $this->session->userdata('current_company_id'), "Name Added: {$this->input->post('full_name')}", $name_id);
+					}
+					
 				}
 			}
 
@@ -116,6 +119,7 @@ class Lists_names extends MY_Controller {
 
 		$name = new $this->Names_list_model;
 		$name->setId($id, true);
+		$name_data = $name->get();
 
 		if( $this->input->post() ) {
 			$this->form_validation->set_rules('full_name', 'Full Name', 'trim|required');
@@ -127,7 +131,9 @@ class Lists_names extends MY_Controller {
 				$name->setContactNumber($this->input->post('contact_number'));
 				if( $name->nonEmpty() ) {
 					$name->set_exclude('id');
-					$name->update();
+					if( $name->update() ) {
+						record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'edit', $this->session->userdata('current_company_id'), "Name Edited: {$name_data->full_name}", $id);
+					}
 				} 
 			}
 			$this->postNext();
@@ -136,8 +142,8 @@ class Lists_names extends MY_Controller {
 		$name->set_select("names_list.*");
 
 		$this->template_data->set('name', $name->get());
-		$this->template_data->set('next_item', $this->_next($id));
-		$this->template_data->set('previous_item', $this->_previous($id));
+		$this->template_data->set('next_item', $this->_next_name($id, 'lists_names/edit/'));
+		$this->template_data->set('previous_item', $this->_previous_name($id, 'lists_names/edit/'));
 		
 		$this->load->view('lists/names/names_edit', $this->template_data->get_data());
 	}
@@ -150,7 +156,29 @@ class Lists_names extends MY_Controller {
 		$name = new $this->Names_list_model;
 		$name->setId($id, true,false);
 		$name->setTrash('1',false,true);
-		$name->update();
+		$name_data = $name->get();
+
+		if( $name->update() ) {
+			record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'delete', $this->session->userdata('current_company_id'), "Name Deactivated: {$name_data->full_name}", $id);
+		}
+
+		redirect( "lists_names" );
+	}
+
+	public function deactivate($id) {
+		
+		$this->_isAuth('lists', 'names', 'delete');
+		$this->_isAuth('lists', 'names', 'edit');
+
+		$name = new $this->Names_list_model;
+		$name->setId($id, true,false);
+		$name->setTrash('1',false,true);
+
+		$name_data = $name->get();
+
+		if( $name->update() ) {
+			record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'deactivate', $this->session->userdata('current_company_id'), "Name Deactivated: {$name_data->full_name}", $id);
+		}
 
 		redirect( "lists_names" );
 	}
@@ -163,7 +191,11 @@ class Lists_names extends MY_Controller {
 		$name = new $this->Names_list_model;
 		$name->setId($id, true,false);
 		$name->setTrash('0',false,true);
-		$name->update();
+		$name_data = $name->get();
+		
+		if( $name->update() ) {
+			record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'restore', $this->session->userdata('current_company_id'), "Name Restored: {$name_data->full_name}", $id);
+		}
 
 		redirect( "lists_names" );
 	}
@@ -272,10 +304,14 @@ class Lists_names extends MY_Controller {
 				$info->setPrefix($this->input->post('prefix'),false,true);
 				$info->setSuffix($this->input->post('suffix'),false,true);
 				if( $info->nonEmpty() ) {
-					$info->update();
+					if( $info->update() ) {
+						record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'update_personal', $this->session->userdata('current_company_id'), "Personal Info Updated", $id);
+					}
 				} else {
 					$info->setNameId($id,true,true);
-					$info->insert();
+					if( $info->insert() ) {
+						record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'update_personal', $this->session->userdata('current_company_id'), "Personal Info Updated", $id);
+					}
 				}
 			}
 			$this->postNext("active=personal");
@@ -300,13 +336,19 @@ class Lists_names extends MY_Controller {
 				if( !empty( $value ) ) {
 					if( $meta->nonEmpty() ) {
 						$meta->setMetaValue($value,false,true);
-						$meta->update();
+						if( $meta->update() ) {
+							record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'update_contacts', $this->session->userdata('current_company_id'), "Contact Info Updated", $id);
+						}
 					} else {
 						$meta->setMetaValue($value);
-						$meta->insert();
+						if( $meta->insert() ) {
+							record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'update_contacts', $this->session->userdata('current_company_id'), "Contact Info Updated", $id);
+						}
 					}
 				} else {
-					$meta->delete();
+					if( $meta->delete() ) {
+						record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'update_contacts', $this->session->userdata('current_company_id'), "Contact Info Updated", $id);
+					}
 				}
 			}
 			$this->postNext("active=contacts");
@@ -344,13 +386,19 @@ class Lists_names extends MY_Controller {
 				if( !empty( $value ) ) {
 					if( $meta->nonEmpty() ) {
 						$meta->setMetaValue($value,false,true);
-						$meta->update();
+						if( $meta->update() ) {
+							record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'update_social_media', $this->session->userdata('current_company_id'), "Social Media Updated", $id);
+						}
 					} else {
 						$meta->setMetaValue($value);
-						$meta->insert();
+						if( $meta->insert() ) {
+							record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'update_social_media', $this->session->userdata('current_company_id'), "Social Media Updated", $id);
+						}
 					}
 				} else {
-					$meta->delete();
+					if( $meta->delete() ) {
+						record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'update_social_media', $this->session->userdata('current_company_id'), "Social Media Updated", $id);
+					}
 				}
 			}
 			$this->postNext("active=social_media");
@@ -388,13 +436,19 @@ class Lists_names extends MY_Controller {
 				if( !empty( $value ) ) {
 					if( $meta->nonEmpty() ) {
 						$meta->setMetaValue($value,false,true);
-						$meta->update();
+						if( $meta->update() ) {
+							record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'update_ids', $this->session->userdata('current_company_id'), "ID Info Updated", $id);
+						}
 					} else {
 						$meta->setMetaValue($value);
-						$meta->insert();
+						if( $meta->insert() ) {
+							record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'update_ids', $this->session->userdata('current_company_id'), "ID Info Updated", $id);
+						}
 					}
 				} else {
-					$meta->delete();
+					if( $meta->delete() ) {
+						record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'update_ids', $this->session->userdata('current_company_id'), "ID Info Updated", $id);
+					}
 				}
 			}
 			$this->postNext("active=ids");
@@ -432,13 +486,19 @@ class Lists_names extends MY_Controller {
 				if( !empty( $value ) ) {
 					if( $meta->nonEmpty() ) {
 						$meta->setMetaValue($value,false,true);
-						$meta->update();
+						if( $meta->update() ) {
+							record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'update_emergency', $this->session->userdata('current_company_id'), "Emergency Updated", $id);
+						}
 					} else {
 						$meta->setMetaValue($value);
-						$meta->insert();
+						if( $meta->insert() ) {
+							record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'update_emergency', $this->session->userdata('current_company_id'), "Emergency Updated", $id);
+						}
 					}
 				} else {
-					$meta->delete();
+					if( $meta->delete() ) {
+						record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'update_emergency', $this->session->userdata('current_company_id'), "Emergency Updated", $id);
+					}
 				}
 			}
 			$this->postNext("active=emergency");
@@ -476,13 +536,19 @@ class Lists_names extends MY_Controller {
 				if( !empty( $value ) ) {
 					if( $meta->nonEmpty() ) {
 						$meta->setMetaValue($value,false,true);
-						$meta->update();
+						if( $meta->update() ) {
+							record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'update_security_guard_license', $this->session->userdata('current_company_id'), "Security Guard License Updated: {$key}", $id);
+						}
 					} else {
 						$meta->setMetaValue($value);
-						$meta->insert();
+						if( $meta->insert() ) {
+							record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'update_security_guard_license', $this->session->userdata('current_company_id'), "Security Guard License Added: {$key}", $id);
+						}
 					}
 				} else {
-					$meta->delete();
+					if( $meta->delete() ) {
+						record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'update_security_guard_license', $this->session->userdata('current_company_id'), "Security Guard License Removed: {$key}", $id);
+					}
 				}
 			}
 			$this->postNext("active=security_guard_license");

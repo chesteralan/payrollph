@@ -12,10 +12,11 @@ CREATE TABLE `system_audit` (
   `sect` varchar(200) NOT NULL,
   `action` varchar(200) NOT NULL,
   `company_id` int(20) DEFAULT NULL,
+  `name_id` int(20) DEFAULT '0',
   `notes` text,
   `date_accessed` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `system_audit` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `system_audit` ADD  `user_id` int(20) NOT NULL   ;
@@ -23,6 +24,7 @@ ALTER TABLE  `system_audit` ADD  `dept` varchar(200) NOT NULL   ;
 ALTER TABLE  `system_audit` ADD  `sect` varchar(200) NOT NULL   ;
 ALTER TABLE  `system_audit` ADD  `action` varchar(200) NOT NULL   ;
 ALTER TABLE  `system_audit` ADD  `company_id` int(20) NULL   ;
+ALTER TABLE  `system_audit` ADD  `name_id` int(20) NULL   DEFAULT '0';
 ALTER TABLE  `system_audit` ADD  `notes` text NULL   ;
 ALTER TABLE  `system_audit` ADD  `date_accessed` timestamp NULL   DEFAULT 'CURRENT_TIMESTAMP';
 
@@ -44,6 +46,7 @@ class System_audit_model extends MY_Model {
 	protected $sect;
 	protected $action;
 	protected $company_id;
+	protected $name_id;
 	protected $notes;
 	protected $date_accessed;
 
@@ -59,7 +62,7 @@ class System_audit_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'system_audit';
 		$this->_short_name = 'system_audit';
-		$this->_fields = array("id","user_id","dept","sect","action","company_id","notes","date_accessed");
+		$this->_fields = array("id","user_id","dept","sect","action","company_id","name_id","notes","date_accessed");
 		$this->_required = array("user_id","dept","sect","action");
 		parent::__construct($short_name, $db_config);
 	}
@@ -205,6 +208,29 @@ class System_audit_model extends MY_Model {
 // ------------------------------ End Field: company_id --------------------------------------
 
 
+// ---------------------------- Start Field: name_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `name_id` variable
+	* @access public
+	*/
+
+	public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `name_id` variable
+	* @access public
+	*/
+
+	public function getNameId() {
+		return $this->name_id;
+	}
+	
+// ------------------------------ End Field: name_id --------------------------------------
+
+
 // ---------------------------- Start Field: notes -------------------------------------- 
 
 	/** 
@@ -309,6 +335,15 @@ class System_audit_model extends MY_Model {
 										'Extra'=>''
 									),
 
+			'name_id' => (object) array(
+										'Field'=>'name_id',
+										'Type'=>'int(20)',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
+									),
+
 			'notes' => (object) array(
 										'Field'=>'notes',
 										'Type'=>'text',
@@ -337,6 +372,7 @@ class System_audit_model extends MY_Model {
 			'sect' => "ALTER TABLE  `system_audit` ADD  `sect` varchar(200) NOT NULL   ;",
 			'action' => "ALTER TABLE  `system_audit` ADD  `action` varchar(200) NOT NULL   ;",
 			'company_id' => "ALTER TABLE  `system_audit` ADD  `company_id` int(20) NULL   ;",
+			'name_id' => "ALTER TABLE  `system_audit` ADD  `name_id` int(20) NULL   DEFAULT '0';",
 			'notes' => "ALTER TABLE  `system_audit` ADD  `notes` text NULL   ;",
 			'date_accessed' => "ALTER TABLE  `system_audit` ADD  `date_accessed` timestamp NULL   DEFAULT 'CURRENT_TIMESTAMP';",
 		);

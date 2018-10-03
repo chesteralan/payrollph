@@ -33,7 +33,7 @@ $payslip_templates = array(
 <?php if( $payroll_groups ) { ?>
   
   <?php foreach($payroll_groups as $payroll_group) { ?>
- 
+ <?php if($payroll_group->employees) { ?>
           <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
               <tr class="warning">
@@ -123,6 +123,7 @@ $payslip_templates = array(
             </tbody>
           </table>
 
+    <?php } ?>
     <?php } ?>
 
 

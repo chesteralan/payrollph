@@ -12,6 +12,9 @@
 <div class="row">
 <div class="col-md-9 col-sm-6">
                     <h3 class="panel-title bold"><?php echo $current_page; ?>
+
+                    <a href="<?php echo site_url(uri_string()); ?>?filter=trash"><span class="glyphicon glyphicon-trash"></span></a>
+
                     <?php if( $this->input->get('q') ) { ?>
                     <span class="badge"><?php echo $this->input->get('q'); ?> <a href="<?php echo site_url(uri_string()); ?>"><span class="glyphicon glyphicon-remove"></span></a></span>
                     <?php } ?>
@@ -45,7 +48,7 @@
                 <th>Group Name</th>
                 <th>Employees</th>
                 <?php if( hasAccess('employees', 'groups', 'edit') ) { ?>
-                  <th width="125px">Action</th>
+                  <th width="145px">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -57,9 +60,11 @@
                 <td><a href="<?php echo site_url("employees/group/{$group->id}"); ?>" class="body_wrapper"><?php echo $group->employees_count; ?></a></td>
               <?php if( hasAccess('employees', 'groups', 'edit') ) { ?>
                 <td>
-                <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Group" data-url="<?php echo site_url("employees_groups/edit/{$group->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
-<?php if( $group->employees_count==0 ) { ?>
-                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees_groups/delete/{$group->id}"); ?>" data-target="#employee-group-<?php echo $group->id; ?>">Delete</a>
+<?php if( $group->trash==0 ) { ?>
+                <a class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Group" data-url="<?php echo site_url("employees_groups/edit/{$group->id}/ajax") . "?next=" . uri_string(); ?>">Edit</a>
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees_groups/deactivate/{$group->id}"); ?>" data-target="#employee-group-<?php echo $group->id; ?>">Deactivate</a>
+<?php } else { ?>
+  <a class="btn btn-success btn-xs confirm" href="<?php echo site_url("employees_groups/restore/{$group->id}"); ?>" data-target="#employee-group-<?php echo $group->id; ?>">Restore</a>
 <?php } ?>
                 </td>
               <?php } ?>

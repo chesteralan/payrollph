@@ -47,7 +47,7 @@ foreach( $earnings_columns as $column ) {
 
                 </th>
 <?php if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
-                <th width="10%" class="text-right"><?php echo $column->name; ?></th>
+                <th width="10%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?> <a class="ajax-modal" data-toggle="modal" href="#ajaxModal" data-title="Edit <?php echo $column->name; ?>" data-url="<?php echo site_url("lists_earnings/edit/{$column->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-pencil"></span></a></th>
 <?php } ?>
                 <th width="10%" class="text-right">Total</th>
               </tr>
@@ -146,7 +146,7 @@ $total_earnings = 0;
               <tr class="warning">
                 <th>TOTAL</th>
 <?php if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
-                <th width="10%" class="text-right"><?php echo $column->name; ?></th>
+                <th width="10%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?> <a class="ajax-modal" data-toggle="modal" href="#ajaxModal" data-title="Edit <?php echo $column->name; ?>" data-url="<?php echo site_url("lists_earnings/edit/{$column->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-pencil"></span></a></th>
 <?php } ?>
   <th width="10%" class="text-right">TOTAL</th>
               </tr>

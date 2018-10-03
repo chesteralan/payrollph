@@ -55,6 +55,7 @@ $days_absent = 0;
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
+
 if( $employee->salary ) {
   $salary = $employee->salary;
   switch( $salary->rate_per ) {
@@ -75,6 +76,7 @@ if( $employee->salary ) {
     break;
   }
 }
+
 $cola_rate = (isset($salary)) ? $salary->cola : 0;
 $present_days = (isset($salary)) ? ceil($salary->days / 2) : 0;
 $basic_salary = ($daily_rate * $present_days); 
@@ -82,7 +84,8 @@ $total_basic_salary += $basic_salary;
 $cola = ($cola_rate * $present_days);
 $employee_gross_pay = ($basic_salary + $cola);
 $total_gross_pay += $employee_gross_pay; 
-              ?>
+
+?>
               <tr>
                 <td>
                   
@@ -99,7 +102,11 @@ $total_gross_pay += $employee_gross_pay;
 
 
                 <td class="text-right"><?php echo number_format($daily_rate,2); ?></td>
-                <td class="text-right"><?php echo number_format($basic_salary,2); ?></td>
+                <td class="text-right">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Basic Salary" data-url="<?php echo site_url("employees_salaries/".(($employee->salary)?'edit':'select_primary')."/".(($employee->salary)?$employee->salary->id:$employee->name_id)."/ajax") . "?next=" . uri_string(); ?>">
+                  <?php echo number_format($basic_salary,2); ?>
+</a>
+                  </td>
                 <td class="text-right"><?php echo number_format($cola,2); ?></td>
                 <td class="text-right"><?php echo number_format($employee_gross_pay,2); ?></td>
               </tr>

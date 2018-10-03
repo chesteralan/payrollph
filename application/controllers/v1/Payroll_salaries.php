@@ -137,7 +137,7 @@ class Payroll_salaries extends MY_Controller {
 			}
 			$employees->setPayrollId($id,true);
 			$employees->set_select('ni.*');
-			$employees->set_select('e.name_id');
+			//$employees->set_select('e.name_id');
 			$employees->set_select('pe.id as pe_id');
 			$employees->set_select('pe.presence as pe_presence');
 			$employees->set_select('pe.manual as pe_manual');
@@ -197,7 +197,7 @@ class Payroll_salaries extends MY_Controller {
 			$employees->set_order('pe.order', 'ASC');
 			$employees->set_limit(0);
 			$employees_data = $employees->populate();
-			foreach( $employees_data as $eKey => $employee) {
+			foreach( $employees_data as $eKey => $employee) { 
 				$salary = new $this->Payroll_employees_salaries_model('pes');
 				$salary->setPayrollId($id,true);
 				$salary->setNameId($employee->name_id,true);
@@ -525,6 +525,7 @@ class Payroll_salaries extends MY_Controller {
 				$salary = new $this->Employees_salaries_model('es');
 				$salary->setNameId($employee->name_id,true);
 				$salary->set_where('es.trash', 0);
+				$salary->set_where('es.primary', 1);
 				$employees_data[$eKey]->salary = $salary->get();
 			}
 			$payroll_group_data[$key]->employees = $employees_data;

@@ -200,7 +200,8 @@ class Employees extends MY_Controller {
 		$names->setId($id, true);
 		$names->setTrash(0,true);
 		$names->set_join('names_info', 'names_info.name_id=names_list.id');
-		$this->template_data->set('name', $names->get());
+		$name_data = $names->get();
+		$this->template_data->set('name', $name_data);
 
 		if( $names->nonEmpty() ) {
 			if( $this->input->post('action') == 'add' ) {
@@ -211,7 +212,9 @@ class Employees extends MY_Controller {
 				$employee->setAreaId($this->input->post('area_id'));
 				$employee->setCompanyId($this->session->userdata('current_company_id'));
 				$employee->setTrash(0);
-				$employee->insert();
+				if( $employee->insert() ) {
+					record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'add', $this->session->userdata('current_company_id'), "Added Name: {$name_data->full_name}", $id);
+				}
 				$this->postNext();
 			}
 		}
@@ -273,6 +276,7 @@ class Employees extends MY_Controller {
 
 		$employee = new $this->Employees_model;
 		$employee->setNameId($id,true);
+		$employee_data = $employee->get();
 
 		if( $employee->nonEmpty() ) {
 			if( $this->input->post() ) {
@@ -287,7 +291,9 @@ class Employees extends MY_Controller {
 					$employee->setBirthplace($this->input->post('birthplace'),false,true);
 					$employee->setGender($this->input->post('gender'),false,true);
 					$employee->setCivilStatus($this->input->post('civil_status'),false,true);
-					$employee->update();
+					if( $employee->update() ) {
+						record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'edit', $this->session->userdata('current_company_id'), "Edit Personal Info: {$employee_data->lastname}, {$employee_data->firstname}", $id);
+					}
 				}
 				$this->postNext();
 			}
@@ -323,7 +329,9 @@ class Employees extends MY_Controller {
 					$employee->setStatus($this->input->post('status'),false,true);
 					$employee->setNotes($this->input->post('notes'),false,true);
 					$employee->setEmployeeId($this->input->post('employee_id'),false,true);
-					$employee->update();
+					if( $employee->update() ) {
+						record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'edit', $this->session->userdata('current_company_id'), "Edit Employment", $id);
+					}
 				}
 				$this->postNext("active=employment");
 			}
@@ -376,8 +384,8 @@ class Employees extends MY_Controller {
 
 		$employee = new $this->Employees_contacts_model;
 		$employee->setNameId($id,true);
+		$employee_data = $employee->get();
 
-		
 		if( $this->input->post() ) {
 			$this->form_validation->set_rules('phone_number', 'Phone Number', 'trim');
 			$this->form_validation->set_rules('cell_number', 'Cellphone Number', 'trim');
@@ -387,10 +395,14 @@ class Employees extends MY_Controller {
 				$employee->setCellNumber($this->input->post('cell_number'),false,true);
 				$employee->setAddress($this->input->post('address'),false,true);
 				if($employee->nonEmpty()) {
-					$employee->update();
+					if( $employee->update() ) {
+						record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'edit', $this->session->userdata('current_company_id'), "Edit Address: {$employee_data->full_name}", $id);
+					}
 				} else {
 					$employee->setNameId($id,true,true);
-					$employee->insert();
+					if( $employee->insert() ) {
+						record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'edit', $this->session->userdata('current_company_id'), "Added Address: {$employee_data->full_name}", $id);
+					}
 				}
 			}
 			$this->postNext();
@@ -409,7 +421,9 @@ class Employees extends MY_Controller {
 		$employee = new $this->Employees_model;
 		$employee->setNameId($id,true,false);
 		$employee->setTrash(0,false,true);
-		$employee->update();
+		if( $employee->update() ) {
+			record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'restore', $this->session->userdata('current_company_id'), "Employee Restored", $id);
+		}
 		
 		$this->getNext("employees");
 	}
@@ -420,7 +434,9 @@ class Employees extends MY_Controller {
 		$employee = new $this->Employees_model;
 		$employee->setNameId($id,true);
 		$employee->setTrash(1,true);
-		$employee->delete();
+		if( $employee->delete() ) {
+			record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'delete', $this->session->userdata('current_company_id'), "Employee Deactivated", $id);
+		}
 		
 		$this->getNext("employees");
 	}
@@ -431,7 +447,9 @@ class Employees extends MY_Controller {
 		$employee = new $this->Employees_model;
 		$employee->setNameId($id,true,false);
 		$employee->setTrash(1,false,true);
-		$employee->update();
+		if( $employee->update() ) {
+			record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'deactivate', $this->session->userdata('current_company_id'), "Employee Deactivated", $id);
+		}
 		
 		$this->getNext("employees");
 	}
@@ -468,10 +486,14 @@ class Employees extends MY_Controller {
 
 					if( $leave_b->nonEmpty() ) {
 						$leave_b->setDays($days,false,true);
-						$leave_b->update();
+						if( $leave_b->update() ) {
+							record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'edit_leave_benefits', $this->session->userdata('current_company_id'), "Leave Benefits Updated", $id);
+						}
 					} else {
 						$leave_b->setDays($days);
-						$leave_b->insert();
+						if( $leave_b->insert() ) {
+							record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'edit_leave_benefits', $this->session->userdata('current_company_id'), "Leave Benefits Inserted", $id);
+						}
 					}
 				}
 				$this->postNext();

@@ -48,8 +48,8 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
 
                 </th>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
-                <th width="10%" class="text-right"><?php echo $column->name; ?>-EE</th>
-                <th width="10%" class="text-right"><?php echo $column->name; ?>-ER</th>
+                <th width="10%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?>-EE <a class="ajax-modal" data-toggle="modal" href="#ajaxModal" data-title="Edit <?php echo $column->name; ?>" data-url="<?php echo site_url("lists_benefits/edit/{$column->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-pencil"></span></a></th>
+                <th width="10%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?>-ER <a class="ajax-modal" data-toggle="modal" href="#ajaxModal" data-title="Edit <?php echo $column->name; ?>" data-url="<?php echo site_url("lists_benefits/edit/{$column->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-pencil"></span></a></th>
 <?php } ?>
               </tr>
             </thead>
@@ -126,8 +126,8 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
               <tr class="warning">
                 <th>TOTAL</th>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
-                <th width="10%" class="text-right"><?php echo $column->name; ?>-EE</th>
-                <th width="10%" class="text-right"><?php echo $column->name; ?>-ER</th>
+                <th width="10%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?>-EE <a class="ajax-modal" data-toggle="modal" href="#ajaxModal" data-title="Edit <?php echo $column->name; ?>" data-url="<?php echo site_url("lists_benefits/edit/{$column->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-pencil"></span></a></th>
+                <th width="10%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?>-ER <a class="ajax-modal" data-toggle="modal" href="#ajaxModal" data-title="Edit <?php echo $column->name; ?>" data-url="<?php echo site_url("lists_benefits/edit/{$column->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-pencil"></span></a></th>
 <?php } ?>
               </tr>
             </thead>

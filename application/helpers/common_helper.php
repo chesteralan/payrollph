@@ -67,7 +67,7 @@ if( ! function_exists('payroll_url') ) {
 }
 
 if( ! function_exists('record_system_audit') ) {
-    function record_system_audit($user_id, $dept, $sect, $action, $company_id=0, $notes='') {
+    function record_system_audit($user_id, $dept, $sect, $action, $company_id=0, $notes='', $name_id=0) {
         $CI = get_instance();
         $audit = new $CI->System_audit_model();
         $audit->setUserId($user_id);
@@ -75,6 +75,7 @@ if( ! function_exists('record_system_audit') ) {
         $audit->setSect($sect);
         $audit->setAction($action);
         $audit->setCompanyId($company_id);
+        $audit->setNameId($name_id);
         $audit->setNotes($notes);
         $audit->insert();
     }

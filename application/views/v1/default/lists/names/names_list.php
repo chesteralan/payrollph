@@ -52,7 +52,7 @@
 	    					<th class="text-center">Company</th>
 	    					<th width="10%" class="text-center">Age</th>
 	    					<?php if( hasAccess('lists', 'names', 'edit') ) { ?>
-	    					<th width="175px">Action</th>
+	    					<th width="200px">Action</th>
 	    					<?php } ?>
 	    				</tr>
 	    			</thead>
@@ -81,7 +81,7 @@
 
 	    					<button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Name" data-url="<?php echo site_url("lists_names/edit/{$name->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 
-	    					<a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("lists_names/delete/{$name->id}"); ?>" data-target="#name-<?php echo $name->id; ?>">Trash</a>
+	    					<a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("lists_names/deactivate/{$name->id}"); ?>" data-target="#name-<?php echo $name->id; ?>">Deactivate</a>
 <?php } else { ?>
 							<a class="btn btn-success btn-xs confirm" href="<?php echo site_url("lists_names/restore/{$name->id}"); ?>">Restore</a>
 <?php } ?>

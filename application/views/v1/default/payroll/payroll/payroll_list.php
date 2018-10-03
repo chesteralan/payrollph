@@ -35,6 +35,7 @@
   </ul>
 </div>
 <?php } ?>
+
 <?php if( isset($payroll_months) && ( count( $payroll_months ) > 1) ) { ?>
 <div class="btn-group">
   <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -57,8 +58,14 @@
     <?php echo ($filter_template) ? $current_template->name : "Filter by Template"; ?> <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
+<?php if( $filter_template ) { ?>
       <li><a href="<?php echo site_url("payroll/index/{$filter_year}/{$filter_month}/0"); ?>">Show All</a></li>
-    <?php foreach($payroll_templates as $template) { ?>
+<?php } ?>
+    <?php foreach($payroll_templates as $template) { 
+if( $filter_template == $template->template_id ) {
+  continue;
+}
+      ?>
       <li><a href="<?php echo site_url("payroll/index/{$filter_year}/{$filter_month}/{$template->template_id}"); ?>"><?php echo $template->template_name; ?></a></li>
     <?php } ?>
   </ul>
@@ -87,7 +94,7 @@
                 <th>Template</th>
                 <th>Working Days</th>
                 <?php if( hasAccess('payroll', 'payroll', 'edit') ) { ?>
-                  <th width="230px">Action</th>
+                  <th width="170px">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -146,9 +153,7 @@
 
   <a class="btn btn-success btn-xs confirm" href="<?php echo site_url("payroll/restore/{$payroll->id}") . "?next=" . uri_string(); ?>">Restore</a>
 
-  <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("payroll/delete/{$payroll->id}"). "?next=" . uri_string(); ?>">Delete Permanently</a>
-
-<?php } ?>
+ <?php } ?>
                 
                 </td>
               <?php } ?>

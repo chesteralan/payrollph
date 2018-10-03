@@ -168,7 +168,7 @@ class Employees_salaries extends MY_Controller {
 
 	public function delete($id) {
 		
-		$this->_isAuth('employees', 'positions', 'delete');
+		$this->_isAuth('employees', 'employees', 'delete');
 
 		$salaries = new $this->Employees_salaries_model;
 		$salaries->setId($id,true,false);
@@ -208,11 +208,48 @@ class Employees_salaries extends MY_Controller {
 
 	public function restore($id) {
 		
-		$this->_isAuth('employees', 'positions', 'delete');
+		$this->_isAuth('employees', 'employees', 'delete');
 
 		$salaries = new $this->Employees_salaries_model;
 		$salaries->setId($id,true,false);
 		$salaries->setTrash('0',false,true);
+		$salaries->update();
+
+		$salary_data = $salaries->get();
+
+		$this->getNext("employees_salaries/view/{$salary_data->name_id}");
+	}
+
+
+	public function select_primary($name_id,$output='') {
+
+		$employee = new $this->Employees_model('e');
+		$employee->setNameId($name_id,true);
+		$employee->set_select('ni.*');
+		$employee->set_select('e.name_id');
+		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
+		$this->template_data->set('employee', $employee->get());
+
+		$this->template_data->set('name_id', $name_id);
+
+		$salaries = new $this->Employees_salaries_model('pee');
+		$salaries->setNameId($name_id,true);
+		$salaries->setTrash(0,true);
+		$salaries->set_select('*');
+		$salaries->setCompanyId($this->session->userdata('current_company_id'),true);
+		$this->template_data->set('salaries', $salaries->populate());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('employees/employees/salaries/salaries_select_primary', $this->template_data->get_data());
+	}
+
+	public function set_primary($id) {
+		
+		$this->_isAuth('employees', 'employees', 'delete');
+
+		$salaries = new $this->Employees_salaries_model;
+		$salaries->setId($id,true,false);
+		$salaries->setPrimary('1',false,true);
 		$salaries->update();
 
 		$salary_data = $salaries->get();

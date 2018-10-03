@@ -14,6 +14,12 @@
 
                   <h3 class="panel-title">
                     <strong><?php echo $current_page; ?></strong>
+
+  <a href="<?php echo site_url(uri_string()); ?>?filter=trash"><span class="glyphicon glyphicon-trash"></span></a>
+
+<a href="<?php echo site_url("employees/report"); ?>" class=""><span class="glyphicon glyphicon-print"></span></a>
+
+
                     <?php if( isset($group) ) { ?>
                       <span class="badge"><?php echo $group->name; ?> <a href="<?php echo site_url("employees"); ?>"><span class="glyphicon glyphicon-remove"></span></a></span>
                     <?php } ?>
@@ -24,10 +30,8 @@
                     <span class="badge"><?php echo $this->input->get('q'); ?> <a href="<?php echo site_url(uri_string()); ?>"><span class="glyphicon glyphicon-remove"></span></a></span>
                     <?php } ?>
 
-  <a href="<?php echo site_url(uri_string()); ?>?filter=trash"><span class="glyphicon glyphicon-trash"></span></a>
-
-<a href="<?php echo site_url("employees/report"); ?>" class=""><span class="glyphicon glyphicon-print"></span></a>
 <br><small><em>(<?php echo $employees_count; ?> name<?php echo ($employees_count>1)?"s":""; ?> found)</em></small>
+
                   </h3>
 </div>
 <div class="col-md-3 col-sm-6">
@@ -71,7 +75,7 @@
                 <th>Status</th>
 */ ?>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
-                  <th width="185px">Action</th>
+                  <th width="195px">Action</th>
                 <?php } ?>
               </tr>
             </thead>

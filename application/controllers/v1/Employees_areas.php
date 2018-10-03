@@ -19,8 +19,15 @@ class Employees_areas extends MY_Controller {
 		if( $this->input->get('q') ) {
 			$areas->set_where('name LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
 		}
+		
+		if( $this->input->get('filter') == 'trash' ) {
+			$areas->setTrash(1, true);
+		} else {
+			$areas->setTrash(0, true);
+		}
+
 		$areas->setCompanyId($this->session->userdata('current_company_id'),true);
-		$areas->setTrash(0,true);
+		
 		$areas->set_select("*");
 		$areas->set_select("(SELECT COUNT(*) FROM `employees` WHERE area_id=employees_areas.id) as employees_count");
 		$areas->set_order('name', 'ASC');
@@ -50,8 +57,9 @@ class Employees_areas extends MY_Controller {
 				$areas->setNotes($this->input->post('notes'));
 				$areas->setCompanyId($this->session->userdata('current_company_id'));
 				if( $areas->insert() ) {
-					redirect("employees_areas");
+					record_system_audit($this->session->userdata('user_id'), 'employees', 'areas', 'add', $this->session->userdata('current_company_id'), "Employee Area Added : {$this->input->post('area_name')}");
 				}
+				$this->getNext("employees_areas");
 			}
 		}
 
@@ -65,6 +73,7 @@ class Employees_areas extends MY_Controller {
 
 		$areas = new $this->Employees_areas_model;
 		$areas->setId($id,true);
+		$area_data = $areas->get();
 
 		if( $areas->nonEmpty() ) {
 			if( $this->input->post() ) {
@@ -73,7 +82,9 @@ class Employees_areas extends MY_Controller {
 				if( $this->form_validation->run() ) {
 					$areas->setName($this->input->post('area_name'),false,true);
 					$areas->setNotes($this->input->post('notes'),false,true);
-					$areas->update();
+					if( $areas->update() ) {
+						record_system_audit($this->session->userdata('user_id'), 'employees', 'areas', 'edit', $this->session->userdata('current_company_id'), "Employee Area Edited : {$area_data->name}");
+					}
 				}
 				$this->postNext();
 			}
@@ -87,15 +98,37 @@ class Employees_areas extends MY_Controller {
 		$this->load->view('employees/areas/areas_edit', $this->template_data->get_data());
 	}
 
-	public function delete($id) {
+	public function deactivate($id) {
 		
 		$this->_isAuth('employees', 'areas', 'delete');
 
 		$areas = new $this->Employees_areas_model;
 		$areas->setId($id,true,false);
 		$areas->setTrash(1,false,true);
-		$areas->update();
+		$area_data = $areas->get();
+
+		if( $areas->update() ) {
+			record_system_audit($this->session->userdata('user_id'), 'employees', 'areas', 'delete', $this->session->userdata('current_company_id'), "Employee Area Deleted : {$area_data->name}");
+		}
 
 		$this->getNext("employees_areas");
 	}
+
+
+	public function restore($id) {
+		
+		$this->_isAuth('employees', 'areas', 'delete');
+
+		$areas = new $this->Employees_areas_model;
+		$areas->setId($id,true,false);
+		$areas->setTrash(0,false,true);
+		$area_data = $areas->get();
+
+		if( $areas->update() ) {
+			record_system_audit($this->session->userdata('user_id'), 'employees', 'areas', 'delete', $this->session->userdata('current_company_id'), "Employee Area Restored : {$area_data->name}");
+		}
+
+		$this->getNext("employees_areas");
+	}
+
 }

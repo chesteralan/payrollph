@@ -571,10 +571,11 @@ CREATE TABLE `system_audit` (
   `sect` varchar(200) NOT NULL,
   `action` varchar(200) NOT NULL,
   `company_id` int(20) DEFAULT NULL,
+  `name_id` int(20) DEFAULT '0',
   `notes` text,
   `date_accessed` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin;
 
 -- Table structure for table `system_audit` 
 

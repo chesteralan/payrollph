@@ -12,7 +12,7 @@
 <?php if( hasAccess('system', 'companies', 'add') ) { ?>
   <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Company" data-url="<?php echo site_url("system_companies/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Add Company</button>
 <?php } ?>
-                  <h3 class="panel-title bold"><?php echo $current_page; ?></h3>
+                  <h3 class="panel-title bold"><?php echo (($this->lang->line('nav_companies')) ? $this->lang->line('nav_companies') : 'Companies'); ?> <a href="<?php echo site_url("system_companies"); ?>?filter=trash"><span class="glyphicon glyphicon-trash"></span></a></h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 <?php endif; ?>
@@ -25,7 +25,7 @@
                 <th>Address</th>
                 <th>Phone</th>
                 <?php if( hasAccess('system', 'companies', 'edit') ) { ?>
-                  <th width="150px">Action</th>
+                  <th width="170px">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -38,6 +38,11 @@
                 <td><?php echo $company->phone; ?></td>
               <?php if( hasAccess('system', 'companies', 'edit') ) { ?>
                 <td>
+<?php if( $this->input->get('filter') == 'trash') { ?>
+
+  <a class="btn btn-success btn-xs confirm" href="<?php echo site_url("system_companies/restore/{$company->id}"); ?>" data-target="#employee-group-<?php echo $company->id; ?>">Restore</a>
+
+<?php } else { ?>
 <div class="btn-group">
   <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Company" data-url="<?php echo site_url("system_companies/edit/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
   <button type="button" class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -48,11 +53,16 @@
     <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Print Group" data-url="<?php echo site_url("system_companies/column_group/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Column Group</a></li>
     <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Print Group" data-url="<?php echo site_url("system_companies/print_group/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Print Group</a></li>
     <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Print CSS" data-url="<?php echo site_url("system_companies/print_css/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Print CSS</a></li>
+    <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Dashboard Settings" data-url="<?php echo site_url("system_companies/dashboard/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Dashboard</a></li>
   </ul>
 </div>
 
-                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("system_companies/delete/{$company->id}"); ?>" data-target="#employee-group-<?php echo $company->id; ?>">Delete</button>
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("system_companies/deactivate/{$company->id}"); ?>" data-target="#employee-group-<?php echo $company->id; ?>">Deactivate</a>
+
                 </td>
+
+              <?php } ?>
+
               <?php } ?>
               </tr>
             <?php } ?>
@@ -64,7 +74,7 @@
 
 <?php } else { ?>
 
-  <div class="text-center">No term Found!</div>
+  <div class="text-center">No Companies Found!</div>
 
 <?php } ?>
 <?php if( ! $inner_page ): ?>

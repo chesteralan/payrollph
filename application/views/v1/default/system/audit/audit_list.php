@@ -21,10 +21,9 @@
             <thead>
               <tr>
                 <th>User</th>
-                <th>Department</th>
-                <th>Section</th>
-                <th>Action</th>
                 <th>Notes</th>
+                <th>Company</th>
+                <th>Name</th>
                 <th>Date & Time</th>
               </tr>
             </thead>
@@ -33,10 +32,9 @@
             <?php foreach($audits as $audit) { ?>
               <tr>
                 <td><?php echo $audit->user_name; ?></td>
-                <td><?php echo $audit->dept; ?></td>
-                <td><?php echo $audit->sect; ?></td>
-                <td><?php echo $audit->action; ?></td>
                 <td><?php echo $audit->notes; ?></td>
+                <td><?php echo $audit->company_name; ?></td>
+                <td><?php echo $audit->full_name; ?></td>
                 <td><?php echo $audit->date_accessed; ?></td>
               </tr>
             <?php } ?>

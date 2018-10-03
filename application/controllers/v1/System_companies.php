@@ -23,7 +23,11 @@ class System_companies extends MY_Controller {
 		$companies->set_select("*");
 		$companies->set_order('name', 'ASC');
 		$companies->set_start($start);
-		$companies->setTrash('0',true);
+		if( $this->input->get('filter') == 'trash') {
+			$companies->setTrash('1',true);
+		} else {
+			$companies->setTrash('0',true);
+		}
 		$this->template_data->set('companies', $companies->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
@@ -54,6 +58,8 @@ class System_companies extends MY_Controller {
 				$bootstrap_theme = ( isset($this->session->user_settings['theme']) && $this->session->user_settings['theme'] ) ? $this->session->user_settings['theme'] : 'yeti';
 				$companies->setTheme($bootstrap_theme);
 				if( $companies->insert() ) {
+					$company_id = $companies->get_inserted_id();
+					record_system_audit($this->session->userdata('user_id'), 'system', 'companies', 'add', $company_id, "Company Added: {$this->input->post('name')}", 0);
 					redirect("system_companies");
 				}
 			}
@@ -83,7 +89,9 @@ class System_companies extends MY_Controller {
 					$companies->setNotes($this->input->post('notes'),false,true);
 					$companies->setTheme($this->input->post('theme'),false,true);
 					$companies->setDefault(($this->input->post('default')?1:0),false,true);
-					$companies->update();
+					if( $companies->update() ) {
+						record_system_audit($this->session->userdata('user_id'), 'system', 'companies', 'edit', $id, "Company Updated: {$this->input->post('name')}", 0);
+					}
 				}
 				if( $this->input->post('default') ) {
 					$old_company = new $this->Companies_list_model;
@@ -115,6 +123,34 @@ class System_companies extends MY_Controller {
 		$this->getNext("system_companies");
 	}
 
+	public function deactivate($id) {
+		
+		$this->_isAuth('system', 'companies', 'delete');
+
+		$companies = new $this->Companies_list_model;
+		$companies->setId($id,true);
+		$companies->setTrash('1',false,true);
+		if( $companies->update() ) {
+			record_system_audit($this->session->userdata('user_id'), 'system', 'companies', 'deactivate', $id, "Company Deactivated", 0);
+		}
+
+		$this->getNext("system_companies");
+	}
+
+	public function restore($id) {
+		
+		$this->_isAuth('system', 'companies', 'delete');
+
+		$companies = new $this->Companies_list_model;
+		$companies->setId($id,true);
+		$companies->setTrash('0',false,true);
+		if( $companies->update() ) {
+			record_system_audit($this->session->userdata('user_id'), 'system', 'companies', 'restore', $id, "Company Restored", 0);
+		}
+
+		$this->getNext("system_companies");
+	}
+
 	private function _save_option($id, $name) {
 
 		$options = new $this->Companies_options_model;
@@ -125,14 +161,20 @@ class System_companies extends MY_Controller {
 			if( $this->input->post($name) ) {
 				if( $options->nonEmpty() ) {
 					$options->setValue( serialize($this->input->post($name)), false,true);
-					$options->update();
+					if( $options->update() ) {
+						record_system_audit($this->session->userdata('user_id'), 'system', 'companies', '_save_option', $id, "Company Option Updated: {$name}", 0);
+					}
 				} else {
 					$options->setValue( serialize( $this->input->post($name) ) );
-					$options->insert();
+					if( $options->insert() ) {
+						record_system_audit($this->session->userdata('user_id'), 'system', 'companies', '_save_option', $id, "Company Option Inserted: {$name}", 0);
+					}
 				}
 			} else {
 				if( $options->nonEmpty() ) {
-					$options->delete();
+					if( $options->delete() ) {
+						record_system_audit($this->session->userdata('user_id'), 'system', 'companies', '_save_option', $id, "Company Option Delete: {$name}", 0);
+					}
 				}
 			}
 		}
@@ -191,6 +233,11 @@ class System_companies extends MY_Controller {
 		
 		$this->template_data->set('output', $output);
 		$this->load->view('system/companies/companies_column_group', $this->template_data->get_data());
+	}
+
+	public function dashboard($id, $output='') {
+		$this->template_data->set('output', $output);
+		$this->load->view('system/companies/companies_dashboard_settings', $this->template_data->get_data());
 	}
 
 }
