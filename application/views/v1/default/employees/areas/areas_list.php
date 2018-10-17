@@ -48,7 +48,7 @@
                 <th>Area Name</th>
                 <th>Employees</th>
                 <?php if( hasAccess('employees', 'areas', 'edit') ) { ?>
-                  <th width="145px">Action</th>
+                  <th width="145px" class="text-right">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -59,7 +59,7 @@
                 <td><?php echo $area->name; ?></td>
                 <td><a href="<?php echo site_url("employees/area/{$area->id}"); ?>" class="body_wrapper"><?php echo $area->employees_count; ?></a></td>
               <?php if( hasAccess('employees', 'areas', 'edit') ) { ?>
-                <td>
+                <td class="text-right">
 <?php if( $area->trash==0 ) { ?>
                 <a class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Area" data-url="<?php echo payroll_url("employees_areas/edit/{$area->id}/ajax"); ?>">Edit</a>
 

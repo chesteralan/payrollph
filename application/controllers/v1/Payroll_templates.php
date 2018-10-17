@@ -59,7 +59,9 @@ class Payroll_templates extends MY_Controller {
 					$template->setApprovedBy($this->input->post('approved_by'));
 					$template->setCompanyId($this->session->userdata('current_company_id'));
 					$template->setActive(1);
-					$template->insert();
+					if( $template->insert() ) {
+						record_system_audit($this->session->userdata('user_id'), 'payroll', 'templates', 'add', $this->session->userdata('current_company_id'), "Template Added: {$this->input->post('name')}");
+					}
 				}
 				$this->postNext();
 			}

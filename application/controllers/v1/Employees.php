@@ -213,7 +213,7 @@ class Employees extends MY_Controller {
 				$employee->setCompanyId($this->session->userdata('current_company_id'));
 				$employee->setTrash(0);
 				if( $employee->insert() ) {
-					record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'add', $this->session->userdata('current_company_id'), "Added Name: {$name_data->full_name}", $id);
+					record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'add', $this->session->userdata('current_company_id'), "Employee Added: {$name_data->full_name}", $id);
 				}
 				$this->postNext();
 			}

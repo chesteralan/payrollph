@@ -79,7 +79,10 @@ class Lists_benefits extends MY_Controller {
 				$benefits->setErAccountTitle($this->input->post('er_account_title'));
 				$benefits->setAbbr($this->input->post('abbr'));
 				if( $benefits->insert() ) {
-					redirect("lists_benefits");
+					
+					record_system_audit($this->session->userdata('user_id'), 'lists', 'benefits', 'add', $this->session->userdata('current_company_id'), "Benefit Added: {$this->input->post('benefit_name')}");
+
+					$this->getNext("lists_benefits");
 				}
 			}
 		}
@@ -106,7 +109,9 @@ class Lists_benefits extends MY_Controller {
 					$benefits->setEeAccountTitle($this->input->post('ee_account_title'),false,true);
 					$benefits->setErAccountTitle($this->input->post('er_account_title'),false,true);
 					$benefits->setAbbr($this->input->post('abbr'),false,true);
-					$benefits->update();
+					if( $benefits->update() ) {
+						record_system_audit($this->session->userdata('user_id'), 'lists', 'benefits', 'edit', $this->session->userdata('current_company_id'), "Benefit Edited: {$this->input->post('benefit_name')}");
+					}
 				}
 				$this->postNext();
 			}
@@ -119,6 +124,21 @@ class Lists_benefits extends MY_Controller {
 		$this->load->view('lists/benefits/benefits_edit', $this->template_data->get_data());
 	}
 
+	public function delete($id) {
+		
+		$this->_isAuth('lists', 'benefits', 'delete');
+
+		$benefits = new $this->Benefits_list_model;
+		$benefits->setId($id,true,false);
+		$benefits->setActive('0',false,true);
+		$benefits->setTrash('1',false,true);
+		if( $benefits->update() ) {
+			record_system_audit($this->session->userdata('user_id'), 'lists', 'benefits', 'deactivate', $this->session->userdata('current_company_id'), "Benefit Deactivated!");
+		}
+
+		$this->getNext("lists_benefits");
+	}
+
 	public function deactivate($id) {
 		
 		$this->_isAuth('lists', 'benefits', 'delete');
@@ -127,7 +147,9 @@ class Lists_benefits extends MY_Controller {
 		$benefits->setId($id,true,false);
 		$benefits->setActive('0',false,true);
 		$benefits->setTrash('1',false,true);
-		$benefits->update();
+		if( $benefits->update() ) {
+			record_system_audit($this->session->userdata('user_id'), 'lists', 'benefits', 'deactivate', $this->session->userdata('current_company_id'), "Benefit Deactivated!");
+		}
 
 		$this->getNext("lists_benefits");
 	}

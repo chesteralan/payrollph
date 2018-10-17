@@ -52,7 +52,10 @@ class Lists_earnings extends MY_Controller {
 				$earnings->setAccountTitle($this->input->post('account_title'));
 				$earnings->setAbbr($this->input->post('abbr'));
 				if( $earnings->insert() ) {
-					redirect("lists_earnings");
+					
+					record_system_audit($this->session->userdata('user_id'), 'lists', 'earnings', 'add', $this->session->userdata('current_company_id'), "Earning Added: {$this->input->post('earning_name')}");
+
+					$this->getNext("lists_earnings");
 				}
 			}
 		}
@@ -77,7 +80,9 @@ class Lists_earnings extends MY_Controller {
 					$earnings->setNotes($this->input->post('notes'), false, true);
 					$earnings->setAccountTitle($this->input->post('account_title'), false, true);
 					$earnings->setAbbr($this->input->post('abbr'), false, true);
-					$earnings->update();
+					if( $earnings->update() ) {
+						record_system_audit($this->session->userdata('user_id'), 'lists', 'earnings', 'edit', $this->session->userdata('current_company_id'), "Earning Edited: {$this->input->post('earning_name')}");
+					}
 				}
 				$this->postNext();
 			}
@@ -98,7 +103,9 @@ class Lists_earnings extends MY_Controller {
 		$earnings->setId($id,true);
 		$earnings->setActive('0',false,true);
 		$earnings->setTrash('1',false,true);
-		$earnings->update();
+		if( $earnings->update() ) {
+			record_system_audit($this->session->userdata('user_id'), 'lists', 'earnings', 'delete', $this->session->userdata('current_company_id'), "Earning Deleted!");
+		}
 
 		$this->getNext("lists_earnings");
 	}

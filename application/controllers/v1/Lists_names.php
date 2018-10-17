@@ -72,7 +72,7 @@ class Lists_names extends MY_Controller {
 			$this->form_validation->set_rules('contact_number', 'Contact Number', 'trim');
 			if( $this->form_validation->run() ) {
 				$name = new $this->Names_list_model;
-				$name->setFullName($this->input->post('full_name'),true);
+				$name->setFullName($this->input->post('full_name'), true);
 				$name->setAddress($this->input->post('address'));
 				$name->setContactNumber($this->input->post('contact_number'));
 				$name->setTrash('0');

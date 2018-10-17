@@ -49,7 +49,7 @@
                 <th>Abbr</th>
                 <th>Leave</th>
                 <?php if( hasAccess('lists', 'benefits', 'edit') ) { ?>
-                  <th width="185px">Action</th>
+                  <th width="190px" class="text-right">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -62,13 +62,16 @@
                 <td><?php echo $benefit->abbr; ?></td>
                 <td><span class="glyphicon glyphicon-<?php echo ($benefit->leave) ? 'ok' : 'remove'; ?>"></span></td>
               <?php if( hasAccess('lists', 'benefits', 'edit') ) { ?>
-                <td>
-                <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Benefit" data-url="<?php echo site_url("lists_benefits/edit/{$benefit->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
+                <td class="text-right">
 
-                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("lists_benefits/deactivate/{$benefit->id}"); ?>" data-target="#employee-benefit-<?php echo $benefit->id; ?>">Deactivate</a>
                 <?php if(!$benefit->leave) { ?>
                 <a class="btn btn-success btn-xs body_wrapper" href="<?php echo site_url("lists_benefits/items/{$benefit->id}"); ?>">Items</a>
                 <?php } ?>
+                
+                <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Benefit" data-url="<?php echo site_url("lists_benefits/edit/{$benefit->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
+
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("lists_benefits/deactivate/{$benefit->id}"); ?>" data-target="#employee-benefit-<?php echo $benefit->id; ?>">Deactivate</a>
+
                 </td>
               <?php } ?>
               </tr>

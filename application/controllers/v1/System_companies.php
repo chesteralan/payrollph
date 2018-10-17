@@ -5,7 +5,7 @@ class System_companies extends MY_Controller {
 	
 	public function __construct() {
 		parent::__construct();
-		$this->template_data->set('current_page', 'Companies');
+		$this->template_data->set('current_page', lang_term('companies_title_plural', 'Companies'));
 		$this->template_data->set('current_uri', 'system_companies');
 		$this->template_data->set('navbar_search', false);
 
@@ -233,11 +233,6 @@ class System_companies extends MY_Controller {
 		
 		$this->template_data->set('output', $output);
 		$this->load->view('system/companies/companies_column_group', $this->template_data->get_data());
-	}
-
-	public function dashboard($id, $output='') {
-		$this->template_data->set('output', $output);
-		$this->load->view('system/companies/companies_dashboard_settings', $this->template_data->get_data());
 	}
 
 }

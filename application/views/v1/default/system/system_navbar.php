@@ -17,7 +17,7 @@
       <ul class="nav navbar-nav navbar-right">
 <?php 
 if( $this->config->item('multi_company') ) {
-  $url['system_companies'] = array('uri' => 'system_companies', 'title'=>(($this->lang->line('nav_companies')) ? $this->lang->line('nav_companies') : 'Companies'), 'access'=>hasAccess('system', 'companies', 'view'));
+  $url['system_companies'] = array('uri' => 'system_companies', 'title'=>lang_term('companies_title_plural', 'Companies'), 'access'=>hasAccess('system', 'companies', 'view'));
 }
 $url['system_terms'] = array('uri' => 'system_terms', 'title'=>'Terminologies', 'access'=>hasAccess('system', 'terms', 'view'));
 $url['system_users'] = array('uri' => 'system_users', 'title'=>'User Accounts', 'access'=>hasAccess('system', 'users', 'view'));

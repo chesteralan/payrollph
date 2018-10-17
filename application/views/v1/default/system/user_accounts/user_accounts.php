@@ -27,7 +27,7 @@
 	    					<th>Full Name</th>
 	    					<th>Username</th>
 	    					<?php if( hasAccess('system', 'users', 'edit') ) { ?>
-	    						<th width="260px">Action</th>
+	    						<th width="260px" class="text-right">Action</th>
 	    					<?php } ?>
 	    				</tr>
 	    			</thead>
@@ -37,15 +37,17 @@
 	    					<td><?php echo $user->name; ?></td>
 	    					<td><?php echo $user->username; ?></td>
 	    				<?php if( hasAccess('system', 'users', 'edit') ) { ?>
-	    					<td>
+	    					<td class="text-right">
 
-	    					<button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit User : <?php echo $user->name; ?>" data-url="<?php echo site_url("system_users/edit/{$user->id}/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Edit</button>
-
-	    					<button type="button" class="btn btn-primary btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Companies : <?php echo $user->name; ?>" data-url="<?php echo site_url("system_users/companies/{$user->id}/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Companies</button>
-	    					
 	    					<?php if( $this->session->user_id != $user->id ) { ?>
 	    						<button type="button" class="btn btn-success btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Restrictions : <?php echo $user->name; ?>" data-url="<?php echo site_url("system_users/restrictions/{$user->id}/ajax") . "?next=" . uri_string(); ?>">Restrictions</button>
 	    					<?php } ?>
+	    					
+	    					<button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit User : <?php echo $user->name; ?>" data-url="<?php echo site_url("system_users/edit/{$user->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
+
+	    					<button type="button" class="btn btn-primary btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Companies : <?php echo $user->name; ?>" data-url="<?php echo site_url("system_users/companies/{$user->id}/ajax") . "?next=" . uri_string(); ?>">Companies</button>
+	    					
+
 	    					</td>
 	    				<?php } ?>
 	    				</tr>

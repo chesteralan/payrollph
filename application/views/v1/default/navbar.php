@@ -119,7 +119,7 @@ if( $this->session->userdata( 'current_company' ) ) {
 
 if( $this->config->item('multi_company') ) {
     $system_submenus['system_companies'] = array(
-            'title' => (($this->lang->line('nav_companies')) ? $this->lang->line('nav_companies') : 'Companies'),
+            'title' => lang_term('companies_title_plural', 'Companies'),
             'uri' => 'system_companies',
             'permission' => array('system', 'companies'),
           );

@@ -31,7 +31,7 @@
                 <th>Template Name</th>
                 <th>Payroll</th>
                 <?php if( hasAccess('payroll', 'templates', 'edit') ) { ?>
-                  <th width="260px">Action</th>
+                  <th width="260px" class="text-right">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -41,7 +41,7 @@
                 <td><?php echo $template->name; ?></td>
                 <td><a class="body_wrapper" href="<?php echo site_url("payroll/index/0/0/{$template->id}"); ?>"><?php echo $template->payroll_count; ?></a></td>
               <?php if( hasAccess('payroll', 'templates', 'edit') ) { ?>
-                <td>
+                <td class="text-right">
 <?php if( $template->active ) { ?>
 <div class="btn-group">
                   <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Template" data-url="<?php echo site_url("payroll_templates/config/{$template->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">Config</button>

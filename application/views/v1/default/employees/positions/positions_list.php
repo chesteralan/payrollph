@@ -47,7 +47,7 @@
                 <th>Position Name</th>
                 <th>Employees</th>
                 <?php if( hasAccess('employees', 'positions', 'edit') ) { ?>
-                  <th width="145px">Action</th>
+                  <th width="145px" class="text-right">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -58,7 +58,7 @@
                 <td><?php echo $position->name; ?></td>
                 <td><a href="<?php echo site_url("employees/position/{$position->id}"); ?>" class="body_wrapper"><?php echo $position->employees_count; ?></a></td>
               <?php if( hasAccess('employees', 'positions', 'edit') ) { ?>
-                <td>
+                <td class="text-right">
 <?php if( $position->trash==0 ) { ?>
                 <a class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Group" data-url="<?php echo site_url("employees_positions/edit/{$position->id}/ajax") . "?next=" . uri_string(); ?>">Edit</a>
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees_positions/deactivate/{$position->id}"); ?>" data-target="#employee-group-<?php echo $position->id; ?>">Deactivate</a>

@@ -47,7 +47,7 @@
                 <th>Notes</th>
                 <th>Abbr</th>
                 <?php if( hasAccess('lists', 'deductions', 'edit') ) { ?>
-                  <th width="250px">Action</th>
+                  <th width="250px" class="text-right">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -59,7 +59,7 @@
                 <td><?php echo $deduction->notes; ?></td>
                 <td><?php echo $deduction->abbr; ?></td>
               <?php if( hasAccess('lists', 'deductions', 'edit') ) { ?>
-                <td>
+                <td class="text-right">
                 <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Deduction" data-url="<?php echo site_url("lists_deductions/edit/{$deduction->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("lists_deductions/delete/{$deduction->id}"); ?>" data-target="#employee-group-<?php echo $deduction->id; ?>">Delete</a>

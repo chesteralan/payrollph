@@ -24,7 +24,7 @@
                 <th>Notes</th>
                 <th>Company</th>
                 <th>Name</th>
-                <th>Date & Time</th>
+                <th class="text-right">Date & Time</th>
               </tr>
             </thead>
             <tbody>
@@ -35,7 +35,7 @@
                 <td><?php echo $audit->notes; ?></td>
                 <td><?php echo $audit->company_name; ?></td>
                 <td><?php echo $audit->full_name; ?></td>
-                <td><?php echo $audit->date_accessed; ?></td>
+                <td class="text-right"><?php echo $audit->date_accessed; ?></td>
               </tr>
             <?php } ?>
 

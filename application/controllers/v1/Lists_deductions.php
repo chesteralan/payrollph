@@ -50,7 +50,8 @@ class Lists_deductions extends MY_Controller {
 				$deductions->setAccountTitle($this->input->post('account_title'));
 				$deductions->setAbbr($this->input->post('abbr'));
 				if( $deductions->insert() ) {
-					redirect("lists_deductions");
+					record_system_audit($this->session->userdata('user_id'), 'lists', 'deductions', 'add', $this->session->userdata('current_company_id'), "Deduction Added: {$this->input->post('deduction_name')}");
+					$this->getNext("lists_deductions");
 				}
 			}
 		}
@@ -75,7 +76,9 @@ class Lists_deductions extends MY_Controller {
 					$deductions->setNotes($this->input->post('notes'), false, true);
 					$deductions->setAccountTitle($this->input->post('account_title'), false, true);
 					$deductions->setAbbr($this->input->post('abbr'), false, true);
-					$deductions->update();
+					if( $deductions->update() ) {
+						record_system_audit($this->session->userdata('user_id'), 'lists', 'deductions', 'edit', $this->session->userdata('current_company_id'), "Deduction Edited: {$this->input->post('deduction_name')}");
+					}
 				}
 				$this->postNext();
 			}
@@ -96,7 +99,24 @@ class Lists_deductions extends MY_Controller {
 		$deductions->setId($id,true);
 		$deductions->setActive('0',false,true);
 		$deductions->setTrash('1',false,true);
-		$deductions->update();
+		if($deductions->update()) {
+			record_system_audit($this->session->userdata('user_id'), 'lists', 'deductions', 'delete', $this->session->userdata('current_company_id'), "Deduction Deactivated!");
+		}
+
+		$this->getNext("lists_deductions");
+	}
+
+	public function deactivate($id) {
+		
+		$this->_isAuth('lists', 'deductions', 'delete');
+
+		$deductions = new $this->Deductions_list_model;
+		$deductions->setId($id,true);
+		$deductions->setActive('0',false,true);
+		$deductions->setTrash('1',false,true);
+		if($deductions->update()) {
+			record_system_audit($this->session->userdata('user_id'), 'lists', 'deductions', 'delete', $this->session->userdata('current_company_id'), "Deduction Deactivated!");
+		}
 
 		$this->getNext("lists_deductions");
 	}

@@ -10,9 +10,9 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
 <?php if( hasAccess('system', 'companies', 'add') ) { ?>
-  <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Company" data-url="<?php echo site_url("system_companies/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Add Company</button>
+  <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add <?php echo lang_term('companies_title_singular', 'Company'); ?>" data-url="<?php echo site_url("system_companies/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Add <?php echo lang_term('companies_title_singular', 'Company'); ?></button>
 <?php } ?>
-                  <h3 class="panel-title bold"><?php echo (($this->lang->line('nav_companies')) ? $this->lang->line('nav_companies') : 'Companies'); ?> <a href="<?php echo site_url("system_companies"); ?>?filter=trash"><span class="glyphicon glyphicon-trash"></span></a></h3>
+                  <h3 class="panel-title bold"><?php echo lang_term('companies_title_plural', 'Companies'); ?> <a href="<?php echo site_url("system_companies"); ?>?filter=trash"><span class="glyphicon glyphicon-trash"></span></a></h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 <?php endif; ?>
@@ -21,11 +21,11 @@
           <table class="table table-default table-hover">
             <thead>
               <tr>
-                <th>Company Name</th>
+                <th><?php echo lang_term('companies_title_singular', 'Company'); ?> Name</th>
                 <th>Address</th>
                 <th>Phone</th>
                 <?php if( hasAccess('system', 'companies', 'edit') ) { ?>
-                  <th width="170px">Action</th>
+                  <th width="170px" class="text-right">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -37,23 +37,22 @@
                 <td><?php echo $company->address; ?></td>
                 <td><?php echo $company->phone; ?></td>
               <?php if( hasAccess('system', 'companies', 'edit') ) { ?>
-                <td>
+                <td class="text-right">
 <?php if( $this->input->get('filter') == 'trash') { ?>
 
   <a class="btn btn-success btn-xs confirm" href="<?php echo site_url("system_companies/restore/{$company->id}"); ?>" data-target="#employee-group-<?php echo $company->id; ?>">Restore</a>
 
 <?php } else { ?>
 <div class="btn-group">
-  <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Company" data-url="<?php echo site_url("system_companies/edit/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
+  <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit <?php echo lang_term('companies_title_singular', 'Company'); ?>" data-url="<?php echo site_url("system_companies/edit/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
   <button type="button" class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <span class="caret"></span>
     <span class="sr-only">Toggle Dropdown</span>
   </button>
   <ul class="dropdown-menu dropdown-menu-right">
-    <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Print Group" data-url="<?php echo site_url("system_companies/column_group/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Column Group</a></li>
+    <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Payroll Columns" data-url="<?php echo site_url("system_companies/column_group/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Payroll Columns</a></li>
     <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Print Group" data-url="<?php echo site_url("system_companies/print_group/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Print Group</a></li>
     <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Print CSS" data-url="<?php echo site_url("system_companies/print_css/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Print CSS</a></li>
-    <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Dashboard Settings" data-url="<?php echo site_url("system_companies/dashboard/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Dashboard</a></li>
   </ul>
 </div>
 

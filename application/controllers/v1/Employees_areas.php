@@ -9,7 +9,7 @@ class Employees_areas extends MY_Controller {
 		$this->template_data->set('current_uri', 'employees_areas');
 		$this->template_data->set('navbar_search', true);
 
-		$this->_isAuth('employees', 'areas', 'view');
+		$this->_isAuth('employees', 'employees', 'edit');
 
 	}
 

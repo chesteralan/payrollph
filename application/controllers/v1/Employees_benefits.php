@@ -98,13 +98,18 @@ class Employees_benefits extends MY_Controller {
 				$benefits->setTrash(0);
 				$benefits->setNotes($this->input->post('notes'));
 				if( $benefits->insert() ) {
+					
+					record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'add', $this->session->userdata('current_company_id'), "Employees Benefits Added!");
+
 					if( $this->input->post('template_selected') ) {
 						foreach( $this->input->post('template_selected') as $selected_id ) {
 							$eb_template = new $this->Employees_benefits_templates_model;
 							$eb_template->setEbId($benefits->get_inserted_id(),true);
 							$eb_template->setTemplateId($selected_id,true);
 							if( ! $eb_template->nonEmpty() ) {
-								$eb_template->insert();
+								if( $eb_template->insert() ) {
+									record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'add_template', $this->session->userdata('current_company_id'), "Employees Benefits Template Assigned!");
+								}
 							}
 						}
 					}
@@ -168,7 +173,9 @@ class Employees_benefits extends MY_Controller {
 					$benefits->setStartDate( date('Y-m-d', strtotime($this->input->post('start_date')) ),false,true);
 					$benefits->setPrimary((($this->input->post('primary')) ? 1 : 0),false,true);
 					$benefits->setNotes($this->input->post('notes'),false,true);
-					$benefits->update();
+					if( $benefits->update() ) {
+						record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'edit', $this->session->userdata('current_company_id'), "Employees Benefits Updated!", $id);
+					}
 				}
 
 				if( $this->input->post('template') ) {
@@ -177,7 +184,9 @@ class Employees_benefits extends MY_Controller {
 							$eb_template = new $this->Employees_benefits_templates_model;
 							$eb_template->setEbId($id,true);
 							$eb_template->setTemplateId($template,true);
-							$eb_template->delete();
+							if( $eb_template->delete() ) {
+								record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'edit', $this->session->userdata('current_company_id'), "Employees Benefits - Template Removed!");
+							}
 						}
 					}
 					foreach( $this->input->post('template_selected') as $selected_id ) {
@@ -185,7 +194,9 @@ class Employees_benefits extends MY_Controller {
 						$eb_template->setEbId($id,true);
 						$eb_template->setTemplateId($selected_id,true);
 						if( ! $eb_template->nonEmpty() ) {
-							$eb_template->insert();
+							if( $eb_template->insert() ) {
+								record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'edit', $this->session->userdata('current_company_id'), "Employees Benefits - Template Assigned!");
+							}
 						}
 					}
 				}
@@ -219,11 +230,29 @@ class Employees_benefits extends MY_Controller {
 		$benefits = new $this->Employees_benefits_model;
 		$benefits->setId($id,true,false);
 		$benefits->setTrash('1',false,true);
-		$benefits->update();
+		if( $benefits->update() ) {
+			record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'edit', $this->session->userdata('current_company_id'), "Employees Benefits Deactivated!");
+		}
 
 		$salary_data = $benefits->get();
 
 		$this->getNext("employees_benefits/view/{$salary_data->name_id}");
+	}
+
+	public function deactivate($id) {
+		
+		$this->_isAuth('employees', 'employees', 'delete');
+
+		$benefits = new $this->Employees_benefits_model;
+		$benefits->setId($id,true,false);
+		$benefits->setTrash('1',false,true);
+		if( $benefits->update() ) {
+			record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'edit', $this->session->userdata('current_company_id'), "Employees Benefits Deactivated!");
+		}
+
+		$benefit_data = $benefits->get();
+
+		$this->getNext("employees_benefits/view/{$salary_data->benefit_data}");
 	}
 
 	public function entries($id, $output='') {

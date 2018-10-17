@@ -12,7 +12,7 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Add Company</h3>
+          <h3 class="panel-title">Add <?php echo lang_term('companies_title_singular', 'Company'); ?></h3>
         </div>
         <form method="post">
         <div class="panel-body">
@@ -21,17 +21,17 @@
 
 <?php endif; ?>
           <div class="form-group">
-            <label>Company Name</label>
+            <label><?php echo lang_term('companies_title_singular', 'Company'); ?> Name</label>
             <input name="name" type="text" class="form-control" value="<?php echo $this->input->post('name'); ?>" REQUIRED>
           </div>
 
           <div class="form-group">
-            <label>Company Address</label>
+            <label><?php echo lang_term('companies_title_singular', 'Company'); ?> Address</label>
             <input name="address" type="text" class="form-control" value="<?php echo $this->input->post('address'); ?>">
           </div>
 
           <div class="form-group">
-            <label>Company Phone</label>
+            <label><?php echo lang_term('companies_title_singular', 'Company'); ?> Phone</label>
             <input name="phone" type="text" class="form-control" value="<?php echo $this->input->post('phone'); ?>">
           </div>
 

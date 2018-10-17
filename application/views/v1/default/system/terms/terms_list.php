@@ -27,7 +27,7 @@
                 <th>Type</th>
                 <th class="text-center">Priority</th>
                 <?php if( hasAccess('system', 'terms', 'edit') ) { ?>
-                  <th width="125px">Action</th>
+                  <th width="125px" class="text-right">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -39,7 +39,7 @@
                 <td><a href="<?php echo site_url("system_terms/filter/{$term->type}"); ?>"><?php echo $term_types[$term->type]; ?></a></td>
                 <td class="text-center"><?php echo $term->priority; ?></td>
               <?php if( hasAccess('system', 'terms', 'edit') ) { ?>
-                <td>
+                <td class="text-right">
                 <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Group" data-url="<?php echo site_url("system_terms/edit/{$term->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("system_terms/delete/{$term->id}"); ?>" data-target="#employee-group-<?php echo $term->id; ?>">Delete</button>

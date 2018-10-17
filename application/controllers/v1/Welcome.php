@@ -183,7 +183,9 @@ class Welcome extends MY_Controller {
 				$account->set_where('password LIKE', sha1($this->input->post('current_password')));
 				if( $account->nonEmpty() ) {
 					$account->set_exclude( array('id', 'username', 'name') );
-					$account->update();
+					if( $account->update() ) {
+						record_system_audit($this->session->userdata('user_id'), 'welcome', 'change_password', 'update', $this->session->userdata('current_company_id'), "Password Changed!");
+					}
 					//redirect(site_url('account/change_password') . "?success=true");
 				} else {
 					//redirect(site_url('account/change_password') . "?error=true");
@@ -221,9 +223,13 @@ class Welcome extends MY_Controller {
 					$option->setSection('settings',true,false);
 					$option->setValue($value);
 					if( $option->nonEmpty() ) {
-						$option->update();
+						if( $option->update() ) {
+							record_system_audit($this->session->userdata('user_id'), 'welcome', 'settings', 'update', $this->session->userdata('current_company_id'), "Settings Changed!");
+						}
 					} else {
-						$option->insert();
+						if( $option->insert() ) {
+							record_system_audit($this->session->userdata('user_id'), 'welcome', 'settings', 'update', $this->session->userdata('current_company_id'), "Settings Changed!");
+						}
 					}
 
 					if( $key == 'theme') {

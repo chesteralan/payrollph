@@ -46,7 +46,7 @@
                 <th>Notes</th>
                 <th>Abbr</th>
                 <?php if( hasAccess('lists', 'earnings', 'edit') ) { ?>
-                  <th width="180px">Action</th>
+                  <th width="180px" class="text-right">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -58,7 +58,7 @@
                 <td><?php echo $earning->notes; ?></td>
                 <td><?php echo $earning->abbr; ?></td>
               <?php if( hasAccess('lists', 'earnings', 'edit') ) { ?>
-                <td>
+                <td class="text-right">
                 <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Earning" data-url="<?php echo site_url("lists_earnings/edit/{$earning->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("lists_earnings/delete/{$earning->id}"); ?>" data-target="#employee-group-<?php echo $earning->id; ?>">Delete</a>

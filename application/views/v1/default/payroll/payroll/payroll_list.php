@@ -94,7 +94,7 @@ if( $filter_template == $template->template_id ) {
                 <th>Template</th>
                 <th>Working Days</th>
                 <?php if( hasAccess('payroll', 'payroll', 'edit') ) { ?>
-                  <th width="170px">Action</th>
+                  <th width="180px" class="text-right">Action</th>
                 <?php } ?>
               </tr>
             </thead>
@@ -119,7 +119,7 @@ if( $filter_template == $template->template_id ) {
                 </td>
                 <td><?php echo $payroll->working_days; ?></td>
               <?php if( hasAccess('payroll', 'payroll', 'edit') ) { ?>
-                <td>
+                <td class="text-right">
 
 <?php if( $payroll->active ) { ?>
 

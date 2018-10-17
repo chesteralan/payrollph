@@ -52,7 +52,7 @@
 	    					<th class="text-center">Company</th>
 	    					<th width="10%" class="text-center">Age</th>
 	    					<?php if( hasAccess('lists', 'names', 'edit') ) { ?>
-	    					<th width="200px">Action</th>
+	    					<th width="200px" class="text-right">Action</th>
 	    					<?php } ?>
 	    				</tr>
 	    			</thead>
@@ -71,7 +71,7 @@
 	    					<td  class="text-center"><?php echo $name->company; ?></td>
 	    					<td  class="text-center"><?php echo $name->age; ?></td>
 	    					<?php if( hasAccess('lists', 'names', 'edit') ) { ?>
-	    					<td>
+	    					<td class="text-right">
 <?php if( $name->trash == 0) { ?>
 
 							
