@@ -480,9 +480,12 @@ class Payroll_employees extends MY_Controller {
 		$terms->setType('employment_status',true);
 		$this->template_data->set('employment_status', $terms->populate());
 	
-
-		if( $this->input->post('payslip') ) {
-			$employee->setTemplate($this->input->post('payslip'),false,true);
+		if( $this->input->post() ) {
+			if( $this->input->post('payslip') ) {
+				$employee->setTemplate($this->input->post('payslip'),false,true);
+			} else {
+				$employee->setTemplate('',false,true);
+			}
 			$employee->update();
 			redirect( $this->input->get('next') );
 		}

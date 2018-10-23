@@ -169,6 +169,7 @@ class Payroll_deductions extends MY_Controller {
 				$employees->setNameId($this->session->userdata('current_employee')->name_id,true);
 			}
 			$employees->setPayrollId($id,true);
+			$employees->set_select('pe.*');
 			$employees->set_select('ni.*');
 			$employees->set_select('e.name_id');
 			$employees->set_select('pe.id as pe_id');
@@ -856,7 +857,7 @@ class Payroll_deductions extends MY_Controller {
 		$name_data = $name->get();	
 		$this->template_data->set('name', $name_data);
 
-		$payrolls = new $this->Payroll_employees_salaries_model('pes');
+		$payrolls = new $this->Payroll_employees_deductions_model('pes');
 		$payrolls->set_start($start);
 		$payrolls->setNameId($name_id,true);
 		$payrolls->set_group_by('pes.payroll_id');
@@ -866,24 +867,26 @@ class Payroll_deductions extends MY_Controller {
 		$payrolls->set_order('p.id', 'DESC');
 		$payrolls->set_where('p.company_id=' . $this->session->userdata('current_company_id'));
 
-			$absences = new $this->Employees_absences_model('ea');
-			$absences->setNameId($name_id,true);
-			$absences->set_join('payroll_inclusive_dates pid', 'ea.date_absent=pid.inclusive_date');
-			$absences->set_select('SUM(ea.hours)');
-			$absences->set_where('ea.name_id=pes.name_id');
-			$absences->set_where('pid.payroll_id=pes.payroll_id');
-			$payrolls->set_select('('.$absences->get_compiled_select().') as absences_hours');
-
-		$payrolls->set_select('(SELECT COUNT(*) FROM payroll_inclusive_dates WHERE payroll_id=pes.payroll_id) as working_days');
+		$payrolls->set_select('SUM(pes.amount) as total_deductions');
 
 		if( $this->input->get('filter_by_year') ) {
 			$payrolls->set_limit(0);
 			$payrolls->set_start(0);
 			$payrolls->set_where('p.year=' . $this->input->get('filter_by_year'));
 		}
+
+		if( $this->input->get('filter') ) {
+			$payrolls->set_limit(0);
+			$payrolls->set_start(0);
+			$payrolls->set_where('pes.deduction_id=' . $this->input->get('filter'));
+
+			$deduction = new $this->Deductions_list_model('d');
+			$deduction->setId($this->input->get('filter'), true);
+			$this->template_data->set('deduction', $deduction->get());
+		}
 		$this->template_data->set('payrolls', $payrolls->populate());
 
-		$years = new $this->Payroll_employees_salaries_model('pes');
+		$years = new $this->Payroll_employees_deductions_model('pes');
 		$years->setNameId($name_id,true);
 		$years->set_join('payroll p', 'pes.payroll_id=p.id');
 		$years->set_select('p.year');
@@ -891,6 +894,14 @@ class Payroll_deductions extends MY_Controller {
 		$years->set_order('p.year', 'DESC');
 		$years->set_limit(0);
 		$this->template_data->set('years', $years->populate());
+
+		$deductions = new $this->Payroll_employees_deductions_model('pes');
+		$deductions->setNameId($name_id,true);
+		$deductions->set_join('deductions_list d', 'pes.deduction_id=d.id');
+		$deductions->set_select('d.*');
+		$deductions->set_limit(0);
+		$deductions->set_group_by('d.id');
+		$this->template_data->set('deductions', $deductions->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'uri_segment' => 4,
@@ -904,7 +915,7 @@ class Payroll_deductions extends MY_Controller {
 		$this->template_data->set('next_name', $this->_next_employee($name_id, 'payroll_deductions/by_name/'));
 		$this->template_data->set('previous_name', $this->_previous_employee($name_id, 'payroll_deductions/by_name/'));
 
-		$this->load->view('payroll/payroll/dtr/dtr_by_name', $this->template_data->get_data());
+		$this->load->view('payroll/payroll/deductions/deductions_by_name', $this->template_data->get_data());
 	}
 
 }

@@ -18,9 +18,13 @@
                 <div class="panel-heading">
                   
 <?php if( !$column_id ) { ?>
+
 <?php if(!$payroll->lock) { ?>
+  
 <a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Benefits" data-url="<?php echo payroll_url("payroll/benefits/{$payroll->id}/ajax"); ?>"><span class="glyphicon glyphicon-cog"></span></a>
+
 <?php } ?>
+
 <?php } else { ?>
   <?php if( $other_payrolls ) { ?>
     <div class="btn-group btn-group-xs pull-right">
@@ -82,7 +86,7 @@ if( isset($compare_payroll) ) {
 <?php } ?>
                 </th>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
-                <th width="10%" class="text-right"><?php echo $column->name; ?>-EE
+                <th width="10%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?>-EE
 <?php if( intval($column_id) > 0 ) { ?>
 <a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-remove"></a>
 <?php } else { ?>
@@ -120,7 +124,7 @@ if( isset($compare_payroll) ) {
 <?php foreach($payroll_group->employees as $employee) {
 $total_benefit = 0;
               ?>
-              <tr>
+              <tr class="<?php echo ($employee->manual)?'info':''; ?>">
                 <td>
 <?php if( !$this->session->userdata('current_employee') ) { ?>
                 <a href="<?php echo site_url("payroll/select_employee/{$employee->name_id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-filter"></span></a>
@@ -130,7 +134,9 @@ $total_benefit = 0;
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo site_url("lists_names/profile/{$employee->name_id}/ajax") . "?output=inner_page&next=" . uri_string(); ?>"><span class="glyphicon glyphicon-eye-open"></span></a>
 
 <?php if(!$payroll->lock) { ?>
+  <?php if(!$employee->manual) { ?>
 <a href="<?php echo site_url("employees_benefits/view/{$employee->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper pull-right"><span class="glyphicon glyphicon-cog"></span></a>
+<?php } ?>
 <?php } ?>
                 </td>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
@@ -149,7 +155,7 @@ $total_benefit = 0;
 
                 <td class="text-right">
 <?php if(!$payroll->lock) { ?>
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo ($column->abbr!='') ? $column->abbr : $column->name; ?> (EE)" data-url="<?php echo payroll_url("payroll_benefits/entries/{$payroll->id}/{$employee->pe_id}/{$column->id}/ee/ajax"); ?>" data-hide_footer="1">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $column->name; ?>" data-url="<?php echo payroll_url("payroll_benefits/entries/{$payroll->id}/{$employee->pe_id}/{$column->id}/ee/ajax"); ?>" data-hide_footer="1">
 <?php } ?>
 <span data-toggle="tooltip" data-placement="left" title="<?php echo $column->name; ?>-ER: <?php echo number_format($employee->$er,2); ?>">
        <?php echo number_format($employee->$ee,2); ?>
@@ -204,7 +210,7 @@ echo number_format($diff_ee,2); ?></td>
               <tr class="warning">
                 <th>TOTAL</th>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
-                <th width="10%" class="text-right"><?php echo $column->name; ?>-EE 
+                <th width="10%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?>-EE 
 <?php if( intval($column_id) > 0 ) { ?>
 <a href="<?php echo site_url("payroll_benefits/view/{$payroll->id}/{$group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-remove"></a>
 <?php } else { ?>

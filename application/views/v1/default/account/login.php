@@ -60,7 +60,7 @@ if( is_view_exists("account/login_override") ) {
 <form method="post">
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title text-center" style="font-size: 20px;margin: 20px auto">PAYROLL PH</h3>
+            <h3 class="panel-title text-center" style="font-size: 20px;margin: 20px auto"><?php echo APP_NAME; ?></h3>
           </div>
           <div class="panel-body" id="divBody">
               <div class="form-group">

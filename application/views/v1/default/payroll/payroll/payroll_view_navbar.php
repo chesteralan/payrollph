@@ -162,7 +162,7 @@ $column_groups = array(
           'uri' => "payroll_summary/view/{$payroll->id}/{$group_id}",
           'url_key'=> 'payroll_summary',
           'access'=>hasAccess('payroll', 'payroll', 'view'),
-        ),
+        )
 );
 
 $cg_sort = ($column_group_sort) ? $column_group_sort : false;

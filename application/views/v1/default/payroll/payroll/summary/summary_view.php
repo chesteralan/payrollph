@@ -185,7 +185,7 @@ $total_earnings += $employee->gross_earnings;
 $total_benefits += $employee->gross_benefits;
 $total_deductions += $employee->gross_deductions;
               ?>
-              <tr>
+              <tr class="<?php echo ($employee->manual)?'info':''; ?>">
                 <td>
 <?php if( !$this->session->userdata('current_employee') ) { ?>
                 <a href="<?php echo site_url("payroll/select_employee/{$employee->name_id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-filter"></span></a>

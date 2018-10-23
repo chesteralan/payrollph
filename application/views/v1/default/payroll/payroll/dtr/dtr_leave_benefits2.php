@@ -16,10 +16,8 @@
 <?php if( !isset($no_inclusive_dates) ) { ?>
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong> 
-
+                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
 <a class="body_wrapper" href="<?php echo site_url("payroll_dtr/view/{$payroll->id}/{$group_id}"); ?>"><small>Daily Time Record</small></a>
-
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
@@ -27,59 +25,39 @@
 <?php endif; ?>
 
 <?php if( !isset($no_inclusive_dates) ) { ?>
+
 <?php if( isset($payroll_groups) && $payroll_groups ) { ?>
   
   <?php foreach($payroll_groups as $payroll_group) { ?>
-
+ <?php if($payroll_group->employees) { ?>
           <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
             <thead>
               <tr class="warning">
                 <th>
 <?php if( !$this->session->userdata('current_employee') ) { ?>
 <?php if( intval($group_id) > 0 ) { ?>
-<a href="<?php echo site_url("payroll_dtr/view/{$payroll->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></a>
+<a href="<?php echo site_url("payroll_dtr/leave_benefits/{$payroll->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></a>
 <?php } else { ?>
-  <?php 
-  switch ($payroll->group_by) {
-    case 'position':
-      $filter_id = $payroll_group->position_id;
-      break;
-    case 'area':
-      $filter_id = $payroll_group->area_id;
-      break;
-    case 'status':
-      $filter_id = $payroll_group->status_id;
-      break;
-    case 'group':
-    default:
-      $filter_id = $payroll_group->group_id;
-      break;
-  }
-  ?>
-  <a href="<?php echo site_url("payroll_dtr/view/{$payroll->id}/{$filter_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
+  <a href="<?php echo site_url("payroll_dtr/leave_benefits/{$payroll->id}/{$payroll_group->group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
 <?php } ?>
 <?php } ?>
                 <?php echo $payroll_group->name; ?>
-
 <?php if(!$payroll->lock) { ?>
 <?php if( !$this->session->userdata('current_employee') ) { ?>
-<a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Sort <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll/employees/{$payroll->id}/{$payroll_group->id}/ajax") . "?action=sort&next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-sort"></span></a>
+ <a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Sort <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll/employees/{$payroll->id}/{$payroll_group->id}/ajax") . "?action=sort&next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-sort"></span></a>
 <?php } ?>
 <?php } ?>
 
                 </th>
 <?php foreach($leave_benefits as $leave) { ?>
-                <th width="15%" class="text-right"><?php echo $leave->name; ?></th>
+                <th width="10%" class="text-right"><?php echo $leave->name; ?></th>
 <?php } ?>
               </tr>
             </thead>
             <tbody>
-
- <?php if($payroll_group->employees) { ?>
-<?php foreach($payroll_group->employees as $employee) { 
-
-              ?>
-              <tr class="<?php echo ($employee->manual)?'info':''; ?>">
+            
+<?php foreach($payroll_group->employees as $employee) { ?>
+              <tr>
                 <td>
 
 <?php if( !$this->session->userdata('current_employee') ) { ?>
@@ -92,7 +70,6 @@
 
 
                 </td>
-
 <?php foreach($leave_benefits as $leave) { 
 $var1 = 'allowed_leave_' . $leave->id;
 $var2 = 'availed_leave_' . $leave->id;
@@ -110,13 +87,13 @@ $leave_balance = ($employee->$var1 - $employee->$var2);
 <?php } ?>
                 </td>
 <?php } ?>
-     
+                
               </tr>
 <?php } ?>
-<?php } ?>
+
             </tbody>
           </table>
-
+<?php } ?>
     <?php } ?>
 <?php } else { ?>
 
@@ -125,12 +102,10 @@ $leave_balance = ($employee->$var1 - $employee->$var2);
 <?php } ?>
 <?php } ?>
 <?php if( ! $inner_page ): ?>
-
 <?php if( !isset($no_inclusive_dates) ) { ?>
               </div>
               </div>
 <?php } ?>
- 
             </div>
     </div>
 </div>

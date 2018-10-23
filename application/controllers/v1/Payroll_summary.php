@@ -134,6 +134,7 @@ class Payroll_summary extends MY_Controller {
 				$employees->setNameId($this->session->userdata('current_employee')->name_id,true);
 			}
 			$employees->setPayrollId($id,true);
+			$employees->set_select('pe.*');
 			$employees->set_select('ni.*');
 			$employees->set_select('e.name_id');
 			$employees->set_select('pe.id as pe_id');
@@ -542,7 +543,7 @@ class Payroll_summary extends MY_Controller {
 		$this->template_data->set('next_name', $this->_next_employee($name_id, 'payroll_summary/by_name/'));
 		$this->template_data->set('previous_name', $this->_previous_employee($name_id, 'payroll_summary/by_name/'));
 
-		$this->load->view('payroll/payroll/dtr/dtr_by_name', $this->template_data->get_data());
+		$this->load->view('payroll/payroll/summary/summary_by_name', $this->template_data->get_data());
 	}
 
 }

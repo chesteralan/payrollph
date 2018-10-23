@@ -20,6 +20,9 @@ if( $this->config->item('multi_company') ) {
   $url['system_companies'] = array('uri' => 'system_companies', 'title'=>lang_term('companies_title_plural', 'Companies'), 'access'=>hasAccess('system', 'companies', 'view'));
 }
 $url['system_terms'] = array('uri' => 'system_terms', 'title'=>'Terminologies', 'access'=>hasAccess('system', 'terms', 'view'));
+
+$url['system_calendar'] = array('uri' => 'system_calendar', 'title'=>'Calendar', 'access'=>hasAccess('system', 'calendar', 'view'));
+
 $url['system_users'] = array('uri' => 'system_users', 'title'=>'User Accounts', 'access'=>hasAccess('system', 'users', 'view'));
 $url['system_audit'] = array('uri' => 'system_audit', 'title'=>'Audit Trail', 'access'=>hasAccess('system', 'audit', 'view'));
 $url['system_database'] = array('uri' => 'system_database', 'title'=>'Database', 'access'=>hasAccess('system', 'database', 'view'));

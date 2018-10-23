@@ -88,7 +88,7 @@
           </div>
 
           <div class="form-group">
-            <label>Transfer Company</label>
+            <label>Transfer <?php echo lang_term('companies_title_singular', 'Company'); ?></label>
             <select class="form-control" title="Select a Company" name="company_id">
               <?php if($companies) foreach($companies as $company) { ?>
                 <option value="<?php echo $company->id; ?>" <?php echo ($employee->company_id==$company->id) ? "SELECTED" : ""; ?>><?php echo $company->name; ?></option>

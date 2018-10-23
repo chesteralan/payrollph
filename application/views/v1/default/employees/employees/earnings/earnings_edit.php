@@ -74,8 +74,7 @@
               <select class="form-control" title="Multiplier" name="multiplier" required>
 <?php  $selected = ($earning->multiplier) ? $earning->multiplier : ''; ?>
                   <option value="" <?php echo ($selected=='') ? "SELECTED" : ""; ?>>- - None - -</option>
-              <?php 
-              foreach(array('employment'=>'Employment (in years)', 'birthday'=>'Birthday (in years)') as $key=>$value) { ?>
+                            <?php foreach(unserialize(EARNING_MULTIPLIERS) as $key=>$value) { ?>
                   <option value="<?php echo $key; ?>"<?php echo ($key==$selected) ? ' SELECTED' : ''; ?>><?php echo $value; ?></option>
               <?php } ?>
               </select>

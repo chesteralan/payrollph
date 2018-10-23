@@ -10,7 +10,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <span class="navbar-brand" href="<?php echo site_url(); ?>">Payroll PH</span>
+          <span class="navbar-brand" href="<?php echo site_url(); ?>"><?php echo APP_NAME; ?></span>
         </div>
         <div id="mainNavBarCollapse" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -130,6 +130,12 @@ if( $this->config->item('multi_company') ) {
             'permission' => array('system', 'terms'),
           );
 
+    $system_submenus['system_calendar'] = array(
+            'title' => 'Calendar',
+            'uri' => 'system_calendar',
+            'permission' => array('system', 'calendar'),
+          );
+
     $system_submenus['system_users'] = array(
             'title' => 'User Accounts',
             'uri' => 'system_users',
@@ -200,7 +206,9 @@ foreach($main_menu as $main=>$menu):
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-
+<li class="">
+  <a href=""><span class="glyphicon glyphicon-tasks"><span class="badge nav-badge">6</span></span></a>
+</li>
 <?php if( hasAccess('developer_tools', 'themes', 'view') ) { ?>
    <li class="hidden-xs dropdown">
    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong><?php echo $this->session->userdata('current_company_theme' ); ?></strong> <span class="caret hidden-xs"></span></a>

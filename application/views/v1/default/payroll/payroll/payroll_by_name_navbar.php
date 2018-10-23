@@ -79,13 +79,6 @@ $column_groups = array(
           'url_key'=> 'payroll_deductions',
           'access'=>hasAccess('payroll', 'payroll', 'view'),
         ),
-  array(  'key'=>'column_group_summary',
-          'name' => 'Summary',
-          'checked' => (($column_group_summary)?$column_group_summary:0),
-          'uri' => "payroll_summary/by_name/{$name->id}",
-          'url_key'=> 'payroll_summary',
-          'access'=>hasAccess('payroll', 'payroll', 'view'),
-        ),
 );
 
 $cg_sort = ($column_group_sort) ? $column_group_sort : false;

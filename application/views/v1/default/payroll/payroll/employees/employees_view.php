@@ -115,7 +115,7 @@ switch($payroll->group_by) {
 <?php foreach($payroll_group->employees as $employee) { 
 
               ?>
-              <tr>
+              <tr class="<?php echo ($employee->manual)?'info':''; ?>">
                 <td>
 <?php if(!$payroll->lock) { ?>
                 <a class="confirm" href="<?php echo site_url("payroll_employees/deactivate/{$payroll->id}/{$employee->id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-remove"></span></a>
@@ -165,7 +165,7 @@ switch($payroll->group_by) {
                 </td>
                 <td class="text-right">
 <?php if(!$payroll->lock) { ?>                
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Template" data-url="<?php echo site_url("payroll_employees/change_payslip/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" .uri_string(); ?>">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Payslip" data-url="<?php echo site_url("payroll_employees/change_payslip/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" .uri_string(); ?>">
 <?php } ?>
                 <?php echo ($employee->template) ? $payslip_templates[$employee->template] : '- - - - -'; ?>
 <?php if(!$payroll->lock) { ?>

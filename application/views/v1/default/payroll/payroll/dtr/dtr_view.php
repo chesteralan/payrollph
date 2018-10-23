@@ -12,6 +12,7 @@
 <?php if( isset($no_inclusive_dates) ) { ?>
 <div class="alert alert-danger" role="alert"><strong>ERROR FOUND!</strong> Inclusive dates not set! <a data-title="Inclusive Dates" class="btn btn-danger btn-xs ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-url="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>" >Fix This</a></div>
 <?php } ?>
+
 <?php if( !isset($no_inclusive_dates) ) { ?>
               <div class="panel panel-default">
                 <div class="panel-heading">
@@ -89,7 +90,7 @@ if($employee->pe_presence) {
 }
 
               ?>
-              <tr>
+              <tr class="<?php echo ($employee->manual)?'info':''; ?>">
                 <td>
 
 <?php if( !$this->session->userdata('current_employee') ) { ?>

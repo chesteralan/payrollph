@@ -99,7 +99,7 @@ if( isset($compare_payroll) ) {
 <?php } ?>
                 </th>
 <?php if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
-                <th width="10%" class="text-right"><?php echo $column->name; ?> 
+                <th width="10%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?> 
 <?php if( intval($column_id) > 0 ) { ?>
 <a href="<?php echo site_url("payroll_earnings/view/{$payroll->id}/{$group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-remove"></a>
 <?php } else { ?>
@@ -122,7 +122,7 @@ if( isset($compare_payroll) ) {
 <?php if($payroll_group->employees) { ?>
 <?php foreach($payroll_group->employees as $employee) { 
               ?>
-              <tr>
+              <tr class="<?php echo ($employee->manual)?'info':''; ?>">
                 <td>
 <?php if( !$this->session->userdata('current_employee') ) { ?>
                 <a href="<?php echo site_url("payroll/select_employee/{$employee->name_id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-filter"></span></a>
@@ -132,7 +132,9 @@ if( isset($compare_payroll) ) {
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo site_url("lists_names/profile/{$employee->name_id}/ajax") . "?output=inner_page&next=" . uri_string(); ?>"><span class="glyphicon glyphicon-eye-open"></span></a>
 
 <?php if(!$payroll->lock) { ?>
+  <?php if(!$employee->manual) { ?>
               <a href="<?php echo site_url("employees_earnings/view/{$employee->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper pull-right"><span class="glyphicon glyphicon-cog"></span></a>
+<?php }  ?>
 <?php }  ?>
 </td>
                 <?php 
@@ -140,7 +142,7 @@ $total_earnings = 0;
                 if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
                     <td class="text-right">
 
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo ($column->abbr!='') ? $column->abbr : $column->name; ?>" data-url="<?php echo payroll_url("payroll_earnings/entries/{$payroll->id}/{$employee->pe_id}/{$column->id}/ajax"); ?>" data-hide_footer="1">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $column->name; ?>" data-url="<?php echo payroll_url("payroll_earnings/entries/{$payroll->id}/{$employee->pe_id}/{$column->id}/ajax"); ?>" data-hide_footer="1">
 
 <?php 
 
@@ -187,7 +189,7 @@ $total['difference'] += $dif;
               <tr class="warning">
                 <th>TOTAL</th>
 <?php if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
-                <th width="10%" class="text-right"><?php echo $column->name; ?> 
+                <th width="10%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?> 
 <?php if( intval($column_id) > 0 ) { ?>
 <a href="<?php echo site_url("payroll_earnings/view/{$payroll->id}/{$group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-remove"></a>
 <?php } else { ?>

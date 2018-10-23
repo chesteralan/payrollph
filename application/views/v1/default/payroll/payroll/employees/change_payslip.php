@@ -12,7 +12,7 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Change Status: <strong><?php echo $name->lastname; ?>, <?php echo $name->firstname; ?></strong></h3>
+          <h3 class="panel-title">Change Payslip: <strong><?php echo $name->lastname; ?>, <?php echo $name->firstname; ?></strong></h3>
         </div>
 <form method="post">
         <div class="panel-body">
@@ -20,19 +20,13 @@
 
 <?php endif; ?>
 <?php 
-$payslip_templates = array(
-  'none' => 'No Payslip',
-  'payslip' => 'Payslip (1/4)',
-  'payslip2' => 'Payslip (1/2)',
-  'payslip3' => 'Payslip (1/2) v2',
-  'cash_voucher' => 'Cash Voucher',
-  'clergy_allowance' => 'Clergy Allowance',
-);
+$payslip_templates = unserialize(PAYROLL_PAYSLIP_TEMPLATES);
 ?>
 
           <div class="form-group">
             <label>Payslip Template</label>
             <select class="form-control" title="Select a Status" name="payslip">
+              <option value="">No Payslip</option>
               <?php foreach($payslip_templates as $k=>$v) { ?>
                 <option value="<?php echo $k; ?>" <?php echo ($employee->template==$k) ? "SELECTED" : ""; ?>><?php echo $v; ?></option>
               <?php } ?>

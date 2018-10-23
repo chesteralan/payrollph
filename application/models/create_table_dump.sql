@@ -19,9 +19,22 @@ CREATE TABLE `benefits_list` (
   `trash` int(1) DEFAULT '0',
   `abbr` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin;
 
 -- Table structure for table `benefits_list` 
+
+CREATE TABLE `calendar` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `company_id` int(20) NOT NULL,
+  `calendar_date` date NOT NULL,
+  `is_holiday` int(1) NOT NULL DEFAULT '0',
+  `holiday_type` int(20) NOT NULL DEFAULT '0',
+  `premium` int(2) DEFAULT '0',
+  `notes` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin;
+
+-- Table structure for table `calendar` 
 
 CREATE TABLE `companies_list` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
@@ -33,7 +46,7 @@ CREATE TABLE `companies_list` (
   `default` int(1) DEFAULT '0',
   `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
 
 -- Table structure for table `companies_list` 
 
@@ -55,7 +68,7 @@ CREATE TABLE `deductions_list` (
   `trash` int(1) DEFAULT '0',
   `abbr` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin;
 
 -- Table structure for table `deductions_list` 
 
@@ -68,7 +81,7 @@ CREATE TABLE `earnings_list` (
   `trash` int(1) DEFAULT '0',
   `abbr` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin;
 
 -- Table structure for table `earnings_list` 
 
@@ -113,7 +126,7 @@ CREATE TABLE `employees_areas` (
   `name` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin;
 
 -- Table structure for table `employees_areas` 
 
@@ -142,7 +155,7 @@ CREATE TABLE `employees_benefits` (
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`benefit_id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin;
 
 -- Table structure for table `employees_benefits` 
 
@@ -227,7 +240,7 @@ CREATE TABLE `employees_groups` (
   `trash` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin;
 
 -- Table structure for table `employees_groups` 
 
@@ -253,7 +266,7 @@ CREATE TABLE `employees_positions` (
   `trash` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin;
 
 -- Table structure for table `employees_positions` 
 
@@ -275,7 +288,7 @@ CREATE TABLE `employees_salaries` (
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin;
 
 -- Table structure for table `employees_salaries` 
 
@@ -304,7 +317,7 @@ CREATE TABLE `names_list` (
   `trash` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `full_name` (`full_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin;
 
 -- Table structure for table `names_list` 
 
@@ -383,7 +396,7 @@ CREATE TABLE `payroll_employees` (
   `presence` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`payroll_id`,`name_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=latin;
 
 -- Table structure for table `payroll_employees` 
 
@@ -457,7 +470,7 @@ CREATE TABLE `payroll_employees_salaries` (
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`),
   KEY `payroll_id` (`payroll_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
 
 -- Table structure for table `payroll_employees_salaries` 
 
@@ -495,7 +508,7 @@ CREATE TABLE `payroll_templates` (
   PRIMARY KEY (`id`),
   KEY `checked_by` (`checked_by`,`approved_by`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin;
 
 -- Table structure for table `payroll_templates` 
 
@@ -575,7 +588,7 @@ CREATE TABLE `system_audit` (
   `notes` text,
   `date_accessed` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=104 DEFAULT CHARSET=latin;
 
 -- Table structure for table `system_audit` 
 
@@ -587,7 +600,7 @@ CREATE TABLE `terms_list` (
   `trash` int(1) DEFAULT '0',
   `priority` int(3) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin;
 
 -- Table structure for table `terms_list` 
 

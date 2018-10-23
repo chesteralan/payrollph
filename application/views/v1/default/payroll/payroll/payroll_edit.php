@@ -85,15 +85,6 @@
       <div class="row">
           <div class="col-md-6">
               <div class="form-group">
-                <label>Print Format</label>
-                <select name="print_format" class="form-control">
-                    <option value="">Default</option>
-                    <option value="clergy_allowance" <?php echo ($payroll->print_format=='clergy_allowance') ? 'SELECTED' : ''; ?>>Clergy Allowance</option>
-                </select>
-              </div>
-          </div>
-          <div class="col-md-6">
-              <div class="form-group">
                 <label>Group By</label>
                 <select name="group_by" class="form-control">
                     <option value="group" <?php echo ($payroll->group_by=='group') ? 'SELECTED' : ''; ?>>Group (Default)</option>
@@ -103,6 +94,20 @@
                 </select>
               </div>
           </div>
+<?php if(unserialize(PAYROLL_PRINT_FORMATS)) { ?>
+          <div class="col-md-6">
+
+              <div class="form-group">
+                <label>Print Format</label>
+                <select name="print_format" class="form-control">
+                    <option value="">Default</option>
+              <?php foreach(unserialize(PAYROLL_PRINT_FORMATS) as $key=>$value) { ?>
+                  <option value="<?php echo $key; ?>"<?php echo ($key==$payroll->print_format) ? ' SELECTED' : ''; ?>><?php echo $value; ?></option>
+              <?php } ?>
+                </select>
+              </div>
+          </div>
+<?php } ?>
         </div>
         
   <a href="<?php echo site_url("payroll/lock/{$payroll->id}") . "?next=" . $this->input->get('next') ; ?>" class="btn btn-xs btn-danger confirm">Lock Payroll</a>

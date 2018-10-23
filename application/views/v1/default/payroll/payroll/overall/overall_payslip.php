@@ -87,13 +87,7 @@ $box_count = 0;
     <select style="margin-top: 2px;width: 100px;" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
           <option value="<?php echo site_url(uri_string()); ?>?filter=<?php echo $this->input->get('filter'); ?>&payslip_template=none">No Payslip</option>
 <?php 
-foreach(array(
-  'payslip' => 'Payslip (1/4)',
-  'payslip2' => 'Payslip (1/2)',
-  'payslip3' => 'Payslip (1/2) v2',
-  'cash_voucher' => 'Cash Voucher',
-  'clergy_allowance' => 'Clergy Allowance',
-  ) as $pId => $pName) { 
+foreach(unserialize(PAYROLL_PAYSLIP_TEMPLATES) as $pId => $pName) { 
 
 $selected = '';
 if( $this->input->get('payslip_template') ) {

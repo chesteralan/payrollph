@@ -10,8 +10,7 @@
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
-
-<?php if( ($years) && (count($years)>1) ) { ?>
+<?php if( $years ) { ?>
 <div class="btn-group pull-right">
   <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <?php echo ($this->input->get('filter_by_year')) ? $this->input->get('filter_by_year') : 'Filter by Year'; ?> <span class="caret"></span>
@@ -43,26 +42,18 @@
             <thead>
               <tr class="warning">
                 <th>Payroll</th>
-                <th width="10%" class="text-right">Working Days</th>
-                <th width="10%" class="text-right">Absences</th>
-                <th width="10%" class="text-right">Days Present</th>
+                <th width="10%" class="text-right">Total Earnings</th>
               </tr>
             </thead>
             <tbody>
 <?php foreach($payrolls as $payroll) {  ?>
-<?php 
-$working_hours = ($payroll->hours) ? $payroll->hours : 8;
-$days_absent = ($payroll->absences_hours) ? ($payroll->absences_hours / $working_hours) : 0;
-?>
   <tr>
         <td>
         <a class="body_wrapper" href="<?php echo site_url("payroll_dtr/view/{$payroll->payroll_id}/0"); ?>">
         <?php echo $payroll->name; ?>
         </a>
         </td>
-        <td class="text-right"><?php echo $payroll->working_days; ?></td>
-        <td class="text-right"><?php echo $days_absent; ?></td>
-        <td class="text-right"><?php echo $payroll->working_days - $days_absent; ?></td>
+        <td class="text-right"><?php echo number_format($payroll->total_earnings,2); ?></td>
   </tr>
 <?php } ?>
             </tbody>

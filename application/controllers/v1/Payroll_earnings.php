@@ -170,6 +170,7 @@ class Payroll_earnings extends MY_Controller {
 				$employees->setNameId($this->session->userdata('current_employee')->name_id,true);
 			}
 			$employees->setPayrollId($id,true);
+			$employees->set_select('pe.*');
 			$employees->set_select('ni.*');
 			$employees->set_select('e.name_id');
 			$employees->set_select('pe.id as pe_id');
@@ -790,7 +791,7 @@ class Payroll_earnings extends MY_Controller {
 		$name_data = $name->get();	
 		$this->template_data->set('name', $name_data);
 
-		$payrolls = new $this->Payroll_employees_salaries_model('pes');
+		$payrolls = new $this->Payroll_employees_earnings_model('pes');
 		$payrolls->set_start($start);
 		$payrolls->setNameId($name_id,true);
 		$payrolls->set_group_by('pes.payroll_id');
@@ -800,30 +801,41 @@ class Payroll_earnings extends MY_Controller {
 		$payrolls->set_order('p.id', 'DESC');
 		$payrolls->set_where('p.company_id=' . $this->session->userdata('current_company_id'));
 
-			$absences = new $this->Employees_absences_model('ea');
-			$absences->setNameId($name_id,true);
-			$absences->set_join('payroll_inclusive_dates pid', 'ea.date_absent=pid.inclusive_date');
-			$absences->set_select('SUM(ea.hours)');
-			$absences->set_where('ea.name_id=pes.name_id');
-			$absences->set_where('pid.payroll_id=pes.payroll_id');
-			$payrolls->set_select('('.$absences->get_compiled_select().') as absences_hours');
-
-		$payrolls->set_select('(SELECT COUNT(*) FROM payroll_inclusive_dates WHERE payroll_id=pes.payroll_id) as working_days');
+		$payrolls->set_select('SUM(pes.amount) as total_earnings');
 
 		if( $this->input->get('filter_by_year') ) {
 			$payrolls->set_limit(0);
 			$payrolls->set_start(0);
 			$payrolls->set_where('p.year=' . $this->input->get('filter_by_year'));
 		}
+
+		if( $this->input->get('filter') ) {
+			$payrolls->set_limit(0);
+			$payrolls->set_start(0);
+			$payrolls->set_where('pes.earning_id=' . $this->input->get('filter'));
+
+			$earning = new $this->Earnings_list_model('d');
+			$earning->setId($this->input->get('filter'), true);
+			$this->template_data->set('earning', $earning->get());
+		}
+
 		$this->template_data->set('payrolls', $payrolls->populate());
 
-		$years = new $this->Payroll_employees_salaries_model('pes');
+		$years = new $this->Payroll_employees_earnings_model('pes');
 		$years->setNameId($name_id,true);
 		$years->set_join('payroll p', 'pes.payroll_id=p.id');
 		$years->set_select('p.year');
 		$years->set_group_by('p.year');
 		$years->set_order('p.year', 'DESC');
 		$this->template_data->set('years', $years->populate());
+
+		$earnings = new $this->Payroll_employees_earnings_model('pes');
+		$earnings->setNameId($name_id,true);
+		$earnings->set_join('earnings_list d', 'pes.earning_id=d.id');
+		$earnings->set_select('d.*');
+		$earnings->set_limit(0);
+		$earnings->set_group_by('d.id');
+		$this->template_data->set('earnings', $earnings->populate());
 
 		$this->template_data->set('pagination', bootstrap_pagination(array(
 			'uri_segment' => 4,
@@ -836,7 +848,7 @@ class Payroll_earnings extends MY_Controller {
 		$this->template_data->set('next_name', $this->_next_employee($name_id, 'payroll_earnings/by_name/'));
 		$this->template_data->set('previous_name', $this->_previous_employee($name_id, 'payroll_earnings/by_name/'));
 
-		$this->load->view('payroll/payroll/dtr/dtr_by_name', $this->template_data->get_data());
+		$this->load->view('payroll/payroll/earnings/earnings_by_name', $this->template_data->get_data());
 	}
 	
 }

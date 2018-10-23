@@ -1,6 +1,7 @@
 $models = array();
 $models[] = 'Account_sessions_model';
 $autoload['model'] = $models;$models[] = 'Benefits_list_model';
+$autoload['model'] = $models;$models[] = 'Calendar_model';
 $autoload['model'] = $models;$models[] = 'Companies_list_model';
 $autoload['model'] = $models;$models[] = 'Companies_options_model';
 $autoload['model'] = $models;$models[] = 'Deductions_list_model';

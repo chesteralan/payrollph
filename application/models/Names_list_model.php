@@ -13,7 +13,7 @@ CREATE TABLE `names_list` (
   `trash` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `full_name` (`full_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `names_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `names_list` ADD  `full_name` varchar(200) NOT NULL   UNIQUE KEY;

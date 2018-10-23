@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'form_validation', 'template_data', 'session', 'user_agent', 'pagination');
+$autoload['libraries'] = array('database', 'form_validation', 'template_data', 'session', 'encrypt', 'user_agent', 'pagination');
 
 /*
 | -------------------------------------------------------------------
@@ -136,6 +136,7 @@ $models = array();
 
 $models[] = 'Account_sessions_model';
 $models[] = 'Benefits_list_model';
+$models[] = 'Calendar_model';
 $models[] = 'Companies_list_model';
 $models[] = 'Companies_options_model';
 $models[] = 'Deductions_list_model';

@@ -19,7 +19,7 @@ CREATE TABLE `employees_benefits` (
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`benefit_id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `employees_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `employees_benefits` ADD  `company_id` int(20) NOT NULL   ;

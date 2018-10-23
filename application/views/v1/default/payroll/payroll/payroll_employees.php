@@ -1,14 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <?php
-$payslip_templates = array(
-  'none' => 'No Payslip',
-  'payslip' => 'Payslip (1/4)',
-  'payslip2' => 'Payslip (1/2)',
-  'payslip3' => 'Payslip (1/2) v2',
-  'cash_voucher' => 'Cash Voucher',
-  'clergy_allowance' => 'Clergy Allowance',
-);
-
+$payslip_templates = unserialize(PAYROLL_PAYSLIP_TEMPLATES);
 ?>
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
@@ -116,6 +108,7 @@ $payslip_templates = array(
 <div class="row" style="margin-top:10px;">
   <div class="col-md-6 col-sm-6 col-xs-6">
     <select class="form-control input-sm" name="payslip_template[<?php echo $employee->pe_id; ?>]" data-style="btn-default btn-sm">
+      <option value="">- - No Payslip - -</option>
 <?php foreach( $payslip_templates as $k=>$v) { ?>
           <option value="<?php echo $k; ?>" <?php echo ($employee->template==$k) ? 'SELECTED' : ''; ?>><?php echo $v; ?></option>
 <?php } ?>

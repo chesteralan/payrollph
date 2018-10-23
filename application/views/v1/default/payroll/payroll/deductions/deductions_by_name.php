@@ -18,20 +18,40 @@
   </button>
   <ul class="dropdown-menu">
 <?php if($this->input->get('filter_by_year')) { ?>
-  <li><a href="<?php echo site_url(uri_string()) ?>">Show All</a></li>
+  <li><a href="<?php echo site_url(uri_string()) . (($this->input->get('filter'))?'?filter=' . $this->input->get('filter'):''); ?>">Show All</a></li>
 <?php } ?>
 <?php foreach($years as $year) { 
   if($this->input->get('filter_by_year')==$year->year) {
     continue;
   }
   ?>
-    <li><a href="<?php echo site_url(uri_string()) . "?filter_by_year=" . $year->year; ?>"><?php echo $year->year; ?></a></li>
+    <li><a href="<?php echo site_url(uri_string()) . "?filter_by_year=" . $year->year . (($this->input->get('filter'))?'&filter=' . $this->input->get('filter'):''); ?>"><?php echo $year->year; ?></a></li>
 <?php } ?>
   </ul>
 </div>
 <?php } ?>
 
-                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong></h3>
+<?php if( ($deductions) && (count($deductions)>1) ) { ?>
+<div class="btn-group pull-right">
+  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <?php echo (isset($deduction)) ? $deduction->name : 'Filter by Deduction'; ?> <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+<?php if($this->input->get('filter')) { ?>
+  <li><a href="<?php echo site_url(uri_string()) . (($this->input->get('filter_by_year'))?'?filter_by_year=' . $this->input->get('filter_by_year'):'') ?>">Show All</a></li>
+<?php } ?>
+<?php foreach($deductions as $deduct) { 
+if( isset($deduction) && ($deduct->id==$deduction->id) ) {
+    continue;
+}
+  ?>
+    <li><a href="<?php echo site_url(uri_string()) . "?filter=" . $deduct->id . (($this->input->get('filter_by_year'))?'&filter_by_year=' . $this->input->get('filter_by_year'):''); ?>"><?php echo $deduct->name; ?></a></li>
+<?php } ?>
+  </ul>
+</div>
+<?php } ?>
+
+                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong> <?php echo (isset($deduction)) ? "<span class='badge'>{$deduction->name}</span>" : ''; ?></h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 
@@ -43,26 +63,18 @@
             <thead>
               <tr class="warning">
                 <th>Payroll</th>
-                <th width="10%" class="text-right">Working Days</th>
-                <th width="10%" class="text-right">Absences</th>
-                <th width="10%" class="text-right">Days Present</th>
+                <th width="10%" class="text-right">Total Deductions</th>
               </tr>
             </thead>
             <tbody>
 <?php foreach($payrolls as $payroll) {  ?>
-<?php 
-$working_hours = ($payroll->hours) ? $payroll->hours : 8;
-$days_absent = ($payroll->absences_hours) ? ($payroll->absences_hours / $working_hours) : 0;
-?>
   <tr>
         <td>
         <a class="body_wrapper" href="<?php echo site_url("payroll_dtr/view/{$payroll->payroll_id}/0"); ?>">
         <?php echo $payroll->name; ?>
         </a>
         </td>
-        <td class="text-right"><?php echo $payroll->working_days; ?></td>
-        <td class="text-right"><?php echo $days_absent; ?></td>
-        <td class="text-right"><?php echo $payroll->working_days - $days_absent; ?></td>
+        <td class="text-right"><?php echo number_format($payroll->total_deductions,2); ?></td>
   </tr>
 <?php } ?>
             </tbody>

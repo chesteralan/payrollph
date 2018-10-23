@@ -136,6 +136,7 @@ class Payroll_salaries extends MY_Controller {
 				$employees->setNameId($this->session->userdata('current_employee')->name_id,true);
 			}
 			$employees->setPayrollId($id,true);
+			$employees->set_select('pe.*');
 			$employees->set_select('ni.*');
 			//$employees->set_select('e.name_id');
 			$employees->set_select('pe.id as pe_id');

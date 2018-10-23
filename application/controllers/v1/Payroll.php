@@ -467,6 +467,89 @@ class Payroll extends MY_Controller {
 					$pee_earning->setNotes($pee_earning->getNotes() . " X Birthday: " . $diff->y . " years");
 					$eamount = $eamount * $diff->y;
 		 		break;
+		 		case 'sundays':
+		 			$count = 0;
+		 			foreach( $payroll_data->inclusive_days as $pid ) {
+		 				$day = date("D", strtotime($pid->inclusive_date));
+		 				if( $day === 'Sun' ) {
+		 					$count++;
+		 				}
+		 			}
+					$pee_earning->setNotes($pee_earning->getNotes() . " X Sundays: " . $count . "");
+					$eamount = $eamount * $count;
+		 		break;
+		 		case 'mondays':
+		 			$count = 0;
+		 			foreach( $payroll_data->inclusive_days as $pid ) {
+		 				$day = date("D", strtotime($pid->inclusive_date));
+		 				if( $day === 'Mon' ) {
+		 					$count++;
+		 				}
+		 			}
+					$pee_earning->setNotes($pee_earning->getNotes() . " X Mondays: " . $count . "");
+					$eamount = $eamount * $count;
+		 		break;
+
+		 		case 'tuesdays':
+		 			$count = 0;
+		 			foreach( $payroll_data->inclusive_days as $pid ) {
+		 				$day = date("D", strtotime($pid->inclusive_date));
+		 				if( $day === 'Tue' ) {
+		 					$count++;
+		 				}
+		 			}
+					$pee_earning->setNotes($pee_earning->getNotes() . " X Tuesdays: " . $count . "");
+					$eamount = $eamount * $count;
+		 		break;
+
+		 		case 'wednesdays':
+		 			$count = 0;
+		 			foreach( $payroll_data->inclusive_days as $pid ) {
+		 				$day = date("D", strtotime($pid->inclusive_date));
+		 				if( $day === 'Wed' ) {
+		 					$count++;
+		 				}
+		 			}
+					$pee_earning->setNotes($pee_earning->getNotes() . " X Wednesdays: " . $count . "");
+					$eamount = $eamount * $count;
+		 		break;
+
+		 		case 'thursdays':
+		 			$count = 0;
+		 			foreach( $payroll_data->inclusive_days as $pid ) {
+		 				$day = date("D", strtotime($pid->inclusive_date));
+		 				if( $day === 'Thu' ) {
+		 					$count++;
+		 				}
+		 			}
+					$pee_earning->setNotes($pee_earning->getNotes() . " X Thursdays: " . $count . "");
+					$eamount = $eamount * $count;
+		 		break;
+
+		 		case 'fridays':
+		 			$count = 0;
+		 			foreach( $payroll_data->inclusive_days as $pid ) {
+		 				$day = date("D", strtotime($pid->inclusive_date));
+		 				if( $day === 'Fri' ) {
+		 					$count++;
+		 				}
+		 			}
+					$pee_earning->setNotes($pee_earning->getNotes() . " X Fridays: " . $count . "");
+					$eamount = $eamount * $count;
+		 		break;
+
+		 		case 'saturdays':
+		 			$count = 0;
+		 			foreach( $payroll_data->inclusive_days as $pid ) {
+		 				$day = date("D", strtotime($pid->inclusive_date));
+		 				if( $day === 'Sat' ) {
+		 					$count++;
+		 				}
+		 			}
+					$pee_earning->setNotes($pee_earning->getNotes() . " X Saturdays: " . $count . "");
+					$eamount = $eamount * $count;
+		 		break;
+
 		 	}
 
 		 	if( floatval( $earning2->max_amount ) > 0 ) {
@@ -683,9 +766,14 @@ class Payroll extends MY_Controller {
 
 			$inclusive_dates = new $this->Payroll_inclusive_dates_model;
 			$inclusive_dates->setPayrollId($id,true);
+			$inclusive_dates->set_order('inclusive_date', 'ASC');
+			$inclusive_dates->set_limit(0);
+			$payroll_data->inclusive_days = $inclusive_dates->populate();
+
 			$inclusive_dates->set_select('COUNT(*) as working_days');
 			$inclusive_dates->set_select('MIN(inclusive_date) as start_date');
 			$inclusive_dates->set_select('MAX(inclusive_date) as end_date');
+
 			$payroll_dates = $inclusive_dates->get();
 
 			$payroll_data->inclusive_dates = $payroll_dates;
