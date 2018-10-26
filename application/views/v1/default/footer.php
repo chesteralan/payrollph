@@ -13,7 +13,7 @@
 <a class="ajax-modal" href="#ajaxModal" data-hide_footer="1" data-toggle="modal" data-target="#ajaxModal" data-title="Switch Company" data-url="<?php echo site_url("welcome/select_company/0/ajax") . "?next=" . uri_string(); ?>">
       <?php echo $this->session->userdata( 'current_company' ); ?></a></strong>
 <?php } ?>
-				<p><a href="http://www.trokis.com/" target="footer_credits"><?php echo APP_NAME; ?></a> 
+				<p><a href="http://www.smbpayroll.com/" target="footer_credits"><?php echo APP_NAME; ?></a> 
 				&copy; <?php echo date('Y'); ?> </p>
 				
 				

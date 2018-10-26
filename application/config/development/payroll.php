@@ -3,7 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $config['multi_company'] = true;
 
-$config['system_name'] = 'Payroll ZEN';
+defined('APP_NAME') OR define('APP_NAME', 'SMB Payroll' );
+$config['system_name'] = 'SMB Payroll';
 
 $config['online_payroll'] = true;
 
@@ -84,7 +85,6 @@ $dept = array(
 
 defined('USERACCOUNTS_RESTRICTIONS') OR define('USERACCOUNTS_RESTRICTIONS', serialize( $dept ) );
 
-defined('APP_NAME') OR define('APP_NAME', 'Payroll ZEN' );
 defined('USER_AGENT_CHECK') OR define('USER_AGENT_CHECK', false );
 
 // working days
