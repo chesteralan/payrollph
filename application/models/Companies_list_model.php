@@ -15,7 +15,7 @@ CREATE TABLE `companies_list` (
   `default` int(1) DEFAULT '0',
   `trash` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `companies_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `companies_list` ADD  `theme` varchar(50) NULL   ;

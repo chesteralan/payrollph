@@ -770,9 +770,10 @@ class Payroll_deductions extends MY_Controller {
 					$employee_deductions->setActive(1,true);
 					$employee_deductions->setStartDate(date('Y-m-d'),true,false,'<=');
 					$employee_deductions->set_where("((SELECT COUNT(*) FROM employees_deductions_templates eet WHERE eet.template_id=".$template_id." AND eet.ed_id=ed.id) > 0)");
-					$employee_deductions->set_where('(((ed.max_amount - (SELECT SUM(ed2.amount) FROM payroll_employees_deductions ed2 WHERE ed2.entry_id=ed.id)) > 0)');
+					$employee_deductions->set_where('(((ed.max_amount - (IF((SELECT SUM(ed2.amount) FROM payroll_employees_deductions ed2 WHERE ed2.entry_id=ed.id),(SELECT SUM(ed2.amount) FROM payroll_employees_deductions ed2 WHERE ed2.entry_id=ed.id),0))) > 0)');
 					$employee_deductions->set_where_or('(ed.max_amount = 0))');
 					$employee_deductions->set_limit(0);
+					//print_r($employee_deductions->populate());
 					$edata->$var = $employee_deductions->populate();
 				}
 

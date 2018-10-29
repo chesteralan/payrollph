@@ -428,7 +428,7 @@ class Payroll_summary extends MY_Controller {
 			$employees->set_select(sprintf('(SELECT SUM(amount) FROM employees_earnings ee WHERE ((SELECT COUNT(*) FROM employees_earnings_templates WHERE template_id=%s AND ee_id=ee.id) >= 1) AND ee.name_id=pe.name_id AND ee.active=1 AND ee.trash=0) as gross_earnings', $template_id));
 
 			// gross deductions
-			$employees->set_select(sprintf('(SELECT SUM(ed.amount) FROM employees_deductions ed WHERE ((SELECT COUNT(*) FROM employees_deductions_templates WHERE template_id=%s AND ed_id=ed.id) >= 1) AND ed.name_id=pe.name_id AND ed.active=1 AND ed.trash=0 AND ((ed.max_amount - (SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id)) > 0) ) as gross_deductions', $template_id));
+			$employees->set_select(sprintf('(SELECT SUM(ed.amount) FROM employees_deductions ed WHERE ((SELECT COUNT(*) FROM employees_deductions_templates WHERE template_id=%s AND ed_id=ed.id) >= 1) AND ed.name_id=pe.name_id AND ed.active=1 AND ed.trash=0 AND ((((ed.max_amount - (IF((SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id),(SELECT SUM(ped.amount) FROM payroll_employees_deductions ped WHERE ped.entry_id=ed.id),0))) > 0) ) OR (ed.max_amount=0)) AND ed.start_date<="%s") as gross_deductions', $template_id, date('Y-m-d')));
 
 			$employees->setActive('1', true);
 			$employees->set_order('pe.order', 'ASC');
@@ -457,6 +457,8 @@ class Payroll_summary extends MY_Controller {
 				$employee_deductions->setActive(1,true);
 				$employee_deductions->setStartDate(date('Y-m-d'),true,false,'<=');
 				$employee_deductions->set_where("((SELECT COUNT(*) FROM employees_deductions_templates eet WHERE eet.template_id=".$template_id." AND eet.ed_id=ed.id) > 0)");
+				$employee_deductions->set_where('(((ed.max_amount - (IF((SELECT SUM(ed2.amount) FROM payroll_employees_deductions ed2 WHERE ed2.entry_id=ed.id),(SELECT SUM(ed2.amount) FROM payroll_employees_deductions ed2 WHERE ed2.entry_id=ed.id),0))) > 0)');
+				$employee_deductions->set_where_or('(ed.max_amount = 0))');
 				$employee_deductions->set_limit(0);
 				$employees_data[$eKey]->deductions_data = $employee_deductions->populate();
 			} 

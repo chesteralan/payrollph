@@ -59,7 +59,7 @@ $column_width = ceil(71 / $pc_count);
 <?php if( $column_group_earnings ) { ?>
 <?php if( $earnings_columns ) foreach( $earnings_columns as $column ) { ?>
 <?php if( isColumn($this, 'earning_'.$column->id, $print_columns) ) { ?>
-                <th width="<?php echo $column_width; ?>%" class="text-right"><?php echo $column->name; ?></th>
+                <th width="<?php echo $column_width; ?>%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?></th>
 <?php } ?>
 <?php } ?>
 <?php } ?>
@@ -69,15 +69,15 @@ $column_width = ceil(71 / $pc_count);
 <?php if( $column_group_benefits ) { ?>
 <?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
 <?php if( isColumn($this, 'benefit_'.$column->id, $print_columns) ) { ?>
-                <th width="<?php echo $column_width; ?>%" class="text-right"><?php echo $column->name; ?>-EE</th>
-                <th width="<?php echo $column_width; ?>%" class="text-right"><?php echo $column->name; ?>-ER</th>
+                <th width="<?php echo $column_width; ?>%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?>-EE</th>
+                <th width="<?php echo $column_width; ?>%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?>-ER</th>
 <?php } ?>
 <?php } ?>
 <?php } ?>
 <?php if( $column_group_deductions ) { ?>
 <?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { ?>
 <?php if( isColumn($this, 'deduction_'.$column->id, $print_columns) ) { ?>
-                <th width="<?php echo $column_width; ?>%" class="text-right"><?php echo $column->name; ?></th>
+                <th width="<?php echo $column_width; ?>%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?></th>
 <?php } ?>
 <?php } ?>
 <?php } ?>

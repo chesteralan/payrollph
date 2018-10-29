@@ -17,7 +17,7 @@ CREATE TABLE `payroll_employees_earnings` (
   `manual` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`payroll_id`,`earning_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `payroll_employees_earnings` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `payroll_employees_earnings` ADD  `payroll_id` int(20) NOT NULL   ;

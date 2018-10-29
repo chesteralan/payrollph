@@ -645,6 +645,9 @@ class Payroll_templates extends MY_Controller {
 		$template = new $this->Payroll_templates_model;
 		$template->setId($template_id,true);
 		if( $template->nonEmpty() ) {
+			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_employees') ) {
+				redirect("payroll_employees/preview/{$template_id}");
+			}
 			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_salaries') ) {
 				redirect("payroll_salaries/preview/{$template_id}");
 			}
@@ -865,6 +868,19 @@ class Payroll_templates extends MY_Controller {
 
 	public function change_payslip($template_id, $name_id, $output='') {
 
+		$employees = new $this->Payroll_templates_employees_model('pe');
+		$employees->setTemplateId($template_id,true);
+		$employees->setNameId($name_id,true);
+
+		if( $this->input->post() ) {
+			$employees->setTemplate($this->input->post('payslip'),false,true);
+			$employees->update();
+			$this->getNext();
+		}
+
+		$employees->set_select('pe.*');
+		$this->template_data->set('employee', $employees->get());
+
 		$this->_column_groups();
 		$template = new $this->Payroll_templates_model;
 		$template->setId($template_id,true);
@@ -892,18 +908,6 @@ class Payroll_templates extends MY_Controller {
 		$terms->setType('employment_status',true);
 		$this->template_data->set('employment_status', $terms->populate());
 
-		$employees = new $this->Payroll_templates_employees_model('pe');
-		$employees->setTemplateId($template_id,true);
-		$employees->setNameId($name_id,true);
-
-		if( $this->input->post('payslip') ) {
-			$employees->setTemplate($this->input->post('payslip'),false,true);
-			$employees->update();
-			redirect( $this->input->get('next') );
-		}
-
-		$employees->set_select('pe.*');
-		$this->template_data->set('employee', $employees->get());
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/templates/change_payslip', $this->template_data->get_data());

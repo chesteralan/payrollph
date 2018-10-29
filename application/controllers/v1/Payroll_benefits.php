@@ -397,9 +397,10 @@ class Payroll_benefits extends MY_Controller {
 				$employee_share = str_replace(",", "", $this->input->post('employee_share'));
 				$employer_share = str_replace(",", "", $this->input->post('employer_share'));
 				
-				$benefits->setEmployeeShare( $employee_share );
-				$benefits->setEmployerShare( $employer_share );
-				$benefits->setNotes($this->input->post('notes'));
+				$benefits->setEmployeeShare( $employee_share, false, true );
+				$benefits->setEmployerShare( $employer_share, false, true );
+				$benefits->setNotes($this->input->post('notes'), false, true);
+				$benefits->setEntryId( $this->input->post('entry_id'), false, true );
 				$benefits->update();
 			}
 			//redirect("payroll_benefits/view/{$benefit_data->payroll_id}");
@@ -416,6 +417,13 @@ class Payroll_benefits extends MY_Controller {
 		$benefit_list = new $this->Benefits_list_model;
 		$benefit_list->setId($benefit_data->benefit_id,true);
 		$this->template_data->set('benefit_data', $benefit_list->get());
+
+		$employees_benefits = new $this->Employees_benefits_model('eb');
+		$employees_benefits->setBenefitId($benefit_data->benefit_id,true);
+		$employees_benefits->setNameId($benefit_data->name_id,true);
+		$employees_benefits->setTrash(0,true);
+		$employees_benefits->set_select("eb.*");
+		$this->template_data->set('employees_benefits', $employees_benefits->populate());
 
 		$this->_column_groups();
 		$this->template_data->set('output', $output);

@@ -159,7 +159,7 @@ if( isset($compare_payroll) ) {
               <tr class="warning">
                 <th>TOTAL</th>
 <?php if( $deductions_columns ) foreach( $deductions_columns as $column ) { ?>
-                <th width="7%" class="text-right"><?php echo $column->name; ?> 
+                <th width="7%" class="text-right"><?php echo ($column->abbr!='') ? $column->abbr : $column->name; ?> 
 <?php if( intval($column_id) > 0 ) { ?>
 <a href="<?php echo site_url("payroll_deductions/view/{$payroll->id}/{$group_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-remove"></a>
 <?php } else { ?>

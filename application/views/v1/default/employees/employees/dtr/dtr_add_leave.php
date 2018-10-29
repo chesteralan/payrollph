@@ -60,7 +60,7 @@ $leave_balance = ($leave->days - $leave->availed) + ($absence->hours / $employee
         <div class="col-md-6">
           <div class="form-group">
             <label>Number of Hours</label>
-            <input name="hours" type="text" class="form-control text-center" value="<?php echo ($absence) ? $absence->hours : $employee->working_hours; ?>" required>
+            <input name="hours" type="text" class="form-control text-center" value="<?php echo ($absence) ? $absence->hours : (($employee)?$employee->working_hours:8); ?>" required>
           </div>
         </div>
       </div>

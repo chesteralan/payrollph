@@ -14,7 +14,7 @@ CREATE TABLE `calendar` (
   `premium` int(2) DEFAULT '0',
   `notes` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
 ALTER TABLE  `calendar` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `calendar` ADD  `company_id` int(20) NOT NULL   ;

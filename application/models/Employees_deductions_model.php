@@ -20,7 +20,7 @@ CREATE TABLE `employees_deductions` (
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`deduction_id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `employees_deductions` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `employees_deductions` ADD  `company_id` int(20) NOT NULL   ;

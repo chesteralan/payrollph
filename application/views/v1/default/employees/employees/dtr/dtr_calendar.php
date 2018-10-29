@@ -159,8 +159,8 @@ function draw_calendar($name_id, $month,$year,$absences=NULL, $attendance=NULL){
             <div class="col-md-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
-<a href="<?php echo site_url(uri_string()) . "?month=" .  date('m', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01'))) . "&year=" .  date('Y', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?>" class="pull-right"><?php echo date('F Y', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?> &rArr;</a>
-<a href="<?php echo site_url(uri_string()) . "?month=" .  date('m', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))) . "&year=" .  date('Y', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?>" class="pull-left">&lArr; <?php echo date('F Y', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?></a>                  
+<a href="<?php echo site_url("employees_dtr/view/{$name_id}/{$next_month}/{$next_year}"); ?>" class="pull-right"><?php echo date('F Y', strtotime($next_year.'-'.$next_month.'-01')); ?> &rArr;</a>
+<a href="<?php echo site_url("employees_dtr/view/{$name_id}/{$previous_month}/{$previous_year}"); ?>" class="pull-left">&lArr; <?php echo date('F Y', strtotime($previous_year.'-'.$previous_month.'-01')); ?></a>                  
                   <center>
                   <h3 class="panel-title bold">
 <div class="btn-group">
@@ -169,7 +169,7 @@ function draw_calendar($name_id, $month,$year,$absences=NULL, $attendance=NULL){
   </button>
   <ul class="dropdown-menu">
 <?php for($i=1;$i <= 12; $i++ ) { ?>
-    <li class="<?php echo ($i==$current_month) ? "active" : ""; ?>"><a href="<?php echo site_url(uri_string()) . "?month={$i}&year={$current_year}"; ?>"><?php echo date('F Y', strtotime($i."/1/".$current_year)); ?></a></li>
+    <li class="<?php echo ($i==$current_month) ? "active" : ""; ?>"><a href="<?php echo site_url("employees_dtr/view/{$name_id}/{$i}/{$current_year}"); ?>"><?php echo date('F Y', strtotime($i."/1/".$current_year)); ?></a></li>
 <?php } ?>
   </ul>
 </div>

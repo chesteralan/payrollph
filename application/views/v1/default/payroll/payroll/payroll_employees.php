@@ -18,6 +18,9 @@ $payslip_templates = unserialize(PAYROLL_PAYSLIP_TEMPLATES);
 <div class="btn-group pull-right" role="group" aria-label="..." style="margin-bottom: 5px;">
   <button class="btn btn-default btn-xs sortable-asc1 accordion-sort-asc" data-sortable="sortable-employees" type="button"><span class="glyphicon glyphicon-sort-by-alphabet"></span></button> 
   <button class="btn btn-default btn-xs sortable-desc1 accordion-sort-desc" data-sortable="sortable-employees" type="button"><span class="glyphicon glyphicon-sort-by-alphabet-alt"></span></button> 
+
+  <a class="btn btn-default btn-xs" href="<?php echo site_url("payroll/add_employee/{$payroll_id}/{$group_id}/{$output}") . "?next=" . $this->input->get("next"); ?>"><span class="glyphicon glyphicon-plus"></span> <span class="glyphicon glyphicon-user"></span></a> 
+
 </div>
 
           <h3 class="panel-title">
@@ -43,6 +46,9 @@ $payslip_templates = unserialize(PAYROLL_PAYSLIP_TEMPLATES);
 <div class="btn-group" role="group" aria-label="..." style="margin-bottom: 5px;">
   <button class="btn btn-default btn-xs sortable-asc1 accordion-sort-asc" data-sortable="sortable-employees" type="button"><span class="glyphicon glyphicon-sort-by-alphabet"></span></button> 
   <button class="btn btn-default btn-xs sortable-desc1 accordion-sort-desc" data-sortable="sortable-employees" type="button"><span class="glyphicon glyphicon-sort-by-alphabet-alt"></span></button> 
+<?php if($this->input->get('action')!='sort') { ?>
+  <a class="btn btn-default btn-xs ajax-modal-inner" href="<?php echo site_url("payroll/add_employee/{$payroll_id}/{$group_id}/{$output}") . "?next=" . $this->input->get("next"); ?>"><span class="glyphicon glyphicon-plus"></span> <span class="glyphicon glyphicon-user"></span></a> 
+<?php } ?>
 </div>
 <?php } ?>
 

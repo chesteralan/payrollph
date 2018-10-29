@@ -47,14 +47,25 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
 <?php } ?>
 
                 </th>
-<?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
+<?php if( $benefits_columns ) {
+  foreach( $benefits_columns as $column ) { ?>
                 <th width="10%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?>-EE <a class="ajax-modal" data-toggle="modal" href="#ajaxModal" data-title="Edit <?php echo $column->name; ?>" data-url="<?php echo site_url("lists_benefits/edit/{$column->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-pencil"></span></a></th>
+<!--
                 <th width="10%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?>-ER <a class="ajax-modal" data-toggle="modal" href="#ajaxModal" data-title="Edit <?php echo $column->name; ?>" data-url="<?php echo site_url("lists_benefits/edit/{$column->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-pencil"></span></a></th>
+-->
+<?php } ?>
+
+
+<th width="10%" class="text-right">TOTAL EE</th>
+
 <?php } ?>
               </tr>
             </thead>
             <tbody>
-<?php if($payroll_group->employees) { 
+<?php 
+
+if($payroll_group->employees) { 
+
               foreach($payroll_group->employees as $employee) { 
 
               ?>
@@ -73,14 +84,15 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
 <?php 
 $total_benefits_ee = 0;
 $total_benefits_er = 0;
-if( $benefits_columns ) foreach( $benefits_columns as $column ) { 
+if( $benefits_columns ) {
+  foreach( $benefits_columns as $column ) { 
 
                     $var2 = 'benefits_' . $column->id . '_data';
                     $benefits_data = $employee->$var2;
                     $column_name = $column->name;
 
-                     $ee_amount = 0;
-                     $er_amount = 0;
+                    $ee_amount = 0;
+                    $er_amount = 0;
                     if( $benefits_data ) {
                    
                     foreach($benefits_data as $benefit2) {
@@ -101,13 +113,21 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
                   }
   ?>
                 <td class="text-right">
-<a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $column_name; ?> - <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo $entries_url; ?>" class="ajax-modal" data-hide_footer="1">
+<a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $column_name; ?> - <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo $entries_url; ?>" class="ajax-modal">
                 <?php echo number_format($ee_amount,2); ?>
 </a>
                     </td>
+<!--
                 <td class="text-right">
                 <?php 
                     echo number_format($er_amount,2); ?>
+                    </td>
+-->
+<?php } ?>
+
+                <td class="text-right">
+                <?php 
+                    echo number_format($total_benefits_ee,2); ?>
                     </td>
 <?php } ?>
 
@@ -125,18 +145,34 @@ if( $benefits_columns ) foreach( $benefits_columns as $column ) {
             <thead>
               <tr class="warning">
                 <th>TOTAL</th>
-<?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
+<?php if( $benefits_columns ) { 
+  foreach( $benefits_columns as $column ) { ?>
                 <th width="10%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?>-EE <a class="ajax-modal" data-toggle="modal" href="#ajaxModal" data-title="Edit <?php echo $column->name; ?>" data-url="<?php echo site_url("lists_benefits/edit/{$column->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-pencil"></span></a></th>
+<!--
                 <th width="10%" class="text-right"><?php echo ($column->abbr) ? $column->abbr : $column->name; ?>-ER <a class="ajax-modal" data-toggle="modal" href="#ajaxModal" data-title="Edit <?php echo $column->name; ?>" data-url="<?php echo site_url("lists_benefits/edit/{$column->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-pencil"></span></a></th>
+-->
+<?php } ?>
+
+<th width="10%" class="text-right">TOTAL EE</th>
+
 <?php } ?>
               </tr>
             </thead>
             <tbody>
             <tr class="success">
             <td></td>
-<?php if( $benefits_columns ) foreach( $benefits_columns as $column ) { ?>
+<?php if( $benefits_columns ) { 
+  $total_benefits = 0;
+  foreach( $benefits_columns as $column ) { 
+    $total_benefits +=  $total[$column->id]['ee'];
+    ?>
+
                 <td width="10%" class="text-right"><strong><?php echo number_format($total[$column->id]['ee'],2);?></strong></td>
+<!--
                 <td width="10%" class="text-right"><strong><?php echo number_format($total[$column->id]['er'],2);?></strong></td>
+-->
+<?php } ?>
+ <td width="10%" class="text-right"><strong><?php echo number_format($total_benefits,2);?></strong></td>
 <?php } ?>
   </tr>
             </tbody>

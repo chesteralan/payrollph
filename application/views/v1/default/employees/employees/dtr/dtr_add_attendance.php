@@ -4,7 +4,7 @@
 
 <?php $this->load->view('header'); ?>
 
-<?php $this->load->view('employees/employees/employees_view_navbar'); ?>
+<?php //$this->load->view('employees/employees/employees_view_navbar');  ?>
 
 <div class="container">
 <div class="row">
@@ -37,7 +37,7 @@
         <div class="col-md-12">
           <div class="form-group">
             <label>Number of Hours</label>
-            <input name="hours" type="text" class="form-control text-center" value="<?php echo ($attendance) ? $attendance->hours : $employee->working_hours; ?>" required>
+            <input name="hours" type="text" class="form-control text-center" value="<?php echo ($attendance) ? $attendance->hours : ((isset($employee)&&($employee))?$employee->working_hours:8); ?>" required>
           </div>
         </div>
       </div>

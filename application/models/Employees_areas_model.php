@@ -13,7 +13,7 @@ CREATE TABLE `employees_areas` (
   `name` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `employees_areas` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `employees_areas` ADD  `company_id` int(20) NOT NULL   ;

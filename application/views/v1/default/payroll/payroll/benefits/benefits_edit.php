@@ -36,7 +36,22 @@
   </div>
 </div> 
 
-  
+  <?php if( $benefit->manual == 0) { ?>
+
+    <?php if( $employees_benefits ) { ?>
+          <div class="form-group">
+            <label>Connect to</label>
+            <select name="entry_id" class="form-control">
+                <option value="0">- - No Connection - -</option>
+                <?php foreach($employees_benefits as $entry) { ?>
+                    <option value="<?php echo $entry->id; ?>" <?php echo ($benefit->entry_id==$entry->id) ? 'SELECTED' : ''; ?>><?php echo $benefit_data->name; ?> (EE: <?php echo number_format($entry->employee_share,2); ?> | ER: <?php echo number_format($entry->employer_share,2); ?>)</option>
+                <?php } ?>
+            </select>
+          </div>
+    <?php } ?>
+
+    <?php } ?>
+
           <div class="form-group">
             <label>Notes</label>
             <textarea name="notes" class="form-control" rows="3"><?php echo $benefit->notes; ?></textarea>

@@ -21,7 +21,7 @@ CREATE TABLE `employees_earnings` (
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`earning_id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `employees_earnings` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `employees_earnings` ADD  `company_id` int(20) NOT NULL   ;

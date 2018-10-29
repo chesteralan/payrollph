@@ -17,24 +17,40 @@ class Employees_dtr extends MY_Controller {
 		redirect("employees");
 	}
 
-	public function view($id, $start=0) {
+	public function view($id, $current_month=0, $current_year=0) {
+
+		$this->template_data->set('name_id', $id);
 
 		$employee = new $this->Employees_model('e');
 		$employee->setNameId($id,true);
+		$employee->set_select('e.*');
 		$employee->set_select('ni.*');
 		$employee->set_select('e.name_id');
 		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
-		$this->template_data->set('employee', $employee->get());
+		$employee_data = $employee->get();
+		$this->template_data->set('employee', $employee_data);
 
-		$current_month = ($this->input->get('month')) ? $this->input->get('month') : date('m');
-		$current_year = ($this->input->get('year')) ? $this->input->get('year') : date('Y');
+		$name_id = $employee_data->name_id;
+
+		$current_month = ($current_month) ? $current_month : date('m');
+		$current_year = ($current_year) ? $current_year : date('Y');
 		$this->template_data->set('current_month', $current_month);
 		$this->template_data->set('current_year', $current_year);
+
+		$previous_month = date('m', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01')));
+		$previous_year = date('Y', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01')));
+		$this->template_data->set('previous_month', $previous_month);
+		$this->template_data->set('previous_year', $previous_year);
+
+		$next_month = date('m', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01')));
+		$next_year = date('Y', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01')));
+		$this->template_data->set('next_month', $next_month);
+		$this->template_data->set('next_year', $next_year);
 
 		$absences = new $this->Employees_absences_model('a');
 		$absences->set_where('MONTH(date_absent)', $current_month);
 		$absences->set_where('YEAR(date_absent)', $current_year);
-		$absences->setNameId($id,true);
+		$absences->setNameId($name_id,true);
 		$absences->set_select('a.*');
 		$absences->set_select('b.name as leave_name');
 		$absences->set_join('benefits_list b', 'b.id=a.leave_type');
@@ -44,7 +60,7 @@ class Employees_dtr extends MY_Controller {
 		$attendance = new $this->Employees_attendance_model('a');
 		$attendance->set_where('MONTH(date_present)', $current_month);
 		$attendance->set_where('YEAR(date_present)', $current_year);
-		$attendance->setNameId($id,true);
+		$attendance->setNameId($name_id,true);
 		$attendance->set_select('a.*');
 		$attendance->set_limit(0);
 		$this->template_data->set('attendance', $attendance->populate());
@@ -162,6 +178,9 @@ class Employees_dtr extends MY_Controller {
 		if( $this->input->post() ) {
 					$attendance->setHours($this->input->post('hours'));
 					$attendance->setNotes($this->input->post('notes'));
+					if( $this->input->get('auto_assign') ) {
+						$attendance->setPeId($pe_id);
+					}
 					if( $attendance->nonEmpty() ) {
 						$attendance->update();
 					} else {
@@ -180,18 +199,12 @@ class Employees_dtr extends MY_Controller {
 
 		$employee = new $this->Payroll_employees_model('pe');
 		$employee->setId($pe_id,true);
-		$employee_data = $employee->get();
+		$employee->set_select("pe.*");
+		$employee->set_select("e.name_id as e_name_id");
+		$employee->set_join('employees e', 'e.name_id=pe.name_id');
+		$pemployee_data = $employee->get();
 
-		$name_id = $employee_data->name_id;
-
-		$this->template_data->set('date', $date );
-		$this->template_data->set('pe_id', $pe_id );
-		$this->template_data->set('name_id', $name_id );
-
-		$payroll = new $this->Payroll_model;
-		$payroll->setId($employee_data->payroll_id,true);
-		$payroll_data = $payroll->get();
-		$this->template_data->set('payroll', $payroll_data);
+		$name_id = $pemployee_data->name_id;
 
 		$employee = new $this->Employees_model('e');
 		$employee->setNameId($name_id,true);
@@ -202,6 +215,15 @@ class Employees_dtr extends MY_Controller {
 		$employee->set_join('names_info ni', 'ni.name_id=e.name_id');
 		$employee_data = $employee->get();
 		$this->template_data->set('employee', $employee_data );
+
+		$this->template_data->set('date', $date );
+		$this->template_data->set('pe_id', $pe_id );
+		$this->template_data->set('name_id', $name_id );
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($pemployee_data->payroll_id,true);
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
 
 		$absence = new $this->Employees_absences_model;
 		$absence->setNameId($name_id,true);
@@ -267,8 +289,14 @@ class Employees_dtr extends MY_Controller {
 			$leave_benefits->setLeave(1,true);
 			$leave_benefits->setTrash(0,true);
 			$leave_benefits->set_select("*");
-			$leave_benefits->set_select("(SELECT elb.days FROM employees_leave_benefits elb WHERE elb.name_id={$employee_data->name_id} AND elb.company_id={$employee_data->company_id} AND b.id=elb.benefit_id AND elb.year='{$selected_year}' LIMIT 1) as days");
-			$leave_benefits->set_select("(SELECT SUM(eab.hours/8) FROM employees_absences eab WHERE eab.name_id={$employee_data->name_id} AND eab.leave_type=b.id AND YEAR(eab.date_absent)='{$selected_year}') as availed");
+
+			if( $employee_data ) {
+				$leave_benefits->set_select("(SELECT elb.days FROM employees_leave_benefits elb WHERE elb.name_id={$employee_data->name_id} AND elb.company_id={$employee_data->company_id} AND b.id=elb.benefit_id AND elb.year='{$selected_year}' LIMIT 1) as days");
+			
+			
+				$leave_benefits->set_select("(SELECT SUM(eab.hours/8) FROM employees_absences eab WHERE eab.name_id={$employee_data->name_id} AND eab.leave_type=b.id AND YEAR(eab.date_absent)='{$selected_year}') as availed");
+			}
+			
 			$this->template_data->set('leave_benefits', $leave_benefits->populate());
 		}
 

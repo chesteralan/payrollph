@@ -84,9 +84,9 @@ class MY_Controller extends CI_Controller {
                 }
 
                 // default,cerulean,cosmo,cyborg,darkly,flatly,journal,lumen,paper,readable,sandstone,simplex,slate,spacelab,superhero,united,yeti
-                $bootstrap_theme = ($this->session->userdata( 'current_company_theme' )) ? $this->session->userdata( 'current_company_theme' ) : 'yeti';
+                $bootstrap_theme = ($this->session->userdata( 'current_company_theme' )) ? $this->session->userdata( 'current_company_theme' ) : 'united';
                 $bootstrap_theme = ( isset($this->session->user_settings['theme']) && ($this->session->user_settings['theme'] != '_company_theme_') ) ? $this->session->user_settings['theme'] : $bootstrap_theme;
-                
+                $bootstrap_theme = ($bootstrap_theme=='_company_theme_') ? 'united' : $bootstrap_theme;
                 $this->template_data->set('bootstrap_theme', $bootstrap_theme);
 
         }
@@ -298,4 +298,40 @@ class MY_Controller extends CI_Controller {
             $this->template_data->set('column_group_sort', get_company_option($this->session->userdata('current_company_id'), 'column_group_sort'));
         }
     
+    public function _select_payroll($payroll_id) {
+        
+        $payroll = new $this->Payroll_model;
+        $payroll->setId($payroll_id,true);
+        if( $payroll->nonEmpty() ) {
+            $this->session->set_userdata('current_payroll', $payroll->getResults() );
+            
+            //$this->session->set_userdata('employees_status', false);
+            //$this->session->set_userdata('current_employee', false );
+            
+            if( get_company_option($this->session->userdata('current_company_id'), 'column_group_summary')) {
+                redirect("payroll_summary/view/{$payroll_id}");
+            }
+            if( get_company_option($this->session->userdata('current_company_id'), 'column_group_dtr') ) {
+                redirect("payroll_dtr/view/{$payroll_id}");
+            }
+            if( get_company_option($this->session->userdata('current_company_id'), 'column_group_salaries') ) {
+                redirect("payroll_salaries/view/{$payroll_id}");
+            }
+            if( get_company_option($this->session->userdata('current_company_id'), 'column_group_earnings') ) {
+                redirect("payroll_earnings/view/{$payroll_id}");
+            }
+            if( get_company_option($this->session->userdata('current_company_id'), 'column_group_benefits')) {
+                redirect("payroll_benefits/view/{$payroll_id}");
+            }
+            if( get_company_option($this->session->userdata('current_company_id'), 'column_group_deductions')) {
+                redirect("payroll_deductions/view/{$payroll_id}");
+            }
+
+            if( get_company_option($this->session->userdata('current_company_id'), 'column_group_employees')) {
+                redirect("payroll_employees/view/{$payroll_id}");
+            }
+
+        }
+
+    }
 }

@@ -32,6 +32,11 @@ $payslip_templates = unserialize(PAYROLL_PAYSLIP_TEMPLATES);
               <?php } ?>
             </select>
           </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="update_template" value="<?php echo $payroll->template_id; ?>"> Update Template: <strong><?php echo $payroll->template_name; ?></strong>
+            </label>
+          </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>

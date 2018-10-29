@@ -14,7 +14,7 @@ CREATE TABLE `earnings_list` (
   `trash` int(1) DEFAULT '0',
   `abbr` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `earnings_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `earnings_list` ADD  `name` varchar(200) NOT NULL   ;

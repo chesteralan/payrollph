@@ -16,7 +16,7 @@ CREATE TABLE `system_audit` (
   `notes` text,
   `date_accessed` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=104 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `system_audit` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `system_audit` ADD  `user_id` int(20) NOT NULL   ;

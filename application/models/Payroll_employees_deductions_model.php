@@ -17,7 +17,7 @@ CREATE TABLE `payroll_employees_deductions` (
   `manual` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`payroll_id`,`deduction_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `payroll_employees_deductions` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `payroll_employees_deductions` ADD  `payroll_id` int(20) NOT NULL   ;

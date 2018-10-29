@@ -88,7 +88,7 @@ defined('USERACCOUNTS_RESTRICTIONS') OR define('USERACCOUNTS_RESTRICTIONS', seri
 defined('USER_AGENT_CHECK') OR define('USER_AGENT_CHECK', false );
 
 // working days
-defined('WORK_ON_SUN')      OR define('WORK_ON_SUN', true); 
+defined('WORK_ON_SUN')      OR define('WORK_ON_SUN', false); 
 defined('WORK_ON_MON')      OR define('WORK_ON_MON', true); 
 defined('WORK_ON_TUE')      OR define('WORK_ON_TUE', true); 
 defined('WORK_ON_WED')      OR define('WORK_ON_WED', true); 
@@ -105,6 +105,7 @@ defined('TERM_TYPES')      OR define('TERM_TYPES', serialize( array(
 defined('EARNING_MULTIPLIERS')      OR define('EARNING_MULTIPLIERS', serialize( array(
 	'employment'=>'Employment (in years)', 
 	'birthday'=>'Birthday (in years)',
+	'inclusive_days'=>'Inclusive Days / Working Days',
 	'sundays'=>'Sundays',
 	'mondays'=>'Mondays',
 	'tuesdays'=>'Tuesdays',
@@ -123,6 +124,6 @@ defined('PAYROLL_PAYSLIP_TEMPLATES')      OR define('PAYROLL_PAYSLIP_TEMPLATES',
 	  'payslip' => 'Payslip (1/4)',
 	  'payslip2' => 'Payslip (1/2)',
 	  'payslip3' => 'Payslip (1/2) v2',
-	  'cash_voucher' => 'Cash Voucher',
-	  'clergy_allowance' => 'Clergy Allowance',
+	  //'cash_voucher' => 'Cash Voucher',
+	  //'clergy_allowance' => 'Clergy Allowance',
 ) ));

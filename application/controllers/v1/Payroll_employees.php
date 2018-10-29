@@ -451,6 +451,29 @@ class Payroll_employees extends MY_Controller {
 
 	public function change_payslip($payroll_id, $pe_id, $output='') {
 
+		$employee = new $this->Payroll_employees_model();
+		$employee->setId($pe_id,true);
+		$employee_data = $employee->get();
+
+		if( $this->input->post() ) { 
+			if( $this->input->post('payslip') ) {
+				$employee->setTemplate($this->input->post('payslip'),false,true);
+			} else {
+				$employee->setTemplate('',false,true);
+			}
+			$employee->update();
+
+			if( $this->input->post('update_template') ) {
+				$template = new $this->Payroll_templates_employees_model();
+				$template->setTemplateId($this->input->post('update_template'),true);
+				$template->setNameId($employee_data->name_id,true);
+				$template->setTemplate($this->input->post('payslip'),false,true);
+				$template->update();
+			}
+
+			$this->getNext();
+		}
+
 		$this->_column_groups();
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($payroll_id,true);
@@ -458,12 +481,9 @@ class Payroll_employees extends MY_Controller {
 		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_earnings` pe WHERE pe.payroll_id=payroll.id) as earnings_columns");
 		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_benefits` pb WHERE pb.payroll_id=payroll.id) as benefits_columns");
 		$payroll->set_select("(SELECT COUNT(*) FROM `payroll_deductions` pd WHERE pd.payroll_id=payroll.id) as deductions_columns");
+		$payroll->set_select("(SELECT pt.name FROM `payroll_templates` pt WHERE pt.id=payroll.template_id) as template_name");
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
-
-		$employee = new $this->Payroll_employees_model();
-		$employee->setId($pe_id,true);
-		$employee_data = $employee->get();
 
 		$names = new $this->Names_list_model;
 		$names->setId($employee_data->name_id, true);
@@ -480,15 +500,6 @@ class Payroll_employees extends MY_Controller {
 		$terms->setType('employment_status',true);
 		$this->template_data->set('employment_status', $terms->populate());
 	
-		if( $this->input->post() ) {
-			if( $this->input->post('payslip') ) {
-				$employee->setTemplate($this->input->post('payslip'),false,true);
-			} else {
-				$employee->setTemplate('',false,true);
-			}
-			$employee->update();
-			redirect( $this->input->get('next') );
-		}
 
 		$employee->set_select('*');
 		$this->template_data->set('employee', $employee->get());

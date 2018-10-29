@@ -13,7 +13,7 @@ CREATE TABLE `employees_groups` (
   `trash` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `employees_groups` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `employees_groups` ADD  `company_id` int(20) NOT NULL   ;

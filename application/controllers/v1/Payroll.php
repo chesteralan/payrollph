@@ -467,6 +467,11 @@ class Payroll extends MY_Controller {
 					$pee_earning->setNotes($pee_earning->getNotes() . " X Birthday: " . $diff->y . " years");
 					$eamount = $eamount * $diff->y;
 		 		break;
+		 		case 'inclusive_days':
+		 			$count = count($payroll_data->inclusive_days);
+					$pee_earning->setNotes($pee_earning->getNotes() . " X Working Days: " . $count . "");
+					$eamount = $eamount * $count;
+		 		break;
 		 		case 'sundays':
 		 			$count = 0;
 		 			foreach( $payroll_data->inclusive_days as $pid ) {
@@ -813,12 +818,13 @@ class Payroll extends MY_Controller {
 				$employees->set_select('(SELECT ni.birthday FROM names_info ni WHERE ni.name_id=e.name_id) as birthday');
 				$employees->set_limit(0);
 				$employees->set_where('e.group_id', $group->group_id);
-				$employees->set_where('pte.active', 1);
+				//$employees->set_where('pte.active', 1);
 				$employees->set_join('payroll_templates_employees pte', 'pte.name_id=e.name_id', 'RIGHT');
 				$employees->set_select('pte.active');
 				$employees->set_select('pte.template');
 				$employees->set_select('pte.print_group');
 				$employees->set_select('pte.order');
+				$employees->set_group_by('e.name_id');
 
 				foreach( $employees->populate() as $employee ) {
 
@@ -845,6 +851,7 @@ class Payroll extends MY_Controller {
 
 					$employees_data[] = $peData;
 				}
+
 			}
 
 			if( $employees_data ) {
@@ -853,6 +860,8 @@ class Payroll extends MY_Controller {
 
 		endif;
 
+		$this->_select_payroll($id);
+		
 		redirect( site_url($redirect_uri) . "#successful" );
 	}
 
@@ -993,7 +1002,109 @@ class Payroll extends MY_Controller {
 
 	}
 
+	public function add_employee($id, $group_id, $output='') {
+
+		if( $this->input->post() ) {
+			if( $this->input->post('selected') ) {
+				$employees = new $this->Employees_model('e');
+				$employees->setCompanyId($this->session->userdata('current_company_id'),true);
+				$employees->set_where_in('e.name_id', $this->input->post('selected'));
+				foreach($employees->populate() as $employee) {
+					$add_employee = new $this->Payroll_employees_model('pe');
+					$add_employee->setPayrollId($id,true,true);
+					$add_employee->setNameId($employee->name_id,true,true);
+					$add_employee->setActive(1,false,true);
+					$add_employee->setStatusId($employee->status,false,true);
+					$add_employee->setGroupId($employee->group_id,false,true);
+					$add_employee->setPositionId($employee->position_id,false,true);
+					$add_employee->setAreaId($employee->area_id,false,true);
+					if( !$add_employee->nonEmpty() ) {
+						$add_employee->insert();
+					}
+				}
+			}
+			$this->getNext();
+		}
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		if( $payroll->nonEmpty() ) {
+			$payroll_data = $payroll->getResults();
+			$inclusive_dates = new $this->Payroll_inclusive_dates_model;
+			$inclusive_dates->setPayrollId($id,true);
+			$inclusive_dates->set_select('COUNT(*) as working_days');
+			$inclusive_dates->set_select('MIN(inclusive_date) as start_date');
+			$inclusive_dates->set_select('MAX(inclusive_date) as end_date');
+			$payroll_dates = $inclusive_dates->get();
+			$payroll_data->inclusive_dates = $payroll_dates;
+		}
+		$this->template_data->set('payroll', $payroll_data);
+
+		$employees = new $this->Employees_model('e');
+		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
+		$employees->set_select('e.*');
+		$employees->set_limit(0);
+
+		switch( $payroll_data->group_by ) {
+			case 'position':
+				$employees->set_where('e.position_id', $group_id);
+			break;
+			case 'area':
+				$employees->set_where('e.area_id', $group_id);
+			break;
+			case 'status':
+				$employees->set_where('e.status', $group_id);
+			break;
+			case 'group':
+			default:
+				$employees->set_where('e.group_id', $group_id);
+			break;
+		}
+
+		//$employees->set_select("(SELECT COUNT(*) FROM payroll_employees pe WHERE pe.name_id=e.name_id AND pe.payroll_id={$id}) as count_e");
+		
+		$employees->set_where("((SELECT COUNT(*) FROM payroll_employees pe WHERE pe.name_id=e.name_id AND pe.payroll_id={$id}) = 0)");
+
+/*
+		$employees->set_join('payroll_employees pe', 'pe.name_id=e.name_id AND pe.payroll_id=' . $id . '', 'RIGHT');
+		$employees->set_select('pe.id as pe_id');
+		$employees->set_select('pe.manual');
+
+
+
+		$employees->set_select('pe.active');
+		$employees->set_select('pe.template');
+		$employees->set_select('pe.print_group');
+		$employees->set_select('pe.order'); 
+		
+		$employees->set_select('pe.group_id as group_id2');
+
+		$employees->set_order('pe.order', 'ASC');
+		if( $this->input->get('action') == 'sort') {
+			$employees->set_where('pe.active', 1);
+		}
+		if( $this->input->get('action') == 'add_employee') {
+			$employees->set_where('pe.active', 0);
+		} 
+
+*/
+		$employees->set_join('names_info ni', 'ni.name_id=e.name_id');
+		$employees->set_select('ni.lastname');
+		$employees->set_select('ni.firstname');
+		$employees->set_select('ni.middlename');
+
+		$employees_data = $employees->populate(); 
+		
+		$this->template_data->set('employees', $employees_data);
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/payroll_add_employee', $this->template_data->get_data());
+	}
+
 	public function employees($id, $group_id, $output='') {
+
+		$this->template_data->set('payroll_id', $id);
+		$this->template_data->set('group_id', $group_id);
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
@@ -1083,7 +1194,7 @@ class Payroll extends MY_Controller {
 		//$employees->set_select('(SELECT ep.name FROM employees_positions ep WHERE ep.id=e.position_id) as position_name');
 		$employees->set_limit(0);
 		
-		$employees->set_join('payroll_employees pe', 'pe.name_id=e.name_id AND pe.payroll_id=' . $id . '');
+		$employees->set_join('payroll_employees pe', 'pe.name_id=e.name_id AND pe.payroll_id=' . $id . '', 'RIGHT');
 		$employees->set_select('pe.id as pe_id');
 		$employees->set_select('pe.manual');
 
@@ -1393,36 +1504,7 @@ class Payroll extends MY_Controller {
 	}
 
 	public function select_payroll($payroll_id) {
-		
-		$payroll = new $this->Payroll_model;
-		$payroll->setId($payroll_id,true);
-		if( $payroll->nonEmpty() ) {
-			$this->session->set_userdata('current_payroll', $payroll->getResults() );
-			
-			//$this->session->set_userdata('employees_status', false);
-			//$this->session->set_userdata('current_employee', false );
-			
-			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_summary')) {
-				redirect("payroll_summary/view/{$payroll_id}");
-			}
-			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_dtr') ) {
-				redirect("payroll_dtr/view/{$payroll_id}");
-			}
-			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_salaries') ) {
-				redirect("payroll_salaries/view/{$payroll_id}");
-			}
-			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_earnings') ) {
-				redirect("payroll_earnings/view/{$payroll_id}");
-			}
-			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_benefits')) {
-				redirect("payroll_benefits/view/{$payroll_id}");
-			}
-			if( get_company_option($this->session->userdata('current_company_id'), 'column_group_deductions')) {
-				redirect("payroll_deductions/view/{$payroll_id}");
-			}
-
-		}
-
+		$this->_select_payroll($payroll_id);
 		redirect(site_url("welcome") . "?error_code=106");
 	}
 
