@@ -12,7 +12,7 @@
 <?php if( (isset($companies)) && ( $this->config->item('multi_company') ) && $companies ) { ?>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Companies <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Switch <?php echo lang_term('companies_title_singular', 'Company'); ?> <span class="caret"></span></a>
           <ul class="dropdown-menu">
           	<?php foreach($companies as $company) { ?>
             	<li><a href="<?php echo site_url("welcome/select_company/{$company->id}"); ?>"><?php echo $company->name; ?></a></li>

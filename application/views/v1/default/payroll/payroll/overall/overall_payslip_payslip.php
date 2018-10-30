@@ -11,7 +11,7 @@
 </div>
 
 <div class="full-border padding3">
-<h3 class="pull-right">ID # <?php echo $payroll->id; ?></h3>
+<h3 class="pull-right">PAYROLL # <?php echo $payroll->id; ?></h3>
 <h2 class="">PAYSLIP</h2>
 <span><?php echo $payroll->name; ?></span>
 <?php /*

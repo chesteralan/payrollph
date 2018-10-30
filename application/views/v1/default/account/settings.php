@@ -21,8 +21,9 @@
                 <label>Theme</label>
                 <select name="setting[theme]" class="form-control" title="- - Select Class - -">
                 <?php 
+                $selected = ($user_theme) ? $user_theme->value : '_company_theme_';
                 foreach(array('_company_theme_','default','cerulean','cosmo','cyborg','darkly','flatly','journal','lumen','paper','readable','sandstone','simplex','slate','spacelab','superhero','united','yeti') as $theme) { ?>
-                  <option <?php echo (($user_theme) && ($user_theme->value==$theme)) ? 'SELECTED' : ''; ?>><?php echo $theme; ?></option>
+                  <option <?php echo ($selected==$theme) ? 'SELECTED' : ''; ?>><?php echo $theme; ?></option>
                 <?php } ?>
                 </select>
               </div>

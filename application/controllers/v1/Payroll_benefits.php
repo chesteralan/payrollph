@@ -361,6 +361,7 @@ class Payroll_benefits extends MY_Controller {
 				
 				$benefits->setNotes($this->input->post('notes'));
 				$benefits->setManual( $employee_data->manual );
+				$benefits->setEntryId( $this->input->post('entry_id') );
 				$benefits->insert();
 			}
 			//redirect("payroll_benefits/view/{$id}");
@@ -372,9 +373,17 @@ class Payroll_benefits extends MY_Controller {
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
-		$benefit_data = new $this->Benefits_list_model;
-		$benefit_data->setId($benefit_id,true);
-		$this->template_data->set('benefit_data', $benefit_data->get());
+		$benefits = new $this->Benefits_list_model;
+		$benefits->setId($benefit_id,true);
+		$benefit_data = $benefits->get();
+		$this->template_data->set('benefit_data', $benefit_data);
+
+		$employees_benefits = new $this->Employees_benefits_model('eb');
+		$employees_benefits->setBenefitId($benefit_id,true);
+		$employees_benefits->setNameId($name_id,true);
+		$employees_benefits->setTrash(0,true);
+		$employees_benefits->set_select("eb.*");
+		$this->template_data->set('employees_benefits', $employees_benefits->populate());
 
 		$this->_column_groups();
 		$this->template_data->set('output', $output);

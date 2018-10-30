@@ -68,7 +68,7 @@ function draw_calendar($month,$year,$current_dates){
           $calendar.= ((isset($cDates[$list_date]))? ' has-data':'');
           $calendar.='">';
 
-        $calendar.= '<a class="date_link ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Date Settings" data-url="'.site_url("system_calendar/edit/{$list_date}/ajax") . "?next=" . uri_string() .'" href="#">';
+        $calendar.= '<a class="date_link ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="'.date('F d, Y', strtotime($list_date)).'" data-url="'.site_url("system_calendar/edit/{$list_date}/ajax") . "?next=" . uri_string() .'" href="#">';
         //$calendar.= '<input type="hidden" name="inclusive_date[]" value="'.$list_date.'">';
         //$calendar.= '<input type="checkbox" name="selected[]" value="'.$list_date.'"';
         //$calendar.= '>';
@@ -130,11 +130,24 @@ $next = ($this->input->get('next')) ? $this->input->get('next') : 'system_calend
   <div class="col-md-12">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <a href="<?php echo site_url("system_calendar/index/".date('m', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01')))."/".date('Y', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01')))."/{$output}") . "?next={$next}"; ?>" class="pull-right">&rArr;</a>
+          <a href="<?php echo site_url("system_calendar/index/".date('m', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01')))."/".date('Y', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01')))."/{$output}") . "?next={$next}"; ?>" class="pull-right"><?php echo date('F Y', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?> &rArr;</a>
 
-          <a href="<?php echo site_url("system_calendar/index/".date('m', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01')))."/".date('Y', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01')))."/{$output}") . "?next={$next}"; ?>" class="pull-left">&lArr;</a>
+          <a href="<?php echo site_url("system_calendar/index/".date('m', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01')))."/".date('Y', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01')))."/{$output}") . "?next={$next}"; ?>" class="pull-left">&lArr; <?php echo date('F Y', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?></a>
 
-<h3 class="text-center panel-title" style="margin-top:0px;"><?php echo date('F', strtotime($current_month."/1/1970")); ?> <?php echo $current_year; ?></h3>
+<h3 class="text-center panel-title" style="margin-top:0px;">
+  
+  <div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <strong><?php echo date('F Y', strtotime($current_month."/1/".$current_year)); ?></strong> <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+<?php for($i=1;$i <= 12; $i++ ) { ?>
+    <li class="<?php echo ($i==$current_month) ? "active" : ""; ?>"><a href="<?php echo site_url("system_calendar/index/{$i}/{$current_year}"); ?>"><?php echo date('F Y', strtotime($i."/1/".$current_year)); ?></a></li>
+<?php } ?>
+  </ul>
+</div>
+
+</h3>
 
         </div>
 

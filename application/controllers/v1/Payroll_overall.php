@@ -156,7 +156,7 @@ class Payroll_overall extends MY_Controller {
 			$employees->setPayrollId($id,true);
 			$employees->set_select('ni.*');
 			$employees->set_select('e.*');
-			$employees->set_select('e.name_id');
+			$employees->set_select('ni.name_id');
 			$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
 			$employees->set_select('pe.template as payslip_template');
 			$employees->set_select('pe.print_group');
@@ -190,7 +190,7 @@ class Payroll_overall extends MY_Controller {
 			}
 			
 			if( $this->input->get('filter') ) {
-				$employees->set_where('e.name_id', $this->input->get('filter'));
+				$employees->set_where('ni.name_id', $this->input->get('filter'));
 			}
 
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
@@ -292,15 +292,21 @@ class Payroll_overall extends MY_Controller {
 
 		$this->_print($id, $print_group, $output, $current_page);
 
+		$page_title = $this->template_data->get('page_title');
+		$payroll = $this->template_data->get('payroll');
+
 			switch($output) {
 				case 'payslip':
+					$this->template_data->set('page_title',  $page_title . ' - ' . $payroll->name . ' - Payslip' );
 					$this->load->view('payroll/payroll/overall/overall_payslip', $this->template_data->get_data());
 				break;
 				case 'payslip_long':
+					$this->template_data->set('page_title',  $page_title . ' - ' . $payroll->name . ' - Payslip Long' );
 					$this->template_data->set('paper_size', 'long');
 					$this->load->view('payroll/payroll/overall/overall_payslip', $this->template_data->get_data());
 				break;
 				case 'denomination':
+					$this->template_data->set('page_title',  $page_title . ' - ' . $payroll->name . ' - Denomination' );
 					$this->load->view('payroll/payroll/overall/overall_denomination', $this->template_data->get_data());
 				break;
 				case 'xls':
@@ -322,6 +328,8 @@ class Payroll_overall extends MY_Controller {
 					$this->load->view('payroll/payroll/overall/overall_xls', $this->template_data->get_data());
 				break;
 				default:
+
+					$this->template_data->set('page_title',  $page_title . ' - ' . $payroll->name . ' - Payroll Summary' );
 					$this->load->view('payroll/payroll/overall/overall_print', $this->template_data->get_data());
 				break;
 			}

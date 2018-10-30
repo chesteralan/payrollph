@@ -39,6 +39,7 @@ function denomination($amount, $d, $less=0) {
 
 <div class="print-topnav hide-print text-center allcaps">
   <a href="<?php echo site_url("payroll/select_payroll/{$payroll->id}"); ?>">Back</a>
+    &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/print"); ?>">Print</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/payslip"); ?>">Payslip</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/{$output}/{$current_page}"); ?>">All</a>
   <?php if(isset($print_groups)) foreach($print_groups as $pg) { ?>
@@ -46,15 +47,17 @@ function denomination($amount, $d, $less=0) {
   <?php } ?>
   &middot; <a href="<?php echo site_url("payroll_overall/config/{$payroll->id}") . "?next=" . uri_string(); ?>">Config</a>
 </div>
-<div class="print-topnav topnav2 hide-print text-center allcaps">
 
+<?php if($template->pages > 1) { ?>
+<div class="print-topnav topnav2 hide-print text-center allcaps">
     <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/{$output}/1"); ?>">Page 1</a>
 <?php for($i=2;$i <= $template->pages; $i++) { ?>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/{$output}/{$i}"); ?>">Page <?php echo $i; ?></a>
 <?php } ?>
 </div>
+<?php } ?>
 
-<h2 class="pull-right">PAYROLL ID: <?php echo $payroll->id; ?></h2>
+<h2 class="pull-right">PAYROLL #: <?php echo $payroll->id; ?></h2>
 <div class="header-title">
 <h2 class="allcaps"><?php echo ($company->name) ? $company->name : ''; ?></h2>
 <h3><?php echo ($company->address) ? $company->address : ''; ?></h3>
