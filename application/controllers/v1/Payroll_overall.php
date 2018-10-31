@@ -296,6 +296,10 @@ class Payroll_overall extends MY_Controller {
 		$payroll = $this->template_data->get('payroll');
 
 			switch($output) {
+				case 'journal':
+					$this->template_data->set('page_title',  $page_title . ' - ' . $payroll->name . ' - Payslip' );
+					$this->load->view('payroll/payroll/overall/overall_journal', $this->template_data->get_data());
+				break;
 				case 'payslip':
 					$this->template_data->set('page_title',  $page_title . ' - ' . $payroll->name . ' - Payslip' );
 					$this->load->view('payroll/payroll/overall/overall_payslip', $this->template_data->get_data());

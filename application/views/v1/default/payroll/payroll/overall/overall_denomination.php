@@ -81,6 +81,7 @@ $column_width = ceil(71 / $pc_count);
 
 $d1000 = 0;
 $d500 = 0;
+$d200 = 0;
 $d100 = 0;
 $d50 = 0;
 $d20 = 0;
@@ -104,19 +105,46 @@ if( $payroll_group->page != $current_page ) {
               <tr class="warning highlight allcaps">
                 <th class="text-left allcaps" width="<?php echo ($pc_count==1) ? '64' : '15'; ?>%"><?php echo $payroll_group->name; ?></th>
                 <th width="<?php echo ($pc_count==1) ? '12' : '5'; ?>%" class="text-right allcaps">Net Pay</th>
-
+<?php if(DENOMINATION_1000) { ?>
 <th class="text-right">1000.00</th>
-<!--<th class="text-right">500.00</th>-->
+<?php } ?>
+<?php if(DENOMINATION_500) { ?>
+<th class="text-right">500.00</th>
+<?php } ?>
+<?php if(DENOMINATION_200) { ?>
+<th class="text-right">200.00</th>
+<?php } ?>
+<?php if(DENOMINATION_100) { ?>
 <th class="text-right">100.00</th>
+<?php } ?>
+<?php if(DENOMINATION_50) { ?>
 <th class="text-right">50.00</th>
+<?php } ?>
+<?php if(DENOMINATION_20) { ?>
 <th class="text-right">20.00</th>
+<?php } ?>
+<?php if(DENOMINATION_10) { ?>
 <th class="text-right">10.00</th>
+<?php } ?>
+<?php if(DENOMINATION_5) { ?>
 <th class="text-right">5.00</th>
+<?php } ?>
+<?php if(DENOMINATION_1) { ?>
 <th class="text-right">1.00</th>
+<?php } ?>
+<?php if(DENOMINATION_25c) { ?>
 <th class="text-right">0.25</th>
+<?php } ?>
+<?php if(DENOMINATION_10c) { ?>
 <th class="text-right">0.10</th>
+<?php } ?>
+<?php if(DENOMINATION_5c) { ?>
 <th class="text-right">0.05</th>
+<?php } ?>
+<?php if(DENOMINATION_1c) { ?>
 <th class="text-right">0.01</th>
+<?php } ?>
+
               </tr>
 
             </thead>
@@ -143,11 +171,19 @@ $total_earnings = 0;
 $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
 $days_benefits = ($employee->leave_benefits) ? ($employee->leave_benefits / $working_hours) : 0;
+$days_present = ($employee->attendance_hours) ? ($employee->attendance_hours / $working_hours) : 0;
+if( $employee->pe_presence ) {
+  $present_days = $employee->attendance;
+} else {
+  $present_days = $inclusive_dates->working_days - $days_absent;
+}
 $monthly_rate = 0;
 $daily_rate = 0;
 $hourly_rate = 0;
-$cola = 0;
-$gross_pay = 0;
+$cola_rate = 0;
+$absences = 0;
+$basic_salary = 0;
+$net_salary = 0;
 $addon_benefits = 0;
 
 if( $employee->salary ) {
@@ -172,19 +208,49 @@ if( $employee->salary ) {
   $cola_rate = (isset($salary)) ? $salary->cola : 0;
   $absences = $days_absent * $daily_rate;
   $addon_benefits = $days_benefits * $daily_rate;
+
+if( $employee->pe_presence ) {
+    switch( $salary->manner ) {
+        case 'hourly':
+          $basic_salary = ($hourly_rate * $days_present); 
+        break;
+        case 'daily':
+          $basic_salary = ($daily_rate * $present_days); 
+        break;
+        case 'semi-monthly':
+          $basic_salary = ($daily_rate * $present_days); 
+        break;
+        default:
+        case 'monthly':
+          $basic_salary = ($daily_rate * $present_days); 
+        break;
+    }
+  } else {
+    switch( $salary->manner ) {
+        case 'hourly':
+          $basic_salary = ($hourly_rate * $inclusive_dates->working_days * $salary->hours); 
+        break;
+        case 'daily':
+          $basic_salary = ($daily_rate * $inclusive_dates->working_days); 
+        break;
+        case 'semi-monthly':
+          $basic_salary = ($daily_rate * $salary->days) / 2; 
+        break;
+        default:
+        case 'monthly':
+          $basic_salary = ($daily_rate * $salary->days); 
+        break;
+    }
+  }
 }
 
-$present_days = $inclusive_dates->working_days - $days_absent;
-$basic_salary = ($daily_rate * $inclusive_dates->working_days);
-//$basic_salary = ($monthly_rate / 2);
-$cola = ($cola * $present_days);
-$absences = ($daily_rate * $days_absent);
+$cola = ($cola_rate * $present_days);
 $net_pay = (($basic_salary + $cola) - $absences); 
 $gross_pay = $net_pay + $addon_benefits;
 $group_basic_salary += $basic_salary;
-$group_absences += $absences;
 $group_net_salary += $net_pay;
 $group_leave_benefits += $addon_benefits;
+$group_absences += $absences;
 $group_gross_pay += $gross_pay;
 ?>
               <tr>
@@ -238,56 +304,138 @@ $group_net_pay += $net_pay;
 ?>
                 <td class="text-right bold bigger"><?php echo number_format($net_pay,2); ?></td>
 <?php 
+if(DENOMINATION_1000) {
   $one_thousand = denomination($net_pay, 1000);
     $less = ($one_thousand * 1000);
- // $five_hundred = denomination($net_pay, 500, $less);
- //   $less += ($five_hundred * 500);
+}
+if(DENOMINATION_500) {
+  $five_hundred = denomination($net_pay, 500, $less);
+    $less += ($five_hundred * 500);
+}
+if(DENOMINATION_200) {
+  $two_hundred = denomination($net_pay, 200, $less);
+    $less += ($two_hundred * 200);
+}
+if(DENOMINATION_100) {
   $one_hundred = denomination($net_pay, 100, $less);
     $less += ($one_hundred * 100);
+}
+if(DENOMINATION_50) {
   $fifty = denomination($net_pay, 50, $less);
     $less += ($fifty * 50);
+}
+if(DENOMINATION_20) {
   $twenty = denomination($net_pay, 20, $less);
     $less += ($twenty * 20);
+}
+if(DENOMINATION_10) {
   $ten = denomination($net_pay, 10, $less);
     $less += ($ten * 10);
+}
+if(DENOMINATION_5) {
   $five = denomination($net_pay, 5, $less);
     $less += ($five * 5);
+}
+if(DENOMINATION_1) {
   $one = denomination($net_pay, 1, $less);
     $less += ($one * 1);
+}
+if(DENOMINATION_25c) {
   $cent25 = denomination($net_pay, 0.25, $less);
     $less += ($cent25 * 0.25);
+}
+if(DENOMINATION_10c) {
   $cent10 = denomination($net_pay, 0.10, $less);
     $less += ($cent10 * 0.10);
+}
+if(DENOMINATION_5c) {
   $cent5 = denomination($net_pay, 0.05, $less);
  $less += ($cent5 * 0.05);
+}
+if(DENOMINATION_1c) {
   $cent1 = denomination($net_pay, 0.01, $less);
+}
 
+if(DENOMINATION_1000) { 
   $d1000 += $one_thousand;
-//$d500 += $five_hundred;
-$d100 += $one_hundred;
-$d50 += $fifty;
-$d20 += $twenty;
-$d10 += $ten;
-$d5 += $five;
-$d1 += $one;
-$d025 += $cent25;
-$d010 += $cent10;
-$d005 += $cent5;
-$d001 += $cent1;
+}
+if(DENOMINATION_500) { 
+  $d500 += $five_hundred;
+}
+if(DENOMINATION_200) {
+  $d200 += $two_hundred;
+}
+if(DENOMINATION_100) {
+  $d100 += $one_hundred;
+}
+if(DENOMINATION_50) {
+  $d50 += $fifty;
+}
+if(DENOMINATION_20) {
+  $d20 += $twenty;
+}
+if(DENOMINATION_10) {
+  $d10 += $ten;
+}
+if(DENOMINATION_5) {
+  $d5 += $five;
+}
+if(DENOMINATION_1) {
+  $d1 += $one;
+}
+if(DENOMINATION_25c) {
+  $d025 += $cent25;
+}
+if(DENOMINATION_10c) {
+  $d010 += $cent10;
+}
+if(DENOMINATION_5c) {
+  $d005 += $cent5;
+}
+if(DENOMINATION_1c) {
+  $d001 += $cent1;
+}
 
 ?>
+<?php if(DENOMINATION_1000) { ?>
 <td class="text-right"><?php echo ($one_thousand>0) ? $one_thousand : ''; ?></td>
-<!--<td class="text-right"><?php //echo $five_hundred; ?></td> -->
+<?php }
+if(DENOMINATION_500) { ?>
+<td class="text-right"><?php echo ($five_hundred>0) ? $five_hundred : ''; ?></td>
+<?php }
+if(DENOMINATION_200) { ?>
+<td class="text-right"><?php echo ($two_hundred>0) ? $two_hundred : ''; ?></td>
+<?php }
+if(DENOMINATION_100) { ?>
 <td class="text-right"><?php echo ($one_hundred>0) ? $one_hundred : ''; ?></td>
+<?php }
+if(DENOMINATION_50) { ?>
 <td class="text-right"><?php echo ($fifty>0) ? $fifty : ''; ?></td>
+<?php }
+if(DENOMINATION_20) { ?>
 <td class="text-right"><?php echo ($twenty>0) ? $twenty : ''; ?></td>
+<?php }
+if(DENOMINATION_10) { ?>
 <td class="text-right"><?php echo ($ten>0) ? $ten : ''; ?></td>
+<?php }
+if(DENOMINATION_5) { ?>
 <td class="text-right"><?php echo ($five>0) ? $five : ''; ?></td>
+<?php }
+if(DENOMINATION_1) { ?>
 <td class="text-right"><?php echo ($one>0) ? $one : ''; ?></td>
+<?php }
+if(DENOMINATION_25c) { ?>
 <td class="text-right"><?php echo ($cent25>0) ? $cent25 : ''; ?></td>
+<?php }
+if(DENOMINATION_10c) { ?>
 <td class="text-right"><?php echo ($cent10>0) ? $cent10 : ''; ?></td>
+<?php }
+if(DENOMINATION_5c) { ?>
 <td class="text-right"><?php echo ($cent5>0) ? $cent5 : ''; ?></td>
+<?php }
+if(DENOMINATION_1c) { ?>
 <td class="text-right"><?php echo ($cent1>0) ? $cent1 : ''; ?></td>
+<?php } ?>
               </tr>
 <?php } ?>
 
@@ -302,55 +450,134 @@ $d001 += $cent1;
                 <th class="allcaps text-left">
 Summary
                 </th>
-                <th class="text-right" width="5%">
-
-                </th>
-  <th class="text-right">1000.00</th>
-<!--<th class="text-right">500.00</th>-->
+                <th class="text-right" width="5%"></th>
+<?php if(DENOMINATION_1000) { ?>
+<th class="text-right">1000.00</th>
+<?php }
+if(DENOMINATION_500) { ?>
+<th class="text-right">500.00</th>
+<?php }
+if(DENOMINATION_200) { ?>
+<th class="text-right">200.00</th>
+<?php }
+if(DENOMINATION_100) { ?>
 <th class="text-right">100.00</th>
+<?php }
+if(DENOMINATION_50) { ?>
 <th class="text-right">50.00</th>
+<?php }
+if(DENOMINATION_20) { ?>
 <th class="text-right">20.00</th>
+<?php }
+if(DENOMINATION_10) { ?>
 <th class="text-right">10.00</th>
+<?php }
+if(DENOMINATION_5) { ?>
 <th class="text-right">5.00</th>
+<?php }
+if(DENOMINATION_1) { ?>
 <th class="text-right">1.00</th>
+<?php }
+if(DENOMINATION_25c) { ?>
 <th class="text-right">0.25</th>
+<?php }
+if(DENOMINATION_10c) { ?>
 <th class="text-right">0.10</th>
+<?php }
+if(DENOMINATION_5c) { ?>
 <th class="text-right">0.05</th>
+<?php }
+if(DENOMINATION_1c) { ?>
 <th class="text-right">0.01</th>
+<?php } ?>
 </tr>
 </thead>
 <tbody>
        <tr class="highlight total">
 <td class="allcaps text-left" width="15%">Total Denominations</td>
 <td class="text-right" width="5%"><?php echo number_format($total_net_pay,2); ?></td>
+<?php if(DENOMINATION_1000) { ?>
 <td class="text-right"><?php echo $d1000; ?></td>
-<!--<td class="text-right"><?php //echo $d500; ?></td>-->
+<?php }
+if(DENOMINATION_500) { ?>
+<td class="text-right"><?php echo $d500; ?></td>
+<?php }
+if(DENOMINATION_200) { ?>
+<td class="text-right"><?php echo $d200; ?></td>
+<?php }
+if(DENOMINATION_100) { ?>
 <td class="text-right"><?php echo $d100; ?></td>
+<?php }
+if(DENOMINATION_50) { ?>
 <td class="text-right"><?php echo $d50; ?></td>
+<?php }
+if(DENOMINATION_20) { ?>
 <td class="text-right"><?php echo $d20; ?></td>
+<?php }
+if(DENOMINATION_10) { ?>
 <td class="text-right"><?php echo $d10; ?></td>
+<?php }
+if(DENOMINATION_5) { ?>
 <td class="text-right"><?php echo $d5; ?></td>
+<?php }
+if(DENOMINATION_1) { ?>
 <td class="text-right"><?php echo $d1; ?></td>
+<?php }
+if(DENOMINATION_25c) { ?>
 <td class="text-right"><?php echo $d025; ?></td>
+<?php }
+if(DENOMINATION_10c) { ?>
 <td class="text-right"><?php echo $d010; ?></td>
+<?php }
+if(DENOMINATION_5c) { ?>
 <td class="text-right"><?php echo $d005; ?></td>
+<?php }
+if(DENOMINATION_1c) { ?>
 <td class="text-right"><?php echo $d001; ?></td>
+<?php } ?>
               </tr>
  <tr class="">
 <td class="allcaps text-left" width="15%">Amount</td>
 <td class="text-right" width="5%"></td>
+<?php if(DENOMINATION_1000) { ?>
 <td class="text-right"><?php echo number_format((1000 * $d1000),2); ?></td>
-<!-- <td class="text-right"><?php //echo number_format((500 * $d500),2); ?></td> -->
+<?php }
+if(DENOMINATION_500) { ?>
+<td class="text-right"><?php echo number_format((500 * $d500),2); ?></td>
+<?php }
+if(DENOMINATION_200) { ?>
+<td class="text-right"><?php echo number_format((200 * $d200),2); ?></td>
+<?php }
+if(DENOMINATION_100) { ?>
 <td class="text-right"><?php echo number_format((100 * $d100),2); ?></td>
+<?php }
+if(DENOMINATION_50) { ?>
 <td class="text-right"><?php echo number_format((50 * $d50),2); ?></td>
+<?php }
+if(DENOMINATION_20) { ?>
 <td class="text-right"><?php echo number_format((20 * $d20),2); ?></td>
+<?php }
+if(DENOMINATION_10) { ?>
 <td class="text-right"><?php echo number_format((10 * $d10),2); ?></td>
+<?php }
+if(DENOMINATION_5) { ?>
 <td class="text-right"><?php echo number_format((5 * $d5),2); ?></td>
+<?php }
+if(DENOMINATION_1) { ?>
 <td class="text-right"><?php echo number_format((1 * $d1),2); ?></td>
+<?php }
+if(DENOMINATION_25c) { ?>
 <td class="text-right"><?php echo number_format((0.25 * $d025),2); ?></td>
+<?php }
+if(DENOMINATION_10c) { ?>
 <td class="text-right"><?php echo number_format((0.10 * $d010),2); ?></td>
+<?php }
+if(DENOMINATION_5c) { ?>
 <td class="text-right"><?php echo number_format((0.05 * $d005),2); ?></td>
+<?php }
+if(DENOMINATION_1c) { ?>
 <td class="text-right"><?php echo number_format((0.01 * $d001),2); ?></td>
+<?php } ?>
               </tr>
 </tbody>
 </table>

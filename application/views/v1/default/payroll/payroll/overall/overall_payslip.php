@@ -28,6 +28,9 @@
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}") . (($this->input->get('filter'))?'?filter='.$this->input->get('filter'):''); ?>">Print</a>
     &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/denomination") . (($this->input->get('filter'))?'?filter='.$this->input->get('filter'):''); ?>">Denomination</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/payslip"); ?>">All</a>
+
+    &middot; <a href="<?php echo site_url("payroll_overall/config/{$payroll->id}") . "?next=" . uri_string(); ?>">Config</a>
+    
     <?php 
   if( ( isset($print_group_option) ) && ( $print_group_option ) )  {
   $pg_option = unserialize( $print_group_option->value );

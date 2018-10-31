@@ -127,3 +127,18 @@ defined('PAYROLL_PAYSLIP_TEMPLATES')      OR define('PAYROLL_PAYSLIP_TEMPLATES',
 	  //'cash_voucher' => 'Cash Voucher',
 	  //'clergy_allowance' => 'Clergy Allowance',
 ) ));
+
+// working days
+defined('DENOMINATION_1000')      OR define('DENOMINATION_1000', true); 
+defined('DENOMINATION_500')      OR define('DENOMINATION_500', true); 
+defined('DENOMINATION_200')      OR define('DENOMINATION_200', true); 
+defined('DENOMINATION_100')      OR define('DENOMINATION_100', true); 
+defined('DENOMINATION_50')      OR define('DENOMINATION_50', true); 
+defined('DENOMINATION_20')      OR define('DENOMINATION_20', true); 
+defined('DENOMINATION_10')      OR define('DENOMINATION_10', true); 
+defined('DENOMINATION_5')      OR define('DENOMINATION_5', true); 
+defined('DENOMINATION_1')      OR define('DENOMINATION_1', true); 
+defined('DENOMINATION_25c')      OR define('DENOMINATION_25c', true); 
+defined('DENOMINATION_10c')      OR define('DENOMINATION_10c', true); 
+defined('DENOMINATION_5c')      OR define('DENOMINATION_5c', true); 
+defined('DENOMINATION_1c')      OR define('DENOMINATION_1c', true); 

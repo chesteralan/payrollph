@@ -66,6 +66,10 @@ function isColumn($ths, $column_id,$print_columns) {
 
 &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/xls/{$current_page}"); ?>">Export</a>
 
+&middot; <a href="<?php echo site_url("payroll_overall/config/{$payroll->id}") . "?next=" . uri_string(); ?>">Config</a>
+
+&middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/journal") . (($this->input->get('filter'))?'?filter='.$this->input->get('filter'):''); ?>">Journal</a>
+
 </div>
 
 <div class="print-topnav topnav2 hide-print text-center allcaps">
