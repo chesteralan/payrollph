@@ -295,6 +295,97 @@ var autocomplete_navbarsearch = function() {
     });
 };
 
+var autocomplete_search_ajax = function() {
+    $('.autocomplete-search_ajax_redirect').autocomplete({
+      source: function( request, response ) {
+        var ths = $(this);
+        var source = ths[0]['element'][0]['dataset'].source;
+        var current_sub_uri = ths[0]['element'][0]['dataset'].current_sub_uri;
+        $.ajax({
+          url: source,
+          dataType: "json",
+          data: {
+            term: request.term,
+            sub_uri : current_sub_uri,
+            uri_string : window.uri_string,
+          },
+          success: function( data ) {
+            response( data );
+          }
+        });
+      },
+      minLength: 3,
+      select: function( event, ui ) {
+              var divBody = $('#bodyWrapper');
+              var loadingDiv = $('<div class="loading-wait"></div>');
+              divBody.prepend( loadingDiv );
+              window.location.href = ui.item.redirect;
+      }
+    });
+
+    $('.autocomplete-search_ajax_inner').autocomplete({
+      source: function( request, response ) {
+        var ths = $(this);
+        var source = ths[0]['element'][0]['dataset'].source;
+        var current_sub_uri = ths[0]['element'][0]['dataset'].current_sub_uri;
+        $.ajax({
+          url: source,
+          dataType: "json",
+          data: {
+            term: request.term,
+            sub_uri : current_sub_uri,
+            uri_string : window.uri_string,
+          },
+          success: function( data ) {
+            response( data );
+          }
+        });
+      },
+      minLength: 3,
+      select: function( event, ui ) {
+
+    var ajaxForm = $('#ajaxModalForm');
+    if( typeof ajaxForm[0] != 'undefined' ) {
+      $('#ajaxModalForm').prop( 'action', ui.item.innerBody );
+    } else {
+      $('#ajaxModal .modal-content').wrap('<form action="'+ui.item.innerBody+'" method="post" id="ajaxModalForm"></form>');
+    }
+    $('#ajaxModal .modal-title').text( "Add Employee: " + ui.item.label );
+
+    $('#ajaxModal .loader').slideDown('slow');
+    var hide_footer = $(this).attr('data-hide_footer');
+    if( hide_footer ) {
+      $('#ajaxModal .modal-footer').slideUp();
+    } else {
+      $('#ajaxModal .modal-footer').slideDown();
+    }
+    $('#ajaxModal .output').slideUp('slow').html( '' );
+      $.ajax({
+        url : ui.item.innerBody,
+        method : 'GET',
+        dataType : 'html'
+      }).success(function(html){
+        if( html.search('login_page') >= 0 ) {
+            window.location.href = window.base_url;
+        } else {
+          $('#ajaxModal .loader').slideUp('slow', function(){
+            $('#ajaxModal .output').css('display', 'none').html( html ).slideDown('slow', function(){
+              loadLib();
+            });
+            $('input').keypress(function(e){
+                if(e.which == 13) {
+                    $('#ajaxModal button[type="submit"]').click();
+                }
+            });
+            $('#ajaxModal .focus').focus();
+          });
+        }
+      });
+      
+      }
+    });
+
+};
 var navbar_search_employee = function() {
   $('.autocomplete-search_employee').autocomplete({
       source: function( request, response ) {
@@ -604,6 +695,7 @@ var loadLib = function() {
     select_all_print_column();
     select_all_by_class();
     init_calendar_check();
+    autocomplete_search_ajax();
 
 $('#ajaxModal .datepicker').datepicker();
         $('#ajaxModal select').selectpicker({
@@ -1068,6 +1160,7 @@ var lending_schedule_details = function() {
       select_all_print_column();
       select_all_by_class();
       filter_list_name();
+      autocomplete_search_ajax();
  }
  init_payroll();
 

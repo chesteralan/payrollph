@@ -242,6 +242,70 @@ class Employees extends MY_Controller {
 
 	}
 
+	public function add_multiple($output='0', $start=0) {
+		$this->_isAuth('employees', 'employees', 'add');
+
+		if( $this->input->post('employee') ) {
+			foreach($this->input->post('employee') as $name_id => $employee) {
+				if( isset($employee['add']) ) {
+					$employee1 = new $this->Employees_model;
+					$employee1->setNameId( $name_id, true);
+					$employee1->setGroupId( $employee['group_id'] );
+					$employee1->setPositionId( $employee['position_id'] );
+					$employee1->setAreaId( $employee['area_id'] );
+					$employee1->setCompanyId( $this->session->userdata('current_company_id'), true);
+					$employee1->setTrash(0);
+					if( $employee1->nonEmpty()===FALSE ) {
+						if( $employee1->insert() ) {
+							record_system_audit($this->session->userdata('user_id'), 'employees', 'employees', 'add_multiple', $this->session->userdata('current_company_id'), "Added Multiple Employees");
+						}
+					}
+					
+				}
+			}
+			$this->postNext();
+		}
+
+		$names = new $this->Names_list_model;
+		$names->set_start($start);
+		$names->set_limit(10);
+		$names->setTrash(0,true);
+		$names->set_order('names_list.full_name', 'ASC');
+		$names->set_where('((SELECT COUNT(*) FROM `employees` WHERE name_id=names_list.id) = 0)');
+		$names->set_where('((SELECT COUNT(*) FROM `names_info` WHERE name_id=names_list.id) = 1)');
+
+		$this->template_data->set('names', $names->populate());
+
+		$this->template_data->set('pagination', bootstrap_pagination(array(
+			'uri_segment' => 4,
+			'base_url' => base_url($this->config->item('index_page') . "/employees/add_multiple/{$output}"),
+			'total_rows' => $names->count_all_results(),
+			'per_page' => $names->get_limit()
+		), '?next=' . $this->input->get('next') ));
+
+		$groups = new $this->Employees_groups_model;
+		$groups->setCompanyId($this->session->userdata('current_company_id'),true);
+		$groups->set_limit(0);
+		$groups->set_order('name', 'ASC');
+		$this->template_data->set('groups', $groups->populate());
+
+		$positions = new $this->Employees_positions_model;
+		$positions->setCompanyId($this->session->userdata('current_company_id'),true);
+		$positions->set_limit(0);
+		$positions->set_order('name', 'ASC');
+		$this->template_data->set('positions', $positions->populate());
+
+		$areas = new $this->Employees_areas_model;
+		$areas->setCompanyId($this->session->userdata('current_company_id'),true);
+		$areas->set_limit(0);
+		$areas->set_order('name', 'ASC');
+		$this->template_data->set('areas', $areas->populate());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('employees/employees/employees_add_multiple', $this->template_data->get_data());
+
+	}
+
 	public function search_name($output='', $start=0) {
 
 		$this->_isAuth('employees', 'employees', 'add');
@@ -253,21 +317,45 @@ class Employees extends MY_Controller {
 		$names->set_order('names_list.full_name', 'ASC');
 		$names->set_where('((SELECT COUNT(*) FROM `employees` WHERE name_id=names_list.id) = 0)');
 		$names->set_where('((SELECT COUNT(*) FROM `names_info` WHERE name_id=names_list.id) = 1)');
-		$this->template_data->set('names', $names->populate());
 		
-		$this->template_data->set('pagination', bootstrap_pagination(array(
-			'uri_segment' => 4,
-			'base_url' => base_url($this->config->item('index_page') . "/employees/search_name/{$output}"),
-			'total_rows' => $names->count_all_results(),
-			'per_page' => $names->get_limit(),
-			'attributes' => array(
-				'class' => 'btn btn-default ajax-modal-inner',
-				'data-hide_footer' => 1
-				)
-		), '?next=' . $this->input->get('next') ));
 		
-		$this->template_data->set('output', $output);
-		$this->load->view('employees/employees/employees_add_search', $this->template_data->get_data());
+		if( $output == 'autocomplete') {
+			
+			if( $this->input->get('term') ) {
+				$names->set_where('names_list.full_name LIKE "%' . $this->input->get('term') . '%"', NULL, 99);
+			}
+
+			$results = array();
+
+			foreach($names->populate() as $name) {
+					$results[] = array(
+						'label' => $name->full_name,
+						'id' => $name->id,
+						'redirect'=> site_url( "employees/add/{$name->id}" ) . "?next=employees/search_name",
+						'innerBody'=> site_url( "employees/add/{$name->id}/ajax" ) . "?next=employees",
+						);
+				}
+
+			$this->output->set_content_type('application/json')->set_output(json_encode( $results ));
+
+		} else {
+
+			$this->template_data->set('names', $names->populate());
+
+			$this->template_data->set('pagination', bootstrap_pagination(array(
+				'uri_segment' => 4,
+				'base_url' => base_url($this->config->item('index_page') . "/employees/search_name/{$output}"),
+				'total_rows' => $names->count_all_results(),
+				'per_page' => $names->get_limit(),
+				'attributes' => array(
+					'class' => 'btn btn-default ajax-modal-inner',
+					'data-hide_footer' => 1
+					)
+			), '?next=' . $this->input->get('next') ));
+			
+			$this->template_data->set('output', $output);
+			$this->load->view('employees/employees/employees_add_search', $this->template_data->get_data());
+		}
 		
 	}
 

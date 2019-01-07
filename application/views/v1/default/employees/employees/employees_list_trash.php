@@ -33,6 +33,7 @@
 <div class="col-md-3">
 <form method="get" action="<?php echo site_url( uri_string() ); ?>">
 <div class="input-group input-group-sm">
+  <input type="hidden" name="filter" value="<?php echo $this->input->get("filter"); ?>">
   <input type="text" name="q" class="form-control" placeholder="Search for..." value="<?php echo $this->input->get('q'); ?>">
   <span class="input-group-btn">
     <button class="btn btn-default" type="submit">Search</button>

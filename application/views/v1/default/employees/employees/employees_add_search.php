@@ -12,7 +12,7 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Add Group</h3>
+          <h3 class="panel-title">Add Employee</h3>
         </div>
         <form method="post">
         <div class="panel-body">
@@ -23,9 +23,18 @@
 
 <?php if( $names ) { ?>
 
-  <div class="list-group">
+<div class="form-group">
+  <div class="input-group">
+      <input type="text" class="form-control autocomplete-search_ajax_<?php echo ($output=='ajax') ? 'inner' : 'redirect'; ?>" data-source="<?php echo site_url("employees/search_name/autocomplete"); ?>" placeholder="Search name...">
+      <span class="input-group-btn">
+        <a class="btn btn-success" href="<?php echo site_url("employees/add_multiple"); ?>?next=<?php echo $current_uri; ?>">Add Multiple</a>
+      </span>
+  </div>
+</div>
+
+ <div class="list-group">
     <?php foreach($names as $name) { ?>
-      <a href="<?php echo site_url("employees/add/{$name->id}/{$output}") . '?next=' . $this->input->get('next'); ?>" class="list-group-item ajax-modal-inner">
+      <a href="<?php echo site_url("employees/add/{$name->id}/{$output}") . '?next=' . $this->input->get('next'); ?>" class="list-group-item ajax-modal-inner" data-title="Add Employee: <?php echo $name->full_name; ?>">
       <strong class="pull-right"><?php echo $name->contact_number; ?></strong>
       <?php echo $name->full_name; ?>
       <p class="small"><?php echo $name->address; ?></p>
