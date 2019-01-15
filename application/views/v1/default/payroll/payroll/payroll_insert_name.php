@@ -1,14 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <?php
-$payslip_templates = array(
-  'none' => 'No Payslip',
-  'payslip' => 'Payslip (1/4)',
-  'payslip2' => 'Payslip (1/2)',
-  'payslip3' => 'Payslip (1/2) v2',
-  'cash_voucher' => 'Cash Voucher',
-  'clergy_allowance' => 'Clergy Allowance',
-);
-
+$payslip_templates = unserialize(PAYROLL_PAYSLIP_TEMPLATES);
 ?>
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 

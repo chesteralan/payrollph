@@ -193,7 +193,7 @@ class Payroll_overall extends MY_Controller {
 				$employees->set_where('ni.name_id', $this->input->get('filter'));
 			}
 
-			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
+			$employees->set_select('(SELECT name FROM employees_positions WHERE id=pe.position_id) as position');
 
 			$employees->set_select("(SELECT COUNT(*) FROM employees_absences ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences");
 
@@ -280,6 +280,22 @@ class Payroll_overall extends MY_Controller {
 			$this->template_data->set('print_groups', $print_groups->populate());
 		}
 
+		$all_earnings = new $this->Earnings_list_model('e');
+		$all_earnings->set_order('e.name', 'ASC');
+		$all_earnings->set_limit(0);
+		$this->template_data->set('all_earnings', $all_earnings->populate());
+
+		$all_benefits = new $this->Benefits_list_model('b');
+		$all_benefits->setLeave('0', true);
+		$all_benefits->set_order('b.name', 'ASC');
+		$all_benefits->set_limit(0);
+		$this->template_data->set('all_benefits', $all_benefits->populate());
+
+		$all_deductions = new $this->Deductions_list_model('d');
+		$all_deductions->set_order('d.name', 'ASC');
+		$all_deductions->set_limit(0);
+		$this->template_data->set('all_deductions', $all_deductions->populate());
+
 		$this->_column_groups();
 
 	}
@@ -296,6 +312,10 @@ class Payroll_overall extends MY_Controller {
 		$payroll = $this->template_data->get('payroll');
 
 			switch($output) {
+				case 'transmittal':
+					$this->template_data->set('page_title',  $page_title . ' - ' . $payroll->name . ' - Transmittal' );
+					$this->load->view('payroll/payroll/overall/overall_transmittal', $this->template_data->get_data());
+				break;
 				case 'journal':
 					$this->template_data->set('page_title',  $page_title . ' - ' . $payroll->name . ' - Payslip' );
 					$this->load->view('payroll/payroll/overall/overall_journal', $this->template_data->get_data());
@@ -332,7 +352,6 @@ class Payroll_overall extends MY_Controller {
 					$this->load->view('payroll/payroll/overall/overall_xls', $this->template_data->get_data());
 				break;
 				default:
-
 					$this->template_data->set('page_title',  $page_title . ' - ' . $payroll->name . ' - Payroll Summary' );
 					$this->load->view('payroll/payroll/overall/overall_print', $this->template_data->get_data());
 				break;

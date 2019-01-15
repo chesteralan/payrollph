@@ -70,6 +70,8 @@ function isColumn($ths, $column_id,$print_columns) {
 
 &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/journal") . (($this->input->get('filter'))?'?filter='.$this->input->get('filter'):''); ?>">Journal</a>
 
+&middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/transmittal") . (($this->input->get('filter'))?'?filter='.$this->input->get('filter'):''); ?>">Transmittal</a>
+
 </div>
 
 <div class="print-topnav topnav2 hide-print text-center allcaps">

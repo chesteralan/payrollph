@@ -84,8 +84,8 @@ if( is_view_exists("account/login_override") ) {
   <div class="row">
     <div class="col-md-12">
       <center><small>
-        <p><a href="http://www.trokis.com/" target="footer_credits">Trokis Philippines</a> 
-        &copy; <?php echo date('Y'); ?> 
+        <p><a href="https://www.smbpayroll.com/" target="smbpayroll">SMB Payroll</a> 
+        by <a href="https://www.trokis.com/" target="trokis">Trokis Philippines</a>
         <br>Developed by: 
         <a href="http://www.chesteralan.com/" target="footer_credits">Chester Alan Tagudin</a> 
         </p>

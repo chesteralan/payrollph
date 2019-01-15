@@ -1,13 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <?php
-$payslip_templates = array(
-  'none' => 'No Payslip',
-  'payslip' => 'Payslip (1/4)',
-  'payslip2' => 'Payslip (1/2)',
-  'payslip3' => 'Payslip (1/2) v2',
-  'cash_voucher' => 'Cash Voucher',
-  'clergy_allowance' => 'Clergy Allowance',
-);
+$payslip_templates = unserialize(PAYROLL_PAYSLIP_TEMPLATES);
 ?>
 <?php $this->load->view('header'); ?>
 
@@ -167,7 +160,7 @@ switch($payroll->group_by) {
 <?php if(!$payroll->lock) { ?>                
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Payslip" data-url="<?php echo site_url("payroll_employees/change_payslip/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" .uri_string(); ?>">
 <?php } ?>
-                <?php echo ($employee->template) ? $payslip_templates[$employee->template] : '- - - - -'; ?>
+                <?php echo (($employee->template) && (isset($payslip_templates[$employee->template]))) ? $payslip_templates[$employee->template] : '- - - - -'; ?>
 <?php if(!$payroll->lock) { ?>
 </a>
 <?php } ?>

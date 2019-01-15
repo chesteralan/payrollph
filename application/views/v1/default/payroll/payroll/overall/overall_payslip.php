@@ -136,6 +136,11 @@ $payslip_template = $employee->payslip_template;
 if( $this->input->get('payslip_template') ) {
   $payslip_template = $this->input->get('payslip_template');
 }
+
+$payslip_templates = unserialize(PAYROLL_PAYSLIP_TEMPLATES);
+
+$payslip_template = (isset($payslip_templates[$payslip_template])) ? $payslip_template : 'payslip';
+/*
         switch ( $payslip_template ) {
           case 'payslip':
             $this->load->view('payroll/payroll/overall/overall_payslip_payslip', $template_data);
@@ -156,6 +161,8 @@ if( $this->input->get('payslip_template') ) {
             //$this->load->view('payroll/payroll/overall/overall_payslip_payslip', $template_data);
             break;
         }
+*/
+        $this->load->view('payroll/payroll/overall/overall_payslip_' . $payslip_template, $template_data);
 
 } ?>
 <?php } ?>

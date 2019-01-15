@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $config['multi_company'] = true;
 
+defined('APP_VERSION') OR define('APP_VERSION', '1.1.2' );
 defined('APP_NAME') OR define('APP_NAME', 'SMB Payroll' );
 $config['system_name'] = 'SMB Payroll';
 
@@ -126,6 +127,7 @@ defined('PAYROLL_PAYSLIP_TEMPLATES')      OR define('PAYROLL_PAYSLIP_TEMPLATES',
 	  'payslip3' => 'Payslip (1/2) v2',
 	  //'cash_voucher' => 'Cash Voucher',
 	  //'clergy_allowance' => 'Clergy Allowance',
+	  'mbg' => 'Payslip (1/2) MBG',
 ) ));
 
 // working days
