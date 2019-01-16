@@ -477,9 +477,42 @@ public function leave_benefits($id,$group_id=0,$output='') {
 
 		$employee = new $this->Payroll_employees_model('pe');
 		$employee->setId($pe_id,true);
+		$employee->set_select('pe.*');
+		$employee->set_select('(SELECT es.hours FROM employees_salaries es WHERE es.name_id=pe.name_id AND es.primary=1 AND es.trash=0) as working_hours');
 		$employee_data = $employee->get();
 
 		$name_id = $employee_data->name_id; 
+
+		if( $this->input->post() ) {
+			if( $this->input->post('present') ) {
+				$inclusive_dates = $this->input->post('inclusive_dates');
+				$presents = $this->input->post('present');
+
+				foreach($inclusive_dates as $date=>$status) {
+					if( isset($presents[$date]) )  {
+						$absence = new $this->Employees_absences_model;
+						$absence->setNameId($name_id,true);
+						$absence->setDateAbsent($date,true);
+						$absence->setPeId($pe_id,true);
+						$absence->delete();
+					} else {
+						// absent
+						$absence = new $this->Employees_absences_model;
+						$absence->setNameId($name_id,true);
+						$absence->setDateAbsent($date,true);
+						$absence->setHours($employee_data->working_hours);
+						$absence->setPeId($pe_id);
+						if( $absence->nonEmpty() ) {
+							$absence->update();
+						} else {
+							$absence->insert();
+						}
+					}
+					
+				}
+			}
+			$this->postNext();
+		}
 
 		$this->_column_groups();
 		$this->template_data->set('name_id', $name_id);

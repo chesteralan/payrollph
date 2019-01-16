@@ -23,12 +23,23 @@
 <div class="row">
   <div class="col-md-6">
           <div class="form-group">
-            <label>Amount</label>
+            <label>Amount / Value of X (Formula)</label>
             <input name="amount" type="text" class="form-control text-center focus" value="" required>
           </div>
   </div>
+  <div class="col-md-6">
+      <div class="form-group">
+          <label>Formula</label>
+          <select name="formula" class="form-control">
+              <option value="">- - No Formula - -</option>
+              <option value="(X)_HOURS_X_HOURLY_RATE">(X) Number of Hours &times; Hourly Rate</option>
+          </select>
+      </div>
+  </div>
+</div>
+<div class="row">
 <?php if( $employee_data->manual == 0) { ?>
-    <div class="col-md-6">
+    <div class="col-md-12">
     <?php if( $employees_earnings ) { ?>
           <div class="form-group">
             <label>Connect to</label>

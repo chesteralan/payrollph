@@ -29,39 +29,21 @@ Developed by:
 	</div> 
 </div>
 
-<!-- #blankModal Modal -->
-<div class="modal fade" id="ajaxModal">
-  <div class="modal-dialog">
-<form method="post" action="" id="ajaxModalForm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-center"><span class="title"></span></h4>
-      </div>
-      <div class="modal-body">
-        <p class="loader text-center">
-        	<img src="<?php echo base_url("assets/images/loader4.gif"); ?>">
-        </p>
-        <div class="output"></div>
-      </div>
-       <div class="modal-footer" style="display: none;">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-</form>
-  </div>
-</div>
+<?php $this->load->view('_modal_form'); ?>
 
     <script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/js/jqueryui/jquery-ui.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/numeral.min.js'); ?>"></script>
     
-    <script src="<?php echo base_url('assets/js/bootstrap-select/js/bootstrap-select.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/js/tag-it/js/tag-it.min.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/js/nprogress/nprogress.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/libs/jqueryui/jquery-ui.min.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/libs/bootstrap-select/js/bootstrap-select.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/libs/bootstrap-toggle/js/bootstrap-toggle.min.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/libs/tag-it/js/tag-it.min.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/libs/nprogress/nprogress.js'); ?>"></script>
+
     <script src="<?php echo base_url('assets/js/payroll.js'); ?>"></script>
+
+
   </body>
 </html>
 

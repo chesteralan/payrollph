@@ -1,5 +1,9 @@
 (function($){
 
+$('.btn').click(function () {
+    var $btn = $(this).button('loading');
+});
+
 var modal_backlink = [];
 var current_uri = '';
 
@@ -696,6 +700,8 @@ var loadLib = function() {
     select_all_by_class();
     init_calendar_check();
     autocomplete_search_ajax();
+    
+    $('.btn_toggle').bootstrapToggle();
 
 $('#ajaxModal .datepicker').datepicker();
         $('#ajaxModal select').selectpicker({
@@ -1124,6 +1130,7 @@ var lending_schedule_details = function() {
 	                        window['uri_string'] = ajax_url;
 	                        $('.autocomplete-member_change').attr('data-current_sub_uri', ajax_url);
 	                        init_payroll();
+                         
 	                      });
 	                    });
                 	}
@@ -1161,6 +1168,7 @@ var lending_schedule_details = function() {
       select_all_by_class();
       filter_list_name();
       autocomplete_search_ajax();
+
  }
  init_payroll();
 

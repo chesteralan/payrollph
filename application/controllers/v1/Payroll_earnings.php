@@ -77,6 +77,7 @@ class Payroll_earnings extends MY_Controller {
 		if( $column_id ) {
 			$earnings_columns->set_where('el.id', $column_id);
 		}
+		$earnings_columns->set_limit(0);
 		$columns = $earnings_columns->populate();
 		$this->template_data->set('earnings_columns', $columns);
 
@@ -337,15 +338,27 @@ class Payroll_earnings extends MY_Controller {
 		$this->template_data->set('pe_id', $pe_id);
 		$this->template_data->set('earning_id', $earning_id);
 
-		if( $this->input->post() ) {
+		if( $this->input->post() ) { 
 			$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
 			$this->form_validation->set_rules('notes', 'Notes', 'trim');
 			if( $this->form_validation->run() ) {
+
 				$earnings = new $this->Payroll_employees_earnings_model('pee');
 				$earnings->setPayrollId($id,true);
 				$earnings->setNameId($name_id,true);
 				$earnings->setEarningId($earning_id,true);
-				$earnings->setAmount( str_replace(",", "", $this->input->post('amount')) );
+
+				$amount = str_replace(",", "", $this->input->post('amount'));
+				if( $this->input->post('formula') ) {
+					$this->load->library('payroll_formula');
+					$formula = new $this->payroll_formula;
+					$formula->set_formula($this->input->post('formula'));
+					$formula->set_xvalue($this->input->post('amount'));
+					$formula->set('pe_id', $pe_id);
+					$amount = $formula->calculate();
+				}
+
+				$earnings->setAmount( $amount );
 				$earnings->setNotes($this->input->post('notes'));
 				$earnings->setEntryId( $this->input->post('entry_id') );
 				$earnings->setManual( $employee_data->manual );
@@ -573,6 +586,7 @@ class Payroll_earnings extends MY_Controller {
 		$earnings_columns->set_select('el.*');
 		$earnings_columns->set_join('earnings_list el', 'el.id=pe.earning_id');
 		$earnings_columns->set_order('pe.order', 'DESC');
+		$earnings_columns->set_limit(0);
 		$columns = $earnings_columns->populate();
 		$this->template_data->set('earnings_columns', $columns);
 

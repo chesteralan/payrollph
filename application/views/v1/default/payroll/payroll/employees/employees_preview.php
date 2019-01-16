@@ -95,7 +95,7 @@ $payslip_templates = unserialize(PAYROLL_PAYSLIP_TEMPLATES);
                
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Template" data-url="<?php echo site_url("payroll_templates/change_payslip/{$template->id}/{$employee->name_id}/ajax") . "?next=" .uri_string(); ?>">
 
-                <?php echo ($employee->template) ? $payslip_templates[$employee->template] : '- - - - -'; ?>
+                <?php echo (($employee->template) && (isset($payslip_templates[$employee->template]))) ? $payslip_templates[$employee->template] : '- - - - -'; ?>
 
 </a>
 

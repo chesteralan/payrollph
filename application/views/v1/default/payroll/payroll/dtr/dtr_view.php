@@ -120,7 +120,7 @@ if($employee->pe_presence) {
 <?php if($employee->pe_presence) { ?>
   n/a
 <?php } else { ?>
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Absences" data-url="<?php echo site_url("payroll_dtr/absences/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Absences" data-url="<?php echo site_url("payroll_dtr/absences/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" . uri_string(); ?>">
                 <?php echo $days_absent; ?>
 </a>
 <?php } ?>

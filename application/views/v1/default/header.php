@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo (isset($page_title)) ? $page_title : APP_NAME; ?></title>
     <link href="<?php echo base_url('assets/themes/' . ((isset($bootstrap_theme)) ? $bootstrap_theme : 'default' ) . '/bootstrap.min.css'); ?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/js/jqueryui/jquery-ui.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/icons/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/icons/material-icons/material-icons.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/icons/dashicons/css/dashicons.css'); ?>" rel="stylesheet">
@@ -17,11 +16,14 @@
     <link href="<?php echo base_url('assets/icons/octicons/octicons.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/icons/genericons/genericons.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/icons/devicons/css/devicons.css'); ?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/js/bootstrap-select/css/bootstrap-select.min.css'); ?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/js/tag-it/css/jquery.tagit.css'); ?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/styles.css'); ?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/js/nprogress/nprogress.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/libs/jqueryui/jquery-ui.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/libs/bootstrap-select/css/bootstrap-select.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/libs/bootstrap-toggle/css/bootstrap-toggle.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/libs/tag-it/css/jquery.tagit.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/libs/nprogress/nprogress.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/custom/' . ((isset($bootstrap_theme)) ? $bootstrap_theme : 'default' ) . '.css'); ?>" rel="stylesheet">
+
+    <link href="<?php echo base_url('assets/css/styles.css'); ?>" rel="stylesheet">
     
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

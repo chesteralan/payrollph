@@ -77,6 +77,7 @@ class Payroll_benefits extends MY_Controller {
 		if( $column_id ) {
 			$benefits_columns->set_where('bl.id', $column_id);
 		}
+		$benefits_columns->set_limit(0);
 		$columns = $benefits_columns->populate();
 		$this->template_data->set('benefits_columns', $columns);
 
@@ -577,6 +578,7 @@ if( $output == 'print') {
 		$benefits_columns->set_select('bl.*');
 		$benefits_columns->set_join('benefits_list bl', 'bl.id=pb.benefit_id');
 		$benefits_columns->set_order('pb.order', 'DESC');
+		$benefits_columns->set_limit(0);
 		$columns = $benefits_columns->populate();
 		$this->template_data->set('benefits_columns', $columns);
 

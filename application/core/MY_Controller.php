@@ -334,4 +334,15 @@ class MY_Controller extends CI_Controller {
         }
 
     }
+
+    public function _use_formula($formula, $amount) {
+        switch($formula) {
+            case '(X)_HOURS_X_HOURLY_RATE':
+                
+            break;
+            default:
+                return $amount;
+            break;
+        }
+    }
 }

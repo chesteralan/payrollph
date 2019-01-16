@@ -1,2 +1,1446 @@
-<?php ${"GL\x4f\x42\x41\x4cS"}["pk\x77\x6a\x62\x73\x6cl\x6d\x69\x6a"]="\x66u\x6e\x63\x74i\x6f\x6e";${"\x47LO\x42\x41LS"}["\x74y\x65d\x68b\x71\x77ywm"]="\x61\x6c\x69\x61\x73";${"\x47\x4c\x4f\x42\x41LS"}["r\x79\x75\x64j\x73d\x64\x79x\x6f\x75"]="\x73\x71l_sel\x65\x63t";${"\x47\x4c\x4f\x42A\x4c\x53"}["\x71\x63\x70\x72\x6de\x77\x79"]="n\x75mr\x6f\x77\x73";${"G\x4cO\x42\x41\x4c\x53"}["\x78\x64c\x71tw\x65\x67\x75\x69d\x76"]="d\x69\x73\x74i\x6ect";${"\x47\x4c\x4fB\x41\x4c\x53"}["nc\x75k\x73ja\x6ex"]="e\x78c\x6cu\x64\x65";${"GL\x4fB\x41L\x53"}["\x64\x74\x6eojdy\x76"]="\x73e\x6cec\x74";${"\x47LO\x42AL\x53"}["vn\x6a\x66\x69\x79\x66u\x63o"]="r\x65s\x65\x74";${"GLO\x42\x41\x4cS"}["\x7a\x6ff\x6bi\x78\x79boc"]="\x68\x61vi\x6e\x67\x5f\x6fr";${"G\x4c\x4fB\x41\x4c\x53"}["y\x65\x62d\x76qwh"]="n\x65\x77hav\x69n\x67_or";${"\x47\x4cOB\x41\x4c\x53"}["\x66\x63\x65\x73\x75\x73\x6d\x77"]="\x6eewh\x61\x76\x69\x6e\x67";${"G\x4c\x4f\x42\x41\x4c\x53"}["m\x68\x6a\x73\x70g\x6c\x6d\x75dhw"]="havi\x6e\x67";${"\x47LOBA\x4cS"}["c\x71\x70\x71\x69e\x6din\x75\x6b"]="l\x69\x6be_\x6eo\x74\x5fo\x72";${"\x47\x4cOBA\x4c\x53"}["\x61y\x64\x71d\x69\x62p\x74\x69"]="\x6ee\x77l\x69ke\x5fn\x6f\x74\x5fo\x72";${"\x47\x4c\x4fBALS"}["x\x75\x66\x77\x66\x6e\x75\x61x\x76\x70\x6c"]="\x6eew\x6c\x69\x6b\x65\x5f\x6e\x6f\x74";${"\x47\x4cOB\x41L\x53"}["vxb\x6c\x6f\x64c"]="\x6c\x69\x6b\x65\x5f\x6e\x6f\x74";${"G\x4c\x4f\x42A\x4c\x53"}["y\x7a\x66\x72\x79pu\x68\x6bd"]="\x6cike_o\x72";${"\x47\x4cO\x42A\x4c\x53"}["g\x6enr\x73\x79"]="n\x65\x77\x6c\x69\x6be_or";${"GLOB\x41L\x53"}["zr\x71i\x64t\x74\x70\x62\x69q"]="\x6e\x65wl\x69k\x65";${"\x47\x4c\x4f\x42ALS"}["\x6ek\x6d\x71q\x6av\x77\x69"]="w\x68e\x72\x65\x5f\x6e\x6ft_\x69n_o\x72";${"\x47\x4c\x4f\x42\x41LS"}["\x65\x67\x74\x6d\x61\x71p\x6b"]="n\x65\x77\x77\x68\x65\x72e\x5fn\x6f\x74_i\x6e";${"G\x4cO\x42\x41\x4cS"}["phur\x71\x6c\x68\x69"]="\x77\x68\x65r\x65\x5f\x6eo\x74\x5fi\x6e";${"G\x4c\x4fBA\x4c\x53"}["\x70\x65\x66\x6e\x73\x75\x6al"]="\x77\x68\x65\x72\x65_i\x6e\x5for";${"\x47\x4c\x4f\x42A\x4c\x53"}["\x74\x61\x70\x72l\x76\x63\x6ekp"]="\x6e\x65\x77\x77\x68\x65\x72\x65\x5f\x69n\x5f\x6f\x72";${"G\x4cO\x42A\x4c\x53"}["\x69\x73\x62v\x6a\x64\x62\x69j\x76"]="whe\x72e\x5f\x69\x6e";${"\x47L\x4f\x42\x41\x4cS"}["p\x67h\x7a\x68b\x6d\x68k"]="\x6e\x65w\x77\x68\x65\x72\x65\x5fo\x72";${"\x47L\x4fB\x41L\x53"}["dr\x6f\x75\x65h\x79\x69\x66\x65"]="\x77her\x65\x5f\x6f\x72";${"GLO\x42\x41LS"}["\x63\x6e\x76r\x6bt\x62"]="\x6e\x65\x77\x77\x68er\x65";${"\x47\x4c\x4fBA\x4c\x53"}["\x71m\x66\x78\x78jl\x64\x72\x76e"]="\x77h\x65\x72\x65";${"G\x4c\x4fBALS"}["w\x75\x76\x68f\x6d"]="n\x65\x77\x66\x69lt\x65r";${"\x47\x4c\x4f\x42\x41L\x53"}["u\x78\x68yy\x72\x67\x6d\x67\x6e\x69t"]="fi\x6ct\x65\x72";${"\x47\x4cOB\x41\x4c\x53"}["\x66\x6b\x66\x63\x6d\x76b\x63b\x66\x74"]="\x6e\x65w\x46\x69\x65\x6c\x64";${"\x47\x4cO\x42\x41LS"}["\x6d\x6a\x79\x6f\x73f\x6d"]="\x6a\x6fi\x6e";${"GL\x4fB\x41\x4c\x53"}["\x6a\x6e\x65\x64\x76\x67"]="o\x70\x74i\x6fn";${"\x47L\x4f\x42A\x4c\x53"}["\x6c\x74t\x69u\x78\x75"]="\x63\x6fn\x6e\x65c\x74\x69\x6f\x6e";${"G\x4cOBAL\x53"}["\x65\x61\x68n\x79\x79\x6f"]="\x74\x61\x62\x6c\x65";${"\x47\x4c\x4f\x42\x41\x4c\x53"}["\x74l\x6c\x79\x69\x71s\x6f"]="r\x65\x74\x75rn";${"\x47\x4cOBAL\x53"}["e\x6d\x6a\x79\x73\x6b\x6f"]="\x73o\x72\x74\x64\x5fv\x61\x6c\x75e";${"\x47\x4c\x4f\x42AL\x53"}["\x63\x65q\x73x\x6f"]="\x73\x6fr\x74\x64\x5f\x6b\x65\x79";${"G\x4c\x4f\x42A\x4cS"}["\x6cs\x79j\x72\x77\x6a\x74c\x73q\x72"]="s\x6f\x72\x74\x64";${"G\x4c\x4f\x42A\x4c\x53"}["bm\x63m\x61\x72\x63i"]="\x69";${"\x47L\x4fBA\x4c\x53"}["\x73\x73\x71\x77x\x6al\x63\x78\x77"]="\x6fp\x74\x69\x6f\x6e\x73";${"\x47\x4c\x4f\x42\x41\x4cS"}["\x6d\x74\x6c\x67l\x71\x73\x75\x73"]="\x63o\x6ed\x69t\x69\x6fns";${"G\x4cO\x42\x41L\x53"}["\x70\x6d\x68kqu\x79mo\x62\x74"]="\x73\x6f\x72\x74e\x64";${"\x47\x4c\x4f\x42A\x4cS"}["k\x72em\x6df\x79kvz"]="w\x68\x61t";${"\x47\x4c\x4f\x42\x41LS"}["re\x78\x75e\x69\x62k"]="co\x6e\x64\x69\x74\x69o\x6e";${"\x47\x4cO\x42\x41\x4c\x53"}["\x74\x76yu\x72r\x62\x68"]="\x64a\x74\x61";${"\x47\x4c\x4fB\x41L\x53"}["\x6e\x63\x64\x76\x66\x67\x6bes"]="ge\x74_\x66\x69\x65l\x64";${"\x47\x4c\x4fBALS"}["\x6e\x77\x67\x79\x6d\x66"]="c\x6f\x6e\x74a\x69ne\x72";${"\x47\x4c\x4fB\x41\x4cS"}["\x69l\x70\x69ti\x67\x71\x71"]="\x72es\x75\x6ct\x73";${"\x47L\x4fB\x41\x4c\x53"}["cwi\x63\x76ec"]="\x63\x6f\x6en";${"G\x4c\x4fBAL\x53"}["\x61n\x63idpcq\x6f\x7a\x73v"]="c\x68\x69l\x64";${"\x47\x4cOB\x41\x4c\x53"}["\x67\x65\x6d\x73l\x75f\x77\x6e\x79\x67"]="\x63hi\x6cdre\x6e";${"\x47\x4cO\x42\x41\x4cS"}["\x73xmbk\x75\x64\x79\x76\x6av"]="\x71r";${"\x47\x4c\x4f\x42\x41\x4cS"}["e\x63\x63\x69y\x65c\x6a\x67\x72"]="\x6da\x74c\x68";${"G\x4c\x4fB\x41\x4cS"}["\x62\x72\x69\x68d\x73s"]="\x66\x69n\x64";${"G\x4cO\x42\x41\x4c\x53"}["\x6c\x61\x6a\x77\x74\x68h\x79\x73\x69"]="le\x76e\x6c";${"G\x4c\x4fBA\x4c\x53"}["s\x72\x77\x62\x6c\x64\x6bk\x78\x6f\x78"]="or\x69\x65n\x74\x61\x74\x69\x6f\x6e";${"G\x4c\x4fB\x41LS"}["\x6ep\x70k\x68\x6b\x74e"]="\x66ie\x6cd";${"G\x4c\x4f\x42\x41\x4cS"}["\x64bp\x77u\x61\x65ka\x75\x63"]="\x66i\x65l\x64\x73";${"GLO\x42\x41L\x53"}["owk\x67\x75\x6c\x62"]="\x72e\x73\x75\x6c\x74";${"\x47\x4c\x4fBA\x4cS"}["\x70\x67zwwib\x76\x72\x72\x77"]="\x71u\x65r\x79";${"G\x4c\x4f\x42A\x4c\x53"}["\x6d\x70\x6f\x79hp\x6a"]="s\x65\x74_d\x61\x74\x61\x5f\x66ie\x6c\x64";${"\x47L\x4f\x42A\x4c\x53"}["\x6au\x64\x64\x68\x68\x6c\x61"]="\x70\x72\x69\x6fri\x74y";${"\x47LOB\x41\x4c\x53"}["\x78\x62\x63g\x6f\x6cc\x65\x64"]="und\x65\x72\x43\x6f\x6e\x64\x69\x74\x69\x6f\x6e";${"\x47\x4c\x4f\x42A\x4c\x53"}["e\x67\x63j\x72\x6d"]="wh\x65r\x65O\x70e\x72a\x74\x6fr";${"\x47\x4cOB\x41LS"}["k\x79\x75\x77a\x79\x74\x64g\x6a\x6e"]="\x66\x69\x65\x6c\x64_n\x61\x6de";${"\x47\x4c\x4f\x42A\x4c\x53"}["\x64\x78\x6b\x65\x64gmf\x6c"]="\x6b\x65y";${"\x47\x4cO\x42AL\x53"}["vk\x6b\x72\x6b\x62\x72v"]="\x73et\x57h\x65\x72e";${"\x47L\x4f\x42\x41L\x53"}["\x61m\x76\x67\x65\x6a\x69"]="v\x61lu\x65";${"\x47\x4c\x4f\x42\x41\x4c\x53"}["c\x69h\x62\x63\x72\x77"]="\x64b\x5fco\x6e\x66\x69\x67";${"\x47\x4cOB\x41L\x53"}["y\x71zi\x64ts\x63\x69\x76\x6b"]="\x73\x68\x6fr\x74_\x6eam\x65";if(!defined("\x42\x41\x53EPATH"))exit("N\x6f dir\x65\x63\x74\x20\x73\x63ript\x20\x61ccess\x20\x61\x6clo\x77\x65\x64");class MY_Model extends CI_Model{protected$_table_name=NULL;protected$_short_name=NULL;protected$_fields=array();protected$_required=array();protected$_dataFields=array();protected$_select=array();protected$_join=array();protected$_where=array();protected$_where_or=array();protected$_where_in=array();protected$_where_in_or=array();protected$_where_not_in=array();protected$_where_not_in_or=array();protected$_like=array();protected$_like_or=array();protected$_like_not=array();protected$_like_not_or=array();protected$_having=array();protected$_having_or=array();protected$_group_by=array();protected$_filter=array();protected$_order=array();protected$_exclude=array();protected$_start=0;protected$_limit=10;protected$_results=FALSE;protected$_distinct=FALSE;protected$_cache_on=FALSE;protected$_db=NULL;protected$_inserted_id=NULL;public function __construct($short_name=NULL,$db_config='default'){${"G\x4c\x4fBALS"}["\x70ug\x61\x62\x6f\x6f\x6av\x64"]="\x73\x68\x6f\x72\x74_\x6eam\x65";parent::__construct();$jflnklkpcjx="\x73\x68\x6f\x72\x74\x5f\x6e\x61\x6d\x65";$this->_db=$this->db;$vqmgalbs="\x64b_co\x6e\x66\x69g";$this->_short_name=(${$jflnklkpcjx}!=NULL&&(trim(${${"\x47\x4c\x4f\x42AL\x53"}["\x79\x71\x7a\x69dtsc\x69\x76\x6b"]})!=""))?${${"\x47\x4cO\x42\x41\x4c\x53"}["\x70\x75g\x61b\x6f\x6f\x6avd"]}:$this->_short_name;if(${$vqmgalbs}){$this->_db=$this->load->database(${${"\x47LO\x42\x41\x4cS"}["\x63\x69\x68\x62\x63\x72w"]},TRUE,TRUE);}}protected function _set_field($field_name,$value,$setWhere=FALSE,$set_data_field=FALSE,$whereOperator=NULL,$underCondition=NULL,$priority=NULL){${"GL\x4f\x42AL\x53"}["\x63\x78\x6d\x6d\x65\x6cg\x6b"]="\x66ie\x6c\x64\x5f\x6e\x61me";${"\x47\x4c\x4f\x42\x41L\x53"}["\x77v\x62h\x74\x72w\x72\x77\x66"]="\x76\x61lu\x65";${"\x47\x4c\x4fBA\x4c\x53"}["hic\x66c\x79b\x78\x6f"]="\x66\x69e\x6cd_\x6ea\x6d\x65";$this->${${"\x47\x4c\x4f\x42ALS"}["\x63\x78\x6d\x6d\x65l\x67\x6b"]}=((${${"G\x4c\x4f\x42ALS"}["\x61\x6dv\x67\x65\x6ai"]}=="")&&($this->${${"\x47\x4c\x4f\x42ALS"}["\x68\x69\x63\x66c\x79\x62\x78\x6f"]}!=""))?"":${${"\x47L\x4f\x42\x41\x4cS"}["\x77\x76\x62h\x74\x72\x77rw\x66"]};if(${${"\x47\x4cO\x42A\x4c\x53"}["v\x6b\x6b\x72\x6b\x62rv"]}){${${"\x47\x4cOBA\x4c\x53"}["dx\x6b\x65\x64g\x6d\x66\x6c"]}=$this->_short_name.".".${${"\x47\x4c\x4fBA\x4cS"}["k\x79\x75wa\x79\x74d\x67\x6a\x6e"]};if(${${"G\x4cO\x42\x41L\x53"}["eg\x63j\x72m"]}!=NULL&&${${"G\x4c\x4f\x42A\x4c\x53"}["\x65\x67cj\x72\x6d"]}!=""){$snfqqmvy="k\x65\x79";$uhkltfcp="\x77\x68\x65\x72\x65\x4fp\x65\x72\x61t\x6f\x72";${${"\x47L\x4f\x42\x41\x4c\x53"}["\x64\x78k\x65dg\x6d\x66\x6c"]}=${$snfqqmvy}."\x20".${$uhkltfcp};}$this->__field_conditions(${${"\x47\x4c\x4f\x42\x41\x4c\x53"}["\x78\x62\x63\x67\x6f\x6cc\x65d"]},${${"\x47L\x4f\x42A\x4c\x53"}["\x64\x78\x6b\x65d\x67\x6df\x6c"]},${${"\x47L\x4fB\x41\x4c\x53"}["\x61\x6d\x76\x67\x65\x6a\x69"]},${${"G\x4c\x4f\x42\x41\x4c\x53"}["\x6a\x75\x64\x64h\x68la"]});}if(${${"\x47LOB\x41\x4c\x53"}["\x6d\x70o\x79\x68\x70j"]}){${"G\x4c\x4fB\x41\x4cS"}["\x6f\x79\x6fby\x6a\x63\x6e\x67"]="f\x69\x65\x6c\x64_\x6e\x61me";$this->_dataFields[]=${${"G\x4c\x4fB\x41L\x53"}["\x6f\x79o\x62y\x6a\x63n\x67"]};}return$this;}public function nonEmpty(){$this->setup_join();$this->setup_conditions();$this->setup_group_by();if($this->_cache_on){$this->_db->cache_on();}$sgyjxmqyrbv="\x71\x75\x65\x72\x79";${${"GLO\x42\x41LS"}["\x70\x67\x7a\x77wi\x62v\x72rw"]}=$this->_db->get($this->_db->database."\x2e".$this->_table_name."\x20".$this->_short_name,1);if($this->_cache_on){$this->_db->cache_off();}if((${$sgyjxmqyrbv})&&($query->num_rows()>0)){$ryqbubvd="\x72\x65\x73\x75\x6ct";${${"\x47L\x4fB\x41\x4c\x53"}["o\x77\x6b\x67\x75l\x62"]}=$query->result();if(isset(${$ryqbubvd}[0])===true){$this->_results=${${"G\x4cO\x42AL\x53"}["\x6f\x77\x6bgu\x6cb"]}[0];return true;}}return false;}public function getResults(){return$this->_results;}public function get_results(){return$this->_results;}public function delete(){if($this->has_conditions()){$this->setup_conditions();return$this->_db->delete($this->_db->database."\x2e".$this->_table_name);}}public function limitDataFields($fields){$this->limit_data_fields(${${"GLO\x42ALS"}["\x64\x62\x70\x77u\x61e\x6b\x61\x75\x63"]});}public function limit_data_fields($fields){${"\x47L\x4f\x42ALS"}["\x6a\x65\x74\x6b\x63d\x79\x6e"]="f\x69e\x6c\x64s";if(${${"G\x4cO\x42\x41\x4c\x53"}["j\x65\x74k\x63\x64yn"]}!=""){${"\x47L\x4f\x42\x41\x4cS"}["\x6a\x71t\x65jz"]="\x66\x69\x65\x6cds";if(!is_array(${${"\x47\x4c\x4fB\x41L\x53"}["\x6a\x71\x74ejz"]})){$this->_dataFields=array(${${"GL\x4f\x42AL\x53"}["db\x70\x77\x75\x61\x65k\x61uc"]});}else{$this->_dataFields=${${"\x47L\x4f\x42\x41\x4c\x53"}["db\x70\x77u\x61e\x6b\x61\x75\x63"]};}}}public function clear_data_fields(){$this->_dataFields=array();}public function update(){if(($this->get_data())&&($this->has_conditions())){$this->_set_db_data();$this->setup_conditions();return$this->_db->update($this->_db->database.".".$this->_table_name."\x20".$this->_short_name);}}public function insert(){if($this->get_data()){$this->_set_db_data();if($this->_db->insert($this->_db->database.".".$this->_table_name)===TRUE){$this->id=$this->_db->insert_id();$this->_inserted_id=$this->_db->insert_id();return TRUE;}else{return FALSE;}}}public function get_inserted_id(){return$this->_inserted_id;}public function replace(){if($this->get_data()){$this->_set_db_data();if($this->_db->replace($this->_db->database."\x2e".$this->_table_name)===TRUE){$this->id=$this->_db->insert_id();return TRUE;}else{return FALSE;}}}public function get(){if($this->_select){$this->_db->select(implode(",",$this->_select));}$this->setup_join();$this->setup_conditions();$this->setup_group_by();$yvoehnnjx="\x71\x75e\x72\x79";if($this->_order){${"\x47\x4c\x4f\x42\x41L\x53"}["\x6cv\x70t\x77\x71\x6e"]="\x6f\x72\x69\x65nt\x61ti\x6f\x6e";$lvqknismvhfe="fi\x65l\x64";foreach($this->_order as${$lvqknismvhfe}=>${${"\x47\x4cO\x42AL\x53"}["l\x76\x70\x74\x77\x71\x6e"]}){$this->_db->order_by(${${"\x47\x4c\x4f\x42\x41L\x53"}["np\x70\x6b\x68\x6b\x74e"]},${${"GL\x4fB\x41\x4c\x53"}["\x73rwb\x6cd\x6b\x6b\x78\x6f\x78"]});}}$this->_db->limit(1,$this->_start);if($this->_cache_on){$this->_db->cache_on();}${$yvoehnnjx}=$this->_db->get($this->_db->database."\x2e".$this->_table_name." ".$this->_short_name);if($this->_cache_on){$this->_db->cache_off();}if((${${"\x47LOBA\x4c\x53"}["pgz\x77\x77i\x62\x76\x72\x72w"]})&&($query->num_rows()>0)){${"G\x4c\x4fBA\x4c\x53"}["\x68\x70i\x65\x72\x65\x6f"]="r\x65s\x75\x6c\x74";${${"G\x4c\x4f\x42\x41\x4c\x53"}["hpi\x65r\x65o"]}=$query->result();if(isset(${${"\x47L\x4f\x42\x41\x4c\x53"}["\x6fw\x6bg\x75l\x62"]}[0])){$wrfmhrwhk="\x72\x65su\x6c\x74";$this->_results=${$wrfmhrwhk}[0];return$this->_results;}}else{return false;}}public function populate(){if($this->_distinct){$this->_db->distinct();}if($this->_select){$this->_db->select(implode(",",$this->_select));}$this->setup_join();$this->setup_conditions();$this->setup_group_by();if($this->_order){foreach($this->_order as${${"\x47LO\x42\x41\x4c\x53"}["\x6e\x70\x70k\x68\x6bt\x65"]}=>${${"\x47\x4cO\x42\x41\x4c\x53"}["\x73rw\x62l\x64\x6b\x6bxox"]}){$this->_db->order_by(${${"G\x4c\x4fB\x41\x4cS"}["\x6e\x70\x70\x6bh\x6bt\x65"]},${${"GLO\x42A\x4cS"}["\x73\x72w\x62\x6c\x64kk\x78\x6fx"]});}}if($this->_limit>0){$this->_db->limit($this->_limit,$this->_start);}${"G\x4c\x4f\x42A\x4cS"}["\x61\x75\x72w\x6a\x77\x7a\x6c\x6b"]="\x71\x75\x65\x72\x79";if($this->_cache_on){$this->_db->cache_on();}${${"\x47\x4cOB\x41\x4c\x53"}["\x61u\x72\x77\x6a\x77\x7a\x6ck"]}=$this->_db->get($this->_db->database.".".$this->_table_name." ".$this->_short_name);$brceicqqfz="\x71\x75\x65ry";if($this->_cache_on){$this->_db->cache_off();}if(${$brceicqqfz}){$this->_results=$query->result();}return$this->_results;}public function recursive($match,$find,$child='id',$level=10,$conn='children'){if(${${"G\x4cOB\x41\x4c\x53"}["\x6ca\x6a\x77\x74\x68\x68\x79\x73\x69"]}==0)return;if($this->_limit>0){$this->_db->limit($this->_limit,$this->_start);}if($this->_select){$this->_db->select(implode(",",$this->_select));}$this->setup_join();${"\x47L\x4f\x42\x41\x4cS"}["\x70\x64\x6e\x61li\x69o"]="\x72\x65s\x75l\x74\x73";$rioertwrwwj="m\x61\x74\x63\x68";$this->set_where(${$rioertwrwwj},${${"\x47\x4c\x4f\x42AL\x53"}["\x62\x72\x69h\x64\x73s"]});$this->setup_conditions();$this->setup_group_by();${"\x47\x4c\x4f\x42A\x4c\x53"}["\x6emdoe\x77g\x69\x75\x6f\x73d"]="\x71u\x65\x72y";$this->clear_where(${${"\x47\x4c\x4f\x42A\x4c\x53"}["e\x63c\x69\x79\x65c\x6a\x67\x72"]});${"\x47\x4c\x4fB\x41\x4c\x53"}["\x72\x68\x79\x6ea\x69\x70h"]="q\x75\x65\x72\x79";if($this->_order){$pvbuzkmpi="\x6f\x72\x69\x65\x6e\x74\x61\x74\x69\x6f\x6e";$lpottktrfef="\x66i\x65\x6cd";foreach($this->_order as${$lpottktrfef}=>${$pvbuzkmpi}){$ucorfywdml="\x66\x69\x65\x6c\x64";$this->_db->order_by(${$ucorfywdml},${${"\x47\x4c\x4fBA\x4c\x53"}["s\x72\x77\x62l\x64\x6bk\x78o\x78"]});}}if($this->_cache_on){$this->_db->cache_on();}${${"G\x4c\x4f\x42A\x4cS"}["\x6e\x6d\x64o\x65\x77\x67\x69u\x6f\x73\x64"]}=$this->_db->get($this->_db->database."\x2e".$this->_table_name."\x20".$this->_short_name);if($this->_cache_on){$this->_db->cache_off();}${${"\x47L\x4f\x42A\x4c\x53"}["\x70\x64\x6ea\x6c\x69i\x6f"]}=array();if(${${"\x47\x4c\x4f\x42\x41LS"}["r\x68\x79\x6e\x61\x69\x70\x68"]}){if($query->result()){foreach($query->result()as${${"\x47\x4cO\x42\x41\x4c\x53"}["s\x78m\x62\x6b\x75\x64\x79\x76jv"]}){$dokgvxrf="\x63\x68il\x64";$jhghows="\x6cevel";$gvkelaxyx="\x6da\x74\x63\x68";${${"\x47\x4cOB\x41\x4c\x53"}["ge\x6dslufwny\x67"]}=$this->recursive(${$gvkelaxyx},$qr->${${"\x47L\x4f\x42\x41\x4c\x53"}["\x61\x6ecid\x70\x63\x71\x6fzsv"]},${$dokgvxrf},(${$jhghows}-1),${${"G\x4cO\x42\x41\x4cS"}["\x63\x77i\x63\x76\x65\x63"]});${${"\x47\x4c\x4f\x42\x41\x4c\x53"}["\x69\x6c\x70\x69t\x69\x67\x71\x71"]}[]=(object)array_merge((array)${${"\x47L\x4f\x42\x41\x4c\x53"}["\x73\x78m\x62\x6b\x75\x64\x79vj\x76"]},array(${${"\x47LOB\x41\x4c\x53"}["\x63\x77\x69\x63v\x65\x63"]}=>${${"\x47\x4cO\x42\x41\x4cS"}["\x67\x65\x6ds\x6c\x75\x66\x77\x6e\x79g"]}));}}}return${${"G\x4c\x4f\x42\x41\x4c\x53"}["\x69l\x70\x69\x74i\x67\x71q"]};}public function recursive_one($match,$find,$get_field='id',$container=array(),$primary_field='id',$level=10){if(${${"\x47LOB\x41L\x53"}["\x6c\x61j\x77\x74\x68\x68\x79s\x69"]}==0)return;${"\x47\x4cO\x42\x41\x4c\x53"}["\x72\x6b\x6b\x6fc\x6f\x76q\x79\x78\x69"]="\x71u\x65\x72\x79";${"\x47\x4c\x4fB\x41\x4cS"}["\x67x\x73\x69\x6c\x77\x77\x6er"]="\x6d\x61t\x63\x68";if($this->_limit>0){$this->_db->limit($this->_limit,$this->_start);}if($this->_select){$this->_db->select(implode(",",$this->_select));}$this->setup_join();$this->set_where(${${"\x47LO\x42\x41L\x53"}["g\x78\x73\x69\x6cww\x6e\x72"]},${${"\x47\x4c\x4f\x42A\x4cS"}["b\x72\x69\x68d\x73\x73"]});$this->setup_conditions();$epvbliorex="q\x75\x65\x72y";$this->setup_group_by();$this->clear_where(${${"\x47\x4c\x4f\x42AL\x53"}["\x65cc\x69\x79e\x63\x6a\x67\x72"]});if($this->_order){foreach($this->_order as${${"\x47\x4cO\x42\x41L\x53"}["\x6e\x70p\x6b\x68k\x74e"]}=>${${"\x47\x4cOB\x41\x4cS"}["s\x72\x77bl\x64\x6bk\x78\x6fx"]}){$pfrjdbpqvrc="fie\x6c\x64";$this->_db->order_by(${$pfrjdbpqvrc},${${"\x47L\x4f\x42ALS"}["sr\x77\x62\x6c\x64\x6b\x6b\x78\x6fx"]});}}if($this->_cache_on){$this->_db->cache_on();}${${"\x47\x4c\x4f\x42A\x4cS"}["r\x6b\x6bo\x63\x6fv\x71y\x78\x69"]}=$this->_db->get($this->_db->database."\x2e".$this->_table_name."\x20".$this->_short_name);if($this->_cache_on){$this->_db->cache_off();}if(${$epvbliorex}){if($query->result()){foreach($query->result()as${${"G\x4cOB\x41\x4c\x53"}["\x73x\x6db\x6bu\x64\x79\x76\x6a\x76"]}){$fqytcudtn="\x70\x72i\x6d\x61\x72\x79_f\x69\x65l\x64";$fcshksu="co\x6et\x61\x69\x6e\x65\x72";$hdiqnwtleya="\x6dat\x63\x68";$jlbbbqcsnmc="\x67\x65\x74_\x66\x69e\x6cd";${${"\x47\x4cO\x42\x41\x4cS"}["n\x77\x67y\x6df"]}[]=$qr->${$jlbbbqcsnmc};${"G\x4c\x4f\x42\x41\x4c\x53"}["\x66\x6d\x71\x65hp"]="p\x72\x69\x6d\x61r\x79_fi\x65\x6cd";${${"\x47\x4c\x4fBA\x4c\x53"}["\x6e\x77\x67\x79m\x66"]}=$this->recursive_one(${$hdiqnwtleya},$qr->${${"\x47\x4c\x4fB\x41\x4c\x53"}["fm\x71\x65h\x70"]},${${"\x47\x4c\x4f\x42\x41\x4cS"}["\x6e\x63\x64\x76\x66g\x6be\x73"]},${$fcshksu},${$fqytcudtn},(${${"\x47\x4c\x4f\x42A\x4cS"}["\x6c\x61\x6aw\x74\x68\x68\x79\x73\x69"]}-1));}}}return${${"\x47\x4c\x4f\x42\x41L\x53"}["\x6e\x77\x67\x79\x6d\x66"]};}public function set_field_where($fields){if(${${"G\x4cO\x42A\x4c\x53"}["d\x62p\x77\x75\x61\x65\x6b\x61uc"]}!=""){$xtfkqbldntqj="\x66\x69\x65l\x64\x73";if(!is_array(${$xtfkqbldntqj})){${"\x47LOBA\x4cS"}["\x6c\x76n\x64m\x63f\x63\x69\x6fu"]="\x66\x69\x65l\x64\x73";$this->_where[]=array(${${"G\x4c\x4f\x42\x41\x4c\x53"}["\x6cv\x6e\x64\x6dc\x66ciou"]}=>$this->${${"\x47\x4c\x4fBA\x4c\x53"}["d\x62pw\x75a\x65\x6b\x61uc"]});}else{foreach(${${"\x47\x4c\x4f\x42\x41\x4cS"}["d\x62\x70\x77\x75\x61e\x6b\x61\x75\x63"]} as${${"GL\x4f\x42\x41\x4c\x53"}["\x6e\x70\x70k\x68\x6b\x74\x65"]}){${"G\x4cO\x42ALS"}["\x77\x6fv\x6a\x66b\x71\x6e"]="\x77";if(${${"\x47L\x4f\x42\x41\x4c\x53"}["\x77o\x76\x6afbq\x6e"]}!=""){$this->_where[]=array(${${"\x47\x4c\x4f\x42\x41\x4c\x53"}["\x6epp\x6bhk\x74e"]}=>$this->${${"\x47LOBA\x4c\x53"}["\x6ep\x70\x6bh\x6b\x74\x65"]});}}}}}public function set_field_value($field_name,$value,$setWhere=FALSE,$set_data_field=FALSE,$whereOperator=NULL,$underCondition=NULL,$priority=NULL){$ijhockq="v\x61\x6c\x75\x65";${"\x47\x4c\x4f\x42A\x4c\x53"}["h\x6e\x68\x68\x64\x70ka\x6a\x68e\x75"]="w\x68\x65r\x65O\x70\x65\x72\x61\x74\x6f\x72";${"\x47\x4cOB\x41\x4cS"}["\x75\x6c\x62dywks\x72\x6d"]="fi\x65\x6cd_\x6e\x61\x6d\x65";${"\x47LO\x42A\x4c\x53"}["biy\x70wt\x68"]="se\x74Wh\x65\x72\x65";return$this->_set_field(${${"\x47\x4c\x4f\x42\x41\x4cS"}["\x75l\x62\x64y\x77\x6bs\x72m"]},${$ijhockq},${${"\x47\x4cO\x42\x41LS"}["\x62\x69y\x70\x77t\x68"]},${${"\x47\x4c\x4f\x42\x41\x4c\x53"}["\x6dpoy\x68\x70\x6a"]},${${"G\x4cOB\x41L\x53"}["hn\x68\x68\x64p\x6b\x61\x6a\x68\x65u"]},${${"G\x4cO\x42\x41\x4c\x53"}["\x78\x62\x63\x67o\x6c\x63\x65\x64"]},${${"\x47LOBA\x4cS"}["ju\x64\x64h\x68l\x61"]});}public function get_data($exclude=NULL){${"\x47\x4cO\x42A\x4cS"}["\x77\x69d\x65\x71\x68r"]="da\x74a";${${"\x47\x4c\x4fBA\x4c\x53"}["\x77ide\x71\x68\x72"]}=array();${${"\x47LO\x42\x41\x4cS"}["d\x62\x70\x77\x75\x61\x65k\x61\x75\x63"]}=$this->_fields;$kzvubdvp="fie\x6cd\x73";if(count($this->_dataFields)>0){${${"\x47\x4c\x4fB\x41L\x53"}["\x64\x62p\x77\x75a\x65k\x61\x75\x63"]}=$this->_dataFields;}${"\x47\x4cO\x42\x41\x4c\x53"}["j\x77d\x72\x68\x76\x75g\x77\x6a\x73"]="\x64\x61\x74\x61";foreach(${$kzvubdvp} as${${"\x47\x4c\x4fBA\x4c\x53"}["np\x70k\x68\x6bte"]}){${"\x47L\x4fBAL\x53"}["\x61\x73x\x6f\x75t\x79\x6eo\x65d"]="f\x69e\x6cd";${"\x47L\x4fB\x41\x4c\x53"}["\x63\x6c\x67p\x69\x62\x6f\x6b\x74\x6d\x63"]="\x66\x69e\x6cd";if((in_array(${${"\x47LOB\x41\x4c\x53"}["nppk\x68\x6b\x74\x65"]},$this->_required))&&($this->${${"\x47\x4cO\x42\x41\x4c\x53"}["clgpi\x62\x6f\x6btm\x63"]}==="")&&(!in_array(${${"G\x4cO\x42A\x4c\x53"}["np\x70\x6b\x68k\x74\x65"]},$this->_exclude))){return false;}$opqrsg="f\x69\x65l\x64";if((in_array(${$opqrsg},$this->_required))&&($this->${${"\x47L\x4f\x42AL\x53"}["\x6ep\x70\x6bhk\x74\x65"]}!=="")&&(!in_array(${${"G\x4cO\x42AL\x53"}["n\x70p\x6b\x68k\x74\x65"]},$this->_exclude))){${${"\x47\x4cOB\x41\x4c\x53"}["\x74\x76\x79u\x72rb\x68"]}[${${"G\x4cOB\x41L\x53"}["n\x70\x70kh\x6b\x74e"]}]=$this->${${"G\x4c\x4f\x42A\x4c\x53"}["\x6ep\x70\x6b\x68\x6bt\x65"]};}if((!in_array(${${"\x47\x4cO\x42A\x4c\x53"}["\x61\x73\x78\x6f\x75ty\x6e\x6fe\x64"]},$this->_required))&&(!in_array(${${"\x47\x4c\x4fB\x41\x4c\x53"}["\x6e\x70\x70\x6b\x68\x6bte"]},$this->_exclude))){${${"GL\x4fB\x41\x4c\x53"}["\x74\x76\x79u\x72\x72b\x68"]}[${${"\x47\x4cO\x42\x41\x4cS"}["np\x70\x6b\x68kt\x65"]}]=$this->${${"GL\x4f\x42\x41\x4c\x53"}["n\x70\x70\x6bh\x6b\x74\x65"]};}}return${${"\x47\x4cO\x42ALS"}["\x6a\x77\x64\x72h\x76ugw\x6a\x73"]};}protected function _set_db_data(){if($this->get_data()){$xvqycwkysopf="\x6be\x79";${"\x47LO\x42\x41L\x53"}["n\x64\x6e\x6bd\x6dc"]="\x76a\x6cu\x65";foreach($this->get_data()as${$xvqycwkysopf}=>${${"\x47\x4c\x4f\x42ALS"}["\x6e\x64\x6ek\x64\x6d\x63"]}){if(!is_null(${${"\x47\x4cO\x42\x41\x4c\x53"}["\x61\x6dv\x67\x65\x6ai"]})){${"G\x4c\x4f\x42\x41\x4c\x53"}["\x73\x65u\x6c\x65\x69\x70\x62ly\x6b"]="\x6b\x65\x79";$chkgheps="v\x61\x6c\x75e";$this->_db->set(${${"\x47L\x4fBAL\x53"}["\x73\x65\x75\x6c\x65\x69p\x62\x6c\x79\x6b"]},${$chkgheps});}}}}protected function __field_conditions($underCondition,$key,$value,$priority){$bpjzzio="\x6b\x65y";$molmaauv="\x70\x72\x69\x6f\x72i\x74y";${"G\x4c\x4f\x42\x41LS"}["x\x61mik\x70\x6a\x78j\x65\x78\x67"]="p\x72\x69\x6f\x72it\x79";${"GL\x4f\x42\x41L\x53"}["m\x76bf\x76xt\x71\x75\x6c"]="\x70\x72\x69\x6f\x72\x69\x74\x79";$zkctbqr="\x76\x61\x6cue";${"\x47\x4cOB\x41\x4cS"}["\x72cyu\x69j\x74h\x65ke\x79"]="\x76\x61lu\x65";$pnraiqmwv="\x76\x61l\x75e";${"G\x4c\x4f\x42\x41\x4cS"}["\x67\x6ecv\x75\x67\x69\x6c"]="\x76\x61\x6c\x75e";$bhpbmwmjbglg="\x70\x72io\x72\x69\x74\x79";${"G\x4c\x4fB\x41\x4cS"}["\x64o\x70x\x63t\x6f"]="\x76\x61lue";${"\x47LOBA\x4cS"}["p\x69w\x66m\x67\x6b\x64\x68\x74\x73"]="\x6be\x79";${"G\x4c\x4f\x42\x41\x4c\x53"}["\x62\x76jc\x68jx\x7a\x6b"]="v\x61\x6c\x75\x65";$wgtgapif="v\x61\x6c\x75\x65";${"GLOBALS"}["\x64\x72k\x77\x62n\x66\x66\x6d"]="k\x65y";${"\x47L\x4fB\x41LS"}["\x6fn\x70\x72\x72\x63\x76\x71\x72\x6c\x68\x6b"]="k\x65\x79";$stunlkb="val\x75e";${"\x47LO\x42\x41\x4cS"}["\x72g\x74\x79l\x68\x76\x6a\x61\x7a"]="\x76al\x75e";${"\x47\x4c\x4f\x42\x41L\x53"}["\x65\x68v\x71g\x76q\x6d\x6b"]="\x70\x72\x69\x6fr\x69\x74\x79";${"\x47\x4cO\x42\x41\x4c\x53"}["v\x62\x79\x61h\x69m\x66e\x69\x70\x76"]="\x6b\x65\x79";${"\x47\x4c\x4fB\x41\x4cS"}["p\x66\x6ae\x70\x61"]="\x76al\x75\x65";switch(${${"\x47\x4c\x4f\x42A\x4c\x53"}["x\x62c\x67\x6f\x6c\x63\x65d"]}){case"wh\x65\x72e_\x6fr":if(!is_array(${${"\x47\x4c\x4f\x42\x41\x4cS"}["\x61\x6d\x76gej\x69"]})){${"\x47\x4c\x4f\x42\x41\x4cS"}["f\x79\x69\x73\x6b\x62\x71z\x72\x66\x76"]="va\x6c\x75\x65";${"\x47\x4c\x4f\x42\x41\x4cS"}["\x63c\x74p\x67\x70j\x74r\x72\x6d"]="\x76\x61l\x75e";${${"\x47\x4c\x4f\x42\x41\x4c\x53"}["\x66\x79\x69s\x6b\x62q\x7a\x72fv"]}=explode(",",${${"G\x4cOB\x41\x4c\x53"}["\x63\x63\x74p\x67pj\x74\x72\x72m"]});}$this->set_where_or(${$bpjzzio},${$pnraiqmwv},${${"G\x4c\x4f\x42A\x4c\x53"}["m\x76\x62\x66\x76\x78\x74qu\x6c"]});break;case"\x77\x68\x65r\x65_i\x6e":if(!is_array(${${"\x47L\x4fB\x41L\x53"}["p\x66jep\x61"]})){${"G\x4c\x4f\x42A\x4cS"}["\x6a\x73\x78n\x64d\x76\x6e"]="\x76\x61\x6c\x75\x65";${${"G\x4c\x4fBA\x4c\x53"}["\x6asx\x6e\x64\x64\x76n"]}=explode(",",${${"\x47\x4cO\x42\x41\x4c\x53"}["a\x6d\x76g\x65ji"]});}$this->set_where_in(${${"\x47L\x4f\x42\x41\x4cS"}["pi\x77\x66\x6d\x67\x6b\x64\x68\x74\x73"]},${${"\x47\x4c\x4f\x42\x41\x4c\x53"}["a\x6d\x76g\x65j\x69"]},${${"\x47L\x4f\x42\x41LS"}["\x6a\x75\x64\x64\x68\x68\x6c\x61"]});break;case"\x77here_\x69n_\x6fr":if(!is_array(${${"\x47\x4cOB\x41\x4c\x53"}["b\x76\x6ac\x68\x6a\x78\x7ak"]})){${"G\x4cO\x42AL\x53"}["kr\x63mw\x77\x75\x73\x73\x6fs"]="v\x61l\x75\x65";${${"G\x4cOB\x41\x4c\x53"}["\x61\x6d\x76g\x65\x6a\x69"]}=explode(",",${${"GLO\x42AL\x53"}["k\x72cmww\x75sso\x73"]});}$this->set_where_in_or(${${"\x47LO\x42ALS"}["d\x72\x6bw\x62n\x66\x66\x6d"]},${$stunlkb},${$bhpbmwmjbglg});break;case"w\x68e\x72e_no\x74_\x69\x6e":if(!is_array(${${"\x47\x4cO\x42\x41\x4c\x53"}["\x61\x6d\x76\x67\x65\x6a\x69"]})){$imnrwvqqw="\x76\x61\x6c\x75e";${"\x47\x4c\x4f\x42\x41\x4c\x53"}["m\x6f\x6fw\x73\x63\x6c\x65j\x69"]="\x76al\x75\x65";${$imnrwvqqw}=explode(",",${${"\x47L\x4f\x42A\x4c\x53"}["\x6d\x6f\x6fws\x63l\x65\x6ai"]});}$this->set_where_not_in(${${"\x47\x4cO\x42A\x4cS"}["\x64\x78\x6b\x65\x64\x67m\x66\x6c"]},${${"\x47LO\x42\x41\x4cS"}["\x61m\x76\x67\x65j\x69"]},${${"\x47L\x4f\x42\x41\x4cS"}["e\x68\x76q\x67\x76q\x6dk"]});break;case"wh\x65\x72e\x5f\x6eot\x5fin\x5fo\x72":if(!is_array(${${"\x47\x4cO\x42\x41L\x53"}["a\x6d\x76ge\x6a\x69"]})){${${"\x47\x4c\x4f\x42A\x4c\x53"}["a\x6d\x76geji"]}=explode(",",${${"\x47\x4c\x4fB\x41\x4c\x53"}["\x61m\x76g\x65j\x69"]});}$this->set_where_not_in_or(${${"G\x4cO\x42\x41LS"}["vb\x79ahim\x66\x65\x69\x70\x76"]},${${"\x47\x4c\x4f\x42\x41LS"}["\x61mv\x67\x65\x6a\x69"]},${$molmaauv});break;case"l\x69\x6be":if(!is_array(${${"\x47\x4cO\x42\x41\x4cS"}["g\x6e\x63\x76ug\x69\x6c"]})){$lllhiyxy="\x76\x61\x6c\x75e";${${"\x47\x4c\x4f\x42\x41\x4c\x53"}["amvg\x65\x6a\x69"]}=explode(",",${$lllhiyxy});}$this->set_like(${${"G\x4c\x4f\x42A\x4cS"}["d\x78k\x65\x64\x67\x6df\x6c"]},${${"\x47\x4cOB\x41\x4c\x53"}["\x61m\x76\x67eji"]},${${"GL\x4f\x42\x41L\x53"}["\x6a\x75\x64\x64hh\x6c\x61"]});break;case"li\x6be_\x6f\x72":if(!is_array(${${"\x47\x4cOBA\x4c\x53"}["\x61m\x76g\x65j\x69"]})){${${"GLO\x42\x41\x4c\x53"}["\x61mvge\x6ai"]}=explode(",",${${"\x47\x4cO\x42\x41\x4c\x53"}["\x61mvg\x65j\x69"]});}$this->set_like_or(${${"GLO\x42\x41\x4c\x53"}["o\x6e\x70r\x72\x63\x76\x71\x72\x6c\x68k"]},${${"G\x4c\x4f\x42\x41L\x53"}["r\x63y\x75ij\x74\x68\x65key"]},${${"\x47L\x4f\x42\x41\x4c\x53"}["x\x61\x6d\x69\x6b\x70\x6a\x78jex\x67"]});break;case"l\x69\x6be\x5fn\x6ft":if(!is_array(${${"G\x4cO\x42\x41\x4c\x53"}["\x64op\x78\x63\x74\x6f"]})){$tyuaigxt="\x76\x61l\x75\x65";${$tyuaigxt}=explode(",",${${"\x47L\x4f\x42A\x4c\x53"}["a\x6d\x76\x67eji"]});}$this->set_like_not(${${"\x47L\x4f\x42\x41\x4cS"}["d\x78\x6be\x64\x67m\x66\x6c"]},${${"\x47\x4c\x4f\x42\x41\x4c\x53"}["\x72\x67t\x79l\x68\x76jaz"]},${${"\x47\x4c\x4f\x42A\x4c\x53"}["\x6a\x75\x64d\x68\x68l\x61"]});break;case"\x6ci\x6be_not\x5f\x6f\x72":if(!is_array(${$wgtgapif})){${"\x47L\x4f\x42A\x4c\x53"}["\x71\x63sp\x61\x64\x6a\x62\x78"]="v\x61l\x75e";$irbxnrqxcj="\x76\x61\x6cu\x65";${$irbxnrqxcj}=explode(",",${${"G\x4cOB\x41\x4cS"}["\x71c\x73\x70\x61dj\x62\x78"]});}$this->set_like_not_or(${${"\x47\x4c\x4f\x42\x41\x4c\x53"}["\x64\x78\x6bed\x67\x6d\x66l"]},${${"G\x4cO\x42\x41\x4cS"}["\x61\x6d\x76\x67\x65\x6a\x69"]},${${"\x47L\x4f\x42A\x4c\x53"}["ju\x64\x64\x68\x68l\x61"]});break;default:$this->set_where(${${"\x47LO\x42\x41LS"}["\x64x\x6b\x65d\x67\x6d\x66l"]},${$zkctbqr},${${"GL\x4f\x42\x41\x4cS"}["\x6a\x75\x64dhh\x6ca"]});break;}}protected function __apply_condition($what,$condition){if(is_array(${${"\x47LO\x42\x41\x4c\x53"}["r\x65x\x75e\x69\x62\x6b"]})){$lvjftzs="\x63\x6fn\x64\x69\x74i\x6f\x6e";${"GL\x4fB\x41\x4c\x53"}["\x6a\x6d\x74\x6d\x73\x79i\x64"]="\x76\x61\x6cu\x65";${"\x47\x4cO\x42\x41\x4c\x53"}["\x62\x67\x63\x76m\x67dyx\x69\x74"]="k\x65y";foreach(${$lvjftzs} as${${"\x47\x4c\x4fBAL\x53"}["\x62\x67\x63\x76\x6dg\x64y\x78\x69\x74"]}=>${${"\x47\x4c\x4f\x42\x41\x4c\x53"}["\x6a\x6dtms\x79i\x64"]}){${"\x47\x4c\x4fB\x41LS"}["\x64\x77\x7ar\x63m\x68fjr"]="\x6be\x79";$this->_db->${${"G\x4c\x4fB\x41\x4c\x53"}["kr\x65\x6dm\x66\x79k\x76z"]}(${${"\x47\x4c\x4f\x42\x41\x4c\x53"}["\x64\x77\x7a\x72c\x6d\x68\x66\x6ar"]},${${"\x47L\x4fB\x41L\x53"}["a\x6d\x76gej\x69"]});}}else{${"\x47L\x4f\x42A\x4c\x53"}["\x74\x63s\x6f\x73\x6a\x73\x67\x78yu"]="\x77\x68\x61\x74";${"\x47\x4c\x4f\x42A\x4c\x53"}["\x6b\x71xeg\x68\x75e\x66"]="\x63\x6fnditi\x6f\x6e";$this->_db->${${"\x47LO\x42\x41\x4c\x53"}["\x74\x63\x73\x6f\x73\x6as\x67\x78\x79\x75"]}(${${"\x47\x4cOBA\x4cS"}["\x6b\x71\x78\x65\x67h\x75e\x66"]});}}protected function setup_conditions(){$krynih="\x72e\x74\x75r\x6e";$kdjkmqygxg="\x63\x6fn\x64\x69\x74\x69\x6f\x6e\x73";${"GLO\x42\x41\x4c\x53"}["\x6byv\x73r\x65\x73"]="\x72e\x74u\x72\x6e";${$krynih}=FALSE;${"\x47\x4cOBA\x4c\x53"}["q\x72mq\x6de\x72m\x79\x68"]="\x63o\x6e\x64it\x69o\x6es";${${"G\x4c\x4fB\x41\x4c\x53"}["\x71\x72\x6d\x71\x6d\x65rmyh"]}=array_merge($this->_where,$this->_filter,$this->_where_or,$this->_where_in,$this->_where_in_or,$this->_where_not_in,$this->_where_not_in_or,$this->_like,$this->_like_or,$this->_like_not,$this->_like_not_or,$this->_having,$this->_having_or);if(count(${$kdjkmqygxg})>0){${"\x47\x4cO\x42A\x4c\x53"}["\x7a\x69\x75iw\x67r\x69w\x64"]="\x73or\x74\x65\x64";${"\x47\x4c\x4fBALS"}["wt\x61\x76\x72k\x70\x6c\x75\x6f"]="i";${"\x47\x4c\x4f\x42\x41\x4c\x53"}["\x73\x6egtj\x66\x62l\x65b"]="c\x6f\x6e\x64\x69ti\x6fn\x73";${${"\x47L\x4f\x42\x41\x4c\x53"}["\x77\x74\x61\x76\x72k\x70\x6c\x75\x6f"]}=0;${"\x47\x4c\x4fB\x41LS"}["ioq\x68\x66z"]="\x73o\x72\x74\x65\x64";${"\x47L\x4f\x42A\x4c\x53"}["s\x6d\x63\x73\x6e\x72\x70\x70\x6d\x70\x67\x68"]="co\x6edi\x74\x69\x6f\x6e";${${"\x47LO\x42AL\x53"}["\x70\x6d\x68kq\x75\x79\x6d\x6f\x62\x74"]}=array();foreach(${${"\x47\x4c\x4fBA\x4cS"}["\x6d\x74\x6c\x67\x6c\x71s\x75\x73"]} as${${"\x47\x4c\x4fB\x41\x4c\x53"}["\x72\x65\x78u\x65i\x62\x6b"]}){${"\x47\x4c\x4fBAL\x53"}["\x63\x65hx\x68\x7a\x73\x74i"]="\x6f\x70\x74\x69ons";foreach(${${"\x47L\x4fBA\x4c\x53"}["r\x65\x78\x75\x65i\x62\x6b"]} as${${"\x47\x4cO\x42\x41\x4cS"}["n\x70p\x6bh\x6b\x74\x65"]}=>${${"\x47L\x4f\x42\x41\x4c\x53"}["\x63\x65\x68\x78\x68\x7a\x73\x74\x69"]}){${"\x47\x4c\x4f\x42\x41L\x53"}["wk\x63\x67\x67\x6cp"]="p\x72\x69o\x72i\x74\x79";${${"\x47LOBAL\x53"}["\x77k\x63g\x67\x6cp"]}=${${"\x47\x4c\x4f\x42\x41L\x53"}["\x73\x73\x71\x77x\x6a\x6c\x63x\x77"]}["pr\x69o\x72i\x74\x79"];unset(${${"GL\x4f\x42\x41\x4cS"}["\x73s\x71\x77\x78j\x6c\x63\x78\x77"]}["\x70\x72\x69o\x72\x69\x74y"]);if(!is_null(${${"G\x4c\x4fB\x41\x4cS"}["\x6a\x75\x64\x64\x68\x68\x6ca"]})){$wpvnet="p\x72\x69o\x72i\x74y";${"GL\x4f\x42\x41\x4c\x53"}["\x6c\x70\x6c\x72\x6e\x78\x75k\x6e"]="o\x70\x74\x69\x6f\x6e\x73";$hzlnrrkqki="\x73o\x72\x74\x65d";${"G\x4cO\x42\x41\x4c\x53"}["ka\x6dd\x76\x76y\x77s\x75"]="\x73\x6f\x72te\x64";${"\x47\x4cOB\x41\x4cS"}["\x6a\x66\x63\x62p\x66\x74\x74\x63t"]="\x70\x72i\x6fri\x74\x79";while(isset(${$hzlnrrkqki}[${$wpvnet}])){$gepwkriffz="\x69";${${"G\x4cO\x42\x41\x4cS"}["b\x6dcm\x61rc\x69"]}++;${${"GL\x4f\x42A\x4c\x53"}["\x6au\x64\x64\x68\x68\x6c\x61"]}+=${$gepwkriffz};}${${"\x47\x4c\x4fBA\x4c\x53"}["k\x61mdv\x76\x79w\x73u"]}[${${"\x47L\x4f\x42\x41\x4c\x53"}["j\x66\x63\x62p\x66t\x74\x63\x74"]}]=${${"G\x4cOBA\x4c\x53"}["\x6c\x70\x6c\x72n\x78u\x6b\x6e"]};}}}${"\x47\x4cO\x42A\x4cS"}["\x68\x66y\x63\x6euh\x71h"]="\x73\x6f\x72\x74d";foreach(${${"G\x4c\x4f\x42\x41\x4c\x53"}["\x73n\x67\x74\x6af\x62le\x62"]} as${${"\x47L\x4f\x42AL\x53"}["\x73mc\x73\x6er\x70p\x6d\x70\x67\x68"]}){$sneulqcsx="co\x6e\x64iti\x6f\x6e";$omfhcboggfjm="\x66\x69\x65\x6c\x64";${"G\x4c\x4f\x42\x41\x4c\x53"}["\x6c\x65\x79n\x6b\x76\x77m\x63n"]="o\x70\x74i\x6fn\x73";foreach(${$sneulqcsx} as${$omfhcboggfjm}=>${${"\x47\x4c\x4f\x42A\x4cS"}["\x6c\x65yn\x6bv\x77\x6d\x63n"]}){${"\x47\x4c\x4f\x42A\x4c\x53"}["fc\x6f\x63\x68o\x73y\x6a"]="o\x70\x74\x69\x6fn\x73";${"\x47L\x4fBA\x4c\x53"}["ij\x77\x6cpn\x6c\x66\x74\x62\x69"]="\x70\x72\x69\x6fri\x74y";${${"\x47\x4cO\x42\x41\x4cS"}["\x6a\x75\x64dh\x68l\x61"]}=${${"\x47\x4cO\x42AL\x53"}["\x66c\x6fcho\x73y\x6a"]}["p\x72\x69\x6f\x72it\x79"];unset(${${"\x47\x4c\x4f\x42\x41\x4cS"}["s\x73\x71wx\x6a\x6ccx\x77"]}["p\x72i\x6f\x72i\x74\x79"]);if(is_null(${${"\x47\x4c\x4fBAL\x53"}["i\x6a\x77l\x70nlft\x62i"]})){${"\x47L\x4f\x42A\x4cS"}["\x75d\x68\x77x\x78m\x74\x72q\x66"]="op\x74\x69\x6fn\x73";${"\x47\x4c\x4fB\x41\x4c\x53"}["\x76\x6a\x67\x74u\x6b\x77\x6c"]="\x73\x6f\x72\x74\x65\x64";while(isset(${${"\x47\x4cO\x42\x41\x4c\x53"}["vj\x67\x74\x75k\x77\x6c"]}[${${"\x47\x4cOB\x41LS"}["b\x6d\x63\x6da\x72c\x69"]}])){$yerlcurj="i";${$yerlcurj}++;}${"\x47\x4cO\x42\x41\x4cS"}["\x70\x74d\x79\x71\x73\x73y\x66j"]="\x73\x6f\x72t\x65\x64";${${"\x47\x4c\x4f\x42A\x4cS"}["\x70\x74\x64\x79\x71s\x73yf\x6a"]}[${${"\x47\x4c\x4f\x42A\x4cS"}["b\x6d\x63m\x61\x72\x63\x69"]}]=${${"\x47\x4cO\x42\x41LS"}["\x75\x64\x68wx\x78\x6d\x74rqf"]};}}}ksort(${${"\x47L\x4f\x42\x41\x4c\x53"}["\x7ai\x75\x69\x77\x67\x72\x69\x77d"]});foreach(${${"G\x4c\x4f\x42\x41\x4cS"}["io\x71\x68\x66\x7a"]} as${${"GL\x4f\x42\x41\x4c\x53"}["\x68\x66\x79\x63n\x75hq\x68"]}){$fkalufjxgum="so\x72\x74d\x5fv\x61lu\x65";$lwqmtei="s\x6f\x72\x74d";$nmjehuhc="\x73o\x72td\x5fk\x65\x79";${$nmjehuhc}=array_keys(${$lwqmtei});${$fkalufjxgum}=array_values(${${"GL\x4fBALS"}["l\x73\x79\x6a\x72\x77\x6at\x63\x73\x71r"]});if(isset(${${"\x47L\x4f\x42\x41\x4c\x53"}["c\x65qs\x78\x6f"]}[0])&&${${"\x47\x4c\x4f\x42A\x4c\x53"}["\x65mj\x79\x73\x6bo"]}[0]){${"\x47\x4c\x4fB\x41\x4c\x53"}["\x6a\x66\x72p\x75q\x6f\x68m\x74"]="s\x6f\x72\x74\x64\x5f\x76\x61\x6c\x75\x65";${"\x47\x4c\x4f\x42A\x4c\x53"}["\x69f\x6a\x7ai\x6fm\x78\x76y"]="\x73\x6f\x72\x74d\x5f\x76\x61\x6c\x75\x65";$vgdsgatfdc="\x73\x6f\x72\x74\x64_v\x61\x6c\x75e";$iufokapstq="\x73\x6f\x72\x74\x64_\x76a\x6c\x75\x65";$ppvwjeeci="\x73o\x72\x74\x64_\x76\x61\x6cue";switch(${${"\x47L\x4fB\x41\x4c\x53"}["\x63eqs\x78o"]}[0]){case"whe\x72e_\x6f\x72":$this->__apply_condition("\x6fr\x5fwh\x65r\x65",${$iufokapstq}[0]);break;case"whe\x72e_in":$this->__apply_condition("w\x68e\x72e_\x69\x6e",${${"G\x4c\x4fB\x41LS"}["e\x6dj\x79\x73\x6b\x6f"]}[0]);break;case"\x77h\x65\x72e\x5fin\x5fo\x72":$this->__apply_condition("or_\x77here\x5fin",${${"\x47\x4c\x4f\x42\x41LS"}["\x65\x6d\x6a\x79sko"]}[0]);break;case"w\x68\x65r\x65_no\x74\x5fi\x6e":$this->__apply_condition("w\x68\x65\x72e_no\x74\x5f\x69n",${${"\x47\x4c\x4fB\x41\x4c\x53"}["\x69fj\x7aio\x6d\x78\x76y"]}[0]);break;case"w\x68ere\x5fno\x74\x5f\x69n\x5f\x6fr":$this->__apply_condition("\x6fr\x5fw\x68e\x72\x65_\x6eo\x74_i\x6e",${${"\x47\x4cOB\x41\x4c\x53"}["\x65m\x6ays\x6b\x6f"]}[0]);break;case"\x6c\x69\x6b\x65":$this->__apply_condition("l\x69ke",${${"\x47L\x4f\x42A\x4c\x53"}["\x65\x6d\x6a\x79s\x6b\x6f"]}[0]);break;case"\x6ci\x6be_\x6fr":$this->__apply_condition("\x6fr\x5f\x6c\x69\x6b\x65",${${"\x47\x4c\x4f\x42A\x4c\x53"}["\x6afr\x70\x75\x71o\x68\x6dt"]}[0]);break;case"\x6cik\x65_\x6e\x6ft":$this->__apply_condition("\x6eo\x74_l\x69k\x65",${$vgdsgatfdc}[0]);break;case"l\x69\x6b\x65\x5f\x6e\x6f\x74_o\x72":$this->__apply_condition("o\x72\x5fn\x6f\x74\x5f\x6c\x69k\x65",${${"\x47\x4c\x4f\x42\x41L\x53"}["e\x6d\x6a\x79\x73\x6b\x6f"]}[0]);break;case"\x68\x61\x76i\x6e\x67":$this->__apply_condition("\x68a\x76\x69\x6eg",${${"\x47\x4cO\x42\x41\x4cS"}["\x65m\x6a\x79\x73\x6b\x6f"]}[0]);break;case"\x68\x61v\x69\x6e\x67\x5f\x6f\x72":$this->__apply_condition("\x6fr_ha\x76i\x6e\x67",${$ppvwjeeci}[0]);break;default:$this->__apply_condition("\x77her\x65",${${"G\x4c\x4f\x42\x41\x4c\x53"}["e\x6djy\x73\x6b\x6f"]}[0]);break;}}}${${"\x47\x4cO\x42\x41\x4c\x53"}["tllyi\x71s\x6f"]}=TRUE;}return${${"\x47LO\x42\x41\x4c\x53"}["\x6b\x79\x76s\x72e\x73"]};}private function has_conditions(){$awuchkb="c\x6f\x6ed\x69\x74i\x6f\x6e\x73";${$awuchkb}=array_merge($this->_where,$this->_filter,$this->_where_or,$this->_where_in,$this->_where_in_or,$this->_where_not_in,$this->_where_not_in_or,$this->_like,$this->_like_or,$this->_like_not,$this->_like_not_or,$this->_having,$this->_having_or);$arqhwd="\x63\x6f\x6e\x64\x69\x74i\x6fns";if(count(${$arqhwd})>0){return true;}return false;}public function set_join($table,$connection,$option=NULL,$database=NULL){${"GL\x4f\x42\x41L\x53"}["\x73\x77\x68\x65\x69\x6d\x68enc\x71w"]="ta\x62\x6c\x65";$tpqbewxq="\x6f\x70\x74\x69\x6fn";${"G\x4cOB\x41L\x53"}["\x68\x64\x6f\x78\x65pmu\x67x\x6e"]="\x6fp\x74\x69\x6f\x6e";${"\x47L\x4f\x42\x41LS"}["v\x6bo\x6f\x79\x7a\x75q\x65"]="\x6f\x70\x74\x69\x6fn";$krrhcrmdi="\x64a\x74\x61\x62\x61\x73e";${"\x47\x4cOB\x41L\x53"}["\x72g\x66\x78\x71\x6db"]="\x64\x61ta\x62\x61\x73\x65";${${"GL\x4fB\x41\x4c\x53"}["\x65a\x68\x6e\x79\x79\x6f"]}=(${$krrhcrmdi})?${${"GLO\x42A\x4c\x53"}["r\x67\x66x\x71\x6db"]}.".".${${"\x47L\x4fBA\x4c\x53"}["sw\x68\x65imh\x65\x6ec\x71w"]}:$this->_db->database."\x2e".${${"\x47L\x4f\x42\x41\x4c\x53"}["\x65a\x68\x6e\x79\x79\x6f"]};${$tpqbewxq}=(${${"\x47\x4c\x4fB\x41\x4c\x53"}["v\x6b\x6f\x6f\x79z\x75\x71\x65"]})?${${"\x47LO\x42\x41\x4c\x53"}["hd\x6f\x78\x65pm\x75\x67\x78\x6e"]}:"\x6c\x65\x66t";$this->_join[]=array("t\x61b\x6ce"=>${${"\x47\x4cO\x42\x41\x4c\x53"}["\x65a\x68\x6e\x79y\x6f"]},"con\x6ee\x63t\x69\x6fn"=>${${"\x47\x4c\x4f\x42\x41\x4c\x53"}["\x6ctt\x69\x75xu"]},"\x6f\x70tion"=>${${"\x47\x4cO\x42\x41LS"}["j\x6e\x65d\x76\x67"]});}private function setup_join(){if($this->_join){foreach($this->_join as${${"\x47\x4c\x4f\x42A\x4c\x53"}["\x6dj\x79o\x73\x66\x6d"]}){${"G\x4c\x4f\x42\x41\x4c\x53"}["fs\x70\x76\x69p\x6c"]="\x6a\x6fi\x6e";$this->_db->join(${${"\x47\x4cOBAL\x53"}["\x6dj\x79\x6f\x73f\x6d"]}["\x74a\x62\x6c\x65"],${${"\x47LO\x42\x41\x4cS"}["\x6d\x6ayo\x73\x66\x6d"]}["\x63\x6f\x6ene\x63tion"],${${"\x47\x4cOB\x41\x4cS"}["\x66\x73\x70\x76\x69p\x6c"]}["o\x70\x74io\x6e"]);}return false;}return true;}public function set_filter($field,$value,$table=NULL,$priority=NULL,$underCondition='where'){${"\x47\x4c\x4f\x42\x41\x4c\x53"}["qc\x68\x76\x67\x68e\x6f\x69\x74h"]="v\x61\x6c\x75\x65";${"\x47L\x4fB\x41\x4c\x53"}["m\x62dm\x64f"]="\x6bey";${"\x47LOB\x41LS"}["\x6bi\x68n\x65\x6b\x76p"]="\x74a\x62\x6ce";${${"G\x4c\x4f\x42AL\x53"}["\x64x\x6b\x65\x64g\x6d\x66\x6c"]}=array();$snsrifahkx="\x66\x69e\x6c\x64";if(${${"\x47L\x4fB\x41L\x53"}["ki\x68\x6ee\x6bv\x70"]}==NULL){${"\x47\x4c\x4fB\x41\x4c\x53"}["\x66\x7a\x6b\x6b\x68mh\x71\x68\x67"]="\x74\x61\x62\x6c\x65";${${"\x47\x4cOB\x41LS"}["\x66\x7akk\x68m\x68\x71hg"]}=$this->_db->database."\x2e".$this->_table_name;}if(${${"\x47\x4cO\x42\x41L\x53"}["\x65\x61\x68\x6e\x79\x79\x6f"]}!=""){$oqpbdi="\x74ab\x6c\x65";${${"GL\x4f\x42\x41LS"}["d\x78\x6b\x65\x64\x67mf\x6c"]}[]=${$oqpbdi};}${${"G\x4c\x4fBA\x4c\x53"}["m\x62d\x6d\x64\x66"]}[]=${$snsrifahkx};$irtltwrhtc="\x77h\x65r\x65";${${"\x47L\x4fB\x41L\x53"}["\x66k\x66cm\x76b\x63bf\x74"]}=implode("\x2e",${${"\x47\x4cOB\x41L\x53"}["\x64\x78\x6b\x65dgmf\x6c"]});if(is_null(${${"\x47\x4c\x4f\x42\x41\x4c\x53"}["\x71\x63hvg\x68e\x6f\x69\x74h"]})){${"\x47\x4c\x4f\x42\x41\x4c\x53"}["\x77\x6astx\x71\x63\x61\x73\x76\x6f"]="\x77h\x65r\x65";${${"\x47LO\x42\x41\x4c\x53"}["\x77\x6a\x73\x74x\x71c\x61\x73v\x6f"]}=${${"\x47\x4c\x4f\x42AL\x53"}["\x66\x6b\x66\x63\x6d\x76bc\x62f\x74"]};}else{$llpdhohusg="n\x65\x77\x46i\x65\x6c\x64";$uodjhkp="\x77\x68\x65\x72\x65";$boczxwlqe="\x76al\x75\x65";${$uodjhkp}=array(${$llpdhohusg}=>${$boczxwlqe});}$this->_filter[]=array(${${"GL\x4fB\x41\x4c\x53"}["\x66\x6bf\x63m\x76\x62cb\x66t"]}=>array(${${"GL\x4fB\x41\x4c\x53"}["\x78\x62\x63\x67\x6f\x6cc\x65\x64"]}=>${$irtltwrhtc},"p\x72i\x6fr\x69\x74\x79"=>${${"G\x4c\x4f\x42\x41\x4c\x53"}["\x6a\x75\x64\x64\x68\x68\x6c\x61"]}));}public function clear_filter($field=NULL){$qvfvsytdybe="\x66\x69\x65ld";if(is_null(${$qvfvsytdybe})){unset($this->_filter);$this->_filter=array();}else{$dodrgtoai="n\x65\x77f\x69\x6cte\x72";$cippuzqmsqoy="filt\x65\x72";${$dodrgtoai}=array();foreach($this->_filter as${$cippuzqmsqoy}){if(!isset(${${"\x47L\x4f\x42\x41\x4c\x53"}["u\x78\x68\x79\x79r\x67\x6d\x67nit"]}[${${"\x47L\x4f\x42\x41\x4c\x53"}["\x6e\x70\x70k\x68\x6b\x74e"]}])){${"G\x4c\x4fB\x41\x4cS"}["x\x68\x76\x62w\x6f\x6b\x64\x6b\x6a"]="\x6ee\x77\x66i\x6c\x74\x65\x72";$hecbftkkqw="fi\x6c\x74\x65r";${${"GL\x4f\x42\x41\x4c\x53"}["\x78\x68\x76\x62\x77\x6f\x6b\x64k\x6a"]}[]=${$hecbftkkqw};}}$this->_filter=${${"GL\x4f\x42\x41\x4c\x53"}["\x77u\x76h\x66\x6d"]};}}public function set_where($field,$value=NULL,$priority=NULL){$vrxkpl="\x66\x69\x65\x6cd";if(is_null(${${"\x47\x4c\x4f\x42A\x4cS"}["\x61m\x76\x67e\x6a\x69"]})){$ilumquccj="fi\x65\x6c\x64";$iwqgilj="whe\x72\x65";${$iwqgilj}=${$ilumquccj};}else{${"\x47\x4c\x4f\x42\x41L\x53"}["\x79i\x6d\x69\x67\x75"]="\x76\x61\x6c\x75\x65";${${"G\x4cO\x42A\x4c\x53"}["\x71m\x66\x78\x78\x6a\x6c\x64\x72v\x65"]}=array(${${"\x47\x4cO\x42A\x4c\x53"}["n\x70\x70k\x68\x6bte"]}=>${${"G\x4c\x4f\x42\x41\x4c\x53"}["\x79imi\x67\x75"]});}$bgpnuyonps="\x70\x72i\x6f\x72\x69\x74\x79";$this->_where[]=array(${$vrxkpl}=>array("w\x68e\x72e"=>${${"\x47\x4cOBA\x4c\x53"}["qmf\x78\x78j\x6c\x64r\x76e"]},"\x70ri\x6f\x72\x69t\x79"=>${$bgpnuyonps}));}public function clear_where($field=NULL){if(is_null(${${"\x47LO\x42\x41\x4cS"}["\x6ep\x70\x6b\x68\x6b\x74\x65"]})){unset($this->_where);$this->_where=array();}else{${"\x47L\x4f\x42\x41\x4cS"}["\x74\x6cpwq\x69\x79t\x63"]="\x6ee\x77wh\x65r\x65";${${"\x47L\x4fB\x41L\x53"}["\x74\x6c\x70\x77\x71\x69\x79t\x63"]}=array();foreach($this->_where as${${"\x47LOBA\x4c\x53"}["qmfx\x78j\x6cd\x72\x76e"]}){${"\x47LO\x42\x41\x4c\x53"}["\x69bu\x73t\x73\x6dh\x72\x7a\x6b"]="\x66\x69e\x6c\x64";${"\x47LOB\x41\x4cS"}["\x68\x70\x6e\x68vx\x76\x76\x6e\x74"]="\x77\x68e\x72\x65";if(!isset(${${"\x47\x4c\x4f\x42A\x4cS"}["\x68\x70n\x68v\x78\x76\x76\x6et"]}[${${"\x47L\x4fB\x41\x4c\x53"}["ibu\x73\x74\x73\x6d\x68\x72z\x6b"]}])){$inbwkw="w\x68er\x65";$fwpglyqqfoq="\x6e\x65\x77\x77\x68\x65\x72e";${$fwpglyqqfoq}[]=${$inbwkw};}}$this->_where=${${"GL\x4fB\x41\x4cS"}["\x63\x6ev\x72kt\x62"]};}}public function set_where_or($field,$value=NULL,$priority=NULL){${"\x47\x4cO\x42ALS"}["\x63e\x79qn\x68\x74\x79\x6f\x74\x6e"]="\x70\x72\x69\x6fri\x74\x79";${"\x47\x4c\x4f\x42AL\x53"}["vv\x67\x66l\x65u"]="\x76al\x75\x65";$lwndqyorxomg="wh\x65\x72e";if(is_null(${${"\x47\x4cO\x42\x41LS"}["\x76v\x67\x66l\x65\x75"]})){${"\x47\x4c\x4f\x42\x41\x4c\x53"}["\x6f\x63d\x65si\x6f\x63"]="where";${${"\x47\x4cOB\x41\x4cS"}["\x6f\x63\x64\x65\x73\x69\x6f\x63"]}=${${"\x47\x4c\x4f\x42\x41L\x53"}["\x6epp\x6b\x68k\x74e"]};}else{$zewjkuk="\x76a\x6c\x75\x65";${${"\x47\x4c\x4f\x42A\x4c\x53"}["qmfx\x78j\x6c\x64\x72\x76\x65"]}=array(${${"\x47\x4c\x4f\x42A\x4c\x53"}["npp\x6b\x68k\x74\x65"]}=>${$zewjkuk});}$this->_where_or[]=array(${${"\x47L\x4f\x42AL\x53"}["n\x70pk\x68\x6b\x74e"]}=>array("where_\x6f\x72"=>${$lwndqyorxomg},"prio\x72\x69t\x79"=>${${"\x47\x4c\x4fB\x41\x4cS"}["\x63ey\x71\x6e\x68\x74y\x6ftn"]}));}public function clear_where_or($field=NULL){if(is_null(${${"\x47\x4c\x4f\x42A\x4cS"}["\x6e\x70pkhk\x74\x65"]})){unset($this->_where_or);$this->_where_or=array();}else{$quncyt="n\x65wwh\x65\x72\x65_\x6f\x72";${$quncyt}=array();foreach($this->_where_or as${${"\x47\x4c\x4fB\x41\x4c\x53"}["\x64\x72o\x75\x65\x68\x79i\x66\x65"]}){${"G\x4c\x4fB\x41L\x53"}["\x6c\x63c\x6a\x6e\x61\x65"]="\x66\x69\x65\x6c\x64";if(!isset(${${"\x47L\x4fB\x41\x4c\x53"}["\x64\x72\x6f\x75\x65\x68\x79\x69\x66\x65"]}[${${"\x47LO\x42\x41\x4cS"}["\x6c\x63c\x6a\x6e\x61e"]}])){$qvykigofujfo="\x77\x68\x65r\x65\x5f\x6f\x72";${${"\x47L\x4f\x42A\x4cS"}["\x70g\x68zh\x62\x6dh\x6b"]}[]=${$qvykigofujfo};}}${"G\x4c\x4f\x42\x41\x4cS"}["g\x6efq\x71myo\x66\x71"]="\x6e\x65w\x77\x68\x65\x72\x65\x5f\x6f\x72";$this->_where_or=${${"GL\x4fB\x41\x4c\x53"}["\x67\x6e\x66\x71q\x6d\x79\x6f\x66\x71"]};}}public function set_where_in($field,$value=NULL,$priority=NULL){$vxeolyeucv="w\x68e\x72\x65";$nmpxzroyky="\x66\x69\x65ld";if(is_null(${${"\x47LOB\x41\x4cS"}["\x61\x6dvg\x65j\x69"]})){$pgpnlrnxkqk="w\x68\x65\x72\x65";${"G\x4c\x4f\x42\x41\x4cS"}["\x67\x6e\x71d\x6f\x79\x62lg\x6d"]="fie\x6cd";${$pgpnlrnxkqk}=${${"\x47\x4c\x4fBA\x4c\x53"}["\x67\x6e\x71\x64\x6fyb\x6cg\x6d"]};}else{${"\x47L\x4fB\x41\x4c\x53"}["\x76e\x68\x73\x79h\x64\x71w\x6b"]="\x66\x69el\x64";$yiljatmwyn="\x77\x68\x65\x72\x65";${$yiljatmwyn}=array(${${"G\x4c\x4f\x42\x41\x4c\x53"}["\x76e\x68\x73\x79\x68d\x71\x77k"]}=>${${"\x47\x4cOBAL\x53"}["a\x6d\x76gej\x69"]});}$this->_where_in[]=array(${$nmpxzroyky}=>array("\x77\x68\x65\x72e_i\x6e"=>${$vxeolyeucv},"\x70\x72\x69\x6fr\x69\x74y"=>${${"\x47\x4cO\x42A\x4c\x53"}["j\x75dd\x68\x68\x6ca"]}));}public function clear_where_in($field=NULL){if(is_null(${${"GLOBAL\x53"}["np\x70k\x68\x6bt\x65"]})){unset($this->_where_in);$this->_where_in=array();}else{$xafewmtpku="\x6ee\x77w\x68e\x72\x65_\x69\x6e";${"G\x4c\x4f\x42\x41L\x53"}["\x6a\x64\x6a\x75\x73zom\x76\x71"]="\x6ee\x77w\x68e\x72\x65\x5f\x69n";${$xafewmtpku}=array();$myrbryp="wh\x65r\x65\x5f\x69\x6e";foreach($this->_where_in as${$myrbryp}){$yyqstxtegjj="\x66\x69\x65ld";if(!isset(${${"\x47LO\x42\x41LS"}["is\x62\x76\x6a\x64\x62\x69\x6a\x76"]}[${$yyqstxtegjj}])){${"GL\x4f\x42\x41\x4c\x53"}["e\x70\x71s\x78\x71\x77"]="\x6e\x65\x77wh\x65\x72\x65_\x69\x6e";${${"\x47\x4c\x4fB\x41\x4c\x53"}["\x65\x70\x71sx\x71\x77"]}[]=${${"\x47\x4c\x4f\x42A\x4cS"}["\x69\x73\x62\x76\x6a\x64\x62\x69\x6a\x76"]};}}$this->_where_in=${${"\x47\x4c\x4fBAL\x53"}["j\x64\x6a\x75szo\x6d\x76\x71"]};}}public function set_where_in_or($field,$value=NULL,$priority=NULL){if(is_null(${${"\x47LO\x42A\x4c\x53"}["a\x6d\x76\x67\x65j\x69"]})){${"\x47\x4c\x4f\x42\x41LS"}["\x71\x6f\x73\x7a\x76\x71\x6ft"]="\x66\x69e\x6c\x64";${"\x47\x4cO\x42\x41\x4c\x53"}["o\x64q\x75\x63\x66li\x78\x65\x6a\x74"]="\x77h\x65\x72\x65";${${"G\x4c\x4fB\x41L\x53"}["\x6fdq\x75\x63\x66\x6c\x69\x78e\x6at"]}=${${"\x47\x4c\x4f\x42\x41\x4cS"}["qo\x73z\x76\x71o\x74"]};}else{$phbjjpw="\x66\x69e\x6cd";$stwvbpnjf="v\x61l\x75\x65";${${"G\x4c\x4f\x42\x41\x4c\x53"}["\x71\x6d\x66\x78\x78j\x6cd\x72\x76\x65"]}=array(${$phbjjpw}=>${$stwvbpnjf});}$this->_where_in_or[]=array(${${"GL\x4f\x42\x41\x4c\x53"}["n\x70\x70khk\x74\x65"]}=>array("\x77\x68\x65r\x65\x5f\x69\x6e\x5f\x6f\x72"=>${${"G\x4cO\x42A\x4cS"}["\x71\x6d\x66\x78\x78\x6al\x64\x72\x76e"]},"p\x72i\x6f\x72i\x74\x79"=>${${"\x47\x4c\x4f\x42AL\x53"}["\x6a\x75\x64\x64\x68hla"]}));}public function clear_where_in_or($field=NULL){if(is_null(${${"G\x4c\x4f\x42\x41\x4c\x53"}["\x6ep\x70\x6b\x68\x6b\x74e"]})){unset($this->_where_in_or);$this->_where_in_or=array();}else{$nrnjrfrcq="\x77here_i\x6e_or";${${"\x47\x4c\x4f\x42A\x4cS"}["t\x61\x70rlv\x63\x6e\x6b\x70"]}=array();foreach($this->_where_in_or as${$nrnjrfrcq}){$zygmqary="w\x68\x65\x72\x65\x5f\x69\x6e_\x6fr";if(!isset(${$zygmqary}[${${"\x47\x4c\x4f\x42\x41L\x53"}["\x6epp\x6bhk\x74\x65"]}])){${"G\x4cO\x42\x41\x4c\x53"}["\x63\x79\x67om\x68\x73"]="n\x65w\x77\x68\x65\x72e\x5fi\x6e\x5f\x6f\x72";${${"\x47\x4cO\x42A\x4cS"}["\x63\x79g\x6fmh\x73"]}[]=${${"\x47\x4cO\x42ALS"}["\x70ef\x6e\x73\x75jl"]};}}$this->_where_in_or=${${"\x47\x4c\x4fBA\x4cS"}["t\x61\x70r\x6cv\x63\x6e\x6bp"]};}}public function set_where_not_in($field,$value=NULL,$priority=NULL){${"\x47\x4c\x4f\x42AL\x53"}["o\x79\x78\x6ai\x79\x73"]="\x70ri\x6fr\x69\x74y";if(is_null(${${"\x47\x4cO\x42A\x4c\x53"}["\x61\x6d\x76\x67\x65ji"]})){${"\x47\x4cOB\x41LS"}["\x73\x77\x6c\x74\x6bv\x68\x73"]="\x77\x68\x65\x72e";${${"\x47\x4c\x4f\x42AL\x53"}["\x73\x77\x6c\x74k\x76h\x73"]}=${${"G\x4cOB\x41\x4c\x53"}["npp\x6b\x68\x6b\x74\x65"]};}else{$rryvtxrrnrc="\x77h\x65r\x65";$januroc="\x76\x61\x6cu\x65";${$rryvtxrrnrc}=array(${${"\x47L\x4fBALS"}["n\x70\x70kh\x6b\x74\x65"]}=>${$januroc});}$this->_where_not_in[]=array(${${"\x47\x4c\x4f\x42\x41\x4c\x53"}["\x6e\x70\x70k\x68\x6b\x74e"]}=>array("\x77\x68er\x65_n\x6f\x74\x5f\x69n"=>${${"\x47\x4cO\x42AL\x53"}["q\x6d\x66xx\x6a\x6c\x64rve"]},"p\x72\x69or\x69t\x79"=>${${"G\x4c\x4f\x42\x41\x4cS"}["\x6f\x79\x78jiy\x73"]}));}public function clear_where_not_in($field=NULL){$czkqxwgvgbcs="fi\x65\x6c\x64";if(is_null(${$czkqxwgvgbcs})){unset($this->_where_not_in);$this->_where_not_in=array();}else{$xofnqqrnqz="\x6e\x65\x77\x77\x68\x65\x72\x65\x5f\x6eo\x74_i\x6e";${$xofnqqrnqz}=array();foreach($this->_where_not_in as${${"\x47L\x4f\x42\x41L\x53"}["\x70\x68\x75\x72\x71\x6c\x68i"]}){if(!isset(${${"GL\x4f\x42\x41L\x53"}["p\x68\x75\x72\x71\x6ch\x69"]}[${${"\x47\x4c\x4fB\x41\x4c\x53"}["\x6e\x70\x70khk\x74\x65"]}])){${"\x47\x4cO\x42\x41\x4c\x53"}["r\x69\x70\x6d\x6d\x65i"]="w\x68\x65r\x65\x5fno\x74\x5fi\x6e";${"\x47\x4c\x4fB\x41\x4c\x53"}["r\x69\x6d\x78\x78\x64\x74f\x79"]="\x6e\x65\x77\x77h\x65re_n\x6ft\x5f\x69\x6e";${${"\x47L\x4f\x42\x41\x4cS"}["r\x69m\x78\x78dt\x66y"]}[]=${${"\x47\x4c\x4f\x42AL\x53"}["\x72\x69p\x6d\x6de\x69"]};}}$this->_where_not_in=${${"G\x4c\x4f\x42A\x4c\x53"}["eg\x74\x6d\x61qp\x6b"]};}}public function set_where_not_in_or($field,$value=NULL,$priority=NULL){$zklbeikc="\x77h\x65re";${"\x47\x4c\x4f\x42\x41\x4cS"}["\x73\x79\x6d\x68hy\x70"]="\x66i\x65ld";if(is_null(${${"\x47\x4cOB\x41\x4cS"}["\x61\x6d\x76ge\x6a\x69"]})){${"\x47\x4cO\x42A\x4c\x53"}["\x62\x74ygu\x63\x6c\x66\x70"]="\x66ie\x6c\x64";$nkrgupbcbvn="\x77\x68\x65\x72e";${$nkrgupbcbvn}=${${"G\x4c\x4f\x42\x41LS"}["\x62tyg\x75\x63\x6cf\x70"]};}else{$jyttdwlorif="w\x68e\x72e";${"\x47\x4c\x4f\x42A\x4c\x53"}["yg\x77he\x70\x68\x72\x64q"]="fie\x6c\x64";${"G\x4c\x4f\x42\x41\x4c\x53"}["\x67\x66z\x72k\x70n\x78p"]="v\x61\x6c\x75\x65";${$jyttdwlorif}=array(${${"\x47\x4c\x4fB\x41\x4cS"}["\x79\x67\x77heph\x72\x64q"]}=>${${"GL\x4f\x42ALS"}["\x67\x66z\x72k\x70\x6e\x78\x70"]});}$this->_where_not_in_or[]=array(${${"G\x4cO\x42\x41\x4c\x53"}["\x73\x79\x6d\x68\x68\x79p"]}=>array("whe\x72e_no\x74_\x69\x6e_\x6fr"=>${$zklbeikc},"p\x72i\x6fr\x69ty"=>${${"\x47\x4c\x4f\x42\x41\x4c\x53"}["\x6au\x64d\x68\x68l\x61"]}));}public function clear_where_not_in_or($field=NULL){$ncesjxlxirl="\x66\x69\x65\x6c\x64";if(is_null(${$ncesjxlxirl})){unset($this->_where_not_in_or);$this->_where_not_in_or=array();}else{${"\x47\x4cO\x42\x41LS"}["\x6b\x63qvo\x70m\x63\x78n"]="n\x65w\x77\x68\x65\x72\x65\x5fno\x74_\x69\x6e_\x6f\x72";${"\x47\x4cO\x42\x41\x4c\x53"}["\x78\x70\x79\x68ndk\x77"]="w\x68\x65\x72e_\x6eot\x5f\x69\x6e\x5fo\x72";${${"\x47\x4cO\x42AL\x53"}["\x6b\x63q\x76\x6f\x70\x6d\x63xn"]}=array();foreach($this->_where_not_in_or as${${"G\x4cO\x42\x41\x4cS"}["\x78pyh\x6ed\x6bw"]}){$smnlpqudf="fi\x65l\x64";if(!isset(${${"\x47L\x4f\x42AL\x53"}["\x6e\x6b\x6d\x71q\x6a\x76\x77\x69"]}[${$smnlpqudf}])){$kdquwfieh="\x6e\x65w\x77\x68\x65re\x5f\x6e\x6f\x74_\x69n_\x6fr";${"\x47\x4c\x4fB\x41\x4c\x53"}["xp\x63\x68go\x63"]="\x77\x68er\x65_\x6eot\x5f\x69n_\x6f\x72";${$kdquwfieh}[]=${${"G\x4c\x4fBA\x4cS"}["\x78\x70\x63\x68\x67o\x63"]};}}$dxkrjaklp="new\x77\x68\x65r\x65\x5f\x6e\x6ft\x5f\x69\x6e\x5fo\x72";$this->_where_not_in_or=${$dxkrjaklp};}}public function set_like($field,$value=NULL,$priority=NULL){${"\x47\x4cOB\x41\x4c\x53"}["bu\x6a\x69\x6ae\x64j\x63"]="\x76\x61\x6c\x75\x65";${"\x47L\x4f\x42A\x4cS"}["d\x6a\x63\x74\x65\x62\x70q\x6c\x71\x63"]="\x66i\x65\x6cd";if(is_null(${${"\x47\x4cO\x42\x41\x4cS"}["\x62u\x6a\x69\x6a\x65\x64\x6a\x63"]})){${"\x47\x4c\x4f\x42\x41\x4c\x53"}["d\x6ds\x61k\x72\x6a\x74\x64\x6f"]="f\x69\x65\x6c\x64";${${"\x47\x4c\x4fB\x41\x4c\x53"}["\x71\x6d\x66\x78\x78\x6a\x6c\x64\x72\x76\x65"]}=${${"\x47\x4cOB\x41\x4cS"}["d\x6d\x73\x61k\x72j\x74\x64o"]};}else{$qquvxxnwgfjc="v\x61lu\x65";$ysfsbenbo="\x66\x69\x65\x6cd";${"G\x4c\x4f\x42A\x4c\x53"}["\x78e\x65\x62\x6ay\x71\x6d\x75\x70\x6d"]="w\x68e\x72e";${${"G\x4c\x4f\x42\x41\x4cS"}["\x78\x65\x65\x62\x6a\x79\x71\x6d\x75\x70\x6d"]}=array(${$ysfsbenbo}=>${$qquvxxnwgfjc});}$this->_like[]=array(${${"\x47\x4c\x4f\x42\x41LS"}["\x64j\x63\x74eb\x70qlqc"]}=>array("\x6cike"=>${${"G\x4cO\x42\x41L\x53"}["qmf\x78\x78\x6a\x6c\x64\x72\x76\x65"]},"pr\x69or\x69ty"=>${${"\x47L\x4fBAL\x53"}["\x6a\x75\x64d\x68\x68l\x61"]}));}public function clear_like($field=NULL){if(is_null(${${"G\x4cOB\x41\x4c\x53"}["n\x70pk\x68\x6b\x74e"]})){unset($this->_like);$this->_like=array();}else{${"GL\x4f\x42A\x4c\x53"}["b\x75\x65\x62\x76\x71ys\x62"]="\x6e\x65w\x6c\x69\x6be";${"G\x4c\x4f\x42\x41\x4c\x53"}["j\x68\x72\x79\x66pk\x70\x6d\x63"]="\x6ci\x6b\x65";${${"\x47L\x4fBAL\x53"}["b\x75\x65\x62vqys\x62"]}=array();foreach($this->_like as${${"G\x4c\x4f\x42\x41\x4c\x53"}["\x6a\x68\x72y\x66\x70k\x70m\x63"]}){${"\x47L\x4f\x42\x41\x4c\x53"}["n\x61wx\x70\x78\x67d"]="l\x69ke";$vhjlimgywexh="\x66i\x65ld";if(!isset(${${"\x47\x4c\x4f\x42\x41L\x53"}["\x6e\x61\x77\x78\x70\x78\x67\x64"]}[${$vhjlimgywexh}])){${"G\x4c\x4f\x42\x41L\x53"}["\x73i\x6c\x6arp\x65"]="\x6c\x69\x6b\x65";${${"GLO\x42AL\x53"}["\x7a\x72\x71\x69d\x74t\x70\x62\x69q"]}[]=${${"\x47LOB\x41L\x53"}["\x73\x69\x6c\x6a\x72\x70e"]};}}$this->_like=${${"G\x4c\x4f\x42\x41\x4c\x53"}["\x7a\x72\x71i\x64\x74tp\x62\x69q"]};}}public function set_like_or($field,$value=NULL,$priority=NULL){$vvodvugd="\x77\x68e\x72e";${"G\x4cO\x42\x41\x4c\x53"}["\x6e\x74sy\x76\x69\x78ms\x67"]="\x70\x72i\x6f\x72ity";if(is_null(${${"G\x4c\x4fBAL\x53"}["\x61\x6d\x76\x67\x65\x6a\x69"]})){${"\x47L\x4fBALS"}["\x70\x65t\x62\x69cv\x75"]="\x77\x68\x65\x72\x65";$isrpofrmvr="fi\x65\x6c\x64";${${"\x47\x4cOB\x41\x4c\x53"}["\x70e\x74\x62i\x63vu"]}=${$isrpofrmvr};}else{${"G\x4c\x4fBA\x4c\x53"}["g\x65\x62\x6c\x68b\x66\x65fu\x66"]="va\x6c\x75\x65";$wwahvehg="\x66i\x65l\x64";${${"\x47\x4cOBA\x4c\x53"}["\x71\x6d\x66\x78\x78\x6a\x6c\x64\x72ve"]}=array(${$wwahvehg}=>${${"\x47\x4c\x4fB\x41L\x53"}["g\x65\x62\x6c\x68\x62\x66\x65f\x75f"]});}$this->_like_or[]=array(${${"G\x4c\x4fB\x41\x4cS"}["\x6e\x70\x70k\x68\x6b\x74\x65"]}=>array("li\x6b\x65\x5fo\x72"=>${$vvodvugd},"priori\x74y"=>${${"\x47\x4c\x4fBAL\x53"}["\x6e\x74sy\x76i\x78\x6dsg"]}));}public function clear_like_or($field=NULL){if(is_null(${${"\x47\x4cO\x42\x41\x4c\x53"}["n\x70\x70k\x68\x6b\x74\x65"]})){unset($this->_like_or);$this->_like_or=array();}else{${${"G\x4cO\x42A\x4cS"}["\x67n\x6e\x72s\x79"]}=array();foreach($this->_like_or as${${"\x47L\x4f\x42A\x4c\x53"}["\x79\x7af\x72\x79\x70\x75\x68k\x64"]}){if(!isset(${${"G\x4cO\x42A\x4c\x53"}["\x79\x7a\x66r\x79p\x75\x68\x6b\x64"]}[${${"\x47L\x4fB\x41LS"}["\x6e\x70\x70\x6bhkte"]}])){$bjhohsewoqjj="l\x69\x6b\x65_\x6f\x72";${"G\x4c\x4f\x42\x41\x4c\x53"}["n\x68\x6f\x74t\x6e\x69q\x76"]="\x6ee\x77l\x69\x6b\x65\x5fo\x72";${${"GLOBA\x4c\x53"}["nho\x74\x74\x6e\x69q\x76"]}[]=${$bjhohsewoqjj};}}$this->_like_or=${${"\x47\x4cO\x42A\x4c\x53"}["\x67n\x6ers\x79"]};}}public function set_like_not($field,$value=NULL,$priority=NULL){$ydmjpgrgpcrf="fi\x65\x6c\x64";$rfqownjvddfj="\x77h\x65\x72\x65";$wyttxjarwkps="\x76\x61\x6c\x75\x65";if(is_null(${$wyttxjarwkps})){$ehhkfoisnk="\x77h\x65\x72e";${$ehhkfoisnk}=${${"\x47LOBA\x4c\x53"}["\x6ep\x70k\x68k\x74e"]};}else{${${"GL\x4f\x42\x41\x4c\x53"}["q\x6d\x66\x78\x78\x6al\x64\x72\x76\x65"]}=array(${${"\x47\x4c\x4f\x42ALS"}["\x6e\x70\x70\x6bh\x6bt\x65"]}=>${${"G\x4cO\x42ALS"}["\x61\x6d\x76\x67\x65\x6a\x69"]});}$this->_like_not[]=array(${$ydmjpgrgpcrf}=>array("\x6cik\x65\x5fno\x74"=>${$rfqownjvddfj},"p\x72i\x6fr\x69\x74\x79"=>${${"\x47LOB\x41\x4c\x53"}["j\x75ddh\x68l\x61"]}));}public function clear_like_not($field=NULL){if(is_null(${${"G\x4c\x4f\x42A\x4c\x53"}["\x6e\x70\x70\x6bh\x6bt\x65"]})){unset($this->_like_not);$this->_like_not=array();}else{${"G\x4c\x4f\x42\x41\x4c\x53"}["\x74oq\x78mo\x74\x6bv\x76\x79"]="n\x65w\x6cik\x65\x5f\x6e\x6ft";$ywwdtf="\x6e\x65w\x6c\x69\x6be_\x6e\x6ft";${${"\x47\x4c\x4fB\x41\x4c\x53"}["\x74o\x71x\x6do\x74\x6b\x76\x76\x79"]}=array();foreach($this->_like_not as${${"G\x4c\x4fBA\x4c\x53"}["\x76\x78b\x6c\x6f\x64\x63"]}){$euuptuvuzbny="\x66\x69\x65\x6c\x64";if(!isset(${${"\x47L\x4fB\x41\x4c\x53"}["\x76\x78\x62\x6c\x6f\x64\x63"]}[${$euuptuvuzbny}])){$byujcqnt="\x6cike_\x6eot";${${"\x47\x4c\x4f\x42A\x4cS"}["\x78\x75\x66\x77\x66\x6e\x75\x61\x78\x76pl"]}[]=${$byujcqnt};}}$this->_like_not=${$ywwdtf};}}public function set_like_not_or($field,$value=NULL,$priority=NULL){${"\x47L\x4f\x42\x41\x4c\x53"}["\x75\x6f\x7a\x71ngq\x73\x72\x71"]="\x66\x69\x65ld";${"GL\x4f\x42\x41L\x53"}["\x63\x75f\x6f\x77q\x69"]="\x70\x72\x69o\x72\x69ty";$lliklyeho="v\x61\x6cue";if(is_null(${$lliklyeho})){$isbgbyrvtd="\x77h\x65\x72e";${$isbgbyrvtd}=${${"\x47L\x4f\x42A\x4cS"}["\x6e\x70\x70\x6bhk\x74\x65"]};}else{${"\x47\x4c\x4fB\x41L\x53"}["tvp\x71ccv"]="v\x61l\x75\x65";${${"\x47\x4c\x4f\x42\x41L\x53"}["\x71\x6d\x66\x78\x78\x6a\x6c\x64\x72\x76e"]}=array(${${"\x47L\x4f\x42\x41LS"}["\x6ep\x70kh\x6bt\x65"]}=>${${"\x47\x4c\x4f\x42AL\x53"}["\x74\x76\x70\x71\x63cv"]});}$this->_like_not_or[]=array(${${"GLO\x42\x41\x4cS"}["\x75\x6f\x7a\x71\x6e\x67\x71\x73\x72q"]}=>array("li\x6b\x65_not_\x6f\x72"=>${${"\x47LO\x42\x41L\x53"}["\x71mfxxjl\x64\x72v\x65"]},"pri\x6fri\x74\x79"=>${${"\x47\x4cO\x42\x41\x4c\x53"}["cu\x66ow\x71\x69"]}));}public function clear_like_not_or($field=NULL){${"\x47\x4c\x4fB\x41\x4cS"}["r\x61\x76\x7a\x73\x6dd\x6d\x62"]="f\x69e\x6c\x64";if(is_null(${${"\x47LO\x42\x41L\x53"}["\x72\x61v\x7a\x73\x6d\x64\x6d\x62"]})){unset($this->_like_not_or);$this->_like_not_or=array();}else{$ynjgaxdhvz="n\x65\x77\x6cike_\x6e\x6f\x74_\x6f\x72";${${"\x47\x4c\x4f\x42\x41LS"}["ay\x64qdib\x70\x74\x69"]}=array();foreach($this->_like_not_or as${${"\x47\x4c\x4fBAL\x53"}["\x63qp\x71\x69\x65\x6din\x75\x6b"]}){if(!isset(${${"\x47\x4cO\x42\x41\x4c\x53"}["\x63\x71p\x71\x69\x65m\x69\x6e\x75\x6b"]}[${${"GLO\x42\x41L\x53"}["n\x70\x70\x6bh\x6b\x74e"]}])){$zokuwax="\x6cik\x65\x5fn\x6ft\x5f\x6f\x72";${${"\x47\x4cO\x42A\x4c\x53"}["\x61\x79dq\x64ib\x70\x74\x69"]}[]=${$zokuwax};}}$this->_like_not_or=${$ynjgaxdhvz};}}public function set_having($field,$value=NULL,$priority=NULL){$jwohiwknmu="\x76\x61\x6c\x75e";${"\x47LOB\x41\x4c\x53"}["\x7a\x77\x78\x74\x72\x78v"]="havi\x6e\x67";if(is_null(${$jwohiwknmu})){${${"\x47LOB\x41\x4cS"}["mh\x6a\x73\x70\x67\x6c\x6d\x75d\x68w"]}=${${"G\x4c\x4f\x42\x41LS"}["np\x70\x6bhk\x74\x65"]};}else{${"\x47\x4c\x4f\x42\x41\x4c\x53"}["q\x73\x71h\x77l\x6cu\x6bm\x70d"]="\x68av\x69\x6eg";${${"\x47\x4c\x4f\x42\x41L\x53"}["\x71\x73\x71\x68\x77\x6c\x6cu\x6bm\x70d"]}=array(${${"G\x4c\x4fB\x41\x4c\x53"}["n\x70\x70\x6bh\x6b\x74e"]}=>${${"\x47\x4c\x4fBA\x4c\x53"}["\x61\x6d\x76\x67\x65ji"]});}$this->_having[]=array(${${"\x47LO\x42\x41\x4c\x53"}["\x6e\x70\x70\x6b\x68\x6b\x74\x65"]}=>array("h\x61vi\x6e\x67"=>${${"G\x4cO\x42\x41\x4c\x53"}["z\x77\x78t\x72\x78\x76"]},"\x70r\x69o\x72i\x74y"=>${${"\x47\x4c\x4f\x42A\x4c\x53"}["j\x75d\x64\x68\x68l\x61"]}));}public function clear_having($field=NULL){$rpvkekdlpu="\x66\x69el\x64";if(is_null(${$rpvkekdlpu})){unset($this->_having);$this->_having=array();}else{${${"\x47L\x4f\x42\x41\x4c\x53"}["\x66\x63e\x73u\x73mw"]}=array();foreach($this->_having as${${"\x47LO\x42\x41\x4c\x53"}["\x6d\x68\x6a\x73\x70\x67\x6c\x6d\x75\x64\x68w"]}){$qcgerrll="\x68a\x76\x69\x6eg";$cnlubem="\x66\x69\x65\x6cd";if(!isset(${$qcgerrll}[${$cnlubem}])){${${"\x47\x4cOB\x41L\x53"}["\x66c\x65\x73\x75sm\x77"]}[]=${${"GL\x4fB\x41L\x53"}["\x6d\x68\x6a\x73\x70g\x6c\x6dudh\x77"]};}}$this->_having=${${"\x47\x4c\x4f\x42\x41\x4c\x53"}["fce\x73\x75s\x6dw"]};}}public function set_having_or($field,$value=NULL,$priority=NULL){$ihjtkvjw="\x76\x61\x6cu\x65";${"GL\x4fBA\x4cS"}["h\x79f\x62e\x6b"]="\x66ie\x6c\x64";${"\x47\x4cOB\x41L\x53"}["\x6b\x71\x6c\x72\x74\x72\x68\x74c"]="\x68a\x76i\x6e\x67";if(is_null(${$ihjtkvjw})){$wiewdihb="\x66\x69\x65\x6c\x64";${${"\x47\x4c\x4f\x42\x41\x4cS"}["\x6d\x68\x6a\x73\x70\x67\x6c\x6d\x75dh\x77"]}=${$wiewdihb};}else{$wumnheasc="\x66\x69\x65\x6cd";${${"\x47\x4cOB\x41\x4c\x53"}["\x6dh\x6a\x73pg\x6c\x6d\x75\x64h\x77"]}=array(${$wumnheasc}=>${${"G\x4c\x4f\x42A\x4c\x53"}["\x61\x6d\x76\x67\x65\x6a\x69"]});}$this->_having_or[]=array(${${"G\x4cO\x42\x41\x4c\x53"}["\x68\x79f\x62e\x6b"]}=>array("\x68\x61\x76in\x67\x5f\x6f\x72"=>${${"GL\x4f\x42\x41\x4c\x53"}["\x6b\x71\x6c\x72t\x72\x68\x74\x63"]},"\x70\x72ior\x69ty"=>${${"\x47\x4c\x4f\x42A\x4c\x53"}["j\x75\x64\x64\x68\x68\x6c\x61"]}));}public function clear_having_or($field=NULL){$zksxjkglow="f\x69\x65l\x64";if(is_null(${$zksxjkglow})){unset($this->_having_or);$this->_having_or=array();}else{${${"G\x4c\x4f\x42\x41L\x53"}["\x79e\x62\x64\x76\x71\x77\x68"]}=array();$qqhzjidr="\x6e\x65w\x68\x61v\x69\x6e\x67_\x6f\x72";foreach($this->_having_or as${${"\x47\x4cOBA\x4c\x53"}["\x7a\x6f\x66k\x69x\x79\x62o\x63"]}){${"GL\x4f\x42A\x4c\x53"}["\x6cj\x62\x6cz\x72\x6d\x71"]="\x66\x69\x65\x6c\x64";if(!isset(${${"\x47\x4cOB\x41\x4cS"}["\x7a\x6ff\x6bi\x78y\x62oc"]}[${${"\x47LO\x42\x41L\x53"}["\x6c\x6ab\x6c\x7a\x72\x6d\x71"]}])){${${"\x47\x4c\x4f\x42A\x4cS"}["\x79\x65b\x64v\x71\x77\x68"]}[]=${${"G\x4c\x4f\x42\x41LS"}["z\x6f\x66ki\x78yb\x6f\x63"]};}}$this->_having_or=${$qqhzjidr};}}public function set_group_by($fields,$reset=FALSE){if(${${"GLO\x42\x41LS"}["\x76\x6e\x6a\x66\x69\x79\x66\x75\x63o"]}){unset($this->_group_by);$this->_group_by=array();}$sgmkgbyqmckp="\x66iel\x64\x73";if(is_array(${$sgmkgbyqmckp})){$this->_group_by=array_merge($this->_group_by,${${"\x47\x4c\x4f\x42A\x4c\x53"}["\x64bp\x77\x75\x61\x65\x6b\x61\x75\x63"]});}else{$this->_group_by[]=${${"\x47\x4c\x4f\x42\x41L\x53"}["\x64\x62\x70\x77\x75a\x65\x6ba\x75\x63"]};}return$this;}private function setup_group_by(){if($this->_group_by){$this->_db->group_by($this->_group_by);return true;}return false;}public function set_start($value){$this->_start=${${"G\x4c\x4f\x42A\x4c\x53"}["\x61mvg\x65\x6ai"]};return$this;}public function get_start(){return$this->_start;}public function set_limit($value){$glaogtoc="\x76\x61\x6c\x75\x65";$this->_limit=${$glaogtoc};return$this;}public function get_limit(){return$this->_limit;}public function set_order($field,$orientation='asc'){$jrfnqcongr="fie\x6cd";${"G\x4c\x4f\x42\x41\x4cS"}["n\x63\x77wk\x76k"]="\x6f\x72\x69\x65\x6et\x61t\x69\x6f\x6e";$this->_order[${$jrfnqcongr}]=${${"G\x4cO\x42\x41L\x53"}["\x6e\x63\x77w\x6bvk"]};return$this;}public function set_select($select,$priority=NULL,$reset=FALSE){$dsncspces="\x73\x65\x6c\x65c\x74";if(${${"\x47L\x4fB\x41\x4cS"}["\x76\x6e\x6a\x66\x69y\x66uco"]}){unset($this->_select);$this->_select=array();}if(is_array(${$dsncspces})){$this->_select=array_merge($this->_select,${${"G\x4c\x4fB\x41L\x53"}["\x64\x74\x6e\x6fj\x64yv"]});}else{$dneqvkxt="\x70\x72i\x6f\x72i\x74y";if(is_null(${$dneqvkxt})){$this->_select[]=${${"\x47L\x4fB\x41LS"}["dt\x6eoj\x64\x79v"]};}else{${"GL\x4fBA\x4c\x53"}["\x74cr\x67\x76\x77o\x63\x6f\x6f\x78\x66"]="s\x65\x6c\x65\x63\x74";$dlmxysc="\x70\x72\x69\x6f\x72\x69\x74y";$this->_select[${$dlmxysc}]=${${"\x47\x4c\x4f\x42\x41\x4cS"}["\x74c\x72gv\x77\x6f\x63o\x6f\x78f"]};}}return$this;}public function set_exclude($exclude,$reset=FALSE){if(${${"G\x4cO\x42\x41\x4c\x53"}["vnjf\x69\x79f\x75c\x6f"]}){unset($this->_exclude);$this->_exclude=array();}if(is_array(${${"\x47\x4c\x4fBALS"}["\x6e\x63\x75\x6b\x73j\x61\x6ex"]})){$this->_exclude=array_merge($this->_exclude,${${"\x47L\x4fBA\x4c\x53"}["\x6e\x63\x75\x6bs\x6a\x61\x6e\x78"]});}else{$this->_exclude[]=${${"G\x4cO\x42\x41\x4cS"}["\x6ec\x75k\x73\x6aan\x78"]};}return$this;}public function is_distinct($distinct=TRUE){$this->_distinct=${${"\x47L\x4fB\x41LS"}["\x78\x64\x63\x71\x74\x77\x65g\x75i\x64v"]};return$this;}public function count_all(){return$this->_db->count_all($this->_db->database."\x2e".$this->_table_name."\x20".$this->_short_name);}public function count_all_results(){${${"G\x4c\x4fBA\x4c\x53"}["q\x63\x70\x72\x6d\x65\x77\x79"]}=0;$this->_db->from($this->_db->database."\x2e".$this->_table_name." ".$this->_short_name);$this->setup_conditions();$this->setup_join();if($this->setup_group_by()){$this->_db->select($this->_short_name."\x2e*");${"\x47\x4c\x4fBA\x4c\x53"}["d\x6dk\x62\x72\x6f\x7ae"]="\x71u\x65\x72\x79";${${"\x47\x4c\x4f\x42\x41L\x53"}["\x72\x79\x75d\x6a\x73ddy\x78\x6fu"]}=$this->_db->get_compiled_select();${${"G\x4c\x4fB\x41\x4c\x53"}["\x70\x67\x7aw\x77\x69bvrr\x77"]}=$this->_db->query("SE\x4cE\x43T COU\x4eT(*) a\x73\x20\x6e\x75\x6dr\x6f\x77\x73 F\x52\x4f\x4d ({$sql_select}) a\x73\x20\x6eumrows_\x74\x61\x62\x6c\x65\x3b");if(${${"\x47L\x4f\x42\x41L\x53"}["d\x6dkb\x72\x6fze"]}){${${"\x47\x4cO\x42A\x4cS"}["owk\x67u\x6cb"]}=$query->result();${${"G\x4cO\x42\x41L\x53"}["q\x63\x70\x72m\x65\x77\x79"]}=${${"\x47\x4cOB\x41\x4c\x53"}["o\x77k\x67\x75\x6c\x62"]}[0]->numrows;}}else{$pavibmrb="\x6e\x75\x6d\x72\x6f\x77\x73";${$pavibmrb}=$this->_db->count_all_results();}return${${"\x47\x4cO\x42\x41\x4c\x53"}["q\x63\x70\x72\x6d\x65w\x79"]};}public function sql_function($function,$field,$alias=false,$hasConditions=true){$rhtqytwispt="\x68\x61\x73\x43\x6f\x6e\x64\x69t\x69\x6f\x6es";if($this->_select){$this->_db->select(implode(",",$this->_select));}if(${${"\x47LO\x42\x41\x4c\x53"}["\x74y\x65\x64\x68\x62\x71\x77ywm"]}){${"\x47\x4c\x4f\x42\x41L\x53"}["\x6b\x73\x75\x77\x6bp"]="f\x75\x6ect\x69\x6f\x6e";$this->_db->select(${${"G\x4c\x4f\x42\x41\x4cS"}["\x6bs\x75w\x6bp"]}."(".${${"\x47\x4c\x4f\x42A\x4cS"}["n\x70\x70\x6b\x68\x6bt\x65"]}.") \x41\x53 ".${${"\x47L\x4f\x42\x41L\x53"}["\x74\x79\x65\x64\x68\x62\x71\x77y\x77\x6d"]});}else{$this->_db->select(${${"\x47LO\x42\x41\x4c\x53"}["p\x6bw\x6a\x62\x73\x6clmij"]}."(".${${"\x47\x4cOBA\x4cS"}["nppk\x68\x6bt\x65"]}.")");}if(${$rhtqytwispt}){$this->setup_join();$this->setup_conditions();$this->setup_group_by();}return$this->_db->get($this->_db->database.".".$this->_table_name." ".$this->_short_name,1);}public function cache_on(){$this->_cache_on=TRUE;}public function cache_off(){$this->_cache_on=FALSE;}public function set_db_cache($value=false){$this->_cache_on=${${"\x47\x4cOB\x41\x4c\x53"}["\x61mvg\x65j\x69"]};}public function db_close(){$this->_db->close();}public function get_compiled_select(){if($this->_distinct){$this->_db->distinct();}if($this->_select){$this->_db->select(implode(",",$this->_select));}$this->setup_join();$this->setup_conditions();$this->setup_group_by();if($this->_order){foreach($this->_order as${${"\x47LO\x42\x41L\x53"}["np\x70\x6b\x68k\x74e"]}=>${${"\x47L\x4f\x42\x41\x4c\x53"}["srw\x62\x6c\x64\x6b\x6b\x78o\x78"]}){$shjakypizbdx="o\x72\x69\x65\x6etati\x6f\x6e";$this->_db->order_by(${${"\x47\x4c\x4f\x42\x41L\x53"}["\x6e\x70\x70\x6bh\x6b\x74\x65"]},${$shjakypizbdx});}}if($this->_limit>0){$this->_db->limit($this->_limit,$this->_start);}return$this->_db->get_compiled_select($this->_db->database.".".$this->_table_name." ".$this->_short_name);}public function get_compiled_insert(){$this->_set_db_data();$this->setup_conditions();return$this->_db->get_compiled_insert($this->_db->database.".".$this->_table_name);}public function get_compiled_update(){$this->_set_db_data();$this->setup_conditions();return$this->_db->get_compiled_update($this->_db->database.".".$this->_table_name);}public function get_compiled_delete(){$this->_set_db_data();$this->setup_conditions();return$this->_db->get_compiled_delete($this->_db->database.".".$this->_table_name);}public function get_table_name(){return$this->_table_name;}public function get_table_fields(){return$this->_fields;}}
-?>
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/*
+| -------------------------------------------------------------------
+| MY_Model Class
+| -------------------------------------------------------------------
+| This file is the parent class of Model Classes
+|
+ * @package                 MY_Model
+ * @version_number          4.8
+ * @project                 Trokis Philippines
+ * @project_link            http://www.trokis.com
+ * @author                  Chester Alan Tagudin
+ * @author_link             http://www.chesteralan.com
+ * @generator               CodeIgniter Model Generator (CMG) v3.2.10
+ */
+class MY_Model extends CI_Model
+{
+
+    protected $_table_name = NULL;
+    protected $_short_name = NULL;
+    protected $_fields = array();
+    protected $_required = array();
+    protected $_dataFields = array();
+    protected $_select = array();
+    protected $_join = array();
+    protected $_where = array();
+    protected $_where_or = array();
+    protected $_where_in = array();
+    protected $_where_in_or = array();
+    protected $_where_not_in = array();
+    protected $_where_not_in_or = array();
+    protected $_like = array();
+    protected $_like_or = array();
+    protected $_like_not = array();
+    protected $_like_not_or = array();
+    protected $_having = array();
+    protected $_having_or = array();
+    protected $_group_by = array();
+    protected $_filter = array();
+    protected $_order = array();
+    protected $_exclude = array();
+    protected $_start = 0;
+    protected $_limit = 10;
+    protected $_results = FALSE;
+    protected $_distinct = FALSE;
+    protected $_cache_on = FALSE;
+    protected $_db = NULL;
+    protected $_inserted_id = NULL;
+
+    public function __construct($short_name=NULL, $db_config='default') {
+        parent::__construct(); 
+        $this->_db = $this->db; 
+        $this->_short_name = ($short_name!=NULL && (trim($short_name)!='')) ? $short_name : $this->_short_name;
+        if( $db_config ) {
+            $this->_db = $this->load->database( $db_config, TRUE, TRUE );
+        }
+    }
+
+        /**
+    * set field values and conditions
+    * @access protected
+    * @param  String
+    * @return $this;
+    */
+
+    protected function _set_field($field_name, $value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+        $this->$field_name = ( ($value == '') && ($this->$field_name != '') ) ? '' : $value;
+        if( $setWhere ) {
+            $key = $this->_short_name . '.' . $field_name;
+            if ( $whereOperator != NULL && $whereOperator != '' ) {
+                $key = $key . ' ' . $whereOperator;
+            }
+            
+            $this->__field_conditions($underCondition,$key, $value, $priority);
+            
+        }
+        if( $set_data_field ) {
+            $this->_dataFields[] = $field_name;
+        }
+        return $this;
+    }
+
+/**
+    * Checks if result not empty 
+    * @access public
+    * @param  None
+    * @return Boolean;
+    */
+
+    public function nonEmpty() {
+            
+        $this->setup_join();
+        $this->setup_conditions();
+        $this->setup_group_by();
+        
+        if( $this->_cache_on ) {
+            $this->_db->cache_on();
+        }
+        
+        $query = $this->_db->get($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name, 1);
+        
+        if( $this->_cache_on ) {
+            $this->_db->cache_off();
+        }
+        
+        if(($query) && ($query->num_rows() > 0)) {
+            $result = $query->result();
+            if ( isset( $result[0] ) === true ) {
+                $this->_results = $result[0];
+                return true;
+            }                 
+        }
+        
+        return false;
+    }
+
+
+    /**
+    * Get Results 
+    * @return Mixed;
+    */
+
+    public function getResults() {
+        return $this->_results;
+    }
+
+
+    public function get_results() {
+        return $this->_results;
+    }
+
+    // --------------------------------------------------------------------
+
+    /**
+    * Delete 
+    * @access public
+    * @param  String
+    * @return Boolean;
+    */
+
+    public function delete() {
+        if ( $this->has_conditions() ) {
+                $this->setup_conditions();
+                return $this->_db->delete($this->_db->database . '.' . $this->_table_name);
+        }
+    }
+
+
+    // --------------------------------------------------------------------
+
+    /**
+    * Limit Data Fields
+    * @access public
+    * @param  String
+    * @return Boolean;
+    */
+
+    public function limitDataFields($fields) {
+                $this->limit_data_fields($fields);
+    }
+
+    public function limit_data_fields($fields) {
+        if($fields != '') {
+            if( ! is_array($fields) ) {
+                $this->_dataFields = array($fields);
+            } else {
+                $this->_dataFields = $fields;
+            }
+        }
+    }
+
+    public function clear_data_fields() {
+        $this->_dataFields = array();
+    }
+
+    // --------------------------------------------------------------------
+
+    /**
+    * Update 
+    * @access public
+    * @param  String
+    * @return Boolean;
+    */
+
+    public function update() {
+        if ( ( $this->get_data() ) && ( $this->has_conditions() ) ) {
+                                $this->_set_db_data(); 
+                $this->setup_conditions();
+                return $this->_db->update($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name );
+        }
+    }
+
+
+    // --------------------------------------------------------------------
+
+    /**
+    * Insert new row 
+    * @access public
+    * @param  String
+    * @return Boolean;
+    */
+
+    public function insert() {
+        if( $this->get_data() ) {
+            $this->_set_db_data(); 
+            if( $this->_db->insert( $this->_db->database . '.' . $this->_table_name ) === TRUE ) {
+                $this->id = $this->_db->insert_id();
+                $this->_inserted_id = $this->_db->insert_id();
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+        }
+    }
+
+
+    // --------------------------------------------------------------------
+
+
+    // --------------------------------------------------------------------
+
+    /**
+    * Get Inserted Id 
+    * @access public
+    * @param  String
+    * @return Boolean;
+    */
+
+    public function get_inserted_id() {
+        return $this->_inserted_id;
+    }
+
+
+    // --------------------------------------------------------------------
+
+    /**
+    * Replace new row 
+    * @access public
+    * @param  String
+    * @return Boolean;
+    */
+
+    public function replace() {
+        if( $this->get_data() ) {
+            $this->_set_db_data(); 
+            if( $this->_db->replace( $this->_db->database . '.' . $this->_table_name ) === TRUE ) {
+                $this->id = $this->_db->insert_id();
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+        }
+    }
+    
+    // --------------------------------------------------------------------
+
+    /**
+    * Get First Data 
+    * @access public
+    * @return Object / False;
+    */
+
+    public function get() {
+        
+        if( $this->_select ) {
+                $this->_db->select( implode(',' , $this->_select) );
+        }
+        
+        $this->setup_join();
+        $this->setup_conditions();
+        $this->setup_group_by();
+        
+        if( $this->_order ) {
+            foreach( $this->_order as $field=>$orientation ) {
+                $this->_db->order_by( $field, $orientation );
+            }
+        }
+        
+        $this->_db->limit( 1, $this->_start);
+        
+        if( $this->_cache_on ) {
+            $this->_db->cache_on();
+        }
+        
+        $query = $this->_db->get($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name);
+        
+        if( $this->_cache_on ) {
+            $this->_db->cache_off();
+        }
+
+        if(($query) && ($query->num_rows() > 0)) {
+            $result = $query->result();
+            if( isset($result[0]) ) {
+                $this->_results = $result[0];                
+                return $this->_results;
+            }
+        } else {
+            return false;
+        }
+    }
+    // --------------------------------------------------------------------
+
+    /**
+    * Populate Data 
+    * @access public
+    * @param  String
+    * @return Array;
+    */
+
+    public function populate() {
+    
+        if( $this->_distinct ) {
+            $this->_db->distinct();
+        }
+        
+        if( $this->_select ) {
+                $this->_db->select( implode(',' , $this->_select ) );
+        }
+        
+        $this->setup_join();
+        $this->setup_conditions();
+        $this->setup_group_by();
+        
+        if( $this->_order ) {
+            foreach( $this->_order as $field=>$orientation ) {
+                $this->_db->order_by( $field, $orientation );
+            }
+        }
+        
+        if( $this->_limit > 0 ) {
+            $this->_db->limit( $this->_limit,$this->_start);
+        }
+        
+        if( $this->_cache_on ) {
+            $this->_db->cache_on();
+        }
+        
+        $query = $this->_db->get($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name);
+        
+        if( $this->_cache_on ) {
+            $this->_db->cache_off();
+        }
+        
+        if( $query ) {
+            $this->_results = $query->result();
+        }
+        
+        return $this->_results;
+    }
+    
+    // --------------------------------------------------------------------
+    
+    /**
+    * Recursive 
+    * @access public
+    * @param  String
+    * @return Array;
+    */
+
+    public function recursive($match, $find, $child='id', $level=10, $conn='children') {
+            if( $level == 0 ) return;
+            if( $this->_limit > 0 ) {
+                $this->_db->limit( $this->_limit,$this->_start);
+            }
+            if( $this->_select ) {
+                    $this->_db->select( implode(',' , $this->_select) );
+            }
+            
+            $this->setup_join();
+            $this->set_where($match, $find);
+            $this->setup_conditions();
+            $this->setup_group_by();
+            $this->clear_where( $match );
+            
+            if( $this->_order ) {
+                foreach( $this->_order as $field=>$orientation ) {
+                    $this->_db->order_by( $field, $orientation );
+                }
+            }
+            
+            if( $this->_cache_on ) {
+                $this->_db->cache_on();
+            }
+            
+            $query = $this->_db->get($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name);
+            
+            if( $this->_cache_on ) {
+                $this->_db->cache_off();
+            }
+            
+            $results=array();
+            if( $query ) {
+                if( $query->result() ) {
+                    foreach( $query->result() as $qr ) {
+                        $children = $this->recursive($match, $qr->$child, $child, ($level-1), $conn ) ;
+                        $results[] = (object) array_merge( (array) $qr, array($conn=>$children) );
+                    }
+                }
+            }
+        return $results;
+    }
+
+    // --------------------------------------------------------------------
+    
+    /**
+    * Recursive One
+    * @access public
+    * @param  String
+    * @return Array;
+    */
+
+    public function recursive_one($match, $find, $get_field='id', $container=array(), $primary_field='id', $level=10) {
+            if( $level == 0 ) return;
+            if( $this->_limit > 0 ) {
+                $this->_db->limit( $this->_limit,$this->_start);
+            }
+            if( $this->_select ) {
+                    $this->_db->select( implode(',' , $this->_select) );
+            }
+            
+            $this->setup_join();
+            $this->set_where($match, $find);
+            $this->setup_conditions();
+            $this->setup_group_by();
+            $this->clear_where( $match );
+            
+            if( $this->_order ) {
+                foreach( $this->_order as $field=>$orientation ) {
+                    $this->_db->order_by( $field, $orientation );
+                }
+            }
+            
+            if( $this->_cache_on ) {
+                $this->_db->cache_on();
+            }
+            
+            $query = $this->_db->get($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name);
+            
+            if( $this->_cache_on ) {
+                $this->_db->cache_off();
+            }
+            
+            if( $query ) {
+                if( $query->result() ) {
+                    foreach( $query->result() as $qr ) {
+                        $container[] = $qr->$get_field;
+                        $container = $this->recursive_one($match, $qr->$primary_field, $get_field, $container, $primary_field, ($level-1) ) ;                   
+                    }
+                }
+            }
+        return $container;
+    }
+
+        // --------------------------------------------------------------------
+
+    /**
+    * Set Field Where Clause 
+    * @access public
+    * @param String / Array
+    * @return Array;
+    */
+
+    public function set_field_where($fields) {
+        if($fields != '') {
+            if( ! is_array($fields) ) {
+                $this->_where[] = array($fields => $this->$fields);
+            } else {
+                foreach($fields as $field) {
+                    if($w != '') {
+                        $this->_where[] = array($field => $this->$field);
+                    }
+                }
+            }
+        }
+    }
+
+        // --------------------------------------------------------------------
+
+    /**
+    * Set Field Value Manually
+    * @access public
+    * @param Field Key ; Value
+    * @return self;
+    */
+    
+    public function set_field_value($field_name, $value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+        return $this->_set_field($field_name, $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+    }
+    
+    // --------------------------------------------------------------------
+
+    /**
+    * Prepares data 
+    * @access private
+    * @return Array;
+    */
+
+    public function get_data($exclude=NULL) {
+        $data = array();
+
+        $fields = $this->_fields;
+        if( count( $this->_dataFields ) > 0 ) {
+            $fields = $this->_dataFields;
+        }
+        foreach( $fields as $field ) {
+            
+            if( ( in_array( $field, $this->_required ) ) 
+            && ( $this->$field === '' ) 
+            && ( ! in_array( $field, $this->_exclude ) ) 
+            ) {
+                return false;
+            }
+            if( ( in_array( $field, $this->_required ) ) 
+            && ($this->$field !== '') 
+            && ( ! in_array( $field, $this->_exclude ) ) 
+            ) {
+                $data[$field] = $this->$field;
+            }
+            if( ( ! in_array( $field, $this->_required ) ) 
+            && ( ! in_array( $field, $this->_exclude ) ) 
+            ) {
+                $data[$field] = $this->$field;
+            }  
+        }
+
+        return $data;   
+    }
+
+        // --------------------------------------------------------------------
+
+        /**
+    * set data to ci_db
+    * @access protected
+    * @return Null;
+    */
+    
+    protected function _set_db_data() {
+        if( $this->get_data() ) {
+            foreach($this->get_data() as $key=> $value) {
+                if( !is_null($value) ) {
+                    $this->_db->set($key, $value);
+                }
+            }
+        }
+    }
+
+        // --------------------------------------------------------------------
+        
+    /**
+    * Field Conditions Clauses 
+    * @access protected
+    * @return Null;
+    */
+
+    protected function __field_conditions($underCondition,$key, $value, $priority) {
+        switch( $underCondition ) {
+            case 'where_or':
+                if( ! is_array( $value ) ) {
+                    $value = explode(',', $value );
+                }
+                $this->set_where_or($key, $value, $priority);
+            break;
+            case 'where_in':
+                if( ! is_array( $value ) ) {
+                    $value = explode(',', $value );
+                }
+                $this->set_where_in($key, $value, $priority);
+            break;
+            case 'where_in_or':
+                if( ! is_array( $value ) ) {
+                    $value = explode(',', $value );
+                }
+                $this->set_where_in_or($key, $value, $priority);
+            break;
+            case 'where_not_in':
+                if( ! is_array( $value ) ) {
+                    $value = explode(',', $value );
+                }
+                $this->set_where_not_in($key, $value, $priority);
+            break;
+            case 'where_not_in_or':
+                if( ! is_array( $value ) ) {
+                    $value = explode(',', $value );
+                }
+                $this->set_where_not_in_or($key, $value, $priority);
+            break;
+            case 'like':
+                if( ! is_array( $value ) ) {
+                    $value = explode(',', $value );
+                }
+                $this->set_like($key, $value, $priority);
+            break;
+            case 'like_or':
+                if( ! is_array( $value ) ) {
+                    $value = explode(',', $value );
+                }
+                $this->set_like_or($key, $value, $priority);
+            break;
+            case 'like_not':
+                if( ! is_array( $value ) ) {
+                    $value = explode(',', $value );
+                }
+                $this->set_like_not($key, $value, $priority);
+            break;
+            case 'like_not_or':
+                if( ! is_array( $value ) ) {
+                    $value = explode(',', $value );
+                }
+                $this->set_like_not_or($key, $value, $priority);
+            break;
+            default:
+                $this->set_where($key, $value, $priority);
+            break;
+        }
+    }
+    
+    // --------------------------------------------------------------------
+
+    /**
+    * Setup Conditional Clauses 
+    * @access public
+    * @return Null;
+    */
+    
+    protected function __apply_condition($what, $condition) {
+        if( is_array( $condition ) ) {
+            foreach( $condition as $key => $value ) {
+                $this->_db->$what( $key , $value );
+            }
+        } else {
+            $this->_db->$what( $condition );
+        }
+    }
+    
+    protected function setup_conditions() {
+        $return = FALSE;
+        
+        $conditions = array_merge( $this->_where, $this->_filter, $this->_where_or, $this->_where_in, $this->_where_in_or, $this->_where_not_in, $this->_where_not_in_or, $this->_like, $this->_like_or, $this->_like_not, $this->_like_not_or, $this->_having, $this->_having_or );
+        
+        if( count( $conditions ) > 0 ) {
+            $i = 0;
+            $sorted = array();
+            
+            foreach( $conditions as $condition ) {
+                foreach( $condition as $field=>$options ) {
+                    $priority = $options['priority'];
+                    unset( $options['priority'] );
+                    if( ! is_null( $priority ) ) {
+                        while( isset($sorted[$priority]) ) {
+                            $i++;
+                            $priority += $i;
+                        }
+                        $sorted[ $priority ] = $options;
+                    }
+                }
+            }
+            
+            foreach( $conditions as $condition ) {
+                foreach( $condition as $field=>$options ) {
+                    $priority = $options['priority'];
+                    unset( $options['priority'] );
+                    if( is_null( $priority )  ) {
+                        while( isset($sorted[$i]) ) {
+                            $i++;
+                        }
+                        $sorted[$i] = $options;
+                    } 
+                }
+            }
+            
+            ksort( $sorted );
+        
+            foreach( $sorted as $sortd ) {
+                $sortd_key = array_keys( $sortd );
+                $sortd_value = array_values( $sortd );
+                
+                if( isset( $sortd_key[0] ) && $sortd_value[0] ) {
+                    switch( $sortd_key[0] ) {
+                        case 'where_or':
+                            $this->__apply_condition('or_where', $sortd_value[0]);
+                        break;
+                        case 'where_in':
+                            $this->__apply_condition('where_in', $sortd_value[0]);
+                        break;
+                        case 'where_in_or':
+                            $this->__apply_condition('or_where_in', $sortd_value[0]);
+                        break;
+                        case 'where_not_in':
+                            $this->__apply_condition('where_not_in', $sortd_value[0]);
+                        break;
+                        case 'where_not_in_or':
+                            $this->__apply_condition('or_where_not_in', $sortd_value[0]);
+                        break;
+                        case 'like':
+                            $this->__apply_condition('like', $sortd_value[0]);
+                        break;
+                        case 'like_or':
+                            $this->__apply_condition('or_like', $sortd_value[0]);
+                        break;
+                        case 'like_not':
+                            $this->__apply_condition('not_like', $sortd_value[0]);
+                        break;
+                        case 'like_not_or':
+                            $this->__apply_condition('or_not_like', $sortd_value[0]);
+                        break;
+                        case 'having':
+                            $this->__apply_condition('having', $sortd_value[0]);
+                        break;
+                        case 'having_or':
+                            $this->__apply_condition('or_having', $sortd_value[0]);
+                        break;
+                        default:
+                            $this->__apply_condition('where', $sortd_value[0]);
+                        break;
+                    }
+                }
+            }
+            $return = TRUE;
+        }
+        
+        return $return;
+    }
+    
+    /**
+    * Check Conditions Availability
+    * @access public
+    * @return Array;
+    */
+        
+    private function has_conditions() {
+        $conditions = array_merge( $this->_where, $this->_filter, $this->_where_or, $this->_where_in, $this->_where_in_or, $this->_where_not_in, $this->_where_not_in_or, $this->_like, $this->_like_or, $this->_like_not, $this->_like_not_or, $this->_having, $this->_having_or );
+        if( count( $conditions ) > 0 ) {
+            return true;
+        }
+        return false;
+    }
+    
+
+    // --------------------------------------------------------------------
+    /**
+    * Set Join Clause 
+    * @access public
+    * @param String / Array
+    * @return Array;
+    */
+    
+
+    public function set_join($table, $connection, $option=NULL, $database=NULL) {
+        
+        $table = ( $database ) ? $database . "." . $table : $this->_db->database . "." . $table;
+        $option = ( $option ) ? $option : 'left';
+        
+        $this->_join[] = array('table'=>$table, 'connection'=>$connection, 'option'=>$option );
+    }
+
+    private function setup_join() {
+        if( $this->_join ) {
+            foreach( $this->_join as $join ) {
+                $this->_db->join( $join['table'], $join['connection'], $join['option'] );
+            }
+            return false;
+        }
+        return true;
+    }
+    
+    // --------------------------------------------------------------------
+
+    /**
+    * Set Filter 
+    * @access public
+    * @return Array;
+    */
+    
+    public function set_filter($field, $value, $table=NULL, $priority=NULL, $underCondition='where') {
+        $key = array();
+        if( $table == NULL ) { 
+            $table = $this->_db->database . '.' . $this->_table_name; 
+        } 
+        if( $table != '' ) {
+            $key[] = $table;
+        }
+        $key[] = $field;
+        
+        $newField = implode('.', $key);
+        
+        if( is_null( $value ) ) {
+            $where = $newField;
+        } else {
+            $where = array( $newField => $value );
+        }
+        
+        $this->_filter[] = array( $newField => array( $underCondition => $where, 'priority'=>$priority ) );
+    }
+        
+    public function clear_filter($field=NULL) {
+        if( is_null( $field ) ) {
+            unset($this->_filter);
+            $this->_filter = array();
+        } else {
+            $newfilter = array();
+            foreach($this->_filter as $filter ) {
+                if( ! isset( $filter[$field] ) ) {
+                    $newfilter[] = $filter;
+                }
+            }
+            $this->_filter = $newfilter;
+        }
+    }
+
+    // --------------------------------------------------------------------
+
+    /**
+    * Set Where 
+    * @access public
+    */
+    
+    public function set_where($field, $value=NULL, $priority=NULL) {
+        if( is_null( $value ) ) {
+            $where = $field;
+        } else {
+            $where = array( $field => $value );
+        }
+        $this->_where[] = array( $field => array( 'where' => $where, 'priority'=>$priority )); 
+    }
+        
+    public function clear_where($field=NULL) {
+        if( is_null( $field ) ) {
+            unset($this->_where);
+            $this->_where = array();
+        } else {
+            $newwhere = array();
+            foreach($this->_where as $where ) {
+                if( ! isset( $where[$field] ) ) {
+                    $newwhere[] = $where;
+                }
+            }
+            $this->_where = $newwhere;
+        }
+    }
+    
+    /**
+    * Set Or Where 
+    * @access public
+    */
+            
+    public function set_where_or($field, $value=NULL, $priority=NULL) {
+        if( is_null( $value ) ) {
+            $where = $field;
+        } else {
+            $where = array( $field => $value );
+        }
+        $this->_where_or[] = array( $field => array( 'where_or' => $where, 'priority'=>$priority ));  
+    }
+    
+    public function clear_where_or($field=NULL) {
+        if( is_null( $field ) ) {
+            unset($this->_where_or);
+            $this->_where_or = array();
+        } else {
+            $newwhere_or = array();
+            foreach($this->_where_or as $where_or ) {
+                if( ! isset( $where_or[$field] ) ) {
+                    $newwhere_or[] = $where_or;
+                }
+            }
+            $this->_where_or = $newwhere_or;
+        }
+    }
+    
+    /**
+    * Set Where In
+    * @access public
+    */
+            
+    public function set_where_in($field, $value=NULL, $priority=NULL) {
+        if( is_null( $value ) ) {
+            $where = $field;
+        } else {
+            $where = array( $field => $value );
+        }
+        $this->_where_in[] = array( $field => array( 'where_in' => $where, 'priority'=>$priority ));  
+    }
+    
+    public function clear_where_in($field=NULL) {
+        if( is_null( $field ) ) {
+            unset($this->_where_in);
+            $this->_where_in = array();
+        } else {
+            $newwhere_in = array();
+            foreach($this->_where_in as $where_in ) {
+                if( ! isset( $where_in[$field] ) ) {
+                    $newwhere_in[] = $where_in;
+                }
+            }
+            $this->_where_in = $newwhere_in;
+        }
+    }
+    
+    /**
+    * Set Or Where In
+    * @access public
+    */
+    
+    public function set_where_in_or($field, $value=NULL, $priority=NULL) {
+        if( is_null( $value ) ) {
+            $where = $field;
+        } else {
+            $where = array( $field => $value );
+        }
+        $this->_where_in_or[] = array( $field => array( 'where_in_or' => $where, 'priority'=>$priority ));  
+    }
+    
+    public function clear_where_in_or($field=NULL) {
+        if( is_null( $field ) ) {
+            unset($this->_where_in_or);
+            $this->_where_in_or = array();
+        } else {
+            $newwhere_in_or = array();
+            foreach($this->_where_in_or as $where_in_or ) {
+                if( ! isset( $where_in_or[$field] ) ) {
+                    $newwhere_in_or[] = $where_in_or;
+                }
+            }
+            $this->_where_in_or = $newwhere_in_or;
+        }
+    }
+    
+    /**
+    * Set Where Not In
+    * @access public
+    */
+    
+    public function set_where_not_in($field, $value=NULL, $priority=NULL) {
+        if( is_null( $value ) ) {
+            $where = $field;
+        } else {
+            $where = array( $field => $value );
+        }
+        $this->_where_not_in[] = array( $field => array( 'where_not_in' => $where, 'priority'=>$priority )); 
+    }
+    
+    public function clear_where_not_in($field=NULL) {
+        if( is_null( $field ) ) {
+            unset($this->_where_not_in);
+            $this->_where_not_in = array();
+        } else {
+            $newwhere_not_in = array();
+            foreach($this->_where_not_in as $where_not_in ) {
+                if( ! isset( $where_not_in[$field] ) ) {
+                    $newwhere_not_in[] = $where_not_in;
+                }
+            }
+            $this->_where_not_in = $newwhere_not_in;
+        }
+    }
+    
+    /**
+    * Set Or Where Not In
+    * @access public
+    */
+        
+    public function set_where_not_in_or($field, $value=NULL, $priority=NULL) {
+        if( is_null( $value ) ) {
+            $where = $field;
+        } else {
+            $where = array( $field => $value );
+        }
+        $this->_where_not_in_or[] = array( $field => array( 'where_not_in_or' => $where, 'priority'=>$priority )); 
+    }
+        
+    public function clear_where_not_in_or($field=NULL) {
+        if( is_null( $field ) ) {
+            unset($this->_where_not_in_or);
+            $this->_where_not_in_or = array();
+        } else {
+            $newwhere_not_in_or = array();
+            foreach($this->_where_not_in_or as $where_not_in_or ) {
+                if( ! isset( $where_not_in_or[$field] ) ) {
+                    $newwhere_not_in_or[] = $where_not_in_or;
+                }
+            }
+            $this->_where_not_in_or = $newwhere_not_in_or;
+        }
+    }
+    
+    // --------------------------------------------------------------------
+
+    /**
+    * Set Like
+    * @access public
+    */
+
+    public function set_like($field, $value=NULL, $priority=NULL) {
+        if( is_null( $value ) ) {
+            $where = $field;
+        } else {
+            $where = array( $field => $value );
+        }
+        $this->_like[] = array( $field => array( 'like' => $where, 'priority'=>$priority )); 
+    }
+        
+    public function clear_like($field=NULL) {
+        if( is_null( $field ) ) {
+            unset($this->_like);
+            $this->_like = array();
+        } else {
+            $newlike = array();
+            foreach($this->_like as $like ) {
+                if( ! isset( $like[$field] ) ) {
+                    $newlike[] = $like;
+                }
+            }
+            $this->_like = $newlike;
+        }
+    }
+    
+    /**
+    * Set Like
+    * @access public
+    */
+    
+    public function set_like_or($field, $value=NULL, $priority=NULL) {
+        if( is_null( $value ) ) {
+            $where = $field;
+        } else {
+            $where = array( $field => $value );
+        }
+        $this->_like_or[] = array( $field => array( 'like_or' => $where, 'priority'=>$priority ));  
+    }
+
+    public function clear_like_or($field=NULL) {
+        if( is_null( $field ) ) {
+            unset($this->_like_or);
+            $this->_like_or = array();
+        } else {
+            $newlike_or = array();
+            foreach($this->_like_or as $like_or ) {
+                if( ! isset( $like_or[$field] ) ) {
+                    $newlike_or[] = $like_or;
+                }
+            }
+            $this->_like_or = $newlike_or;
+        }
+    }
+    
+    /**
+    * Set Like
+    * @access public
+    */
+    
+    public function set_like_not($field, $value=NULL, $priority=NULL) {
+        if( is_null( $value ) ) {
+            $where = $field;
+        } else {
+            $where = array( $field => $value );
+        }
+        $this->_like_not[] = array( $field => array( 'like_not' => $where, 'priority'=>$priority ));  
+    }
+
+    public function clear_like_not($field=NULL) {
+        if( is_null( $field ) ) {
+            unset($this->_like_not);
+            $this->_like_not = array();
+        } else {
+            $newlike_not = array();
+            foreach($this->_like_not as $like_not ) {
+                if( ! isset( $like_not[$field] ) ) {
+                    $newlike_not[] = $like_not;
+                }
+            }
+            $this->_like_not = $newlike_not;
+        }
+    }
+    
+    /**
+    * Set Like
+    * @access public
+    */
+
+    public function set_like_not_or($field, $value=NULL, $priority=NULL) {
+        if( is_null( $value ) ) {
+            $where = $field;
+        } else {
+            $where = array( $field => $value );
+        }
+        $this->_like_not_or[] = array( $field => array( 'like_not_or' => $where, 'priority'=>$priority ));  
+    }
+
+    public function clear_like_not_or($field=NULL) {
+        if( is_null( $field ) ) {
+            unset($this->_like_not_or);
+            $this->_like_not_or = array();
+        } else {
+            $newlike_not_or = array();
+            foreach($this->_like_not_or as $like_not_or ) {
+                if( ! isset( $like_not_or[$field] ) ) {
+                    $newlike_not_or[] = $like_not_or;
+                }
+            }
+            $this->_like_not_or = $newlike_not_or;
+        }
+    }
+    
+    // --------------------------------------------------------------------
+    
+    /**
+    * Set Having 
+    * @access public
+    */
+    
+    public function set_having($field, $value=NULL, $priority=NULL) {
+        if( is_null( $value ) ) {
+            $having = $field;
+        } else {
+            $having = array( $field => $value );
+        }
+        $this->_having[] = array( $field => array( 'having' => $having, 'priority'=>$priority )); 
+    }
+    
+    public function clear_having($field=NULL) {
+        if( is_null( $field ) ) {
+            unset($this->_having);
+            $this->_having = array();
+        } else {
+            $newhaving = array();
+            foreach($this->_having as $having ) {
+                if( ! isset( $having[$field] ) ) {
+                    $newhaving[] = $having;
+                }
+            }
+            $this->_having = $newhaving;
+        }
+    }
+    
+    /**
+    * Set Or Having 
+    * @access public
+    */
+
+    public function set_having_or($field, $value=NULL, $priority=NULL) {
+        if( is_null( $value ) ) {
+            $having = $field;
+        } else {
+            $having = array( $field => $value );
+        }
+        $this->_having_or[] = array( $field => array( 'having_or' => $having, 'priority'=>$priority )); 
+    }
+    
+    public function clear_having_or($field=NULL) {
+        if( is_null( $field ) ) {
+            unset($this->_having_or);
+            $this->_having_or = array();
+        } else {
+            $newhaving_or = array();
+            foreach($this->_having_or as $having_or ) {
+                if( ! isset( $having_or[$field] ) ) {
+                    $newhaving_or[] = $having_or;
+                }
+            }
+            $this->_having_or = $newhaving_or;
+        }
+    }
+    
+    // --------------------------------------------------------------------
+
+    /**
+    * Set Group By
+    * @access public
+    */
+    
+    public function set_group_by($fields,$reset=FALSE) {
+        if( $reset ) {
+            unset($this->_group_by);
+            $this->_group_by = array();
+        }
+        if( is_array( $fields ) ) { 
+            $this->_group_by = array_merge( $this->_group_by, $fields );
+        } else {
+            $this->_group_by[] = $fields;
+        }
+        return $this;
+    }
+
+        
+    private function setup_group_by() {
+        if( $this->_group_by ) {
+            $this->_db->group_by( $this->_group_by );
+            return true;
+        }
+        return false;
+    }
+    
+    // --------------------------------------------------------------------
+    
+    /**
+    * Set Start  
+    * @access public
+    */
+
+    public function set_start($value) {
+        $this->_start = $value;
+        return $this;
+    }
+
+        // --------------------------------------------------------------------
+
+        /**
+    * Get Start  
+    * @access public
+    */
+    
+    public function get_start() {
+        return $this->_start;
+    }
+
+        // --------------------------------------------------------------------
+        
+    /**
+    * Set Limit  
+    * @access public
+    */
+    
+    public function set_limit($value) {
+        $this->_limit = $value;
+        return $this;
+    }
+
+    // --------------------------------------------------------------------
+
+        /**
+    * Get Limit  
+    * @access public
+    */
+    
+    public function get_limit() {
+        return $this->_limit;
+    }
+
+    // --------------------------------------------------------------------
+    
+    /**
+    * Set Order  
+    * @access public
+    */
+        
+    public function set_order($field, $orientation='asc') {
+        $this->_order[$field] = $orientation;
+        return $this;
+    }
+
+    // --------------------------------------------------------------------
+
+    /**
+    * Set Select  
+    * @access public
+    */
+        
+    public function set_select($select, $priority=NULL, $reset=FALSE) {
+        if($reset) {
+            unset( $this->_select );
+            $this->_select = array();
+        }
+        if( is_array ( $select ) ) {
+            $this->_select = array_merge( $this->_select, $select );
+        } else {
+            if( is_null( $priority ) ) {
+                $this->_select[] = $select;
+            } else {
+                $this->_select[$priority] = $select;
+            }
+        }
+        return $this;
+    }
+
+    // --------------------------------------------------------------------
+
+    /**
+    * Set Exclude  
+    * @access public
+    */
+            
+    public function set_exclude($exclude, $reset=FALSE) {
+        if($reset) {
+            unset( $this->_exclude );
+            $this->_exclude = array();
+        }
+        if( is_array ( $exclude ) ) {
+            $this->_exclude = array_merge( $this->_exclude, $exclude );
+        } else {
+            $this->_exclude[] = $exclude;
+        }
+        return $this;
+    }
+
+    // --------------------------------------------------------------------
+
+    /**
+    * Set Exclude  
+    * @access public
+    */
+    
+    public function is_distinct($distinct=TRUE) {
+        $this->_distinct = $distinct;
+        return $this;
+    }
+    
+    // --------------------------------------------------------------------
+
+    /**
+    * Count All  
+    * @access public
+    */
+
+    public function count_all() {
+        return  $this->_db->count_all($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name);
+    }
+
+    // --------------------------------------------------------------------
+
+    /**
+    * Count All Results 
+    * @access public
+    */
+
+    public function count_all_results() {
+        $numrows = 0;
+        $this->_db->from($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name);
+        $this->setup_conditions();
+        $this->setup_join();
+        if( $this->setup_group_by() ) {
+            $this->_db->select($this->_short_name . ".*");
+            $sql_select = $this->_db->get_compiled_select();
+            $query = $this->_db->query("SELECT COUNT(*) as numrows FROM ({$sql_select}) as numrows_table;");
+            if( $query ) {
+                $result = $query->result();
+                $numrows = $result[0]->numrows;
+            }
+        } else {
+            $numrows = $this->_db->count_all_results();
+        }
+        return  $numrows;
+    }
+
+    // --------------------------------------------------------------------
+
+    /**
+    * SQL Functions  
+    * @access public
+    */
+
+    public function sql_function($function, $field, $alias=false, $hasConditions=true) {
+        if( $this->_select ) {
+                $this->_db->select( implode(',' , $this->_select) );
+        }
+        if( $alias ) {
+                        $this->_db->select($function.'('.$field.') AS ' . $alias);
+        } else {
+                        $this->_db->select($function.'('.$field.')');
+        }
+        if( $hasConditions ) {
+                $this->setup_join();
+                $this->setup_conditions();
+                $this->setup_group_by();
+        }
+        return  $this->_db->get($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name, 1);
+    }   
+    // --------------------------------------------------------------------
+
+    /**
+    * Cache Control
+    * @access public
+    */
+
+    public function cache_on() {
+        $this->_cache_on = TRUE;
+    }
+
+    public function cache_off() {
+        $this->_cache_on = FALSE;
+    }
+
+    public function set_db_cache($value=false) {
+        $this->_cache_on = $value;
+    }
+
+    public function db_close() {
+        $this->_db->close();
+    }
+
+    public function get_compiled_select() {
+        
+        if( $this->_distinct ) {
+            $this->_db->distinct();
+        }
+        
+        if( $this->_select ) {
+                $this->_db->select( implode(',' , $this->_select ) );
+        }
+        
+        $this->setup_join();
+        $this->setup_conditions();
+        $this->setup_group_by();
+        
+        if( $this->_order ) {
+            foreach( $this->_order as $field=>$orientation ) {
+                $this->_db->order_by( $field, $orientation );
+            }
+        }
+        
+        if( $this->_limit > 0 ) {
+            $this->_db->limit( $this->_limit,$this->_start);
+        }
+
+        return $this->_db->get_compiled_select( $this->_db->database . '.' . $this->_table_name . " " . $this->_short_name );
+    }
+
+    public function get_compiled_insert() {
+        
+        $this->_set_db_data(); 
+        $this->setup_conditions();
+        return $this->_db->get_compiled_insert( $this->_db->database . '.' . $this->_table_name );
+    }
+
+    public function get_compiled_update() {
+        
+        $this->_set_db_data(); 
+        $this->setup_conditions();
+        return $this->_db->get_compiled_update( $this->_db->database . '.' . $this->_table_name );
+    }
+
+    public function get_compiled_delete() {
+        
+        $this->_set_db_data(); 
+        $this->setup_conditions();
+        return $this->_db->get_compiled_delete( $this->_db->database . '.' . $this->_table_name );
+    }
+
+    public function get_table_name() {
+        return $this->_table_name;
+    }    
+
+    public function get_table_fields() {
+        return $this->_fields;
+    }
+    
+}

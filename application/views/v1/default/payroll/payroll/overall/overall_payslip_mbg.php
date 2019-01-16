@@ -213,7 +213,7 @@ if( (isset($employee->$ee)) ) {
   ?>
         <tr>
           <td width="40%" class="bold allcaps"><?php echo $column->name; ?></td>
-          <td class="text-right"><?php  echo (isset($employee->$var)) ? number_format($employee->$var,2) : ""; ?></td>
+          <td class="text-right"><?php  echo (isset($employee->$ee)) ? number_format($employee->$ee,2) : ""; ?></td>
         </tr>
 <?php } ?>
 <?php foreach( $all_deductions as $column ) { 
@@ -247,8 +247,7 @@ if( (isset($employee->$var)) ) {
     </table>
     <br>
     <br>
-    Certified correct by:<br><br>
-    <span class="bold allcaps">Elena P. Migalbin</span>
+System generated payslip # <?php echo $payroll->id; ?>-<?php echo ($employee->employee_id) ? $employee->employee_id : 0; ?>
   </td>
   <td width="4%"></td>
   <td width="43%" class="text-right" style="vertical-align: top;">
@@ -260,9 +259,7 @@ if( (isset($employee->$var)) ) {
     </table>
     <br>
     <br>
-    <br>
-    <br>
-    Payslip #:<?php echo $payroll->id; ?>-<?php echo ($employee->employee_id) ? $employee->employee_id : 0; ?>
+
   </td>
 </tr>
 </table>
