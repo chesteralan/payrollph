@@ -53,7 +53,7 @@ class Employees_dtr extends MY_Controller {
 		$absences->setNameId($name_id,true);
 		$absences->set_select('a.*');
 		$absences->set_select('b.name as leave_name');
-		$absences->set_join('benefits_list b', 'b.id=a.leave_type');
+		$absences->set_join('benefits_list b', 'b.id=a.leave_type', 'RIGHT');
 		$absences->set_limit(0);
 		$this->template_data->set('absences', $absences->populate());
 
@@ -64,6 +64,14 @@ class Employees_dtr extends MY_Controller {
 		$attendance->set_select('a.*');
 		$attendance->set_limit(0);
 		$this->template_data->set('attendance', $attendance->populate());
+
+		$overtime = new $this->Employees_overtime_model('a');
+		$overtime->set_where('MONTH(date_overtime)', $current_month);
+		$overtime->set_where('YEAR(date_overtime)', $current_year);
+		$overtime->setNameId($name_id,true);
+		$overtime->set_select('a.*');
+		$overtime->set_limit(0);
+		$this->template_data->set('overtime', $overtime->populate());
 
 		$this->template_data->set('next_item', $this->_next_name($id, 'employees_dtr/view/'));
 		$this->template_data->set('previous_item', $this->_previous_name($id, 'employees_dtr/view/'));
@@ -195,16 +203,35 @@ class Employees_dtr extends MY_Controller {
 		$this->load->view('employees/employees/dtr/dtr_add_attendance', $this->template_data->get_data());
 	}
 
+	public function add_leave_by_name($name_id, $date, $output='') {
+
+		$this->_add_leave($name_id, $date, 'name_id');
+		$this->template_data->set('output', $output);
+		$this->load->view('employees/employees/dtr/dtr_add_leave', $this->template_data->get_data());
+
+	}
+
 	public function add_leave($pe_id, $date, $output='') {
 
-		$employee = new $this->Payroll_employees_model('pe');
-		$employee->setId($pe_id,true);
-		$employee->set_select("pe.*");
-		$employee->set_select("e.name_id as e_name_id");
-		$employee->set_join('employees e', 'e.name_id=pe.name_id');
-		$pemployee_data = $employee->get();
+		$this->_add_leave($pe_id, $date, 'pe_id');
 
-		$name_id = $pemployee_data->name_id;
+		$this->template_data->set('output', $output);
+		$this->load->view('employees/employees/dtr/dtr_add_leave', $this->template_data->get_data());
+	}
+
+	protected function _add_leave($pe_id, $date, $by='pe_id') {
+
+		if($by=='pe_id') {
+			$employee = new $this->Payroll_employees_model('pe');
+			$employee->setId($pe_id,true);
+			$employee->set_select("pe.*");
+			$employee->set_select("e.name_id as e_name_id");
+			$employee->set_join('employees e', 'e.name_id=pe.name_id');
+			$pemployee_data = $employee->get();
+			$name_id = $pemployee_data->name_id;
+		} elseif($by=='name_id') {
+			$name_id = $pe_id;
+		}
 
 		$employee = new $this->Employees_model('e');
 		$employee->setNameId($name_id,true);
@@ -300,7 +327,5 @@ class Employees_dtr extends MY_Controller {
 			$this->template_data->set('leave_benefits', $leave_benefits->populate());
 		}
 
-		$this->template_data->set('output', $output);
-		$this->load->view('employees/employees/dtr/dtr_add_leave', $this->template_data->get_data());
 	}
 }

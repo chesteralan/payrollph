@@ -19,6 +19,7 @@ $autoload['model'] = $models;$models[] = 'Employees_earnings_model';
 $autoload['model'] = $models;$models[] = 'Employees_earnings_templates_model';
 $autoload['model'] = $models;$models[] = 'Employees_groups_model';
 $autoload['model'] = $models;$models[] = 'Employees_leave_benefits_model';
+$autoload['model'] = $models;$models[] = 'Employees_overtime_model';
 $autoload['model'] = $models;$models[] = 'Employees_positions_model';
 $autoload['model'] = $models;$models[] = 'Employees_salaries_model';
 $autoload['model'] = $models;$models[] = 'Names_info_model';

@@ -2,7 +2,7 @@
 <?php 
 
 /* draws a calendar */
-function draw_calendar($name_id, $month,$year,$absences=NULL, $attendance=NULL){
+function draw_calendar($name_id, $month,$year,$absences=NULL, $attendance=NULL, $overtimes=NULL){
 
   $absents = array();
   if( $absences ) {
@@ -17,7 +17,14 @@ function draw_calendar($name_id, $month,$year,$absences=NULL, $attendance=NULL){
       $presents[$adate->date_present] = $adate;
     }
   }
-
+  $overtime = array();
+  if( $overtimes ) {
+    foreach($overtimes as $odate) {
+      $overtime[$odate->date_overtime] = $odate;
+    }
+  }
+  
+print_r($absences);
   /* draw table */
   $calendar = '<table cellpadding="0" cellspacing="0" class="calendar" width="100%">';
 
@@ -89,7 +96,7 @@ function draw_calendar($name_id, $month,$year,$absences=NULL, $attendance=NULL){
       $calendar.= '">';
 
       if( $working_day ) {
-        $calendar.= '<a class="date_checkbox ajax-modal" data-toggle="modal" data-title="'.$list_date2.'" href="#ajaxModal" data-url="'.site_url("employees_dtr/add_leave/{$name_id}/{$list_date}/ajax") . "?next=" . uri_string() .'">';
+        $calendar.= '<a class="date_checkbox ajax-modal" data-toggle="modal" data-title="'.$list_date2.'" href="#ajaxModal" data-url="'.site_url("employees_dtr/add_leave_by_name/{$name_id}/{$list_date}/ajax") . "?next=" . uri_string() .'">';
           if( isset($absents[$list_date]) ) {
               $calendar.="<p class='text-center'><strong>".(($absents[$list_date]->leave_type)?$absents[$list_date]->leave_name:'Leave without pay')."</strong>";
               $calendar.=" (".number_format(($absents[$list_date]->hours/8),2)." day)</p>";
@@ -108,6 +115,16 @@ function draw_calendar($name_id, $month,$year,$absences=NULL, $attendance=NULL){
               }
           } else {
             $calendar.="<p class='text-center'>Set Attendance</p>";
+          }
+        $calendar.= '</a>';
+        $calendar.= '<a class="date_checkbox ajax-modal" data-toggle="modal" data-title="'.$list_date2.'" href="#ajaxModal" data-url="'.site_url("employees_dtr/add_overtime/{$name_id}/{$list_date}/ajax") . "?next=" . uri_string() .'">';
+          if( isset($overtime[$list_date]) ) {
+              $calendar.="<p class='text-center'><strong>Employee is present</strong> (".$overtime[$list_date]->hours." day)</p>";
+              if( $overtime[$list_date]->notes!='' ) {
+                $calendar.="<p class='text-center'>".$overtime[$list_date]->notes."</p>";
+              }
+          } else {
+            $calendar.="<p class='text-center'>Set Overtime</p>";
           }
         $calendar.= '</a>';
       }

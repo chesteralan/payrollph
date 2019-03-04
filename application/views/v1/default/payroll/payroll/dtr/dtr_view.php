@@ -70,6 +70,7 @@
 
                 </th>
                 <th width="10%" class="text-right">Working Days</th>
+                <th width="10%" class="text-right">Overtime</th>
                 <th width="10%" class="text-right">Absences</th>
 <?php foreach($leave_benefits as $leave) { ?>
                 <th width="10%" class="text-right"><?php echo $leave->name; ?></th>
@@ -115,6 +116,11 @@ if($employee->pe_presence) {
 <?php } else { ?>
             <?php echo $inclusive_dates->working_days; ?>
 <?php } ?>
+                </td>
+                <td class="text-right">
+<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Overtime" data-url="<?php echo site_url("payroll_dtr/overtime/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" . uri_string(); ?>">
+                <?php echo $days_absent; ?>
+</a>
                 </td>
                 <td class="text-right">
 <?php if($employee->pe_presence) { ?>

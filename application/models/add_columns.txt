@@ -19,6 +19,7 @@ $models['employees_earnings'] = 'Employees_earnings_model';
 $models['employees_earnings_templates'] = 'Employees_earnings_templates_model';
 $models['employees_groups'] = 'Employees_groups_model';
 $models['employees_leave_benefits'] = 'Employees_leave_benefits_model';
+$models['employees_overtime'] = 'Employees_overtime_model';
 $models['employees_positions'] = 'Employees_positions_model';
 $models['employees_salaries'] = 'Employees_salaries_model';
 $models['names_info'] = 'Names_info_model';
