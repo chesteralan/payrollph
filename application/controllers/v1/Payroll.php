@@ -1191,17 +1191,17 @@ class Payroll extends MY_Controller {
 			$this->postNext();
 		}
 		
-		$employees = new $this->Employees_model('e');
-		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
-		$employees->set_select('e.*');
-		//$employees->set_select('(SELECT ep.name FROM employees_positions ep WHERE ep.id=e.position_id) as position_name');
-		$employees->set_limit(0);
-		
-		$employees->set_join('payroll_employees pe', 'pe.name_id=e.name_id AND pe.payroll_id=' . $id . '', 'RIGHT');
-		$employees->set_select('pe.id as pe_id');
-		$employees->set_select('pe.manual');
 
-		$employees2 = new $this->Payroll_employees_model('pe');
+		$employees = new $this->Payroll_employees_model('pe');
+		$employees->setPayrollId($id,true);
+		$employees->set_select('pe.*');
+		$employees->set_select('pe.group_id as group_id2');
+		$employees->set_select('pe.status_id as status');
+		$employees->set_select('pe.id as pe_id');
+		$employees->set_select('ni.*');
+		$employees->set_select('e.name_id');
+		$employees->set_join('names_info ni', 'ni.name_id=pe.name_id');
+		$employees->set_join('employees e', 'e.name_id=pe.name_id');
 
 		switch( $payroll_data->group_by ) {
 			case 'position':
@@ -1219,17 +1219,6 @@ class Payroll extends MY_Controller {
 			break;
 		}
 
-		$employees->set_select('pe.active');
-		$employees->set_select('pe.template');
-		$employees->set_select('pe.print_group');
-		$employees->set_select('pe.order'); 
-		
-		$employees->set_select('pe.group_id as group_id2');
-
-		$employees->set_join('names_info ni', 'ni.name_id=e.name_id');
-		$employees->set_select('ni.lastname');
-		$employees->set_select('ni.firstname');
-		$employees->set_select('ni.middlename');
 		$employees->set_order('pe.order', 'ASC');
 		if( $this->input->get('action') == 'sort') {
 			$employees->set_where('pe.active', 1);

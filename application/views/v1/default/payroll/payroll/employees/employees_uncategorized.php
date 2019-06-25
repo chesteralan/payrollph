@@ -20,9 +20,7 @@ $payslip_templates = unserialize(PAYROLL_PAYSLIP_TEMPLATES);
 <?php if( !isset($no_inclusive_dates) ) { ?>
               <div class="panel panel-default">
                 <div class="panel-heading">
-<?php if(!$payroll->lock) { ?>
-<a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Employee Groups" data-url="<?php echo site_url("payroll/groups/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="fa fa-users"></span></a>
-<?php } ?>
+
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
 <span class="badge">Grouped by
 <?php 
@@ -42,13 +40,7 @@ switch($payroll->group_by) {
 }
 ?>
 </span>
-<?php if( $group_id ) { ?>
-  <a class="badge" href="<?php echo site_url("payroll_employees/view/{$payroll->id}"); ?>"><?php print_r($payroll_groups[0]->name); ?> <span class="glyphicon glyphicon-remove"></span></a>
-<?php } ?>
-
-<?php if( $uncategorized_employees->total > 0 ) { ?>
-    <a href="<?php echo site_url("payroll_employees/uncategorized/{$payroll->id}"); ?>"><span class="fa fa-exclamation-triangle" style="color:red;"></span></a>
-<?php } ?>
+<span class="badge" style="background-color: red">Uncategorized</span>
 
                   </h3>
                 </div>
@@ -57,50 +49,14 @@ switch($payroll->group_by) {
 <?php endif; ?>
 
 <?php if( !isset($no_inclusive_dates) ) { ?>
-<?php if( $payroll_groups ) { ?>
-  
-  <?php foreach($payroll_groups as $payroll_group) { ?>
-          <table class="table table-default table-hover" id="Payroll-Group-<?php echo $payroll_group->group_id; ?>">
+
+<?php if( count($uncategorized_employees) ) { ?>
+
+          <table class="table table-default table-hover" id="Payroll-Group-">
             <thead>
               <tr class="warning">
-                <th>
-<?php if( !$this->session->userdata('current_employee') ) { ?>
-<?php if( intval($group_id) > 0 ) { ?>
-<a href="<?php echo site_url("payroll_employees/view/{$payroll->id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></span></a>
-<?php } else { ?>
-  <?php 
-  switch ($payroll->group_by) {
-    case 'position':
-      $filter_id = $payroll_group->position_id;
-      break;
-    case 'area':
-      $filter_id = $payroll_group->area_id;
-      break;
-    case 'status':
-      $filter_id = $payroll_group->status_id;
-      break;
-    case 'group':
-    default:
-      $filter_id = $payroll_group->group_id;
-      break;
-  }
-  ?>
-  <a href="<?php echo site_url("payroll_employees/view/{$payroll->id}/{$filter_id}"); ?>" class="body_wrapper"><span class="glyphicon glyphicon-filter"></span></a>
-<?php } ?>
-<?php } ?>
-                <?php echo $payroll_group->name; ?>
-
-<?php if(!$payroll->lock) { ?>
-<?php if( !$this->session->userdata('current_employee') ) { ?>
- <a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Sort <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll/employees/{$payroll->id}/{$payroll_group->id}/ajax") . "?action=sort&next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-sort"></span></a>
-
- <a href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Insert Name - <?php echo $payroll_group->name; ?>" data-url="<?php echo site_url("payroll/insert_name/{$payroll->id}/{$payroll_group->id}/{$payroll->group_by}/ajax") . "?next=" . uri_string(); ?>" class="ajax-modal"><span class="glyphicon glyphicon-plus"></span></a>
-
-<?php } ?>
-<?php } ?>
-                </th>
-
-                <th width="12%" class="text-right">Status</th>
+                    <th width="28%">Name</th>
+                    <th width="12%" class="text-right">Status</th>
                 <th width="12%" class="text-right">Group</th>
                 <th width="12%" class="text-right">Position</th>
                 <th width="12%" class="text-right">Area</th>
@@ -109,21 +65,14 @@ switch($payroll->group_by) {
               </tr>
             </thead>
             <tbody>
-<?php if($payroll_group->employees) { ?>
-<?php foreach($payroll_group->employees as $employee) { 
-
-              ?>
-              <tr class="<?php echo ($employee->manual)?'info':''; ?>">
-                <td>
+              <?php foreach($uncategorized_employees as $employee) { //print_r($employee); ?>
+                <tr class="<?php echo ($employee->active) ? '' : 'danger'; ?>">
+                    <td>
 <?php if(!$payroll->lock) { ?>
-                <a class="confirm" href="<?php echo site_url("payroll_employees/deactivate/{$payroll->id}/{$employee->id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-remove"></span></a>
+  <a class="confirm" href="<?php echo site_url("payroll_employees/deactivate/{$payroll->id}/{$employee->id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-remove"></span></a>
 <?php } ?>
-                <?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?> 
-                
-<a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo substr($employee->middlename,0,1)."."; ?>" data-url="<?php echo site_url("lists_names/profile/{$employee->name_id}/ajax") . "?output=inner_page&next=" . uri_string(); ?>"><span class="glyphicon glyphicon-eye-open"></span></a>
 
-
-                </td>
+                      <?php echo $employee->prefix; ?> <?php echo $employee->firstname; ?> <?php echo ($employee->middlename!='') ? substr($employee->middlename, 0,2) . '.' : ''; ?> <?php echo $employee->lastname; ?></td>
 
                 <td class="text-right">
 <?php if(!$payroll->lock) { ?>
@@ -134,7 +83,8 @@ switch($payroll->group_by) {
 </a>
 <?php } ?>
                 </td>
-                <td class="text-right">
+
+               <td class="text-right">
 <?php if(!$payroll->lock) { ?>
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Change Group" data-url="<?php echo site_url("payroll_employees/change_group/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" .uri_string(); ?>">
 <?php } ?>
@@ -179,20 +129,11 @@ switch($payroll->group_by) {
 </a>
 <?php } ?>
                 </td>
-              </tr>
-<?php } ?>
-<?php } ?>
 
+                </tr>
+              <?php } ?>
             </tbody>
           </table>
-
-    <?php } ?>
-
-
-<?php } else { ?>
-
-  <div class="text-center">No Group Assigned!</div>
-
 <?php } ?>
 <?php } ?>
 
