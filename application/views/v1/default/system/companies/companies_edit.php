@@ -37,7 +37,7 @@
 
           <div class="form-group">
             <label>Notes</label>
-            <textarea name="notes" class="form-control" rows="10"><?php echo $company->notes; ?></textarea>
+            <textarea name="notes" class="form-control" rows="5"><?php echo $company->notes; ?></textarea>
           </div>
 
             <div class="form-group">
@@ -52,6 +52,12 @@
 
         <div class="form-group">
             <label><input name="default" type="checkbox" value="1" <?php echo ($company->default==1) ? 'CHECKED' : ''; ?>> Default <?php echo lang_term('companies_title_singular', 'Company'); ?></label>
+          </div>
+
+
+          <div class="form-group">
+            <label>Period Start</label>
+            <input name="period_start" type="text" class="form-control datepicker" value="<?php echo (isset($company->period_start)) ? $company->period_start : date('m/d/Y',strtotime("1/1/" . date('Y'))); ?>">
           </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>

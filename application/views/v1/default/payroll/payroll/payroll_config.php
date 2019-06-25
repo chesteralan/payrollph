@@ -68,6 +68,11 @@
     <p class="list-group-item-text">Deductions</p>
   </a>
 
+  <a data-target="#ajaxModal" data-title="Signatories" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll/signatories/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+    <h4 class="list-group-item-heading">Signatories</h4>
+    <p class="list-group-item-text">Signatories</p>
+  </a>
+
 </div>
 
 <div class="list-group">

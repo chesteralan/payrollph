@@ -100,6 +100,9 @@ class System_companies extends MY_Controller {
 					$old_company->set_where('id!=' . $id);
 					$old_company->update();
 				}
+				if( $this->input->post('period_start') ) {
+					$this->_save_option($id, 'period_start');
+				}
 				$this->postNext();
 			}
 		}

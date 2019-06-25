@@ -947,7 +947,8 @@ class Payroll extends MY_Controller {
 				$groups->set_select("(SELECT ptg.order FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.position_id = eg.id) as sort");
 				$groups->set_select("(SELECT ptg.page FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.position_id = eg.id) as page");
 				$groups->set_order("(SELECT ptg.order FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.position_id = eg.id)", 'DESC');
-				$groups->set_where("((SELECT COUNT(*) FROM employees WHERE position_id=eg.id) > 0)");
+				//$groups->set_where("((SELECT COUNT(*) FROM employees WHERE position_id=eg.id) > 0)");
+				$groups->set_where("((SELECT COUNT(*) FROM payroll_employees WHERE payroll_id={$id} AND position_id=eg.id) > 0)");
 				$this->template_data->set('groups', $groups->populate());
 
 			break;
@@ -960,7 +961,8 @@ class Payroll extends MY_Controller {
 				$groups->set_select("(SELECT ptg.order FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.area_id = eg.id) as sort");
 				$groups->set_select("(SELECT ptg.page FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.area_id = eg.id) as page");
 				$groups->set_order("(SELECT ptg.order FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.area_id = eg.id)", 'DESC');
-				$groups->set_where("((SELECT COUNT(*) FROM employees WHERE area_id=eg.id) > 0)");
+				//$groups->set_where("((SELECT COUNT(*) FROM employees WHERE area_id=eg.id) > 0)");
+				$groups->set_where("((SELECT COUNT(*) FROM payroll_employees WHERE payroll_id={$id} AND area_id=eg.id) > 0)");
 				$this->template_data->set('groups', $groups->populate());
 
 			break;
@@ -974,7 +976,7 @@ class Payroll extends MY_Controller {
 				$groups->set_select("(SELECT ptg.order FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.status_id = eg.id) as sort");
 				$groups->set_select("(SELECT ptg.page FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.status_id = eg.id) as page");
 				$groups->set_order("(SELECT ptg.order FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.status_id = eg.id)", 'DESC');
-				$groups->set_where("((SELECT COUNT(*) FROM employees WHERE status=eg.id) > 0)");
+				$groups->set_where("((SELECT COUNT(*) FROM payroll_employees WHERE payroll_id={$id} AND status_id=eg.id) > 0)");
 				$groups->set_limit(0);
 				$this->template_data->set('groups', $groups->populate());
 
@@ -989,7 +991,8 @@ class Payroll extends MY_Controller {
 				$groups->set_select("(SELECT ptg.order FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.group_id = eg.id) as sort");
 				$groups->set_select("(SELECT ptg.page FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.group_id = eg.id) as page");
 				$groups->set_order("(SELECT ptg.order FROM payroll_groups ptg WHERE ptg.payroll_id = {$id} AND ptg.group_id = eg.id)", 'DESC');
-				$groups->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=eg.id) > 0)");
+				//$groups->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=eg.id) > 0)");
+				$groups->set_where("((SELECT COUNT(*) FROM payroll_employees WHERE payroll_id={$id} AND group_id=eg.id) > 0)");
 				$this->template_data->set('groups', $groups->populate());
 
 			break;
@@ -1197,6 +1200,8 @@ class Payroll extends MY_Controller {
 		$employees->set_join('payroll_employees pe', 'pe.name_id=e.name_id AND pe.payroll_id=' . $id . '', 'RIGHT');
 		$employees->set_select('pe.id as pe_id');
 		$employees->set_select('pe.manual');
+
+		$employees2 = new $this->Payroll_employees_model('pe');
 
 		switch( $payroll_data->group_by ) {
 			case 'position':

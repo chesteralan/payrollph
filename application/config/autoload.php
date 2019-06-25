@@ -170,6 +170,7 @@ $models[] = 'Payroll_employees_deductions_model';
 $models[] = 'Payroll_employees_earnings_model';
 $models[] = 'Payroll_employees_salaries_model';
 $models[] = 'Payroll_groups_model';
+$models[] = 'Payroll_options_model';
 $models[] = 'Payroll_inclusive_dates_model';
 $models[] = 'Payroll_templates_model';
 $models[] = 'Payroll_templates_benefits_model';

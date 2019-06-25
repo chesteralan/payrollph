@@ -6,7 +6,7 @@
 | This file is the parent class of Model Classes
 |
  * @package                 MY_Model
- * @version_number          4.8
+ * @version_number          4.9
  * @project                 Trokis Philippines
  * @project_link            http://www.trokis.com
  * @author                  Chester Alan Tagudin
@@ -145,7 +145,10 @@ class MY_Model extends CI_Model
         }
     }
 
-
+    public function truncate() {
+        return $this->_db->truncate($this->_db->database . '.' . $this->_table_name);
+    }
+    
     // --------------------------------------------------------------------
 
     /**
@@ -453,6 +456,107 @@ class MY_Model extends CI_Model
 
         // --------------------------------------------------------------------
 
+    /**
+    * Recursive count
+    * @access public
+    * @param  String
+    * @return Integer;
+    */
+
+    public function recursive_count($match, $find, $get_field='id', $total=0, $primary_field='id', $level=10) {
+            
+            if( $level == 0 ) return $total;
+            
+            if( $this->_limit > 0 ) {
+                $this->_db->limit( $this->_limit, $this->_start);
+            } 
+            if( $this->_select ) {
+                    $this->_db->select( implode(',' , $this->_select) );
+            }
+            //$this->_db->select( 'COUNT(*) as total' );
+            
+            $this->setup_join();
+            $this->set_where($match, $find);
+            $this->setup_conditions();
+            $this->setup_group_by();
+            $this->clear_where( $match );
+            
+            if( $this->_cache_on ) {
+                $this->_db->cache_on();
+            }
+            
+            $query = $this->_db->get($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name);
+            
+            if( $this->_cache_on ) {
+                $this->_db->cache_off();
+            }
+            
+            if( $query ) {
+                if( $query->result() ) {
+                    foreach( $query->result() as $qr ) { 
+                        //print_r( $qr );
+                        $total += 1;
+                        $total = $this->recursive_count($match, $qr->$primary_field, $get_field, $total, $primary_field, ($level-1) ) ;   
+
+                    }
+                }
+            }
+        return $total;
+    }
+
+        // --------------------------------------------------------------------
+
+    /**
+    * Recursive filter count
+    * @access public
+    * @param  String
+    * @return Integer;
+    */
+
+    public function recursive_filter_count($match, $find, $get_field='id', $total=0, $primary_field='id', $filter_key=false, $filter_value='', $level=10) {
+            
+            if( $level == 0 ) return $total;
+            
+            if( $this->_limit > 0 ) {
+                $this->_db->limit( $this->_limit, $this->_start);
+            } 
+            if( $this->_select ) {
+                    $this->_db->select( implode(',' , $this->_select) );
+            }
+            //$this->_db->select( 'COUNT(*) as total' );
+            
+            $this->setup_join();
+            $this->set_where($match, $find);
+            $this->setup_conditions();
+            $this->setup_group_by();
+            $this->clear_where( $match );
+            
+            if( $this->_cache_on ) {
+                $this->_db->cache_on();
+            }
+            
+            $query = $this->_db->get($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name);
+            
+            if( $this->_cache_on ) {
+                $this->_db->cache_off();
+            }
+            
+            if( $query ) {
+                if( $query->result() ) {
+                    foreach( $query->result() as $qr ) { 
+                        if( $qr->$filter_key == $filter_value) {
+                            $total += 1;
+                        }
+                        $total = $this->recursive_filter_count($match, $qr->$primary_field, $get_field, $total, $primary_field, $filter_key, $filter_value, ($level-1) ) ;   
+
+                    }
+                }
+            }
+        return $total;
+    }
+
+        // --------------------------------------------------------------------
+        
     /**
     * Set Field Where Clause 
     * @access public
