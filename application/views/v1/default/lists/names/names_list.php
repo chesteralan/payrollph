@@ -32,8 +32,10 @@
   <span class="input-group-btn">
     <button class="btn btn-default" type="submit">Search</button>
     
+<?php if( $this->input->get('q') ) { ?>
 <?php if( hasAccess('lists', 'names', 'add') ) { ?>
  <a type="button" class="btn btn-success ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Name" data-url="<?php echo site_url("lists_names/add/ajax") . "?next=" . uri_string(); ?>">Add Name</a>
+<?php } ?>
 <?php } ?>
   </span>
 </div><!-- /input-group -->

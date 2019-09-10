@@ -93,9 +93,9 @@ class Lists_names extends MY_Controller {
 					}
                     
                     if( $name_id ) {
-                    	$url = site_url($url) . "?error_code=340&new_name=" . $name_id;
+                    	$url = site_url( $url ) . "?error_code=340&new_name=" . $name_id;
                     } else {
-                    	$url = site_url($url) . "?error_code=341";
+                    	$url = site_url( $url ) . "?error_code=341";
                     }
 
                     redirect( $url );
