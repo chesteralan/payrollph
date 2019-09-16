@@ -106,10 +106,12 @@ $total_deductions = 0;
 $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
 $days_present = ($employee->attendance_hours) ? ($employee->attendance_hours / $working_hours) : 0;
+$days_overtime = ($employee->overtime) ? (($employee->overtime / 60) / $working_hours) : 0;
+
 if( $employee->pe_presence ) {
   $present_days = $employee->attendance;
 } else {
-  $present_days = $inclusive_dates->working_days - $days_absent;
+  $present_days = ($inclusive_dates->working_days - $days_absent) + $days_overtime;
 }
 $monthly_rate = 0;
 $daily_rate = 0;
@@ -117,6 +119,7 @@ $hourly_rate = 0;
 $cola_rate = 0;
 $absences = 0;
 $basic_salary = 0;
+$overtime = 0;
 
 if( $employee->salary ) {
   $salary = $employee->salary;
@@ -139,6 +142,7 @@ if( $employee->salary ) {
   }
   $cola_rate = (isset($salary)) ? $salary->cola : 0;
   $absences = $days_absent * $daily_rate;
+  $overtime = $days_overtime * $daily_rate;
 
 if( $employee->pe_presence ) {
     switch( $salary->manner ) {
@@ -179,7 +183,7 @@ $total_absences += $absences;
 
 $total_basic_salary += $basic_salary;
 $cola = ($cola_rate * $present_days);
-$employee_gross_pay = (($basic_salary + $cola) - $absences);
+$employee_gross_pay = (($basic_salary + $cola) - $absences) + $overtime;
 $total_gross_salary += $employee_gross_pay; 
 $total_earnings += $employee->gross_earnings;
 $total_benefits += $employee->gross_benefits;

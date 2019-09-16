@@ -34,15 +34,15 @@
             <tbody>
 
             <?php foreach($terms as $term) { ?>
-              <tr id="employee-group-<?php echo $term->id; ?>">
+              <tr id="term-id-<?php echo $term->id; ?>">
                 <td><?php echo $term->name; ?></td>
                 <td><a href="<?php echo site_url("system_terms/filter/{$term->type}"); ?>"><?php echo $term_types[$term->type]; ?></a></td>
                 <td class="text-center"><?php echo $term->priority; ?></td>
               <?php if( hasAccess('system', 'terms', 'edit') ) { ?>
                 <td class="text-right">
-                <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Group" data-url="<?php echo site_url("system_terms/edit/{$term->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
+                <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Term" data-url="<?php echo site_url("system_terms/edit/{$term->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
 
-                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("system_terms/delete/{$term->id}"); ?>" data-target="#employee-group-<?php echo $term->id; ?>">Delete</button>
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("system_terms/delete/{$term->id}"); ?>" data-target="#term-id-<?php echo $term->id; ?>">Delete</button>
                 </td>
               <?php } ?>
               </tr>

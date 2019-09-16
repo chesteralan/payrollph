@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'auth', 'bootstrap', 'error', 'common', 'lang');
+$autoload['helper'] = array('url', 'auth', 'bootstrap', 'error', 'common', 'lang', 'payroll');
 
 /*
 | -------------------------------------------------------------------
@@ -134,10 +134,11 @@ $autoload['language'] = array('payrollph');
 */
 $models = array();
 
-$models[] = 'Account_sessions_model';
+//$models[] = 'Account_sessions_model';
 $models[] = 'Benefits_list_model';
 $models[] = 'Calendar_model';
 $models[] = 'Companies_list_model';
+$models[] = 'Companies_period_model';
 $models[] = 'Companies_options_model';
 $models[] = 'Deductions_list_model';
 $models[] = 'Earnings_list_model';
@@ -157,6 +158,7 @@ $models[] = 'Employees_groups_model';
 $models[] = 'Employees_leave_benefits_model';
 $models[] = 'Employees_positions_model';
 $models[] = 'Employees_salaries_model';
+$models[] = 'Employees_timesheets_model';
 $models[] = 'Names_info_model';
 $models[] = 'Names_list_model';
 $models[] = 'Names_meta_model';
@@ -170,7 +172,9 @@ $models[] = 'Payroll_employees_deductions_model';
 $models[] = 'Payroll_employees_earnings_model';
 $models[] = 'Payroll_employees_salaries_model';
 $models[] = 'Payroll_groups_model';
+$models[] = 'Payroll_meta_model';
 $models[] = 'Payroll_options_model';
+$models[] = 'Payroll_print_columns_model';
 $models[] = 'Payroll_inclusive_dates_model';
 $models[] = 'Payroll_templates_model';
 $models[] = 'Payroll_templates_benefits_model';

@@ -18,7 +18,7 @@ ALTER TABLE  `payroll_templates_earnings` ADD  `order` int(2) NOT NULL   DEFAULT
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -62,6 +62,10 @@ class Payroll_templates_earnings_model extends MY_Model {
 	public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_template_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `template_id` variable
@@ -71,6 +75,11 @@ class Payroll_templates_earnings_model extends MY_Model {
 	public function getTemplateId() {
 		return $this->template_id;
 	}
+
+	public function get_template_id_value() {
+		return $this->template_id;
+	}
+
 	
 // ------------------------------ End Field: template_id --------------------------------------
 
@@ -85,6 +94,10 @@ class Payroll_templates_earnings_model extends MY_Model {
 	public function setEarningId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('earning_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_earning_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('earning_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `earning_id` variable
@@ -94,6 +107,11 @@ class Payroll_templates_earnings_model extends MY_Model {
 	public function getEarningId() {
 		return $this->earning_id;
 	}
+
+	public function get_earning_id_value() {
+		return $this->earning_id;
+	}
+
 	
 // ------------------------------ End Field: earning_id --------------------------------------
 
@@ -108,6 +126,10 @@ class Payroll_templates_earnings_model extends MY_Model {
 	public function setOrder($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('order', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_order_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('order', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `order` variable
@@ -117,6 +139,11 @@ class Payroll_templates_earnings_model extends MY_Model {
 	public function getOrder() {
 		return $this->order;
 	}
+
+	public function get_order_value() {
+		return $this->order;
+	}
+
 	
 // ------------------------------ End Field: order --------------------------------------
 
@@ -162,11 +189,22 @@ class Payroll_templates_earnings_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setTemplateId() - template_id
+//setEarningId() - earning_id
+//setOrder() - order
 
+--------------------------------------
+
+//set_template_id() - template_id
+//set_earning_id() - earning_id
+//set_order() - order
+
+*/
 /* End of file Payroll_templates_earnings_model.php */
 /* Location: ./application/models/Payroll_templates_earnings_model.php */

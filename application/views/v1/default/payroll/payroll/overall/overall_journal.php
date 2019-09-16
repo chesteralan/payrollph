@@ -48,7 +48,7 @@ function denomination($amount, $d, $less=0) {
   &middot; <a href="<?php echo site_url("payroll_overall/config/{$payroll->id}") . "?next=" . uri_string(); ?>">Config</a>
 </div>
 
-<?php if($template->pages > 1) { ?>
+<?php if( ($template) && ($template->pages > 1)) { ?>
 <div class="print-topnav topnav2 hide-print text-center allcaps">
     <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/{$output}/1"); ?>">Page 1</a>
 <?php for($i=2;$i <= $template->pages; $i++) { ?>

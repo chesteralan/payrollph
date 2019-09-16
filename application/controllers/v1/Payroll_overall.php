@@ -32,8 +32,11 @@ class Payroll_overall extends MY_Controller {
 		$company_options->setKey('print_css',true);
 		$this->template_data->set('print_css', $company_options->get());
 
-		$payroll = new $this->Payroll_model;
+		$payroll = new $this->Payroll_model('p');
 		$payroll->setId($id,true);
+		$payroll->set_select('p.*');
+		$payroll->set_select('(SELECT nl.full_name FROM `names_list` nl WHERE nl.id=p.checked_by) as checked_by_name');
+		$payroll->set_select('(SELECT nl.full_name FROM `names_list` nl WHERE nl.id=p.approved_by) as approved_by_name');
 		$payroll_data = $payroll->get();
 		$this->template_data->set('payroll', $payroll_data);
 
@@ -136,7 +139,7 @@ class Payroll_overall extends MY_Controller {
 
 			break;
 			case 'group':
-
+			default:
 				$payroll_group = new $this->Payroll_groups_model('pg');
 				$payroll_group->setPayrollId($id,true);
 				$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');
@@ -146,7 +149,7 @@ class Payroll_overall extends MY_Controller {
 				$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
 				$payroll_group_data =  $payroll_group->populate();
 
-			default:
+
 			break;
 		}
 
@@ -203,8 +206,12 @@ class Payroll_overall extends MY_Controller {
 
 			$employees->set_select("(SELECT SUM(ea2.hours) FROM employees_attendance ea2 WHERE ea2.name_id=pe.name_id AND ea2.date_present >= '{$dates_data->start_date}' AND ea2.date_present <= '{$dates_data->end_date}') as attendance_hours");
 			
-			//$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences_hours");
-			$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences_hours");
+			$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE (ea.leave_type=0 OR ea.leave_type IS NULL) AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences_hours");
+
+			//$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences_hours");
+
+			$employees->set_select("(SELECT SUM(eo.minutes) FROM employees_overtime eo WHERE eo.name_id=pe.name_id AND eo.date_overtime >= '{$dates_data->start_date}' AND eo.date_overtime <= '{$dates_data->end_date}' AND eo.pe_id=pe.id) as overtime");
+
 			$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE ea.leave_type>0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as leave_benefits");
 
 			foreach($columns_earnings as $column) {
@@ -254,8 +261,10 @@ class Payroll_overall extends MY_Controller {
 		} 
 		$this->template_data->set('payroll_groups', $payroll_group_data);
 				
-		$tcol = new $this->Payroll_templates_columns_model;
-		$tcol->setTemplateId($payroll_data->template_id,true);
+		//$tcol = new $this->Payroll_templates_columns_model;
+		//$tcol->setTemplateId($payroll_data->template_id,true);
+		$tcol = new $this->Payroll_print_columns_model;
+		$tcol->setPayrollId($payroll_data->id,true);
 		$tcol->setTermId($print_group,true);
 		$tcol->set_limit(0);
 		$print_columns = $tcol->populate();

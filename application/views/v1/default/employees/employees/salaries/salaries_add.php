@@ -12,7 +12,7 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Add Employee</h3>
+          <h3 class="panel-title">Add Salary</h3>
         </div>
         <form method="post">
         <div class="panel-body">
@@ -24,7 +24,7 @@
     <div class="col-md-6">
           <div class="form-group">
             <label>Amount</label>
-            <input name="amount" type="text" class="form-control text-center" value="">
+            <input autofocus="on" name="amount" type="text" class="form-control text-center" value="0.00">
           </div>
     </div>
     <div class="col-md-6">
@@ -92,7 +92,7 @@
 
 <div class="form-group">
     <label>Notes</label>
-    <textarea name="notes" class="form-control" rows="5"></textarea>
+    <textarea name="notes" class="form-control" rows="2"></textarea>
   </div>
 
               <div class="form-group">

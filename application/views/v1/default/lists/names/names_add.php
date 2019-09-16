@@ -4,7 +4,7 @@
 
 <?php $this->load->view('header'); ?>
 
-<?php $this->load->view('system/system_navbar'); ?>
+<?php $this->load->view('lists/lists_navbar'); ?>
 
 <div class="container">
 <div class="row">
@@ -32,6 +32,8 @@
 	    			<label>Contact Number</label>
 	    			<input name="contact_number" type="text" class="form-control" value="<?php echo $this->input->post('contact_number'); ?>">
 	    		</div>
+
+<a class="btn btn-xs btn-warning ajax-modal-inner" href="<?php echo site_url("lists_names/import/{$output}") . "?next=" . $this->input->get('next'); ?>" data-title="Import CSV File" data-hide_footer="1" data-file_upload="1">Import CSV File</a>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 

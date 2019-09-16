@@ -32,9 +32,10 @@ Developed by:
 <?php $this->load->view('_modal_form'); ?>
 
     <script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/libs/jqueryui/jquery-ui.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/numeral.min.js'); ?>"></script>
+    
+    <script src="<?php echo base_url('assets/libs/jqueryui/jquery-ui.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/libs/bootstrap-select/js/bootstrap-select.js'); ?>"></script>
     <script src="<?php echo base_url('assets/libs/bootstrap-toggle/js/bootstrap-toggle.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/libs/tag-it/js/tag-it.min.js'); ?>"></script>

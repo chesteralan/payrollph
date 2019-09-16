@@ -83,11 +83,12 @@
 <?php foreach($payroll_group->employees as $employee) { 
 $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
+$days_overtime = ($employee->overtime) ? (($employee->overtime / 60) / $working_hours) : 0;
 
 if($employee->pe_presence) {
   $present_days = $employee->attendance;
 } else {
-  $present_days = $inclusive_dates->working_days - $days_absent;
+  $present_days = ($inclusive_dates->working_days - $days_absent) + $days_overtime;
 }
 
               ?>
@@ -110,25 +111,37 @@ if($employee->pe_presence) {
 
                 <td class="text-right">
 <?php if($employee->pe_presence) { ?>
+<?php if(!$payroll->lock) { ?>
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Attendance" data-url="<?php echo site_url("payroll_dtr/attendance/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">
+<?php } ?>
   <?php echo $employee->attendance; ?>
+<?php if(!$payroll->lock) { ?>
 </a>
+<?php } ?>
 <?php } else { ?>
             <?php echo $inclusive_dates->working_days; ?>
 <?php } ?>
                 </td>
-                <td class="text-right">
+                <td class="text-right" title="<?php echo $days_overtime; ?>">
+<?php if(!$payroll->lock) { ?>
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Overtime" data-url="<?php echo site_url("payroll_dtr/overtime/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" . uri_string(); ?>">
-                <?php echo $days_absent; ?>
+<?php } ?>
+                <?php echo number_format($days_overtime,2); ?></span>
+<?php if(!$payroll->lock) { ?>
 </a>
+<?php } ?>
                 </td>
                 <td class="text-right">
 <?php if($employee->pe_presence) { ?>
   n/a
 <?php } else { ?>
+<?php if(!$payroll->lock) { ?>
 <a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Absences" data-url="<?php echo site_url("payroll_dtr/absences/{$payroll->id}/{$employee->pe_id}/ajax") . "?next=" . uri_string(); ?>">
+<?php } ?>
                 <?php echo $days_absent; ?>
+<?php if(!$payroll->lock) { ?>
 </a>
+<?php } ?>
 <?php } ?>
                 </td>
 
@@ -147,7 +160,7 @@ $leave_in_days = ($employee->$var1) ? ($employee->$var1 / $working_hours) : 0;
                 </td>
 <?php } ?>
 
-                <td class="text-right"><?php echo $present_days; ?></td>
+                <td class="text-right" title="<?php echo $present_days; ?>"><?php echo number_format($present_days,2); ?></td>
               </tr>
 <?php } ?>
 <?php } ?>

@@ -13,6 +13,7 @@ CREATE TABLE `calendar` (
   `holiday_type` int(20) NOT NULL DEFAULT '0',
   `premium` int(2) DEFAULT '0',
   `notes` varchar(200) DEFAULT NULL,
+  `repeat_yearly` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
@@ -23,10 +24,11 @@ ALTER TABLE  `calendar` ADD  `is_holiday` int(1) NOT NULL   DEFAULT '0';
 ALTER TABLE  `calendar` ADD  `holiday_type` int(20) NOT NULL   DEFAULT '0';
 ALTER TABLE  `calendar` ADD  `premium` int(2) NULL   DEFAULT '0';
 ALTER TABLE  `calendar` ADD  `notes` varchar(200) NULL   ;
+ALTER TABLE  `calendar` ADD  `repeat_yearly` int(1) NOT NULL   DEFAULT '0';
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -43,6 +45,7 @@ class Calendar_model extends MY_Model {
 	protected $holiday_type;
 	protected $premium;
 	protected $notes;
+	protected $repeat_yearly;
 
 	// --------------------------------------------------------------------
 
@@ -56,8 +59,8 @@ class Calendar_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'calendar';
 		$this->_short_name = 'calendar';
-		$this->_fields = array("id","company_id","calendar_date","is_holiday","holiday_type","premium","notes");
-		$this->_required = array("company_id","calendar_date","is_holiday","holiday_type");
+		$this->_fields = array("id","company_id","calendar_date","is_holiday","holiday_type","premium","notes","repeat_yearly");
+		$this->_required = array("company_id","calendar_date","is_holiday","holiday_type","repeat_yearly");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -74,6 +77,10 @@ class Calendar_model extends MY_Model {
 	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
@@ -83,6 +90,11 @@ class Calendar_model extends MY_Model {
 	public function getId() {
 		return $this->id;
 	}
+
+	public function get_id_value() {
+		return $this->id;
+	}
+
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -97,6 +109,10 @@ class Calendar_model extends MY_Model {
 	public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_company_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `company_id` variable
@@ -106,6 +122,11 @@ class Calendar_model extends MY_Model {
 	public function getCompanyId() {
 		return $this->company_id;
 	}
+
+	public function get_company_id_value() {
+		return $this->company_id;
+	}
+
 	
 // ------------------------------ End Field: company_id --------------------------------------
 
@@ -120,6 +141,10 @@ class Calendar_model extends MY_Model {
 	public function setCalendarDate($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('calendar_date', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_calendar_date_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('calendar_date', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `calendar_date` variable
@@ -129,6 +154,11 @@ class Calendar_model extends MY_Model {
 	public function getCalendarDate() {
 		return $this->calendar_date;
 	}
+
+	public function get_calendar_date_value() {
+		return $this->calendar_date;
+	}
+
 	
 // ------------------------------ End Field: calendar_date --------------------------------------
 
@@ -143,6 +173,10 @@ class Calendar_model extends MY_Model {
 	public function setIsHoliday($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('is_holiday', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_is_holiday_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('is_holiday', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `is_holiday` variable
@@ -152,6 +186,11 @@ class Calendar_model extends MY_Model {
 	public function getIsHoliday() {
 		return $this->is_holiday;
 	}
+
+	public function get_is_holiday_value() {
+		return $this->is_holiday;
+	}
+
 	
 // ------------------------------ End Field: is_holiday --------------------------------------
 
@@ -166,6 +205,10 @@ class Calendar_model extends MY_Model {
 	public function setHolidayType($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('holiday_type', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_holiday_type_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('holiday_type', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `holiday_type` variable
@@ -175,6 +218,11 @@ class Calendar_model extends MY_Model {
 	public function getHolidayType() {
 		return $this->holiday_type;
 	}
+
+	public function get_holiday_type_value() {
+		return $this->holiday_type;
+	}
+
 	
 // ------------------------------ End Field: holiday_type --------------------------------------
 
@@ -189,6 +237,10 @@ class Calendar_model extends MY_Model {
 	public function setPremium($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('premium', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_premium_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('premium', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `premium` variable
@@ -198,6 +250,11 @@ class Calendar_model extends MY_Model {
 	public function getPremium() {
 		return $this->premium;
 	}
+
+	public function get_premium_value() {
+		return $this->premium;
+	}
+
 	
 // ------------------------------ End Field: premium --------------------------------------
 
@@ -212,6 +269,10 @@ class Calendar_model extends MY_Model {
 	public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_notes_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `notes` variable
@@ -221,8 +282,45 @@ class Calendar_model extends MY_Model {
 	public function getNotes() {
 		return $this->notes;
 	}
+
+	public function get_notes_value() {
+		return $this->notes;
+	}
+
 	
 // ------------------------------ End Field: notes --------------------------------------
+
+
+// ---------------------------- Start Field: repeat_yearly -------------------------------------- 
+
+	/** 
+	* Sets a value to `repeat_yearly` variable
+	* @access public
+	*/
+
+	public function setRepeatYearly($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('repeat_yearly', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+
+	public function set_repeat_yearly_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('repeat_yearly', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `repeat_yearly` variable
+	* @access public
+	*/
+
+	public function getRepeatYearly() {
+		return $this->repeat_yearly;
+	}
+
+	public function get_repeat_yearly_value() {
+		return $this->repeat_yearly;
+	}
+
+	
+// ------------------------------ End Field: repeat_yearly --------------------------------------
 
 
 
@@ -290,6 +388,15 @@ class Calendar_model extends MY_Model {
 										'Key'=>'',
 										'Default'=>'',
 										'Extra'=>''
+									),
+
+			'repeat_yearly' => (object) array(
+										'Field'=>'repeat_yearly',
+										'Type'=>'int(1)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'0',
+										'Extra'=>''
 									)
 		);
 	}
@@ -303,14 +410,36 @@ class Calendar_model extends MY_Model {
 			'holiday_type' => "ALTER TABLE  `calendar` ADD  `holiday_type` int(20) NOT NULL   DEFAULT '0';",
 			'premium' => "ALTER TABLE  `calendar` ADD  `premium` int(2) NULL   DEFAULT '0';",
 			'notes' => "ALTER TABLE  `calendar` ADD  `notes` varchar(200) NULL   ;",
+			'repeat_yearly' => "ALTER TABLE  `calendar` ADD  `repeat_yearly` int(1) NOT NULL   DEFAULT '0';",
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setId() - id
+//setCompanyId() - company_id
+//setCalendarDate() - calendar_date
+//setIsHoliday() - is_holiday
+//setHolidayType() - holiday_type
+//setPremium() - premium
+//setNotes() - notes
+//setRepeatYearly() - repeat_yearly
 
+--------------------------------------
+
+//set_id() - id
+//set_company_id() - company_id
+//set_calendar_date() - calendar_date
+//set_is_holiday() - is_holiday
+//set_holiday_type() - holiday_type
+//set_premium() - premium
+//set_notes() - notes
+//set_repeat_yearly() - repeat_yearly
+
+*/
 /* End of file Calendar_model.php */
 /* Location: ./application/models/Calendar_model.php */

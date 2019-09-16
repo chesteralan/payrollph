@@ -14,7 +14,7 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title bold">
-                  <?php echo $earning->name; ?> - <?php echo $earning->notes; ?> (<?php echo $entry->notes; ?>)
+                  <?php echo $earning->name; ?><?php echo ($earning->notes) ? " - {$earning->notes}" : ""; ?> <?php echo ($entry->notes) ? "({$entry->notes})" : ""; ?>
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">

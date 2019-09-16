@@ -18,7 +18,7 @@ ALTER TABLE  `payroll_templates_columns` ADD  `column_id` varchar(200) NOT NULL 
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -62,6 +62,10 @@ class Payroll_templates_columns_model extends MY_Model {
 	public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_template_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `template_id` variable
@@ -71,6 +75,11 @@ class Payroll_templates_columns_model extends MY_Model {
 	public function getTemplateId() {
 		return $this->template_id;
 	}
+
+	public function get_template_id_value() {
+		return $this->template_id;
+	}
+
 	
 // ------------------------------ End Field: template_id --------------------------------------
 
@@ -85,6 +94,10 @@ class Payroll_templates_columns_model extends MY_Model {
 	public function setTermId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('term_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_term_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('term_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `term_id` variable
@@ -94,6 +107,11 @@ class Payroll_templates_columns_model extends MY_Model {
 	public function getTermId() {
 		return $this->term_id;
 	}
+
+	public function get_term_id_value() {
+		return $this->term_id;
+	}
+
 	
 // ------------------------------ End Field: term_id --------------------------------------
 
@@ -108,6 +126,10 @@ class Payroll_templates_columns_model extends MY_Model {
 	public function setColumnId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('column_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_column_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('column_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `column_id` variable
@@ -117,6 +139,11 @@ class Payroll_templates_columns_model extends MY_Model {
 	public function getColumnId() {
 		return $this->column_id;
 	}
+
+	public function get_column_id_value() {
+		return $this->column_id;
+	}
+
 	
 // ------------------------------ End Field: column_id --------------------------------------
 
@@ -162,11 +189,22 @@ class Payroll_templates_columns_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setTemplateId() - template_id
+//setTermId() - term_id
+//setColumnId() - column_id
 
+--------------------------------------
+
+//set_template_id() - template_id
+//set_term_id() - term_id
+//set_column_id() - column_id
+
+*/
 /* End of file Payroll_templates_columns_model.php */
 /* Location: ./application/models/Payroll_templates_columns_model.php */

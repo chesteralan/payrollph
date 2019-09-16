@@ -108,6 +108,7 @@ class System_companies extends MY_Controller {
 		}
 
 		$companies->set_select("*");
+		$companies->set_select("(SELECT co.value FROM companies_options co WHERE co.company_id={$id} AND co.key='period_start' LIMIT 1) as period_start");
 		$this->template_data->set('company', $companies->get());
 
 		$this->template_data->set('output', $output);
@@ -238,4 +239,137 @@ class System_companies extends MY_Controller {
 		$this->load->view('system/companies/companies_column_group', $this->template_data->get_data());
 	}
 
+	public function edit_settings($id,$page=1,$output='') {
+
+		$this->_isAuth('system', 'companies', 'edit');
+
+
+		$companies = new $this->Companies_list_model;
+		$companies->setId($id,true);
+		$companies->set_select("*");
+
+		if( $page==1 ) {
+			if( $this->input->post() ) {
+				$this->_save_option($id, 'work_on_sun');
+				$this->_save_option($id, 'work_on_mon');
+				$this->_save_option($id, 'work_on_tue');
+				$this->_save_option($id, 'work_on_wed');
+				$this->_save_option($id, 'work_on_thu');
+				$this->_save_option($id, 'work_on_fri');
+				$this->_save_option($id, 'work_on_sat');
+				$this->postNext();
+			}
+
+			$companies->set_select("(SELECT co.value FROM companies_options co WHERE co.company_id={$id} AND co.key='work_on_sun' LIMIT 1) as work_on_sun");
+			$companies->set_select("(SELECT co.value FROM companies_options co WHERE co.company_id={$id} AND co.key='work_on_mon' LIMIT 1) as work_on_mon");
+			$companies->set_select("(SELECT co.value FROM companies_options co WHERE co.company_id={$id} AND co.key='work_on_tue' LIMIT 1) as work_on_tue");
+			$companies->set_select("(SELECT co.value FROM companies_options co WHERE co.company_id={$id} AND co.key='work_on_wed' LIMIT 1) as work_on_wed");
+			$companies->set_select("(SELECT co.value FROM companies_options co WHERE co.company_id={$id} AND co.key='work_on_thu' LIMIT 1) as work_on_thu");
+			$companies->set_select("(SELECT co.value FROM companies_options co WHERE co.company_id={$id} AND co.key='work_on_fri' LIMIT 1) as work_on_fri");
+			$companies->set_select("(SELECT co.value FROM companies_options co WHERE co.company_id={$id} AND co.key='work_on_sat' LIMIT 1) as work_on_sat");
+		}
+
+
+		$this->template_data->set('company', $companies->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('system/companies/companies_edit_settings' . $page, $this->template_data->get_data());
+	}
+
+	public function payroll_period($id,$output='') {
+
+		$this->_isAuth('system', 'companies', 'edit');
+
+		$company = new $this->Companies_list_model;
+		$company->setId($id,true);
+		$this->template_data->set('company', $company->get());
+		
+		$periods = new $this->Companies_period_model;
+		$periods->setCompanyId($id,true);
+		$periods->set_order('year','DESC');
+		$this->template_data->set('periods', $periods->populate());
+
+		$this->template_data->set('pagination', bootstrap_pagination(array(
+			'base_url' => base_url($this->config->item('index_page') . '/system_companies/payroll_period/' . $id),
+			'total_rows' => $periods->count_all_results(),
+			'per_page' => $periods->get_limit(),
+			'ajax'=>true,
+		)));
+
+		$this->template_data->set('output', $output);
+		$this->load->view('system/companies/companies_payroll_period', $this->template_data->get_data());
+	}
+
+	public function add_payroll_period($id, $output='') {
+
+		$this->_isAuth('system', 'companies', 'edit');
+
+		if( $this->input->post() ) {
+			$this->form_validation->set_rules('period_name', 'Period End', 'trim');
+			$this->form_validation->set_rules('period_year', 'Period Year', 'trim|required');
+			$this->form_validation->set_rules('period_start', 'Period Start', 'trim');
+			$this->form_validation->set_rules('period_end', 'Period End', 'trim');
+			if( $this->form_validation->run() ) {
+				$period = new $this->Companies_period_model();
+				$period->setCompanyId($id,true);
+				$period->setName($this->input->post('period_name'),true);
+				$period->setYear($this->input->post('period_year'),true);
+				$period->setStart(date("Y-m-d", strtotime($this->input->post('period_start'))));
+				$period->setEnd(date("Y-m-d", strtotime($this->input->post('period_end'))));
+				if( !$period->nonEmpty() ) {
+					$period->insert();
+				}
+				$this->postNext();
+			}
+		}
+
+		$company = new $this->Companies_list_model;
+		$company->setId($id,true);
+		$this->template_data->set('company', $company->get());
+		
+		$this->template_data->set('output', $output);
+		$this->load->view('system/companies/companies_add_payroll_period', $this->template_data->get_data());
+	}
+
+	public function edit_payroll_period($id, $output='') {
+
+		$this->_isAuth('system', 'companies', 'edit');
+
+		$period = new $this->Companies_period_model();
+		$period->setId($id,true);
+
+		if( $this->input->post() ) {
+			$this->form_validation->set_rules('period_name', 'Period End', 'trim');
+			$this->form_validation->set_rules('period_year', 'Period Year', 'trim|required');
+			$this->form_validation->set_rules('period_start', 'Period Start', 'trim');
+			$this->form_validation->set_rules('period_end', 'Period End', 'trim');
+			if( $this->form_validation->run() ) {
+				$period->setName($this->input->post('period_name'),false,true);
+				$period->setYear($this->input->post('period_year'),false,true);
+				$period->setStart(date("Y-m-d", strtotime($this->input->post('period_start'))), false, true);
+				$period->setEnd(date("Y-m-d", strtotime($this->input->post('period_end'))), false, true);
+				$period->setWorkingHours($this->input->post('period_hours'),false,true);
+				if( $period->nonEmpty() ) {
+					$period->update();
+				}
+				$this->postNext();
+			}
+		}
+		
+		$this->template_data->set('period', $period->get());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('system/companies/companies_edit_payroll_period', $this->template_data->get_data());
+	}
+
+	public function delete_payroll_period($id, $output='') {
+
+		$this->_isAuth('system', 'companies', 'edit');
+
+		$period = new $this->Companies_period_model();
+		$period->setId($id,true);
+		$period->delete();
+
+		$this->getNext();
+	}
 }

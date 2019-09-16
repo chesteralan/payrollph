@@ -51,7 +51,7 @@
 
           <div class="form-group">
             <label>Notes</label>
-            <textarea name="notes" class="form-control" rows="10"><?php echo $this->input->post('notes'); ?></textarea>
+            <textarea name="notes" class="form-control" rows="5"><?php echo $this->input->post('notes'); ?></textarea>
           </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>

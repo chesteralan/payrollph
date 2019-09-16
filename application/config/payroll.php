@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $config['multi_company'] = true;
 
-defined('APP_VERSION') OR define('APP_VERSION', '1.1.2' );
+defined('APP_VERSION') OR define('APP_VERSION', '1.2.3' );
 defined('APP_NAME') OR define('APP_NAME', 'SMB Payroll' );
 $config['system_name'] = 'SMB Payroll';
 
@@ -40,6 +40,7 @@ $dept = array(
 		'title' => 'Employees',
 		'sections' => array(
 				'employees' => 'Employees',
+				'calendar' => 'Employee Calendar',
 				'groups' => 'Employee Groups',
 				'positions' => 'Employee Positions',
 				'areas' => 'Employee Areas',

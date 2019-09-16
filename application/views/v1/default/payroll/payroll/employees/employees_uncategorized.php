@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <?php
-$payslip_templates = unserialize(PAYROLL_PAYSLIP_TEMPLATES);
+$payslip_templates = unserialize(PAYROLL_PAYSLIP_TEMPLATES); //print_r( $uncategorized_employees );
 ?>
 <?php $this->load->view('header'); ?>
 
@@ -20,7 +20,11 @@ $payslip_templates = unserialize(PAYROLL_PAYSLIP_TEMPLATES);
 <?php if( !isset($no_inclusive_dates) ) { ?>
               <div class="panel panel-default">
                 <div class="panel-heading">
-
+<?php if( $this->input->get('show') == 'inactive' ) { ?>
+<a href="<?php echo site_url(uri_string()); ?>" class="pull-right btn btn-xs btn-success"><span class="glyphicon glyphicon-ok"></span> Show Active</a>
+<?php } else { ?>
+<a href="<?php echo site_url(uri_string()); ?>?show=inactive" class="pull-right btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span> Show Inactive</a>
+<?php } ?>
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
 <span class="badge">Grouped by
 <?php 
@@ -68,8 +72,13 @@ switch($payroll->group_by) {
               <?php foreach($uncategorized_employees as $employee) { //print_r($employee); ?>
                 <tr class="<?php echo ($employee->active) ? '' : 'danger'; ?>">
                     <td>
+
 <?php if(!$payroll->lock) { ?>
+<?php if($employee->active) { ?>
   <a class="confirm" href="<?php echo site_url("payroll_employees/deactivate/{$payroll->id}/{$employee->id}") . "?next=" . urlencode(uri_string()); ?>"><span class="glyphicon glyphicon-remove"></span></a>
+<?php } else { ?>
+  <a class="confirm" href="<?php echo site_url("payroll_employees/activate/{$payroll->id}/{$employee->id}") . "?next=" . urlencode(uri_string()); ?>" style="color:green;"><span class="glyphicon glyphicon-ok"></span></a>
+<?php } ?>
 <?php } ?>
 
                       <?php echo $employee->prefix; ?> <?php echo $employee->firstname; ?> <?php echo ($employee->middlename!='') ? substr($employee->middlename, 0,2) . '.' : ''; ?> <?php echo $employee->lastname; ?></td>

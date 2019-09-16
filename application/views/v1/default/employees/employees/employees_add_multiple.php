@@ -75,6 +75,7 @@
 </div>
 
    <?php echo ($pagination!='') ? '<center>' . $pagination . '</center>' : ''; ?>
+   
 <?php } else { ?>
   <p class="text-center">No Names Found!</p>
 <?php } ?>

@@ -16,7 +16,7 @@ ALTER TABLE  `employees_benefits_templates` ADD  `template_id` int(20) NOT NULL 
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -59,6 +59,10 @@ class Employees_benefits_templates_model extends MY_Model {
 	public function setEbId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('eb_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_eb_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('eb_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `eb_id` variable
@@ -68,6 +72,11 @@ class Employees_benefits_templates_model extends MY_Model {
 	public function getEbId() {
 		return $this->eb_id;
 	}
+
+	public function get_eb_id_value() {
+		return $this->eb_id;
+	}
+
 	
 // ------------------------------ End Field: eb_id --------------------------------------
 
@@ -82,6 +91,10 @@ class Employees_benefits_templates_model extends MY_Model {
 	public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_template_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `template_id` variable
@@ -91,6 +104,11 @@ class Employees_benefits_templates_model extends MY_Model {
 	public function getTemplateId() {
 		return $this->template_id;
 	}
+
+	public function get_template_id_value() {
+		return $this->template_id;
+	}
+
 	
 // ------------------------------ End Field: template_id --------------------------------------
 
@@ -126,11 +144,20 @@ class Employees_benefits_templates_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setEbId() - eb_id
+//setTemplateId() - template_id
 
+--------------------------------------
+
+//set_eb_id() - eb_id
+//set_template_id() - template_id
+
+*/
 /* End of file Employees_benefits_templates_model.php */
 /* Location: ./application/models/Employees_benefits_templates_model.php */

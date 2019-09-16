@@ -4,7 +4,7 @@
 
 <?php $this->load->view('header'); ?>
 
-<?php $this->load->view('payroll/payroll_navbar'); ?>
+<?php $this->load->view('payroll/payroll_navbar'); //print_r( $payroll ); ?>
 
 <div class="container">
 <div class="row">
@@ -38,12 +38,16 @@
 
 <?php if( $inclusive_dates ) { ?>
 <?php if( $generate ) { ?>
+
+<?php if( $payroll->template_id ) { ?>
 <div class="list-group">
   <a data-target="#ajaxModal" data-title="Generate Payroll" class="list-group-item active" href="<?php echo site_url("payroll/generate/{$payroll->id}/ajax") . "?next=payroll_dtr/view/{$payroll->id}"; ?>">
     <h4 class="list-group-item-heading">Generate Payroll</h4>
     <p class="list-group-item-text">Generate Payroll</p>
   </a>
 </div>
+<?php } ?>
+
 <?php } else { ?>
 
 <div class="list-group">
@@ -68,18 +72,22 @@
     <p class="list-group-item-text">Deductions</p>
   </a>
 
-  <a data-target="#ajaxModal" data-title="Signatories" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll/signatories/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
-    <h4 class="list-group-item-heading">Signatories</h4>
-    <p class="list-group-item-text">Signatories</p>
+  <a data-target="#ajaxModal" data-title="Print Columns" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll/print_columns/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+    <h4 class="list-group-item-heading">Print Columns</h4>
+    <p class="list-group-item-text">Print Columns</p>
   </a>
-
+  
 </div>
 
-<div class="list-group">
-  <a data-target="#ajaxModal" data-title="Generate Payroll" class="list-group-item active" href="<?php echo site_url("payroll/generate/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
-    <h4 class="list-group-item-heading">Generate Payroll</h4>
-    <p class="list-group-item-text">Generate Payroll</p>
-  </a>
+<?php if( $payroll->template_id ) { ?>
+  <div class="list-group">
+    <a data-target="#ajaxModal" data-title="Generate Payroll" class="list-group-item active" href="<?php echo site_url("payroll/generate/{$payroll->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
+      <h4 class="list-group-item-heading">Generate Payroll</h4>
+      <p class="list-group-item-text">Generate Payroll</p>
+    </a>
+  </div>
+<?php } ?>
+
 <?php } ?>
 </div>
 

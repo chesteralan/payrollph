@@ -18,7 +18,7 @@ ALTER TABLE  `companies_options` ADD  `value` text NOT NULL   ;
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -62,6 +62,10 @@ class Companies_options_model extends MY_Model {
 	public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_company_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `company_id` variable
@@ -71,6 +75,11 @@ class Companies_options_model extends MY_Model {
 	public function getCompanyId() {
 		return $this->company_id;
 	}
+
+	public function get_company_id_value() {
+		return $this->company_id;
+	}
+
 	
 // ------------------------------ End Field: company_id --------------------------------------
 
@@ -85,6 +94,10 @@ class Companies_options_model extends MY_Model {
 	public function setKey($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('key', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_key_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('key', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `key` variable
@@ -94,6 +107,11 @@ class Companies_options_model extends MY_Model {
 	public function getKey() {
 		return $this->key;
 	}
+
+	public function get_key_value() {
+		return $this->key;
+	}
+
 	
 // ------------------------------ End Field: key --------------------------------------
 
@@ -108,6 +126,10 @@ class Companies_options_model extends MY_Model {
 	public function setValue($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('value', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_value_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('value', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `value` variable
@@ -117,6 +139,11 @@ class Companies_options_model extends MY_Model {
 	public function getValue() {
 		return $this->value;
 	}
+
+	public function get_value_value() {
+		return $this->value;
+	}
+
 	
 // ------------------------------ End Field: value --------------------------------------
 
@@ -162,11 +189,22 @@ class Companies_options_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setCompanyId() - company_id
+//setKey() - key
+//setValue() - value
 
+--------------------------------------
+
+//set_company_id() - company_id
+//set_key() - key
+//set_value() - value
+
+*/
 /* End of file Companies_options_model.php */
 /* Location: ./application/models/Companies_options_model.php */

@@ -8,30 +8,30 @@
 CREATE TABLE `payroll_employees_earnings` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `payroll_id` int(20) NOT NULL,
-  `pe_id` int(20) NOT NULL,
   `name_id` int(20) NOT NULL,
   `earning_id` int(20) NOT NULL,
   `entry_id` int(20) NOT NULL,
   `amount` decimal(30,5) NOT NULL,
   `notes` text,
   `manual` int(1) NOT NULL DEFAULT '0',
+  `pe_id` int(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`payroll_id`,`earning_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
 ALTER TABLE  `payroll_employees_earnings` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `payroll_employees_earnings` ADD  `payroll_id` int(20) NOT NULL   ;
-ALTER TABLE  `payroll_employees_earnings` ADD  `pe_id` int(20) NOT NULL   ;
 ALTER TABLE  `payroll_employees_earnings` ADD  `name_id` int(20) NOT NULL   ;
 ALTER TABLE  `payroll_employees_earnings` ADD  `earning_id` int(20) NOT NULL   ;
 ALTER TABLE  `payroll_employees_earnings` ADD  `entry_id` int(20) NOT NULL   ;
 ALTER TABLE  `payroll_employees_earnings` ADD  `amount` decimal(30,5) NOT NULL   ;
 ALTER TABLE  `payroll_employees_earnings` ADD  `notes` text NULL   ;
 ALTER TABLE  `payroll_employees_earnings` ADD  `manual` int(1) NOT NULL   DEFAULT '0';
+ALTER TABLE  `payroll_employees_earnings` ADD  `pe_id` int(20) NOT NULL   ;
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -43,13 +43,13 @@ class Payroll_employees_earnings_model extends MY_Model {
 
 	protected $id;
 	protected $payroll_id;
-	protected $pe_id;
 	protected $name_id;
 	protected $earning_id;
 	protected $entry_id;
 	protected $amount;
 	protected $notes;
 	protected $manual;
+	protected $pe_id;
 
 	// --------------------------------------------------------------------
 
@@ -63,8 +63,8 @@ class Payroll_employees_earnings_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'payroll_employees_earnings';
 		$this->_short_name = 'payroll_employees_earnings';
-		$this->_fields = array("id","payroll_id","pe_id","name_id","earning_id","entry_id","amount","notes","manual");
-		$this->_required = array("payroll_id","pe_id","name_id","earning_id","entry_id","amount","manual");
+		$this->_fields = array("id","payroll_id","name_id","earning_id","entry_id","amount","notes","manual","pe_id");
+		$this->_required = array("payroll_id","name_id","earning_id","entry_id","amount","manual","pe_id");
 		parent::__construct($short_name, $db_config);
 	}
 
@@ -81,6 +81,10 @@ class Payroll_employees_earnings_model extends MY_Model {
 	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
@@ -90,6 +94,11 @@ class Payroll_employees_earnings_model extends MY_Model {
 	public function getId() {
 		return $this->id;
 	}
+
+	public function get_id_value() {
+		return $this->id;
+	}
+
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -104,6 +113,10 @@ class Payroll_employees_earnings_model extends MY_Model {
 	public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('payroll_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_payroll_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('payroll_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `payroll_id` variable
@@ -113,31 +126,13 @@ class Payroll_employees_earnings_model extends MY_Model {
 	public function getPayrollId() {
 		return $this->payroll_id;
 	}
+
+	public function get_payroll_id_value() {
+		return $this->payroll_id;
+	}
+
 	
 // ------------------------------ End Field: payroll_id --------------------------------------
-
-
-// ---------------------------- Start Field: pe_id -------------------------------------- 
-
-	/** 
-	* Sets a value to `pe_id` variable
-	* @access public
-	*/
-
-	public function setPeId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
-		return $this->_set_field('pe_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
-	}
-	
-	/** 
-	* Get the value of `pe_id` variable
-	* @access public
-	*/
-
-	public function getPeId() {
-		return $this->pe_id;
-	}
-	
-// ------------------------------ End Field: pe_id --------------------------------------
 
 
 // ---------------------------- Start Field: name_id -------------------------------------- 
@@ -150,6 +145,10 @@ class Payroll_employees_earnings_model extends MY_Model {
 	public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_name_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name_id` variable
@@ -159,6 +158,11 @@ class Payroll_employees_earnings_model extends MY_Model {
 	public function getNameId() {
 		return $this->name_id;
 	}
+
+	public function get_name_id_value() {
+		return $this->name_id;
+	}
+
 	
 // ------------------------------ End Field: name_id --------------------------------------
 
@@ -173,6 +177,10 @@ class Payroll_employees_earnings_model extends MY_Model {
 	public function setEarningId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('earning_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_earning_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('earning_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `earning_id` variable
@@ -182,6 +190,11 @@ class Payroll_employees_earnings_model extends MY_Model {
 	public function getEarningId() {
 		return $this->earning_id;
 	}
+
+	public function get_earning_id_value() {
+		return $this->earning_id;
+	}
+
 	
 // ------------------------------ End Field: earning_id --------------------------------------
 
@@ -196,6 +209,10 @@ class Payroll_employees_earnings_model extends MY_Model {
 	public function setEntryId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('entry_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_entry_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('entry_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `entry_id` variable
@@ -205,6 +222,11 @@ class Payroll_employees_earnings_model extends MY_Model {
 	public function getEntryId() {
 		return $this->entry_id;
 	}
+
+	public function get_entry_id_value() {
+		return $this->entry_id;
+	}
+
 	
 // ------------------------------ End Field: entry_id --------------------------------------
 
@@ -219,6 +241,10 @@ class Payroll_employees_earnings_model extends MY_Model {
 	public function setAmount($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('amount', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_amount_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('amount', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `amount` variable
@@ -228,6 +254,11 @@ class Payroll_employees_earnings_model extends MY_Model {
 	public function getAmount() {
 		return $this->amount;
 	}
+
+	public function get_amount_value() {
+		return $this->amount;
+	}
+
 	
 // ------------------------------ End Field: amount --------------------------------------
 
@@ -242,6 +273,10 @@ class Payroll_employees_earnings_model extends MY_Model {
 	public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_notes_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `notes` variable
@@ -251,6 +286,11 @@ class Payroll_employees_earnings_model extends MY_Model {
 	public function getNotes() {
 		return $this->notes;
 	}
+
+	public function get_notes_value() {
+		return $this->notes;
+	}
+
 	
 // ------------------------------ End Field: notes --------------------------------------
 
@@ -265,6 +305,10 @@ class Payroll_employees_earnings_model extends MY_Model {
 	public function setManual($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('manual', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_manual_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('manual', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `manual` variable
@@ -274,8 +318,45 @@ class Payroll_employees_earnings_model extends MY_Model {
 	public function getManual() {
 		return $this->manual;
 	}
+
+	public function get_manual_value() {
+		return $this->manual;
+	}
+
 	
 // ------------------------------ End Field: manual --------------------------------------
+
+
+// ---------------------------- Start Field: pe_id -------------------------------------- 
+
+	/** 
+	* Sets a value to `pe_id` variable
+	* @access public
+	*/
+
+	public function setPeId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('pe_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+
+	public function set_pe_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('pe_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `pe_id` variable
+	* @access public
+	*/
+
+	public function getPeId() {
+		return $this->pe_id;
+	}
+
+	public function get_pe_id_value() {
+		return $this->pe_id;
+	}
+
+	
+// ------------------------------ End Field: pe_id --------------------------------------
 
 
 
@@ -293,15 +374,6 @@ class Payroll_employees_earnings_model extends MY_Model {
 
 			'payroll_id' => (object) array(
 										'Field'=>'payroll_id',
-										'Type'=>'int(20)',
-										'Null'=>'NO',
-										'Key'=>'',
-										'Default'=>'',
-										'Extra'=>''
-									),
-
-			'pe_id' => (object) array(
-										'Field'=>'pe_id',
 										'Type'=>'int(20)',
 										'Null'=>'NO',
 										'Key'=>'',
@@ -361,6 +433,15 @@ class Payroll_employees_earnings_model extends MY_Model {
 										'Key'=>'',
 										'Default'=>'0',
 										'Extra'=>''
+									),
+
+			'pe_id' => (object) array(
+										'Field'=>'pe_id',
+										'Type'=>'int(20)',
+										'Null'=>'NO',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
 									)
 		);
 	}
@@ -369,21 +450,44 @@ class Payroll_employees_earnings_model extends MY_Model {
 		$column = array(
 			'id' => "ALTER TABLE  `payroll_employees_earnings` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;",
 			'payroll_id' => "ALTER TABLE  `payroll_employees_earnings` ADD  `payroll_id` int(20) NOT NULL   ;",
-			'pe_id' => "ALTER TABLE  `payroll_employees_earnings` ADD  `pe_id` int(20) NOT NULL   ;",
 			'name_id' => "ALTER TABLE  `payroll_employees_earnings` ADD  `name_id` int(20) NOT NULL   ;",
 			'earning_id' => "ALTER TABLE  `payroll_employees_earnings` ADD  `earning_id` int(20) NOT NULL   ;",
 			'entry_id' => "ALTER TABLE  `payroll_employees_earnings` ADD  `entry_id` int(20) NOT NULL   ;",
 			'amount' => "ALTER TABLE  `payroll_employees_earnings` ADD  `amount` decimal(30,5) NOT NULL   ;",
 			'notes' => "ALTER TABLE  `payroll_employees_earnings` ADD  `notes` text NULL   ;",
 			'manual' => "ALTER TABLE  `payroll_employees_earnings` ADD  `manual` int(1) NOT NULL   DEFAULT '0';",
+			'pe_id' => "ALTER TABLE  `payroll_employees_earnings` ADD  `pe_id` int(20) NOT NULL   ;",
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setId() - id
+//setPayrollId() - payroll_id
+//setNameId() - name_id
+//setEarningId() - earning_id
+//setEntryId() - entry_id
+//setAmount() - amount
+//setNotes() - notes
+//setManual() - manual
+//setPeId() - pe_id
 
+--------------------------------------
+
+//set_id() - id
+//set_payroll_id() - payroll_id
+//set_name_id() - name_id
+//set_earning_id() - earning_id
+//set_entry_id() - entry_id
+//set_amount() - amount
+//set_notes() - notes
+//set_manual() - manual
+//set_pe_id() - pe_id
+
+*/
 /* End of file Payroll_employees_earnings_model.php */
 /* Location: ./application/models/Payroll_employees_earnings_model.php */

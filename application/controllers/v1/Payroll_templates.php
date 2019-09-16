@@ -28,6 +28,7 @@ class Payroll_templates extends MY_Controller {
 		
 		$templates->set_select('*');
 		$templates->set_select('(SELECT COUNT(*) FROM `payroll` WHERE template_id=payroll_templates.id) as payroll_count');
+		$templates->set_select('(SELECT payroll.name FROM payroll WHERE payroll.id=payroll_templates.payroll_id) as template_name');
 		$templates->set_start($start);
 		$this->template_data->set('templates', $templates->populate());
 
@@ -89,6 +90,7 @@ class Payroll_templates extends MY_Controller {
 					$template->setApprovedBy($this->input->post('approved_by'),false,true);
 					$template->setPrintFormat($this->input->post('print_format'),false,true);
 					$template->setGroupBy($this->input->post('group_by'),false,true);
+					$template->setPayrollId($this->input->post('payroll_id'),false,true);
 					$template->update();
 				}
 				$this->postNext();
@@ -97,10 +99,13 @@ class Payroll_templates extends MY_Controller {
 
 		$template->set_join('names_list cnl', 'cnl.id=payroll_templates.checked_by');
 		$template->set_join('names_list anl', 'anl.id=payroll_templates.approved_by');
+		$template->set_join('payroll p', 'p.id=payroll_templates.payroll_id');
 
 		$template->set_select('payroll_templates.*');
 		$template->set_select('cnl.full_name as checked_by_name');
 		$template->set_select('anl.full_name as approved_by_name');
+		$template->set_select('p.name as payroll_name');
+
 		$this->template_data->set('template', $template->get());
 
 		$this->template_data->set('output', $output);
@@ -670,6 +675,27 @@ class Payroll_templates extends MY_Controller {
 	public function ajax($action='') {
 		$results = array();
 		switch($action) {
+			case 'search_payroll':
+				$payrolls = new $this->Payroll_model;
+				$payrolls->set_select('*');
+				$payrolls->set_order('year', 'DESC');
+				$payrolls->set_order('month', 'DESC');
+				if( $this->input->get('term') ) {
+					$payrolls->set_where('name LIKE "%' . $this->input->get('term') . '%"');
+				}
+				$payrolls->set_select('(SELECT name FROM payroll_templates WHERE id=payroll.template_id) as template_name');
+				$payrolls->set_select('(SELECT COUNT(*) FROM payroll_employees WHERE payroll_id=payroll.id) as employees_count');
+				$payrolls->set_select('(SELECT COUNT(*) FROM payroll_inclusive_dates WHERE payroll_id=payroll.id) as working_days');
+				$data = array();
+				foreach($payrolls->populate() as $payroll) {
+					$data[] = array(
+						'label' => $payroll->name,
+						'id' => $payroll->id,
+						'desc' => $payroll->template_name . " (Employees: " . $payroll->employees_count . " | Days: " . $payroll->working_days . ")",
+						);
+				}
+				$results = $data;
+			break;
 			case 'search_name':
 				$names = new $this->Names_list_model;
 				if( $this->input->get('term') ) {

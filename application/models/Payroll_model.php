@@ -21,7 +21,7 @@ CREATE TABLE `payroll` (
   PRIMARY KEY (`id`),
   KEY `template_id` (`template_id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `payroll` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `payroll` ADD  `company_id` int(20) NOT NULL   ;
@@ -38,7 +38,7 @@ ALTER TABLE  `payroll` ADD  `approved_by` int(20) NULL   ;
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -91,6 +91,10 @@ class Payroll_model extends MY_Model {
 	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
@@ -100,6 +104,11 @@ class Payroll_model extends MY_Model {
 	public function getId() {
 		return $this->id;
 	}
+
+	public function get_id_value() {
+		return $this->id;
+	}
+
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -114,6 +123,10 @@ class Payroll_model extends MY_Model {
 	public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_company_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `company_id` variable
@@ -123,6 +136,11 @@ class Payroll_model extends MY_Model {
 	public function getCompanyId() {
 		return $this->company_id;
 	}
+
+	public function get_company_id_value() {
+		return $this->company_id;
+	}
+
 	
 // ------------------------------ End Field: company_id --------------------------------------
 
@@ -137,6 +155,10 @@ class Payroll_model extends MY_Model {
 	public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_name_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name` variable
@@ -146,6 +168,11 @@ class Payroll_model extends MY_Model {
 	public function getName() {
 		return $this->name;
 	}
+
+	public function get_name_value() {
+		return $this->name;
+	}
+
 	
 // ------------------------------ End Field: name --------------------------------------
 
@@ -160,6 +187,10 @@ class Payroll_model extends MY_Model {
 	public function setTemplateId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_template_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('template_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `template_id` variable
@@ -169,6 +200,11 @@ class Payroll_model extends MY_Model {
 	public function getTemplateId() {
 		return $this->template_id;
 	}
+
+	public function get_template_id_value() {
+		return $this->template_id;
+	}
+
 	
 // ------------------------------ End Field: template_id --------------------------------------
 
@@ -183,6 +219,10 @@ class Payroll_model extends MY_Model {
 	public function setMonth($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('month', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_month_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('month', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `month` variable
@@ -192,6 +232,11 @@ class Payroll_model extends MY_Model {
 	public function getMonth() {
 		return $this->month;
 	}
+
+	public function get_month_value() {
+		return $this->month;
+	}
+
 	
 // ------------------------------ End Field: month --------------------------------------
 
@@ -206,6 +251,10 @@ class Payroll_model extends MY_Model {
 	public function setYear($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('year', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_year_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('year', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `year` variable
@@ -215,6 +264,11 @@ class Payroll_model extends MY_Model {
 	public function getYear() {
 		return $this->year;
 	}
+
+	public function get_year_value() {
+		return $this->year;
+	}
+
 	
 // ------------------------------ End Field: year --------------------------------------
 
@@ -229,6 +283,10 @@ class Payroll_model extends MY_Model {
 	public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_active_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `active` variable
@@ -238,6 +296,11 @@ class Payroll_model extends MY_Model {
 	public function getActive() {
 		return $this->active;
 	}
+
+	public function get_active_value() {
+		return $this->active;
+	}
+
 	
 // ------------------------------ End Field: active --------------------------------------
 
@@ -252,6 +315,10 @@ class Payroll_model extends MY_Model {
 	public function setLock($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('lock', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_lock_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('lock', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `lock` variable
@@ -261,6 +328,11 @@ class Payroll_model extends MY_Model {
 	public function getLock() {
 		return $this->lock;
 	}
+
+	public function get_lock_value() {
+		return $this->lock;
+	}
+
 	
 // ------------------------------ End Field: lock --------------------------------------
 
@@ -275,6 +347,10 @@ class Payroll_model extends MY_Model {
 	public function setPrintFormat($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('print_format', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_print_format_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('print_format', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `print_format` variable
@@ -284,6 +360,11 @@ class Payroll_model extends MY_Model {
 	public function getPrintFormat() {
 		return $this->print_format;
 	}
+
+	public function get_print_format_value() {
+		return $this->print_format;
+	}
+
 	
 // ------------------------------ End Field: print_format --------------------------------------
 
@@ -298,6 +379,10 @@ class Payroll_model extends MY_Model {
 	public function setGroupBy($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('group_by', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_group_by_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('group_by', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `group_by` variable
@@ -307,6 +392,11 @@ class Payroll_model extends MY_Model {
 	public function getGroupBy() {
 		return $this->group_by;
 	}
+
+	public function get_group_by_value() {
+		return $this->group_by;
+	}
+
 	
 // ------------------------------ End Field: group_by --------------------------------------
 
@@ -321,6 +411,10 @@ class Payroll_model extends MY_Model {
 	public function setCheckedBy($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('checked_by', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_checked_by_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('checked_by', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `checked_by` variable
@@ -330,6 +424,11 @@ class Payroll_model extends MY_Model {
 	public function getCheckedBy() {
 		return $this->checked_by;
 	}
+
+	public function get_checked_by_value() {
+		return $this->checked_by;
+	}
+
 	
 // ------------------------------ End Field: checked_by --------------------------------------
 
@@ -344,6 +443,10 @@ class Payroll_model extends MY_Model {
 	public function setApprovedBy($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('approved_by', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_approved_by_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('approved_by', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `approved_by` variable
@@ -353,6 +456,11 @@ class Payroll_model extends MY_Model {
 	public function getApprovedBy() {
 		return $this->approved_by;
 	}
+
+	public function get_approved_by_value() {
+		return $this->approved_by;
+	}
+
 	
 // ------------------------------ End Field: approved_by --------------------------------------
 
@@ -488,11 +596,40 @@ class Payroll_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setId() - id
+//setCompanyId() - company_id
+//setName() - name
+//setTemplateId() - template_id
+//setMonth() - month
+//setYear() - year
+//setActive() - active
+//setLock() - lock
+//setPrintFormat() - print_format
+//setGroupBy() - group_by
+//setCheckedBy() - checked_by
+//setApprovedBy() - approved_by
 
+--------------------------------------
+
+//set_id() - id
+//set_company_id() - company_id
+//set_name() - name
+//set_template_id() - template_id
+//set_month() - month
+//set_year() - year
+//set_active() - active
+//set_lock() - lock
+//set_print_format() - print_format
+//set_group_by() - group_by
+//set_checked_by() - checked_by
+//set_approved_by() - approved_by
+
+*/
 /* End of file Payroll_model.php */
 /* Location: ./application/models/Payroll_model.php */

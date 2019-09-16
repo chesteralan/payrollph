@@ -89,6 +89,7 @@ class System_users extends MY_Controller {
 				redirect( site_url("system_users") . "?success=true" );
 			}
 		}
+		
 		$this->template_data->set('user', $user->get());
 
 		$this->template_data->set('output', $output);

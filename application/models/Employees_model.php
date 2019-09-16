@@ -12,6 +12,7 @@ CREATE TABLE `employees` (
   `position_id` int(20) DEFAULT NULL,
   `area_id` int(20) DEFAULT NULL,
   `hired` date DEFAULT NULL,
+  `regularized` date DEFAULT NULL,
   `status` int(20) DEFAULT NULL,
   `notes` text,
   `trash` int(1) NOT NULL DEFAULT '0',
@@ -30,6 +31,7 @@ ALTER TABLE  `employees` ADD  `group_id` int(20) NULL   ;
 ALTER TABLE  `employees` ADD  `position_id` int(20) NULL   ;
 ALTER TABLE  `employees` ADD  `area_id` int(20) NULL   ;
 ALTER TABLE  `employees` ADD  `hired` date NULL   ;
+ALTER TABLE  `employees` ADD  `regularized` date NULL   ;
 ALTER TABLE  `employees` ADD  `status` int(20) NULL   ;
 ALTER TABLE  `employees` ADD  `notes` text NULL   ;
 ALTER TABLE  `employees` ADD  `trash` int(1) NOT NULL   DEFAULT '0';
@@ -37,7 +39,7 @@ ALTER TABLE  `employees` ADD  `employee_id` varchar(20) NULL   ;
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -53,6 +55,7 @@ class Employees_model extends MY_Model {
 	protected $position_id;
 	protected $area_id;
 	protected $hired;
+	protected $regularized;
 	protected $status;
 	protected $notes;
 	protected $trash;
@@ -70,7 +73,7 @@ class Employees_model extends MY_Model {
 	function __construct($short_name=NULL, $db_config=NULL) {
 		$this->_table_name = 'employees';
 		$this->_short_name = 'employees';
-		$this->_fields = array("name_id","company_id","group_id","position_id","area_id","hired","status","notes","trash","employee_id");
+		$this->_fields = array("name_id","company_id","group_id","position_id","area_id","hired","regularized","status","notes","trash","employee_id");
 		$this->_required = array("company_id","trash");
 		parent::__construct($short_name, $db_config);
 	}
@@ -88,6 +91,10 @@ class Employees_model extends MY_Model {
 	public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_name_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name_id` variable
@@ -97,6 +104,11 @@ class Employees_model extends MY_Model {
 	public function getNameId() {
 		return $this->name_id;
 	}
+
+	public function get_name_id_value() {
+		return $this->name_id;
+	}
+
 	
 // ------------------------------ End Field: name_id --------------------------------------
 
@@ -111,6 +123,10 @@ class Employees_model extends MY_Model {
 	public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_company_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `company_id` variable
@@ -120,6 +136,11 @@ class Employees_model extends MY_Model {
 	public function getCompanyId() {
 		return $this->company_id;
 	}
+
+	public function get_company_id_value() {
+		return $this->company_id;
+	}
+
 	
 // ------------------------------ End Field: company_id --------------------------------------
 
@@ -134,6 +155,10 @@ class Employees_model extends MY_Model {
 	public function setGroupId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('group_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_group_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('group_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `group_id` variable
@@ -143,6 +168,11 @@ class Employees_model extends MY_Model {
 	public function getGroupId() {
 		return $this->group_id;
 	}
+
+	public function get_group_id_value() {
+		return $this->group_id;
+	}
+
 	
 // ------------------------------ End Field: group_id --------------------------------------
 
@@ -157,6 +187,10 @@ class Employees_model extends MY_Model {
 	public function setPositionId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('position_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_position_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('position_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `position_id` variable
@@ -166,6 +200,11 @@ class Employees_model extends MY_Model {
 	public function getPositionId() {
 		return $this->position_id;
 	}
+
+	public function get_position_id_value() {
+		return $this->position_id;
+	}
+
 	
 // ------------------------------ End Field: position_id --------------------------------------
 
@@ -180,6 +219,10 @@ class Employees_model extends MY_Model {
 	public function setAreaId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('area_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_area_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('area_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `area_id` variable
@@ -189,6 +232,11 @@ class Employees_model extends MY_Model {
 	public function getAreaId() {
 		return $this->area_id;
 	}
+
+	public function get_area_id_value() {
+		return $this->area_id;
+	}
+
 	
 // ------------------------------ End Field: area_id --------------------------------------
 
@@ -203,6 +251,10 @@ class Employees_model extends MY_Model {
 	public function setHired($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('hired', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_hired_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('hired', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `hired` variable
@@ -212,8 +264,45 @@ class Employees_model extends MY_Model {
 	public function getHired() {
 		return $this->hired;
 	}
+
+	public function get_hired_value() {
+		return $this->hired;
+	}
+
 	
 // ------------------------------ End Field: hired --------------------------------------
+
+
+// ---------------------------- Start Field: regularized -------------------------------------- 
+
+	/** 
+	* Sets a value to `regularized` variable
+	* @access public
+	*/
+
+	public function setRegularized($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('regularized', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+
+	public function set_regularized_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('regularized', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
+	
+	/** 
+	* Get the value of `regularized` variable
+	* @access public
+	*/
+
+	public function getRegularized() {
+		return $this->regularized;
+	}
+
+	public function get_regularized_value() {
+		return $this->regularized;
+	}
+
+	
+// ------------------------------ End Field: regularized --------------------------------------
 
 
 // ---------------------------- Start Field: status -------------------------------------- 
@@ -226,6 +315,10 @@ class Employees_model extends MY_Model {
 	public function setStatus($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('status', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_status_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('status', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `status` variable
@@ -235,6 +328,11 @@ class Employees_model extends MY_Model {
 	public function getStatus() {
 		return $this->status;
 	}
+
+	public function get_status_value() {
+		return $this->status;
+	}
+
 	
 // ------------------------------ End Field: status --------------------------------------
 
@@ -249,6 +347,10 @@ class Employees_model extends MY_Model {
 	public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_notes_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `notes` variable
@@ -258,6 +360,11 @@ class Employees_model extends MY_Model {
 	public function getNotes() {
 		return $this->notes;
 	}
+
+	public function get_notes_value() {
+		return $this->notes;
+	}
+
 	
 // ------------------------------ End Field: notes --------------------------------------
 
@@ -272,6 +379,10 @@ class Employees_model extends MY_Model {
 	public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_trash_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `trash` variable
@@ -281,6 +392,11 @@ class Employees_model extends MY_Model {
 	public function getTrash() {
 		return $this->trash;
 	}
+
+	public function get_trash_value() {
+		return $this->trash;
+	}
+
 	
 // ------------------------------ End Field: trash --------------------------------------
 
@@ -295,6 +411,10 @@ class Employees_model extends MY_Model {
 	public function setEmployeeId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('employee_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_employee_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('employee_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `employee_id` variable
@@ -304,6 +424,11 @@ class Employees_model extends MY_Model {
 	public function getEmployeeId() {
 		return $this->employee_id;
 	}
+
+	public function get_employee_id_value() {
+		return $this->employee_id;
+	}
+
 	
 // ------------------------------ End Field: employee_id --------------------------------------
 
@@ -366,6 +491,15 @@ class Employees_model extends MY_Model {
 										'Extra'=>''
 									),
 
+			'regularized' => (object) array(
+										'Field'=>'regularized',
+										'Type'=>'date',
+										'Null'=>'YES',
+										'Key'=>'',
+										'Default'=>'',
+										'Extra'=>''
+									),
+
 			'status' => (object) array(
 										'Field'=>'status',
 										'Type'=>'int(20)',
@@ -412,6 +546,7 @@ class Employees_model extends MY_Model {
 			'position_id' => "ALTER TABLE  `employees` ADD  `position_id` int(20) NULL   ;",
 			'area_id' => "ALTER TABLE  `employees` ADD  `area_id` int(20) NULL   ;",
 			'hired' => "ALTER TABLE  `employees` ADD  `hired` date NULL   ;",
+			'regularized' => "ALTER TABLE  `employees` ADD  `regularized` date NULL   ;",
 			'status' => "ALTER TABLE  `employees` ADD  `status` int(20) NULL   ;",
 			'notes' => "ALTER TABLE  `employees` ADD  `notes` text NULL   ;",
 			'trash' => "ALTER TABLE  `employees` ADD  `trash` int(1) NOT NULL   DEFAULT '0';",
@@ -419,11 +554,38 @@ class Employees_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setNameId() - name_id
+//setCompanyId() - company_id
+//setGroupId() - group_id
+//setPositionId() - position_id
+//setAreaId() - area_id
+//setHired() - hired
+//setRegularized() - regularized
+//setStatus() - status
+//setNotes() - notes
+//setTrash() - trash
+//setEmployeeId() - employee_id
 
+--------------------------------------
+
+//set_name_id() - name_id
+//set_company_id() - company_id
+//set_group_id() - group_id
+//set_position_id() - position_id
+//set_area_id() - area_id
+//set_hired() - hired
+//set_regularized() - regularized
+//set_status() - status
+//set_notes() - notes
+//set_trash() - trash
+//set_employee_id() - employee_id
+
+*/
 /* End of file Employees_model.php */
 /* Location: ./application/models/Employees_model.php */

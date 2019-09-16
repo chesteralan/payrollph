@@ -3,7 +3,9 @@
 if( file_exists('MAINTENANCE') ) {
 	die("MAINTENANCE MODE...");
 }
-
+if( file_exists('install') ) {
+	die("<strong style=\"color:red;\">INSTALL FOLDER STILL EXISTS!</strong><br><a href='install/install.php'>Start Installer!</a>");
+}
 /**
  * CodeIgniter
  *

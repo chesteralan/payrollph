@@ -33,7 +33,7 @@ ALTER TABLE  `names_info` ADD  `suffix` varchar(50) NULL   ;
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -84,6 +84,10 @@ class Names_info_model extends MY_Model {
 	public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_name_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name_id` variable
@@ -93,6 +97,11 @@ class Names_info_model extends MY_Model {
 	public function getNameId() {
 		return $this->name_id;
 	}
+
+	public function get_name_id_value() {
+		return $this->name_id;
+	}
+
 	
 // ------------------------------ End Field: name_id --------------------------------------
 
@@ -107,6 +116,10 @@ class Names_info_model extends MY_Model {
 	public function setLastname($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('lastname', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_lastname_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('lastname', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `lastname` variable
@@ -116,6 +129,11 @@ class Names_info_model extends MY_Model {
 	public function getLastname() {
 		return $this->lastname;
 	}
+
+	public function get_lastname_value() {
+		return $this->lastname;
+	}
+
 	
 // ------------------------------ End Field: lastname --------------------------------------
 
@@ -130,6 +148,10 @@ class Names_info_model extends MY_Model {
 	public function setFirstname($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('firstname', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_firstname_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('firstname', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `firstname` variable
@@ -139,6 +161,11 @@ class Names_info_model extends MY_Model {
 	public function getFirstname() {
 		return $this->firstname;
 	}
+
+	public function get_firstname_value() {
+		return $this->firstname;
+	}
+
 	
 // ------------------------------ End Field: firstname --------------------------------------
 
@@ -153,6 +180,10 @@ class Names_info_model extends MY_Model {
 	public function setMiddlename($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('middlename', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_middlename_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('middlename', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `middlename` variable
@@ -162,6 +193,11 @@ class Names_info_model extends MY_Model {
 	public function getMiddlename() {
 		return $this->middlename;
 	}
+
+	public function get_middlename_value() {
+		return $this->middlename;
+	}
+
 	
 // ------------------------------ End Field: middlename --------------------------------------
 
@@ -176,6 +212,10 @@ class Names_info_model extends MY_Model {
 	public function setBirthday($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('birthday', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_birthday_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('birthday', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `birthday` variable
@@ -185,6 +225,11 @@ class Names_info_model extends MY_Model {
 	public function getBirthday() {
 		return $this->birthday;
 	}
+
+	public function get_birthday_value() {
+		return $this->birthday;
+	}
+
 	
 // ------------------------------ End Field: birthday --------------------------------------
 
@@ -199,6 +244,10 @@ class Names_info_model extends MY_Model {
 	public function setBirthplace($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('birthplace', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_birthplace_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('birthplace', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `birthplace` variable
@@ -208,6 +257,11 @@ class Names_info_model extends MY_Model {
 	public function getBirthplace() {
 		return $this->birthplace;
 	}
+
+	public function get_birthplace_value() {
+		return $this->birthplace;
+	}
+
 	
 // ------------------------------ End Field: birthplace --------------------------------------
 
@@ -222,6 +276,10 @@ class Names_info_model extends MY_Model {
 	public function setGender($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('gender', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_gender_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('gender', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `gender` variable
@@ -231,6 +289,11 @@ class Names_info_model extends MY_Model {
 	public function getGender() {
 		return $this->gender;
 	}
+
+	public function get_gender_value() {
+		return $this->gender;
+	}
+
 	
 // ------------------------------ End Field: gender --------------------------------------
 
@@ -245,6 +308,10 @@ class Names_info_model extends MY_Model {
 	public function setCivilStatus($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('civil_status', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_civil_status_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('civil_status', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `civil_status` variable
@@ -254,6 +321,11 @@ class Names_info_model extends MY_Model {
 	public function getCivilStatus() {
 		return $this->civil_status;
 	}
+
+	public function get_civil_status_value() {
+		return $this->civil_status;
+	}
+
 	
 // ------------------------------ End Field: civil_status --------------------------------------
 
@@ -268,6 +340,10 @@ class Names_info_model extends MY_Model {
 	public function setPrefix($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('prefix', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_prefix_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('prefix', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `prefix` variable
@@ -277,6 +353,11 @@ class Names_info_model extends MY_Model {
 	public function getPrefix() {
 		return $this->prefix;
 	}
+
+	public function get_prefix_value() {
+		return $this->prefix;
+	}
+
 	
 // ------------------------------ End Field: prefix --------------------------------------
 
@@ -291,6 +372,10 @@ class Names_info_model extends MY_Model {
 	public function setSuffix($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('suffix', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_suffix_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('suffix', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `suffix` variable
@@ -300,6 +385,11 @@ class Names_info_model extends MY_Model {
 	public function getSuffix() {
 		return $this->suffix;
 	}
+
+	public function get_suffix_value() {
+		return $this->suffix;
+	}
+
 	
 // ------------------------------ End Field: suffix --------------------------------------
 
@@ -415,11 +505,36 @@ class Names_info_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setNameId() - name_id
+//setLastname() - lastname
+//setFirstname() - firstname
+//setMiddlename() - middlename
+//setBirthday() - birthday
+//setBirthplace() - birthplace
+//setGender() - gender
+//setCivilStatus() - civil_status
+//setPrefix() - prefix
+//setSuffix() - suffix
 
+--------------------------------------
+
+//set_name_id() - name_id
+//set_lastname() - lastname
+//set_firstname() - firstname
+//set_middlename() - middlename
+//set_birthday() - birthday
+//set_birthplace() - birthplace
+//set_gender() - gender
+//set_civil_status() - civil_status
+//set_prefix() - prefix
+//set_suffix() - suffix
+
+*/
 /* End of file Names_info_model.php */
 /* Location: ./application/models/Names_info_model.php */

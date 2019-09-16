@@ -26,7 +26,7 @@ ALTER TABLE  `earnings_list` ADD  `abbr` varchar(100) NULL   ;
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -74,6 +74,10 @@ class Earnings_list_model extends MY_Model {
 	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
@@ -83,6 +87,11 @@ class Earnings_list_model extends MY_Model {
 	public function getId() {
 		return $this->id;
 	}
+
+	public function get_id_value() {
+		return $this->id;
+	}
+
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -97,6 +106,10 @@ class Earnings_list_model extends MY_Model {
 	public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_name_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name` variable
@@ -106,6 +119,11 @@ class Earnings_list_model extends MY_Model {
 	public function getName() {
 		return $this->name;
 	}
+
+	public function get_name_value() {
+		return $this->name;
+	}
+
 	
 // ------------------------------ End Field: name --------------------------------------
 
@@ -120,6 +138,10 @@ class Earnings_list_model extends MY_Model {
 	public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_notes_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `notes` variable
@@ -129,6 +151,11 @@ class Earnings_list_model extends MY_Model {
 	public function getNotes() {
 		return $this->notes;
 	}
+
+	public function get_notes_value() {
+		return $this->notes;
+	}
+
 	
 // ------------------------------ End Field: notes --------------------------------------
 
@@ -143,6 +170,10 @@ class Earnings_list_model extends MY_Model {
 	public function setAccountTitle($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('account_title', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_account_title_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('account_title', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `account_title` variable
@@ -152,6 +183,11 @@ class Earnings_list_model extends MY_Model {
 	public function getAccountTitle() {
 		return $this->account_title;
 	}
+
+	public function get_account_title_value() {
+		return $this->account_title;
+	}
+
 	
 // ------------------------------ End Field: account_title --------------------------------------
 
@@ -166,6 +202,10 @@ class Earnings_list_model extends MY_Model {
 	public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_active_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `active` variable
@@ -175,6 +215,11 @@ class Earnings_list_model extends MY_Model {
 	public function getActive() {
 		return $this->active;
 	}
+
+	public function get_active_value() {
+		return $this->active;
+	}
+
 	
 // ------------------------------ End Field: active --------------------------------------
 
@@ -189,6 +234,10 @@ class Earnings_list_model extends MY_Model {
 	public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_trash_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `trash` variable
@@ -198,6 +247,11 @@ class Earnings_list_model extends MY_Model {
 	public function getTrash() {
 		return $this->trash;
 	}
+
+	public function get_trash_value() {
+		return $this->trash;
+	}
+
 	
 // ------------------------------ End Field: trash --------------------------------------
 
@@ -212,6 +266,10 @@ class Earnings_list_model extends MY_Model {
 	public function setAbbr($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('abbr', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_abbr_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('abbr', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `abbr` variable
@@ -221,6 +279,11 @@ class Earnings_list_model extends MY_Model {
 	public function getAbbr() {
 		return $this->abbr;
 	}
+
+	public function get_abbr_value() {
+		return $this->abbr;
+	}
+
 	
 // ------------------------------ End Field: abbr --------------------------------------
 
@@ -306,11 +369,30 @@ class Earnings_list_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setId() - id
+//setName() - name
+//setNotes() - notes
+//setAccountTitle() - account_title
+//setActive() - active
+//setTrash() - trash
+//setAbbr() - abbr
 
+--------------------------------------
+
+//set_id() - id
+//set_name() - name
+//set_notes() - notes
+//set_account_title() - account_title
+//set_active() - active
+//set_trash() - trash
+//set_abbr() - abbr
+
+*/
 /* End of file Earnings_list_model.php */
 /* Location: ./application/models/Earnings_list_model.php */

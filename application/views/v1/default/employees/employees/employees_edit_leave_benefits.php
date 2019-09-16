@@ -32,14 +32,14 @@
 
 <?php } else { ?>
 
-<?php if( count( $payroll_years ) > 0) { ?>
+<?php if($payroll_periods) { ?>
 <div class="btn-group">
   <button type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Select a Year <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-    <?php foreach($payroll_years as $year) { ?>
-      <li><a class="ajax-modal-inner" href="<?php echo site_url("employees/edit_leave_benefits/{$employee->name_id}/{$year->year}/ajax") . '?next=' . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>" data-title="Leave Benefits <?php echo $year->year; ?>"><?php echo $year->year; ?></a></li>
+    <?php foreach($payroll_periods as $period) { ?>
+      <li><a class="ajax-modal-inner" href="<?php echo site_url("employees/edit_leave_benefits/{$employee->name_id}/{$period->year}/ajax") . '?next=' . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>" data-title="Leave Benefits <?php echo $period->year; ?>"><?php echo $period->year; ?></a></li>
     <?php } ?>
   </ul>
 </div>

@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <div class="container">
-  <nav class="navbar navbar-default stickynav1">
+  <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -15,95 +15,101 @@
       <?php echo $name->lastname; ?>, <?php echo $name->firstname; ?> <?php echo ($name->middlename) ? strtoupper(substr($name->middlename,0,1))."." : ""; ?>
 <?php } else { ?>
     <?php echo $name->full_name; ?>
-<?php } ?>        
+<?php } ?>
       </div>
+      
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-     
+
          <ul class="nav navbar-nav">
         
         <li><a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Payroll" data-url="<?php echo site_url("employees/config/{$name->id}/ajax") . "?next=" . uri_string(); ?>" style="margin-left:10px" data-hide_footer="1"><span class="glyphicon glyphicon-cog"></span></a></li>
 
-<?php if(isset($previous_name) && ($previous_name)) { ?>
+<?php if(isset($previous_item) && ($previous_item)) { ?>
 <li>
-    <a href="<?php echo site_url($previous_name->url); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></span></a>
+    <a href="<?php echo site_url($previous_item->url); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-left"></span></a>
 </li>
 <?php } ?>
-<?php if(isset($next_name) && ($next_name)) { ?>
+<?php if(isset($next_item) && ($next_item)) { ?>
 <li>
-    <a href="<?php echo site_url($next_name->url); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-right"></span></a>
+    <a href="<?php echo site_url($next_item->url); ?>" class="body_wrapper"><span class="glyphicon glyphicon-arrow-right"></span></a>
 </li>
 <?php } ?>
         </ul>
-        
+       
       <ul class="nav navbar-nav navbar-right">
 
-<li class=""><a class="body_wrapper" href="<?php echo site_url("lists_names/profile/{$name->id}"); ?>"><span class="fa fa-user"></span></a></li>
+<?php 
+
+$url['lists_names'] = array('uri' => 'lists_names/profile/' . $name->id, 'title'=>'Employee Profile', 'access'=>hasAccess('lists', 'names', 'view'));
+//$url['employees_dtr'] = array('uri' => 'employees_dtr/view/' . $name->id, 'title'=>'Daily Time Record', 'access'=>hasAccess('employees', 'employees', 'view'));
+
+foreach($url as $k=>$v) {
+  if( $v['access'] ) {
+?>
+  <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($v['uri']) . (($this->input->get('next')) ? '?next=' . $this->input->get('next') : ''); ?>"><?php echo $v['title']; ?></a></li>
+<?php } } ?>
+
+<li class="dropdown <?php echo (in_array($current_uri, array('employees_dtr', 'employees_dtr_leave', 'employees_dtr_absences') )) ? 'active' : ''; ?>">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Daily Time Record <span class="caret"></span></a>
+          <ul class="dropdown-menu">
 
 <?php 
-$group_id = (isset($group_id)) ? $group_id : 0;
-$column_groups = array(
-  array(  'key'=>'column_group_dtr',
-          'name' => 'Daily Time Record',
-          'checked' => (($column_group_dtr)?$column_group_dtr:0),
-          'uri' => "payroll_dtr/by_name/{$name->id}",
-          'url_key'=> 'payroll_dtr',
-          'access'=>hasAccess('payroll', 'payroll', 'view'),
-        ),
-  array(  'key'=>'column_group_salaries',
-          'name' => 'Basic Salary',
-          'checked' => (($column_group_salaries)?$column_group_salaries:0),
-          'uri' => "payroll_salaries/by_name/{$name->id}",
-          'url_key'=> 'payroll_salaries',
-          'access'=>hasAccess('payroll', 'payroll', 'view'),
-        ),
-  array(  'key'=>'column_group_earnings',
-          'name' => 'Earnings',
-          'checked' => (($column_group_earnings)?$column_group_earnings:0),
-          'uri' => "payroll_earnings/by_name/{$name->id}",
-          'url_key'=> 'payroll_earnings',
-          'access'=>hasAccess('payroll', 'payroll', 'view'),
-        ),
-  array(  'key'=>'column_group_benefits',
-          'name' => 'Benefits',
-          'checked' => (($column_group_benefits)?$column_group_benefits:0),
-          'uri' => "payroll_benefits/by_name/{$name->id}",
-          'url_key'=> 'payroll_benefits',
-          'access'=>hasAccess('payroll', 'payroll', 'view'),
-        ),
-  array(  'key'=>'column_group_deductions',
-          'name' => 'Deductions',
-          'checked' => (($column_group_deductions)?$column_group_deductions:0),
-          'uri' => "payroll_deductions/by_name/{$name->id}",
-          'url_key'=> 'payroll_deductions',
-          'access'=>hasAccess('payroll', 'payroll', 'view'),
-        ),
-);
+$url = array();
+$url['employees_dtr'] = array('uri' => 'employees_dtr/view/' . $name->name_id, 'title'=>'Calendar', 'access'=>hasAccess('employees', 'employees', 'view'));
+$url['employees_dtr_leave'] = array('uri' => 'employees_dtr/leave_benefits/' . $name->name_id, 'title'=>'Leave Benefits', 'access'=>hasAccess('employees', 'employees', 'view'));
+$url['employees_dtr_absences'] = array('uri' => 'employees_dtr/absences/' . $name->name_id, 'title'=>'Absences', 'access'=>hasAccess('employees', 'employees', 'view'));
 
-$cg_sort = ($column_group_sort) ? $column_group_sort : false;
-
-  if( $cg_sort ) {
-    $cg_sort2 = array();
-    $si = 0;
-    foreach($cg_sort as $sk=>$sv) {
-        $cg_sort2[$sv] = $si++;
-    }  
-
-    $pgs = array();
-    foreach($column_groups as $cg) {
-      $cg_key = $cg['key'];
-      $pgs[$cg_sort2[$cg_key]] = $cg;
-    }
-    ksort($pgs);
-    $column_groups = $pgs;
-  }
- foreach($column_groups as $cg) { 
-  if( $cg['checked'] == 0 ) continue;
-  if( !$cg['access'] ) continue;
+foreach($url as $k=>$v) {
+  if( $v['access'] ) {
 ?>
-<li class="<?php echo ($cg['url_key']==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($cg['uri']); ?>"><?php echo $cg['name']; ?></a></li>
-<?php } ?>
+  <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($v['uri']) . (($this->input->get('next')) ? '?next=' . $this->input->get('next') : ''); ?>"><?php echo $v['title']; ?></a></li>
+<?php } } ?>
+
+          </ul>
+</li>
+
+<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Payroll Settings <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+
+<?php 
+$url = array();
+$url['employees_salaries'] = array('uri' => 'employees_salaries/view/' . $name->id, 'title'=>'Basic Salary', 'access'=>hasAccess('employees', 'employees', 'view'));
+$url['employees_earnings'] = array('uri' => 'employees_earnings/view/' . $name->id, 'title'=>'Earnings', 'access'=>hasAccess('employees', 'employees', 'view'));
+$url['employees_benefits'] = array('uri' => 'employees_benefits/view/' . $name->id, 'title'=>'Benefits', 'access'=>hasAccess('employees', 'employees', 'view'));
+$url['employees_deductions'] = array('uri' => 'employees_deductions/view/' . $name->id, 'title'=>'Deductions', 'access'=>hasAccess('employees', 'employees', 'view'));
+
+foreach($url as $k=>$v) {
+  if( $v['access'] ) {
+?>
+  <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($v['uri']) . (($this->input->get('next')) ? '?next=' . $this->input->get('next') : ''); ?>"><?php echo $v['title']; ?></a></li>
+<?php } } ?>
+
+          </ul>
+</li>
+
+<li class="dropdown <?php echo (in_array($current_uri, array('payroll_dtr','payroll_salaries', 'payroll_earnings', 'payroll_benefits', 'payroll_deductions') )) ? 'active' : ''; ?>">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Payroll History <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+
+<?php 
+$url = array();
+$url['payroll_dtr'] = array('uri' => 'payroll_dtr/by_name/' . $name->id, 'title'=>'DTR', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+$url['payroll_salaries'] = array('uri' => 'payroll_salaries/by_name/' . $name->id, 'title'=>'Basic Salary', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+$url['payroll_earnings'] = array('uri' => 'payroll_earnings/by_name/' . $name->id, 'title'=>'Earnings', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+$url['payroll_benefits'] = array('uri' => 'payroll_benefits/by_name/' . $name->id, 'title'=>'Benefits', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+$url['payroll_deductions'] = array('uri' => 'payroll_deductions/by_name/' . $name->id, 'title'=>'Deductions', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+
+foreach($url as $k=>$v) {
+  if( $v['access'] ) {
+?>
+  <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($v['uri']) . (($this->input->get('next')) ? '?next=' . $this->input->get('next') : ''); ?>"><?php echo $v['title']; ?></a></li>
+<?php } } ?>
+
+          </ul>
+</li>
 
       </ul>
     </div><!-- /.navbar-collapse -->

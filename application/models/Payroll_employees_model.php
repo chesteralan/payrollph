@@ -22,7 +22,7 @@ CREATE TABLE `payroll_employees` (
   `presence` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name_id` (`payroll_id`,`name_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `payroll_employees` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `payroll_employees` ADD  `payroll_id` int(20) NOT NULL   ;
@@ -41,7 +41,7 @@ ALTER TABLE  `payroll_employees` ADD  `presence` int(1) NOT NULL   DEFAULT '0';
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -96,6 +96,10 @@ class Payroll_employees_model extends MY_Model {
 	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
@@ -105,6 +109,11 @@ class Payroll_employees_model extends MY_Model {
 	public function getId() {
 		return $this->id;
 	}
+
+	public function get_id_value() {
+		return $this->id;
+	}
+
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -119,6 +128,10 @@ class Payroll_employees_model extends MY_Model {
 	public function setPayrollId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('payroll_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_payroll_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('payroll_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `payroll_id` variable
@@ -128,6 +141,11 @@ class Payroll_employees_model extends MY_Model {
 	public function getPayrollId() {
 		return $this->payroll_id;
 	}
+
+	public function get_payroll_id_value() {
+		return $this->payroll_id;
+	}
+
 	
 // ------------------------------ End Field: payroll_id --------------------------------------
 
@@ -142,6 +160,10 @@ class Payroll_employees_model extends MY_Model {
 	public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_name_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name_id` variable
@@ -151,6 +173,11 @@ class Payroll_employees_model extends MY_Model {
 	public function getNameId() {
 		return $this->name_id;
 	}
+
+	public function get_name_id_value() {
+		return $this->name_id;
+	}
+
 	
 // ------------------------------ End Field: name_id --------------------------------------
 
@@ -165,6 +192,10 @@ class Payroll_employees_model extends MY_Model {
 	public function setOrder($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('order', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_order_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('order', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `order` variable
@@ -174,6 +205,11 @@ class Payroll_employees_model extends MY_Model {
 	public function getOrder() {
 		return $this->order;
 	}
+
+	public function get_order_value() {
+		return $this->order;
+	}
+
 	
 // ------------------------------ End Field: order --------------------------------------
 
@@ -188,6 +224,10 @@ class Payroll_employees_model extends MY_Model {
 	public function setPayslip($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('payslip', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_payslip_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('payslip', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `payslip` variable
@@ -197,6 +237,11 @@ class Payroll_employees_model extends MY_Model {
 	public function getPayslip() {
 		return $this->payslip;
 	}
+
+	public function get_payslip_value() {
+		return $this->payslip;
+	}
+
 	
 // ------------------------------ End Field: payslip --------------------------------------
 
@@ -211,6 +256,10 @@ class Payroll_employees_model extends MY_Model {
 	public function setTemplate($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('template', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_template_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('template', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `template` variable
@@ -220,6 +269,11 @@ class Payroll_employees_model extends MY_Model {
 	public function getTemplate() {
 		return $this->template;
 	}
+
+	public function get_template_value() {
+		return $this->template;
+	}
+
 	
 // ------------------------------ End Field: template --------------------------------------
 
@@ -234,6 +288,10 @@ class Payroll_employees_model extends MY_Model {
 	public function setPrintGroup($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('print_group', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_print_group_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('print_group', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `print_group` variable
@@ -243,6 +301,11 @@ class Payroll_employees_model extends MY_Model {
 	public function getPrintGroup() {
 		return $this->print_group;
 	}
+
+	public function get_print_group_value() {
+		return $this->print_group;
+	}
+
 	
 // ------------------------------ End Field: print_group --------------------------------------
 
@@ -257,6 +320,10 @@ class Payroll_employees_model extends MY_Model {
 	public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_active_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `active` variable
@@ -266,6 +333,11 @@ class Payroll_employees_model extends MY_Model {
 	public function getActive() {
 		return $this->active;
 	}
+
+	public function get_active_value() {
+		return $this->active;
+	}
+
 	
 // ------------------------------ End Field: active --------------------------------------
 
@@ -280,6 +352,10 @@ class Payroll_employees_model extends MY_Model {
 	public function setStatusId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('status_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_status_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('status_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `status_id` variable
@@ -289,6 +365,11 @@ class Payroll_employees_model extends MY_Model {
 	public function getStatusId() {
 		return $this->status_id;
 	}
+
+	public function get_status_id_value() {
+		return $this->status_id;
+	}
+
 	
 // ------------------------------ End Field: status_id --------------------------------------
 
@@ -303,6 +384,10 @@ class Payroll_employees_model extends MY_Model {
 	public function setGroupId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('group_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_group_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('group_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `group_id` variable
@@ -312,6 +397,11 @@ class Payroll_employees_model extends MY_Model {
 	public function getGroupId() {
 		return $this->group_id;
 	}
+
+	public function get_group_id_value() {
+		return $this->group_id;
+	}
+
 	
 // ------------------------------ End Field: group_id --------------------------------------
 
@@ -326,6 +416,10 @@ class Payroll_employees_model extends MY_Model {
 	public function setPositionId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('position_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_position_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('position_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `position_id` variable
@@ -335,6 +429,11 @@ class Payroll_employees_model extends MY_Model {
 	public function getPositionId() {
 		return $this->position_id;
 	}
+
+	public function get_position_id_value() {
+		return $this->position_id;
+	}
+
 	
 // ------------------------------ End Field: position_id --------------------------------------
 
@@ -349,6 +448,10 @@ class Payroll_employees_model extends MY_Model {
 	public function setAreaId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('area_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_area_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('area_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `area_id` variable
@@ -358,6 +461,11 @@ class Payroll_employees_model extends MY_Model {
 	public function getAreaId() {
 		return $this->area_id;
 	}
+
+	public function get_area_id_value() {
+		return $this->area_id;
+	}
+
 	
 // ------------------------------ End Field: area_id --------------------------------------
 
@@ -372,6 +480,10 @@ class Payroll_employees_model extends MY_Model {
 	public function setManual($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('manual', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_manual_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('manual', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `manual` variable
@@ -381,6 +493,11 @@ class Payroll_employees_model extends MY_Model {
 	public function getManual() {
 		return $this->manual;
 	}
+
+	public function get_manual_value() {
+		return $this->manual;
+	}
+
 	
 // ------------------------------ End Field: manual --------------------------------------
 
@@ -395,6 +512,10 @@ class Payroll_employees_model extends MY_Model {
 	public function setPresence($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('presence', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_presence_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('presence', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `presence` variable
@@ -404,6 +525,11 @@ class Payroll_employees_model extends MY_Model {
 	public function getPresence() {
 		return $this->presence;
 	}
+
+	public function get_presence_value() {
+		return $this->presence;
+	}
+
 	
 // ------------------------------ End Field: presence --------------------------------------
 
@@ -559,11 +685,44 @@ class Payroll_employees_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setId() - id
+//setPayrollId() - payroll_id
+//setNameId() - name_id
+//setOrder() - order
+//setPayslip() - payslip
+//setTemplate() - template
+//setPrintGroup() - print_group
+//setActive() - active
+//setStatusId() - status_id
+//setGroupId() - group_id
+//setPositionId() - position_id
+//setAreaId() - area_id
+//setManual() - manual
+//setPresence() - presence
 
+--------------------------------------
+
+//set_id() - id
+//set_payroll_id() - payroll_id
+//set_name_id() - name_id
+//set_order() - order
+//set_payslip() - payslip
+//set_template() - template
+//set_print_group() - print_group
+//set_active() - active
+//set_status_id() - status_id
+//set_group_id() - group_id
+//set_position_id() - position_id
+//set_area_id() - area_id
+//set_manual() - manual
+//set_presence() - presence
+
+*/
 /* End of file Payroll_employees_model.php */
 /* Location: ./application/models/Payroll_employees_model.php */

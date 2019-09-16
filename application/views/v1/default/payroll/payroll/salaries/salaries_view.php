@@ -37,6 +37,7 @@
 $total_basic_salary = 0; 
 $total_absences = 0;
 $total_net_pay = 0; 
+$total_overtime = 0; 
 $total_leave_benefits = 0; 
 $total_gross_pay = 0; 
 ?>
@@ -91,7 +92,8 @@ $total_gross_pay = 0;
                 <th width="10%" class="text-right">COLA</th>
                 <th width="10%" class="text-right">Absences</th>
                 <th width="10%" class="text-right">Net Salary</th>
-                <th width="10%" class="text-right">Leave Benefits</th>
+                <th width="10%" class="text-right">Overtime</th>
+                <!--<th width="10%" class="text-right">Leave Benefits</th>-->
                 <th width="10%" class="text-right">Gross Salary</th>
               </tr>
             </thead>
@@ -103,10 +105,12 @@ $working_hours = ($employee->working_hours) ? $employee->working_hours : 8;
 $days_absent = ($employee->absences_hours) ? ($employee->absences_hours / $working_hours) : 0;
 $days_benefits = ($employee->leave_benefits) ? ($employee->leave_benefits / $working_hours) : 0;
 $days_present = ($employee->attendance_hours) ? ($employee->attendance_hours / $working_hours) : 0;
+$days_overtime = ($employee->overtime) ? (($employee->overtime / 60) / $working_hours) : 0;
+
 if( $employee->pe_presence ) {
   $present_days = $employee->attendance;
 } else {
-  $present_days = $inclusive_dates->working_days - $days_absent;
+  $present_days = ($inclusive_dates->working_days - $days_absent) + $days_overtime;
 }
 $monthly_rate = 0;
 $daily_rate = 0;
@@ -115,6 +119,7 @@ $cola_rate = 0;
 $absences = 0;
 $basic_salary = 0;
 $addon_benefits = 0;
+$overtime = 0;
 
 if( $employee->salary ) {
   $salary = $employee->salary;
@@ -137,7 +142,8 @@ if( $employee->salary ) {
   }
   $cola_rate = (isset($salary)) ? $salary->cola : 0;
   $absences = $days_absent * $daily_rate;
-  $addon_benefits = $days_benefits * $daily_rate;
+  $overtime = $days_overtime * $daily_rate;
+  //$addon_benefits = $days_benefits * $daily_rate;
 
   if( $employee->pe_presence ) {
     switch( $salary->manner ) {
@@ -181,7 +187,8 @@ $total_basic_salary += $basic_salary;
 $cola = ($cola_rate * $present_days);
 $employee_net_pay = (($basic_salary + $cola) - $absences);
 $total_net_pay += $employee_net_pay; 
-$employee_gross_pay = $employee_net_pay + $addon_benefits;
+$total_overtime += $overtime; 
+$employee_gross_pay = $employee_net_pay + $addon_benefits + $overtime;
 $total_gross_pay += $employee_gross_pay; 
 
 ?>
@@ -197,7 +204,8 @@ $total_gross_pay += $employee_gross_pay;
 <?php if(!$payroll->lock) { ?>
 <?php if(!$employee->manual) { ?>
 
-                <a class="ajax-modal pull-right" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Employee Salary" data-url="<?php echo site_url("employees_salaries/ajax/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-cog"></span></a>
+                <a href="<?php echo site_url("employees_salaries/view/{$employee->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper pull-right"><span class="glyphicon glyphicon-cog"></span></a>
+
 <?php } ?>
 <?php } ?>
                 </td>
@@ -217,7 +225,8 @@ $total_gross_pay += $employee_gross_pay;
                 <td class="text-right"><?php echo number_format($cola,2); ?></td>
                 <td class="text-right">(<?php echo number_format($absences,2); ?>)</td>
                 <td class="text-right"><?php echo number_format($employee_net_pay,2); ?></td>
-                <td class="text-right"><?php echo number_format($addon_benefits,2); ?></td>
+                <td class="text-right"><?php echo number_format($overtime,2); ?></td>
+                <!--<td class="text-right"><?php echo number_format($addon_benefits,2); ?></td>-->
                 <td class="text-right"><?php echo number_format($employee_gross_pay,2); ?></td>
               </tr>
 <?php } ?>
@@ -236,7 +245,8 @@ $total_gross_pay += $employee_gross_pay;
                 <th width="10%" class="text-right">COLA</th>
                 <th width="10%" class="text-right">Absences</th>
                 <th width="10%" class="text-right">Net Salary</th>
-                <th width="10%" class="text-right">Leave Benefits</th>
+                <th width="10%" class="text-right">Overtime</th>
+                <!--<th width="10%" class="text-right">Leave Benefits</th>-->
                 <th width="10%" class="text-right">Gross Salary</th>
               </tr>
             </thead>
@@ -248,7 +258,8 @@ $total_gross_pay += $employee_gross_pay;
                 <td class="text-right"></td>
                 <td class="text-right"><strong>(<?php echo number_format($total_absences,2); ?>)</strong></td>
                 <td class="text-right"><strong><?php echo number_format($total_net_pay,2); ?></strong></td>
-                <td class="text-right"><strong><?php echo number_format($total_leave_benefits,2); ?></strong></td>
+                <td class="text-right"><strong><?php echo number_format($total_overtime,2); ?></strong></td>
+                <!--<td class="text-right"><strong><?php echo number_format($total_leave_benefits,2); ?></strong></td>-->
                 <td class="text-right"><strong><?php echo number_format($total_gross_pay,2); ?></strong></td>
   </tr>
             </tbody>

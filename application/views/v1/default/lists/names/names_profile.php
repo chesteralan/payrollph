@@ -27,13 +27,11 @@ return <<<HTML
       <div class="form-control">{$name->middlename}</div>
     </div>
   </div>
-</div>
 
-<div class="row">
   <div class="col-md-4">
     <div class="form-group">
       <label>Birthday</label>
-      <div class="form-control">{$birthday}</div>
+      <div class="form-control">{$birthday} ({$name->age} years old)</div>
     </div>
   </div>
   <div class="col-md-4">
@@ -42,15 +40,7 @@ return <<<HTML
       <div class="form-control">{$name->birthplace}</div>
     </div>
   </div>
-  <div class="col-md-4">
-    <div class="form-group">
-      <label>Age</label>
-      <div class="form-control">{$name->age} years old</div>
-    </div>
-  </div>
-</div>
 
-<div class="row">
   <div class="col-md-4">
     <div class="form-group">
       <label>Civil Status</label>
@@ -265,6 +255,7 @@ HTML;
 
 function employment($employee) { 
   $date_hired = date('F d, Y', strtotime($employee->hired));
+  $date_regularized = date('F d, Y', strtotime($employee->regularized));
 return <<<HTML
 <div class="row">
   <div class="col-md-3">
@@ -276,25 +267,16 @@ return <<<HTML
   <div class="col-md-3">
     <div class="form-group">
       <label>Date Hired</label>
-      <div class="form-control">{$date_hired}</div>
+      <div class="form-control">{$date_hired} ({$employee->hired_years} years)</div>
     </div>
   </div>
   <div class="col-md-3">
     <div class="form-group">
-      <label>Years of Service</label>
-      <div class="form-control">{$employee->years_service} years</div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="form-group">
-      <label>Dated Regularized</label>
-      <div class="form-control">{$employee->area_name}</div>
+      <label>Date Regularized</label>
+      <div class="form-control">{$date_regularized} ({$employee->regularized_years} years)</div>
     </div>
   </div>
 
-</div>
-
-<div class="row">
   <div class="col-md-3">
     <div class="form-group">
       <label>Group</label>
@@ -337,7 +319,14 @@ HTML;
 
 <div class="container">
     <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-3">
+              
+<div class="panel panel-default">
+<div class="panel-body"></div>
+</div>
+
+            </div>
+            <div class="col-md-9">
 <?php endif; ?>
 <?php endif; ?>
 
@@ -375,14 +364,7 @@ $modules[] = array(
     'panel_body' => address_contacts($name),
     'open' => ($this->input->get('active')==='contacts'),
   );
-$modules[] = array(
-  'id' => 'social_media_accounts',
-    'title'=>'Social Media Accounts',
-    'title_ajax'=>'Social Media Accounts',
-    'config_url' => site_url("lists_names/update_social_media/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
-    'panel_body' => social_media($name),
-    'open' => ($this->input->get('active')==='social_media'),
-  );
+
 $modules[] = array(
   'id' => 'identification_numbers',
     'title'=>'Identification Numbers',
@@ -391,6 +373,7 @@ $modules[] = array(
     'panel_body' => ids($name),
     'open' => ($this->input->get('active')==='ids'),
   );
+
 
 $modules[] = array(
   'id' => 'emergency_contacts',
@@ -402,6 +385,16 @@ $modules[] = array(
   );
 
 $modules[] = array(
+  'id' => 'social_media_accounts',
+    'title'=>'Social Media Accounts',
+    'title_ajax'=>'Social Media Accounts',
+    'config_url' => site_url("lists_names/update_social_media/{$name->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()),
+    'panel_body' => social_media($name),
+    'open' => ($this->input->get('active')==='social_media'),
+  );
+
+/*
+$modules[] = array(
   'id' => 'security_guard_license',
     'title'=>'Security Guard License',
     'title_ajax'=>'Security Guard License',
@@ -409,7 +402,8 @@ $modules[] = array(
     'panel_body' => security_guard_license($name),
     'open' => ($this->input->get('active')==='security_guard_license'),
   );
-
+*/
+  
 $profile_modules = $this->config->item('profile_modules');
 
 foreach($modules as $i=>$content) {  

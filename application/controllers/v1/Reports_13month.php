@@ -22,11 +22,6 @@ class Reports_13month extends MY_Controller {
 		$this->template_data->set('filter_year', $filter_year);
 
 		$employees = new $this->Payroll_employees_model('e');
-		if( $this->input->get('q') ) {
-			$employees->set_where('(ni.lastname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
-			$employees->set_where_or('ni.firstname LIKE "%' . $this->input->get('q') . '%"', NULL, 99);
-			$employees->set_where_or('ni.middlename LIKE "%' . $this->input->get('q') . '%")', NULL, 99);
-		}
 
 		//$employees->setCompanyId($this->session->userdata('current_company_id'),true);
 		
@@ -77,8 +72,6 @@ class Reports_13month extends MY_Controller {
 		$payroll_years->set_order('year', 'DESC');
 		$payroll_years->set_limit(0);
 		$this->template_data->set('payroll_years', $payroll_years->populate());
-
-
 
 		$this->load->view('reports/13month/13month_view', $this->template_data->get_data());
 	}

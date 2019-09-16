@@ -20,7 +20,7 @@ ALTER TABLE  `account_sessions` ADD  `data` blob NOT NULL   ;
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -65,6 +65,10 @@ class Account_sessions_model extends MY_Model {
 	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
@@ -74,6 +78,11 @@ class Account_sessions_model extends MY_Model {
 	public function getId() {
 		return $this->id;
 	}
+
+	public function get_id_value() {
+		return $this->id;
+	}
+
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -88,6 +97,10 @@ class Account_sessions_model extends MY_Model {
 	public function setIpAddress($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('ip_address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_ip_address_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('ip_address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `ip_address` variable
@@ -97,6 +110,11 @@ class Account_sessions_model extends MY_Model {
 	public function getIpAddress() {
 		return $this->ip_address;
 	}
+
+	public function get_ip_address_value() {
+		return $this->ip_address;
+	}
+
 	
 // ------------------------------ End Field: ip_address --------------------------------------
 
@@ -111,6 +129,10 @@ class Account_sessions_model extends MY_Model {
 	public function setTimestamp($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('timestamp', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_timestamp_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('timestamp', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `timestamp` variable
@@ -120,6 +142,11 @@ class Account_sessions_model extends MY_Model {
 	public function getTimestamp() {
 		return $this->timestamp;
 	}
+
+	public function get_timestamp_value() {
+		return $this->timestamp;
+	}
+
 	
 // ------------------------------ End Field: timestamp --------------------------------------
 
@@ -134,6 +161,10 @@ class Account_sessions_model extends MY_Model {
 	public function setData($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('data', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_data_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('data', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `data` variable
@@ -143,6 +174,11 @@ class Account_sessions_model extends MY_Model {
 	public function getData() {
 		return $this->data;
 	}
+
+	public function get_data_value() {
+		return $this->data;
+	}
+
 	
 // ------------------------------ End Field: data --------------------------------------
 
@@ -198,11 +234,24 @@ class Account_sessions_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setId() - id
+//setIpAddress() - ip_address
+//setTimestamp() - timestamp
+//setData() - data
 
+--------------------------------------
+
+//set_id() - id
+//set_ip_address() - ip_address
+//set_timestamp() - timestamp
+//set_data() - data
+
+*/
 /* End of file Account_sessions_model.php */
 /* Location: ./application/models/Account_sessions_model.php */

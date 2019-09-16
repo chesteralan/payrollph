@@ -42,6 +42,8 @@
 <div class="btn-group" role="group" aria-label="..." style="margin-bottom: 5px;">
   <button class="btn btn-default btn-xs accordion-sort-asc" data-sortable="sortable" type="button"><span class="glyphicon glyphicon-sort-by-alphabet"></span></button> 
   <button class="btn btn-default btn-xs accordion-sort-desc" data-sortable="sortable" type="button"><span class="glyphicon glyphicon-sort-by-alphabet-alt"></span></button> 
+
+  <a class="btn btn-default btn-xs  ajax-modal-inner" href="<?php echo site_url("payroll/add_employee2/{$payroll->id}/{$output}") . "?next=" . $this->input->get("next"); ?>"><span class="glyphicon glyphicon-plus"></span> <span class="glyphicon glyphicon-user"></span></a> 
 </div>
 
 <?php /*

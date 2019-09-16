@@ -7,7 +7,7 @@ if( $not_available_days ) foreach ($not_available_days as $nad) {
 
 /* draws a calendar */
 function draw_calendar($month,$year,$inclusive_dates,$not_available_days){
-
+$CI = get_instance();
   $inc_dates = array();
   if( $inclusive_dates ) {
     foreach($inclusive_dates as $idate)
@@ -49,25 +49,25 @@ function draw_calendar($month,$year,$inclusive_dates,$not_available_days){
       $working_day = true;
       switch ($running_day) {
         case '0':
-          $working_day = WORK_ON_SUN;
+          $working_day = (get_company_option($CI->session->userdata('current_company_id'), 'work_on_sun') == 1); //WORK_ON_SUN;
           break;
         case '1':
-          $working_day = WORK_ON_MON;
+          $working_day = (get_company_option($CI->session->userdata('current_company_id'), 'work_on_mon') == 1); //WORK_ON_MON;
           break;
         case '2':
-          $working_day = WORK_ON_TUE;
+          $working_day = (get_company_option($CI->session->userdata('current_company_id'), 'work_on_tue') == 1); //WORK_ON_TUE;
           break;
         case '3':
-          $working_day = WORK_ON_WED;
+          $working_day = (get_company_option($CI->session->userdata('current_company_id'), 'work_on_wed') == 1); //WORK_ON_WED;
           break;
         case '4':
-          $working_day = WORK_ON_THU;
+          $working_day = (get_company_option($CI->session->userdata('current_company_id'), 'work_on_thu') == 1); //WORK_ON_THU;
           break;
         case '5':
-          $working_day = WORK_ON_FRI;
+          $working_day = (get_company_option($CI->session->userdata('current_company_id'), 'work_on_fri') == 1); //WORK_ON_FRI;
           break;
         case '6':
-          $working_day = WORK_ON_SAT;
+          $working_day = (get_company_option($CI->session->userdata('current_company_id'), 'work_on_sat') == 1); //WORK_ON_SAT;
           break;
       }
 

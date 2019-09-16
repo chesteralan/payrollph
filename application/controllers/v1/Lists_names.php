@@ -93,9 +93,9 @@ class Lists_names extends MY_Controller {
 					}
                     
                     if( $name_id ) {
-                    	$url = site_url( $url ) . "?error_code=340&new_name=" . $name_id;
+                    	$url = site_url($url) . "?error_code=340&new_name=" . $name_id;
                     } else {
-                    	$url = site_url( $url ) . "?error_code=341";
+                    	$url = site_url($url) . "?error_code=341";
                     }
 
                     redirect( $url );
@@ -268,7 +268,8 @@ class Lists_names extends MY_Controller {
 			$employee->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position_name');
 			$employee->set_select('(SELECT name FROM employees_areas WHERE id=e.area_id) as area_name');
 			$employee->set_select('(SELECT name FROM terms_list WHERE id=e.status) as status_name');
-			$employee->set_select("(TIMESTAMPDIFF(YEAR, e.hired, CURDATE())) as years_service");
+			$employee->set_select("(TIMESTAMPDIFF(YEAR, e.hired, CURDATE())) as hired_years");
+			$employee->set_select("(TIMESTAMPDIFF(YEAR, e.regularized, CURDATE())) as regularized_years");
 			$this->template_data->set('employee', $employee->get());
 		}
 
@@ -622,37 +623,376 @@ class Lists_names extends MY_Controller {
 		$this->load->view('lists/names/names_birthdays', $this->template_data->get_data());
 	}
 
-	public function report($company_id=0) {
+	private function _report_columns($names, $columns) {
+					
+					$columns = ($columns) ? $columns : array();
+					
+					// personal info
+					$names->set_select('ni.*');
+					if( in_array('age', $columns)) {
+						$names->set_select("(TIMESTAMPDIFF(YEAR, ni.birthday, CURDATE())) as age");
+					}
+
+					// employment info
+					if( in_array('emp_group', $columns)) {
+						$names->set_select('(SELECT name FROM employees_groups WHERE id=e.group_id) as group_name');
+					}
+					if( in_array('emp_position', $columns)) {
+						$names->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position_name');
+					}
+					if( in_array('emp_area', $columns)) {
+						$names->set_select('(SELECT name FROM employees_areas WHERE id=e.area_id) as area_name');
+					}
+					if( in_array('emp_status', $columns)) {
+						$names->set_select('(SELECT name FROM terms_list WHERE id=e.status) as status_name');
+					}
+					if( in_array('emp_company', $columns)) {
+						$names->set_select("(SELECT name FROM companies_list c WHERE c.id=(SELECT e.company_id FROM employees e WHERE e.name_id=nl.id)) as company");
+					}
+
+					if( in_array('contact_address', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="address") as address');
+					}
+					if( in_array('contact_email', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="email") as email');
+					}
+					if( in_array('contact_phone', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="phone_number") as phone_number');
+					}
+					if( in_array('contact_smart', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="cell_smart") as cell_smart');
+					}
+					if( in_array('contact_globe', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="cell_globe") as cell_globe');
+					}
+					if( in_array('contact_sun', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="cell_sun") as cell_sun');
+					}
+
+					if( in_array('sm_facebook', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="facebook_id") as facebook_id');
+					}
+					if( in_array('sm_twitter', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="twitter_id") as twitter_id');
+					}
+					if( in_array('sm_instagram', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="instagram_id") as instagram_id');
+					}
+					if( in_array('sm_skype', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="skype_id") as skype_id');
+					}
+					if( in_array('sm_yahoo', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="yahoo_id") as yahoo_id');
+					}
+					if( in_array('sm_google', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="google_id") as google_id');
+					}
+
+					if( in_array('idn_tin', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="tin") as tin');
+					}
+					if( in_array('idn_sss', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="sss") as sss');
+					}
+					if( in_array('idn_hdmf', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="hdmf") as hdmf');
+					}
+					if( in_array('idn_phic', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="phic") as phic');
+					}
+					if( in_array('idn_driver', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="drivers_license") as drivers_license');
+					}
+					if( in_array('idn_voter', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="voters_number") as voters_number');
+					}
+
+					if( in_array('emergency_name', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="emergency_name") as emergency_name');
+					}
+					if( in_array('emergency_address', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="emergency_address") as emergency_address');
+					}
+					if( in_array('emergency_number', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="emergency_contact") as emergency_contact');
+					}
+					if( in_array('emergency_rel', $columns)) {
+						$names->set_select('(SELECT nm.meta_value FROM  names_meta nm WHERE nm.name_id=e.name_id AND nm.meta_key="emergency_relationship") as emergency_relationship');
+					}
+					return $names;
+	}
+
+	public function report($page='config', $output='') {
+	
+		$this->template_data->set('page', $page);
+		$this->template_data->set('output', $output);
+
+		switch( $page ) {
+			case 'display':
+				
+				$names = new $this->Names_list_model('nl');
+				$names->setTrash(0, true);
+				$names->set_select("nl.*");
+				$names->set_select("nl.id as ni_name_id");
+				$names->set_order('nl.full_name', 'ASC');
+				$names->set_limit(0);
+				$names->set_join("names_info ni", 'ni.name_id=nl.id');
+				$names->set_join("employees e", 'e.name_id=nl.id');
+
+				$this->_report_columns($names, $this->input->get('columns'));
+
+				$this->template_data->set('names', $names->populate());
+				
+				$this->load->view('lists/names/names_report_display', $this->template_data->get_data());
+			break;
+			case 'download':
+				if($this->input->get('employee')) {
+					
+					$employees->set_select('e.*');
+
+					$this->_employee_columns($employees, $this->input->get('columns'));
+
+					$employees->set_where_in('e.name_id', $this->input->get('employee'));
+					$this->template_data->set('employees', $employees->populate());
+				}
+
+				$company = new $this->Companies_list_model;
+				$company->setId($this->session->userdata('current_company_id'),true);
+				$company_data = $company->get();
+				$filename = url_title($company_data->name)."-Employees-Report.xls";
+
+				$this->output->set_content_type('application/vnd-ms-excel');
+				$this->output->set_header('Content-Disposition: attachment; filename=' . $filename);
+				$this->load->view('lists/names/names_report_xls', $this->template_data->get_data());
+			break;
+			case 'config':
+			default:
+
+				if($this->input->post()) {
+					redirect( site_url("lists_names/report/display") . "?" . http_build_query($this->input->post()) );
+					exit;
+				}
 /*
-		$companies = new $this->Companies_list_model;
-		$companies->set_select("*");
-		$companies->set_order('name', 'ASC');
-		$companies->set_limit(0);
-		$companies->setTrash('0',true);
-		$this->template_data->set('companies', $companies->populate());
+				$companies = new $this->Companies_list_model;
+				$companies->set_select("*");
+				$companies->set_order('name', 'ASC');
+				$companies->set_limit(0);
+				$companies->setTrash('0',true);
+				$this->template_data->set('companies', $companies->populate());
 */
-		$names = new $this->Names_list_model('nl');
-		$names->setTrash(0, true);
-		$names->set_select("nl.*");
-		$names->set_select("ni.*");
-		$names->set_select("ni.name_id as ni_name_id");
-		$names->set_select("(SELECT e.company_id FROM employees e WHERE e.name_id=nl.id) as company_id");
-		$names->set_select("(SELECT name FROM companies_list c WHERE c.id=(SELECT e.company_id FROM employees e WHERE e.name_id=nl.id)) as company");
-		$names->set_join("names_info ni", 'ni.name_id=nl.id');
-		$names->set_select("(TIMESTAMPDIFF(YEAR, ni.birthday, CURDATE())) as age");
-		$names->set_order('nl.full_name', 'ASC');
-		$names->set_limit(0);
+				$this->load->view('lists/names/names_report_config', $this->template_data->get_data());
+			break;
+		}
 
-		// meta
-		$names->set_select("(SELECT m.meta_value FROM names_meta m WHERE m.name_id=nl.id AND m.meta_key='address') as meta_address");
-		$names->set_select("(SELECT m.meta_value FROM names_meta m WHERE m.name_id=nl.id AND m.meta_key='phone_number') as meta_phone_number");
-		$names->set_select("(SELECT m.meta_value FROM names_meta m WHERE m.name_id=nl.id AND m.meta_key='cell_smart') as meta_cell_smart");
-		$names->set_select("(SELECT m.meta_value FROM names_meta m WHERE m.name_id=nl.id AND m.meta_key='cell_globe') as meta_cell_globe");
-		$names->set_select("(SELECT m.meta_value FROM names_meta m WHERE m.name_id=nl.id AND m.meta_key='cell_sun') as meta_cell_sun");
+	}
 
-		$this->template_data->set('names', $names->populate());
 
-		$this->load->view('lists/names/names_report', $this->template_data->get_data());
+	public function import($output="") {
+
+				$config['upload_path'] = './uploads/';
+                $config['allowed_types'] = 'csv';
+                $config['max_size'] = 600;
+
+                $this->load->library('upload', $config);
+
+                if ( ! $this->upload->do_upload('import_file') )
+                {
+                        //$error = array('error' => $this->upload->display_errors());
+
+                        $this->template_data->set('output', $output);
+						$this->load->view('lists/names/names_import', $this->template_data->get_data());
+
+                }
+                else
+                {
+                        $upload_data = $this->upload->data();
+
+                        record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'import', $this->session->userdata('current_company_id'), "Import CSV File: " . $upload_data['file_name'], "");
+
+                        $this->_process_csv_file( $upload_data['full_path'] );
+
+                        unlink( $upload_data['full_path'] );
+                        $this->getNext();
+                }
+
+		
+	}
+
+	private function _process_csv_file($csv_fullpath) {
+
+					$csv = array_map("str_getcsv", file( $csv_fullpath ));
+
+                        foreach($csv as $index => $line) {
+
+                        	if( $index == 0 ) {
+                        		continue;
+                        	}
+
+                        	$name_id = false;
+                        	if( empty($line[0]) ) {
+                        		if( !empty($line[1]) ) {
+		                        	$name = new $this->Names_list_model;
+									$name->setFullName($line[1], true);
+									$name->setAddress($line[2]);
+									$name->setContactNumber($line[3]);
+									$name->setTrash('0');
+									if( $name->nonEmpty() ) {
+										$name_data = $name->getResults();
+										$name_id = $name_data->id;
+									} else {
+										if( $name->insert() ) {
+											$name_id = $name->get_inserted_id();
+											record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'import', $this->session->userdata('current_company_id'), "Name Added: {$line[1]}", $name_id);
+										}
+										
+									}
+								}
+                        	} else {
+                        		$name_id = $line[0];
+                        		if( !empty($line[1]) ) {
+	                        		$name = new $this->Names_list_model;
+									$name->setId($line[0], true, false);
+									$name->setFullName($line[1], false, true);
+									if( !empty($line[2]) ) {
+										$name->setAddress($line[2],false,true);
+									}
+									if( !empty($line[3]) ) {
+										$name->setContactNumber($line[3],false,true);
+									}
+									if($name->nonEmpty() ) {
+										if( $name->update() ) {
+											//record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'import', $this->session->userdata('current_company_id'), "Name Updated: {$line[1]}", $name_id);
+										}
+									}
+								}
+                        	}
+
+                        	if( $name_id ) {
+
+                        		$info = new $this->Names_info_model;
+								$info->setNameId($name_id,true,true);
+
+								if( !empty($line[4]) ) {
+									$info->setLastname($line[4],false,true);
+								}
+								if( !empty($line[5]) ) {
+									$info->setFirstname($line[5],false,true);
+								}
+								if( !empty($line[6]) ) {
+									$info->setMiddlename($line[6],false,true);
+								}
+								if( !empty($line[7]) ) {
+									$info->setBirthday( date("Y-m-d", strtotime($line[7])),false,true);
+								}
+								if( !empty($line[8]) ) {
+									$info->setBirthplace($line[8],false,true);
+								}
+								if( !empty($line[9]) ) {
+									$info->setCivilStatus($line[9],false,true);
+								}
+								if( !empty($line[10]) ) {
+									$info->setGender($line[10],false,true);
+								}
+								if( !empty($line[11]) ) {
+									$info->setPrefix($line[11],false,true);
+								}
+								if( !empty($line[12]) ) {
+									$info->setSuffix($line[12],false,true);
+								}
+								if($info->nonEmpty() ) {
+									if( $info->update() ) {
+										//record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'import', $this->session->userdata('current_company_id'), "Profile Updated: {$line[1]}", $name_id);
+									}
+								} else {
+									if( $info->insert() ) {
+										//record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'import', $this->session->userdata('current_company_id'), "Profile Added: {$line[1]}", $name_id);
+									}
+								}
+
+								$array_keys = array(
+									2 => 'address',
+									13 => 'email',
+									14 => 'phone_number',
+									15 => 'cell_smart',
+									16 => 'cell_globe',
+									17 => 'cell_sun',
+									18 => 'tin', // ID-TIN
+									19 => 'sss', // ID-SSS
+									20 => 'phic', //ID-PHIC
+									21 => 'hdmf', //ID-HDMF
+									22 => 'drivers_license', //ID-Drivers
+									23 => 'voters_number', //ID-Voters
+									24 => 'emergency_name', // Emergency-Name
+									25 => 'emergency_address', // Emergency-Address
+									26 => 'emergency_contact', // Emergency-Phone
+									27 => 'emergency_relationship', // Emergency-Relationship
+									28 => 'facebook_id', // Facebook ID
+									29 => 'twitter_id', // Twitter ID
+									30 => 'instagram_id', // Instagram ID
+									31 => 'skype_id', // Skype ID
+									32 => 'yahoo_id', // Yahoo ID
+									33 => 'google_id', // Google ID
+								);
+
+								foreach($array_keys as $index => $key) {
+									if( !empty($line[$index]) ) {
+										$this->_save_name_meta($name_id, $key, $line[$index]);
+									}
+								}
+								/*
+								if( !empty($line[2]) ) {
+									$this->_save_name_meta($name_id, 'address', $line[2]);
+								}
+                        		if( !empty($line[13]) ) {
+                        			$this->_save_name_meta($name_id, 'email', $line[13]);
+                        		}
+                        		if( !empty($line[14]) ) {
+                        			$this->_save_name_meta($name_id, 'phone_number', $line[14]);
+                        		}
+                        		if( !empty($line[15]) ) {
+                        			$this->_save_name_meta($name_id, 'cell_smart', $line[15]);
+                        		}
+                        		if( !empty($line[16]) ) {
+                        			$this->_save_name_meta($name_id, 'cell_globe', $line[16]);
+                        		}
+                        		if( !empty($line[17]) ) {
+                        			$this->_save_name_meta($name_id, 'cell_sun', $line[17]);
+                        		}
+                        		*/
+
+                        	}
+                        	
+                        }
+
+	}
+
+	private function _save_name_meta($name_id, $meta_key, $meta_value, $audit=false, $method='',$message='') {
+		$meta = new $this->Names_meta_model;
+		$meta->setNameId($name_id,true);
+		$meta->setMetaKey($meta_key,true);
+		if( !empty( $meta_value ) ) {
+			if( $meta->nonEmpty() ) {
+				$meta->setMetaValue($meta_value,false,true);
+				if( $meta->update() ) {
+					if( $audit ) {
+						record_system_audit($this->session->userdata('user_id'), 'lists', 'names', $method, $this->session->userdata('current_company_id'), $message, $name_id);
+					}
+				}
+			} else {
+				$meta->setMetaValue($meta_value);
+				if( $meta->insert() ) {
+					if( $audit ) {
+						record_system_audit($this->session->userdata('user_id'), 'lists', 'names', $method, $this->session->userdata('current_company_id'), $message, $name_id);
+					}
+				}
+			}
+		} else {
+			if( $meta->delete() ) {
+				if( $audit ) {
+					record_system_audit($this->session->userdata('user_id'), 'lists', 'names', $method, $this->session->userdata('current_company_id'), $message, $name_id);
+				}
+			}
+		}
 	}
 
 }

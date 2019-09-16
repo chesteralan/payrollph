@@ -25,6 +25,7 @@
     <h4 class="list-group-item-heading">Template Details</h4>
     <p class="list-group-item-text">Template Name</p>
   </a>
+<?php if( !$template->payroll_id ) { ?>
 <?php if( $template->groups_count > 0) { ?>
   <a data-target="#ajaxModal"  data-title="Employee Groups" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll_templates/groups/{$template->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Employee Groups</h4>
@@ -49,7 +50,7 @@
     <p class="list-group-item-text">Deductions</p>
   </a>
 <?php } ?>
- 
+ <?php } ?>
   <a data-target="#ajaxModal" data-title="Print Columns" class="list-group-item ajax-modal-inner" href="<?php echo site_url("payroll_templates/print_columns/{$template->id}/ajax") . "?next=" . $this->input->get('next'); ?>">
     <h4 class="list-group-item-heading">Print Columns</h4>
     <p class="list-group-item-text">Print Columns</p>

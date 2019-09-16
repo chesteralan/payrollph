@@ -52,6 +52,10 @@
             <input name="holiday_notes" type="text" class="form-control" value="<?php echo ($current_date) ? $current_date->notes : ''; ?>">
           </div>
 
+          <div class="form-group">
+            <label><input name="repeat_yearly" type="checkbox" value="1" <?php echo (($current_date) && ('1'==$current_date->repeat_yearly)) ? 'CHECKED' : ''; ?>> Repeat Yearly</label>
+          </div>
+
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
         </div>

@@ -28,7 +28,7 @@ ALTER TABLE  `companies_list` ADD  `trash` int(1) NULL   DEFAULT '0';
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -77,6 +77,10 @@ class Companies_list_model extends MY_Model {
 	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
@@ -86,6 +90,11 @@ class Companies_list_model extends MY_Model {
 	public function getId() {
 		return $this->id;
 	}
+
+	public function get_id_value() {
+		return $this->id;
+	}
+
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -100,6 +109,10 @@ class Companies_list_model extends MY_Model {
 	public function setTheme($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('theme', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_theme_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('theme', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `theme` variable
@@ -109,6 +122,11 @@ class Companies_list_model extends MY_Model {
 	public function getTheme() {
 		return $this->theme;
 	}
+
+	public function get_theme_value() {
+		return $this->theme;
+	}
+
 	
 // ------------------------------ End Field: theme --------------------------------------
 
@@ -123,6 +141,10 @@ class Companies_list_model extends MY_Model {
 	public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_name_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name` variable
@@ -132,6 +154,11 @@ class Companies_list_model extends MY_Model {
 	public function getName() {
 		return $this->name;
 	}
+
+	public function get_name_value() {
+		return $this->name;
+	}
+
 	
 // ------------------------------ End Field: name --------------------------------------
 
@@ -146,6 +173,10 @@ class Companies_list_model extends MY_Model {
 	public function setAddress($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_address_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `address` variable
@@ -155,6 +186,11 @@ class Companies_list_model extends MY_Model {
 	public function getAddress() {
 		return $this->address;
 	}
+
+	public function get_address_value() {
+		return $this->address;
+	}
+
 	
 // ------------------------------ End Field: address --------------------------------------
 
@@ -169,6 +205,10 @@ class Companies_list_model extends MY_Model {
 	public function setPhone($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('phone', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_phone_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('phone', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `phone` variable
@@ -178,6 +218,11 @@ class Companies_list_model extends MY_Model {
 	public function getPhone() {
 		return $this->phone;
 	}
+
+	public function get_phone_value() {
+		return $this->phone;
+	}
+
 	
 // ------------------------------ End Field: phone --------------------------------------
 
@@ -192,6 +237,10 @@ class Companies_list_model extends MY_Model {
 	public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_notes_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `notes` variable
@@ -201,6 +250,11 @@ class Companies_list_model extends MY_Model {
 	public function getNotes() {
 		return $this->notes;
 	}
+
+	public function get_notes_value() {
+		return $this->notes;
+	}
+
 	
 // ------------------------------ End Field: notes --------------------------------------
 
@@ -215,6 +269,10 @@ class Companies_list_model extends MY_Model {
 	public function setDefault($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('default', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_default_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('default', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `default` variable
@@ -224,6 +282,11 @@ class Companies_list_model extends MY_Model {
 	public function getDefault() {
 		return $this->default;
 	}
+
+	public function get_default_value() {
+		return $this->default;
+	}
+
 	
 // ------------------------------ End Field: default --------------------------------------
 
@@ -238,6 +301,10 @@ class Companies_list_model extends MY_Model {
 	public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_trash_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `trash` variable
@@ -247,6 +314,11 @@ class Companies_list_model extends MY_Model {
 	public function getTrash() {
 		return $this->trash;
 	}
+
+	public function get_trash_value() {
+		return $this->trash;
+	}
+
 	
 // ------------------------------ End Field: trash --------------------------------------
 
@@ -342,11 +414,32 @@ class Companies_list_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setId() - id
+//setTheme() - theme
+//setName() - name
+//setAddress() - address
+//setPhone() - phone
+//setNotes() - notes
+//setDefault() - default
+//setTrash() - trash
 
+--------------------------------------
+
+//set_id() - id
+//set_theme() - theme
+//set_name() - name
+//set_address() - address
+//set_phone() - phone
+//set_notes() - notes
+//set_default() - default
+//set_trash() - trash
+
+*/
 /* End of file Companies_list_model.php */
 /* Location: ./application/models/Companies_list_model.php */

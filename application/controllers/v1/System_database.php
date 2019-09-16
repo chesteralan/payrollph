@@ -51,7 +51,7 @@ class System_database extends MY_Controller {
 
 	private function _models() {
 		$models = array();
-		$models['account_sessions'] = 'Account_sessions_model';
+		//$models['account_sessions'] = 'Account_sessions_model';
 		$models['benefits_list'] = 'Benefits_list_model';
 		$models['calendar'] = 'Calendar_model';
 		$models['companies_list'] = 'Companies_list_model';

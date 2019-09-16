@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed');  ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +23,7 @@ tr:hover{
 
 <div class="print-topnav hide-print text-center allcaps">
   <a href="<?php echo site_url("payroll/select_payroll/{$payroll->id}"); ?>">Back</a>
-    &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/print"); ?>">Print</a>
+    &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/print"); ?>">Summary</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/payslip"); ?>">Payslip</a>
   &middot; <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/{$output}/{$current_page}"); ?>">All</a>
   <?php if(isset($print_groups)) foreach($print_groups as $pg) { ?>
@@ -32,7 +32,7 @@ tr:hover{
   &middot; <a href="<?php echo site_url("payroll_overall/config/{$payroll->id}") . "?next=" . uri_string(); ?>">Config</a>
 </div>
 
-<?php if($template->pages > 1) { ?>
+<?php if( ($template) && ($template->pages > 1)) { ?>
 <div class="print-topnav topnav2 hide-print text-center allcaps">
     <a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/{$print_group}/{$output}/1"); ?>">Page 1</a>
 <?php for($i=2;$i <= $template->pages; $i++) { ?>

@@ -74,8 +74,8 @@ if((!$this->input->get('show_all'))) {
 			'ajax'=>true,
 		)));
 
-		$this->template_data->set('next_item', $this->_next_name($id, 'employees_deductions/view/'));
-		$this->template_data->set('previous_item', $this->_previous_name($id, 'employees_deductions/view/'));
+		//$this->template_data->set('next_item', $this->_next_name($id, 'employees_deductions/view/'));
+		//$this->template_data->set('previous_item', $this->_previous_name($id, 'employees_deductions/view/'));
 		
 		$this->load->view('employees/employees/deductions/deductions_list', $this->template_data->get_data());
 	}

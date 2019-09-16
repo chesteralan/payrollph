@@ -304,10 +304,7 @@ class MY_Controller extends CI_Controller {
         $payroll->setId($payroll_id,true);
         if( $payroll->nonEmpty() ) {
             $this->session->set_userdata('current_payroll', $payroll->getResults() );
-            
-            //$this->session->set_userdata('employees_status', false);
-            //$this->session->set_userdata('current_employee', false );
-            
+                        
             if( get_company_option($this->session->userdata('current_company_id'), 'column_group_summary')) {
                 redirect("payroll_summary/view/{$payroll_id}");
             }

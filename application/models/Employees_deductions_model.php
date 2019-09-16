@@ -20,7 +20,7 @@ CREATE TABLE `employees_deductions` (
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`deduction_id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
 ALTER TABLE  `employees_deductions` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `employees_deductions` ADD  `company_id` int(20) NOT NULL   ;
@@ -36,7 +36,7 @@ ALTER TABLE  `employees_deductions` ADD  `notes` text NULL   ;
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -88,6 +88,10 @@ class Employees_deductions_model extends MY_Model {
 	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
@@ -97,6 +101,11 @@ class Employees_deductions_model extends MY_Model {
 	public function getId() {
 		return $this->id;
 	}
+
+	public function get_id_value() {
+		return $this->id;
+	}
+
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -111,6 +120,10 @@ class Employees_deductions_model extends MY_Model {
 	public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_company_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `company_id` variable
@@ -120,6 +133,11 @@ class Employees_deductions_model extends MY_Model {
 	public function getCompanyId() {
 		return $this->company_id;
 	}
+
+	public function get_company_id_value() {
+		return $this->company_id;
+	}
+
 	
 // ------------------------------ End Field: company_id --------------------------------------
 
@@ -134,6 +152,10 @@ class Employees_deductions_model extends MY_Model {
 	public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_name_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name_id` variable
@@ -143,6 +165,11 @@ class Employees_deductions_model extends MY_Model {
 	public function getNameId() {
 		return $this->name_id;
 	}
+
+	public function get_name_id_value() {
+		return $this->name_id;
+	}
+
 	
 // ------------------------------ End Field: name_id --------------------------------------
 
@@ -157,6 +184,10 @@ class Employees_deductions_model extends MY_Model {
 	public function setDeductionId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('deduction_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_deduction_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('deduction_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `deduction_id` variable
@@ -166,6 +197,11 @@ class Employees_deductions_model extends MY_Model {
 	public function getDeductionId() {
 		return $this->deduction_id;
 	}
+
+	public function get_deduction_id_value() {
+		return $this->deduction_id;
+	}
+
 	
 // ------------------------------ End Field: deduction_id --------------------------------------
 
@@ -180,6 +216,10 @@ class Employees_deductions_model extends MY_Model {
 	public function setAmount($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('amount', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_amount_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('amount', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `amount` variable
@@ -189,6 +229,11 @@ class Employees_deductions_model extends MY_Model {
 	public function getAmount() {
 		return $this->amount;
 	}
+
+	public function get_amount_value() {
+		return $this->amount;
+	}
+
 	
 // ------------------------------ End Field: amount --------------------------------------
 
@@ -203,6 +248,10 @@ class Employees_deductions_model extends MY_Model {
 	public function setMaxAmount($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('max_amount', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_max_amount_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('max_amount', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `max_amount` variable
@@ -212,6 +261,11 @@ class Employees_deductions_model extends MY_Model {
 	public function getMaxAmount() {
 		return $this->max_amount;
 	}
+
+	public function get_max_amount_value() {
+		return $this->max_amount;
+	}
+
 	
 // ------------------------------ End Field: max_amount --------------------------------------
 
@@ -226,6 +280,10 @@ class Employees_deductions_model extends MY_Model {
 	public function setStartDate($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('start_date', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_start_date_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('start_date', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `start_date` variable
@@ -235,6 +293,11 @@ class Employees_deductions_model extends MY_Model {
 	public function getStartDate() {
 		return $this->start_date;
 	}
+
+	public function get_start_date_value() {
+		return $this->start_date;
+	}
+
 	
 // ------------------------------ End Field: start_date --------------------------------------
 
@@ -249,6 +312,10 @@ class Employees_deductions_model extends MY_Model {
 	public function setComputed($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('computed', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_computed_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('computed', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `computed` variable
@@ -258,6 +325,11 @@ class Employees_deductions_model extends MY_Model {
 	public function getComputed() {
 		return $this->computed;
 	}
+
+	public function get_computed_value() {
+		return $this->computed;
+	}
+
 	
 // ------------------------------ End Field: computed --------------------------------------
 
@@ -272,6 +344,10 @@ class Employees_deductions_model extends MY_Model {
 	public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_active_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `active` variable
@@ -281,6 +357,11 @@ class Employees_deductions_model extends MY_Model {
 	public function getActive() {
 		return $this->active;
 	}
+
+	public function get_active_value() {
+		return $this->active;
+	}
+
 	
 // ------------------------------ End Field: active --------------------------------------
 
@@ -295,6 +376,10 @@ class Employees_deductions_model extends MY_Model {
 	public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_trash_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `trash` variable
@@ -304,6 +389,11 @@ class Employees_deductions_model extends MY_Model {
 	public function getTrash() {
 		return $this->trash;
 	}
+
+	public function get_trash_value() {
+		return $this->trash;
+	}
+
 	
 // ------------------------------ End Field: trash --------------------------------------
 
@@ -318,6 +408,10 @@ class Employees_deductions_model extends MY_Model {
 	public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_notes_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `notes` variable
@@ -327,6 +421,11 @@ class Employees_deductions_model extends MY_Model {
 	public function getNotes() {
 		return $this->notes;
 	}
+
+	public function get_notes_value() {
+		return $this->notes;
+	}
+
 	
 // ------------------------------ End Field: notes --------------------------------------
 
@@ -452,11 +551,38 @@ class Employees_deductions_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setId() - id
+//setCompanyId() - company_id
+//setNameId() - name_id
+//setDeductionId() - deduction_id
+//setAmount() - amount
+//setMaxAmount() - max_amount
+//setStartDate() - start_date
+//setComputed() - computed
+//setActive() - active
+//setTrash() - trash
+//setNotes() - notes
 
+--------------------------------------
+
+//set_id() - id
+//set_company_id() - company_id
+//set_name_id() - name_id
+//set_deduction_id() - deduction_id
+//set_amount() - amount
+//set_max_amount() - max_amount
+//set_start_date() - start_date
+//set_computed() - computed
+//set_active() - active
+//set_trash() - trash
+//set_notes() - notes
+
+*/
 /* End of file Employees_deductions_model.php */
 /* Location: ./application/models/Employees_deductions_model.php */

@@ -22,7 +22,7 @@ ALTER TABLE  `employees_attendance` ADD  `pe_id` int(20) NULL   ;
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -68,6 +68,10 @@ class Employees_attendance_model extends MY_Model {
 	public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_name_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name_id` variable
@@ -77,6 +81,11 @@ class Employees_attendance_model extends MY_Model {
 	public function getNameId() {
 		return $this->name_id;
 	}
+
+	public function get_name_id_value() {
+		return $this->name_id;
+	}
+
 	
 // ------------------------------ End Field: name_id --------------------------------------
 
@@ -91,6 +100,10 @@ class Employees_attendance_model extends MY_Model {
 	public function setDatePresent($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('date_present', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_date_present_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('date_present', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `date_present` variable
@@ -100,6 +113,11 @@ class Employees_attendance_model extends MY_Model {
 	public function getDatePresent() {
 		return $this->date_present;
 	}
+
+	public function get_date_present_value() {
+		return $this->date_present;
+	}
+
 	
 // ------------------------------ End Field: date_present --------------------------------------
 
@@ -114,6 +132,10 @@ class Employees_attendance_model extends MY_Model {
 	public function setHours($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('hours', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_hours_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('hours', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `hours` variable
@@ -123,6 +145,11 @@ class Employees_attendance_model extends MY_Model {
 	public function getHours() {
 		return $this->hours;
 	}
+
+	public function get_hours_value() {
+		return $this->hours;
+	}
+
 	
 // ------------------------------ End Field: hours --------------------------------------
 
@@ -137,6 +164,10 @@ class Employees_attendance_model extends MY_Model {
 	public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_notes_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `notes` variable
@@ -146,6 +177,11 @@ class Employees_attendance_model extends MY_Model {
 	public function getNotes() {
 		return $this->notes;
 	}
+
+	public function get_notes_value() {
+		return $this->notes;
+	}
+
 	
 // ------------------------------ End Field: notes --------------------------------------
 
@@ -160,6 +196,10 @@ class Employees_attendance_model extends MY_Model {
 	public function setPeId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('pe_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_pe_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('pe_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `pe_id` variable
@@ -169,6 +209,11 @@ class Employees_attendance_model extends MY_Model {
 	public function getPeId() {
 		return $this->pe_id;
 	}
+
+	public function get_pe_id_value() {
+		return $this->pe_id;
+	}
+
 	
 // ------------------------------ End Field: pe_id --------------------------------------
 
@@ -234,11 +279,26 @@ class Employees_attendance_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setNameId() - name_id
+//setDatePresent() - date_present
+//setHours() - hours
+//setNotes() - notes
+//setPeId() - pe_id
 
+--------------------------------------
+
+//set_name_id() - name_id
+//set_date_present() - date_present
+//set_hours() - hours
+//set_notes() - notes
+//set_pe_id() - pe_id
+
+*/
 /* End of file Employees_attendance_model.php */
 /* Location: ./application/models/Employees_attendance_model.php */

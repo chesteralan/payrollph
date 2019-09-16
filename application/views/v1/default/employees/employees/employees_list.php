@@ -14,11 +14,10 @@
 
                   <h3 class="panel-title">
                     <strong><?php echo $current_page; ?></strong>
-
+<?php if( $employees_count > 0 ) { ?>
   <a href="<?php echo site_url(uri_string()); ?>?filter=trash"><span class="glyphicon glyphicon-trash"></span></a>
-
 <a href="<?php echo site_url("employees/report"); ?>" class=""><span class="glyphicon glyphicon-print"></span></a>
-
+<?php } ?>
 
                     <?php if( isset($group) ) { ?>
                       <span class="badge"><?php echo $group->name; ?> <a href="<?php echo site_url("employees"); ?>"><span class="glyphicon glyphicon-remove"></span></a></span>
@@ -29,12 +28,13 @@
                     <?php if( $this->input->get('q') ) { ?>
                     <span class="badge"><?php echo $this->input->get('q'); ?> <a href="<?php echo site_url(uri_string()); ?>"><span class="glyphicon glyphicon-remove"></span></a></span>
                     <?php } ?>
-
+<?php if( $employees_count > 0 ) { ?>
 <br><small><em>(<?php echo $employees_count; ?> name<?php echo ($employees_count>1)?"s":""; ?> found)</em></small>
-
+<?php } ?>
                   </h3>
 </div>
 <div class="col-md-3 col-sm-6">
+
 <form method="get" action="<?php echo site_url( uri_string() ); ?>">
 <div class="input-group input-group-sm">
   <input type="text" name="q" class="form-control" placeholder="Search for..." value="<?php echo $this->input->get('q'); ?>">
@@ -91,7 +91,7 @@
 <?php if( $employee->group_name ) { ?>
                 <a class="body_wrapper" href="<?php echo site_url("employees/group/{$employee->group_id}"); ?>"><?php echo $employee->group_name; ?></a>
 <?php } else { ?>
-<a data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo $employee->middlename; ?>" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("employees/edit_employment/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">--</a>
+<a data-title="<?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo $employee->middlename; ?>" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("employees/edit_employment/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">- - - - -</a>
 <?php } ?>
                 </td>
                 <?php } ?>
@@ -123,6 +123,7 @@
     <span class="sr-only">Toggle Dropdown</span>
   </button>
   <ul class="dropdown-menu dropdown-menu-right">
+<?php /*
     <li><a data-title="Personal Information" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("lists_names/update_personal/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Personal Information</a></li>
 
  <li><a data-title="Address and Contact" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("lists_names/update_contacts/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Address and Contacts</a></li>
@@ -136,19 +137,28 @@
    <li><a data-title="Employment Information" class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-url="<?php echo site_url("employees/edit_employment/{$employee->name_id}/ajax") . "?next=" . uri_string(); ?>">Employment Information</a></li>
 
    <li role="separator" class="divider"></li>
-
+*/ ?>
     <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_dtr/view/{$employee->name_id}"); ?>">Daily Time Record</a></li>
 
-    <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_salaries/view/{$employee->name_id}"); ?>">Basic Salary</a></li>
-
+    <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_dtr/leave_benefits/{$employee->name_id}"); ?>">Leave Benefits</a></li>
+    
+<?php /*
+<li><a data-title="Leave Benefits" data-target="#ajaxModal" href="#ajaxModal" data-toggle="modal" class="ajax-modal" data-url="<?php echo site_url("employees/edit_leave_benefits/{$employee->name_id}/0/ajax") . "?next=" . uri_string(); ?>">Leave Benefits</a></li>
+*/ ?>
+    <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_salaries/view/{$employee->name_id}"); ?>">Payroll Settings</a></li>
+<?php /*
   <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_earnings/view/{$employee->name_id}"); ?>">Earnings</a></li>
 
   <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_benefits/view/{$employee->name_id}");  ?>">Benefits</a></li>
   
    <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("employees_deductions/view/{$employee->name_id}");  ?>">Deductions</a></li>
+*/ ?>
 
-  <li><a data-title="Leave Benefits" data-target="#ajaxModal" href="#ajaxModal" data-toggle="modal" class="ajax-modal" data-url="<?php echo site_url("employees/edit_leave_benefits/{$employee->name_id}/0/ajax") . "?next=" . uri_string(); ?>">Leave Benefits</a></li>
-  
+    <li><a class="body_wrapper" data-dismiss="modal" href="<?php echo site_url("payroll_salaries/by_name/{$employee->name_id}"); ?>">Payroll History</a></li>
+   
+    <li><a class="confirm_remove" href="<?php echo site_url("employees/deactivate/{$employee->name_id}"); ?>" data-target="#employee-<?php echo $employee->name_id; ?>">Deactivate</a></li>
+
+<?php /*
   <li role="separator" class="divider"></li>
   
   <?php 
@@ -164,11 +174,11 @@ foreach($column_groups as $col) {
 ?>
     <li><a href="<?php echo $col['url']; ?>"><?php echo $col['name']; ?></a></li>
 <?php } ?>
-
+*/ ?>
   </ul>
 </div>
 
-                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees/deactivate/{$employee->name_id}"); ?>" data-target="#employee-<?php echo $employee->name_id; ?>">Deactivate</a>
+                
                 </td>
               <?php } ?>
               </tr>

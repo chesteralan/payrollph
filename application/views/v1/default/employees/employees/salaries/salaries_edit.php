@@ -12,7 +12,7 @@
   <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Add Employee</h3>
+          <h3 class="panel-title">Edit Salary</h3>
         </div>
         <form method="post">
         <div class="panel-body">
@@ -92,7 +92,7 @@
 
 <div class="form-group">
     <label>Notes</label>
-    <textarea name="notes" class="form-control" rows="5"><?php echo $salary->notes; ?></textarea>
+    <textarea name="notes" class="form-control" rows="2"><?php echo $salary->notes; ?></textarea>
   </div>
 
               <div class="form-group">

@@ -15,7 +15,7 @@ CREATE TABLE `employees_leave_benefits` (
   PRIMARY KEY (`id`),
   KEY `name_id` (`name_id`,`benefit_id`),
   KEY `company_id` (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
 ALTER TABLE  `employees_leave_benefits` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `employees_leave_benefits` ADD  `company_id` int(20) NOT NULL   ;
@@ -26,7 +26,7 @@ ALTER TABLE  `employees_leave_benefits` ADD  `year` int(4) NOT NULL   ;
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -73,6 +73,10 @@ class Employees_leave_benefits_model extends MY_Model {
 	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
@@ -82,6 +86,11 @@ class Employees_leave_benefits_model extends MY_Model {
 	public function getId() {
 		return $this->id;
 	}
+
+	public function get_id_value() {
+		return $this->id;
+	}
+
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -96,6 +105,10 @@ class Employees_leave_benefits_model extends MY_Model {
 	public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_company_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `company_id` variable
@@ -105,6 +118,11 @@ class Employees_leave_benefits_model extends MY_Model {
 	public function getCompanyId() {
 		return $this->company_id;
 	}
+
+	public function get_company_id_value() {
+		return $this->company_id;
+	}
+
 	
 // ------------------------------ End Field: company_id --------------------------------------
 
@@ -119,6 +137,10 @@ class Employees_leave_benefits_model extends MY_Model {
 	public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_name_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name_id` variable
@@ -128,6 +150,11 @@ class Employees_leave_benefits_model extends MY_Model {
 	public function getNameId() {
 		return $this->name_id;
 	}
+
+	public function get_name_id_value() {
+		return $this->name_id;
+	}
+
 	
 // ------------------------------ End Field: name_id --------------------------------------
 
@@ -142,6 +169,10 @@ class Employees_leave_benefits_model extends MY_Model {
 	public function setBenefitId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('benefit_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_benefit_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('benefit_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `benefit_id` variable
@@ -151,6 +182,11 @@ class Employees_leave_benefits_model extends MY_Model {
 	public function getBenefitId() {
 		return $this->benefit_id;
 	}
+
+	public function get_benefit_id_value() {
+		return $this->benefit_id;
+	}
+
 	
 // ------------------------------ End Field: benefit_id --------------------------------------
 
@@ -165,6 +201,10 @@ class Employees_leave_benefits_model extends MY_Model {
 	public function setDays($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('days', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_days_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('days', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `days` variable
@@ -174,6 +214,11 @@ class Employees_leave_benefits_model extends MY_Model {
 	public function getDays() {
 		return $this->days;
 	}
+
+	public function get_days_value() {
+		return $this->days;
+	}
+
 	
 // ------------------------------ End Field: days --------------------------------------
 
@@ -188,6 +233,10 @@ class Employees_leave_benefits_model extends MY_Model {
 	public function setYear($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('year', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_year_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('year', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `year` variable
@@ -197,6 +246,11 @@ class Employees_leave_benefits_model extends MY_Model {
 	public function getYear() {
 		return $this->year;
 	}
+
+	public function get_year_value() {
+		return $this->year;
+	}
+
 	
 // ------------------------------ End Field: year --------------------------------------
 
@@ -272,11 +326,28 @@ class Employees_leave_benefits_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setId() - id
+//setCompanyId() - company_id
+//setNameId() - name_id
+//setBenefitId() - benefit_id
+//setDays() - days
+//setYear() - year
 
+--------------------------------------
+
+//set_id() - id
+//set_company_id() - company_id
+//set_name_id() - name_id
+//set_benefit_id() - benefit_id
+//set_days() - days
+//set_year() - year
+
+*/
 /* End of file Employees_leave_benefits_model.php */
 /* Location: ./application/models/Employees_leave_benefits_model.php */

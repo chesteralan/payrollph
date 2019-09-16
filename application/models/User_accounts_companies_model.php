@@ -16,7 +16,7 @@ ALTER TABLE  `user_accounts_companies` ADD  `company_id` int(20) NOT NULL   ;
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -59,6 +59,10 @@ class User_accounts_companies_model extends MY_Model {
 	public function setUid($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('uid', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_uid_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('uid', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `uid` variable
@@ -68,6 +72,11 @@ class User_accounts_companies_model extends MY_Model {
 	public function getUid() {
 		return $this->uid;
 	}
+
+	public function get_uid_value() {
+		return $this->uid;
+	}
+
 	
 // ------------------------------ End Field: uid --------------------------------------
 
@@ -82,6 +91,10 @@ class User_accounts_companies_model extends MY_Model {
 	public function setCompanyId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_company_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('company_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `company_id` variable
@@ -91,6 +104,11 @@ class User_accounts_companies_model extends MY_Model {
 	public function getCompanyId() {
 		return $this->company_id;
 	}
+
+	public function get_company_id_value() {
+		return $this->company_id;
+	}
+
 	
 // ------------------------------ End Field: company_id --------------------------------------
 
@@ -126,11 +144,20 @@ class User_accounts_companies_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setUid() - uid
+//setCompanyId() - company_id
 
+--------------------------------------
+
+//set_uid() - uid
+//set_company_id() - company_id
+
+*/
 /* End of file User_accounts_companies_model.php */
 /* Location: ./application/models/User_accounts_companies_model.php */

@@ -280,7 +280,10 @@ class Employees extends MY_Controller {
 			'uri_segment' => 4,
 			'base_url' => base_url($this->config->item('index_page') . "/employees/add_multiple/{$output}"),
 			'total_rows' => $names->count_all_results(),
-			'per_page' => $names->get_limit()
+			'per_page' => $names->get_limit(), 
+			'attributes' => array(
+					'class' => 'btn btn-default ' . (($output=='ajax') ? 'ajax-modal-inner' : ''),
+					),
 		), '?next=' . $this->input->get('next') ));
 
 		$groups = new $this->Employees_groups_model;
@@ -406,6 +409,7 @@ class Employees extends MY_Controller {
 				$this->form_validation->set_rules('position_id', 'Position', 'trim');
 				$this->form_validation->set_rules('area_id', 'Area', 'trim');
 				$this->form_validation->set_rules('date_hired', 'Hired', 'trim');
+				$this->form_validation->set_rules('date_regularized', 'Regularized', 'trim');
 				$this->form_validation->set_rules('status', 'Status', 'trim');
 				$this->form_validation->set_rules('notes', 'Notes', 'trim');
 				if( $this->form_validation->run() ) {
@@ -414,6 +418,7 @@ class Employees extends MY_Controller {
 					$employee->setPositionId($this->input->post('position_id'),false,true);
 					$employee->setAreaId($this->input->post('area_id'),false,true);
 					$employee->setHired( date('Y-m-d', strtotime($this->input->post('date_hired'))),false,true);
+					$employee->setRegularized( date('Y-m-d', strtotime($this->input->post('date_regularized'))),false,true);
 					$employee->setStatus($this->input->post('status'),false,true);
 					$employee->setNotes($this->input->post('notes'),false,true);
 					$employee->setEmployeeId($this->input->post('employee_id'),false,true);
@@ -590,11 +595,12 @@ class Employees extends MY_Controller {
 			$leave = new $this->Benefits_list_model('b');
 			$leave->setLeave(1,true);
 			$leave->setTrash(0,true);
+			//$leave->set_order("");
 			$leave->set_select("*");
 			$leave->set_select("(SELECT elb.days FROM employees_leave_benefits elb WHERE elb.name_id={$employee_data->name_id} AND elb.company_id={$employee_data->company_id} AND b.id=elb.benefit_id AND elb.year='{$selected_year}' LIMIT 1) as days");
 			$this->template_data->set('leaves', $leave->populate());
 		}
-
+/*
 		$payroll_years = new $this->Payroll_model;
 		$payroll_years->setCompanyId($this->session->userdata('current_company_id'),true);
 		$payroll_years->set_select('year');
@@ -602,6 +608,12 @@ class Employees extends MY_Controller {
 		$payroll_years->set_order('year', 'DESC');
 		$payroll_years->set_limit(0);
 		$this->template_data->set('payroll_years', $payroll_years->populate());
+*/
+		$payroll_periods = new $this->Companies_period_model();
+		$payroll_periods->setCompanyId($this->session->userdata('current_company_id'),true);
+		$payroll_periods->set_order('year', 'DESC');
+		$payroll_periods_data = $payroll_periods->populate();
+		$this->template_data->set('payroll_periods', $payroll_periods_data);
 
 		$this->template_data->set('output', $output);
 		$this->load->view('employees/employees/employees_edit_leave_benefits', $this->template_data->get_data());

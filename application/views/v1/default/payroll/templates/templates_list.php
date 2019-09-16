@@ -29,17 +29,19 @@
             <thead>
               <tr>
                 <th>Template Name</th>
-                <th>Payroll</th>
+                <th>Payroll Count</th>
+                <th>Copy Data From Payroll</th>
                 <?php if( hasAccess('payroll', 'templates', 'edit') ) { ?>
                   <th width="260px" class="text-right">Action</th>
                 <?php } ?>
               </tr>
             </thead>
             <tbody>
-            <?php foreach($templates as $template) { ?>
+            <?php foreach($templates as $template) {  ?>
               <tr id="template-<?php echo $template->id; ?>">
                 <td><?php echo $template->name; ?></td>
                 <td><a class="body_wrapper" href="<?php echo site_url("payroll/index/0/0/{$template->id}"); ?>"><?php echo $template->payroll_count; ?></a></td>
+                <td><?php echo $template->template_name; ?></td>
               <?php if( hasAccess('payroll', 'templates', 'edit') ) { ?>
                 <td class="text-right">
 <?php if( $template->active ) { ?>
@@ -53,16 +55,15 @@
 
   <li><a href="#ajaxModal" data-target="#ajaxModal" data-title="Template Details" data-toggle="modal" class="ajax-modal" data-url="<?php echo site_url("payroll_templates/edit/{$template->id}/ajax") . "?next=" . uri_string(); ?>">Template Details</a></li>
 
+<?php if( !$template->payroll_id ) { ?>
   <li><a href="#ajaxModal" data-target="#ajaxModal"  data-title="Employee Groups" data-toggle="modal" class="ajax-modal" data-url="<?php echo site_url("payroll_templates/groups/{$template->id}/ajax") . "?next=" . uri_string(); ?>">Employee Groups</a></li>
-
 
   <li><a href="#ajaxModal" data-target="#ajaxModal" data-title="Earnings" data-toggle="modal" class="ajax-modal" data-url="<?php echo site_url("payroll_templates/earnings/{$template->id}/ajax") . "?next=" . uri_string(); ?>">Earnings</a></li>
 
-
   <li><a href="#ajaxModal" data-target="#ajaxModal" data-title="Benefits" data-toggle="modal" class="ajax-modal" data-url="<?php echo site_url("payroll_templates/benefits/{$template->id}/ajax") . "?next=" . uri_string(); ?>">Benefits</a></li>
 
-
   <li><a href="#ajaxModal" data-target="#ajaxModal" data-title="Deductions" data-toggle="modal"  class="ajax-modal" data-url="<?php echo site_url("payroll_templates/deductions/{$template->id}/ajax") . "?next=" . uri_string(); ?>">Deductions</a></li>
+<?php } ?>
 
   <li><a href="#ajaxModal" data-target="#ajaxModal" data-title="Print Columns" data-toggle="modal" class="ajax-modal" data-url="<?php echo site_url("payroll_templates/print_columns/{$template->id}/ajax") . "?next=" . uri_string(); ?>">Print Columns</a></li>
   </ul>

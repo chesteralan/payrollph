@@ -1,7 +1,7 @@
 (function($){
 
 $('.btn').click(function () {
-    var $btn = $(this).button('loading');
+    //var $btn = $(this).button('loading');
 });
 
 var modal_backlink = [];
@@ -786,6 +786,7 @@ $('.ajax-modal-inner').each(function(){
     }
 
     ajaxModalUrl = $(this).attr('data-url');
+    ajaxModalFileUpload = $(this).attr('data-file_upload');
     var ajaxForm = $('#ajaxModalForm');
     if( typeof ajaxForm[0] != 'undefined' ) {
       $('#ajaxModalForm').prop( 'action', ajaxModalUrl );
@@ -793,6 +794,11 @@ $('.ajax-modal-inner').each(function(){
       $('#ajaxModal .modal-content').wrap('<form action="'+ajaxModalUrl+'" method="post" id="ajaxModalForm"></form>');
     }
     $('#ajaxModal .modal-title').text( $(this).attr('data-title') );
+
+    if( ajaxModalFileUpload ) {
+        $('#ajaxModalForm').prop( 'enctype', 'multipart/form-data' );
+        $('#ajaxModalForm').prop( 'accept-charset', 'utf-8' );
+    } 
 
     var back_level_n = 0;
     if( $(this).attr('data-back_level') ) {
@@ -821,6 +827,7 @@ $('.ajax-modal-inner').each(function(){
       back_link.attr('data-modal_size', modal_backlink[back_level_n].modal_size);
       back_link.attr('title', modal_backlink[back_level_n].title);
       back_link.attr('data-hide_footer', modal_backlink[back_level_n].hide_footer);
+      back_link.attr('data-file_upload', modal_backlink[back_level_n].file_upload);
       back_link.attr('data-back_level', 1);
        $('#ajaxModal .modal-header').prepend(back_link);
     }
@@ -861,6 +868,7 @@ $('.ajax-modal-inner').each(function(){
   }; // loadLib
   
 var ajaxModalUrl = null;
+var ajaxModalFileUpload = null;
 var setupAjaxModal = function(){
     $('.ajax-modal').click(function(){
 
@@ -877,6 +885,7 @@ var setupAjaxModal = function(){
       $('#ajaxModal .modal-footer button[type="submit"]').text( button_title );
     }
     ajaxModalUrl = $(this).attr('data-url');
+    ajaxModalFileUpload = $(this).attr('data-file_upload');
     var hide_footer = $(this).attr('data-hide_footer');
      if( hide_footer ) {
         $('#ajaxModal .modal-footer').slideUp();
@@ -889,6 +898,7 @@ var setupAjaxModal = function(){
       url : $(this).attr('data-url'), 
       title : $(this).attr('data-title'),
       hide_footer : $(this).attr('data-hide_footer'),
+      file_upload : $(this).attr('data-file_upload'),
     });
     
   });
@@ -897,6 +907,7 @@ var setupAjaxModal = function(){
 var loadAjaxModal = function() {
   setupAjaxModal();
   $('#ajaxModal').on('shown.bs.modal', function () {
+    
     var ajaxForm = $('#ajaxModalForm');
     if( typeof ajaxForm[0] != 'undefined' ) {
       $('#ajaxModalForm').prop( 'action', ajaxModalUrl );
@@ -904,6 +915,10 @@ var loadAjaxModal = function() {
       $('#ajaxModal .modal-content').wrap('<form action="'+ajaxModalUrl+'" method="post" id="ajaxModalForm"></form>');
     }
 
+    if( ajaxModalFileUpload ) {
+        $('#ajaxModalForm').prop( 'enctype', 'multipart/form-data' );
+        $('#ajaxModalForm').prop( 'accept-charset', 'utf-8' );
+    }
       $.ajax({
         url : ajaxModalUrl,
         method : 'GET',

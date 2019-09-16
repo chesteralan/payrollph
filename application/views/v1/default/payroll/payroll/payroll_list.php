@@ -8,13 +8,16 @@
 <div class="container">
     <div class="row">
             <div class="col-md-12">
+
               <div class="panel panel-default">
                 <div class="panel-heading">
-<?php if( $templates ) { ?>
+
 <?php if( hasAccess('payroll', 'payroll', 'add') ) { ?>
-  <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Payroll" data-url="<?php echo site_url("payroll/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Create Payroll</button>
+<?php if( $payroll_periods ) { ?>
+  <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Create Payroll" data-url="<?php echo site_url("payroll/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Create Payroll</button>
 <?php } ?>
 <?php } ?>
+
                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
                     <?php if(isset($template)) { ?>
                       : <?php echo $template->name; ?>
@@ -51,7 +54,7 @@
 <?php } ?>
 
 
-<?php if( $templates ) { ?>
+
 <?php if( isset($payroll_templates) && ( count( $payroll_templates ) > 1) ) { ?>
 <div class="btn-group">
   <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -71,7 +74,7 @@ if( $filter_template == $template->template_id ) {
   </ul>
 </div>
 <?php } ?>
-<?php } ?>
+
 
 </h3>
 
@@ -80,9 +83,7 @@ if( $filter_template == $template->template_id ) {
 
 <?php endif;  ?>
 
-<?php if( $templates ) { ?>
-
-<?php if( $payrolls ) { ?>
+<?php if( $payroll_periods && $payrolls ) { ?>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -132,7 +133,7 @@ if( $filter_template == $template->template_id ) {
     <span class="sr-only">Toggle Dropdown</span>
   </button>
   <ul class="dropdown-menu dropdown-menu-right">
-    <li><a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/print"); ?>">Print</a></li>
+    <li><a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/print"); ?>">Summary</a></li>
     <li><a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/payslip"); ?>">Payslip</a></li>
     <li role="separator" class="divider"></li>
     <li><a href="<?php echo site_url("payroll_overall/view/{$payroll->id}/0/xls"); ?>">Export</a></li>
@@ -141,12 +142,26 @@ if( $filter_template == $template->template_id ) {
 
 <?php } else { ?>
 
-                  <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Payroll" data-url="<?php echo site_url("payroll/config/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">Config</button>
+<?php if( ( $payroll->working_days == 0 ) ) { ?>
+
+  <button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Payroll" data-url="<?php echo site_url("payroll/edit/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-pencil"></span></button>
+
+    <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Inclusive Dates" data-url="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>">Set Dates</button>
+<?php } else { ?>
+
+<?php if( $payroll->template_id ) { ?>
+ <a class="btn btn-danger btn-xs" href="<?php echo site_url("payroll/generate/{$payroll->id}"); ?>">Generate</a>
+<?php } else { ?>
+  
+  <a class="btn btn-warning btn-xs" href="<?php echo site_url("payroll/select_payroll/{$payroll->id}"); ?>">Start Payroll</a>
+<?php } ?>
+                  <!--<button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Payroll" data-url="<?php echo site_url("payroll/config/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1">Config</button>-->
+<?php } ?>
 <?php } ?>
 
 
 <?php if($payroll->lock==0) { ?>
-                <a class="btn btn-warning btn-xs confirm_remove" href="<?php echo site_url("payroll/deactivate/{$payroll->id}"); ?>" data-target="#Payroll-<?php echo $payroll->id; ?>">Deactivate</a>
+                <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("payroll/deactivate/{$payroll->id}"); ?>" data-target="#Payroll-<?php echo $payroll->id; ?>">Deactivate</a>
 <?php } ?>
 
 <?php } else { ?>
@@ -167,20 +182,25 @@ if( $filter_template == $template->template_id ) {
 
 <?php } else { ?>
 
-  <div class="text-center">No Payroll Found!</div>
+<?php if( $payroll_periods ) { ?>
 
-<?php } ?>
+  <div class="text-center">No Payroll Found!
 
-<?php } else { ?>
-  <div class="text-center">No Template Created!
-
-<?php if( hasAccess('payroll', 'templates', 'add') ) { ?>
-  <p><button type="button" class="btn btn-success btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Template" data-url="<?php echo site_url("payroll_templates/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Create Template</button></p>
+<?php if( hasAccess('payroll', 'payroll', 'add') ) { ?><br />
+  <button type="button" class="btn btn-success btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Create Payroll" data-url="<?php echo site_url("payroll/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Create Payroll</button>
 <?php } ?>
 
   </div>
 
+<?php } else { ?>
+  <div class="text-center">No Payroll Period!<br />
+<button type="button" class="btn btn-success btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Payroll Period" data-url="<?php echo site_url("system_companies/add_payroll_period/{$this->session->userdata('current_company_id')}/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Add Payroll Period</button>
+  </div>
 <?php } ?>
+
+<?php } ?>
+
+
 
 
 <?php if( ! $inner_page ): ?>

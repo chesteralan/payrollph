@@ -4,9 +4,11 @@
 function draw_calendar($month,$year,$current_dates){
 
   $cDates = array();
+  $cDates2 = array();
   if( $current_dates ) {
     foreach($current_dates as $current_date) {
       $cDates[$current_date->calendar_date] = $current_date;
+      $cDates2[date("m-d", strtotime($current_date->calendar_date))] = $current_date;
     }
   }
 
@@ -66,18 +68,26 @@ function draw_calendar($month,$year,$current_dates){
           $calendar.= '<td class="calendar-day text-right ';
           $calendar.= (($working_day)?'':' disabled');
           $calendar.= ((isset($cDates[$list_date]))? ' has-data':'');
+          $calendar.= ((isset($cDates2[date('m-d', strtotime($list_date))]))? ' has-data':'');
+          $calendar.= ((date('Y-m-d')==$list_date)? ' current-day':'');
           $calendar.='">';
 
         $calendar.= '<a class="date_link ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="'.date('F d, Y', strtotime($list_date)).'" data-url="'.site_url("system_calendar/edit/{$list_date}/ajax") . "?next=" . uri_string() .'" href="#">';
         //$calendar.= '<input type="hidden" name="inclusive_date[]" value="'.$list_date.'">';
         //$calendar.= '<input type="checkbox" name="selected[]" value="'.$list_date.'"';
         //$calendar.= '>';
-        $calendar.=((isset($cDates[$list_date])) ? $cDates[$list_date]->notes . " (+".$cDates[$list_date]->premium."%)" :'');
+        
+        if(isset($cDates[$list_date])) {
+          $calendar.=((isset($cDates[$list_date])) ? $cDates[$list_date]->notes . " (+".$cDates[$list_date]->premium."%)" :'');
+        } else {
+          $calendar.=((isset($cDates2[date('m-d', strtotime($list_date))])) ? $cDates2[date('m-d', strtotime($list_date))]->notes . " (+".$cDates2[date('m-d', strtotime($list_date))]->premium."%)" :'');
+        }
+
         $calendar.= '</a>';
 
 
       /* add in the day number */
-      $calendar.= '<div class="day-number">';
+      $calendar.= '<div class="day-number day-number2">';
        $calendar.= $list_day;
       $calendar.='</div>';
 
@@ -132,12 +142,12 @@ $next = ($this->input->get('next')) ? $this->input->get('next') : 'system_calend
         <div class="panel-heading">
           <a href="<?php echo site_url("system_calendar/index/".date('m', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01')))."/".date('Y', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01')))."/{$output}") . "?next={$next}"; ?>" class="pull-right"><?php echo date('F Y', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?> &rArr;</a>
 
-          <a href="<?php echo site_url("system_calendar/index/".date('m', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01')))."/".date('Y', strtotime('+1 month', strtotime($current_year.'-'.$current_month.'-01')))."/{$output}") . "?next={$next}"; ?>" class="pull-left">&lArr; <?php echo date('F Y', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?></a>
+          <a href="<?php echo site_url("system_calendar/index/".date('m', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01')))."/".date('Y', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01')))."/{$output}") . "?next={$next}"; ?>" class="pull-left">&lArr; <?php echo date('F Y', strtotime('-1 month', strtotime($current_year.'-'.$current_month.'-01'))); ?></a>
 
-<h3 class="text-center panel-title" style="margin-top:0px;">
+<div class="text-center" style="margin-top:0px;">
   
   <div class="btn-group">
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <strong><?php echo date('F Y', strtotime($current_month."/1/".$current_year)); ?></strong> <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
@@ -147,7 +157,7 @@ $next = ($this->input->get('next')) ? $this->input->get('next') : 'system_calend
   </ul>
 </div>
 
-</h3>
+</div>
 
         </div>
 

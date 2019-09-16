@@ -17,8 +17,7 @@
 <a class="btn btn-success btn-xs ajax-modal pull-right" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Item" data-url="<?php echo site_url("employees_deductions/edit/{$entry->id}/{$output}/ajax") . '?next=' . uri_string(); ?>">Edit Item</a>
 <?php } ?>
                   <h3 class="panel-title bold">
-                  <?php echo $deduction->name; ?> - <?php echo $deduction->notes; ?> <?php echo ($entry->notes) ? "(".$entry->notes.")" : ""; ?>
-
+                  <?php echo $deduction->name; ?><?php echo ($deduction->notes) ? " - {$deduction->notes}" : ""; ?> <?php echo ($entry->notes) ? "({$entry->notes})" : ""; ?>
                   <span class="small"><a href="<?php echo site_url(uri_string()) . "?show_all=1"; ?>" class="body_wrapper">Show All</a></span>
                   </h3>
                 </div>

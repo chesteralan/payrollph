@@ -22,6 +22,15 @@
 <?php endif; ?>
 
 <div class="row">
+
+  <div class="col-md-6">
+          <div class="form-group">
+            <label>Employee ID</label>
+            <input name="employee_id" type="text" class="form-control" value="<?php echo $employee->employee_id; ?>">
+          </div>
+  </div>
+
+    <?php if( $groups ) { ?>
   <div class="col-md-6">
           <div class="form-group">
             <label>Group</label>
@@ -32,6 +41,8 @@
             </select>
           </div>
   </div>
+        <?php } ?>
+    <?php if( $positions ) { ?>
   <div class="col-md-6">
           <div class="form-group">
             <label>Position</label>
@@ -42,8 +53,9 @@
             </select>
           </div>
   </div>
-</div>
-<div class="row">
+    <?php } ?>
+
+     <?php if( $areas ) { ?>
   <div class="col-md-6">
           <div class="form-group">
             <label>Area</label>
@@ -54,17 +66,24 @@
             </select>
           </div>
   </div>
+          <?php } ?>
+
   <div class="col-md-6">
           <div class="form-group">
             <label>Date Hired</label>
             <input name="date_hired" type="text" class="form-control datepicker" value="<?php echo ($employee->hired) ? date('m/d/Y', strtotime($employee->hired)) : date('m/d/Y'); ?>">
           </div>
   </div>
-</div>
 
-<div class="row">
   <div class="col-md-6">
+          <div class="form-group">
+            <label>Date Regularized</label>
+            <input name="date_regularized" type="text" class="form-control datepicker" value="<?php echo ($employee->regularized) ? date('m/d/Y', strtotime($employee->regularized)) : date('m/d/Y'); ?>">
+          </div>
+  </div>
+
 <?php if( $employment_status ) { ?>
+  <div class="col-md-6">
           <div class="form-group">
             <label>Status</label>
             <select class="form-control" title="Select a Status" name="status">
@@ -73,14 +92,9 @@
               <?php } ?>
             </select>
           </div>
+          </div>
 <?php } ?>
-          </div>
-  <div class="col-md-6">
-          <div class="form-group">
-            <label>Employee ID</label>
-            <input name="employee_id" type="text" class="form-control" value="<?php echo $employee->employee_id; ?>">
-          </div>
-  </div>
+
 </div>
           <div class="form-group">
             <label>Notes</label>
@@ -88,7 +102,7 @@
           </div>
 
           <div class="form-group">
-            <label>Transfer <?php echo lang_term('companies_title_singular', 'Company'); ?></label>
+            <label>Assigned <?php echo lang_term('companies_title_singular', 'Company'); ?></label>
             <select class="form-control" title="Select a Company" name="company_id">
               <?php if($companies) foreach($companies as $company) { ?>
                 <option value="<?php echo $company->id; ?>" <?php echo ($employee->company_id==$company->id) ? "SELECTED" : ""; ?>><?php echo $company->name; ?></option>

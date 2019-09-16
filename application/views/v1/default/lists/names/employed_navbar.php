@@ -39,21 +39,77 @@
         </ul>
        
       <ul class="nav navbar-nav navbar-right">
-<li class=""><a class="body_wrapper" href="<?php echo site_url("payroll_dtr/by_name/{$name->id}"); ?>"><span class="fa fa-list-alt"></span></a></li>
+
 <?php 
 
 $url['lists_names'] = array('uri' => 'lists_names/profile/' . $name->id, 'title'=>'Employee Profile', 'access'=>hasAccess('lists', 'names', 'view'));
-$url['employees_dtr'] = array('uri' => 'employees_dtr/view/' . $name->id, 'title'=>'Daily Time Record', 'access'=>hasAccess('employees', 'employees', 'view'));
-$url['employees_salaries'] = array('uri' => 'employees_salaries/view/' . $name->id, 'title'=>'Basic Salary', 'access'=>hasAccess('employees', 'employees', 'view'));
-$url['employees_earnings'] = array('uri' => 'employees_earnings/view/' . $name->id, 'title'=>'Earnings', 'access'=>hasAccess('employees', 'employees', 'view'));
-$url['employees_benefits'] = array('uri' => 'employees_benefits/view/' . $name->id, 'title'=>'Benefits', 'access'=>hasAccess('employees', 'employees', 'view'));
-$url['employees_deductions'] = array('uri' => 'employees_deductions/view/' . $name->id, 'title'=>'Deductions', 'access'=>hasAccess('employees', 'employees', 'view'));
+//$url['employees_dtr'] = array('uri' => 'employees_dtr/view/' . $name->id, 'title'=>'Daily Time Record', 'access'=>hasAccess('employees', 'employees', 'view'));
 
 foreach($url as $k=>$v) {
   if( $v['access'] ) {
 ?>
   <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($v['uri']) . (($this->input->get('next')) ? '?next=' . $this->input->get('next') : ''); ?>"><?php echo $v['title']; ?></a></li>
 <?php } } ?>
+
+<li class="dropdown <?php echo (in_array($current_uri, array('employees_dtr', 'employees_dtr_leave') )) ? 'active' : ''; ?>">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Daily Time Record <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+
+<?php 
+$url = array();
+$url['employees_dtr'] = array('uri' => 'employees_dtr/view/' . $employee->name_id, 'title'=>'Calendar', 'access'=>hasAccess('employees', 'employees', 'view'));
+$url['employees_dtr_leave'] = array('uri' => 'employees_dtr/leave_benefits/' . $employee->name_id, 'title'=>'Leave Benefits', 'access'=>hasAccess('employees', 'employees', 'view'));
+$url['employees_dtr_absences'] = array('uri' => 'employees_dtr/absences/' . $employee->name_id, 'title'=>'Absences', 'access'=>hasAccess('employees', 'employees', 'view'));
+
+foreach($url as $k=>$v) {
+  if( $v['access'] ) {
+?>
+  <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($v['uri']) . (($this->input->get('next')) ? '?next=' . $this->input->get('next') : ''); ?>"><?php echo $v['title']; ?></a></li>
+<?php } } ?>
+
+          </ul>
+</li>
+
+<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Payroll Settings <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+
+<?php 
+$url = array();
+$url['employees_salaries'] = array('uri' => 'employees_salaries/view/' . $employee->name_id, 'title'=>'Basic Salary', 'access'=>hasAccess('employees', 'employees', 'view'));
+$url['employees_earnings'] = array('uri' => 'employees_earnings/view/' . $employee->name_id, 'title'=>'Earnings', 'access'=>hasAccess('employees', 'employees', 'view'));
+$url['employees_benefits'] = array('uri' => 'employees_benefits/view/' . $employee->name_id, 'title'=>'Benefits', 'access'=>hasAccess('employees', 'employees', 'view'));
+$url['employees_deductions'] = array('uri' => 'employees_deductions/view/' . $employee->name_id, 'title'=>'Deductions', 'access'=>hasAccess('employees', 'employees', 'view'));
+
+foreach($url as $k=>$v) {
+  if( $v['access'] ) {
+?>
+  <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($v['uri']) . (($this->input->get('next')) ? '?next=' . $this->input->get('next') : ''); ?>"><?php echo $v['title']; ?></a></li>
+<?php } } ?>
+
+          </ul>
+</li>
+
+<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Payroll History <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+
+<?php 
+$url = array();
+$url['payroll_dtr'] = array('uri' => 'payroll_dtr/by_name/' . $employee->name_id, 'title'=>'DTR', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+$url['payroll_salaries'] = array('uri' => 'payroll_salaries/by_name/' . $employee->name_id, 'title'=>'Basic Salary', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+$url['payroll_earnings'] = array('uri' => 'payroll_earnings/by_name/' . $employee->name_id, 'title'=>'Earnings', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+$url['payroll_benefits'] = array('uri' => 'payroll_benefits/by_name/' . $employee->name_id, 'title'=>'Benefits', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+$url['payroll_deductions'] = array('uri' => 'payroll_deductions/by_name/' . $employee->name_id, 'title'=>'Deductions', 'access'=>hasAccess('payroll', 'payroll', 'view'));
+
+foreach($url as $k=>$v) {
+  if( $v['access'] ) {
+?>
+  <li class="<?php echo ($k==$current_uri) ? 'active' : ''; ?>"><a class="body_wrapper" href="<?php echo site_url($v['uri']) . (($this->input->get('next')) ? '?next=' . $this->input->get('next') : ''); ?>"><?php echo $v['title']; ?></a></li>
+<?php } } ?>
+
+          </ul>
+</li>
 
       </ul>
     </div><!-- /.navbar-collapse -->

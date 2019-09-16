@@ -13,7 +13,7 @@ CREATE TABLE `names_list` (
   `trash` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `full_name` (`full_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `names_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `names_list` ADD  `full_name` varchar(200) NOT NULL   UNIQUE KEY;
@@ -23,7 +23,7 @@ ALTER TABLE  `names_list` ADD  `trash` int(1) NOT NULL   DEFAULT '0';
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -69,6 +69,10 @@ class Names_list_model extends MY_Model {
 	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
@@ -78,6 +82,11 @@ class Names_list_model extends MY_Model {
 	public function getId() {
 		return $this->id;
 	}
+
+	public function get_id_value() {
+		return $this->id;
+	}
+
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -92,6 +101,10 @@ class Names_list_model extends MY_Model {
 	public function setFullName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('full_name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_full_name_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('full_name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `full_name` variable
@@ -101,6 +114,11 @@ class Names_list_model extends MY_Model {
 	public function getFullName() {
 		return $this->full_name;
 	}
+
+	public function get_full_name_value() {
+		return $this->full_name;
+	}
+
 	
 // ------------------------------ End Field: full_name --------------------------------------
 
@@ -115,6 +133,10 @@ class Names_list_model extends MY_Model {
 	public function setAddress($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_address_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `address` variable
@@ -124,6 +146,11 @@ class Names_list_model extends MY_Model {
 	public function getAddress() {
 		return $this->address;
 	}
+
+	public function get_address_value() {
+		return $this->address;
+	}
+
 	
 // ------------------------------ End Field: address --------------------------------------
 
@@ -138,6 +165,10 @@ class Names_list_model extends MY_Model {
 	public function setContactNumber($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('contact_number', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_contact_number_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('contact_number', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `contact_number` variable
@@ -147,6 +178,11 @@ class Names_list_model extends MY_Model {
 	public function getContactNumber() {
 		return $this->contact_number;
 	}
+
+	public function get_contact_number_value() {
+		return $this->contact_number;
+	}
+
 	
 // ------------------------------ End Field: contact_number --------------------------------------
 
@@ -161,6 +197,10 @@ class Names_list_model extends MY_Model {
 	public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_trash_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `trash` variable
@@ -170,6 +210,11 @@ class Names_list_model extends MY_Model {
 	public function getTrash() {
 		return $this->trash;
 	}
+
+	public function get_trash_value() {
+		return $this->trash;
+	}
+
 	
 // ------------------------------ End Field: trash --------------------------------------
 
@@ -235,11 +280,26 @@ class Names_list_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setId() - id
+//setFullName() - full_name
+//setAddress() - address
+//setContactNumber() - contact_number
+//setTrash() - trash
 
+--------------------------------------
+
+//set_id() - id
+//set_full_name() - full_name
+//set_address() - address
+//set_contact_number() - contact_number
+//set_trash() - trash
+
+*/
 /* End of file Names_list_model.php */
 /* Location: ./application/models/Names_list_model.php */

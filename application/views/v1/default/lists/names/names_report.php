@@ -32,6 +32,8 @@
 <table width="100%" cellspacing="0" cellpadding="0" class="table">
             <thead>
               <tr class="warning highlight allcaps">
+                <th class="text-left allcaps">Name ID</th>
+                <th class="text-left allcaps">Full Name</th>
                 <th class="text-left allcaps">Last Name</th>
                 <th class="text-left allcaps">First Name</th>
                 <th class="text-left allcaps">Middle Name</th>
@@ -44,12 +46,14 @@
               </tr>
             </thead>
             <tbody>
-<?php foreach($names as $name) { 
+<?php foreach($names as $name) { //print_r( $name );
 if( $name->ni_name_id=='' ) {
   continue;
 }
   ?>
               <tr>
+                <td><?php echo $name->name_id; ?></td>
+                <td><?php echo $name->full_name; ?></td>
                 <td><?php echo $name->lastname; ?></td>
                 <td><?php echo $name->firstname; ?></td>
                 <td><?php echo $name->middlename; ?></td>

@@ -22,7 +22,7 @@ ALTER TABLE  `user_accounts_options` ADD  `value` text NOT NULL   ;
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -68,6 +68,10 @@ class User_accounts_options_model extends MY_Model {
 	public function setUid($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('uid', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_uid_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('uid', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `uid` variable
@@ -77,6 +81,11 @@ class User_accounts_options_model extends MY_Model {
 	public function getUid() {
 		return $this->uid;
 	}
+
+	public function get_uid_value() {
+		return $this->uid;
+	}
+
 	
 // ------------------------------ End Field: uid --------------------------------------
 
@@ -91,6 +100,10 @@ class User_accounts_options_model extends MY_Model {
 	public function setDepartment($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('department', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_department_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('department', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `department` variable
@@ -100,6 +113,11 @@ class User_accounts_options_model extends MY_Model {
 	public function getDepartment() {
 		return $this->department;
 	}
+
+	public function get_department_value() {
+		return $this->department;
+	}
+
 	
 // ------------------------------ End Field: department --------------------------------------
 
@@ -114,6 +132,10 @@ class User_accounts_options_model extends MY_Model {
 	public function setSection($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('section', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_section_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('section', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `section` variable
@@ -123,6 +145,11 @@ class User_accounts_options_model extends MY_Model {
 	public function getSection() {
 		return $this->section;
 	}
+
+	public function get_section_value() {
+		return $this->section;
+	}
+
 	
 // ------------------------------ End Field: section --------------------------------------
 
@@ -137,6 +164,10 @@ class User_accounts_options_model extends MY_Model {
 	public function setKey($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('key', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_key_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('key', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `key` variable
@@ -146,6 +177,11 @@ class User_accounts_options_model extends MY_Model {
 	public function getKey() {
 		return $this->key;
 	}
+
+	public function get_key_value() {
+		return $this->key;
+	}
+
 	
 // ------------------------------ End Field: key --------------------------------------
 
@@ -160,6 +196,10 @@ class User_accounts_options_model extends MY_Model {
 	public function setValue($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('value', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_value_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('value', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `value` variable
@@ -169,6 +209,11 @@ class User_accounts_options_model extends MY_Model {
 	public function getValue() {
 		return $this->value;
 	}
+
+	public function get_value_value() {
+		return $this->value;
+	}
+
 	
 // ------------------------------ End Field: value --------------------------------------
 
@@ -234,11 +279,26 @@ class User_accounts_options_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setUid() - uid
+//setDepartment() - department
+//setSection() - section
+//setKey() - key
+//setValue() - value
 
+--------------------------------------
+
+//set_uid() - uid
+//set_department() - department
+//set_section() - section
+//set_key() - key
+//set_value() - value
+
+*/
 /* End of file User_accounts_options_model.php */
 /* Location: ./application/models/User_accounts_options_model.php */

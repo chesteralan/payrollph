@@ -32,8 +32,9 @@
           </div>
 
           <div class="form-group">
-            <label>Template</label>
+            <label>Template Used</label>
             <select class="form-control" title="Select a Template" name="template_id">
+              <option value="0" <?php echo (!$payroll->template_id) ? 'selected=""' : ''; ?>>- No Template -</option>
               <?php foreach($templates as $template) { ?>
                 <option value="<?php echo $template->id; ?>" <?php echo ($template->id==$payroll->template_id) ? "SELECTED":""; ?>><?php echo $template->name; ?></option>
               <?php } ?>
@@ -55,8 +56,8 @@
     <div class="form-group">
           <label>Year</label>
           <select class="form-control" title="Select a Year" name="year">
-            <?php for($i=date('Y');$i>=2017;$i--) { ?>
-              <option value="<?php echo $i; ?>" <?php echo ($i==$payroll->year) ? "SELECTED" : ""; ?>><?php echo $i; ?></option>
+            <?php foreach($payroll_periods as $period) { ?>
+              <option value="<?php echo $period->year; ?>" <?php echo ($period->year==$payroll->year) ? "SELECTED" : ""; ?>><?php echo $period->year; ?></option>
             <?php } ?>
           </select>
         </div>    

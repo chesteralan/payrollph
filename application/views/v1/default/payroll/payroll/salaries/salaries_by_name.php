@@ -40,7 +40,7 @@
 <?php 
 $total_basic = 0;
 $total_cola = 0;
-$total_absenses = 0;
+$total_absences = 0;
 $total_gross = 0;
 ?>
 <?php if( $payrolls ) { ?>
@@ -92,7 +92,7 @@ $employee_gross_pay = (($basic_salary + $cola) - $absences);
 
 $total_basic += $basic_salary;
 $total_cola += $cola;
-$total_absenses += $absences;
+$total_absences += $absences;
 $total_gross += $employee_gross_pay;
 ?>
   <tr>
@@ -116,7 +116,7 @@ TOTAL
         <td class="text-right bold"></td>
         <td class="text-right bold"><?php echo number_format($total_basic,2); ?></td>
         <td class="text-right bold"><?php echo number_format($total_cola,2); ?></td>
-        <td class="text-right bold"><?php echo number_format($total_absenses,2); ?></td>
+        <td class="text-right bold"><?php echo number_format($total_absences,2); ?></td>
         <td class="text-right bold"><?php echo number_format($total_gross,2); ?></td>
   </tr>
   <tr>

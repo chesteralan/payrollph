@@ -120,7 +120,7 @@ class Payroll_dtr extends MY_Controller {
 
 			break;
 			case 'group':
-
+			default:
 				$payroll_group = new $this->Payroll_groups_model('pg');
 				$payroll_group->setPayrollId($id,true);
 				
@@ -136,7 +136,7 @@ class Payroll_dtr extends MY_Controller {
 				$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
 				$payroll_group_data =  $payroll_group->populate();
 
-			default:
+
 			break;
 		}
 
@@ -190,15 +190,17 @@ class Payroll_dtr extends MY_Controller {
 
 			$employees->set_select('(SELECT name FROM employees_positions WHERE id=e.position_id) as position');
 
-			//$employees->set_select("(SELECT COUNT(*) FROM employees_absences ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences");
+			$employees->set_select("(SELECT COUNT(*) FROM employees_absences ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences");
 
-			$employees->set_select("(SELECT COUNT(*) FROM employees_absences ea WHERE ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}' AND ea.pe_id=pe.id) as absences");
+			//$employees->set_select("(SELECT COUNT(*) FROM employees_absences ea WHERE ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}' AND ea.pe_id=pe.id) as absences");
 
 			$employees->set_select('(SELECT es.hours FROM employees_salaries es WHERE es.name_id=e.name_id AND es.primary=1 AND es.trash=0) as working_hours');
 
-			//$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE ea.leave_type=0 AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences_hours");
+			$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE (ea.leave_type=0 OR ea.leave_type IS NULL) AND ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}') as absences_hours");
 
-			$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}' AND ea.pe_id=pe.id) as absences_hours");
+			//$employees->set_select("(SELECT SUM(ea.hours) FROM employees_absences ea WHERE ea.name_id=pe.name_id AND ea.date_absent >= '{$dates_data->start_date}' AND ea.date_absent <= '{$dates_data->end_date}' AND ea.pe_id=pe.id) as absences_hours");
+
+			$employees->set_select("(SELECT SUM(eo.minutes) FROM employees_overtime eo WHERE eo.name_id=pe.name_id AND eo.date_overtime >= '{$dates_data->start_date}' AND eo.date_overtime <= '{$dates_data->end_date}' AND eo.pe_id=pe.id) as overtime");
 
 			$employees->set_select("(SELECT COUNT(*) FROM employees_attendance ea2 WHERE ea2.name_id=pe.name_id AND ea2.date_present >= '{$dates_data->start_date}' AND ea2.date_present <= '{$dates_data->end_date}' AND ea2.pe_id=pe.id) as attendance");
 
@@ -215,45 +217,7 @@ class Payroll_dtr extends MY_Controller {
 
 		$this->template_data->set('payroll_groups', $payroll_group_data);
 
-		if( $payroll_data->group_by != 'status' ) {
-			$employees_status = new $this->Payroll_employees_model('pe');
-			$employees_status->setPayrollId($id,true);
-			$employees_status->set_select('e.status');
-			$employees_status->set_select('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status) as status_name');
-			$employees_status->set_join('employees e', 'e.name_id=pe.name_id');
-			$employees_status->set_limit(0);
-			$employees_status->set_group_by('e.status');
-			$employees_status->set_where('e.status IS NOT NULL');
-			$employees_status->set_where('e.status <> 0');
-			$employees_status->set_where('e.status <> ""');
-			$employees_status->set_order('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status)', 'ASC');
-			$this->template_data->set('employees_status', $employees_status->populate());
-		}
-
-
-		if( $payroll_data->group_by != 'group' ) {
-			$groups = new $this->Employees_groups_model;
-			$groups->setCompanyId($this->session->userdata('current_company_id'),true);
-			$groups->set_limit(0);
-			$groups->set_order('name', 'ASC');
-			$this->template_data->set('employees_groups', $groups->populate());
-		}
-
-		if( $payroll_data->group_by != 'area' ) {
-			$areas = new $this->Employees_areas_model;
-			$areas->setCompanyId($this->session->userdata('current_company_id'),true);
-			$areas->set_limit(0);
-			$areas->set_order('name', 'ASC');
-			$this->template_data->set('employees_areas', $areas->populate());
-		}
-
-		if( $payroll_data->group_by != 'position' ) {
-			$positions = new $this->Employees_positions_model;
-			$positions->setCompanyId($this->session->userdata('current_company_id'),true);
-			$positions->set_limit(0);
-			$positions->set_order('name', 'ASC');
-			$this->template_data->set('employees_positions', $positions->populate());
-		}
+		$this->_employee_filters($payroll_data);
 		
 		$this->template_data->set('next_item', $this->_next_payroll($id, $group_id, 'payroll_dtr/view/'));
 		$this->template_data->set('previous_item', $this->_previous_payroll($id, $group_id, 'payroll_dtr/view/'));
@@ -268,7 +232,64 @@ class Payroll_dtr extends MY_Controller {
 		$this->load->view('payroll/payroll/dtr/dtr_view', $this->template_data->get_data());
 	}
 
-public function leave_benefits($id,$group_id=0,$output='') {
+	private function _employee_filters($payroll_data) {
+
+		if( $payroll_data->group_by != 'status' ) {
+			$employees_status = new $this->Payroll_employees_model('pe');
+			$employees_status->setPayrollId($payroll_data->id,true);
+			$employees_status->set_select('e.status');
+			$employees_status->set_select("pe.status_id as id");
+			$employees_status->set_select('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status) as status_name');
+			$employees_status->set_join('employees e', 'e.name_id=pe.name_id');
+			$employees_status->set_limit(0);
+			$employees_status->set_group_by('e.status');
+			$employees_status->set_where('e.status IS NOT NULL');
+			$employees_status->set_where('e.status <> 0');
+			$employees_status->set_where('e.status <> ""');
+			$employees_status->set_order('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status)', 'ASC');
+			$this->template_data->set('employees_status', $employees_status->populate());
+		}
+
+
+			if( $payroll_data->group_by != 'group' ) {
+				$groups = new $this->Payroll_employees_model('pe');
+				$groups->setPayrollId($payroll_data->id,true);
+				$groups->set_select("*");
+				$groups->set_select("pe.group_id as id");
+				$groups->set_limit(0);
+				$groups->set_group_by('pe.group_id');
+				$groups->set_select('(SELECT g.name FROM employees_groups g WHERE g.id=pe.group_id) as name');
+				$groups->set_where('pe.group_id IS NOT NULL');
+				$this->template_data->set('employees_groups', $groups->populate());
+			}
+
+			if( $payroll_data->group_by != 'area' ) {
+				$areas = new $this->Payroll_employees_model('pe');
+				$areas->setPayrollId($payroll_data->id,true);
+				$areas->set_select("*");
+				$areas->set_select("pe.area_id as id");
+				$areas->set_limit(0);
+				$areas->set_group_by('pe.area_id');
+				$areas->set_select('(SELECT a.name FROM employees_areas a WHERE a.id=pe.area_id) as name');
+				$areas->set_where('pe.area_id IS NOT NULL');
+				$this->template_data->set('employees_areas', $areas->populate());
+			}
+
+			if( $payroll_data->group_by != 'position' ) {
+				$positions = new $this->Payroll_employees_model('pe');
+				$positions->setPayrollId($payroll_data->id,true);
+				$positions->set_select("*");
+				$positions->set_select("pe.position_id as id");
+				$positions->set_limit(0);
+				$positions->set_group_by('pe.position_id');
+				$positions->set_select('(SELECT p.name FROM employees_positions p WHERE p.id=pe.position_id) as name');
+				$positions->set_where('pe.position_id IS NOT NULL');
+
+				$this->template_data->set('employees_positions', $positions->populate());
+			}
+	}
+
+	public function leave_benefits($id,$group_id=0,$output='') {
 
 		$this->_column_groups();
 
@@ -324,7 +345,8 @@ public function leave_benefits($id,$group_id=0,$output='') {
 				$payroll_group->set_join('employees_positions eg', 'pg.position_id=eg.id');
 				$payroll_group->set_limit(0);
 				$payroll_group->set_order('pg.order', 'DESC');
-				$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE position_id=pg.position_id) > 0)");
+				//$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE position_id=pg.position_id) > 0)");
+				$payroll_group->set_where("((SELECT COUNT(*) FROM payroll_employees WHERE payroll_id={$id} AND position_id=eg.id) > 0)");
 				$payroll_group->set_where("((SELECT company_id FROM employees_positions WHERE id=pg.position_id) = {$this->session->userdata('current_company_id')})");
 				$payroll_group_data =  $payroll_group->populate();
 				
@@ -341,7 +363,8 @@ public function leave_benefits($id,$group_id=0,$output='') {
 				$payroll_group->set_join('employees_areas eg', 'pg.area_id=eg.id');
 				$payroll_group->set_limit(0);
 				$payroll_group->set_order('pg.order', 'DESC');
-				$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE area_id=pg.area_id) > 0)");
+				//$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE area_id=pg.area_id) > 0)");
+				$payroll_group->set_where("((SELECT COUNT(*) FROM payroll_employees WHERE payroll_id={$id} AND area_id=eg.id) > 0)");
 				$payroll_group->set_where("((SELECT company_id FROM employees_areas WHERE id=pg.area_id) = {$this->session->userdata('current_company_id')})");
 				$payroll_group_data =  $payroll_group->populate();
 
@@ -359,13 +382,14 @@ public function leave_benefits($id,$group_id=0,$output='') {
 				$payroll_group->set_limit(0);
 				$payroll_group->set_order('pg.order', 'DESC');
 				$payroll_group->set_where("pg.status_id > 0");
-				$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE status=pg.status_id) > 0)");
+				//$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE status=pg.status_id) > 0)");
+				$payroll_group->set_where("((SELECT COUNT(*) FROM payroll_employees WHERE payroll_id={$id} AND status_id=eg.id) > 0)");
 				//$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
 				$payroll_group_data =  $payroll_group->populate();
 
 			break;
 			case 'group':
-
+			default:
 				$payroll_group = new $this->Payroll_groups_model('pg');
 				$payroll_group->setPayrollId($id,true);
 				
@@ -376,11 +400,12 @@ public function leave_benefits($id,$group_id=0,$output='') {
 				$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');
 				$payroll_group->set_limit(0);
 				$payroll_group->set_order('pg.order', 'DESC');
-				$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
+				//$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
+				$payroll_group->set_where("((SELECT COUNT(*) FROM payroll_employees WHERE payroll_id={$id} AND group_id=eg.id) > 0)");
 				$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
 				$payroll_group_data =  $payroll_group->populate();
 
-			default:
+
 			break;
 		}
 
@@ -543,6 +568,74 @@ public function leave_benefits($id,$group_id=0,$output='') {
 
 		$this->template_data->set('output', $output);
 		$this->load->view('payroll/payroll/dtr/dtr_absences', $this->template_data->get_data());
+	}
+
+	public function overtime($id,$pe_id,$output='') {
+
+		$employee = new $this->Payroll_employees_model('pe');
+		$employee->setId($pe_id,true);
+		$employee->set_select('pe.*');
+		$employee->set_select('(SELECT es.hours FROM employees_salaries es WHERE es.name_id=pe.name_id AND es.primary=1 AND es.trash=0) as working_hours');
+		$employee_data = $employee->get();
+
+		$name_id = $employee_data->name_id; 
+
+		if( $this->input->post() ) {
+			if( $this->input->post('present') ) {
+				$inclusive_dates = $this->input->post('inclusive_dates');
+				$presents = $this->input->post('present');
+
+				foreach($inclusive_dates as $date=>$status) {
+					if( isset($presents[$date]) )  {
+						$absence = new $this->Employees_absences_model;
+						$absence->setNameId($name_id,true);
+						$absence->setDateAbsent($date,true);
+						$absence->setPeId($pe_id,true);
+						$absence->delete();
+					} else {
+						// absent
+						$absence = new $this->Employees_absences_model;
+						$absence->setNameId($name_id,true);
+						$absence->setDateAbsent($date,true);
+						$absence->setHours($employee_data->working_hours);
+						$absence->setPeId($pe_id);
+						if( $absence->nonEmpty() ) {
+							$absence->update();
+						} else {
+							$absence->insert();
+						}
+					}
+					
+				}
+			}
+			$this->postNext();
+		}
+
+		$this->_column_groups();
+		$this->template_data->set('name_id', $name_id);
+		$this->template_data->set('pe_id', $pe_id);
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($id,true);
+		$payroll_data = $payroll->get();
+		$this->template_data->set('payroll', $payroll_data);
+
+		$inclusive_dates = new $this->Payroll_inclusive_dates_model('pid');
+		$inclusive_dates->set_select("pid.*");
+		
+		//$inclusive_dates->set_select("(SELECT COUNT(*) FROM employees_absences ea2 WHERE ea2.name_id='{$name_id}' AND ea2.date_absent=pid.inclusive_date) as absent");
+
+		$inclusive_dates->set_select("(SELECT ea2.minutes FROM employees_overtime ea2 WHERE ea2.pe_id='{$pe_id}' AND ea2.date_overtime=pid.inclusive_date) as assigned");
+		
+		$inclusive_dates->set_select("(SELECT bl.name FROM employees_absences ea JOIN benefits_list bl ON ea.leave_type=bl.id WHERE ea.name_id={$name_id} AND pid.inclusive_date=ea.date_absent) as leave_type");
+
+		$inclusive_dates->setPayrollId($id,true);
+		$inclusive_dates->set_order('inclusive_date','ASC');
+		$inclusive_dates->set_limit(0); 
+		$this->template_data->set('inclusive_dates', $inclusive_dates->populate());
+
+		$this->template_data->set('output', $output);
+		$this->load->view('payroll/payroll/dtr/dtr_overtime', $this->template_data->get_data());
 	}
 
 	public function by_name($name_id,$start=0) {

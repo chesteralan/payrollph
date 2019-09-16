@@ -24,7 +24,7 @@ ALTER TABLE  `user_accounts` ADD  `last_login` datetime NULL   DEFAULT 'CURRENT_
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -70,6 +70,10 @@ class User_accounts_model extends MY_Model {
 	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
@@ -79,6 +83,11 @@ class User_accounts_model extends MY_Model {
 	public function getId() {
 		return $this->id;
 	}
+
+	public function get_id_value() {
+		return $this->id;
+	}
+
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -93,6 +102,10 @@ class User_accounts_model extends MY_Model {
 	public function setUsername($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('username', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_username_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('username', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `username` variable
@@ -102,6 +115,11 @@ class User_accounts_model extends MY_Model {
 	public function getUsername() {
 		return $this->username;
 	}
+
+	public function get_username_value() {
+		return $this->username;
+	}
+
 	
 // ------------------------------ End Field: username --------------------------------------
 
@@ -116,6 +134,10 @@ class User_accounts_model extends MY_Model {
 	public function setPassword($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('password', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_password_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('password', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `password` variable
@@ -125,6 +147,11 @@ class User_accounts_model extends MY_Model {
 	public function getPassword() {
 		return $this->password;
 	}
+
+	public function get_password_value() {
+		return $this->password;
+	}
+
 	
 // ------------------------------ End Field: password --------------------------------------
 
@@ -139,6 +166,10 @@ class User_accounts_model extends MY_Model {
 	public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_name_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name` variable
@@ -148,6 +179,11 @@ class User_accounts_model extends MY_Model {
 	public function getName() {
 		return $this->name;
 	}
+
+	public function get_name_value() {
+		return $this->name;
+	}
+
 	
 // ------------------------------ End Field: name --------------------------------------
 
@@ -162,6 +198,10 @@ class User_accounts_model extends MY_Model {
 	public function setLastLogin($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('last_login', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_last_login_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('last_login', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `last_login` variable
@@ -171,6 +211,11 @@ class User_accounts_model extends MY_Model {
 	public function getLastLogin() {
 		return $this->last_login;
 	}
+
+	public function get_last_login_value() {
+		return $this->last_login;
+	}
+
 	
 // ------------------------------ End Field: last_login --------------------------------------
 
@@ -236,11 +281,26 @@ class User_accounts_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setId() - id
+//setUsername() - username
+//setPassword() - password
+//setName() - name
+//setLastLogin() - last_login
 
+--------------------------------------
+
+//set_id() - id
+//set_username() - username
+//set_password() - password
+//set_name() - name
+//set_last_login() - last_login
+
+*/
 /* End of file User_accounts_model.php */
 /* Location: ./application/models/User_accounts_model.php */

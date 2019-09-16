@@ -15,8 +15,8 @@
   <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Basic Salary" data-url="<?php echo site_url("employees_salaries/add/{$employee->name_id}/ajax") . "?next=" . ( ( ($this->input->get('next')) && ($this->input->get('next') != 'employees') ) ? $this->input->get('next') : uri_string()); ?>" style="margin-right: 5px">Add Basic Salary</button>
 <?php } ?>
                   <h3 class="panel-title bold">
-                  <a href="<?php echo site_url("employees_salaries/trash/{$employee->name_id}"); ?>" class="fa fa-trash body_wrapper"></a>
                   <?php echo $current_page; ?>
+                  <a href="<?php echo site_url("employees_salaries/trash/{$employee->name_id}"); ?>" class="glyphicon glyphicon-trash body_wrapper"></a>
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
@@ -34,7 +34,7 @@
                 <th>Daily Rate</th>
                 <th>Hourly Rate</th>
                 <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
-                  <th width="125px">Action</th>
+                  <th width="100px">Action</th>
                 <?php } ?>
               </tr>
             </thead>

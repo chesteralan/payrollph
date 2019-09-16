@@ -4,8 +4,6 @@
 
 <?php $this->load->view('header'); ?>
 
-<?php $this->load->view('employees/employees/employees_view_navbar'); ?>
-
 <div class="container">
 <div class="row">
 
@@ -44,7 +42,7 @@
             <select class="form-control" name="leave_type">
                 
                 <?php foreach($leave_benefits as $leave) { 
-$leave_balance = ($leave->days - $leave->availed) + ($absence->hours / $employee->working_hours);
+$leave_balance = $leave->days - $leave->availed;
                   ?>
                   <?php if( $leave->days ) { ?>
                     <?php if($leave_balance > 0) { ?>
@@ -60,17 +58,17 @@ $leave_balance = ($leave->days - $leave->availed) + ($absence->hours / $employee
         <div class="col-md-6">
           <div class="form-group">
             <label>Number of Hours</label>
-            <input name="hours" type="text" class="form-control text-center" value="<?php echo ($absence) ? $absence->hours : (($employee)?$employee->working_hours:8); ?>" required>
+            <input name="hours" type="text" class="form-control text-center" value="<?php echo ($absence) ? $absence->hours : (($employee)?$employee->working_hours:$absence->working_hours); ?>" required>
           </div>
         </div>
       </div>
 
     <div class="form-group">
       <label>Notes / Reason</label>
-      <textarea name="notes" class="form-control" rows="3"><?php echo ($absence) ? $absence->notes : ''; ?></textarea>
+      <textarea name="notes" class="form-control" rows="2"><?php echo ($absence) ? $absence->notes : ''; ?></textarea>
     </div>
 
-<?php if( $absence ) { ?>
+<?php if( ($absence) && ($by=='pe_id') ) { ?>
 <?php if( $absence->pe_id ) { ?>
     <div class="alert alert-warning"><strong>Assigned to Payroll: <?php echo $payroll->name; ?></strong> <a href="<?php echo site_url(uri_string()) . "?remove_assignment=1&next=" . $this->input->get('next'); ?>" class="pull-right btn btn-danger btn-xs">Remove</a></div>
 <?php } else { ?>

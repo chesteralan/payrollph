@@ -12,7 +12,7 @@ CREATE TABLE `names_meta` (
   `meta_value` text,
   PRIMARY KEY (`meta_id`),
   KEY `name_id` (`name_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM DEFAULT CHARSET=latin;
 
 ALTER TABLE  `names_meta` ADD  `meta_id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `names_meta` ADD  `name_id` int(20) NOT NULL   ;
@@ -21,7 +21,7 @@ ALTER TABLE  `names_meta` ADD  `meta_value` text NULL   ;
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -66,6 +66,10 @@ class Names_meta_model extends MY_Model {
 	public function setMetaId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('meta_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_meta_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('meta_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `meta_id` variable
@@ -75,6 +79,11 @@ class Names_meta_model extends MY_Model {
 	public function getMetaId() {
 		return $this->meta_id;
 	}
+
+	public function get_meta_id_value() {
+		return $this->meta_id;
+	}
+
 	
 // ------------------------------ End Field: meta_id --------------------------------------
 
@@ -89,6 +98,10 @@ class Names_meta_model extends MY_Model {
 	public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_name_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name_id` variable
@@ -98,6 +111,11 @@ class Names_meta_model extends MY_Model {
 	public function getNameId() {
 		return $this->name_id;
 	}
+
+	public function get_name_id_value() {
+		return $this->name_id;
+	}
+
 	
 // ------------------------------ End Field: name_id --------------------------------------
 
@@ -112,6 +130,10 @@ class Names_meta_model extends MY_Model {
 	public function setMetaKey($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('meta_key', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_meta_key_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('meta_key', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `meta_key` variable
@@ -121,6 +143,11 @@ class Names_meta_model extends MY_Model {
 	public function getMetaKey() {
 		return $this->meta_key;
 	}
+
+	public function get_meta_key_value() {
+		return $this->meta_key;
+	}
+
 	
 // ------------------------------ End Field: meta_key --------------------------------------
 
@@ -135,6 +162,10 @@ class Names_meta_model extends MY_Model {
 	public function setMetaValue($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('meta_value', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_meta_value_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('meta_value', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `meta_value` variable
@@ -144,6 +175,11 @@ class Names_meta_model extends MY_Model {
 	public function getMetaValue() {
 		return $this->meta_value;
 	}
+
+	public function get_meta_value_value() {
+		return $this->meta_value;
+	}
+
 	
 // ------------------------------ End Field: meta_value --------------------------------------
 
@@ -199,11 +235,24 @@ class Names_meta_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setMetaId() - meta_id
+//setNameId() - name_id
+//setMetaKey() - meta_key
+//setMetaValue() - meta_value
 
+--------------------------------------
+
+//set_meta_id() - meta_id
+//set_name_id() - name_id
+//set_meta_key() - meta_key
+//set_meta_value() - meta_value
+
+*/
 /* End of file Names_meta_model.php */
 /* Location: ./application/models/Names_meta_model.php */

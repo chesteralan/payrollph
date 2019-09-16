@@ -21,25 +21,33 @@
 
 <?php endif; ?>
           <div class="form-group">
+<label class="pull-right"><input name="default" type="checkbox" value="1" <?php echo ($company->default==1) ? 'CHECKED' : ''; ?>> Default <?php echo lang_term('companies_title_singular', 'Company'); ?></label>
+
             <label><?php echo lang_term('companies_title_singular', 'Company'); ?> Name</label>
             <input name="name" type="text" class="form-control" value="<?php echo $company->name; ?>" REQUIRED>
           </div>
-
+<div class="row">
+<div class="col-md-6">
           <div class="form-group">
             <label><?php echo lang_term('companies_title_singular', 'Company'); ?> Address</label>
             <input name="address" type="text" class="form-control" value="<?php echo $company->address; ?>">
           </div>
-
+</div>
+<div class="col-md-6">
           <div class="form-group">
             <label><?php echo lang_term('companies_title_singular', 'Company'); ?> Phone</label>
             <input name="phone" type="text" class="form-control" value="<?php echo $company->phone; ?>">
           </div>
+</div>
+</div>
 
           <div class="form-group">
             <label>Notes</label>
-            <textarea name="notes" class="form-control" rows="5"><?php echo $company->notes; ?></textarea>
+            <textarea name="notes" class="form-control" rows="2"><?php echo $company->notes; ?></textarea>
           </div>
 
+<div class="row">
+<div class="col-md-6">
             <div class="form-group">
               <label>Theme</label>
               <select name="theme" class="form-control" title="- - Select Class - -">
@@ -49,16 +57,16 @@
               <?php } ?>
               </select>
             </div>
-
-        <div class="form-group">
-            <label><input name="default" type="checkbox" value="1" <?php echo ($company->default==1) ? 'CHECKED' : ''; ?>> Default <?php echo lang_term('companies_title_singular', 'Company'); ?></label>
-          </div>
-
-
+</div>
+<div class="col-md-6">
           <div class="form-group">
             <label>Period Start</label>
-            <input name="period_start" type="text" class="form-control datepicker" value="<?php echo (isset($company->period_start)) ? $company->period_start : date('m/d/Y',strtotime("1/1/" . date('Y'))); ?>">
+            <input name="period_start" type="text" class="form-control datepicker" value="<?php echo (isset($company->period_start)) ? unserialize($company->period_start) : date('m/d/Y',strtotime("1/1/" . date('Y'))); ?>">
           </div>
+</div>
+</div>
+
+<a class="btn btn-xs btn-warning ajax-modal-inner" href="<?php echo site_url("system_companies/edit_settings/{$company->id}/1/{$output}") . "?next=" . $this->input->get('next'); ?>" data-title="More Company Settings">More settings</a>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 

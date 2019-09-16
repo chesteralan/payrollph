@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <div class="navbar-brand"><?php echo $payroll->name;  ?></div>
+      <div class="navbar-brand"><?php echo substr( $payroll->name ,0, 30); ?></div>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -51,6 +51,7 @@ $current_employee = $this->session->userdata('current_employee');
   || ( isset($employees_positions) && ($employees_positions) ) 
 )
 {
+
   ?>
 
     <li class="dropdown">
@@ -73,9 +74,7 @@ $current_employee = $this->session->userdata('current_employee');
             <?php foreach($employees_status as $emp_stat) { ?>
                 <li class="<?php echo (($this->session->userdata('employees_filter')) && ($this->session->userdata('employees_filter_type')=='status') && ($this->session->userdata('employees_filter')->id == $emp_stat->status)) ? 'active' : ''; ?>"><a href="<?php echo site_url("payroll/filter_status/{$emp_stat->status}") . "?uri=" . uri_string(); ?>"><?php echo $emp_stat->status_name; ?></a></li>
             <?php } ?>
-            <?php if( isset($employees_groups) && ($employees_groups) ) { ?>
-            <li role="separator" class="divider"></li>
-            <?php } ?>
+
 <?php } ?>
 
 <?php if( isset($employees_groups) && ($employees_groups) ) { ?>
@@ -84,9 +83,7 @@ $current_employee = $this->session->userdata('current_employee');
             <?php foreach($employees_groups as $emp_grp) { ?>
                 <li class="<?php echo (($this->session->userdata('employees_filter')) && ($this->session->userdata('employees_filter_type')=='group') && ($this->session->userdata('employees_filter')->id == $emp_grp->id)) ? 'active' : ''; ?>"><a href="<?php echo site_url("payroll/filter_group/{$emp_grp->id}") . "?uri=" . uri_string(); ?>"><?php echo $emp_grp->name; ?></a></li>
             <?php } ?>
-            <?php if( isset($employees_areas) && ($employees_areas) ) { ?>
-            <li role="separator" class="divider"></li>
-            <?php } ?>
+
 <?php } ?>
 
 <?php if( isset($employees_areas) && ($employees_areas) ) { ?>
@@ -95,9 +92,7 @@ $current_employee = $this->session->userdata('current_employee');
             <?php foreach($employees_areas as $emp_area) { ?>
                 <li class="<?php echo (($this->session->userdata('employees_filter')) && ($this->session->userdata('employees_filter_type')=='area') && ($this->session->userdata('employees_filter')->id == $emp_area->id)) ? 'active' : ''; ?>"><a href="<?php echo site_url("payroll/filter_area/{$emp_area->id}") . "?uri=" . uri_string(); ?>"><?php echo $emp_area->name; ?></a></li>
             <?php } ?>
-            <?php if( isset($employees_positions) && ($employees_positions) ) { ?>
-            <li role="separator" class="divider"></li>
-            <?php } ?>
+
 <?php } ?>
 
 <?php if( isset($employees_positions) && ($employees_positions) ) { ?>

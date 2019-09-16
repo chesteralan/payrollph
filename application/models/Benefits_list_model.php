@@ -16,7 +16,7 @@ CREATE TABLE `benefits_list` (
   `trash` int(1) DEFAULT '0',
   `abbr` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin;
 
 ALTER TABLE  `benefits_list` ADD  `id` int(20) NOT NULL  AUTO_INCREMENT PRIMARY KEY;
 ALTER TABLE  `benefits_list` ADD  `name` varchar(200) NOT NULL   ;
@@ -30,7 +30,7 @@ ALTER TABLE  `benefits_list` ADD  `abbr` varchar(100) NULL   ;
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -80,6 +80,10 @@ class Benefits_list_model extends MY_Model {
 	public function setId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `id` variable
@@ -89,6 +93,11 @@ class Benefits_list_model extends MY_Model {
 	public function getId() {
 		return $this->id;
 	}
+
+	public function get_id_value() {
+		return $this->id;
+	}
+
 	
 // ------------------------------ End Field: id --------------------------------------
 
@@ -103,6 +112,10 @@ class Benefits_list_model extends MY_Model {
 	public function setName($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_name_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name` variable
@@ -112,6 +125,11 @@ class Benefits_list_model extends MY_Model {
 	public function getName() {
 		return $this->name;
 	}
+
+	public function get_name_value() {
+		return $this->name;
+	}
+
 	
 // ------------------------------ End Field: name --------------------------------------
 
@@ -126,6 +144,10 @@ class Benefits_list_model extends MY_Model {
 	public function setNotes($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_notes_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('notes', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `notes` variable
@@ -135,6 +157,11 @@ class Benefits_list_model extends MY_Model {
 	public function getNotes() {
 		return $this->notes;
 	}
+
+	public function get_notes_value() {
+		return $this->notes;
+	}
+
 	
 // ------------------------------ End Field: notes --------------------------------------
 
@@ -149,6 +176,10 @@ class Benefits_list_model extends MY_Model {
 	public function setLeave($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('leave', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_leave_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('leave', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `leave` variable
@@ -158,6 +189,11 @@ class Benefits_list_model extends MY_Model {
 	public function getLeave() {
 		return $this->leave;
 	}
+
+	public function get_leave_value() {
+		return $this->leave;
+	}
+
 	
 // ------------------------------ End Field: leave --------------------------------------
 
@@ -172,6 +208,10 @@ class Benefits_list_model extends MY_Model {
 	public function setEeAccountTitle($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('ee_account_title', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_ee_account_title_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('ee_account_title', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `ee_account_title` variable
@@ -181,6 +221,11 @@ class Benefits_list_model extends MY_Model {
 	public function getEeAccountTitle() {
 		return $this->ee_account_title;
 	}
+
+	public function get_ee_account_title_value() {
+		return $this->ee_account_title;
+	}
+
 	
 // ------------------------------ End Field: ee_account_title --------------------------------------
 
@@ -195,6 +240,10 @@ class Benefits_list_model extends MY_Model {
 	public function setErAccountTitle($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('er_account_title', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_er_account_title_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('er_account_title', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `er_account_title` variable
@@ -204,6 +253,11 @@ class Benefits_list_model extends MY_Model {
 	public function getErAccountTitle() {
 		return $this->er_account_title;
 	}
+
+	public function get_er_account_title_value() {
+		return $this->er_account_title;
+	}
+
 	
 // ------------------------------ End Field: er_account_title --------------------------------------
 
@@ -218,6 +272,10 @@ class Benefits_list_model extends MY_Model {
 	public function setActive($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_active_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('active', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `active` variable
@@ -227,6 +285,11 @@ class Benefits_list_model extends MY_Model {
 	public function getActive() {
 		return $this->active;
 	}
+
+	public function get_active_value() {
+		return $this->active;
+	}
+
 	
 // ------------------------------ End Field: active --------------------------------------
 
@@ -241,6 +304,10 @@ class Benefits_list_model extends MY_Model {
 	public function setTrash($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_trash_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('trash', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `trash` variable
@@ -250,6 +317,11 @@ class Benefits_list_model extends MY_Model {
 	public function getTrash() {
 		return $this->trash;
 	}
+
+	public function get_trash_value() {
+		return $this->trash;
+	}
+
 	
 // ------------------------------ End Field: trash --------------------------------------
 
@@ -264,6 +336,10 @@ class Benefits_list_model extends MY_Model {
 	public function setAbbr($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('abbr', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_abbr_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('abbr', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `abbr` variable
@@ -273,6 +349,11 @@ class Benefits_list_model extends MY_Model {
 	public function getAbbr() {
 		return $this->abbr;
 	}
+
+	public function get_abbr_value() {
+		return $this->abbr;
+	}
+
 	
 // ------------------------------ End Field: abbr --------------------------------------
 
@@ -378,11 +459,34 @@ class Benefits_list_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setId() - id
+//setName() - name
+//setNotes() - notes
+//setLeave() - leave
+//setEeAccountTitle() - ee_account_title
+//setErAccountTitle() - er_account_title
+//setActive() - active
+//setTrash() - trash
+//setAbbr() - abbr
 
+--------------------------------------
+
+//set_id() - id
+//set_name() - name
+//set_notes() - notes
+//set_leave() - leave
+//set_ee_account_title() - ee_account_title
+//set_er_account_title() - er_account_title
+//set_active() - active
+//set_trash() - trash
+//set_abbr() - abbr
+
+*/
 /* End of file Benefits_list_model.php */
 /* Location: ./application/models/Benefits_list_model.php */

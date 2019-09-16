@@ -243,6 +243,9 @@ body#payslip table.bordered td {
   border-bottom: 1px solid #CCC;
   padding: 1px 3px;
 }
+body {
+  margin-top: 50px;
+}
 @media print {
     div.page {
       page-break-after: always;
@@ -258,11 +261,11 @@ body#payslip table.bordered td {
 }
 .print-topnav {
   position: fixed;
-  width: 750px;
+      width: 96%;
   top: 0;
-  left: 50%;
+  left: 2%;
   margin-top: 0; /* Negative half of height. */
-  margin-left: -275px; /* Negative half of width. */
+  /* margin-left: -275px;  Negative half of width. */
   border: 1px solid #000;
   border-top:none;
   padding:3px;
@@ -282,8 +285,6 @@ body#payslip table.bordered td {
 .print-topnav.topnav2 {
   top:18px;
   z-index: 98;
-  width: 400px;
-  margin-left: -150px; 
 }
 .config_box {
   width: 500px;

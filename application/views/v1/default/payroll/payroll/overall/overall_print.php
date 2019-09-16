@@ -13,6 +13,7 @@ function isColumn($ths, $column_id,$print_columns) {
     }
     return false;
 }  
+
 ?>
 
 <!DOCTYPE html>
@@ -102,6 +103,7 @@ function isColumn($ths, $column_id,$print_columns) {
 </div>
 
 <?php if(!$print_group) { ?>
+<?php if($template) { ?>
 <?php if($template->pages > 1) { ?>
 <div class="print-topnav topnav2 hide-print text-center allcaps">
 
@@ -112,9 +114,13 @@ function isColumn($ths, $column_id,$print_columns) {
 </div>
 <?php } ?>
 <?php } ?>
+<?php } ?>
 
 <?php
-switch( $template->print_format ) {
+
+$print_format = ($template) ? $template->print_format : false;
+
+switch( $print_format ) {
     case 'clergy_allowance':
       $this->load->view('payroll/payroll/overall/overall_print_clergy_allowance');
     break;
@@ -133,11 +139,11 @@ switch( $template->print_format ) {
       </td>
       <td width="33.33%" class="text-center"><p>Checked By:</p>
        <br>
-<span class="allcaps bold"><?php echo $template->checked_by_name; ?></span>
+<span class="allcaps bold"><?php echo $payroll->checked_by_name; ?></span>
       </td>
       <td width="33.33%" class="text-right"><p>Approved By:</p>
       <br>
-<span class="allcaps bold"><?php echo $template->approved_by_name; ?></span>
+<span class="allcaps bold"><?php echo $payroll->approved_by_name; ?></span>
       </td>
     </tr>
   </table>

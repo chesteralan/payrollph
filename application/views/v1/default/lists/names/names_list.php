@@ -19,9 +19,11 @@
                     <?php if( $this->input->get('q') ) { ?>
                     <span class="badge"><?php echo $this->input->get('q'); ?> <a href="<?php echo site_url(uri_string()); ?>"><span class="glyphicon glyphicon-remove"></span></a></span>
                     <?php } ?>
+<?php if( $names_count > 0 ) { ?>
 <a href="<?php echo site_url("lists_names"); ?>?filter=trash"><span class="glyphicon glyphicon-trash"></span></a>
-<a href="<?php echo site_url("lists_names/report"); ?>" class=""><span class="glyphicon glyphicon-print"></span></a>
+<a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Config" data-url="<?php echo site_url("lists_names/report/config/ajax") . "?next=" . uri_string(); ?>"><span class="glyphicon glyphicon-print"></span></a>
                     <br><small><em>(<?php echo $names_count; ?> name<?php echo ($names_count>1)?"s":""; ?> found)</em></small>
+<?php } ?>
 	    		</h3>
 </div>
 <div class="col-md-3">
@@ -32,10 +34,8 @@
   <span class="input-group-btn">
     <button class="btn btn-default" type="submit">Search</button>
     
-<?php if( $this->input->get('q') ) { ?>
 <?php if( hasAccess('lists', 'names', 'add') ) { ?>
  <a type="button" class="btn btn-success ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Name" data-url="<?php echo site_url("lists_names/add/ajax") . "?next=" . uri_string(); ?>">Add Name</a>
-<?php } ?>
 <?php } ?>
   </span>
 </div><!-- /input-group -->
@@ -54,7 +54,7 @@
 	    					<th class="text-center">Company</th>
 	    					<th width="10%" class="text-center">Age</th>
 	    					<?php if( hasAccess('lists', 'names', 'edit') ) { ?>
-	    					<th width="200px" class="text-right">Action</th>
+	    					<th width="90px" class="text-right">Action</th>
 	    					<?php } ?>
 	    				</tr>
 	    			</thead>
@@ -74,19 +74,30 @@
 	    					<td  class="text-center"><?php echo $name->age; ?></td>
 	    					<?php if( hasAccess('lists', 'names', 'edit') ) { ?>
 	    					<td class="text-right">
+
 <?php if( $name->trash == 0) { ?>
-
-							
-
-  <a class="btn btn-info btn-xs body_wrapper" href="<?php echo site_url("lists_names/profile/{$name->id}"); ?>">Profile</a>
- 
-
-	    					<button type="button" class="btn btn-warning btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Name" data-url="<?php echo site_url("lists_names/edit/{$name->id}/ajax") . "?next=" . uri_string(); ?>">Edit</button>
-
-	    					<a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("lists_names/deactivate/{$name->id}"); ?>" data-target="#name-<?php echo $name->id; ?>">Deactivate</a>
+<!-- Split button -->
+<div class="btn-group ">
+    <a class="btn btn-info btn-xs body_wrapper" href="<?php echo site_url("lists_names/profile/{$name->id}"); ?>">Profile</a>
+  <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-right">
+    <li><a class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Name" data-url="<?php echo site_url("lists_names/edit/{$name->id}/ajax") . "?next=" . uri_string(); ?>">Edit Name</a></li>
+    <li>
+<a class="confirm_remove" href="<?php echo site_url("lists_names/deactivate/{$name->id}"); ?>" data-target="#name-<?php echo $name->id; ?>">Deactivate</a>
+    </li>
+<?php if( !$name->is_employed ) { ?>
+    <li role="separator" class="divider"></li>
+    <li><a class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add to Employees" data-url="<?php echo site_url("employees/add/{$name->id}/ajax") . "?next=" . uri_string(); ?>">Add to Employees</a></li>
+<?php } ?>
+  </ul>
+</div>
 <?php } else { ?>
 							<a class="btn btn-success btn-xs confirm" href="<?php echo site_url("lists_names/restore/{$name->id}"); ?>">Restore</a>
 <?php } ?>
+
 	    					</td>
 	    					<?php } ?>
 	    				</tr>

@@ -27,7 +27,7 @@
   <div class="input-group">
       <input type="text" class="form-control autocomplete-search_ajax_<?php echo ($output=='ajax') ? 'inner' : 'redirect'; ?>" data-source="<?php echo site_url("employees/search_name/autocomplete"); ?>" placeholder="Search name...">
       <span class="input-group-btn">
-        <a class="btn btn-success" href="<?php echo site_url("employees/add_multiple"); ?>?next=<?php echo $current_uri; ?>">Add Multiple</a>
+        <a class="btn btn-success ajax-modal-inner" href="<?php echo site_url("employees/add_multiple/{$output}"); ?>?next=<?php echo $current_uri; ?>">Add Multiple</a>
       </span>
   </div>
 </div>
@@ -43,6 +43,7 @@
   </div>
 
    <?php echo ($pagination!='') ? '<center>' . $pagination . '</center>' : ''; ?>
+   
 <?php } else { ?>
   <p class="text-center">No Names Found!</p>
 <?php } ?>

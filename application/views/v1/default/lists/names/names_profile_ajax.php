@@ -31,19 +31,13 @@ return <<<HTML
   <div class="col-md-6">
     <div class="form-group">
       <label>Birthday</label>
-      <div class="form-control">{$birthday}</div>
+      <div class="form-control">{$birthday} ({$name->age} years old)</div>
     </div>
   </div>
   <div class="col-md-6">
     <div class="form-group">
       <label>Birthplace</label>
       <div class="form-control">{$name->birthplace}</div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label>Age</label>
-      <div class="form-control">{$name->age} years old</div>
     </div>
   </div>
 
@@ -230,6 +224,7 @@ HTML;
 
 function employment($employee) { 
   $date_hired = date('F d, Y', strtotime($employee->hired));
+  $date_regularized = date('F d, Y', strtotime($employee->regularized));
 return <<<HTML
 <div class="row">
   <div class="col-md-6">
@@ -244,19 +239,20 @@ return <<<HTML
       <div class="form-control">{$employee->status_name}</div>
     </div>
   </div>
+
   <div class="col-md-6">
     <div class="form-group">
       <label>Date Hired</label>
-      <div class="form-control">{$date_hired}</div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label>Years of Service</label>
-      <div class="form-control">{$employee->years_service} years</div>
+      <div class="form-control">{$date_hired} ({$employee->hired_years} years)</div>
     </div>
   </div>
 
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Date Regularized</label>
+      <div class="form-control">{$date_regularized} ({$employee->regularized_years} years)</div>
+    </div>
+  </div>
 
   <div class="col-md-6">
     <div class="form-group">

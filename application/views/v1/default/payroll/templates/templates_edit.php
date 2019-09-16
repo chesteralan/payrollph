@@ -79,6 +79,20 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Use Payroll</label>
+                    <input id="use_payroll" name="payroll_id" type="hidden" value="<?php echo $template->payroll_id; ?>">
+                    <input name="" class="form-control autocomplete-name_select autocomplete-name_select-name-input-<?php echo time(); ?>-3" data-source="<?php echo site_url("payroll_templates/ajax/search_payroll"); ?>" data-name_id="use_payroll" type="text" style="display: none;">
+                    <div class="form-control autocomplete-name_select-name-display-<?php echo time(); ?>-3"><a class="badge" id="changeName" href="#changePayroll" data-id="<?php echo $template->payroll_id; ?>" data-name_id="use_payroll" data-timestamp="<?php echo time(); ?>-3"><?php echo ($template->payroll_id) ? $template->payroll_name : 'not assigned'; ?></a></div>
+                  </div>
+          </div>
+          <div class="col-md-6">
+
+          </div>
+        </div>
+
 <?php if( isset($output) && ($output!='ajax') ) : ?>
 
         </div>

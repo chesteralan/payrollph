@@ -24,7 +24,7 @@ function draw_calendar($name_id, $month,$year,$absences=NULL, $attendance=NULL, 
     }
   }
   
-print_r($absences);
+//print_r($absences);
   /* draw table */
   $calendar = '<table cellpadding="0" cellspacing="0" class="calendar" width="100%">';
 
@@ -93,6 +93,7 @@ print_r($absences);
           }
       }
 
+      $calendar.= ((date('Y-m-d')==$list_date)? ' current-day':'');
       $calendar.= '">';
 
       if( $working_day ) {

@@ -19,7 +19,7 @@
   </button>
   <ul class="dropdown-menu">
     <?php foreach($payroll_years as $year) { ?>
-      <li><a href="<?php echo site_url("payroll/index/{$year->year}/{$filter_month}/{$filter_template}"); ?>"><?php echo $year->year; ?></a></li>
+      <li><a href="<?php echo site_url("reports_13month/index/{$year->year}"); ?>"><?php echo $year->year; ?></a></li>
     <?php } ?>
   </ul>
 </div>

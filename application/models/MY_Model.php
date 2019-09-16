@@ -186,7 +186,7 @@ class MY_Model extends CI_Model
     */
 
     public function update() {
-        if ( ( $this->get_data() ) && ( $this->has_conditions() ) ) {
+        if ( ( $this->_get_data() ) && ( $this->has_conditions() ) ) {
                                 $this->_set_db_data(); 
                 $this->setup_conditions();
                 return $this->_db->update($this->_db->database . '.' . $this->_table_name . ' ' . $this->_short_name );
@@ -204,7 +204,7 @@ class MY_Model extends CI_Model
     */
 
     public function insert() {
-        if( $this->get_data() ) {
+        if( $this->_get_data() ) {
             $this->_set_db_data(); 
             if( $this->_db->insert( $this->_db->database . '.' . $this->_table_name ) === TRUE ) {
                 $this->id = $this->_db->insert_id();
@@ -244,7 +244,7 @@ class MY_Model extends CI_Model
     */
 
     public function replace() {
-        if( $this->get_data() ) {
+        if( $this->_get_data() ) {
             $this->_set_db_data(); 
             if( $this->_db->replace( $this->_db->database . '.' . $this->_table_name ) === TRUE ) {
                 $this->id = $this->_db->insert_id();
@@ -599,7 +599,7 @@ class MY_Model extends CI_Model
     * @return Array;
     */
 
-    public function get_data($exclude=NULL) {
+    private function _get_data($exclude=NULL) {
         $data = array();
 
         $fields = $this->_fields;
@@ -639,8 +639,8 @@ class MY_Model extends CI_Model
     */
     
     protected function _set_db_data() {
-        if( $this->get_data() ) {
-            foreach($this->get_data() as $key=> $value) {
+        if( $this->_get_data() ) {
+            foreach($this->_get_data() as $key=> $value) {
                 if( !is_null($value) ) {
                     $this->_db->set($key, $value);
                 }

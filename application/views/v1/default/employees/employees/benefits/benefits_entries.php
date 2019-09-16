@@ -17,7 +17,7 @@
 <a class="btn btn-success btn-xs ajax-modal pull-right" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Item" data-url="<?php echo payroll_url("employees_benefits/edit/{$entry->id}/{$output}/ajax"); ?>">Edit Item</a>
 <?php } ?>
                   <h3 class="panel-title bold">
-                  <?php echo $benefit->name; ?> - <?php echo $benefit->notes; ?> <?php echo ($entry->notes) ? "(".$entry->notes.")" : ""; ?>
+                  <?php echo $benefit->name; ?><?php echo ($benefit->notes) ? " - {$benefit->notes}" : ""; ?> <?php echo ($entry->notes) ? "({$entry->notes})" : ""; ?>
                   </h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">

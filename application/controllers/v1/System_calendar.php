@@ -23,8 +23,10 @@ class System_calendar extends MY_Controller {
 		$current = new $this->Calendar_model('c');
 		$current->set_select("c.*");
 		$current->setCompanyId($this->session->userdata('current_company_id'),true);
-		$current->set_where("(MONTH(c.calendar_date)='{$current_month}')");
-		$current->set_where("(YEAR(c.calendar_date)='{$current_year}')");
+		$current->set_where("((MONTH(c.calendar_date)={$current_month}) AND (YEAR(c.calendar_date)='{$current_year}'))");
+		$current->set_where_or("((MONTH(c.calendar_date)={$current_month}) AND (c.repeat_yearly=1))");
+		$current->set_limit(0);
+		//echo $current->get_compiled_select();
 		$this->template_data->set('current_dates', $current->populate());
 
 		$this->template_data->set('output', $output);
@@ -43,6 +45,7 @@ class System_calendar extends MY_Controller {
 				$current->setHolidayType($this->input->post('holiday_type'), false, true);
 				$current->setPremium($this->input->post('holiday_premium'), false, true);
 				$current->setNotes($this->input->post('holiday_notes'), false, true);
+				$current->setRepeatYearly( (($this->input->post('repeat_yearly')) ? 1 : 0), false, true);
 				$current->update();
 			} else {
 				$current = new $this->Calendar_model;
@@ -50,6 +53,7 @@ class System_calendar extends MY_Controller {
 				$current->setCompanyId($this->session->userdata('current_company_id'),false,true);
 				$current->setCompanyId($this->session->userdata('current_company_id'),true);
 				$current->setIsHoliday( (($this->input->post('is_holiday')) ? 1 : 0), false, true);
+				$current->setRepeatYearly( (($this->input->post('repeat_yearly')) ? 1 : 0), false, true);
 				$current->setHolidayType($this->input->post('holiday_type'), false, true);
 				$current->setPremium($this->input->post('holiday_premium'), false, true);
 				$current->setNotes($this->input->post('holiday_notes'), false, true);

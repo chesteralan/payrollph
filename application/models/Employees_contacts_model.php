@@ -20,7 +20,7 @@ ALTER TABLE  `employees_contacts` ADD  `address` varchar(200) NULL   ;
 
 
  * @package			        Model
- * @version_number	        5.0
+ * @version_number	        6.0
  * @project			        Trokis Philippines
  * @project_link	        http://www.trokis.com
  * @author			        Chester Alan Tagudin
@@ -65,6 +65,10 @@ class Employees_contacts_model extends MY_Model {
 	public function setNameId($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_name_id_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('name_id', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `name_id` variable
@@ -74,6 +78,11 @@ class Employees_contacts_model extends MY_Model {
 	public function getNameId() {
 		return $this->name_id;
 	}
+
+	public function get_name_id_value() {
+		return $this->name_id;
+	}
+
 	
 // ------------------------------ End Field: name_id --------------------------------------
 
@@ -88,6 +97,10 @@ class Employees_contacts_model extends MY_Model {
 	public function setPhoneNumber($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('phone_number', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_phone_number_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('phone_number', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `phone_number` variable
@@ -97,6 +110,11 @@ class Employees_contacts_model extends MY_Model {
 	public function getPhoneNumber() {
 		return $this->phone_number;
 	}
+
+	public function get_phone_number_value() {
+		return $this->phone_number;
+	}
+
 	
 // ------------------------------ End Field: phone_number --------------------------------------
 
@@ -111,6 +129,10 @@ class Employees_contacts_model extends MY_Model {
 	public function setCellNumber($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('cell_number', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_cell_number_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('cell_number', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `cell_number` variable
@@ -120,6 +142,11 @@ class Employees_contacts_model extends MY_Model {
 	public function getCellNumber() {
 		return $this->cell_number;
 	}
+
+	public function get_cell_number_value() {
+		return $this->cell_number;
+	}
+
 	
 // ------------------------------ End Field: cell_number --------------------------------------
 
@@ -134,6 +161,10 @@ class Employees_contacts_model extends MY_Model {
 	public function setAddress($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
 		return $this->_set_field('address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
 	}
+
+	public function set_address_value($value, $setWhere=FALSE, $set_data_field=FALSE, $whereOperator=NULL, $underCondition=NULL, $priority=NULL) {
+		return $this->_set_field('address', $value, $setWhere, $set_data_field, $whereOperator, $underCondition, $priority);
+	}
 	
 	/** 
 	* Get the value of `address` variable
@@ -143,6 +174,11 @@ class Employees_contacts_model extends MY_Model {
 	public function getAddress() {
 		return $this->address;
 	}
+
+	public function get_address_value() {
+		return $this->address;
+	}
+
 	
 // ------------------------------ End Field: address --------------------------------------
 
@@ -198,11 +234,24 @@ class Employees_contacts_model extends MY_Model {
 		);
 
 		if( isset( $column[$field_name] ) ) {
-			$this->db->query( $column[$field_name] );
+			$this->_db->query( $column[$field_name] );
 		}
 	}
 
 }
+/*
+//setNameId() - name_id
+//setPhoneNumber() - phone_number
+//setCellNumber() - cell_number
+//setAddress() - address
 
+--------------------------------------
+
+//set_name_id() - name_id
+//set_phone_number() - phone_number
+//set_cell_number() - cell_number
+//set_address() - address
+
+*/
 /* End of file Employees_contacts_model.php */
 /* Location: ./application/models/Employees_contacts_model.php */
