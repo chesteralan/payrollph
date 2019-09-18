@@ -56,6 +56,7 @@ class System_database extends MY_Controller {
 		$models['calendar'] = 'Calendar_model';
 		$models['companies_list'] = 'Companies_list_model';
 		$models['companies_options'] = 'Companies_options_model';
+		$models['companies_period'] = 'Companies_period_model';
 		$models['deductions_list'] = 'Deductions_list_model';
 		$models['earnings_list'] = 'Earnings_list_model';
 		$models['employees'] = 'Employees_model';
@@ -71,8 +72,10 @@ class System_database extends MY_Controller {
 		$models['employees_earnings_templates'] = 'Employees_earnings_templates_model';
 		$models['employees_groups'] = 'Employees_groups_model';
 		$models['employees_leave_benefits'] = 'Employees_leave_benefits_model';
+		$models['employees_overtime'] = 'Employees_overtime_model';
 		$models['employees_positions'] = 'Employees_positions_model';
 		$models['employees_salaries'] = 'Employees_salaries_model';
+		$models['employees_timesheets'] = 'Employees_timesheets_model';
 		$models['names_info'] = 'Names_info_model';
 		$models['names_list'] = 'Names_list_model';
 		$models['names_meta'] = 'Names_meta_model';
@@ -87,6 +90,8 @@ class System_database extends MY_Controller {
 		$models['payroll_employees_salaries'] = 'Payroll_employees_salaries_model';
 		$models['payroll_groups'] = 'Payroll_groups_model';
 		$models['payroll_inclusive_dates'] = 'Payroll_inclusive_dates_model';
+		$models['payroll_meta'] = 'Payroll_meta_model';
+		$models['payroll_print_columns'] = 'Payroll_print_columns_model';
 		$models['payroll_templates'] = 'Payroll_templates_model';
 		$models['payroll_templates_benefits'] = 'Payroll_templates_benefits_model';
 		$models['payroll_templates_columns'] = 'Payroll_templates_columns_model';
@@ -138,13 +143,16 @@ class System_database extends MY_Controller {
 		redirect( site_url("system_database/verify") . "?table=" . $table_name );
 	}
 
-	public function fix_key($table_name, $field_name, $field_type) {
+	public function fix_key($table_name, $field_name, $field_type='') {
 		$field_type = urldecode( $field_type );
 		if( $field_type == 'PRI') {
 			$this->db->query("ALTER TABLE `{$table_name}` ADD PRIMARY KEY(`{$field_name}`);");
 		}
 		elseif( $field_type == 'MUL') {
 			$this->db->query("ALTER TABLE `{$table_name}` ADD INDEX(`$field_name`);");
+		}
+		elseif( $field_type == '') {
+			$this->db->query("ALTER TABLE `{$table_name}` DROP INDEX `{$field_name}`;");
 		}
 		redirect( site_url("system_database/verify") . "?table=" . $table_name );
 	}

@@ -113,7 +113,8 @@ if( $k == 'Field' ) {
 if( $k == 'Type' ) {
 	$field_type = urlencode($v);
 }
-$tov = (isset($model->table_options[$field_name])) ? $model->table_options[$field_name]->$k : "";
+echo $tov = (isset($model->table_options[$field_name])) ? $model->table_options[$field_name]->$k : "";
+
 $tov_encode = urlencode( $tov );
 if( $v != $tov) {
 	switch($k) {
@@ -156,7 +157,7 @@ $echo_table = false;
 <?php if( $uri ) { ?>
 <a class="confirm" href="<?php echo site_url($uri); ?>">
 <?php } ?>
-				      				<?php echo $tov; ?>
+				      				<?php echo ($tov!='') ? $tov : "--blank--"; ?>
 <?php if( $uri ) { ?>
 </a>
 <?php } ?>
