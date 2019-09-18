@@ -105,10 +105,12 @@ class Payroll_overall extends MY_Controller {
 
 				$payroll_group = new $this->Payroll_groups_model('pg');
 				$payroll_group->setPayrollId($id,true);
+				
 				$payroll_group->set_join('employees_positions eg', 'pg.position_id=eg.id');
 				$payroll_group->set_limit(0);
 				$payroll_group->set_order('pg.order', 'DESC');
-				$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE position_id=pg.position_id) > 0)");
+				//$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE position_id=pg.position_id) > 0)");
+				$payroll_group->set_where("((SELECT COUNT(*) FROM payroll_employees WHERE payroll_id={$id} AND position_id=eg.id) > 0)");
 				$payroll_group->set_where("((SELECT company_id FROM employees_positions WHERE id=pg.position_id) = {$this->session->userdata('current_company_id')})");
 				$payroll_group_data =  $payroll_group->populate();
 				
@@ -117,10 +119,12 @@ class Payroll_overall extends MY_Controller {
 
 				$payroll_group = new $this->Payroll_groups_model('pg');
 				$payroll_group->setPayrollId($id,true);
+				
 				$payroll_group->set_join('employees_areas eg', 'pg.area_id=eg.id');
 				$payroll_group->set_limit(0);
 				$payroll_group->set_order('pg.order', 'DESC');
-				$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE area_id=pg.area_id) > 0)");
+				//$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE area_id=pg.area_id) > 0)");
+				$payroll_group->set_where("((SELECT COUNT(*) FROM payroll_employees WHERE payroll_id={$id} AND area_id=eg.id) > 0)");
 				$payroll_group->set_where("((SELECT company_id FROM employees_areas WHERE id=pg.area_id) = {$this->session->userdata('current_company_id')})");
 				$payroll_group_data =  $payroll_group->populate();
 
@@ -129,11 +133,13 @@ class Payroll_overall extends MY_Controller {
 
 				$payroll_group = new $this->Payroll_groups_model('pg');
 				$payroll_group->setPayrollId($id,true);
+				
 				$payroll_group->set_join('terms_list eg', 'pg.status_id=eg.id');
 				$payroll_group->set_limit(0);
 				$payroll_group->set_order('pg.order', 'DESC');
 				$payroll_group->set_where("pg.status_id > 0");
-				$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE status=pg.status_id) > 0)");
+				//$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE status=pg.status_id) > 0)");
+				$payroll_group->set_where("((SELECT COUNT(*) FROM payroll_employees WHERE payroll_id={$id} AND status_id=eg.id) > 0)");
 				//$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
 				$payroll_group_data =  $payroll_group->populate();
 
@@ -142,10 +148,12 @@ class Payroll_overall extends MY_Controller {
 			default:
 				$payroll_group = new $this->Payroll_groups_model('pg');
 				$payroll_group->setPayrollId($id,true);
+				
 				$payroll_group->set_join('employees_groups eg', 'pg.group_id=eg.id');
 				$payroll_group->set_limit(0);
 				$payroll_group->set_order('pg.order', 'DESC');
-				$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
+				//$payroll_group->set_where("((SELECT COUNT(*) FROM employees WHERE group_id=pg.group_id) > 0)");
+				$payroll_group->set_where("((SELECT COUNT(*) FROM payroll_employees WHERE payroll_id={$id} AND group_id=eg.id) > 0)");
 				$payroll_group->set_where("((SELECT company_id FROM employees_groups WHERE id=pg.group_id) = {$this->session->userdata('current_company_id')})");
 				$payroll_group_data =  $payroll_group->populate();
 
