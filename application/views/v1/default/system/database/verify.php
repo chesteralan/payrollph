@@ -113,7 +113,7 @@ if( $k == 'Field' ) {
 if( $k == 'Type' ) {
 	$field_type = urlencode($v);
 }
-echo $tov = (isset($model->table_options[$field_name])) ? $model->table_options[$field_name]->$k : "";
+$tov = (isset($model->table_options[$field_name])) ? $model->table_options[$field_name]->$k : "";
 
 $tov_encode = urlencode( $tov );
 if( $v != $tov) {
