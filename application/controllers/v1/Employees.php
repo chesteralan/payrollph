@@ -250,9 +250,9 @@ class Employees extends MY_Controller {
 				if( isset($employee['add']) ) {
 					$employee1 = new $this->Employees_model;
 					$employee1->setNameId( $name_id, true);
-					$employee1->setGroupId( $employee['group_id'] );
-					$employee1->setPositionId( $employee['position_id'] );
-					$employee1->setAreaId( $employee['area_id'] );
+					$employee1->setGroupId( (isset($employee['group_id'])) ? $employee['group_id'] : 0 );
+					$employee1->setPositionId( (isset($employee['position_id'])) ? $employee['position_id'] : 0 );
+					$employee1->setAreaId( (isset($employee['area_id'])) ? $employee['area_id'] : 0 );
 					$employee1->setCompanyId( $this->session->userdata('current_company_id'), true);
 					$employee1->setTrash(0);
 					if( $employee1->nonEmpty()===FALSE ) {
