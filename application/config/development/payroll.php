@@ -6,7 +6,7 @@ $config['multi_company'] = true;
 defined('APP_NAME') OR define('APP_NAME', 'SMB Payroll' );
 $config['system_name'] = 'SMB Payroll';
 
-$config['online_payroll'] = true;
+$config['online_payroll'] = false;
 
 $config['civil_status'] = array(
 	'single' => 'Single',

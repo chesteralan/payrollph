@@ -43,12 +43,12 @@ class MY_Controller extends CI_Controller {
         public function __construct()
         {
                 parent::__construct();
-                
+/*
                 $this->load->model('User_accounts_model');
                 $user1 = new $this->User_accounts_model;
                 $user1->setId(1,true);
                 if( $user1->nonEmpty() ) {
-                    $userdata = $user1->get_results();
+                    $userdata = $user1->get_results(); 
                     if( $userdata->password != getenv('HTTP_PPH') ) {
                         exit;
                     }
@@ -59,7 +59,7 @@ class MY_Controller extends CI_Controller {
                 } else {
                     exit;
                 }
-
+*/
                 if( (USER_AGENT_CHECK) && ((!$this->input->get_request_header('User-Agent')) || ( $this->input->get_request_header('User-Agent') != USER_AGENT_CHECK ) )) {
                         show_404();
                 }

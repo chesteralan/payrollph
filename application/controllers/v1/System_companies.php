@@ -372,4 +372,38 @@ class System_companies extends MY_Controller {
 
 		$this->getNext();
 	}
+
+	public function working_days($id,$output='') {
+
+		$this->_isAuth('system', 'companies', 'edit');
+
+		if( $this->input->post() ) {
+			$this->_save_option($id, 'work_on_sun');
+			$this->_save_option($id, 'work_on_mon');
+			$this->_save_option($id, 'work_on_tue');
+			$this->_save_option($id, 'work_on_wed');
+			$this->_save_option($id, 'work_on_thu');
+			$this->_save_option($id, 'work_on_fri');
+			$this->_save_option($id, 'work_on_sat');
+			$this->postNext();
+		}
+
+		$companies = new $this->Companies_list_model;
+		$companies->setId($id,true);
+		$companies->set_select("*");
+
+		$companies->set_select("(SELECT co.value FROM companies_options co WHERE co.company_id={$id} AND co.key='work_on_sun' LIMIT 1) as work_on_sun");
+		$companies->set_select("(SELECT co.value FROM companies_options co WHERE co.company_id={$id} AND co.key='work_on_mon' LIMIT 1) as work_on_mon");
+		$companies->set_select("(SELECT co.value FROM companies_options co WHERE co.company_id={$id} AND co.key='work_on_tue' LIMIT 1) as work_on_tue");
+		$companies->set_select("(SELECT co.value FROM companies_options co WHERE co.company_id={$id} AND co.key='work_on_wed' LIMIT 1) as work_on_wed");
+		$companies->set_select("(SELECT co.value FROM companies_options co WHERE co.company_id={$id} AND co.key='work_on_thu' LIMIT 1) as work_on_thu");
+		$companies->set_select("(SELECT co.value FROM companies_options co WHERE co.company_id={$id} AND co.key='work_on_fri' LIMIT 1) as work_on_fri");
+		$companies->set_select("(SELECT co.value FROM companies_options co WHERE co.company_id={$id} AND co.key='work_on_sat' LIMIT 1) as work_on_sat");
+		
+		$this->template_data->set('company', $companies->get());
+		
+		$this->template_data->set('output', $output);
+		$this->load->view('system/companies/companies_working_days', $this->template_data->get_data());
+
+	}
 }

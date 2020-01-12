@@ -51,6 +51,7 @@
   </button>
   <ul class="dropdown-menu dropdown-menu-right">
     <li><a class="body_wrapper" href="<?php echo site_url("system_companies/payroll_period/{$company->id}") . "?next=" . uri_string(); ?>">Payroll Period</a></li>
+    <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Working Days" data-url="<?php echo site_url("system_companies/working_days/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Working Days</a></li>
     <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Payroll Columns" data-url="<?php echo site_url("system_companies/column_group/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Payroll Columns</a></li>
     <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Print Group" data-url="<?php echo site_url("system_companies/print_group/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Print Group</a></li>
     <li><a href="#" class="ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Print CSS" data-url="<?php echo site_url("system_companies/print_css/{$company->id}/ajax") . "?next=" . uri_string(); ?>">Print CSS</a></li>
