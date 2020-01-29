@@ -12,7 +12,7 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
 <?php if( hasAccess('employees', 'employees', 'add') ) { ?>
-  <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Basic Salary" data-url="<?php echo site_url("employees_salaries/add/{$employee->name_id}/ajax") . "?next=" . ( ( ($this->input->get('next')) && ($this->input->get('next') != 'employees') ) ? $this->input->get('next') : uri_string()); ?>" style="margin-right: 5px">Add Basic Salary</button>
+  <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Basic Salary" data-url="<?php echo site_url("employees_salaries/add/{$employee->name_id}/ajax") . "?payroll_id=".$this->input->get('payroll_id')."&pe_id=".$this->input->get('pe_id')."&next=" . ( ( ($this->input->get('next')) && ($this->input->get('next') != 'employees') ) ? $this->input->get('next') : uri_string()); ?>" style="margin-right: 5px">Add Basic Salary</button>
 <?php } ?>
                   <h3 class="panel-title bold">
                   <?php echo $current_page; ?>
@@ -72,7 +72,7 @@ switch( $salary->rate_per ) {
               <?php if( hasAccess('employees', 'employees', 'edit') ) { ?>
                 <td>
 
-                <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Basic Salary" data-url="<?php echo site_url("employees_salaries/edit/{$salary->id}/ajax") . "?next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>">Edit</button>
+                <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Edit Basic Salary" data-url="<?php echo site_url("employees_salaries/edit/{$salary->id}/ajax") . "?payroll_id=" . $this->input->get('payroll_id') . "&pe_id=".$this->input->get('pe_id') . "&next=" . (($this->input->get('next')) ? $this->input->get('next') : uri_string()); ?>">Edit</button>
 
                 <a class="btn btn-danger btn-xs confirm_remove" href="<?php echo site_url("employees_salaries/delete/{$salary->id}"); ?>" data-target="#salary-<?php echo $salary->id; ?>">Delete</a>
 

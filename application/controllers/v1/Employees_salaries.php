@@ -101,7 +101,30 @@ class Employees_salaries extends MY_Controller {
 				$salaries->setPrimary($this->input->post('primary') ? 1 : 0);
 				$salaries->setNotes($this->input->post('notes'));
 				$salaries->setManner($this->input->post('manner'));
-				$salaries->insert();
+				if( $salaries->insert() ) {
+					if( $this->input->post('set_to_payroll') && $this->input->get('payroll_id') && $this->input->get('pe_id') ) {
+						$pes = new $this->Payroll_employees_salaries_model();
+						$pes->setPayrollId($this->input->get('payroll_id'),true);
+						$pes->setNameId($id);
+						$pes->setSalaryId($salaries->get_inserted_id());
+						$pes->setAmount($salaries->getAmount());
+						$pes->setNotes($salaries->getNotes());
+						$pes->setManner($salaries->getManner());
+						$pes->setRatePer($salaries->getRatePer());
+						$pes->setDays($salaries->getDays());
+						$pes->setHours($salaries->getHours());
+						$pes->setCola($salaries->getCola());
+						$pes->setAnnualDays($salaries->getAnnualDays());
+						$pes->setMonths($salaries->getMonths());
+						$pes->setManual(0);
+						$pes->setPeId($this->input->get('pe_id'),true);
+						if( $pes->nonEmpty() ) {
+							$pes->update();
+						} else {
+							$pes->insert();
+						}
+					}
+				}
 			}
 			$this->postNext();
 		}
@@ -153,7 +176,30 @@ class Employees_salaries extends MY_Controller {
 					$salaries->setPrimary(($this->input->post('primary') ? 1 : 0),false,true);
 					$salaries->setNotes($this->input->post('notes'),false,true);
 					$salaries->setManner($this->input->post('manner'),false,true);
-					$salaries->update();
+					if( $salaries->update() ) {
+						if( $this->input->post('set_to_payroll') && $this->input->get('payroll_id') && $this->input->get('pe_id') ) {
+							$pes = new $this->Payroll_employees_salaries_model();
+							$pes->setPayrollId($this->input->get('payroll_id'),true);
+							$pes->setNameId($salary_data->name_id);
+							$pes->setSalaryId($id);
+							$pes->setAmount($salaries->getAmount());
+							$pes->setNotes($salaries->getNotes());
+							$pes->setManner($salaries->getManner());
+							$pes->setRatePer($salaries->getRatePer());
+							$pes->setDays($salaries->getDays());
+							$pes->setHours($salaries->getHours());
+							$pes->setCola($salaries->getCola());
+							$pes->setAnnualDays($salaries->getAnnualDays());
+							$pes->setMonths($salaries->getMonths());
+							$pes->setManual(0);
+							$pes->setPeId($this->input->get('pe_id'),true);
+							if( $pes->nonEmpty() ) {
+								$pes->update();
+							} else {
+								$pes->insert();
+							}
+						}
+					}
 					
 				}
 				$this->postNext();

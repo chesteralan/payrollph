@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Payroll extends MY_Controller {
+class Payroll extends PAYROLL_Controller {
 	
 	public function __construct() {
 		
@@ -17,7 +17,7 @@ class Payroll extends MY_Controller {
 
 	}
 
-	public function index($filter_year=0, $filter_month=0, $filter_template=0, $start=0) {
+	public function index($filter_year=0, $filter_month=0, $filter_template='all', $start=0) {
 
 		$this->template_data->set('filter_year', $filter_year);
 		$this->template_data->set('filter_month', $filter_month);
@@ -52,11 +52,12 @@ class Payroll extends MY_Controller {
 			if( $filter_year ) {
 				$payrolls->setYear($filter_year,true);
 			}
-			if( $filter_template ) {
+			if( $filter_template != 'all' ) {
 				$payrolls->setTemplateId($filter_template,true);
 			}
 			$payrolls_data = $payrolls->populate(); 
 			$this->template_data->set('payrolls', $payrolls_data);
+			$this->template_data->set('payroll_count', $payrolls->count_all_results() );
 
 			$payroll_years = new $this->Payroll_model;
 			$payroll_years->setCompanyId($this->session->userdata('current_company_id'),true);
@@ -162,14 +163,18 @@ class Payroll extends MY_Controller {
 				$payroll->setYear($this->input->post('year'));
 				$payroll->setCompanyId($this->session->userdata('current_company_id'));
 				$payroll->setActive(1);
-				$payroll->insert();
+				if( $payroll->insert() ) {
+					redirect( site_url("payroll/inclusive_dates/" . $payroll->get_inserted_id()) . "?next=payroll_employees/view/" . $payroll->get_inserted_id() );
+				}
 			}
 			$this->postNext();
 		}
 
-		$templates = new $this->Payroll_templates_model;
+		$templates = new $this->Payroll_templates_model('t');
 		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
 		$templates->set_limit(0);
+		$templates->set_select('*');
+		$templates->set_select('(SELECT p.name FROM payroll p WHERE p.id=t.payroll_id) as payroll_name');
 		$templates->setActive('1',true);
 		$this->template_data->set('templates', $templates->populate());
 
@@ -785,6 +790,7 @@ class Payroll extends MY_Controller {
 
 		$payroll = new $this->Payroll_model;
 		$payroll->setId($id,true);
+
 		if( $payroll->nonEmpty() ) :
 			
 			$payroll_data = $payroll->getResults();
@@ -818,6 +824,7 @@ class Payroll extends MY_Controller {
 			$groups_data = $temp_groups->populate();
 
 			foreach( $groups_data as $group ) {
+
 				$payroll_group = new $this->Payroll_groups_model;
 				$payroll_group->setPayrollId($id,true);
 				$payroll_group->setGroupId($group->group_id,true);
@@ -826,6 +833,7 @@ class Payroll extends MY_Controller {
 				$payroll_group->setStatusId($group->status_id,true);
 				$payroll_group->setOrder($group->order);
 				$payroll_group->setPage($group->page);
+
 				if( $payroll_group->nonEmpty() === FALSE ) {
 					$payroll_group->insert();
 				} 
@@ -875,14 +883,16 @@ class Payroll extends MY_Controller {
 			}
 
 			if( $employees_data ) {
+
 				$this->_generate( $payroll_data, $employees_data );
+				
 			}
 
 		endif;
 
 		$this->_select_payroll($id);
 		
-		redirect( site_url($redirect_uri) . "#successful" );
+		redirect( site_url( $redirect_uri ) . "#successful" );
 	}
 
 	public function groups($id, $output='') {
@@ -1369,8 +1379,11 @@ class Payroll extends MY_Controller {
 			$this->_add_employee($payroll_id, $this->input->get('employee_id'));
 			$this->getNext();
 		}
-			
-		
+
+		$payroll = new $this->Payroll_model;
+		$payroll->setId($payroll_id,true);
+		$payroll_data = $payroll->get();
+		$this->template_data->set( 'payroll', $payroll_data );
 
 		$employees = new $this->Employees_model('e');
 		$employees->setCompanyId($this->session->userdata('current_company_id'),true);
@@ -1379,6 +1392,23 @@ class Payroll extends MY_Controller {
 		$employees->set_select('e.*');
 		$employees->set_select('ni.*');
 		$employees->set_order('ni.lastname', 'ASC');
+
+		switch(  $payroll_data->group_by ) {
+			case 'position':
+				$employees->set_select('(SELECT ep.name FROM employees_positions ep WHERE ep.id=e.position_id) as group_by_value');
+			break;
+			case 'area':
+				$employees->set_select('(SELECT ea.name FROM employees_areas ea WHERE ea.id=e.area_id) as group_by_value');
+			break;
+			case 'status':
+				$employees->set_select('(SELECT t.name FROM terms_list t WHERE t.id=e.status) as group_by_value');
+			break;
+			default:
+			case 'group':
+				$employees->set_select('(SELECT eg.name FROM employees_groups eg WHERE eg.id=e.group_id) as group_by_value');
+			break;
+		}
+
 		$this->template_data->set( 'employees', $employees->populate() );
 
 		$this->template_data->set('payroll_id', $payroll_id);

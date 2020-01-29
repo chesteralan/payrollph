@@ -46,7 +46,6 @@ class Account extends Login_Controller {
 			'loggedIn' => false
 			);
 
-
 		if( count($this->input->post()) > 0 ) {
 			//echo sha1($this->input->post('password')); exit;
 			$this->form_validation->set_rules('username', 'Username', 'trim|required');
@@ -111,9 +110,9 @@ class Account extends Login_Controller {
 						$this->session->set_userdata( 'current_company_id', $company->id );
 						$this->session->set_userdata( 'current_company_theme', $company->theme );
 						if( $this->input->get('next') ) {
-							redirect($this->input->get('next'));
+							redirect( site_url( $this->input->get('next') ) . "?company_id=" . $company->id );
 						} else {
-							redirect(site_url('welcome'));
+							redirect( site_url('welcome') . "?company_id=" . $company->id );
 						}
 					}
 

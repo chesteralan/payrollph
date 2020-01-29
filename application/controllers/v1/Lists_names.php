@@ -744,18 +744,20 @@ class Lists_names extends MY_Controller {
 				$this->template_data->set('names', $names->populate());
 				
 				$this->load->view('lists/names/names_report_display', $this->template_data->get_data());
+				
 			break;
 			case 'download':
-				if($this->input->get('employee')) {
-					
-					$employees->set_select('e.*');
 
-					$this->_employee_columns($employees, $this->input->get('columns'));
-
-					$employees->set_where_in('e.name_id', $this->input->get('employee'));
-					$this->template_data->set('employees', $employees->populate());
-				}
-
+				$names = new $this->Names_list_model('nl');
+				$names->setTrash(0, true);
+				$names->set_select("nl.*");
+				$names->set_select("nl.id as ni_name_id");
+				$names->set_order('nl.full_name', 'ASC');
+				$names->set_limit(0);
+				$names->set_join("names_info ni", 'ni.name_id=nl.id');
+				$names->set_join("employees e", 'e.name_id=nl.id');
+				$this->_report_columns($names, $this->input->get('columns'));
+				$this->template_data->set('names', $names->populate());
 				$company = new $this->Companies_list_model;
 				$company->setId($this->session->userdata('current_company_id'),true);
 				$company_data = $company->get();
@@ -764,6 +766,7 @@ class Lists_names extends MY_Controller {
 				$this->output->set_content_type('application/vnd-ms-excel');
 				$this->output->set_header('Content-Disposition: attachment; filename=' . $filename);
 				$this->load->view('lists/names/names_report_xls', $this->template_data->get_data());
+
 			break;
 			case 'config':
 			default:
@@ -801,10 +804,13 @@ class Lists_names extends MY_Controller {
 
                         $this->template_data->set('output', $output);
 						$this->load->view('lists/names/names_import', $this->template_data->get_data());
-
+						if( ($this->input->post()) && $output == "ajax") {
+							redirect( site_url("lists_names/import") . "?next=" . $this->input->get('next') );
+						}
                 }
                 else
                 {
+                		$error = array('error' => $this->upload->display_errors());
                         $upload_data = $this->upload->data();
 
                         record_system_audit($this->session->userdata('user_id'), 'lists', 'names', 'import', $this->session->userdata('current_company_id'), "Import CSV File: " . $upload_data['file_name'], "");

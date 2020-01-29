@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
  $term_types = unserialize( TERM_TYPES );
+ $current_filter = (isset($filter)) ? $filter : '';
 ?>
 <?php $this->load->view('header'); ?>
 <?php if( ! $inner_page ): ?>
@@ -12,9 +13,9 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
 <?php if( hasAccess('system', 'terms', 'add') ) { ?>
-  <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Term" data-url="<?php echo site_url("system_terms/add/ajax") . "?next=" . uri_string(); ?>" style="margin-right: 5px">Add Term</button>
+  <button type="button" class="btn btn-success btn-xs pull-right ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Add Term" data-url="<?php echo site_url("system_terms/add/ajax") . "?filter={$current_filter}&next=" . uri_string(); ?>" style="margin-right: 5px">Add Term<?php echo ($current_filter) ? " (" . $term_types[$current_filter] . ")" : ''; ?></button>
 <?php } ?>
-                  <h3 class="panel-title bold"><?php echo $current_page; ?> <?php if(isset($filter)) { ?><a class="badge" href="<?php echo site_url("system_terms"); ?>"><?php echo $term_types[$filter]; ?><span class="glyphicon glyphicon-remove"></span></a><?php } ?></h3>
+                  <h3 class="panel-title bold"><?php echo $current_page; ?> <?php if(isset($filter)) { ?><a class="badge" href="<?php echo site_url("system_terms"); ?>"><?php echo $term_types[$filter]; ?> <span style="color:red;" class="glyphicon glyphicon-remove"></span></a><?php } ?></h3>
                 </div>
                 <div class="panel-body" id="ajaxBodyInnerPage">
 <?php endif; ?>

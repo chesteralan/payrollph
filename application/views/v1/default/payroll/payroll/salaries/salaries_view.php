@@ -204,7 +204,7 @@ $total_gross_pay += $employee_gross_pay;
 <?php if(!$payroll->lock) { ?>
 <?php if(!$employee->manual) { ?>
 
-                <a href="<?php echo site_url("employees_salaries/view/{$employee->name_id}") . "?next=" . uri_string(); ?>" class="body_wrapper pull-right"><span class="glyphicon glyphicon-cog"></span></a>
+                <a href="<?php echo site_url("employees_salaries/view/{$employee->name_id}") . "?payroll_id={$payroll->id}&pe_id={$employee->pe_id}&next=" . uri_string(); ?>" class="body_wrapper pull-right"><span class="glyphicon glyphicon-cog"></span></a>
 
 <?php } ?>
 <?php } ?>

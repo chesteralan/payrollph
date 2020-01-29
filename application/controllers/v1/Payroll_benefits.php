@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Payroll_benefits extends MY_Controller {
+class Payroll_benefits extends PAYROLL_Controller {
 	
 	public function __construct() {
 		parent::__construct();
@@ -251,62 +251,6 @@ class Payroll_benefits extends MY_Controller {
 		$this->load->view('payroll/payroll/benefits/benefits_view', $this->template_data->get_data());
 	}
 
-	private function _employee_filters($payroll_data) {
-
-		if( $payroll_data->group_by != 'status' ) {
-			$employees_status = new $this->Payroll_employees_model('pe');
-			$employees_status->setPayrollId($payroll_data->id,true);
-			$employees_status->set_select('e.status');
-			$employees_status->set_select("pe.status_id as id");
-			$employees_status->set_select('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status) as status_name');
-			$employees_status->set_join('employees e', 'e.name_id=pe.name_id');
-			$employees_status->set_limit(0);
-			$employees_status->set_group_by('e.status');
-			$employees_status->set_where('e.status IS NOT NULL');
-			$employees_status->set_where('e.status <> 0');
-			$employees_status->set_where('e.status <> ""');
-			$employees_status->set_order('(SELECT t.name FROM terms_list t WHERE t.type="employment_status" AND t.id=e.status)', 'ASC');
-			$this->template_data->set('employees_status', $employees_status->populate());
-		}
-
-
-			if( $payroll_data->group_by != 'group' ) {
-				$groups = new $this->Payroll_employees_model('pe');
-				$groups->setPayrollId($payroll_data->id,true);
-				$groups->set_select("*");
-				$groups->set_select("pe.group_id as id");
-				$groups->set_limit(0);
-				$groups->set_group_by('pe.group_id');
-				$groups->set_select('(SELECT g.name FROM employees_groups g WHERE g.id=pe.group_id) as name');
-				$groups->set_where('pe.group_id IS NOT NULL');
-				$this->template_data->set('employees_groups', $groups->populate());
-			}
-
-			if( $payroll_data->group_by != 'area' ) {
-				$areas = new $this->Payroll_employees_model('pe');
-				$areas->setPayrollId($payroll_data->id,true);
-				$areas->set_select("*");
-				$areas->set_select("pe.area_id as id");
-				$areas->set_limit(0);
-				$areas->set_group_by('pe.area_id');
-				$areas->set_select('(SELECT a.name FROM employees_areas a WHERE a.id=pe.area_id) as name');
-				$areas->set_where('pe.area_id IS NOT NULL');
-				$this->template_data->set('employees_areas', $areas->populate());
-			}
-
-			if( $payroll_data->group_by != 'position' ) {
-				$positions = new $this->Payroll_employees_model('pe');
-				$positions->setPayrollId($payroll_data->id,true);
-				$positions->set_select("*");
-				$positions->set_select("pe.position_id as id");
-				$positions->set_limit(0);
-				$positions->set_group_by('pe.position_id');
-				$positions->set_select('(SELECT p.name FROM employees_positions p WHERE p.id=pe.position_id) as name');
-				$positions->set_where('pe.position_id IS NOT NULL');
-
-				$this->template_data->set('employees_positions', $positions->populate());
-			}
-	}
 	
 	public function entries($id,$pe_id,$benefit_id,$benefit_type='ee',$output='') {
 

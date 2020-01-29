@@ -52,11 +52,12 @@
 <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
 
 <?php 
-$default_checked = array('lastname', 'firstname', 'middlename');
+$default_checked = array('name_id','lastname', 'firstname', 'middlename');
 $columns = array(
   'info' => array(
         'title' => 'Personal Information', 
         'items' => array(
+          'name_id' => 'Name ID',
           'lastname' => 'Last Name',
           'firstname' => 'First Name',
           'middlename' => 'Middle Name',

@@ -95,9 +95,21 @@
     <textarea name="notes" class="form-control" rows="2"><?php echo $salary->notes; ?></textarea>
   </div>
 
+<div class="row">
+    <div class="col-md-6">
               <div class="form-group">
                 <p><label><input name="primary" type="checkbox" value="1"<?php echo ($salary->primary) ? ' CHECKED' : ''; ?>> Set Primary</label></p>
               </div>
+
+</div>
+    <div class="col-md-6">
+      <?php if( $this->input->get('payroll_id') && $this->input->get('pe_id')) { ?>
+ <div class="form-group">
+                <p><label><input name="set_to_payroll" type="checkbox" value="1"> Set to Payroll: <?php echo $this->input->get('payroll_id') . "-" . $this->input->get('pe_id'); ?></label></p>
+              </div>
+      <?php } ?>
+    </div>
+  </div>
 
 <?php if( isset($output) && ($output!='ajax') ) : ?>
         </div>

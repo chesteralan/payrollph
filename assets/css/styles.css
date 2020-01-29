@@ -552,3 +552,8 @@ body.theme-yeti .stickynav1.navbar-fixed-top {
 .theme-simplex .badge.nav-badge {
 	background: blue;
 }
+
+.theme-journal .nav>li>a {
+	padding-left:10px;
+	padding-right:10px;
+}

@@ -23,7 +23,7 @@ Current <?php echo lang_term('companies_title_singular', 'Company'); ?>: <strong
 <small>
 Developed by: 
         <a href="http://www.chesteralan.com/" target="footer_credits">Chester Alan Tagudin</a>
-        <p><strong>M:</strong> <?php echo $this->benchmark->memory_usage();?> <strong>T:</strong> <?php echo $this->benchmark->elapsed_time();?> <strong>IP:</strong> <?php echo $this->input->ip_address(); ?></p>
+        <p><strong>M:</strong> <?php echo $this->benchmark->memory_usage();?> <strong>T:</strong> <?php echo $this->benchmark->elapsed_time();?> <strong>IP:</strong> <?php echo $this->input->ip_address(); ?> <strong>CI:</strong> <?php echo CI_VERSION; ?></p>
 </small>
     </div> 
 	</div> 

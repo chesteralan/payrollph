@@ -31,7 +31,7 @@
             <select class="form-control" title="Select a Template" name="template_id">
               <option value="0" selected="selected">- No Template -</option>
               <?php foreach($templates as $template) { ?>
-                <option value="<?php echo $template->id; ?>"><?php echo $template->name; ?></option>
+                <option value="<?php echo $template->id; ?>"><?php echo $template->name; ?> <?php echo ($template->payroll_name) ? "(" . $template->payroll_name . ")" : ''; ?></option>
               <?php } ?>
             </select>
           </div>

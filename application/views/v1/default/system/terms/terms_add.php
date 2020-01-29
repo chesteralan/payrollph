@@ -31,7 +31,7 @@
             <label>Term Type</label>
             <select class="form-control" title="Select a Type" name="term_type" REQUIRED>
                 <?php foreach( unserialize( TERM_TYPES ) as $key=>$type) { ?>
-                  <option value="<?php echo $key; ?>"><?php echo $type; ?></option>
+                  <option value="<?php echo $key; ?>" <?php echo ($key==$this->input->get('filter')) ? 'SELECTED' : ''; ?>><?php echo $type; ?></option>
                 <?php } ?>
             </select>
           </div>

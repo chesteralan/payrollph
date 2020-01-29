@@ -19,6 +19,7 @@
 <?php } ?>
 
                  <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
+
                     <?php if(isset($template)) { ?>
                       : <?php echo $template->name; ?>
                     <?php } ?>
@@ -58,12 +59,13 @@
 <?php if( isset($payroll_templates) && ( count( $payroll_templates ) > 1) ) { ?>
 <div class="btn-group">
   <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <?php echo ($filter_template) ? $current_template->name : "Filter by Template"; ?> <span class="caret"></span>
+    <?php echo (isset($current_template) && ($current_template)) ? $current_template->name : "Filter by Template"; ?> <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-<?php if( $filter_template ) { ?>
-      <li><a href="<?php echo site_url("payroll/index/{$filter_year}/{$filter_month}/0"); ?>">Show All</a></li>
-<?php } ?>
+
+      <li><a href="<?php echo site_url("payroll/index/{$filter_year}/{$filter_month}/all"); ?>">- - Show All - -</a></li>
+
+      <li><a href="<?php echo site_url("payroll/index/{$filter_year}/{$filter_month}/0"); ?>">- - No Template - -</a></li>
     <?php foreach($payroll_templates as $template) { 
 if( $filter_template == $template->template_id ) {
   continue;
@@ -75,7 +77,9 @@ if( $filter_template == $template->template_id ) {
 </div>
 <?php } ?>
 
-
+<?php if( $payroll_count > 0 ) { ?>
+<small><em>(<?php echo $payroll_count; ?> payroll<?php echo ($payroll_count>1)?"s":""; ?> found)</em></small>
+<?php } ?>
 </h3>
 
                 </div>
@@ -115,8 +119,10 @@ if( $filter_template == $template->template_id ) {
                 <td><?php echo $payroll->name; ?></td>
                 <td><?php echo date('F', strtotime($payroll->month."/1/1970")); ?></td>
                 <td><?php echo $payroll->year; ?></td>
-                <td><a class="body_wrapper" href="<?php echo site_url("payroll/index/{$filter_year}/{$filter_month}/{$payroll->template_id}"); ?>">
-                <?php echo $payroll->template_name; ?></a>
+                <td>
+                  <a class="body_wrapper" href="<?php echo site_url("payroll/index/{$filter_year}/{$filter_month}/{$payroll->template_id}"); ?>">
+                <?php echo ($payroll->template_name) ? $payroll->template_name : '- - No Template - -'; ?></a>
+
                 </td>
                 <td><?php echo $payroll->working_days; ?></td>
               <?php if( hasAccess('payroll', 'payroll', 'edit') ) { ?>
@@ -149,8 +155,8 @@ if( $filter_template == $template->template_id ) {
     <button type="button" class="btn btn-info btn-xs ajax-modal" data-toggle="modal" data-target="#ajaxModal" data-title="Inclusive Dates" data-url="<?php echo site_url("payroll/inclusive_dates/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>">Set Dates</button>
 <?php } else { ?>
 
-<?php if( $payroll->template_id ) { ?>
- <a class="btn btn-danger btn-xs" href="<?php echo site_url("payroll/generate/{$payroll->id}"); ?>">Generate</a>
+<?php if( $payroll->working_days ) { ?>
+ <a class="btn btn-warning btn-xs" href="<?php echo site_url("payroll/generate/{$payroll->id}"); ?>">Generate</a>
 <?php } else { ?>
   
   <a class="btn btn-warning btn-xs" href="<?php echo site_url("payroll/select_payroll/{$payroll->id}"); ?>">Start Payroll</a>

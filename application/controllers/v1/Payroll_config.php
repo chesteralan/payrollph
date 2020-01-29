@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Payroll_config extends MY_Controller {
+class Payroll_config extends PAYROLL_Controller {
 	
 	public function __construct() {
 		parent::__construct();

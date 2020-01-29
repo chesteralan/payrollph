@@ -1,10 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <?php 
-$default_columns = array('lastname', 'firstname', 'middlename');
+$default_columns = array('name_id','lastname', 'firstname', 'middlename');
 $columns = array(
   'info' => array(
         'title' => 'Personal Information', 
         'items' => array(
+          'name_id' => array('name'=>'Name ID','field'=>'name_id', 'align'=>'left'),
           'lastname' => array('name'=>'Last Name','field'=>'lastname', 'align'=>'left'),
           'firstname' => array('name'=>'First Name','field'=>'firstname', 'align'=>'left'),
           'middlename' => array('name'=>'Middle Name','field'=>'middlename', 'align'=>'left'),
@@ -128,9 +129,12 @@ if( in_array($fld_id, $selected_columns)) { $display_col++; } ?>
 <?php foreach($names as $name) { ?>
  <tr>
 <?php foreach($columns as $col_id=>$column) { ?>
-<?php foreach($column['items'] as $fld_id=>$fld) { ?>
-<?php if( in_array($fld_id, $selected_columns)) { ?>
-                <?php echo '<td class="text-'.((isset($fld['align']))?$fld['align']:'center').'">'.$name->$fld['field'].'</td>';  ?>
+<?php foreach($column['items'] as $fld_id=>$fld) {  ?>
+<?php if( in_array($fld_id, $selected_columns)) { 
+$_var = $fld['field'];
+
+  ?>
+                <?php echo '<td class="text-'.((isset($fld['align']))?$fld['align']:'center').'">'. ((isset($name->$_var)) ? $name->$_var : '').'</td>';  ?>
 <?php } ?>
 <?php } ?>
 <?php } ?>

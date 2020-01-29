@@ -28,7 +28,9 @@ $payslip_templates = unserialize(PAYROLL_PAYSLIP_TEMPLATES);
 <ul class="list-group">
 
 <?php foreach($employees as $employee) { ?>
-  <a href="<?php echo site_url("payroll/add_employee2/{$payroll_id}") . "?next=" . $this->input->get('next') . "&employee_id=" . $employee->name_id; ?>" class="list-group-item"><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo $employee->middlename; ?></a>
+  <a href="<?php echo site_url("payroll/add_employee2/{$payroll_id}") . "?next=" . $this->input->get('next') . "&employee_id=" . $employee->name_id; ?>" class="list-group-item"><?php echo $employee->lastname; ?>, <?php echo $employee->firstname; ?> <?php echo $employee->middlename; ?>
+    <span class="badge pull-right"><?php echo $employee->group_by_value; ?></span>
+  </a>
 <?php } ?>
 
 </ul>

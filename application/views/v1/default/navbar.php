@@ -72,6 +72,12 @@ if( $this->session->userdata( 'current_company' ) ) {
             'permission' => array('employees','areas'),
           ),
 
+          'employees_status' => array(
+            'title' => 'Status',
+            'uri' => 'system_terms/filter/employment_status',
+            'permission' => array('system','terms'),
+          ),
+
           'sep2' => array(
             'header' => true,
             'title' => 'Payroll',

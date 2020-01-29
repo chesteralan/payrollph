@@ -54,7 +54,7 @@
 	    					<th class="text-center">Company</th>
 	    					<th width="10%" class="text-center">Age</th>
 	    					<?php if( hasAccess('lists', 'names', 'edit') ) { ?>
-	    					<th width="90px" class="text-right">Action</th>
+	    					<th width="110px" class="text-right">Action</th>
 	    					<?php } ?>
 	    				</tr>
 	    			</thead>

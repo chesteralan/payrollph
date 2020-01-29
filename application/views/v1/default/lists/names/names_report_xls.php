@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <?mso-application progid="Excel.Sheet"?>
 <?php 
-$default_columns = array('lastname', 'firstname', 'middlename');
+$default_columns = array('name_id','lastname', 'firstname', 'middlename');
 $columns = array(
   'info' => array(
         'title' => 'Personal Information', 
         'items' => array(
+          'name_id' => array('name'=>'Name ID','field'=>'name_id'),
           'lastname' => array('name'=>'Last Name','field'=>'lastname'),
           'firstname' => array('name'=>'First Name','field'=>'firstname'),
           'middlename' => array('name'=>'Middle Name','field'=>'middlename'),
@@ -142,7 +143,10 @@ $selected_columns = array_merge($default_columns, (($this->input->get('columns')
   <Names>
    <NamedRange ss:Name="Print_Titles" ss:RefersTo="=Sheet1!C1:C3,Sheet1!R1"/>
   </Names>
-  <Table ss:ExpandedColumnCount="<?php echo count($selected_columns); ?>" ss:ExpandedRowCount="<?php echo count($employees) + 1; ?>" x:FullColumns="1"
+  <?php 
+$names_count = (isset($names)) ? count($names) : 0;
+  ?>
+  <Table ss:ExpandedColumnCount="<?php echo count($selected_columns); ?>" ss:ExpandedRowCount="<?php echo $names_count + 1; ?>" x:FullColumns="1"
    x:FullRows="1" ss:DefaultRowHeight="25" ss:DefaultAutoFitWidth="1" ss:DefaultColumnWidth="120">
    <Row>
 <?php foreach($columns as $col_id=>$column) { ?>
@@ -154,25 +158,26 @@ $selected_columns = array_merge($default_columns, (($this->input->get('columns')
 <?php } ?>
    </Row>
    
-<?php foreach($employees as $employee) { ?>
+<?php if(isset($names)) foreach($names as $name) { ?>
  <Row>
 <?php foreach($columns as $col_id=>$column) { ?>
 <?php foreach($column['items'] as $fld_id=>$fld) { ?>
 <?php if( in_array($fld_id, $selected_columns)) { 
 
 $data_type = 'String';  
-$field_value = $employee->$fld['field'];
+$var = $fld['field'];
+$field_value = $name->$var;
 $cell_style = 's64';
 if( (isset($fld['data_type'])) && ($field_value) ) {
   switch($fld['data_type']) {
     case 'DateTime':
       $data_type = 'DateTime'; 
-      $field_value = $employee->$fld['field']."T00:00:00.000";
+      $field_value = $name->$fld['field']."T00:00:00.000";
       $cell_style = 's66';
     break;
     default:
       $data_type = 'String';  
-      $field_value = $employee->$fld['field'];
+      $field_value = $name->$fld['field'];
       $cell_style = 's64';
     break;
   }

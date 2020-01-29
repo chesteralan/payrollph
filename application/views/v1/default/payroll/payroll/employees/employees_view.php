@@ -21,7 +21,7 @@ $payslip_templates = unserialize(PAYROLL_PAYSLIP_TEMPLATES);
               <div class="panel panel-default">
                 <div class="panel-heading">
 <?php if(!$payroll->lock) { ?>
-<a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Employee Groups" data-url="<?php echo site_url("payroll/groups/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="fa fa-users"></span></a>
+<a class="ajax-modal close" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Employees" title="Configure Employees" data-url="<?php echo site_url("payroll/groups/{$payroll->id}/ajax") . "?next=" . uri_string(); ?>"><span class="fa fa-users"></span></a>
 <?php } ?>
                   <h3 class="panel-title"><strong><?php echo $current_page; ?></strong>
 <span class="badge">Grouped by
