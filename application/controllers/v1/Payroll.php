@@ -682,7 +682,7 @@ class Payroll extends PAYROLL_Controller {
 	}
 
 	private function _generate($payroll_data,$employees_data) {
-
+			print_r($employees_data); exit;
 			if( $employees_data ) foreach( $employees_data as $employee ) {
 					$salary = new $this->Employees_salaries_model;
 					$salary->setCompanyId($this->session->userdata('current_company_id'),true);
@@ -809,14 +809,106 @@ class Payroll extends PAYROLL_Controller {
 
 			$payroll_data->inclusive_dates = $payroll_dates;
 
-			$payroll_absent = 0;
+			if( $payroll_data->template_id ) {
 
-			$days_present = $payroll_dates->working_days - $payroll_absent;
+				$template = new $this->Payroll_templates_model;
+				$template->setId($payroll_data->template_id,true);
+				$template_data = $template->get();
+				$payroll_data->template_data = $template_data;
+
+				if( $template_data->payroll_id ) {
+					$this->_generate_from_payroll( $payroll_data );
+				} else {
+					$this->_generate_from_template( $payroll_data );
+				}
+
+			}
+
+		endif;
+
+		$this->_select_payroll( $id );
+		
+		redirect( site_url( $redirect_uri ) . "#successful" );
+	}
+
+	public function _generate_from_payroll( $payroll_data ) {
+		
+		$source_id = $payroll_data->template_data->payroll_id;
+
+		$source_payroll = new $this->Payroll_model;
+		$source_payroll->setId($source_id,true);
+		$source_payroll_data = $source_payroll->get();
+
+		$payroll_group = new $this->Payroll_groups_model;
+		$payroll_group->setPayrollId($payroll_data->id,true);
+
+		$temp_groups = new $this->Payroll_groups_model;
+		$temp_groups->setPayrollId($source_id,true);
+		$temp_groups->set_limit(0);
+		$groups_data = $temp_groups->populate();
+
+		foreach( $groups_data as $group ) {
+				
+				$payroll_group = new $this->Payroll_groups_model;
+				$payroll_group->setPayrollId($payroll_data->id,true);
+				$payroll_group->setGroupId($group->group_id,true);
+				$payroll_group->setAreaId($group->area_id,true);
+				$payroll_group->setPositionId($group->position_id,true);
+				$payroll_group->setStatusId($group->status_id,true);
+				$payroll_group->setOrder($group->order);
+				$payroll_group->setPage($group->page);
+
+				if( $payroll_group->nonEmpty() === FALSE ) {
+					$payroll_group->insert();
+				} 
+
+		}
+
+		$payroll_employees = new $this->Payroll_employees_model('pe');
+		$payroll_employees->setPayrollId($payroll_data->id,true);
+		$payroll_employees->set_limit(0);
+		$payroll_employees_data = $payroll_employees->populate();
+
+		foreach( $payroll_employees_data as $employee ) {
+
+			$payroll_employees2 = new $this->Payroll_employees_model;
+			$payroll_employees2->setPayrollId($payroll_data->id,true);
+			$payroll_employees2->setNameId($employee->name_id,true);
+			$payroll_employees2->setOrder($employee->order);
+			$payroll_employees2->setPayslip($employee->payslip);
+			$payroll_employees2->setTemplate($employee->template);
+			$payroll_employees2->setPrintGroup($employee->print_group);
+			$payroll_employees2->setActive($employee->active);
+			$payroll_employees2->setStatusId($employee->status_id);
+			$payroll_employees2->setGroupId($employee->group_id);
+			$payroll_employees2->setPositionId($employee->position_id);
+			$payroll_employees2->setAreaId($employee->area_id);
+			$payroll_employees2->setManual(0,true);
+			$payroll_employees2->setPresence($employee->presence);
+
+				if( $payroll_employees2->nonEmpty() ) {
+					$peData = $payroll_employees2->getResults();
+				} else {
+					$payroll_employees2->insert();
+					$employee->id = $payroll_employees2->get_inserted_id();
+					$peData = $employee;
+				}
+
+				$employees_data[] = $peData;
+
+		}
+
+		if( $employees_data ) {
+			$this->_generate( $payroll_data, $employees_data );
+		}
+
+	}
+
+	public function _generate_from_template($payroll_data) {
 
 			$payroll_group = new $this->Payroll_groups_model;
-			$payroll_group->setPayrollId($id,true);
+			$payroll_group->setPayrollId($payroll_data->id,true);
 
-			$salary_data = false;
 			$employees_data = array();
 			$temp_groups = new $this->Payroll_templates_groups_model;
 			$temp_groups->setTemplateId($payroll_data->template_id,true);
@@ -888,11 +980,6 @@ class Payroll extends PAYROLL_Controller {
 				
 			}
 
-		endif;
-
-		$this->_select_payroll($id);
-		
-		redirect( site_url( $redirect_uri ) . "#successful" );
 	}
 
 	public function groups($id, $output='') {
