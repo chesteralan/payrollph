@@ -681,8 +681,12 @@ class Payroll extends PAYROLL_Controller {
 			 }
 	}
 
-	private function _generate($payroll_data,$employees_data) {
-			print_r($employees_data); exit;
+	private function _generate( $payroll_data, $employees_data, $source) {
+
+			if( $source == 'payroll' ) {
+				$source_id = $payroll_data->template_data->payroll_id;
+			}
+
 			if( $employees_data ) foreach( $employees_data as $employee ) {
 					$salary = new $this->Employees_salaries_model;
 					$salary->setCompanyId($this->session->userdata('current_company_id'),true);
@@ -716,10 +720,19 @@ class Payroll extends PAYROLL_Controller {
 
 			}
 
-			$temp_earnings = new $this->Payroll_templates_earnings_model;
-			$temp_earnings->setTemplateId($payroll_data->template_id,true);
-			$temp_earnings->set_limit(0);
-			foreach( $temp_earnings->populate() as $earning ) {
+			if( $source == 'payroll' ) {
+				$temp_earnings = new $this->Payroll_earnings_model;
+				$temp_earnings->setPayrollId($source_id,true);
+				$temp_earnings->set_limit(0);
+				$temp_earnings_data = $temp_earnings->populate();
+			} else {
+				$temp_earnings = new $this->Payroll_templates_earnings_model;
+				$temp_earnings->setTemplateId($payroll_data->template_id,true);
+				$temp_earnings->set_limit(0);
+				$temp_earnings_data = $temp_earnings->populate();
+			}
+
+			foreach( $temp_earnings_data as $earning ) {
 				$payroll_earning = new $this->Payroll_earnings_model;
 				$payroll_earning->setPayrollId($payroll_data->id,true);
 				$payroll_earning->setEarningId($earning->earning_id,true);
@@ -732,16 +745,27 @@ class Payroll extends PAYROLL_Controller {
 			$payroll_earnings = new $this->Payroll_earnings_model;
 			$payroll_earnings->setPayrollId($payroll_data->id,true);
 			$payroll_earnings->set_limit(0);
-			foreach( $payroll_earnings->populate() as $earning ) {
+			$payroll_earnings_data = $payroll_earnings->populate();
+
+			foreach( $payroll_earnings_data as $earning ) {
 				if( $employees_data ) foreach( $employees_data as $employee ) {
 					$this->_generate_earnings($payroll_data,$earning->earning_id, $employee);
 				}
 			} 
 
-			$temp_deductions = new $this->Payroll_templates_deductions_model;
-			$temp_deductions->setTemplateId($payroll_data->template_id,true);
-			$temp_deductions->set_limit(0);
-			foreach( $temp_deductions->populate() as $deduction ) {
+			if( $source == 'payroll' ) {
+				$temp_deductions = new $this->Payroll_deductions_model;
+				$temp_deductions->setPayrollId($source_id,true);
+				$temp_deductions->set_limit(0);
+				$temp_deductions_data = $temp_deductions->populate();
+			} else {
+				$temp_deductions = new $this->Payroll_templates_deductions_model;
+				$temp_deductions->setTemplateId($payroll_data->template_id,true);
+				$temp_deductions->set_limit(0);
+				$temp_deductions_data = $temp_deductions->populate();
+			}
+
+			foreach( $temp_deductions_data as $deduction ) {
 				$payroll_deduction = new $this->Payroll_deductions_model;
 				$payroll_deduction->setPayrollId($payroll_data->id,true);
 				$payroll_deduction->setDeductionId($deduction->deduction_id,true);
@@ -754,16 +778,27 @@ class Payroll extends PAYROLL_Controller {
 			$payroll_deductions = new $this->Payroll_deductions_model;
 			$payroll_deductions->setPayrollId($payroll_data->id,true);
 			$payroll_deductions->set_limit(0);
-			foreach( $payroll_deductions->populate() as $deduction ) {
+			$payroll_deductions_data = $payroll_deductions->populate();
+
+			foreach( $payroll_deductions_data as $deduction ) {
 				if( $employees_data ) foreach( $employees_data as $employee ) {
 					 $this->_generate_deductions($payroll_data,$deduction->deduction_id, $employee);
 				}
 			}
 
-			$temp_benefits = new $this->Payroll_templates_benefits_model;
-			$temp_benefits->setTemplateId($payroll_data->template_id,true);
-			$temp_benefits->set_limit(0);
-			foreach( $temp_benefits->populate() as $benefit ) {
+			if( $source == 'payroll' ) {
+				$temp_benefits = new $this->Payroll_benefits_model;
+				$temp_benefits->setPayrollId($source_id,true);
+				$temp_benefits->set_limit(0);
+				$temp_benefits_data = $temp_benefits->populate();
+			} else {
+				$temp_benefits = new $this->Payroll_templates_benefits_model;
+				$temp_benefits->setTemplateId($payroll_data->template_id,true);
+				$temp_benefits->set_limit(0);
+				$temp_benefits_data = $temp_benefits->populate();
+			}
+
+			foreach( $temp_benefits_data as $benefit ) {
 				$payroll_benefit = new $this->Payroll_benefits_model;
 				$payroll_benefit->setPayrollId($payroll_data->id,true);
 				$payroll_benefit->setBenefitId($benefit->benefit_id,true);
@@ -776,7 +811,9 @@ class Payroll extends PAYROLL_Controller {
 			$payroll_benefits = new $this->Payroll_benefits_model;
 			$payroll_benefits->setPayrollId($payroll_data->id,true);
 			$payroll_benefits->set_limit(0);
-			foreach( $payroll_benefits->populate() as $benefit ) {
+			$payroll_benefits_data = $payroll_benefits->populate();
+
+			foreach( $payroll_benefits_data as $benefit ) {
 				if( $employees_data ) foreach( $employees_data as $employee ) {
 					 $this->_generate_benefits($payroll_data,$benefit->benefit_id,$employee);
 				}
@@ -839,6 +876,11 @@ class Payroll extends PAYROLL_Controller {
 		$source_payroll->setId($source_id,true);
 		$source_payroll_data = $source_payroll->get();
 
+		$dest_payroll = new $this->Payroll_model;
+		$dest_payroll->setId($payroll_data->id,true);
+		$dest_payroll->setGroupBy($source_payroll_data->group_by,false,true);
+		$dest_payroll->update();
+
 		$payroll_group = new $this->Payroll_groups_model;
 		$payroll_group->setPayrollId($payroll_data->id,true);
 
@@ -865,7 +907,7 @@ class Payroll extends PAYROLL_Controller {
 		}
 
 		$payroll_employees = new $this->Payroll_employees_model('pe');
-		$payroll_employees->setPayrollId($payroll_data->id,true);
+		$payroll_employees->setPayrollId($source_id,true);
 		$payroll_employees->set_limit(0);
 		$payroll_employees_data = $payroll_employees->populate();
 
@@ -899,7 +941,7 @@ class Payroll extends PAYROLL_Controller {
 		}
 
 		if( $employees_data ) {
-			$this->_generate( $payroll_data, $employees_data );
+			$this->_generate( $payroll_data, $employees_data, 'payroll' );
 		}
 
 	}
@@ -976,7 +1018,7 @@ class Payroll extends PAYROLL_Controller {
 
 			if( $employees_data ) {
 
-				$this->_generate( $payroll_data, $employees_data );
+				$this->_generate( $payroll_data, $employees_data, 'template' );
 				
 			}
 

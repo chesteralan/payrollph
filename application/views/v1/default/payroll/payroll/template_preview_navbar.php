@@ -15,18 +15,20 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-left">
+<?php if( $templates ) { ?>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
           <ul class="dropdown-menu">
             <?php foreach($templates as $temp) { 
 if( $temp->id==$template->id) {
-  continue;
+  //continue;
 }
               ?>
               <li><a href="<?php echo site_url("{$current_uri}/preview/{$temp->id}"); ?>"><?php echo $temp->name; ?></a></li>
             <?php } ?>
           </ul>
         </li>
+<?php } ?>
         <li><a class="ajax-modal" href="#ajaxModal" data-toggle="modal" data-target="#ajaxModal" data-title="Configure Template" data-url="<?php echo site_url("payroll_templates/config/{$template->id}/ajax") . "?next=" . uri_string(); ?>" data-hide_footer="1"><span class="glyphicon glyphicon-cog"></span></a></li>
 <?php if( $this->session->userdata('current_employee') ) { 
 $current_employee = $this->session->userdata('current_employee');
@@ -114,4 +116,11 @@ $cg_sort = ($column_group_sort) ? $column_group_sort : false;
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+<?php if( $template->payroll_id ) { ?>
+  <div class="alert alert-warning" role="alert">
+    Template is using payroll: <strong><a href="<?php echo site_url("payroll_summary/view/" . $template->payroll_id ); ?>"><?php echo $template->payroll_name; ?></a></strong>
+  </div>
+<?php } ?>
+
 </div>

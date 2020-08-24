@@ -526,6 +526,7 @@ if( $output == 'print') {
 		
 		$templates = new $this->Payroll_templates_model;
 		$templates->setCompanyId($this->session->userdata('current_company_id'),true);
+		$templates->set_where('id != ' . $template_id);
 		$templates->setActive('1', true);
 		$templates->set_select('*');
 		$templates->set_limit(0);
@@ -537,6 +538,7 @@ if( $output == 'print') {
 		$template->set_select("(SELECT COUNT(*) FROM `payroll_templates_earnings` pe WHERE pe.template_id=payroll_templates.id) as earnings_columns");
 		$template->set_select("(SELECT COUNT(*) FROM `payroll_templates_benefits` pb WHERE pb.template_id=payroll_templates.id) as benefits_columns");
 		$template->set_select("(SELECT COUNT(*) FROM `payroll_templates_deductions` pd WHERE pd.template_id=payroll_templates.id) as deductions_columns");
+		$template->set_select("(SELECT p.name FROM `payroll` p WHERE p.id=payroll_templates.payroll_id) as payroll_name");
 		$template_data = $template->get();
 		$this->template_data->set('template', $template_data);
 

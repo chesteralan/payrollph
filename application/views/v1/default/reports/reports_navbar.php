@@ -40,13 +40,15 @@
         </div>
       </form>
 <?php } ?>
-
+<?php 
+$url['reports_13month'] = array('uri' => 'reports_13month', 'title'=>'13th Month Pay', 'access'=>hasAccess('reports', '13month', 'view')); 
+?>
 <ul class="nav navbar-nav navbar-right">
   <li class="dropdown">
      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $current_page; ?> <span class="caret"></span></a>
+<?php if( count($url) > 1 ) { ?>
      <ul class="dropdown-menu">
 <?php 
-$url['reports_13month'] = array('uri' => 'reports_13month', 'title'=>'13th Month Pay', 'access'=>hasAccess('reports', '13month', 'view'));
 foreach($url as $k=>$v) {
   if(($k==$current_uri)) {
     continue;
@@ -58,6 +60,7 @@ foreach($url as $k=>$v) {
      </ul>
         </li>
 </ul>
+<?php } ?>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

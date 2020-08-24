@@ -77,7 +77,7 @@ if( $filter_template == $template->template_id ) {
 </div>
 <?php } ?>
 
-<?php if( $payroll_count > 0 ) { ?>
+<?php if( isset($payroll_count) && ($payroll_count > 0) ) { ?>
 <small><em>(<?php echo $payroll_count; ?> payroll<?php echo ($payroll_count>1)?"s":""; ?> found)</em></small>
 <?php } ?>
 </h3>
