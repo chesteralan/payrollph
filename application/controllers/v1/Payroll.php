@@ -960,7 +960,7 @@ class Payroll extends PAYROLL_Controller {
 			foreach( $groups_data as $group ) {
 
 				$payroll_group = new $this->Payroll_groups_model;
-				$payroll_group->setPayrollId($id,true);
+				$payroll_group->setPayrollId($payroll_data->id,true);
 				$payroll_group->setGroupId($group->group_id,true);
 				$payroll_group->setAreaId($group->area_id,true);
 				$payroll_group->setPositionId($group->position_id,true);
@@ -991,7 +991,7 @@ class Payroll extends PAYROLL_Controller {
 				foreach( $employees->populate() as $employee ) {
 
 					$payroll_employees = new $this->Payroll_employees_model;
-					$payroll_employees->setPayrollId($id,true);
+					$payroll_employees->setPayrollId($payroll_data->id,true);
 					$payroll_employees->setNameId($employee->name_id,true);
 					$payroll_employees->setManual(0,true);
 					$payroll_employees->setOrder($employee->order);
