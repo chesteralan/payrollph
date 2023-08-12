@@ -1,4 +1,7 @@
 <?php 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 define('BASEPATH', false);
 define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 
@@ -10,12 +13,13 @@ if( is_file( $dbfile2 ) ) {
 } else {
 	include_once( $dbfile );
 }
-
 $db_config = $db[$active_group];
 
-$dbconn = new mysqli();
-$dbconn->connect($db_config['hostname'], $db_config['username'], $db_config['password']);
-$dbconn->select_db( $db_config['database'] );
+$dbconn = mysqli_connect($db_config['hostname'], $db_config['username'], $db_config['password'], $db_config['database']);
+if ( mysqli_connect_errno() ) {
+	echo "Failed to connect to MySQL: " . $dbconn->connect_error;
+	exit();
+}
 
 if( @$_GET['step'] == '1' ) { 
 
