@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '192.168.1.2',
 	'username' => 'root',
-	'password' => '',
+	'password' => 'jcjpass',
 	'database' => 'payroll3',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

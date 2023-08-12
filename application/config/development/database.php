@@ -75,13 +75,12 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '192.168.1.2',
 	'username' => 'root',
 	'password' => 'jcjpass',
 	'database' => 'payrollph_db1',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
-	'port'	   => '3038',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,

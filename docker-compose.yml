@@ -19,7 +19,7 @@ services:
     networks:
       net:
     links:
-      - db:3308
+      - db:3306
     depends_on:
       - db
 
@@ -29,7 +29,7 @@ services:
     image: mariadb:10.5.8
     restart: always
     ports:
-      - "3308:3306"
+      - "3306:3306"
     expose:
       - 3306
     environment:
@@ -44,7 +44,7 @@ services:
     depends_on:
       - db
     links:
-      - db:3308
+      - db:3306
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
