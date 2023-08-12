@@ -211,10 +211,10 @@ class System_database extends MY_Controller {
 
 	public function add_table($table_name) {
 		$models = $this->_models();
-		
 		if( isset( $models[$table_name] ) ) {
 			$this->db->query("CREATE TABLE IF NOT EXISTS `{$table_name}` (`temporary_column_remove_this` int(1) NULL);");
-			$obj = new $this->$models[$table_name];
+			$modelName = $models[$table_name];
+			$obj = new $this->$modelName;
 			foreach( $obj->get_table_fields() as $field ) {
 				$obj->add_table_column($field);
 			}
