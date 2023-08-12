@@ -81,6 +81,7 @@ $db['default'] = array(
 	'database' => 'payroll3',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
+	'port'	   => '3038',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,

@@ -1,0 +1,60 @@
+version: "3.7"
+
+x-defaults:
+  network: &network
+    networks:
+      - net
+
+services:
+  # PHP
+  php:
+    image: php:7.1-apache
+    ports:
+        - "8281:80"
+    volumes:
+        - ./:/var/www/html
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    networks:
+      net:
+    links:
+      - db:3308
+    depends_on:
+      - db
+
+  # MYSQL
+  db:
+    platform: linux/amd64
+    image: mariadb:10.5.8
+    restart: always
+    ports:
+      - "3308:3306"
+    expose:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: jcjpass
+    volumes:
+      - ./docker/runtime/db:/var/lib/mysql
+    networks:
+        net:
+
+  phpmyadmin:
+    platform: linux/x86_64
+    depends_on:
+      - db
+    links:
+      - db:3308
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - '8282:80'
+    networks:
+      net:
+
+networks:
+  net:
+
+volumes:
+  data:
+    external: true
